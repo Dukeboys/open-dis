@@ -8,6 +8,8 @@
 
 #include <DIS/EntityStatePdu.h>
 
+#include <iostream>
+
 using namespace DIS;
 
 // the DIS specification says the type is known for all PDUs at the 3rd byte of the PDU buffer.
@@ -32,7 +34,7 @@ void IncomingMessage::Process(const char* buf, unsigned int size, Endian e)
    DataStream ds( buf , size , e );
 
    while( ds.GetReadPos() < ds.size() )
-   { 
+   {  
       unsigned int pdu_type = ds[PDU_TYPE_POSITION];
       SwitchOnType( pdu_type, ds );
    }
@@ -47,10 +49,11 @@ void IncomingMessage::SwitchOnType(unsigned int pdu_type, DataStream& ds)
    {
       pdu->unmarshal( ds );
    }
-   //else
-   //{
-      //std::cerr << "DIS: no registered processor for Pdu type: " << pdu_type << std::endl;
-   //}   
+   else
+   {
+      std::cerr << "." << std::endl;
+      ds.clear();
+   }   
 
    // assumes the location in the buffer is the packet id.
    typedef std::pair<PacketProcessorContainer::iterator,PacketProcessorContainer::iterator> RangePair;
