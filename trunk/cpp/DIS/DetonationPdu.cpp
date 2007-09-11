@@ -9,7 +9,8 @@ DetonationPdu::DetonationPdu() : Warfare(),
    _velocity(), 
    _locationInWorldCoordinates(), 
    _burstDescriptor(), 
-   _detonationResult(0), 
+   _detonationResult(0),
+   _locationInEntityCoordinates(),  
    _numberOfArticulationParameters(0), 
    _pad(0)
 {
@@ -96,6 +97,21 @@ void DetonationPdu::setBurstDescriptor(const BurstDescriptor &pX)
     _burstDescriptor = pX;
 }
 
+Vector3Double& DetonationPdu::getLocationInEntityCoordinates() 
+{
+    return _locationInEntityCoordinates;
+}
+
+const Vector3Double& DetonationPdu::getLocationInEntityCoordinates() const
+{
+    return _locationInEntityCoordinates;
+}
+
+void DetonationPdu::setLocationInEntityCoordinates(const Vector3Double &pX)
+{
+    _locationInEntityCoordinates = pX;
+}
+
 unsigned char DetonationPdu::getDetonationResult() const
 {
     return _detonationResult;
@@ -144,6 +160,7 @@ void DetonationPdu::marshal(DataStream& dataStream) const
     _velocity.marshal(dataStream);
     _locationInWorldCoordinates.marshal(dataStream);
     _burstDescriptor.marshal(dataStream);
+    _locationInEntityCoordinates.marshal(dataStream);
     dataStream << _detonationResult;
     dataStream << ( unsigned char )_articulationParameters.size();
     dataStream << _pad;
@@ -164,6 +181,7 @@ void DetonationPdu::unmarshal(DataStream& dataStream)
     _velocity.unmarshal(dataStream);
     _locationInWorldCoordinates.unmarshal(dataStream);
     _burstDescriptor.unmarshal(dataStream);
+    _locationInEntityCoordinates.marshal(dataStream);
     dataStream >> _detonationResult;
     dataStream >> _numberOfArticulationParameters;
     dataStream >> _pad;
@@ -189,6 +207,7 @@ bool DetonationPdu::operator ==(const DetonationPdu& rhs) const
      if( ! (_velocity == rhs._velocity) ) ivarsEqual = false;
      if( ! (_locationInWorldCoordinates == rhs._locationInWorldCoordinates) ) ivarsEqual = false;
      if( ! (_burstDescriptor == rhs._burstDescriptor) ) ivarsEqual = false;
+     if( ! (_locationInEntityCoordinates == rhs._locationInEntityCoordinates) ) ivarsEqual = false;
      if( ! (_detonationResult == rhs._detonationResult) ) ivarsEqual = false;
      if( ! (_pad == rhs._pad) ) ivarsEqual = false;
 
@@ -211,6 +230,7 @@ int DetonationPdu::getMarshalledSize() const
    marshalSize = marshalSize + _velocity.getMarshalledSize();  // _velocity
    marshalSize = marshalSize + _locationInWorldCoordinates.getMarshalledSize();  // _locationInWorldCoordinates
    marshalSize = marshalSize + _burstDescriptor.getMarshalledSize();  // _burstDescriptor
+   marshalSize = marshalSize + _locationInEntityCoordinates.getMarshalledSize();  // _locationInWorldCoordinates
    marshalSize = marshalSize + 1;  // _detonationResult
    marshalSize = marshalSize + 1;  // _numberOfArticulationParameters
    marshalSize = marshalSize + 2;  // _pad
