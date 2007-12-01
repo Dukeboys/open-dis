@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 
 <!-- XML description file for the DIS-1998 protocol. A few classes require manual clean up and intevention. -->
-<!-- Classes that need hand-modification include SignalPdu, TransmitterPdu, ElectromagneticEmmissionPdu, etc -->
+<!-- Classes that need hand-modification include SignalPdu, TransmitterPdu, ElectromagneticEmissionPdu, etc -->
 
 <classes>
 
@@ -2284,11 +2284,11 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="DistributedEmissionsPdu" inheritsFrom="Pdu"  comment="Section 5.3.7. Electronic Emmisions. Abstract superclass for distirubted emissions PDU">
+<class name="DistributedEmissionsPdu" inheritsFrom="Pdu"  comment="Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU">
    <initialValue name="protocolFamily" value="6"/>
 </class>
 
-<class name="ElectronicEmmisionsPdu" inheritsFrom="DistributedEmissionsPdu"
+<class name="ElectronicEmissionsPdu" inheritsFrom="DistributedEmissionsPdu"
        comment="Section 5.3.7.1. Information about active electronic warfare (EW) emissions and active EW countermeasures shall be communicated using an Electromagnetic Emission PDU. COMPLETE (I think)">
     
   <initialValue name="pduType" value="23"/> 
