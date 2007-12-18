@@ -64,6 +64,21 @@ for marshaling and unmarshaling, a factory class, and some simple
 example code that generates Entity State PDUs. Simple unit test code is
 also available in the UnitTestDIS directory.<br>
 <br>
+2.0 Release Notes:<P>
+
+Added support for reading and writing data in XML format. Use the class
+at edu.nps.moves.disutil.XmlReadWrite to read and write DIS PDUs
+to and from XML format. The approach taken was to use Sun's
+JAXB to create parallel classes for all the existing open-dis
+classes, and add code for creating jaxb objects from open-dis
+objects, and vice versa. Also, a JAXB-generated schema is provided
+in DisJaxbSchema.xsd in the root directory.<p>
+
+Other changes include some minor bug fixes; Emitter is now spelled
+correctly, and the Fire PDU has a field that was missingl earlier
+provided now. A couple classes have had their case changed, UAPdu
+to UaPdu and APAPdu to ApaPdu, to allow compatablity with jaxb.
+
 <span style="font-weight: bold;">LICENSE</span><br>
 <br>
 All code is BSD license. See <a href="License.html">License.html</a><br>
