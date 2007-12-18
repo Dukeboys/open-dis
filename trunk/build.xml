@@ -43,6 +43,21 @@
         </classpath>
     </java>
     </target>
+
+    <target name="runXmlWriter" depends="jar" description="run example program that marshals DIS PDUs to XML and reads data back">
+      <java classname="edu.nps.moves.disutil.XmlReadWrite">
+        <classpath>
+          <fileset dir="dist">
+            <include name="**/*.jar"/>
+          </fileset>
+          <fileset dir="lib">
+            <include name="**/*.jar"/>
+          </fileset>
+          <pathelement location="{$bin}"/>
+        </classpath>
+    </java>
+    </target>
+
     
      <target name="runReceiver" depends="jar" description="run DIS receiver program">
       <java classname="edu.nps.moves.examples.EspduReceiver">
