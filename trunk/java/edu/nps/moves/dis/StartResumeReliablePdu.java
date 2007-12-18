@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.12.3: Start resume simulation, relaible. COMPLETE
@@ -37,6 +38,57 @@ public class StartResumeReliablePdu extends SimulationManagementWithReliabilityP
  {
     setPduType( (short)53 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public StartResumeReliablePdu(edu.nps.moves.jaxb.dis.StartResumeReliablePdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.ClockTime foo_0;
+     if(x.getRealWorldTime() == null)
+        foo_0 = new edu.nps.moves.dis.ClockTime();
+      else
+        foo_0 = new edu.nps.moves.dis.ClockTime(x.getRealWorldTime() );
+     this.setRealWorldTime(foo_0);
+
+
+     edu.nps.moves.dis.ClockTime foo_1;
+     if(x.getSimulationTime() == null)
+        foo_1 = new edu.nps.moves.dis.ClockTime();
+      else
+        foo_1 = new edu.nps.moves.dis.ClockTime(x.getSimulationTime() );
+     this.setSimulationTime(foo_1);
+
+     this.requiredReliabilityService = x.getRequiredReliabilityService();
+     this.pad1 = x.getPad1();
+     this.pad2 = x.getPad2();
+     this.requestID = x.getRequestID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.StartResumeReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.StartResumeReliablePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRealWorldTime( this.getRealWorldTime().initializeJaxbObject(factory.createClockTime()) );
+     x.setSimulationTime( this.getSimulationTime().initializeJaxbObject(factory.createClockTime()) );
+     x.setRequiredReliabilityService( this.getRequiredReliabilityService() );
+     x.setPad1( this.getPad1() );
+     x.setPad2( this.getPad2() );
+     x.setRequestID( this.getRequestID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

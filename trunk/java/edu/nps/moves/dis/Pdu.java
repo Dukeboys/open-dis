@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
@@ -39,6 +40,41 @@ public class Pdu extends Object
  public Pdu()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public Pdu(edu.nps.moves.jaxb.dis.Pdu x)
+ {
+     this.protocolVersion = x.getProtocolVersion();
+     this.exerciseID = x.getExerciseID();
+     this.pduType = x.getPduType();
+     this.protocolFamily = x.getProtocolFamily();
+     this.timestamp = x.getTimestamp();
+     this.length = x.getLength();
+     this.padding = x.getPadding();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.Pdu initializeJaxbObject(edu.nps.moves.jaxb.dis.Pdu x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setProtocolVersion( this.getProtocolVersion() );
+     x.setExerciseID( this.getExerciseID() );
+     x.setPduType( this.getPduType() );
+     x.setProtocolFamily( this.getProtocolFamily() );
+     x.setTimestamp( this.getTimestamp() );
+     x.setLength( this.getLength() );
+     x.setPadding( this.getPadding() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

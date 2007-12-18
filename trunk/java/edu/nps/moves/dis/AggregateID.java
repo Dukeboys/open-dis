@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.36. Each agregate in a given simulation app is given an aggregate identifier number unique for all other aggregates in that app and in that exercise. The id is valid for the duration of the the exercise.
@@ -27,6 +28,33 @@ public class AggregateID extends Object
  public AggregateID()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AggregateID(edu.nps.moves.jaxb.dis.AggregateID x)
+ {
+     this.site = x.getSite();
+     this.application = x.getApplication();
+     this.aggregateID = x.getAggregateID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AggregateID initializeJaxbObject(edu.nps.moves.jaxb.dis.AggregateID x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSite( this.getSite() );
+     x.setApplication( this.getApplication() );
+     x.setAggregateID( this.getAggregateID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

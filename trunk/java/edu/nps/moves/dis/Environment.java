@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.40. Information about a geometry, a state associated with a geometry, a bounding volume, or an associated entity ID. NOTE: this class requires hand coding.
@@ -36,6 +37,39 @@ public class Environment extends Object
  public Environment()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public Environment(edu.nps.moves.jaxb.dis.Environment x)
+ {
+     this.environmentType = x.getEnvironmentType();
+     this.length = x.getLength();
+     this.index = x.getIndex();
+     this.padding1 = x.getPadding1();
+     this.geometry = x.getGeometry();
+     this.padding2 = x.getPadding2();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.Environment initializeJaxbObject(edu.nps.moves.jaxb.dis.Environment x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEnvironmentType( this.getEnvironmentType() );
+     x.setLength( this.getLength() );
+     x.setIndex( this.getIndex() );
+     x.setPadding1( this.getPadding1() );
+     x.setGeometry( this.getGeometry() );
+     x.setPadding2( this.getPadding2() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

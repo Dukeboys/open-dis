@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.18. Fixed Datum Record
@@ -24,6 +25,31 @@ public class FixedDatum extends Object
  public FixedDatum()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public FixedDatum(edu.nps.moves.jaxb.dis.FixedDatum x)
+ {
+     this.fixedDatumID = x.getFixedDatumID();
+     this.fixedDatumValue = x.getFixedDatumValue();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.FixedDatum initializeJaxbObject(edu.nps.moves.jaxb.dis.FixedDatum x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setFixedDatumID( this.getFixedDatumID() );
+     x.setFixedDatumValue( this.getFixedDatumValue() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

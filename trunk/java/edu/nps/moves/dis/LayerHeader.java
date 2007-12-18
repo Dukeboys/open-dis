@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.47.  Layer header.
@@ -27,6 +28,33 @@ public class LayerHeader extends Object
  public LayerHeader()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public LayerHeader(edu.nps.moves.jaxb.dis.LayerHeader x)
+ {
+     this.layerNumber = x.getLayerNumber();
+     this.layerSpecificInformaiton = x.getLayerSpecificInformaiton();
+     this.length = x.getLength();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.LayerHeader initializeJaxbObject(edu.nps.moves.jaxb.dis.LayerHeader x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setLayerNumber( this.getLayerNumber() );
+     x.setLayerSpecificInformaiton( this.getLayerSpecificInformaiton() );
+     x.setLength( this.getLength() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

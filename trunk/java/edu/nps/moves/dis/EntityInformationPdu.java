@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.3. Common superclass for EntityState, Collision, collision-elastic, and entity state update PDUs. This should be abstract. COMPLETE
@@ -19,6 +20,31 @@ public class EntityInformationPdu extends Pdu
  {
     setProtocolFamily( (short)1 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public EntityInformationPdu(edu.nps.moves.jaxb.dis.EntityInformationPdu x)
+ {
+     super(x); // Call superclass constructor
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.EntityInformationPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.EntityInformationPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

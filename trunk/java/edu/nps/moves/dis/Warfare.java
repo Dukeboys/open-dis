@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.4. abstract superclass for fire and detonation pdus that have shared information. COMPLETE
@@ -25,6 +26,49 @@ public class Warfare extends Pdu
  {
     setProtocolFamily( (short)2 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public Warfare(edu.nps.moves.jaxb.dis.Warfare x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getFiringEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getFiringEntityID() );
+     this.setFiringEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getTargetEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getTargetEntityID() );
+     this.setTargetEntityID(foo_1);
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.Warfare initializeJaxbObject(edu.nps.moves.jaxb.dis.Warfare x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setFiringEntityID( this.getFiringEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setTargetEntityID( this.getTargetEntityID().initializeJaxbObject(factory.createEntityID()) );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

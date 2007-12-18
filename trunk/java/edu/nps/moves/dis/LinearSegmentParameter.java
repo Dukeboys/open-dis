@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.48: Linear segment parameters
@@ -45,6 +46,66 @@ public class LinearSegmentParameter extends Object
  public LinearSegmentParameter()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public LinearSegmentParameter(edu.nps.moves.jaxb.dis.LinearSegmentParameter x)
+ {
+     this.segmentNumber = x.getSegmentNumber();
+
+     edu.nps.moves.dis.SixByteChunk foo_1;
+     if(x.getSegmentAppearance() == null)
+        foo_1 = new edu.nps.moves.dis.SixByteChunk();
+      else
+        foo_1 = new edu.nps.moves.dis.SixByteChunk(x.getSegmentAppearance() );
+     this.setSegmentAppearance(foo_1);
+
+
+     edu.nps.moves.dis.Vector3Double foo_2;
+     if(x.getLocation() == null)
+        foo_2 = new edu.nps.moves.dis.Vector3Double();
+      else
+        foo_2 = new edu.nps.moves.dis.Vector3Double(x.getLocation() );
+     this.setLocation(foo_2);
+
+
+     edu.nps.moves.dis.Orientation foo_3;
+     if(x.getOrientation() == null)
+        foo_3 = new edu.nps.moves.dis.Orientation();
+      else
+        foo_3 = new edu.nps.moves.dis.Orientation(x.getOrientation() );
+     this.setOrientation(foo_3);
+
+     this.segmentLength = x.getSegmentLength();
+     this.segmentWidth = x.getSegmentWidth();
+     this.segmentHeight = x.getSegmentHeight();
+     this.segmentDepth = x.getSegmentDepth();
+     this.pad1 = x.getPad1();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.LinearSegmentParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.LinearSegmentParameter x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSegmentNumber( this.getSegmentNumber() );
+     x.setSegmentAppearance( this.getSegmentAppearance().initializeJaxbObject(factory.createSixByteChunk()) );
+     x.setLocation( this.getLocation().initializeJaxbObject(factory.createVector3Double()) );
+     x.setOrientation( this.getOrientation().initializeJaxbObject(factory.createOrientation()) );
+     x.setSegmentLength( this.getSegmentLength() );
+     x.setSegmentWidth( this.getSegmentWidth() );
+     x.setSegmentHeight( this.getSegmentHeight() );
+     x.setSegmentDepth( this.getSegmentDepth() );
+     x.setPad1( this.getPad1() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.25. Identifies the type of radio
@@ -38,6 +39,41 @@ public class RadioEntityType extends Object
  public RadioEntityType()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public RadioEntityType(edu.nps.moves.jaxb.dis.RadioEntityType x)
+ {
+     this.entityKind = x.getEntityKind();
+     this.domain = x.getDomain();
+     this.country = x.getCountry();
+     this.category = x.getCategory();
+     this.subcategory = x.getSubcategory();
+     this.nomenclatureVersion = x.getNomenclatureVersion();
+     this.nomenclature = x.getNomenclature();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.RadioEntityType initializeJaxbObject(edu.nps.moves.jaxb.dis.RadioEntityType x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEntityKind( this.getEntityKind() );
+     x.setDomain( this.getDomain() );
+     x.setCountry( this.getCountry() );
+     x.setCategory( this.getCategory() );
+     x.setSubcategory( this.getSubcategory() );
+     x.setNomenclatureVersion( this.getNomenclatureVersion() );
+     x.setNomenclature( this.getNomenclature() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Radio modulation
@@ -30,6 +31,35 @@ public class ModulationType extends Object
  public ModulationType()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ModulationType(edu.nps.moves.jaxb.dis.ModulationType x)
+ {
+     this.spreadSpectrum = x.getSpreadSpectrum();
+     this.major = x.getMajor();
+     this.detail = x.getDetail();
+     this.system = x.getSystem();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ModulationType initializeJaxbObject(edu.nps.moves.jaxb.dis.ModulationType x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSpreadSpectrum( this.getSpreadSpectrum() );
+     x.setMajor( this.getMajor() );
+     x.setDetail( this.getDetail() );
+     x.setSystem( this.getSystem() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

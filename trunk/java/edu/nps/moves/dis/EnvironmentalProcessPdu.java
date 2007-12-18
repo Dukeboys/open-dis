@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.11.1: Information about environmental effects and processes. This requires manual cleanup. the environmental        record is variable, as is the padding. UNFINISHED
@@ -39,6 +40,69 @@ public class EnvironmentalProcessPdu extends SyntheticEnvironmentPduFamily
  {
     setPduType( (short)41 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public EnvironmentalProcessPdu(edu.nps.moves.jaxb.dis.EnvironmentalProcessPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getEnvironementalProcessID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getEnvironementalProcessID() );
+     this.setEnvironementalProcessID(foo_0);
+
+
+     edu.nps.moves.dis.EntityType foo_1;
+     if(x.getEnvironmentType() == null)
+        foo_1 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityType(x.getEnvironmentType() );
+     this.setEnvironmentType(foo_1);
+
+     this.modelType = x.getModelType();
+     this.environmentStatus = x.getEnvironmentStatus();
+     this.numberOfEnvironmentRecords = x.getNumberOfEnvironmentRecords();
+     this.sequenceNumber = x.getSequenceNumber();
+     this.environmentRecords = new ArrayList();
+     for(int idx = 0; idx < x.getEnvironmentRecords().size(); idx++)
+     {
+        this.environmentRecords.add( new edu.nps.moves.dis.Environment((edu.nps.moves.jaxb.dis.Environment) x.getEnvironmentRecords().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.EnvironmentalProcessPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.EnvironmentalProcessPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEnvironementalProcessID( this.getEnvironementalProcessID().initializeJaxbObject(factory.createEntityID()) );
+     x.setEnvironmentType( this.getEnvironmentType().initializeJaxbObject(factory.createEntityType()) );
+     x.setModelType( this.getModelType() );
+     x.setEnvironmentStatus( this.getEnvironmentStatus() );
+     x.setNumberOfEnvironmentRecords( this.getNumberOfEnvironmentRecords() );
+     x.setSequenceNumber( this.getSequenceNumber() );
+
+     List environmentRecords_1 = x.getEnvironmentRecords();
+     for(int idx = 0; idx < environmentRecords.size(); idx++)
+     {
+         Environment a = (edu.nps.moves.dis.Environment)environmentRecords.get(idx);
+         environmentRecords_1.add(a.initializeJaxbObject(factory.createEnvironment()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -93,6 +157,14 @@ public short getEnvironmentStatus()
 
 public short getNumberOfEnvironmentRecords()
 { return (short)environmentRecords.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfEnvironmentRecords method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfEnvironmentRecords(short pNumberOfEnvironmentRecords)
+{ numberOfEnvironmentRecords = pNumberOfEnvironmentRecords;
 }
 
 public void setSequenceNumber(int pSequenceNumber)

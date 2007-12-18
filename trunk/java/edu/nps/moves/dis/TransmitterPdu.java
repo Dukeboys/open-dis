@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.8.1. Detailed information about a radio transmitter. This PDU requires manually         written code to complete, since the modulation parameters are of variable length. UNFINISHED
@@ -74,6 +75,117 @@ public class TransmitterPdu extends RadioCommunicationsPdu
  {
     setPduType( (short)25 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public TransmitterPdu(edu.nps.moves.jaxb.dis.TransmitterPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.RadioEntityType foo_0;
+     if(x.getRadioEntityType() == null)
+        foo_0 = new edu.nps.moves.dis.RadioEntityType();
+      else
+        foo_0 = new edu.nps.moves.dis.RadioEntityType(x.getRadioEntityType() );
+     this.setRadioEntityType(foo_0);
+
+     this.transmitState = x.getTransmitState();
+     this.inputSource = x.getInputSource();
+     this.padding1 = x.getPadding1();
+
+     edu.nps.moves.dis.Vector3Double foo_4;
+     if(x.getAntennaLocation() == null)
+        foo_4 = new edu.nps.moves.dis.Vector3Double();
+      else
+        foo_4 = new edu.nps.moves.dis.Vector3Double(x.getAntennaLocation() );
+     this.setAntennaLocation(foo_4);
+
+
+     edu.nps.moves.dis.Vector3Double foo_5;
+     if(x.getRelativeAntennaLocation() == null)
+        foo_5 = new edu.nps.moves.dis.Vector3Double();
+      else
+        foo_5 = new edu.nps.moves.dis.Vector3Double(x.getRelativeAntennaLocation() );
+     this.setRelativeAntennaLocation(foo_5);
+
+     this.antennaPatternType = x.getAntennaPatternType();
+     this.antennaPatternCount = x.getAntennaPatternCount();
+     this.frequency = x.getFrequency();
+     this.transmitFrequencyBandwidth = x.getTransmitFrequencyBandwidth();
+     this.power = x.getPower();
+
+     edu.nps.moves.dis.ModulationType foo_11;
+     if(x.getModulationType() == null)
+        foo_11 = new edu.nps.moves.dis.ModulationType();
+      else
+        foo_11 = new edu.nps.moves.dis.ModulationType(x.getModulationType() );
+     this.setModulationType(foo_11);
+
+     this.cryptoSystem = x.getCryptoSystem();
+     this.cryptoKeyId = x.getCryptoKeyId();
+     this.modulationParameterCount = x.getModulationParameterCount();
+     this.padding2 = x.getPadding2();
+     this.padding3 = x.getPadding3();
+     this.modulationParametersList = new ArrayList();
+     for(int idx = 0; idx < x.getModulationParametersList().size(); idx++)
+     {
+        this.modulationParametersList.add( new edu.nps.moves.dis.Vector3Float((edu.nps.moves.jaxb.dis.Vector3Float) x.getModulationParametersList().get(idx)));
+     }
+     this.antennaPatternList = new ArrayList();
+     for(int idx = 0; idx < x.getAntennaPatternList().size(); idx++)
+     {
+        this.antennaPatternList.add( new edu.nps.moves.dis.Vector3Float((edu.nps.moves.jaxb.dis.Vector3Float) x.getAntennaPatternList().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.TransmitterPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.TransmitterPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRadioEntityType( this.getRadioEntityType().initializeJaxbObject(factory.createRadioEntityType()) );
+     x.setTransmitState( this.getTransmitState() );
+     x.setInputSource( this.getInputSource() );
+     x.setPadding1( this.getPadding1() );
+     x.setAntennaLocation( this.getAntennaLocation().initializeJaxbObject(factory.createVector3Double()) );
+     x.setRelativeAntennaLocation( this.getRelativeAntennaLocation().initializeJaxbObject(factory.createVector3Double()) );
+     x.setAntennaPatternType( this.getAntennaPatternType() );
+     x.setAntennaPatternCount( this.getAntennaPatternCount() );
+     x.setFrequency( this.getFrequency() );
+     x.setTransmitFrequencyBandwidth( this.getTransmitFrequencyBandwidth() );
+     x.setPower( this.getPower() );
+     x.setModulationType( this.getModulationType().initializeJaxbObject(factory.createModulationType()) );
+     x.setCryptoSystem( this.getCryptoSystem() );
+     x.setCryptoKeyId( this.getCryptoKeyId() );
+     x.setModulationParameterCount( this.getModulationParameterCount() );
+     x.setPadding2( this.getPadding2() );
+     x.setPadding3( this.getPadding3() );
+
+     List modulationParametersList_1 = x.getModulationParametersList();
+     for(int idx = 0; idx < modulationParametersList.size(); idx++)
+     {
+         Vector3Float a = (edu.nps.moves.dis.Vector3Float)modulationParametersList.get(idx);
+         modulationParametersList_1.add(a.initializeJaxbObject(factory.createVector3Float()));
+     }
+
+     List antennaPatternList_1 = x.getAntennaPatternList();
+     for(int idx = 0; idx < antennaPatternList.size(); idx++)
+     {
+         Vector3Float a = (edu.nps.moves.dis.Vector3Float)antennaPatternList.get(idx);
+         antennaPatternList_1.add(a.initializeJaxbObject(factory.createVector3Float()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -169,6 +281,14 @@ public int getAntennaPatternCount()
 { return (int)antennaPatternList.size();
 }
 
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getantennaPatternCount method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setAntennaPatternCount(int pAntennaPatternCount)
+{ antennaPatternCount = pAntennaPatternCount;
+}
+
 public void setFrequency(double pFrequency)
 { frequency = pFrequency;
 }
@@ -218,6 +338,14 @@ public int getCryptoKeyId()
 
 public short getModulationParameterCount()
 { return (short)modulationParametersList.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getmodulationParameterCount method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setModulationParameterCount(short pModulationParameterCount)
+{ modulationParameterCount = pModulationParameterCount;
 }
 
 public void setPadding2(int pPadding2)

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.7. Specifies the type of muntion fired, the type of warhead, the         type of fuse, the number of rounds fired, and the rate at which the roudns are fired in         rounds per minute.
@@ -33,6 +34,44 @@ public class BurstDescriptor extends Object
  public BurstDescriptor()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public BurstDescriptor(edu.nps.moves.jaxb.dis.BurstDescriptor x)
+ {
+
+     edu.nps.moves.dis.EntityType foo_0;
+     if(x.getMunition() == null)
+        foo_0 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityType(x.getMunition() );
+     this.setMunition(foo_0);
+
+     this.warhead = x.getWarhead();
+     this.fuse = x.getFuse();
+     this.quantity = x.getQuantity();
+     this.rate = x.getRate();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.BurstDescriptor initializeJaxbObject(edu.nps.moves.jaxb.dis.BurstDescriptor x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setMunition( this.getMunition().initializeJaxbObject(factory.createEntityType()) );
+     x.setWarhead( this.getWarhead() );
+     x.setFuse( this.getFuse() );
+     x.setQuantity( this.getQuantity() );
+     x.setRate( this.getRate() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

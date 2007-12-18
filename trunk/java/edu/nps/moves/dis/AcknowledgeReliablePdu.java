@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.12.5: Ack receipt of a start-resume, stop-freeze, create-entity or remove enitty (reliable) pdus. COMPLETE
@@ -28,6 +29,37 @@ public class AcknowledgeReliablePdu extends SimulationManagementWithReliabilityP
  {
     setPduType( (short)55 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AcknowledgeReliablePdu(edu.nps.moves.jaxb.dis.AcknowledgeReliablePdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.acknowledgeFlag = x.getAcknowledgeFlag();
+     this.responseFlag = x.getResponseFlag();
+     this.requestID = x.getRequestID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AcknowledgeReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.AcknowledgeReliablePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setAcknowledgeFlag( this.getAcknowledgeFlag() );
+     x.setResponseFlag( this.getResponseFlag() );
+     x.setRequestID( this.getRequestID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

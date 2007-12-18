@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.8.2. Detailed information about a radio transmitter. This PDU requires        manually written code to complete. The encodingScheme field can be used in multiple        ways, which requires hand-written code to finish. UNFINISHED
@@ -34,6 +35,41 @@ public class SignalPdu extends RadioCommunicationsPdu
  {
     setPduType( (short)26 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public SignalPdu(edu.nps.moves.jaxb.dis.SignalPdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.encodingScheme = x.getEncodingScheme();
+     this.tdlType = x.getTdlType();
+     this.sampleRate = x.getSampleRate();
+     this.dataLength = x.getDataLength();
+     this.samples = x.getSamples();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.SignalPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.SignalPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEncodingScheme( this.getEncodingScheme() );
+     x.setTdlType( this.getTdlType() );
+     x.setSampleRate( this.getSampleRate() );
+     x.setDataLength( this.getDataLength() );
+     x.setSamples( this.getSamples() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Data about a vectoring nozzle system
@@ -24,6 +25,31 @@ public class VectoringNozzleSystemData extends Object
  public VectoringNozzleSystemData()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public VectoringNozzleSystemData(edu.nps.moves.jaxb.dis.VectoringNozzleSystemData x)
+ {
+     this.horizontalDeflectionAngle = x.getHorizontalDeflectionAngle();
+     this.verticalDeflectionAngle = x.getVerticalDeflectionAngle();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.VectoringNozzleSystemData initializeJaxbObject(edu.nps.moves.jaxb.dis.VectoringNozzleSystemData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setHorizontalDeflectionAngle( this.getHorizontalDeflectionAngle() );
+     x.setVerticalDeflectionAngle( this.getVerticalDeflectionAngle() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

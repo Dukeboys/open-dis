@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.30. A supply, and the amount of that supply. Similar to an entity kind but with the addition of a quantity.
@@ -24,6 +25,38 @@ public class SupplyQuantity extends Object
  public SupplyQuantity()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public SupplyQuantity(edu.nps.moves.jaxb.dis.SupplyQuantity x)
+ {
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getSupplyType() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getSupplyType() );
+     this.setSupplyType(foo_0);
+
+     this.quantity = x.getQuantity();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.SupplyQuantity initializeJaxbObject(edu.nps.moves.jaxb.dis.SupplyQuantity x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSupplyType( this.getSupplyType().initializeJaxbObject(factory.createEntityID()) );
+     x.setQuantity( this.getQuantity() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.38. Identifies the type of aggregate including kind of entity, domain (surface, subsurface, air, etc) country, category, etc.
@@ -38,6 +39,41 @@ public class AggregateType extends Object
  public AggregateType()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AggregateType(edu.nps.moves.jaxb.dis.AggregateType x)
+ {
+     this.aggregateKind = x.getAggregateKind();
+     this.domain = x.getDomain();
+     this.country = x.getCountry();
+     this.category = x.getCategory();
+     this.subcategory = x.getSubcategory();
+     this.specific = x.getSpecific();
+     this.extra = x.getExtra();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AggregateType initializeJaxbObject(edu.nps.moves.jaxb.dis.AggregateType x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setAggregateKind( this.getAggregateKind() );
+     x.setDomain( this.getDomain() );
+     x.setCountry( this.getCountry() );
+     x.setCategory( this.getCategory() );
+     x.setSubcategory( this.getSubcategory() );
+     x.setSpecific( this.getSpecific() );
+     x.setExtra( this.getExtra() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

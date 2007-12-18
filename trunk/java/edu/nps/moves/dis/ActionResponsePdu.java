@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.6.7. response to an action request PDU. COMPLETE
@@ -35,6 +36,63 @@ public class ActionResponsePdu extends SimulationManagementPdu
  {
     setPduType( (short)17 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ActionResponsePdu(edu.nps.moves.jaxb.dis.ActionResponsePdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.requestID = x.getRequestID();
+     this.requestStatus = x.getRequestStatus();
+     this.numberOfFixedDatumRecords = x.getNumberOfFixedDatumRecords();
+     this.numberOfVariableDatumRecords = x.getNumberOfVariableDatumRecords();
+     this.fixedDatums = new ArrayList();
+     for(int idx = 0; idx < x.getFixedDatums().size(); idx++)
+     {
+        this.fixedDatums.add( new edu.nps.moves.dis.FixedDatum((edu.nps.moves.jaxb.dis.FixedDatum) x.getFixedDatums().get(idx)));
+     }
+     this.variableDatums = new ArrayList();
+     for(int idx = 0; idx < x.getVariableDatums().size(); idx++)
+     {
+        this.variableDatums.add( new edu.nps.moves.dis.VariableDatum((edu.nps.moves.jaxb.dis.VariableDatum) x.getVariableDatums().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ActionResponsePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.ActionResponsePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRequestID( this.getRequestID() );
+     x.setRequestStatus( this.getRequestStatus() );
+     x.setNumberOfFixedDatumRecords( this.getNumberOfFixedDatumRecords() );
+     x.setNumberOfVariableDatumRecords( this.getNumberOfVariableDatumRecords() );
+
+     List fixedDatums_1 = x.getFixedDatums();
+     for(int idx = 0; idx < fixedDatums.size(); idx++)
+     {
+         FixedDatum a = (edu.nps.moves.dis.FixedDatum)fixedDatums.get(idx);
+         fixedDatums_1.add(a.initializeJaxbObject(factory.createFixedDatum()));
+     }
+
+     List variableDatums_1 = x.getVariableDatums();
+     for(int idx = 0; idx < variableDatums.size(); idx++)
+     {
+         VariableDatum a = (edu.nps.moves.dis.VariableDatum)variableDatums.get(idx);
+         variableDatums_1.add(a.initializeJaxbObject(factory.createVariableDatum()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -80,8 +138,24 @@ public long getNumberOfFixedDatumRecords()
 { return (long)fixedDatums.size();
 }
 
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfFixedDatumRecords method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfFixedDatumRecords(long pNumberOfFixedDatumRecords)
+{ numberOfFixedDatumRecords = pNumberOfFixedDatumRecords;
+}
+
 public long getNumberOfVariableDatumRecords()
 { return (long)variableDatums.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfVariableDatumRecords(long pNumberOfVariableDatumRecords)
+{ numberOfVariableDatumRecords = pNumberOfVariableDatumRecords;
 }
 
 public void setFixedDatums(List pFixedDatums)

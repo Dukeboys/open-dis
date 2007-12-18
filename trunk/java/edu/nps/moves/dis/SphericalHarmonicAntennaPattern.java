@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.4.3. Used when the antenna pattern type in the transmitter pdu is of value 2.         Specified the direction and radiation pattern from a radio transmitter's antenna.        NOTE: this class must be hand-coded to clean up some implementation details.
@@ -20,6 +21,29 @@ public class SphericalHarmonicAntennaPattern extends Object
  public SphericalHarmonicAntennaPattern()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public SphericalHarmonicAntennaPattern(edu.nps.moves.jaxb.dis.SphericalHarmonicAntennaPattern x)
+ {
+     this.order = x.getOrder();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.SphericalHarmonicAntennaPattern initializeJaxbObject(edu.nps.moves.jaxb.dis.SphericalHarmonicAntennaPattern x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setOrder( this.getOrder() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

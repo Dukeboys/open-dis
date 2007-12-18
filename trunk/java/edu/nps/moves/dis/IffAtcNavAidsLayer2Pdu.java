@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.7.4.2 When present, layer 2 should follow layer 1 and have the following fields. This requires manual cleanup.        the beamData attribute semantics are used in multiple ways. UNFINSISHED
@@ -29,6 +30,70 @@ public class IffAtcNavAidsLayer2Pdu extends IffAtcNavAidsLayer1Pdu
  public IffAtcNavAidsLayer2Pdu()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IffAtcNavAidsLayer2Pdu(edu.nps.moves.jaxb.dis.IffAtcNavAidsLayer2Pdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.LayerHeader foo_0;
+     if(x.getLayerHeader() == null)
+        foo_0 = new edu.nps.moves.dis.LayerHeader();
+      else
+        foo_0 = new edu.nps.moves.dis.LayerHeader(x.getLayerHeader() );
+     this.setLayerHeader(foo_0);
+
+
+     edu.nps.moves.dis.BeamData foo_1;
+     if(x.getBeamData() == null)
+        foo_1 = new edu.nps.moves.dis.BeamData();
+      else
+        foo_1 = new edu.nps.moves.dis.BeamData(x.getBeamData() );
+     this.setBeamData(foo_1);
+
+
+     edu.nps.moves.dis.BeamData foo_2;
+     if(x.getSecondaryOperationalData() == null)
+        foo_2 = new edu.nps.moves.dis.BeamData();
+      else
+        foo_2 = new edu.nps.moves.dis.BeamData(x.getSecondaryOperationalData() );
+     this.setSecondaryOperationalData(foo_2);
+
+     this.fundamentalIffParameters = new ArrayList();
+     for(int idx = 0; idx < x.getFundamentalIffParameters().size(); idx++)
+     {
+        this.fundamentalIffParameters.add( new edu.nps.moves.dis.FundamentalParameterDataIff((edu.nps.moves.jaxb.dis.FundamentalParameterDataIff) x.getFundamentalIffParameters().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IffAtcNavAidsLayer2Pdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IffAtcNavAidsLayer2Pdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setLayerHeader( this.getLayerHeader().initializeJaxbObject(factory.createLayerHeader()) );
+     x.setBeamData( this.getBeamData().initializeJaxbObject(factory.createBeamData()) );
+     x.setSecondaryOperationalData( this.getSecondaryOperationalData().initializeJaxbObject(factory.createBeamData()) );
+
+     List fundamentalIffParameters_1 = x.getFundamentalIffParameters();
+     for(int idx = 0; idx < fundamentalIffParameters.size(); idx++)
+     {
+         FundamentalParameterDataIff a = (edu.nps.moves.dis.FundamentalParameterDataIff)fundamentalIffParameters.get(idx);
+         fundamentalIffParameters_1.add(a.initializeJaxbObject(factory.createFundamentalParameterDataIff()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.44: Grid data record, representation 1
@@ -29,6 +30,49 @@ public class GridAxisRecordRepresentation1 extends GridAxisRecord
  public GridAxisRecordRepresentation1()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public GridAxisRecordRepresentation1(edu.nps.moves.jaxb.dis.GridAxisRecordRepresentation1 x)
+ {
+     super(x); // Call superclass constructor
+
+     this.fieldScale = x.getFieldScale();
+     this.fieldOffset = x.getFieldOffset();
+     this.numberOfValues = x.getNumberOfValues();
+     this.dataValues = new ArrayList();
+     for(int idx = 0; idx < x.getDataValues().size(); idx++)
+     {
+        this.dataValues.add( new edu.nps.moves.dis.TwoByteChunk((edu.nps.moves.jaxb.dis.TwoByteChunk) x.getDataValues().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.GridAxisRecordRepresentation1 initializeJaxbObject(edu.nps.moves.jaxb.dis.GridAxisRecordRepresentation1 x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setFieldScale( this.getFieldScale() );
+     x.setFieldOffset( this.getFieldOffset() );
+     x.setNumberOfValues( this.getNumberOfValues() );
+
+     List dataValues_1 = x.getDataValues();
+     for(int idx = 0; idx < dataValues.size(); idx++)
+     {
+         TwoByteChunk a = (edu.nps.moves.dis.TwoByteChunk)dataValues.get(idx);
+         dataValues_1.add(a.initializeJaxbObject(factory.createTwoByteChunk()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -66,6 +110,14 @@ public float getFieldOffset()
 
 public int getNumberOfValues()
 { return (int)dataValues.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfValues method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfValues(int pNumberOfValues)
+{ numberOfValues = pNumberOfValues;
 }
 
 public void setDataValues(List pDataValues)

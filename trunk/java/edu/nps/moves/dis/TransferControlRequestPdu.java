@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.9.3 Information initiating the dyanic allocation and control of simulation entities         between two simulation applications. Requires manual cleanup. The padding between record sets is variable. UNFINISHED
@@ -42,6 +43,78 @@ public class TransferControlRequestPdu extends EntityManagementFamilyPdu
  {
     setPduType( (short)35 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public TransferControlRequestPdu(edu.nps.moves.jaxb.dis.TransferControlRequestPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getOrginatingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getOrginatingEntityID() );
+     this.setOrginatingEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getRecevingEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getRecevingEntityID() );
+     this.setRecevingEntityID(foo_1);
+
+     this.requestID = x.getRequestID();
+     this.requiredReliabilityService = x.getRequiredReliabilityService();
+     this.tranferType = x.getTranferType();
+
+     edu.nps.moves.dis.EntityID foo_5;
+     if(x.getTransferEntityID() == null)
+        foo_5 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_5 = new edu.nps.moves.dis.EntityID(x.getTransferEntityID() );
+     this.setTransferEntityID(foo_5);
+
+     this.numberOfRecordSets = x.getNumberOfRecordSets();
+     this.recordSets = new ArrayList();
+     for(int idx = 0; idx < x.getRecordSets().size(); idx++)
+     {
+        this.recordSets.add( new edu.nps.moves.dis.RecordSet((edu.nps.moves.jaxb.dis.RecordSet) x.getRecordSets().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.TransferControlRequestPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.TransferControlRequestPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setOrginatingEntityID( this.getOrginatingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setRecevingEntityID( this.getRecevingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setRequestID( this.getRequestID() );
+     x.setRequiredReliabilityService( this.getRequiredReliabilityService() );
+     x.setTranferType( this.getTranferType() );
+     x.setTransferEntityID( this.getTransferEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setNumberOfRecordSets( this.getNumberOfRecordSets() );
+
+     List recordSets_1 = x.getRecordSets();
+     for(int idx = 0; idx < recordSets.size(); idx++)
+     {
+         RecordSet a = (edu.nps.moves.dis.RecordSet)recordSets.get(idx);
+         recordSets_1.add(a.initializeJaxbObject(factory.createRecordSet()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -112,6 +185,14 @@ public EntityID getTransferEntityID()
 
 public short getNumberOfRecordSets()
 { return (short)recordSets.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfRecordSets method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfRecordSets(short pNumberOfRecordSets)
+{ numberOfRecordSets = pNumberOfRecordSets;
 }
 
 public void setRecordSets(List pRecordSets)

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.3.1. Represents the postion and state of one entity in the world. This is identical in function to entity state pdu, but generates less garbage to collect in the Java world. COMPLETE
@@ -134,6 +135,139 @@ public class FastEntityStatePdu extends EntityInformationPdu
     setPduType( (short)1 );
  }
 
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public FastEntityStatePdu(edu.nps.moves.jaxb.dis.FastEntityStatePdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.site = x.getSite();
+     this.application = x.getApplication();
+     this.entity = x.getEntity();
+     this.forceId = x.getForceId();
+     this.numberOfArticulationParameters = x.getNumberOfArticulationParameters();
+     this.entityKind = x.getEntityKind();
+     this.domain = x.getDomain();
+     this.country = x.getCountry();
+     this.category = x.getCategory();
+     this.subcategory = x.getSubcategory();
+     this.specific = x.getSpecific();
+     this.extra = x.getExtra();
+     this.altEntityKind = x.getAltEntityKind();
+     this.altDomain = x.getAltDomain();
+     this.altCountry = x.getAltCountry();
+     this.altCategory = x.getAltCategory();
+     this.altSubcategory = x.getAltSubcategory();
+     this.altSpecific = x.getAltSpecific();
+     this.altExtra = x.getAltExtra();
+     this.xVelocity = x.getXVelocity();
+     this.yVelocity = x.getYVelocity();
+     this.zVelocity = x.getZVelocity();
+     this.xLocation = x.getXLocation();
+     this.yLocation = x.getYLocation();
+     this.zLocation = x.getZLocation();
+     this.psi = x.getPsi();
+     this.theta = x.getTheta();
+     this.phi = x.getPhi();
+     this.entityAppearance = x.getEntityAppearance();
+     this.deadReckoningAlgorithm = x.getDeadReckoningAlgorithm();
+     this.otherParameters = new byte[15];
+     for(int idx = 0; idx < 15; idx++)
+     {
+         byte[] y = x.getOtherParameters();
+         this.otherParameters[idx] = y[idx];
+     }
+     this.xAcceleration = x.getXAcceleration();
+     this.yAcceleration = x.getYAcceleration();
+     this.zAcceleration = x.getZAcceleration();
+     this.xAngularVelocity = x.getXAngularVelocity();
+     this.yAngularVelocity = x.getYAngularVelocity();
+     this.zAngularVelocity = x.getZAngularVelocity();
+     this.marking = new byte[12];
+     for(int idx = 0; idx < 12; idx++)
+     {
+         byte[] y = x.getMarking();
+         this.marking[idx] = y[idx];
+     }
+     this.capabilities = x.getCapabilities();
+     this.articulationParameters = new ArrayList();
+     for(int idx = 0; idx < x.getArticulationParameters().size(); idx++)
+     {
+        this.articulationParameters.add( new edu.nps.moves.dis.ArticulationParameter((edu.nps.moves.jaxb.dis.ArticulationParameter) x.getArticulationParameters().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.FastEntityStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.FastEntityStatePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSite( this.getSite() );
+     x.setApplication( this.getApplication() );
+     x.setEntity( this.getEntity() );
+     x.setForceId( this.getForceId() );
+     x.setNumberOfArticulationParameters( this.getNumberOfArticulationParameters() );
+     x.setEntityKind( this.getEntityKind() );
+     x.setDomain( this.getDomain() );
+     x.setCountry( this.getCountry() );
+     x.setCategory( this.getCategory() );
+     x.setSubcategory( this.getSubcategory() );
+     x.setSpecific( this.getSpecific() );
+     x.setExtra( this.getExtra() );
+     x.setAltEntityKind( this.getAltEntityKind() );
+     x.setAltDomain( this.getAltDomain() );
+     x.setAltCountry( this.getAltCountry() );
+     x.setAltCategory( this.getAltCategory() );
+     x.setAltSubcategory( this.getAltSubcategory() );
+     x.setAltSpecific( this.getAltSpecific() );
+     x.setAltExtra( this.getAltExtra() );
+     x.setXVelocity( this.getXVelocity() );
+     x.setYVelocity( this.getYVelocity() );
+     x.setZVelocity( this.getZVelocity() );
+     x.setXLocation( this.getXLocation() );
+     x.setYLocation( this.getYLocation() );
+     x.setZLocation( this.getZLocation() );
+     x.setPsi( this.getPsi() );
+     x.setTheta( this.getTheta() );
+     x.setPhi( this.getPhi() );
+     x.setEntityAppearance( this.getEntityAppearance() );
+     x.setDeadReckoningAlgorithm( this.getDeadReckoningAlgorithm() );
+     x.setOtherParameters( new byte[15]);
+     for(int idx = 0; idx < 15; idx++)
+     {
+         x.getOtherParameters()[idx] = this.otherParameters[idx];
+     }
+     x.setXAcceleration( this.getXAcceleration() );
+     x.setYAcceleration( this.getYAcceleration() );
+     x.setZAcceleration( this.getZAcceleration() );
+     x.setXAngularVelocity( this.getXAngularVelocity() );
+     x.setYAngularVelocity( this.getYAngularVelocity() );
+     x.setZAngularVelocity( this.getZAngularVelocity() );
+     x.setMarking( new byte[12]);
+     for(int idx = 0; idx < 12; idx++)
+     {
+         x.getMarking()[idx] = this.marking[idx];
+     }
+     x.setCapabilities( this.getCapabilities() );
+
+     List articulationParameters_1 = x.getArticulationParameters();
+     for(int idx = 0; idx < articulationParameters.size(); idx++)
+     {
+         ArticulationParameter a = (edu.nps.moves.dis.ArticulationParameter)articulationParameters.get(idx);
+         articulationParameters_1.add(a.initializeJaxbObject(factory.createArticulationParameter()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
+
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -222,6 +356,14 @@ public short getForceId()
 
 public byte getNumberOfArticulationParameters()
 { return (byte)articulationParameters.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfArticulationParameters(byte pNumberOfArticulationParameters)
+{ numberOfArticulationParameters = pNumberOfArticulationParameters;
 }
 
 public void setEntityKind(short pEntityKind)

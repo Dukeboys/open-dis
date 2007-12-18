@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.9.4 The joining of two or more simulation entities is communicated by this PDU. COMPLETE
@@ -37,6 +38,85 @@ public class IsPartOfPdu extends EntityManagementFamilyPdu
  {
     setPduType( (short)36 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IsPartOfPdu(edu.nps.moves.jaxb.dis.IsPartOfPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getOrginatingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getOrginatingEntityID() );
+     this.setOrginatingEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getReceivingEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getReceivingEntityID() );
+     this.setReceivingEntityID(foo_1);
+
+
+     edu.nps.moves.dis.Relationship foo_2;
+     if(x.getRelationship() == null)
+        foo_2 = new edu.nps.moves.dis.Relationship();
+      else
+        foo_2 = new edu.nps.moves.dis.Relationship(x.getRelationship() );
+     this.setRelationship(foo_2);
+
+
+     edu.nps.moves.dis.Vector3Float foo_3;
+     if(x.getPartLocation() == null)
+        foo_3 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_3 = new edu.nps.moves.dis.Vector3Float(x.getPartLocation() );
+     this.setPartLocation(foo_3);
+
+
+     edu.nps.moves.dis.NamedLocation foo_4;
+     if(x.getNamedLocationID() == null)
+        foo_4 = new edu.nps.moves.dis.NamedLocation();
+      else
+        foo_4 = new edu.nps.moves.dis.NamedLocation(x.getNamedLocationID() );
+     this.setNamedLocationID(foo_4);
+
+
+     edu.nps.moves.dis.EntityType foo_5;
+     if(x.getPartEntityType() == null)
+        foo_5 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_5 = new edu.nps.moves.dis.EntityType(x.getPartEntityType() );
+     this.setPartEntityType(foo_5);
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IsPartOfPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IsPartOfPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setOrginatingEntityID( this.getOrginatingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setReceivingEntityID( this.getReceivingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setRelationship( this.getRelationship().initializeJaxbObject(factory.createRelationship()) );
+     x.setPartLocation( this.getPartLocation().initializeJaxbObject(factory.createVector3Float()) );
+     x.setNamedLocationID( this.getNamedLocationID().initializeJaxbObject(factory.createNamedLocation()) );
+     x.setPartEntityType( this.getPartEntityType().initializeJaxbObject(factory.createEntityType()) );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

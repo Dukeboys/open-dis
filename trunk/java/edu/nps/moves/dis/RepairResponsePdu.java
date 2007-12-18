@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.5.6. Sent after repair complete PDU. COMPLETE
@@ -34,6 +35,55 @@ public class RepairResponsePdu extends LogisticsPdu
  {
     setPduType( (short)10 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public RepairResponsePdu(edu.nps.moves.jaxb.dis.RepairResponsePdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getReceivingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getReceivingEntityID() );
+     this.setReceivingEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getRepairingEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getRepairingEntityID() );
+     this.setRepairingEntityID(foo_1);
+
+     this.repairResult = x.getRepairResult();
+     this.padding1 = x.getPadding1();
+     this.padding2 = x.getPadding2();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.RepairResponsePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RepairResponsePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setReceivingEntityID( this.getReceivingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setRepairingEntityID( this.getRepairingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setRepairResult( this.getRepairResult() );
+     x.setPadding1( this.getPadding1() );
+     x.setPadding2( this.getPadding2() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

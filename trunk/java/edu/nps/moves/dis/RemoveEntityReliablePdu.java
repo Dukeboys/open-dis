@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.12.2: Removal of an entity , reliable. COMPLETE
@@ -31,6 +32,39 @@ public class RemoveEntityReliablePdu extends SimulationManagementWithReliability
  {
     setPduType( (short)52 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public RemoveEntityReliablePdu(edu.nps.moves.jaxb.dis.RemoveEntityReliablePdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.requiredReliabilityService = x.getRequiredReliabilityService();
+     this.pad1 = x.getPad1();
+     this.pad2 = x.getPad2();
+     this.requestID = x.getRequestID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.RemoveEntityReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RemoveEntityReliablePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRequiredReliabilityService( this.getRequiredReliabilityService() );
+     x.setPad1( this.getPad1() );
+     x.setPad2( this.getPad2() );
+     x.setRequestID( this.getRequestID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

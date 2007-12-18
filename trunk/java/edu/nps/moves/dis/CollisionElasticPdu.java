@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.3.3.3. Information about elastic collisions in a DIS exercise shall be communicated using a Collision-Elastic PDU. COMPLETE
@@ -65,6 +66,103 @@ public class CollisionElasticPdu extends EntityInformationPdu
     setPduType( (short)66 );
     setProtocolFamily( (short)1 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public CollisionElasticPdu(edu.nps.moves.jaxb.dis.CollisionElasticPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getIssuingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getIssuingEntityID() );
+     this.setIssuingEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getCollidingEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getCollidingEntityID() );
+     this.setCollidingEntityID(foo_1);
+
+
+     edu.nps.moves.dis.EventID foo_2;
+     if(x.getCollisionEventID() == null)
+        foo_2 = new edu.nps.moves.dis.EventID();
+      else
+        foo_2 = new edu.nps.moves.dis.EventID(x.getCollisionEventID() );
+     this.setCollisionEventID(foo_2);
+
+     this.pad = x.getPad();
+
+     edu.nps.moves.dis.Vector3Float foo_4;
+     if(x.getContactVelocity() == null)
+        foo_4 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_4 = new edu.nps.moves.dis.Vector3Float(x.getContactVelocity() );
+     this.setContactVelocity(foo_4);
+
+     this.mass = x.getMass();
+
+     edu.nps.moves.dis.Vector3Float foo_6;
+     if(x.getLocation() == null)
+        foo_6 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_6 = new edu.nps.moves.dis.Vector3Float(x.getLocation() );
+     this.setLocation(foo_6);
+
+     this.collisionResultXX = x.getCollisionResultXX();
+     this.collisionResultXY = x.getCollisionResultXY();
+     this.collisionResultXZ = x.getCollisionResultXZ();
+     this.collisionResultYY = x.getCollisionResultYY();
+     this.collisionResultYZ = x.getCollisionResultYZ();
+     this.collisionResultZZ = x.getCollisionResultZZ();
+
+     edu.nps.moves.dis.Vector3Float foo_13;
+     if(x.getUnitSurfaceNormal() == null)
+        foo_13 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_13 = new edu.nps.moves.dis.Vector3Float(x.getUnitSurfaceNormal() );
+     this.setUnitSurfaceNormal(foo_13);
+
+     this.coefficientOfRestitution = x.getCoefficientOfRestitution();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.CollisionElasticPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.CollisionElasticPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setIssuingEntityID( this.getIssuingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setCollidingEntityID( this.getCollidingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setCollisionEventID( this.getCollisionEventID().initializeJaxbObject(factory.createEventID()) );
+     x.setPad( this.getPad() );
+     x.setContactVelocity( this.getContactVelocity().initializeJaxbObject(factory.createVector3Float()) );
+     x.setMass( this.getMass() );
+     x.setLocation( this.getLocation().initializeJaxbObject(factory.createVector3Float()) );
+     x.setCollisionResultXX( this.getCollisionResultXX() );
+     x.setCollisionResultXY( this.getCollisionResultXY() );
+     x.setCollisionResultXZ( this.getCollisionResultXZ() );
+     x.setCollisionResultYY( this.getCollisionResultYY() );
+     x.setCollisionResultYZ( this.getCollisionResultYZ() );
+     x.setCollisionResultZZ( this.getCollisionResultZZ() );
+     x.setUnitSurfaceNormal( this.getUnitSurfaceNormal().initializeJaxbObject(factory.createVector3Float()) );
+     x.setCoefficientOfRestitution( this.getCoefficientOfRestitution() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

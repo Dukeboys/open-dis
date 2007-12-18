@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.3.4. Stop or freeze an exercise. COMPLETE
@@ -34,6 +35,48 @@ public class StopFreezePdu extends SimulationManagementPdu
  {
     setPduType( (short)14 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public StopFreezePdu(edu.nps.moves.jaxb.dis.StopFreezePdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.ClockTime foo_0;
+     if(x.getRealWorldTime() == null)
+        foo_0 = new edu.nps.moves.dis.ClockTime();
+      else
+        foo_0 = new edu.nps.moves.dis.ClockTime(x.getRealWorldTime() );
+     this.setRealWorldTime(foo_0);
+
+     this.reason = x.getReason();
+     this.frozenBehavior = x.getFrozenBehavior();
+     this.padding1 = x.getPadding1();
+     this.requestID = x.getRequestID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.StopFreezePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.StopFreezePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRealWorldTime( this.getRealWorldTime().initializeJaxbObject(factory.createClockTime()) );
+     x.setReason( this.getReason() );
+     x.setFrozenBehavior( this.getFrozenBehavior() );
+     x.setPadding1( this.getPadding1() );
+     x.setRequestID( this.getRequestID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

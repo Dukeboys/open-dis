@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.11.2: Information about globat, spatially varying enviornmental effects. This requires manual cleanup; the grid axis        records are variable sized. UNFINISHED
@@ -63,6 +64,92 @@ public class GriddedDataPdu extends SyntheticEnvironmentPduFamily
  {
     setPduType( (short)42 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public GriddedDataPdu(edu.nps.moves.jaxb.dis.GriddedDataPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getEnvironmentalSimulationApplicationID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getEnvironmentalSimulationApplicationID() );
+     this.setEnvironmentalSimulationApplicationID(foo_0);
+
+     this.fieldNumber = x.getFieldNumber();
+     this.pduNumber = x.getPduNumber();
+     this.pduTotal = x.getPduTotal();
+     this.coordinateSystem = x.getCoordinateSystem();
+     this.numberOfGridAxes = x.getNumberOfGridAxes();
+     this.constantGrid = x.getConstantGrid();
+
+     edu.nps.moves.dis.EntityType foo_7;
+     if(x.getEnvironmentType() == null)
+        foo_7 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_7 = new edu.nps.moves.dis.EntityType(x.getEnvironmentType() );
+     this.setEnvironmentType(foo_7);
+
+
+     edu.nps.moves.dis.Orientation foo_8;
+     if(x.getOrientation() == null)
+        foo_8 = new edu.nps.moves.dis.Orientation();
+      else
+        foo_8 = new edu.nps.moves.dis.Orientation(x.getOrientation() );
+     this.setOrientation(foo_8);
+
+     this.sampleTime = x.getSampleTime();
+     this.totalValues = x.getTotalValues();
+     this.vectorDimension = x.getVectorDimension();
+     this.padding1 = x.getPadding1();
+     this.padding2 = x.getPadding2();
+     this.gridDataList = new ArrayList();
+     for(int idx = 0; idx < x.getGridDataList().size(); idx++)
+     {
+        this.gridDataList.add( new edu.nps.moves.dis.GridAxisRecord((edu.nps.moves.jaxb.dis.GridAxisRecord) x.getGridDataList().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.GriddedDataPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.GriddedDataPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEnvironmentalSimulationApplicationID( this.getEnvironmentalSimulationApplicationID().initializeJaxbObject(factory.createEntityID()) );
+     x.setFieldNumber( this.getFieldNumber() );
+     x.setPduNumber( this.getPduNumber() );
+     x.setPduTotal( this.getPduTotal() );
+     x.setCoordinateSystem( this.getCoordinateSystem() );
+     x.setNumberOfGridAxes( this.getNumberOfGridAxes() );
+     x.setConstantGrid( this.getConstantGrid() );
+     x.setEnvironmentType( this.getEnvironmentType().initializeJaxbObject(factory.createEntityType()) );
+     x.setOrientation( this.getOrientation().initializeJaxbObject(factory.createOrientation()) );
+     x.setSampleTime( this.getSampleTime() );
+     x.setTotalValues( this.getTotalValues() );
+     x.setVectorDimension( this.getVectorDimension() );
+     x.setPadding1( this.getPadding1() );
+     x.setPadding2( this.getPadding2() );
+
+     List gridDataList_1 = x.getGridDataList();
+     for(int idx = 0; idx < gridDataList.size(); idx++)
+     {
+         GridAxisRecord a = (edu.nps.moves.dis.GridAxisRecord)gridDataList.get(idx);
+         gridDataList_1.add(a.initializeJaxbObject(factory.createGridAxisRecord()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -134,6 +221,14 @@ public int getCoordinateSystem()
 
 public short getNumberOfGridAxes()
 { return (short)gridDataList.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfGridAxes method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfGridAxes(short pNumberOfGridAxes)
+{ numberOfGridAxes = pNumberOfGridAxes;
 }
 
 public void setConstantGrid(short pConstantGrid)

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Shaft RPMs, used in underwater acoustic clacluations.
@@ -27,6 +28,33 @@ public class ShaftRPMs extends Object
  public ShaftRPMs()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ShaftRPMs(edu.nps.moves.jaxb.dis.ShaftRPMs x)
+ {
+     this.currentShaftRPMs = x.getCurrentShaftRPMs();
+     this.orderedShaftRPMs = x.getOrderedShaftRPMs();
+     this.shaftRPMRateOfChange = x.getShaftRPMRateOfChange();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ShaftRPMs initializeJaxbObject(edu.nps.moves.jaxb.dis.ShaftRPMs x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setCurrentShaftRPMs( this.getCurrentShaftRPMs() );
+     x.setOrderedShaftRPMs( this.getOrderedShaftRPMs() );
+     x.setShaftRPMRateOfChange( this.getShaftRPMRateOfChange() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

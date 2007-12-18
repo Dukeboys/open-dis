@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.10.1 Abstract superclass for PDUs relating to minefields
@@ -19,6 +20,31 @@ public class MinefieldPduFamily extends Pdu
  {
     setProtocolFamily( (short)8 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public MinefieldPduFamily(edu.nps.moves.jaxb.dis.MinefieldPduFamily x)
+ {
+     super(x); // Call superclass constructor
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.MinefieldPduFamily initializeJaxbObject(edu.nps.moves.jaxb.dis.MinefieldPduFamily x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

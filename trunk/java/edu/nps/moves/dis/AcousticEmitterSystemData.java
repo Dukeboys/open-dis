@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Used in the UA pdu; ties together an emmitter and a location. This requires manual cleanup; the beam data should not be attached to each emitter system.
@@ -36,6 +37,63 @@ public class AcousticEmitterSystemData extends Object
  {
  }
 
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AcousticEmitterSystemData(edu.nps.moves.jaxb.dis.AcousticEmitterSystemData x)
+ {
+     this.emitterSystemDataLength = x.getEmitterSystemDataLength();
+     this.numberOfBeams = x.getNumberOfBeams();
+     this.pad2 = x.getPad2();
+
+     edu.nps.moves.dis.AcousticEmitterSystem foo_3;
+     if(x.getAcousticEmitterSystem() == null)
+        foo_3 = new edu.nps.moves.dis.AcousticEmitterSystem();
+      else
+        foo_3 = new edu.nps.moves.dis.AcousticEmitterSystem(x.getAcousticEmitterSystem() );
+     this.setAcousticEmitterSystem(foo_3);
+
+
+     edu.nps.moves.dis.Vector3Float foo_4;
+     if(x.getEmitterLocation() == null)
+        foo_4 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_4 = new edu.nps.moves.dis.Vector3Float(x.getEmitterLocation() );
+     this.setEmitterLocation(foo_4);
+
+     this.beamRecords = new ArrayList();
+     for(int idx = 0; idx < x.getBeamRecords().size(); idx++)
+     {
+        this.beamRecords.add( new edu.nps.moves.dis.AcousticBeamData((edu.nps.moves.jaxb.dis.AcousticBeamData) x.getBeamRecords().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AcousticEmitterSystemData initializeJaxbObject(edu.nps.moves.jaxb.dis.AcousticEmitterSystemData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEmitterSystemDataLength( this.getEmitterSystemDataLength() );
+     x.setNumberOfBeams( this.getNumberOfBeams() );
+     x.setPad2( this.getPad2() );
+     x.setAcousticEmitterSystem( this.getAcousticEmitterSystem().initializeJaxbObject(factory.createAcousticEmitterSystem()) );
+     x.setEmitterLocation( this.getEmitterLocation().initializeJaxbObject(factory.createVector3Float()) );
+
+     List beamRecords_1 = x.getBeamRecords();
+     for(int idx = 0; idx < beamRecords.size(); idx++)
+     {
+         AcousticBeamData a = (edu.nps.moves.dis.AcousticBeamData)beamRecords.get(idx);
+         beamRecords_1.add(a.initializeJaxbObject(factory.createAcousticBeamData()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
+
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -65,6 +123,14 @@ public short getEmitterSystemDataLength()
 
 public short getNumberOfBeams()
 { return (short)beamRecords.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfBeams method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfBeams(short pNumberOfBeams)
+{ numberOfBeams = pNumberOfBeams;
 }
 
 public void setPad2(int pPad2)

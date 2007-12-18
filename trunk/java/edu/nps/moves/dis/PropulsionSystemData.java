@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Data about a propulsion system
@@ -24,6 +25,31 @@ public class PropulsionSystemData extends Object
  public PropulsionSystemData()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public PropulsionSystemData(edu.nps.moves.jaxb.dis.PropulsionSystemData x)
+ {
+     this.powerSetting = x.getPowerSetting();
+     this.engineRpm = x.getEngineRpm();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.PropulsionSystemData initializeJaxbObject(edu.nps.moves.jaxb.dis.PropulsionSystemData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setPowerSetting( this.getPowerSetting() );
+     x.setEngineRpm( this.getEngineRpm() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.3.2. Information about a collision. COMPLETE
@@ -44,6 +45,82 @@ public class CollisionPdu extends EntityInformationPdu
     setPduType( (short)4 );
     setProtocolFamily( (short)1 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public CollisionPdu(edu.nps.moves.jaxb.dis.CollisionPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getIssuingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getIssuingEntityID() );
+     this.setIssuingEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getCollidingEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getCollidingEntityID() );
+     this.setCollidingEntityID(foo_1);
+
+
+     edu.nps.moves.dis.EventID foo_2;
+     if(x.getEventID() == null)
+        foo_2 = new edu.nps.moves.dis.EventID();
+      else
+        foo_2 = new edu.nps.moves.dis.EventID(x.getEventID() );
+     this.setEventID(foo_2);
+
+     this.collisionType = x.getCollisionType();
+     this.pad = x.getPad();
+
+     edu.nps.moves.dis.Vector3Float foo_5;
+     if(x.getVelocity() == null)
+        foo_5 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_5 = new edu.nps.moves.dis.Vector3Float(x.getVelocity() );
+     this.setVelocity(foo_5);
+
+     this.mass = x.getMass();
+
+     edu.nps.moves.dis.Vector3Float foo_7;
+     if(x.getLocation() == null)
+        foo_7 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_7 = new edu.nps.moves.dis.Vector3Float(x.getLocation() );
+     this.setLocation(foo_7);
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.CollisionPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.CollisionPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setIssuingEntityID( this.getIssuingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setCollidingEntityID( this.getCollidingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setEventID( this.getEventID().initializeJaxbObject(factory.createEventID()) );
+     x.setCollisionType( this.getCollisionType() );
+     x.setPad( this.getPad() );
+     x.setVelocity( this.getVelocity().initializeJaxbObject(factory.createVector3Float()) );
+     x.setMass( this.getMass() );
+     x.setLocation( this.getLocation().initializeJaxbObject(factory.createVector3Float()) );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.12.4: Stop freeze simulation, relaible. COMPLETE
@@ -37,6 +38,50 @@ public class StopFreezeReliablePdu extends SimulationManagementWithReliabilityPd
  {
     setPduType( (short)54 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public StopFreezeReliablePdu(edu.nps.moves.jaxb.dis.StopFreezeReliablePdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.ClockTime foo_0;
+     if(x.getRealWorldTime() == null)
+        foo_0 = new edu.nps.moves.dis.ClockTime();
+      else
+        foo_0 = new edu.nps.moves.dis.ClockTime(x.getRealWorldTime() );
+     this.setRealWorldTime(foo_0);
+
+     this.reason = x.getReason();
+     this.frozenBehavior = x.getFrozenBehavior();
+     this.requiredReliablityService = x.getRequiredReliablityService();
+     this.pad1 = x.getPad1();
+     this.requestID = x.getRequestID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.StopFreezeReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.StopFreezeReliablePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRealWorldTime( this.getRealWorldTime().initializeJaxbObject(factory.createClockTime()) );
+     x.setReason( this.getReason() );
+     x.setFrozenBehavior( this.getFrozenBehavior() );
+     x.setRequiredReliablityService( this.getRequiredReliablityService() );
+     x.setPad1( this.getPad1() );
+     x.setRequestID( this.getRequestID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.33. Three floating point values, x, y, and z
@@ -27,6 +28,33 @@ public class Vector3Float extends Object
  public Vector3Float()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public Vector3Float(edu.nps.moves.jaxb.dis.Vector3Float x)
+ {
+     this.x = x.getX();
+     this.y = x.getY();
+     this.z = x.getZ();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.Vector3Float initializeJaxbObject(edu.nps.moves.jaxb.dis.Vector3Float x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setX( this.getX() );
+     x.setY( this.getY() );
+     x.setZ( this.getZ() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

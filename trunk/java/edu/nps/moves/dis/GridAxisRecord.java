@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.44: Grid data record, a common abstract superclass for several subtypes 
@@ -24,6 +25,31 @@ public class GridAxisRecord extends Object
  public GridAxisRecord()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public GridAxisRecord(edu.nps.moves.jaxb.dis.GridAxisRecord x)
+ {
+     this.sampleType = x.getSampleType();
+     this.dataRepresentation = x.getDataRepresentation();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.GridAxisRecord initializeJaxbObject(edu.nps.moves.jaxb.dis.GridAxisRecord x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSampleType( this.getSampleType() );
+     x.setDataRepresentation( this.getDataRepresentation() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

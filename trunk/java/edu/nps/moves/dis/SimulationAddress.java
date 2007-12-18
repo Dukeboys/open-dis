@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.14.1. A Simulation Address  record shall consist of the Site Identification number and the Application Identification number.
@@ -24,6 +25,31 @@ public class SimulationAddress extends Object
  public SimulationAddress()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public SimulationAddress(edu.nps.moves.jaxb.dis.SimulationAddress x)
+ {
+     this.site = x.getSite();
+     this.application = x.getApplication();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.SimulationAddress initializeJaxbObject(edu.nps.moves.jaxb.dis.SimulationAddress x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSite( this.getSite() );
+     x.setApplication( this.getApplication() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

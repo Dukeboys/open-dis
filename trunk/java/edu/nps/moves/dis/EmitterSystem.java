@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.11. This field shall specify information about a particular emitter system
@@ -27,6 +28,33 @@ public class EmitterSystem extends Object
  public EmitterSystem()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public EmitterSystem(edu.nps.moves.jaxb.dis.EmitterSystem x)
+ {
+     this.emitterName = x.getEmitterName();
+     this.function = x.getFunction();
+     this.emitterIdNumber = x.getEmitterIdNumber();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.EmitterSystem initializeJaxbObject(edu.nps.moves.jaxb.dis.EmitterSystem x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEmitterName( this.getEmitterName() );
+     x.setFunction( this.getFunction() );
+     x.setEmitterIdNumber( this.getEmitterIdNumber() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

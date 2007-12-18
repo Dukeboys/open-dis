@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.4.2. Information about stuff exploding. COMPLETE
@@ -44,6 +45,94 @@ public class DetonationPdu extends Warfare
  {
     setPduType( (short)3 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public DetonationPdu(edu.nps.moves.jaxb.dis.DetonationPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getMunitionID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getMunitionID() );
+     this.setMunitionID(foo_0);
+
+
+     edu.nps.moves.dis.EventID foo_1;
+     if(x.getEventID() == null)
+        foo_1 = new edu.nps.moves.dis.EventID();
+      else
+        foo_1 = new edu.nps.moves.dis.EventID(x.getEventID() );
+     this.setEventID(foo_1);
+
+
+     edu.nps.moves.dis.Vector3Float foo_2;
+     if(x.getVelocity() == null)
+        foo_2 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_2 = new edu.nps.moves.dis.Vector3Float(x.getVelocity() );
+     this.setVelocity(foo_2);
+
+
+     edu.nps.moves.dis.Vector3Double foo_3;
+     if(x.getLocationInWorldCoordinates() == null)
+        foo_3 = new edu.nps.moves.dis.Vector3Double();
+      else
+        foo_3 = new edu.nps.moves.dis.Vector3Double(x.getLocationInWorldCoordinates() );
+     this.setLocationInWorldCoordinates(foo_3);
+
+
+     edu.nps.moves.dis.BurstDescriptor foo_4;
+     if(x.getBurstDescriptor() == null)
+        foo_4 = new edu.nps.moves.dis.BurstDescriptor();
+      else
+        foo_4 = new edu.nps.moves.dis.BurstDescriptor(x.getBurstDescriptor() );
+     this.setBurstDescriptor(foo_4);
+
+     this.detonationResult = x.getDetonationResult();
+     this.numberOfArticulationParameters = x.getNumberOfArticulationParameters();
+     this.pad = x.getPad();
+     this.articulationParameters = new ArrayList();
+     for(int idx = 0; idx < x.getArticulationParameters().size(); idx++)
+     {
+        this.articulationParameters.add( new edu.nps.moves.dis.ArticulationParameter((edu.nps.moves.jaxb.dis.ArticulationParameter) x.getArticulationParameters().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.DetonationPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.DetonationPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setMunitionID( this.getMunitionID().initializeJaxbObject(factory.createEntityID()) );
+     x.setEventID( this.getEventID().initializeJaxbObject(factory.createEventID()) );
+     x.setVelocity( this.getVelocity().initializeJaxbObject(factory.createVector3Float()) );
+     x.setLocationInWorldCoordinates( this.getLocationInWorldCoordinates().initializeJaxbObject(factory.createVector3Double()) );
+     x.setBurstDescriptor( this.getBurstDescriptor().initializeJaxbObject(factory.createBurstDescriptor()) );
+     x.setDetonationResult( this.getDetonationResult() );
+     x.setNumberOfArticulationParameters( this.getNumberOfArticulationParameters() );
+     x.setPad( this.getPad() );
+
+     List articulationParameters_1 = x.getArticulationParameters();
+     for(int idx = 0; idx < articulationParameters.size(); idx++)
+     {
+         ArticulationParameter a = (edu.nps.moves.dis.ArticulationParameter)articulationParameters.get(idx);
+         articulationParameters_1.add(a.initializeJaxbObject(factory.createArticulationParameter()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -113,6 +202,14 @@ public short getDetonationResult()
 
 public short getNumberOfArticulationParameters()
 { return (short)articulationParameters.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfArticulationParameters(short pNumberOfArticulationParameters)
+{ numberOfArticulationParameters = pNumberOfArticulationParameters;
 }
 
 public void setPad(short pPad)

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.9.2 Information about a particular group of entities grouped together for the purposes of netowrk bandwidth         reduction or aggregation. Needs manual cleanup. The GED size requires a database lookup. UNFINISHED
@@ -39,6 +40,62 @@ public class IsGroupOfPdu extends EntityManagementFamilyPdu
  {
     setPduType( (short)34 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IsGroupOfPdu(edu.nps.moves.jaxb.dis.IsGroupOfPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getGroupEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getGroupEntityID() );
+     this.setGroupEntityID(foo_0);
+
+     this.groupedEntityCategory = x.getGroupedEntityCategory();
+     this.numberOfGroupedEntities = x.getNumberOfGroupedEntities();
+     this.pad2 = x.getPad2();
+     this.latitude = x.getLatitude();
+     this.longitude = x.getLongitude();
+     this.groupedEntityDescriptions = new ArrayList();
+     for(int idx = 0; idx < x.getGroupedEntityDescriptions().size(); idx++)
+     {
+        this.groupedEntityDescriptions.add( new edu.nps.moves.dis.VariableDatum((edu.nps.moves.jaxb.dis.VariableDatum) x.getGroupedEntityDescriptions().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IsGroupOfPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IsGroupOfPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setGroupEntityID( this.getGroupEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setGroupedEntityCategory( this.getGroupedEntityCategory() );
+     x.setNumberOfGroupedEntities( this.getNumberOfGroupedEntities() );
+     x.setPad2( this.getPad2() );
+     x.setLatitude( this.getLatitude() );
+     x.setLongitude( this.getLongitude() );
+
+     List groupedEntityDescriptions_1 = x.getGroupedEntityDescriptions();
+     for(int idx = 0; idx < groupedEntityDescriptions.size(); idx++)
+     {
+         VariableDatum a = (edu.nps.moves.dis.VariableDatum)groupedEntityDescriptions.get(idx);
+         groupedEntityDescriptions_1.add(a.initializeJaxbObject(factory.createVariableDatum()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -78,6 +135,14 @@ public short getGroupedEntityCategory()
 
 public short getNumberOfGroupedEntities()
 { return (short)groupedEntityDescriptions.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfGroupedEntities method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfGroupedEntities(short pNumberOfGroupedEntities)
+{ numberOfGroupedEntities = pNumberOfGroupedEntities;
 }
 
 public void setPad2(long pPad2)

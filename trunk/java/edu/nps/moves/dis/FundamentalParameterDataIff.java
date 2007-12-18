@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.45. Fundamental IFF atc data
@@ -42,6 +43,43 @@ public class FundamentalParameterDataIff extends Object
  public FundamentalParameterDataIff()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public FundamentalParameterDataIff(edu.nps.moves.jaxb.dis.FundamentalParameterDataIff x)
+ {
+     this.erp = x.getErp();
+     this.frequency = x.getFrequency();
+     this.pgrf = x.getPgrf();
+     this.pulseWidth = x.getPulseWidth();
+     this.burstLength = x.getBurstLength();
+     this.applicableModes = x.getApplicableModes();
+     this.pad2 = x.getPad2();
+     this.pad3 = x.getPad3();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.FundamentalParameterDataIff initializeJaxbObject(edu.nps.moves.jaxb.dis.FundamentalParameterDataIff x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setErp( this.getErp() );
+     x.setFrequency( this.getFrequency() );
+     x.setPgrf( this.getPgrf() );
+     x.setPulseWidth( this.getPulseWidth() );
+     x.setBurstLength( this.getBurstLength() );
+     x.setApplicableModes( this.getApplicableModes() );
+     x.setPad2( this.getPad2() );
+     x.setPad3( this.getPad3() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

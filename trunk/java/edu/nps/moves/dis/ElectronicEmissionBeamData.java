@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Description of one electronic emission beam
@@ -47,6 +48,64 @@ public class ElectronicEmissionBeamData extends Object
  public ElectronicEmissionBeamData()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ElectronicEmissionBeamData(edu.nps.moves.jaxb.dis.ElectronicEmissionBeamData x)
+ {
+     this.beamDataLength = x.getBeamDataLength();
+     this.beamIDNumber = x.getBeamIDNumber();
+     this.beamParameterIndex = x.getBeamParameterIndex();
+
+     edu.nps.moves.dis.FundamentalParameterData foo_3;
+     if(x.getFundamentalParameterData() == null)
+        foo_3 = new edu.nps.moves.dis.FundamentalParameterData();
+      else
+        foo_3 = new edu.nps.moves.dis.FundamentalParameterData(x.getFundamentalParameterData() );
+     this.setFundamentalParameterData(foo_3);
+
+     this.beamFunction = x.getBeamFunction();
+     this.numberOfTrackJamTargets = x.getNumberOfTrackJamTargets();
+     this.highDensityTrackJam = x.getHighDensityTrackJam();
+     this.pad4 = x.getPad4();
+     this.jammingModeSequence = x.getJammingModeSequence();
+     this.trackJamTargets = new ArrayList();
+     for(int idx = 0; idx < x.getTrackJamTargets().size(); idx++)
+     {
+        this.trackJamTargets.add( new edu.nps.moves.dis.TrackJamTarget((edu.nps.moves.jaxb.dis.TrackJamTarget) x.getTrackJamTargets().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ElectronicEmissionBeamData initializeJaxbObject(edu.nps.moves.jaxb.dis.ElectronicEmissionBeamData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setBeamDataLength( this.getBeamDataLength() );
+     x.setBeamIDNumber( this.getBeamIDNumber() );
+     x.setBeamParameterIndex( this.getBeamParameterIndex() );
+     x.setFundamentalParameterData( this.getFundamentalParameterData().initializeJaxbObject(factory.createFundamentalParameterData()) );
+     x.setBeamFunction( this.getBeamFunction() );
+     x.setNumberOfTrackJamTargets( this.getNumberOfTrackJamTargets() );
+     x.setHighDensityTrackJam( this.getHighDensityTrackJam() );
+     x.setPad4( this.getPad4() );
+     x.setJammingModeSequence( this.getJammingModeSequence() );
+
+     List trackJamTargets_1 = x.getTrackJamTargets();
+     for(int idx = 0; idx < trackJamTargets.size(); idx++)
+     {
+         TrackJamTarget a = (edu.nps.moves.dis.TrackJamTarget)trackJamTargets.get(idx);
+         trackJamTargets_1.add(a.initializeJaxbObject(factory.createTrackJamTarget()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -112,6 +171,14 @@ public short getBeamFunction()
 
 public short getNumberOfTrackJamTargets()
 { return (short)trackJamTargets.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfTrackJamTargets method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfTrackJamTargets(short pNumberOfTrackJamTargets)
+{ numberOfTrackJamTargets = pNumberOfTrackJamTargets;
 }
 
 public void setHighDensityTrackJam(short pHighDensityTrackJam)

@@ -2,9 +2,10 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
- * Used in UAPdu
+ * Used in UaPdu
  *
  * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
@@ -36,6 +37,39 @@ public class AcousticBeamFundamentalParameter extends Object
  public AcousticBeamFundamentalParameter()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AcousticBeamFundamentalParameter(edu.nps.moves.jaxb.dis.AcousticBeamFundamentalParameter x)
+ {
+     this.activeEmissionParameterIndex = x.getActiveEmissionParameterIndex();
+     this.scanPattern = x.getScanPattern();
+     this.beamCenterAzimuth = x.getBeamCenterAzimuth();
+     this.azimuthalBeamwidth = x.getAzimuthalBeamwidth();
+     this.beamCenterDE = x.getBeamCenterDE();
+     this.deBeamwidth = x.getDeBeamwidth();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AcousticBeamFundamentalParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.AcousticBeamFundamentalParameter x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setActiveEmissionParameterIndex( this.getActiveEmissionParameterIndex() );
+     x.setScanPattern( this.getScanPattern() );
+     x.setBeamCenterAzimuth( this.getBeamCenterAzimuth() );
+     x.setAzimuthalBeamwidth( this.getAzimuthalBeamwidth() );
+     x.setBeamCenterDE( this.getBeamCenterDE() );
+     x.setDeBeamwidth( this.getDeBeamwidth() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

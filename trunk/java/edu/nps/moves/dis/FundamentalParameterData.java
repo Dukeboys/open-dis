@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.22. Contains electromagnetic emmision regineratin parameters that are        variable throughout a scenario dependent on the actions of the participants in the simulation. Also provides basic parametric data that may be used to support low-fidelity simulations.
@@ -48,6 +49,47 @@ public class FundamentalParameterData extends Object
  public FundamentalParameterData()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public FundamentalParameterData(edu.nps.moves.jaxb.dis.FundamentalParameterData x)
+ {
+     this.frequency = x.getFrequency();
+     this.frequencyRange = x.getFrequencyRange();
+     this.effectiveRadiatedPower = x.getEffectiveRadiatedPower();
+     this.pulseRepetitionFrequency = x.getPulseRepetitionFrequency();
+     this.pulseWidth = x.getPulseWidth();
+     this.beamAzimuthCenter = x.getBeamAzimuthCenter();
+     this.beamAzimuthSweep = x.getBeamAzimuthSweep();
+     this.beamElevationCenter = x.getBeamElevationCenter();
+     this.beamElevationSweep = x.getBeamElevationSweep();
+     this.beamSweepSync = x.getBeamSweepSync();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.FundamentalParameterData initializeJaxbObject(edu.nps.moves.jaxb.dis.FundamentalParameterData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setFrequency( this.getFrequency() );
+     x.setFrequencyRange( this.getFrequencyRange() );
+     x.setEffectiveRadiatedPower( this.getEffectiveRadiatedPower() );
+     x.setPulseRepetitionFrequency( this.getPulseRepetitionFrequency() );
+     x.setPulseWidth( this.getPulseWidth() );
+     x.setBeamAzimuthCenter( this.getBeamAzimuthCenter() );
+     x.setBeamAzimuthSweep( this.getBeamAzimuthSweep() );
+     x.setBeamElevationCenter( this.getBeamElevationCenter() );
+     x.setBeamElevationSweep( this.getBeamElevationSweep() );
+     x.setBeamSweepSync( this.getBeamSweepSync() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.12.13: A request for one or more records of data from an entity. COMPLETE
@@ -42,6 +43,57 @@ public class RecordQueryReliablePdu extends SimulationManagementWithReliabilityP
  {
     setPduType( (short)63 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public RecordQueryReliablePdu(edu.nps.moves.jaxb.dis.RecordQueryReliablePdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.requestID = x.getRequestID();
+     this.requiredReliabilityService = x.getRequiredReliabilityService();
+     this.pad1 = x.getPad1();
+     this.pad2 = x.getPad2();
+     this.eventType = x.getEventType();
+     this.time = x.getTime();
+     this.numberOfRecords = x.getNumberOfRecords();
+     this.recordIDs = new ArrayList();
+     for(int idx = 0; idx < x.getRecordIDs().size(); idx++)
+     {
+        this.recordIDs.add( new edu.nps.moves.dis.FourByteChunk((edu.nps.moves.jaxb.dis.FourByteChunk) x.getRecordIDs().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.RecordQueryReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RecordQueryReliablePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRequestID( this.getRequestID() );
+     x.setRequiredReliabilityService( this.getRequiredReliabilityService() );
+     x.setPad1( this.getPad1() );
+     x.setPad2( this.getPad2() );
+     x.setEventType( this.getEventType() );
+     x.setTime( this.getTime() );
+     x.setNumberOfRecords( this.getNumberOfRecords() );
+
+     List recordIDs_1 = x.getRecordIDs();
+     for(int idx = 0; idx < recordIDs.size(); idx++)
+     {
+         FourByteChunk a = (edu.nps.moves.dis.FourByteChunk)recordIDs.get(idx);
+         recordIDs_1.add(a.initializeJaxbObject(factory.createFourByteChunk()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -115,6 +167,14 @@ public long getTime()
 
 public long getNumberOfRecords()
 { return (long)recordIDs.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfRecords method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfRecords(long pNumberOfRecords)
+{ numberOfRecords = pNumberOfRecords;
 }
 
 public void setRecordIDs(List pRecordIDs)

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.3.1. Represents the postion and state of one entity in the world. COMPLETE
@@ -57,6 +58,123 @@ public class EntityStatePdu extends EntityInformationPdu
     setPduType( (short)1 );
  }
 
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public EntityStatePdu(edu.nps.moves.jaxb.dis.EntityStatePdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getEntityID() );
+     this.setEntityID(foo_0);
+
+     this.forceId = x.getForceId();
+     this.numberOfArticulationParameters = x.getNumberOfArticulationParameters();
+
+     edu.nps.moves.dis.EntityType foo_3;
+     if(x.getEntityType() == null)
+        foo_3 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_3 = new edu.nps.moves.dis.EntityType(x.getEntityType() );
+     this.setEntityType(foo_3);
+
+
+     edu.nps.moves.dis.EntityType foo_4;
+     if(x.getAlternativeEntityType() == null)
+        foo_4 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_4 = new edu.nps.moves.dis.EntityType(x.getAlternativeEntityType() );
+     this.setAlternativeEntityType(foo_4);
+
+
+     edu.nps.moves.dis.Vector3Float foo_5;
+     if(x.getEntityLinearVelocity() == null)
+        foo_5 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_5 = new edu.nps.moves.dis.Vector3Float(x.getEntityLinearVelocity() );
+     this.setEntityLinearVelocity(foo_5);
+
+
+     edu.nps.moves.dis.Vector3Double foo_6;
+     if(x.getEntityLocation() == null)
+        foo_6 = new edu.nps.moves.dis.Vector3Double();
+      else
+        foo_6 = new edu.nps.moves.dis.Vector3Double(x.getEntityLocation() );
+     this.setEntityLocation(foo_6);
+
+
+     edu.nps.moves.dis.Orientation foo_7;
+     if(x.getEntityOrientation() == null)
+        foo_7 = new edu.nps.moves.dis.Orientation();
+      else
+        foo_7 = new edu.nps.moves.dis.Orientation(x.getEntityOrientation() );
+     this.setEntityOrientation(foo_7);
+
+     this.entityAppearance = x.getEntityAppearance();
+
+     edu.nps.moves.dis.DeadReckoningParameter foo_9;
+     if(x.getDeadReckoningParameters() == null)
+        foo_9 = new edu.nps.moves.dis.DeadReckoningParameter();
+      else
+        foo_9 = new edu.nps.moves.dis.DeadReckoningParameter(x.getDeadReckoningParameters() );
+     this.setDeadReckoningParameters(foo_9);
+
+
+     edu.nps.moves.dis.Marking foo_10;
+     if(x.getMarking() == null)
+        foo_10 = new edu.nps.moves.dis.Marking();
+      else
+        foo_10 = new edu.nps.moves.dis.Marking(x.getMarking() );
+     this.setMarking(foo_10);
+
+     this.capabilities = x.getCapabilities();
+     this.articulationParameters = new ArrayList();
+     for(int idx = 0; idx < x.getArticulationParameters().size(); idx++)
+     {
+        this.articulationParameters.add( new edu.nps.moves.dis.ArticulationParameter((edu.nps.moves.jaxb.dis.ArticulationParameter) x.getArticulationParameters().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.EntityStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.EntityStatePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEntityID( this.getEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setForceId( this.getForceId() );
+     x.setNumberOfArticulationParameters( this.getNumberOfArticulationParameters() );
+     x.setEntityType( this.getEntityType().initializeJaxbObject(factory.createEntityType()) );
+     x.setAlternativeEntityType( this.getAlternativeEntityType().initializeJaxbObject(factory.createEntityType()) );
+     x.setEntityLinearVelocity( this.getEntityLinearVelocity().initializeJaxbObject(factory.createVector3Float()) );
+     x.setEntityLocation( this.getEntityLocation().initializeJaxbObject(factory.createVector3Double()) );
+     x.setEntityOrientation( this.getEntityOrientation().initializeJaxbObject(factory.createOrientation()) );
+     x.setEntityAppearance( this.getEntityAppearance() );
+     x.setDeadReckoningParameters( this.getDeadReckoningParameters().initializeJaxbObject(factory.createDeadReckoningParameter()) );
+     x.setMarking( this.getMarking().initializeJaxbObject(factory.createMarking()) );
+     x.setCapabilities( this.getCapabilities() );
+
+     List articulationParameters_1 = x.getArticulationParameters();
+     for(int idx = 0; idx < articulationParameters.size(); idx++)
+     {
+         ArticulationParameter a = (edu.nps.moves.dis.ArticulationParameter)articulationParameters.get(idx);
+         articulationParameters_1.add(a.initializeJaxbObject(factory.createArticulationParameter()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
+
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -101,6 +219,14 @@ public short getForceId()
 
 public byte getNumberOfArticulationParameters()
 { return (byte)articulationParameters.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfArticulationParameters(byte pNumberOfArticulationParameters)
+{ numberOfArticulationParameters = pNumberOfArticulationParameters;
 }
 
 public void setEntityType(EntityType pEntityType)

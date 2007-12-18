@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.7.5. SEES PDU, supplemental emissions entity state information. COMPLETE
@@ -41,6 +42,74 @@ public class SeesPdu extends DistributedEmissionsPdu
  {
     setPduType( (short)30 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public SeesPdu(edu.nps.moves.jaxb.dis.SeesPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getOrginatingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getOrginatingEntityID() );
+     this.setOrginatingEntityID(foo_0);
+
+     this.infraredSignatureRepresentationIndex = x.getInfraredSignatureRepresentationIndex();
+     this.acousticSignatureRepresentationIndex = x.getAcousticSignatureRepresentationIndex();
+     this.radarCrossSectionSignatureRepresentationIndex = x.getRadarCrossSectionSignatureRepresentationIndex();
+     this.numberOfPropulsionSystems = x.getNumberOfPropulsionSystems();
+     this.numberOfVectoringNozzleSystems = x.getNumberOfVectoringNozzleSystems();
+     this.propulsionSystemData = new ArrayList();
+     for(int idx = 0; idx < x.getPropulsionSystemData().size(); idx++)
+     {
+        this.propulsionSystemData.add( new edu.nps.moves.dis.PropulsionSystemData((edu.nps.moves.jaxb.dis.PropulsionSystemData) x.getPropulsionSystemData().get(idx)));
+     }
+     this.vectoringSystemData = new ArrayList();
+     for(int idx = 0; idx < x.getVectoringSystemData().size(); idx++)
+     {
+        this.vectoringSystemData.add( new edu.nps.moves.dis.VectoringNozzleSystemData((edu.nps.moves.jaxb.dis.VectoringNozzleSystemData) x.getVectoringSystemData().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.SeesPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.SeesPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setOrginatingEntityID( this.getOrginatingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setInfraredSignatureRepresentationIndex( this.getInfraredSignatureRepresentationIndex() );
+     x.setAcousticSignatureRepresentationIndex( this.getAcousticSignatureRepresentationIndex() );
+     x.setRadarCrossSectionSignatureRepresentationIndex( this.getRadarCrossSectionSignatureRepresentationIndex() );
+     x.setNumberOfPropulsionSystems( this.getNumberOfPropulsionSystems() );
+     x.setNumberOfVectoringNozzleSystems( this.getNumberOfVectoringNozzleSystems() );
+
+     List propulsionSystemData_1 = x.getPropulsionSystemData();
+     for(int idx = 0; idx < propulsionSystemData.size(); idx++)
+     {
+         PropulsionSystemData a = (edu.nps.moves.dis.PropulsionSystemData)propulsionSystemData.get(idx);
+         propulsionSystemData_1.add(a.initializeJaxbObject(factory.createPropulsionSystemData()));
+     }
+
+     List vectoringSystemData_1 = x.getVectoringSystemData();
+     for(int idx = 0; idx < vectoringSystemData.size(); idx++)
+     {
+         VectoringNozzleSystemData a = (edu.nps.moves.dis.VectoringNozzleSystemData)vectoringSystemData.get(idx);
+         vectoringSystemData_1.add(a.initializeJaxbObject(factory.createVectoringNozzleSystemData()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -103,8 +172,24 @@ public int getNumberOfPropulsionSystems()
 { return (int)propulsionSystemData.size();
 }
 
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfPropulsionSystems method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfPropulsionSystems(int pNumberOfPropulsionSystems)
+{ numberOfPropulsionSystems = pNumberOfPropulsionSystems;
+}
+
 public int getNumberOfVectoringNozzleSystems()
 { return (int)vectoringSystemData.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfVectoringNozzleSystems method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfVectoringNozzleSystems(int pNumberOfVectoringNozzleSystems)
+{ numberOfVectoringNozzleSystems = pNumberOfVectoringNozzleSystems;
 }
 
 public void setPropulsionSystemData(List pPropulsionSystemData)

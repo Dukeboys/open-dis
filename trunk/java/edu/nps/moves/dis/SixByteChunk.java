@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 48 bit piece of data
@@ -21,6 +22,38 @@ public class SixByteChunk extends Object
  public SixByteChunk()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public SixByteChunk(edu.nps.moves.jaxb.dis.SixByteChunk x)
+ {
+     this.otherParameters = new byte[6];
+     for(int idx = 0; idx < 6; idx++)
+     {
+         byte[] y = x.getOtherParameters();
+         this.otherParameters[idx] = y[idx];
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.SixByteChunk initializeJaxbObject(edu.nps.moves.jaxb.dis.SixByteChunk x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setOtherParameters( new byte[6]);
+     for(int idx = 0; idx < 6; idx++)
+     {
+         x.getOtherParameters()[idx] = this.otherParameters[idx];
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

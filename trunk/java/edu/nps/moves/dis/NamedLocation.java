@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * discrete ostional relationsihip 
@@ -24,6 +25,31 @@ public class NamedLocation extends Object
  public NamedLocation()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public NamedLocation(edu.nps.moves.jaxb.dis.NamedLocation x)
+ {
+     this.stationName = x.getStationName();
+     this.stationNumber = x.getStationNumber();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.NamedLocation initializeJaxbObject(edu.nps.moves.jaxb.dis.NamedLocation x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setStationName( this.getStationName() );
+     x.setStationNumber( this.getStationNumber() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

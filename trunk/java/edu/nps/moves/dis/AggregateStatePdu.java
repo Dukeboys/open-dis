@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.9.1 informationa bout aggregating entities anc communicating information about the aggregated entities.        requires manual intervention to fix the padding between entityID lists and silent aggregate sysem lists--this padding        is dependent on how many entityIDs there are, and needs to be on a 32 bit word boundary. UNFINISHED
@@ -77,6 +78,172 @@ public class AggregateStatePdu extends EntityManagementFamilyPdu
  {
     setPduType( (short)33 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AggregateStatePdu(edu.nps.moves.jaxb.dis.AggregateStatePdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getAggregateID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getAggregateID() );
+     this.setAggregateID(foo_0);
+
+     this.forceID = x.getForceID();
+     this.aggregateState = x.getAggregateState();
+
+     edu.nps.moves.dis.EntityType foo_3;
+     if(x.getAggregateType() == null)
+        foo_3 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_3 = new edu.nps.moves.dis.EntityType(x.getAggregateType() );
+     this.setAggregateType(foo_3);
+
+     this.formation = x.getFormation();
+
+     edu.nps.moves.dis.AggregateMarking foo_5;
+     if(x.getAggregateMarking() == null)
+        foo_5 = new edu.nps.moves.dis.AggregateMarking();
+      else
+        foo_5 = new edu.nps.moves.dis.AggregateMarking(x.getAggregateMarking() );
+     this.setAggregateMarking(foo_5);
+
+
+     edu.nps.moves.dis.Vector3Float foo_6;
+     if(x.getDimensions() == null)
+        foo_6 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_6 = new edu.nps.moves.dis.Vector3Float(x.getDimensions() );
+     this.setDimensions(foo_6);
+
+
+     edu.nps.moves.dis.Orientation foo_7;
+     if(x.getOrientation() == null)
+        foo_7 = new edu.nps.moves.dis.Orientation();
+      else
+        foo_7 = new edu.nps.moves.dis.Orientation(x.getOrientation() );
+     this.setOrientation(foo_7);
+
+
+     edu.nps.moves.dis.Vector3Double foo_8;
+     if(x.getCenterOfMass() == null)
+        foo_8 = new edu.nps.moves.dis.Vector3Double();
+      else
+        foo_8 = new edu.nps.moves.dis.Vector3Double(x.getCenterOfMass() );
+     this.setCenterOfMass(foo_8);
+
+
+     edu.nps.moves.dis.Vector3Float foo_9;
+     if(x.getVelocity() == null)
+        foo_9 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_9 = new edu.nps.moves.dis.Vector3Float(x.getVelocity() );
+     this.setVelocity(foo_9);
+
+     this.numberOfDisAggregates = x.getNumberOfDisAggregates();
+     this.numberOfDisEntities = x.getNumberOfDisEntities();
+     this.numberOfSilentAggregateTypes = x.getNumberOfSilentAggregateTypes();
+     this.numberOfSilentEntityTypes = x.getNumberOfSilentEntityTypes();
+     this.aggregateIDList = new ArrayList();
+     for(int idx = 0; idx < x.getAggregateIDList().size(); idx++)
+     {
+        this.aggregateIDList.add( new edu.nps.moves.dis.AggregateID((edu.nps.moves.jaxb.dis.AggregateID) x.getAggregateIDList().get(idx)));
+     }
+     this.entityIDList = new ArrayList();
+     for(int idx = 0; idx < x.getEntityIDList().size(); idx++)
+     {
+        this.entityIDList.add( new edu.nps.moves.dis.EntityID((edu.nps.moves.jaxb.dis.EntityID) x.getEntityIDList().get(idx)));
+     }
+     this.pad2 = x.getPad2();
+     this.silentAggregateSystemList = new ArrayList();
+     for(int idx = 0; idx < x.getSilentAggregateSystemList().size(); idx++)
+     {
+        this.silentAggregateSystemList.add( new edu.nps.moves.dis.EntityType((edu.nps.moves.jaxb.dis.EntityType) x.getSilentAggregateSystemList().get(idx)));
+     }
+     this.silentEntitySystemList = new ArrayList();
+     for(int idx = 0; idx < x.getSilentEntitySystemList().size(); idx++)
+     {
+        this.silentEntitySystemList.add( new edu.nps.moves.dis.EntityType((edu.nps.moves.jaxb.dis.EntityType) x.getSilentEntitySystemList().get(idx)));
+     }
+     this.numberOfVariableDatumRecords = x.getNumberOfVariableDatumRecords();
+     this.variableDatumList = new ArrayList();
+     for(int idx = 0; idx < x.getVariableDatumList().size(); idx++)
+     {
+        this.variableDatumList.add( new edu.nps.moves.dis.VariableDatum((edu.nps.moves.jaxb.dis.VariableDatum) x.getVariableDatumList().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AggregateStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.AggregateStatePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setAggregateID( this.getAggregateID().initializeJaxbObject(factory.createEntityID()) );
+     x.setForceID( this.getForceID() );
+     x.setAggregateState( this.getAggregateState() );
+     x.setAggregateType( this.getAggregateType().initializeJaxbObject(factory.createEntityType()) );
+     x.setFormation( this.getFormation() );
+     x.setAggregateMarking( this.getAggregateMarking().initializeJaxbObject(factory.createAggregateMarking()) );
+     x.setDimensions( this.getDimensions().initializeJaxbObject(factory.createVector3Float()) );
+     x.setOrientation( this.getOrientation().initializeJaxbObject(factory.createOrientation()) );
+     x.setCenterOfMass( this.getCenterOfMass().initializeJaxbObject(factory.createVector3Double()) );
+     x.setVelocity( this.getVelocity().initializeJaxbObject(factory.createVector3Float()) );
+     x.setNumberOfDisAggregates( this.getNumberOfDisAggregates() );
+     x.setNumberOfDisEntities( this.getNumberOfDisEntities() );
+     x.setNumberOfSilentAggregateTypes( this.getNumberOfSilentAggregateTypes() );
+     x.setNumberOfSilentEntityTypes( this.getNumberOfSilentEntityTypes() );
+
+     List aggregateIDList_1 = x.getAggregateIDList();
+     for(int idx = 0; idx < aggregateIDList.size(); idx++)
+     {
+         AggregateID a = (edu.nps.moves.dis.AggregateID)aggregateIDList.get(idx);
+         aggregateIDList_1.add(a.initializeJaxbObject(factory.createAggregateID()));
+     }
+
+     List entityIDList_1 = x.getEntityIDList();
+     for(int idx = 0; idx < entityIDList.size(); idx++)
+     {
+         EntityID a = (edu.nps.moves.dis.EntityID)entityIDList.get(idx);
+         entityIDList_1.add(a.initializeJaxbObject(factory.createEntityID()));
+     }
+     x.setPad2( this.getPad2() );
+
+     List silentAggregateSystemList_1 = x.getSilentAggregateSystemList();
+     for(int idx = 0; idx < silentAggregateSystemList.size(); idx++)
+     {
+         EntityType a = (edu.nps.moves.dis.EntityType)silentAggregateSystemList.get(idx);
+         silentAggregateSystemList_1.add(a.initializeJaxbObject(factory.createEntityType()));
+     }
+
+     List silentEntitySystemList_1 = x.getSilentEntitySystemList();
+     for(int idx = 0; idx < silentEntitySystemList.size(); idx++)
+     {
+         EntityType a = (edu.nps.moves.dis.EntityType)silentEntitySystemList.get(idx);
+         silentEntitySystemList_1.add(a.initializeJaxbObject(factory.createEntityType()));
+     }
+     x.setNumberOfVariableDatumRecords( this.getNumberOfVariableDatumRecords() );
+
+     List variableDatumList_1 = x.getVariableDatumList();
+     for(int idx = 0; idx < variableDatumList.size(); idx++)
+     {
+         VariableDatum a = (edu.nps.moves.dis.VariableDatum)variableDatumList.get(idx);
+         variableDatumList_1.add(a.initializeJaxbObject(factory.createVariableDatum()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -206,16 +373,48 @@ public int getNumberOfDisAggregates()
 { return (int)aggregateIDList.size();
 }
 
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfDisAggregates method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfDisAggregates(int pNumberOfDisAggregates)
+{ numberOfDisAggregates = pNumberOfDisAggregates;
+}
+
 public int getNumberOfDisEntities()
 { return (int)entityIDList.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfDisEntities method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfDisEntities(int pNumberOfDisEntities)
+{ numberOfDisEntities = pNumberOfDisEntities;
 }
 
 public int getNumberOfSilentAggregateTypes()
 { return (int)silentAggregateSystemList.size();
 }
 
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfSilentAggregateTypes method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfSilentAggregateTypes(int pNumberOfSilentAggregateTypes)
+{ numberOfSilentAggregateTypes = pNumberOfSilentAggregateTypes;
+}
+
 public int getNumberOfSilentEntityTypes()
 { return (int)silentEntitySystemList.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfSilentEntityTypes method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfSilentEntityTypes(int pNumberOfSilentEntityTypes)
+{ numberOfSilentEntityTypes = pNumberOfSilentEntityTypes;
 }
 
 public void setAggregateIDList(List pAggregateIDList)
@@ -256,6 +455,14 @@ public List getSilentEntitySystemList()
 
 public long getNumberOfVariableDatumRecords()
 { return (long)variableDatumList.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfVariableDatumRecords(long pNumberOfVariableDatumRecords)
+{ numberOfVariableDatumRecords = pNumberOfVariableDatumRecords;
 }
 
 public void setVariableDatumList(List pVariableDatumList)

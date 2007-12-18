@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.4.2. Used when the antenna pattern type field has a value of 1. Specifies           the direction, patter, and polarization of radiation from an antenna.
@@ -38,6 +39,50 @@ public class BeamAntennaPattern extends Object
  public BeamAntennaPattern()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public BeamAntennaPattern(edu.nps.moves.jaxb.dis.BeamAntennaPattern x)
+ {
+
+     edu.nps.moves.dis.Orientation foo_0;
+     if(x.getBeamDirection() == null)
+        foo_0 = new edu.nps.moves.dis.Orientation();
+      else
+        foo_0 = new edu.nps.moves.dis.Orientation(x.getBeamDirection() );
+     this.setBeamDirection(foo_0);
+
+     this.azimuthBeamwidth = x.getAzimuthBeamwidth();
+     this.referenceSystem = x.getReferenceSystem();
+     this.padding1 = x.getPadding1();
+     this.padding2 = x.getPadding2();
+     this.ez = x.getEz();
+     this.ex = x.getEx();
+     this.phase = x.getPhase();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.BeamAntennaPattern initializeJaxbObject(edu.nps.moves.jaxb.dis.BeamAntennaPattern x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setBeamDirection( this.getBeamDirection().initializeJaxbObject(factory.createOrientation()) );
+     x.setAzimuthBeamwidth( this.getAzimuthBeamwidth() );
+     x.setReferenceSystem( this.getReferenceSystem() );
+     x.setPadding1( this.getPadding1() );
+     x.setPadding2( this.getPadding2() );
+     x.setEz( this.getEz() );
+     x.setEx( this.getEx() );
+     x.setPhase( this.getPhase() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

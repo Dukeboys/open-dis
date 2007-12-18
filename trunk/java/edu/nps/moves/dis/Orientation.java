@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.17. Three floating point values representing an orientation, psi, theta, and phi, aka the euler angles, in radians
@@ -24,6 +25,33 @@ public class Orientation extends Object
  public Orientation()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public Orientation(edu.nps.moves.jaxb.dis.Orientation x)
+ {
+     this.psi = x.getPsi();
+     this.theta = x.getTheta();
+     this.phi = x.getPhi();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.Orientation initializeJaxbObject(edu.nps.moves.jaxb.dis.Orientation x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setPsi( this.getPsi() );
+     x.setTheta( this.getTheta() );
+     x.setPhi( this.getPhi() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

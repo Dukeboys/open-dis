@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Identifies type of object. This is a shorter version of EntityType that omits the specific and extra fields.
@@ -33,6 +34,37 @@ public class ObjectType extends Object
  public ObjectType()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ObjectType(edu.nps.moves.jaxb.dis.ObjectType x)
+ {
+     this.entityKind = x.getEntityKind();
+     this.domain = x.getDomain();
+     this.country = x.getCountry();
+     this.category = x.getCategory();
+     this.subcategory = x.getSubcategory();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ObjectType initializeJaxbObject(edu.nps.moves.jaxb.dis.ObjectType x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEntityKind( this.getEntityKind() );
+     x.setDomain( this.getDomain() );
+     x.setCountry( this.getCountry() );
+     x.setCategory( this.getCategory() );
+     x.setSubcategory( this.getSubcategory() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Data about one electronic system
@@ -36,6 +37,63 @@ public class ElectronicEmissionSystemData extends Object
  {
  }
 
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ElectronicEmissionSystemData(edu.nps.moves.jaxb.dis.ElectronicEmissionSystemData x)
+ {
+     this.systemDataLength = x.getSystemDataLength();
+     this.numberOfBeams = x.getNumberOfBeams();
+     this.emissionsPadding2 = x.getEmissionsPadding2();
+
+     edu.nps.moves.dis.EmitterSystem foo_3;
+     if(x.getEmitterSystem() == null)
+        foo_3 = new edu.nps.moves.dis.EmitterSystem();
+      else
+        foo_3 = new edu.nps.moves.dis.EmitterSystem(x.getEmitterSystem() );
+     this.setEmitterSystem(foo_3);
+
+
+     edu.nps.moves.dis.Vector3Float foo_4;
+     if(x.getLocation() == null)
+        foo_4 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_4 = new edu.nps.moves.dis.Vector3Float(x.getLocation() );
+     this.setLocation(foo_4);
+
+     this.beamDataRecords = new ArrayList();
+     for(int idx = 0; idx < x.getBeamDataRecords().size(); idx++)
+     {
+        this.beamDataRecords.add( new edu.nps.moves.dis.ElectronicEmissionBeamData((edu.nps.moves.jaxb.dis.ElectronicEmissionBeamData) x.getBeamDataRecords().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ElectronicEmissionSystemData initializeJaxbObject(edu.nps.moves.jaxb.dis.ElectronicEmissionSystemData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSystemDataLength( this.getSystemDataLength() );
+     x.setNumberOfBeams( this.getNumberOfBeams() );
+     x.setEmissionsPadding2( this.getEmissionsPadding2() );
+     x.setEmitterSystem( this.getEmitterSystem().initializeJaxbObject(factory.createEmitterSystem()) );
+     x.setLocation( this.getLocation().initializeJaxbObject(factory.createVector3Float()) );
+
+     List beamDataRecords_1 = x.getBeamDataRecords();
+     for(int idx = 0; idx < beamDataRecords.size(); idx++)
+     {
+         ElectronicEmissionBeamData a = (edu.nps.moves.dis.ElectronicEmissionBeamData)beamDataRecords.get(idx);
+         beamDataRecords_1.add(a.initializeJaxbObject(factory.createElectronicEmissionBeamData()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
+
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -65,6 +123,14 @@ public short getSystemDataLength()
 
 public short getNumberOfBeams()
 { return (short)beamDataRecords.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfBeams method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfBeams(short pNumberOfBeams)
+{ numberOfBeams = pNumberOfBeams;
 }
 
 public void setEmissionsPadding2(int pEmissionsPadding2)

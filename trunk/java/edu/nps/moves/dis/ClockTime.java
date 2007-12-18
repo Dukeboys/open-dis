@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.8. Time measurements that exceed one hour. Hours is the number of           hours since January 1, 1970, UTC
@@ -24,6 +25,31 @@ public class ClockTime extends Object
  public ClockTime()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ClockTime(edu.nps.moves.jaxb.dis.ClockTime x)
+ {
+     this.hour = x.getHour();
+     this.timePastHour = x.getTimePastHour();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ClockTime initializeJaxbObject(edu.nps.moves.jaxb.dis.ClockTime x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setHour( this.getHour() );
+     x.setTimePastHour( this.getTimePastHour() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

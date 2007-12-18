@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.11.5: Information about the addition/modification of an oobject that is geometrically      achored to the terrain with a set of three or more points that come to a closure. COMPLETE
@@ -51,6 +52,105 @@ public class ArealObjectStatePdu extends SyntheticEnvironmentPduFamily
  {
     setPduType( (short)45 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ArealObjectStatePdu(edu.nps.moves.jaxb.dis.ArealObjectStatePdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getObjectID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getObjectID() );
+     this.setObjectID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getReferencedObjectID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getReferencedObjectID() );
+     this.setReferencedObjectID(foo_1);
+
+     this.updateNumber = x.getUpdateNumber();
+     this.forceID = x.getForceID();
+     this.modifications = x.getModifications();
+
+     edu.nps.moves.dis.EntityType foo_5;
+     if(x.getObjectType() == null)
+        foo_5 = new edu.nps.moves.dis.EntityType();
+      else
+        foo_5 = new edu.nps.moves.dis.EntityType(x.getObjectType() );
+     this.setObjectType(foo_5);
+
+
+     edu.nps.moves.dis.SixByteChunk foo_6;
+     if(x.getObjectAppearance() == null)
+        foo_6 = new edu.nps.moves.dis.SixByteChunk();
+      else
+        foo_6 = new edu.nps.moves.dis.SixByteChunk(x.getObjectAppearance() );
+     this.setObjectAppearance(foo_6);
+
+     this.numberOfPoints = x.getNumberOfPoints();
+
+     edu.nps.moves.dis.SimulationAddress foo_8;
+     if(x.getRequesterID() == null)
+        foo_8 = new edu.nps.moves.dis.SimulationAddress();
+      else
+        foo_8 = new edu.nps.moves.dis.SimulationAddress(x.getRequesterID() );
+     this.setRequesterID(foo_8);
+
+
+     edu.nps.moves.dis.SimulationAddress foo_9;
+     if(x.getReceivingID() == null)
+        foo_9 = new edu.nps.moves.dis.SimulationAddress();
+      else
+        foo_9 = new edu.nps.moves.dis.SimulationAddress(x.getReceivingID() );
+     this.setReceivingID(foo_9);
+
+     this.objectLocation = new ArrayList();
+     for(int idx = 0; idx < x.getObjectLocation().size(); idx++)
+     {
+        this.objectLocation.add( new edu.nps.moves.dis.Vector3Double((edu.nps.moves.jaxb.dis.Vector3Double) x.getObjectLocation().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ArealObjectStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.ArealObjectStatePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setObjectID( this.getObjectID().initializeJaxbObject(factory.createEntityID()) );
+     x.setReferencedObjectID( this.getReferencedObjectID().initializeJaxbObject(factory.createEntityID()) );
+     x.setUpdateNumber( this.getUpdateNumber() );
+     x.setForceID( this.getForceID() );
+     x.setModifications( this.getModifications() );
+     x.setObjectType( this.getObjectType().initializeJaxbObject(factory.createEntityType()) );
+     x.setObjectAppearance( this.getObjectAppearance().initializeJaxbObject(factory.createSixByteChunk()) );
+     x.setNumberOfPoints( this.getNumberOfPoints() );
+     x.setRequesterID( this.getRequesterID().initializeJaxbObject(factory.createSimulationAddress()) );
+     x.setReceivingID( this.getReceivingID().initializeJaxbObject(factory.createSimulationAddress()) );
+
+     List objectLocation_1 = x.getObjectLocation();
+     for(int idx = 0; idx < objectLocation.size(); idx++)
+     {
+         Vector3Double a = (edu.nps.moves.dis.Vector3Double)objectLocation.get(idx);
+         objectLocation_1.add(a.initializeJaxbObject(factory.createVector3Double()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -131,6 +231,14 @@ public SixByteChunk getObjectAppearance()
 
 public int getNumberOfPoints()
 { return (int)objectLocation.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfPoints method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfPoints(int pNumberOfPoints)
+{ numberOfPoints = pNumberOfPoints;
 }
 
 public void setRequesterID(SimulationAddress pRequesterID)

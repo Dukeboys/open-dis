@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * represents values used in dead reckoning algorithms
@@ -30,6 +31,58 @@ public class DeadReckoningParameter extends Object
  public DeadReckoningParameter()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public DeadReckoningParameter(edu.nps.moves.jaxb.dis.DeadReckoningParameter x)
+ {
+     this.deadReckoningAlgorithm = x.getDeadReckoningAlgorithm();
+     this.otherParameters = new byte[15];
+     for(int idx = 0; idx < 15; idx++)
+     {
+         byte[] y = x.getOtherParameters();
+         this.otherParameters[idx] = y[idx];
+     }
+
+     edu.nps.moves.dis.Vector3Float foo_2;
+     if(x.getEntityLinearAcceleration() == null)
+        foo_2 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_2 = new edu.nps.moves.dis.Vector3Float(x.getEntityLinearAcceleration() );
+     this.setEntityLinearAcceleration(foo_2);
+
+
+     edu.nps.moves.dis.Vector3Float foo_3;
+     if(x.getEntityAngularVelocity() == null)
+        foo_3 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_3 = new edu.nps.moves.dis.Vector3Float(x.getEntityAngularVelocity() );
+     this.setEntityAngularVelocity(foo_3);
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.DeadReckoningParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.DeadReckoningParameter x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setDeadReckoningAlgorithm( this.getDeadReckoningAlgorithm() );
+     x.setOtherParameters( new byte[15]);
+     for(int idx = 0; idx < 15; idx++)
+     {
+         x.getOtherParameters()[idx] = this.otherParameters[idx];
+     }
+     x.setEntityLinearAcceleration( this.getEntityLinearAcceleration().initializeJaxbObject(factory.createVector3Float()) );
+     x.setEntityAngularVelocity( this.getEntityAngularVelocity().initializeJaxbObject(factory.createVector3Float()) );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.8.3. Communication of a receiver state. COMPLETE
@@ -34,6 +35,48 @@ public class ReceiverPdu extends RadioCommunicationsPdu
  {
     setPduType( (short)27 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ReceiverPdu(edu.nps.moves.jaxb.dis.ReceiverPdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.receiverState = x.getReceiverState();
+     this.padding1 = x.getPadding1();
+     this.receivedPoser = x.getReceivedPoser();
+
+     edu.nps.moves.dis.EntityID foo_3;
+     if(x.getTransmitterEntityId() == null)
+        foo_3 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_3 = new edu.nps.moves.dis.EntityID(x.getTransmitterEntityId() );
+     this.setTransmitterEntityId(foo_3);
+
+     this.transmitterRadioId = x.getTransmitterRadioId();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ReceiverPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.ReceiverPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setReceiverState( this.getReceiverState() );
+     x.setPadding1( this.getPadding1() );
+     x.setReceivedPoser( this.getReceivedPoser() );
+     x.setTransmitterEntityId( this.getTransmitterEntityId().initializeJaxbObject(factory.createEntityID()) );
+     x.setTransmitterRadioId( this.getTransmitterRadioId() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

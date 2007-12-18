@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.37. Specifies the character set used inthe first byte, followed by up to 31 characters of text data.
@@ -24,6 +25,40 @@ public class AggregateMarking extends Object
  public AggregateMarking()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AggregateMarking(edu.nps.moves.jaxb.dis.AggregateMarking x)
+ {
+     this.characterSet = x.getCharacterSet();
+     this.characters = new byte[31];
+     for(int idx = 0; idx < 31; idx++)
+     {
+         byte[] y = x.getCharacters();
+         this.characters[idx] = y[idx];
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AggregateMarking initializeJaxbObject(edu.nps.moves.jaxb.dis.AggregateMarking x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setCharacterSet( this.getCharacterSet() );
+     x.setCharacters( new byte[31]);
+     for(int idx = 0; idx < 31; idx++)
+     {
+         x.getCharacters()[idx] = this.characters[idx];
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

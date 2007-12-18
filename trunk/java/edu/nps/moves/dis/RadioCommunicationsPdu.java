@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.8. Abstract superclass for radio communications PDUs.
@@ -25,6 +26,42 @@ public class RadioCommunicationsPdu extends Pdu
  {
     setProtocolFamily( (short)4 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public RadioCommunicationsPdu(edu.nps.moves.jaxb.dis.RadioCommunicationsPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getEntityId() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getEntityId() );
+     this.setEntityId(foo_0);
+
+     this.radioId = x.getRadioId();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.RadioCommunicationsPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RadioCommunicationsPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEntityId( this.getEntityId().initializeJaxbObject(factory.createEntityID()) );
+     x.setRadioId( this.getRadioId() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

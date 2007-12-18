@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.7.1. Information about active electronic warfare (EW) emissions and active EW countermeasures shall be communicated using an Electromagnetic Emission PDU. COMPLETE (I think)
@@ -33,6 +34,65 @@ public class ElectronicEmissionsPdu extends DistributedEmissionsPdu
  {
     setPduType( (short)23 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ElectronicEmissionsPdu(edu.nps.moves.jaxb.dis.ElectronicEmissionsPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getEmittingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getEmittingEntityID() );
+     this.setEmittingEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EventID foo_1;
+     if(x.getEventID() == null)
+        foo_1 = new edu.nps.moves.dis.EventID();
+      else
+        foo_1 = new edu.nps.moves.dis.EventID(x.getEventID() );
+     this.setEventID(foo_1);
+
+     this.stateUpdateIndicator = x.getStateUpdateIndicator();
+     this.numberOfSystems = x.getNumberOfSystems();
+     this.systems = new ArrayList();
+     for(int idx = 0; idx < x.getSystems().size(); idx++)
+     {
+        this.systems.add( new edu.nps.moves.dis.ElectronicEmissionSystemData((edu.nps.moves.jaxb.dis.ElectronicEmissionSystemData) x.getSystems().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ElectronicEmissionsPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.ElectronicEmissionsPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEmittingEntityID( this.getEmittingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setEventID( this.getEventID().initializeJaxbObject(factory.createEventID()) );
+     x.setStateUpdateIndicator( this.getStateUpdateIndicator() );
+     x.setNumberOfSystems( this.getNumberOfSystems() );
+
+     List systems_1 = x.getSystems();
+     for(int idx = 0; idx < systems.size(); idx++)
+     {
+         ElectronicEmissionSystemData a = (edu.nps.moves.dis.ElectronicEmissionSystemData)systems.get(idx);
+         systems_1.add(a.initializeJaxbObject(factory.createElectronicEmissionSystemData()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -77,6 +137,14 @@ public short getStateUpdateIndicator()
 
 public short getNumberOfSystems()
 { return (short)systems.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfSystems method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfSystems(short pNumberOfSystems)
+{ numberOfSystems = pNumberOfSystems;
 }
 
 public void setSystems(List pSystems)

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.5.1. Information about a request for supplies. COMPLETE
@@ -35,6 +36,67 @@ public class ServiceRequestPdu extends LogisticsPdu
  {
     setPduType( (short)5 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ServiceRequestPdu(edu.nps.moves.jaxb.dis.ServiceRequestPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getRequestingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getRequestingEntityID() );
+     this.setRequestingEntityID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getServicingEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getServicingEntityID() );
+     this.setServicingEntityID(foo_1);
+
+     this.serviceTypeRequested = x.getServiceTypeRequested();
+     this.numberOfSupplyTypes = x.getNumberOfSupplyTypes();
+     this.serviceRequestPadding = x.getServiceRequestPadding();
+     this.supplies = new ArrayList();
+     for(int idx = 0; idx < x.getSupplies().size(); idx++)
+     {
+        this.supplies.add( new edu.nps.moves.dis.SupplyQuantity((edu.nps.moves.jaxb.dis.SupplyQuantity) x.getSupplies().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ServiceRequestPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.ServiceRequestPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRequestingEntityID( this.getRequestingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setServicingEntityID( this.getServicingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setServiceTypeRequested( this.getServiceTypeRequested() );
+     x.setNumberOfSupplyTypes( this.getNumberOfSupplyTypes() );
+     x.setServiceRequestPadding( this.getServiceRequestPadding() );
+
+     List supplies_1 = x.getSupplies();
+     for(int idx = 0; idx < supplies.size(); idx++)
+     {
+         SupplyQuantity a = (edu.nps.moves.dis.SupplyQuantity)supplies.get(idx);
+         supplies_1.add(a.initializeJaxbObject(factory.createSupplyQuantity()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -80,6 +142,14 @@ public short getServiceTypeRequested()
 
 public short getNumberOfSupplyTypes()
 { return (short)supplies.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfSupplyTypes method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfSupplyTypes(short pNumberOfSupplyTypes)
+{ numberOfSupplyTypes = pNumberOfSupplyTypes;
 }
 
 public void setServiceRequestPadding(short pServiceRequestPadding)

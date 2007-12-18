@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.18. Identifies a unique event in a simulation via the combination of three values
@@ -27,6 +28,33 @@ public class EventID extends Object
  public EventID()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public EventID(edu.nps.moves.jaxb.dis.EventID x)
+ {
+     this.application = x.getApplication();
+     this.site = x.getSite();
+     this.eventNumber = x.getEventNumber();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.EventID initializeJaxbObject(edu.nps.moves.jaxb.dis.EventID x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setApplication( this.getApplication() );
+     x.setSite( this.getSite() );
+     x.setEventNumber( this.getEventNumber() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

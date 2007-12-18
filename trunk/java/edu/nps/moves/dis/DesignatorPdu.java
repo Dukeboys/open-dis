@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.7.2. Handles designating operations. COMPLETE
@@ -55,6 +56,90 @@ public class DesignatorPdu extends DistributedEmissionsPdu
  {
     setPduType( (short)24 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public DesignatorPdu(edu.nps.moves.jaxb.dis.DesignatorPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getDesignatingEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getDesignatingEntityID() );
+     this.setDesignatingEntityID(foo_0);
+
+     this.codeName = x.getCodeName();
+
+     edu.nps.moves.dis.EntityID foo_2;
+     if(x.getDesignatedEntityID() == null)
+        foo_2 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_2 = new edu.nps.moves.dis.EntityID(x.getDesignatedEntityID() );
+     this.setDesignatedEntityID(foo_2);
+
+     this.designatorCode = x.getDesignatorCode();
+     this.designatorPower = x.getDesignatorPower();
+     this.designatorWavelength = x.getDesignatorWavelength();
+
+     edu.nps.moves.dis.Vector3Float foo_6;
+     if(x.getDesignatorSpotWrtDesignated() == null)
+        foo_6 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_6 = new edu.nps.moves.dis.Vector3Float(x.getDesignatorSpotWrtDesignated() );
+     this.setDesignatorSpotWrtDesignated(foo_6);
+
+
+     edu.nps.moves.dis.Vector3Double foo_7;
+     if(x.getDesignatorSpotLocation() == null)
+        foo_7 = new edu.nps.moves.dis.Vector3Double();
+      else
+        foo_7 = new edu.nps.moves.dis.Vector3Double(x.getDesignatorSpotLocation() );
+     this.setDesignatorSpotLocation(foo_7);
+
+     this.deadReckoningAlgorithm = x.getDeadReckoningAlgorithm();
+     this.padding1 = x.getPadding1();
+     this.padding2 = x.getPadding2();
+
+     edu.nps.moves.dis.Vector3Float foo_11;
+     if(x.getEntityLinearAcceleration() == null)
+        foo_11 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_11 = new edu.nps.moves.dis.Vector3Float(x.getEntityLinearAcceleration() );
+     this.setEntityLinearAcceleration(foo_11);
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.DesignatorPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.DesignatorPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setDesignatingEntityID( this.getDesignatingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setCodeName( this.getCodeName() );
+     x.setDesignatedEntityID( this.getDesignatedEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setDesignatorCode( this.getDesignatorCode() );
+     x.setDesignatorPower( this.getDesignatorPower() );
+     x.setDesignatorWavelength( this.getDesignatorWavelength() );
+     x.setDesignatorSpotWrtDesignated( this.getDesignatorSpotWrtDesignated().initializeJaxbObject(factory.createVector3Float()) );
+     x.setDesignatorSpotLocation( this.getDesignatorSpotLocation().initializeJaxbObject(factory.createVector3Double()) );
+     x.setDeadReckoningAlgorithm( this.getDeadReckoningAlgorithm() );
+     x.setPadding1( this.getPadding1() );
+     x.setPadding2( this.getPadding2() );
+     x.setEntityLinearAcceleration( this.getEntityLinearAcceleration().initializeJaxbObject(factory.createVector3Float()) );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

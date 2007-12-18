@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.2: angular velocity measured in radians per second out each of the entity's own coordinate axes.
@@ -27,6 +28,33 @@ public class AngularVelocityVector extends Object
  public AngularVelocityVector()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AngularVelocityVector(edu.nps.moves.jaxb.dis.AngularVelocityVector x)
+ {
+     this.x = x.getX();
+     this.y = x.getY();
+     this.z = x.getZ();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AngularVelocityVector initializeJaxbObject(edu.nps.moves.jaxb.dis.AngularVelocityVector x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setX( this.getX() );
+     x.setY( this.getY() );
+     x.setZ( this.getZ() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

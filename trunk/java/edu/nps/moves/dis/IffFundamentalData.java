@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.42. Basic operational data ofr IFF ATC NAVAIDS
@@ -48,6 +49,47 @@ public class IffFundamentalData extends Object
  public IffFundamentalData()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IffFundamentalData(edu.nps.moves.jaxb.dis.IffFundamentalData x)
+ {
+     this.systemStatus = x.getSystemStatus();
+     this.alternateParameter4 = x.getAlternateParameter4();
+     this.informationLayers = x.getInformationLayers();
+     this.modifier = x.getModifier();
+     this.parameter1 = x.getParameter1();
+     this.parameter2 = x.getParameter2();
+     this.parameter3 = x.getParameter3();
+     this.parameter4 = x.getParameter4();
+     this.parameter5 = x.getParameter5();
+     this.parameter6 = x.getParameter6();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IffFundamentalData initializeJaxbObject(edu.nps.moves.jaxb.dis.IffFundamentalData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSystemStatus( this.getSystemStatus() );
+     x.setAlternateParameter4( this.getAlternateParameter4() );
+     x.setInformationLayers( this.getInformationLayers() );
+     x.setModifier( this.getModifier() );
+     x.setParameter1( this.getParameter1() );
+     x.setParameter2( this.getParameter2() );
+     x.setParameter3( this.getParameter3() );
+     x.setParameter4( this.getParameter4() );
+     x.setParameter5( this.getParameter5() );
+     x.setParameter6( this.getParameter6() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

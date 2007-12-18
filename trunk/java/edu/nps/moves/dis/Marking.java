@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.15. Specifies the character set used inthe first byte, followed by 11 characters of text data.
@@ -24,6 +25,40 @@ public class Marking extends Object
  public Marking()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public Marking(edu.nps.moves.jaxb.dis.Marking x)
+ {
+     this.characterSet = x.getCharacterSet();
+     this.characters = new byte[11];
+     for(int idx = 0; idx < 11; idx++)
+     {
+         byte[] y = x.getCharacters();
+         this.characters[idx] = y[idx];
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.Marking initializeJaxbObject(edu.nps.moves.jaxb.dis.Marking x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setCharacterSet( this.getCharacterSet() );
+     x.setCharacters( new byte[11]);
+     for(int idx = 0; idx < 11; idx++)
+     {
+         x.getCharacters()[idx] = this.characters[idx];
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

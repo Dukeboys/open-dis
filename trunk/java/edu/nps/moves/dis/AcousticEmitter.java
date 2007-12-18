@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.35. information about a specific UA emmtter
@@ -27,6 +28,33 @@ public class AcousticEmitter extends Object
  public AcousticEmitter()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AcousticEmitter(edu.nps.moves.jaxb.dis.AcousticEmitter x)
+ {
+     this.acousticName = x.getAcousticName();
+     this.function = x.getFunction();
+     this.acousticIdNumber = x.getAcousticIdNumber();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AcousticEmitter initializeJaxbObject(edu.nps.moves.jaxb.dis.AcousticEmitter x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setAcousticName( this.getAcousticName() );
+     x.setFunction( this.getFunction() );
+     x.setAcousticIdNumber( this.getAcousticIdNumber() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

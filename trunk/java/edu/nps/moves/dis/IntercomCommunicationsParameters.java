@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.46.  Intercom communcations parameters
@@ -27,6 +28,33 @@ public class IntercomCommunicationsParameters extends Object
  public IntercomCommunicationsParameters()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IntercomCommunicationsParameters(edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters x)
+ {
+     this.recordType = x.getRecordType();
+     this.recordLength = x.getRecordLength();
+     this.recordSpecificField = x.getRecordSpecificField();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters initializeJaxbObject(edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRecordType( this.getRecordType() );
+     x.setRecordLength( this.getRecordLength() );
+     x.setRecordSpecificField( this.getRecordSpecificField() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

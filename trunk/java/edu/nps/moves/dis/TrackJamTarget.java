@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * One track/jam target
@@ -27,6 +28,40 @@ public class TrackJamTarget extends Object
  public TrackJamTarget()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public TrackJamTarget(edu.nps.moves.jaxb.dis.TrackJamTarget x)
+ {
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getTrackJam() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getTrackJam() );
+     this.setTrackJam(foo_0);
+
+     this.emitterID = x.getEmitterID();
+     this.beamID = x.getBeamID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.TrackJamTarget initializeJaxbObject(edu.nps.moves.jaxb.dis.TrackJamTarget x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setTrackJam( this.getTrackJam().initializeJaxbObject(factory.createEntityID()) );
+     x.setEmitterID( this.getEmitterID() );
+     x.setBeamID( this.getBeamID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

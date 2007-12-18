@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Used in UA PDU
@@ -30,6 +31,42 @@ public class AcousticBeamData extends Object
  public AcousticBeamData()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AcousticBeamData(edu.nps.moves.jaxb.dis.AcousticBeamData x)
+ {
+     this.beamDataLength = x.getBeamDataLength();
+     this.beamIDNumber = x.getBeamIDNumber();
+     this.pad2 = x.getPad2();
+
+     edu.nps.moves.dis.AcousticBeamFundamentalParameter foo_3;
+     if(x.getFundamentalDataParameters() == null)
+        foo_3 = new edu.nps.moves.dis.AcousticBeamFundamentalParameter();
+      else
+        foo_3 = new edu.nps.moves.dis.AcousticBeamFundamentalParameter(x.getFundamentalDataParameters() );
+     this.setFundamentalDataParameters(foo_3);
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AcousticBeamData initializeJaxbObject(edu.nps.moves.jaxb.dis.AcousticBeamData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setBeamDataLength( this.getBeamDataLength() );
+     x.setBeamIDNumber( this.getBeamIDNumber() );
+     x.setPad2( this.getPad2() );
+     x.setFundamentalDataParameters( this.getFundamentalDataParameters().initializeJaxbObject(factory.createAcousticBeamFundamentalParameter()) );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

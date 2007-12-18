@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.5. Articulation parameters for  movable parts and attached parts of an entity. Specifes wether or not a change has occured,  the part identifcation of the articulated part to which it is attached, and the type and value of each parameter.
@@ -28,6 +29,37 @@ public class ArticulationParameter extends Object
  public ArticulationParameter()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public ArticulationParameter(edu.nps.moves.jaxb.dis.ArticulationParameter x)
+ {
+     this.parameterTypeDesignator = x.getParameterTypeDesignator();
+     this.changeIndicator = x.getChangeIndicator();
+     this.partAttachedTo = x.getPartAttachedTo();
+     this.parameterType = x.getParameterType();
+     this.parameterValue = x.getParameterValue();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.ArticulationParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.ArticulationParameter x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setParameterTypeDesignator( this.getParameterTypeDesignator() );
+     x.setChangeIndicator( this.getChangeIndicator() );
+     x.setPartAttachedTo( this.getPartAttachedTo() );
+     x.setParameterType( this.getParameterType() );
+     x.setParameterValue( this.getParameterValue() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

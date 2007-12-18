@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.10.4 proivde the means to request a retransmit of a minefield data pdu. COMPLETE
@@ -33,6 +34,65 @@ public class MinefieldResponseNackPdu extends MinefieldPduFamily
  {
     setPduType( (short)40 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public MinefieldResponseNackPdu(edu.nps.moves.jaxb.dis.MinefieldResponseNackPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getMinefieldID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getMinefieldID() );
+     this.setMinefieldID(foo_0);
+
+
+     edu.nps.moves.dis.EntityID foo_1;
+     if(x.getRequestingEntityID() == null)
+        foo_1 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_1 = new edu.nps.moves.dis.EntityID(x.getRequestingEntityID() );
+     this.setRequestingEntityID(foo_1);
+
+     this.requestID = x.getRequestID();
+     this.numberOfMissingPdus = x.getNumberOfMissingPdus();
+     this.missingPduSequenceNumbers = new ArrayList();
+     for(int idx = 0; idx < x.getMissingPduSequenceNumbers().size(); idx++)
+     {
+        this.missingPduSequenceNumbers.add( new edu.nps.moves.dis.EightByteChunk((edu.nps.moves.jaxb.dis.EightByteChunk) x.getMissingPduSequenceNumbers().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.MinefieldResponseNackPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.MinefieldResponseNackPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setMinefieldID( this.getMinefieldID().initializeJaxbObject(factory.createEntityID()) );
+     x.setRequestingEntityID( this.getRequestingEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setRequestID( this.getRequestID() );
+     x.setNumberOfMissingPdus( this.getNumberOfMissingPdus() );
+
+     List missingPduSequenceNumbers_1 = x.getMissingPduSequenceNumbers();
+     for(int idx = 0; idx < missingPduSequenceNumbers.size(); idx++)
+     {
+         EightByteChunk a = (edu.nps.moves.dis.EightByteChunk)missingPduSequenceNumbers.get(idx);
+         missingPduSequenceNumbers_1.add(a.initializeJaxbObject(factory.createEightByteChunk()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -77,6 +137,14 @@ public short getRequestID()
 
 public short getNumberOfMissingPdus()
 { return (short)missingPduSequenceNumbers.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfMissingPdus method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfMissingPdus(short pNumberOfMissingPdus)
+{ numberOfMissingPdus = pNumberOfMissingPdus;
 }
 
 public void setMissingPduSequenceNumbers(List pMissingPduSequenceNumbers)

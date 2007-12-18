@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.3.7.4.1: Navigational and IFF PDU. COMPLETE
@@ -37,6 +38,78 @@ public class IffAtcNavAidsLayer1Pdu extends DistributedEmissionsPdu
  {
     setPduType( (short)28 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IffAtcNavAidsLayer1Pdu(edu.nps.moves.jaxb.dis.IffAtcNavAidsLayer1Pdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getEmittingEntityId() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getEmittingEntityId() );
+     this.setEmittingEntityId(foo_0);
+
+
+     edu.nps.moves.dis.EventID foo_1;
+     if(x.getEventID() == null)
+        foo_1 = new edu.nps.moves.dis.EventID();
+      else
+        foo_1 = new edu.nps.moves.dis.EventID(x.getEventID() );
+     this.setEventID(foo_1);
+
+
+     edu.nps.moves.dis.Vector3Float foo_2;
+     if(x.getLocation() == null)
+        foo_2 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_2 = new edu.nps.moves.dis.Vector3Float(x.getLocation() );
+     this.setLocation(foo_2);
+
+
+     edu.nps.moves.dis.SystemID foo_3;
+     if(x.getSystemID() == null)
+        foo_3 = new edu.nps.moves.dis.SystemID();
+      else
+        foo_3 = new edu.nps.moves.dis.SystemID(x.getSystemID() );
+     this.setSystemID(foo_3);
+
+     this.pad2 = x.getPad2();
+
+     edu.nps.moves.dis.IffFundamentalData foo_5;
+     if(x.getFundamentalParameters() == null)
+        foo_5 = new edu.nps.moves.dis.IffFundamentalData();
+      else
+        foo_5 = new edu.nps.moves.dis.IffFundamentalData(x.getFundamentalParameters() );
+     this.setFundamentalParameters(foo_5);
+
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IffAtcNavAidsLayer1Pdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IffAtcNavAidsLayer1Pdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEmittingEntityId( this.getEmittingEntityId().initializeJaxbObject(factory.createEntityID()) );
+     x.setEventID( this.getEventID().initializeJaxbObject(factory.createEventID()) );
+     x.setLocation( this.getLocation().initializeJaxbObject(factory.createVector3Float()) );
+     x.setSystemID( this.getSystemID().initializeJaxbObject(factory.createSystemID()) );
+     x.setPad2( this.getPad2() );
+     x.setFundamentalParameters( this.getFundamentalParameters().initializeJaxbObject(factory.createIffFundamentalData()) );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

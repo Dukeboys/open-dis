@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.8.5. Detailed inofrmation about the state of an intercom device and the actions it is requestion         of another intercom device, or the response to a requested action. Required manual intervention to fix the intercom parameters,        which can be of varialbe length. UNFINSISHED
@@ -54,6 +55,79 @@ public class IntercomControlPdu extends RadioCommunicationsPdu
  {
     setPduType( (short)32 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IntercomControlPdu(edu.nps.moves.jaxb.dis.IntercomControlPdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.controlType = x.getControlType();
+     this.communicationsChannelType = x.getCommunicationsChannelType();
+
+     edu.nps.moves.dis.EntityID foo_2;
+     if(x.getSourceEntityID() == null)
+        foo_2 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_2 = new edu.nps.moves.dis.EntityID(x.getSourceEntityID() );
+     this.setSourceEntityID(foo_2);
+
+     this.sourceCommunicationsDeviceID = x.getSourceCommunicationsDeviceID();
+     this.sourceLineID = x.getSourceLineID();
+     this.transmitPriority = x.getTransmitPriority();
+     this.transmitLineState = x.getTransmitLineState();
+     this.command = x.getCommand();
+
+     edu.nps.moves.dis.EntityID foo_8;
+     if(x.getMasterEntityID() == null)
+        foo_8 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_8 = new edu.nps.moves.dis.EntityID(x.getMasterEntityID() );
+     this.setMasterEntityID(foo_8);
+
+     this.masterCommunicationsDeviceID = x.getMasterCommunicationsDeviceID();
+     this.intercomParametersLength = x.getIntercomParametersLength();
+     this.intercomParameters = new ArrayList();
+     for(int idx = 0; idx < x.getIntercomParameters().size(); idx++)
+     {
+        this.intercomParameters.add( new edu.nps.moves.dis.IntercomCommunicationsParameters((edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters) x.getIntercomParameters().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IntercomControlPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IntercomControlPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setControlType( this.getControlType() );
+     x.setCommunicationsChannelType( this.getCommunicationsChannelType() );
+     x.setSourceEntityID( this.getSourceEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setSourceCommunicationsDeviceID( this.getSourceCommunicationsDeviceID() );
+     x.setSourceLineID( this.getSourceLineID() );
+     x.setTransmitPriority( this.getTransmitPriority() );
+     x.setTransmitLineState( this.getTransmitLineState() );
+     x.setCommand( this.getCommand() );
+     x.setMasterEntityID( this.getMasterEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setMasterCommunicationsDeviceID( this.getMasterCommunicationsDeviceID() );
+     x.setIntercomParametersLength( this.getIntercomParametersLength() );
+
+     List intercomParameters_1 = x.getIntercomParameters();
+     for(int idx = 0; idx < intercomParameters.size(); idx++)
+     {
+         IntercomCommunicationsParameters a = (edu.nps.moves.dis.IntercomCommunicationsParameters)intercomParameters.get(idx);
+         intercomParameters_1.add(a.initializeJaxbObject(factory.createIntercomCommunicationsParameters()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -161,6 +235,14 @@ public int getMasterCommunicationsDeviceID()
 
 public long getIntercomParametersLength()
 { return (long)intercomParameters.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getintercomParametersLength method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setIntercomParametersLength(long pIntercomParametersLength)
+{ intercomParametersLength = pIntercomParametersLength;
 }
 
 public void setIntercomParameters(List pIntercomParameters)

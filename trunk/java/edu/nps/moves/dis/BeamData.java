@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.2.39. Specification of the data necessary to  describe the scan volume of an emitter.
@@ -33,6 +34,37 @@ public class BeamData extends Object
  public BeamData()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public BeamData(edu.nps.moves.jaxb.dis.BeamData x)
+ {
+     this.beamAzimuthCenter = x.getBeamAzimuthCenter();
+     this.beamAzimuthSweep = x.getBeamAzimuthSweep();
+     this.beamElevationCenter = x.getBeamElevationCenter();
+     this.beamElevationSweep = x.getBeamElevationSweep();
+     this.beamSweepSync = x.getBeamSweepSync();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.BeamData initializeJaxbObject(edu.nps.moves.jaxb.dis.BeamData x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setBeamAzimuthCenter( this.getBeamAzimuthCenter() );
+     x.setBeamAzimuthSweep( this.getBeamAzimuthSweep() );
+     x.setBeamElevationCenter( this.getBeamElevationCenter() );
+     x.setBeamElevationSweep( this.getBeamElevationSweep() );
+     x.setBeamSweepSync( this.getBeamSweepSync() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

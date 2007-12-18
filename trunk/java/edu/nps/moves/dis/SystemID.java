@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * 5.2.58. Used in IFF ATC PDU
@@ -30,6 +31,35 @@ public class SystemID extends Object
  public SystemID()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public SystemID(edu.nps.moves.jaxb.dis.SystemID x)
+ {
+     this.systemType = x.getSystemType();
+     this.systemName = x.getSystemName();
+     this.systemMode = x.getSystemMode();
+     this.changeOptions = x.getChangeOptions();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.SystemID initializeJaxbObject(edu.nps.moves.jaxb.dis.SystemID x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setSystemType( this.getSystemType() );
+     x.setSystemName( this.getSystemName() );
+     x.setSystemMode( this.getSystemMode() );
+     x.setChangeOptions( this.getChangeOptions() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.8.4. Actual transmission of intercome voice data. COMPLETE
@@ -42,6 +43,64 @@ public class IntercomSignalPdu extends RadioCommunicationsPdu
  {
     setPduType( (short)31 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public IntercomSignalPdu(edu.nps.moves.jaxb.dis.IntercomSignalPdu x)
+ {
+     super(x); // Call superclass constructor
+
+
+     edu.nps.moves.dis.EntityID foo_0;
+     if(x.getEntityID() == null)
+        foo_0 = new edu.nps.moves.dis.EntityID();
+      else
+        foo_0 = new edu.nps.moves.dis.EntityID(x.getEntityID() );
+     this.setEntityID(foo_0);
+
+     this.communicationsDeviceID = x.getCommunicationsDeviceID();
+     this.encodingScheme = x.getEncodingScheme();
+     this.TdlType = x.getTdlType();
+     this.sampleRate = x.getSampleRate();
+     this.dataLength = x.getDataLength();
+     this.samples = x.getSamples();
+     this.data = new ArrayList();
+     for(int idx = 0; idx < x.getData().size(); idx++)
+     {
+        this.data.add( new edu.nps.moves.dis.OneByteChunk((edu.nps.moves.jaxb.dis.OneByteChunk) x.getData().get(idx)));
+     }
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.IntercomSignalPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IntercomSignalPdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setEntityID( this.getEntityID().initializeJaxbObject(factory.createEntityID()) );
+     x.setCommunicationsDeviceID( this.getCommunicationsDeviceID() );
+     x.setEncodingScheme( this.getEncodingScheme() );
+     x.setTdlType( this.getTdlType() );
+     x.setSampleRate( this.getSampleRate() );
+     x.setDataLength( this.getDataLength() );
+     x.setSamples( this.getSamples() );
+
+     List data_1 = x.getData();
+     for(int idx = 0; idx < data.size(); idx++)
+     {
+         OneByteChunk a = (edu.nps.moves.dis.OneByteChunk)data.get(idx);
+         data_1.add(a.initializeJaxbObject(factory.createOneByteChunk()));
+     }
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
@@ -106,6 +165,14 @@ public long getSampleRate()
 
 public int getDataLength()
 { return (int)data.size();
+}
+
+/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getdataLength method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setDataLength(int pDataLength)
+{ dataLength = pDataLength;
 }
 
 public void setSamples(int pSamples)

@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Record sets, used in transfer control request PDU
@@ -36,6 +37,39 @@ public class RecordSet extends Object
  public RecordSet()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public RecordSet(edu.nps.moves.jaxb.dis.RecordSet x)
+ {
+     this.recordID = x.getRecordID();
+     this.recordSetSerialNumber = x.getRecordSetSerialNumber();
+     this.recordLength = x.getRecordLength();
+     this.recordCount = x.getRecordCount();
+     this.recordValues = x.getRecordValues();
+     this.pad4 = x.getPad4();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.RecordSet initializeJaxbObject(edu.nps.moves.jaxb.dis.RecordSet x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setRecordID( this.getRecordID() );
+     x.setRecordSetSerialNumber( this.getRecordSetSerialNumber() );
+     x.setRecordLength( this.getRecordLength() );
+     x.setRecordCount( this.getRecordCount() );
+     x.setRecordValues( this.getRecordValues() );
+     x.setPad4( this.getPad4() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {

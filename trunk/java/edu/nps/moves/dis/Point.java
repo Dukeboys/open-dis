@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * x,y point
@@ -24,6 +25,31 @@ public class Point extends Object
  public Point()
  {
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public Point(edu.nps.moves.jaxb.dis.Point x)
+ {
+     this.x = x.getX();
+     this.y = x.getY();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.Point initializeJaxbObject(edu.nps.moves.jaxb.dis.Point x)
+ {
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setX( this.getX() );
+     x.setY( this.getY() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
