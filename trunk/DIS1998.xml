@@ -5,7 +5,7 @@
 
 <classes>
 
-<java imports="java.util.*, java.io.*"
+<java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*"
       package="edu.nps.moves.dis"/>
       
 <cpp namespace="DIS"/>
@@ -821,7 +821,7 @@ receiver of the create entity to define the entity identifier number of the new 
      
 </class>
 
-<class name="AcousticBeamFundamentalParameter" inheritsFrom="root" comment="Used in UAPdu">
+<class name="AcousticBeamFundamentalParameter" inheritsFrom="root" comment="Used in UaPdu">
     
      <attribute name="activeEmissionParameterIndex" comment="parameter index">
         <primitive type="unsigned short"/>
@@ -850,7 +850,7 @@ receiver of the create entity to define the entity identifier number of the new 
 </class>
 
 
-<class name="APAData" inheritsFrom="root" comment="Used in UA PDU">
+<class name="ApaData" inheritsFrom="root" comment="Used in UA PDU">
     
     <attribute name="parameterIndex" comment="Index of APA parameter">
         <primitive type="unsigned short"/>
@@ -2374,7 +2374,7 @@ PduHeader record, section 5.2.29.">
   
 </class>
 
-<class name="UAPdu" inheritsFrom="DistributedEmissionsPdu" comment="Section 5.3.7.3. Information about underwater acoustic emmissions. This requires manual cleanup. 
+<class name="UaPdu" inheritsFrom="DistributedEmissionsPdu" comment="Section 5.3.7.3. Information about underwater acoustic emmissions. This requires manual cleanup. 
 The beam data records should ALL be a the finish, rather than attached to each emitter system. UNFINISHED">
     
     <initialValue name="pduType" value="29"/> 
@@ -2423,7 +2423,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   
   <attribute name="apaData" comment="apaData">
       <list type="variable" countFieldName="numberOfAPAs">
-          <classRef name="APAData"/>
+          <classRef name="ApaData"/>
       </list>
   </attribute>
   
