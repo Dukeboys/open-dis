@@ -7,7 +7,7 @@
 
 namespace DIS
 {
-// Used in UAPdu
+// Used in UaPdu
 
 // Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //

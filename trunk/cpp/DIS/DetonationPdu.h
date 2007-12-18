@@ -41,9 +41,6 @@ protected:
   // Describes munition used
   BurstDescriptor _burstDescriptor; 
 
-  // where the detonation is, in world coordinates
-  Vector3Double _locationInEntityCoordinates; 
-
   // result of the explosion
   unsigned char _detonationResult; 
 
@@ -82,10 +79,6 @@ protected:
     BurstDescriptor& getBurstDescriptor(); 
     const BurstDescriptor&  getBurstDescriptor() const; 
     void setBurstDescriptor(const BurstDescriptor    &pX);
-
-    Vector3Double& getLocationInEntityCoordinates(); 
-    const Vector3Double&  getLocationInEntityCoordinates() const; 
-    void setLocationInEntityCoordinates(const Vector3Double    &pX);
 
     unsigned char getDetonationResult() const; 
     void setDetonationResult(unsigned char pX); 

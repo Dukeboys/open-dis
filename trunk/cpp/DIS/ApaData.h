@@ -1,14 +1,13 @@
-#ifndef DISTRIBUTEDEMISSIONSPDU_H
-#define DISTRIBUTEDEMISSIONSPDU_H
+#ifndef APADATA_H
+#define APADATA_H
 
-#include <DIS/Pdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
 
 namespace DIS
 {
-// Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU
+// Used in UA PDU
 
 // Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
@@ -16,21 +15,33 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO DistributedEmissionsPdu : public Pdu
+class EXPORT_MACRO ApaData
 {
 protected:
+  // Index of APA parameter
+  unsigned short _parameterIndex; 
+
+  // Index of APA parameter
+  short _parameterValue; 
+
 
  public:
-    DistributedEmissionsPdu();
-    virtual ~DistributedEmissionsPdu();
+    ApaData();
+    virtual ~ApaData();
 
     virtual void marshal(DataStream& dataStream) const;
     virtual void unmarshal(DataStream& dataStream);
 
+    unsigned short getParameterIndex() const; 
+    void setParameterIndex(unsigned short pX); 
+
+    short getParameterValue() const; 
+    void setParameterValue(short pX); 
+
 
 virtual int getMarshalledSize() const;
 
-     bool operator  ==(const DistributedEmissionsPdu& rhs) const;
+     bool operator  ==(const ApaData& rhs) const;
 };
 }
 
