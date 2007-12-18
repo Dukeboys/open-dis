@@ -2,6 +2,7 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
+import edu.nps.moves.jaxb.dis.*;
 
 /**
  * Section 5.3.6.5. Acknowledge the receiptof a start/resume, stop/freeze, or RemoveEntityPDU. COMPLETE
@@ -28,6 +29,37 @@ public class AcknowledgePdu extends SimulationManagementPdu
  {
     setPduType( (short)15 );
  }
+
+/** 
+ * Constructor--takes a parallel jaxb object and returns an open-dis object 
+ * 1.4_sed_bait_start */
+ public AcknowledgePdu(edu.nps.moves.jaxb.dis.AcknowledgePdu x)
+ {
+     super(x); // Call superclass constructor
+
+     this.acknowledgeFlag = x.getAcknowledgeFlag();
+     this.responseFlag = x.getResponseFlag();
+     this.requestID = x.getRequestID();
+ }
+/* 1.4_sed_bait_end */
+
+
+/**
+ * returns a jaxb object intialized from this object, given an empty jaxb object
+ * 1.4_sed_bait_start **/
+ public edu.nps.moves.jaxb.dis.AcknowledgePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.AcknowledgePdu x)
+ {
+     super.initializeJaxbObject(x); // Call superclass initializer
+
+     ObjectFactory factory = new ObjectFactory();
+
+     x.setAcknowledgeFlag( this.getAcknowledgeFlag() );
+     x.setResponseFlag( this.getResponseFlag() );
+     x.setRequestID( this.getRequestID() );
+   return x;
+ }
+/* 1.4_sed_bait_end */
+
 
 public int getMarshalledSize()
 {
