@@ -13,6 +13,8 @@
 
 #include <DIS/Conversion.h>
 
+#include <iostream>
+
 namespace Example
 {
    enum T72_Articulation_Index

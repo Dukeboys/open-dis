@@ -1,5 +1,7 @@
 #include <Example/EntityStatePduProcessor.h>
 
+#include <iostream>
+
 using namespace Example;
 
 void EntityStatePduProcessor::Process(const DIS::Pdu& packet)
