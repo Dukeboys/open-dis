@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ActionRequestReliablePdu extends SimulationManagementWithReliabilityPduFamily
+public class ActionRequestReliablePdu extends SimulationManagementWithReliabilityFamilyPdu implements Serializable
 {
    /** level of reliability service used for this transaction */
    protected short  requiredReliabilityService;

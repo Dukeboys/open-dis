@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class SystemID extends Object
+public class SystemID extends Object implements Serializable
 {
    /** System Type */
    protected int  systemType;

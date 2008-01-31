@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class SupplyQuantity extends Object
+public class SupplyQuantity extends Object implements Serializable
 {
    /** Type of supply */
    protected EntityID  supplyType = new EntityID(); 

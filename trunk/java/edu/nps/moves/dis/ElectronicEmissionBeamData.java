@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ElectronicEmissionBeamData extends Object
+public class ElectronicEmissionBeamData extends Object implements Serializable
 {
    /** This field shall specify the length of this beams data in 32 bit words */
    protected short  beamDataLength;

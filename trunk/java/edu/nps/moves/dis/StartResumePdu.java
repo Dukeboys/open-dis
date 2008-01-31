@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class StartResumePdu extends SimulationManagementPdu
+public class StartResumePdu extends SimulationManagementFamilyPdu implements Serializable
 {
    /** UTC time at which the simulation shall start or resume */
    protected ClockTime  realWorldTime = new ClockTime(); 

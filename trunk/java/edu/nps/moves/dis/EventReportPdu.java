@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EventReportPdu extends SimulationManagementPdu
+public class EventReportPdu extends SimulationManagementFamilyPdu implements Serializable
 {
    /** Type of event */
    protected long  eventType;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ResupplyCancelPdu extends LogisticsPdu
+public class ResupplyCancelPdu extends LogisticsFamilyPdu implements Serializable
 {
    /** Entity that is receiving service */
    protected EntityID  receivingEntityID = new EntityID(); 

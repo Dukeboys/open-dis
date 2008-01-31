@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class LayerHeader extends Object
+public class LayerHeader extends Object implements Serializable
 {
    /** Layer number */
    protected short  layerNumber;

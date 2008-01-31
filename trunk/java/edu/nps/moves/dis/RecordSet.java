@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class RecordSet extends Object
+public class RecordSet extends Object implements Serializable
 {
    /** record ID */
    protected long  recordID;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IntercomCommunicationsParameters extends Object
+public class IntercomCommunicationsParameters extends Object implements Serializable
 {
    /** Type of intercom parameters record */
    protected int  recordType;

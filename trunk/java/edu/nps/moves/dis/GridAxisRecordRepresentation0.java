@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class GridAxisRecordRepresentation0 extends GridAxisRecord
+public class GridAxisRecordRepresentation0 extends GridAxisRecord implements Serializable
 {
    /** number of bytes of environmental state data */
    protected int  numberOfBytes;

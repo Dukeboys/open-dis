@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AggregateMarking extends Object
+public class AggregateMarking extends Object implements Serializable
 {
    /** The character set */
    protected short  characterSet;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class Vector3Float extends Object
+public class Vector3Float extends Object implements Serializable
 {
    /** X value */
    protected float  x;

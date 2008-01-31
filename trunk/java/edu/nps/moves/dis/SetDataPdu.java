@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class SetDataPdu extends SimulationManagementPdu
+public class SetDataPdu extends SimulationManagementFamilyPdu implements Serializable
 {
    /** ID of request */
    protected long  requestID;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class LinearSegmentParameter extends Object
+public class LinearSegmentParameter extends Object implements Serializable
 {
    /** number of segments */
    protected short  segmentNumber;

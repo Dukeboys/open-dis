@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class PropulsionSystemData extends Object
+public class PropulsionSystemData extends Object implements Serializable
 {
    /** powerSetting */
    protected float  powerSetting;

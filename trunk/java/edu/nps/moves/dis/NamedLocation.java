@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class NamedLocation extends Object
+public class NamedLocation extends Object implements Serializable
 {
    /** station name enumeration */
    protected int  stationName;

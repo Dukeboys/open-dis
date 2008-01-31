@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EntityManagementFamilyPdu extends Pdu
+public class EntityManagementFamilyPdu extends Pdu implements Serializable
 {
 
 /** Constructor */

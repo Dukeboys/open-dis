@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class BurstDescriptor extends Object
+public class BurstDescriptor extends Object implements Serializable
 {
    /** What munition was used in the burst */
    protected EntityType  munition = new EntityType(); 

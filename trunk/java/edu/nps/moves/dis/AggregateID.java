@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AggregateID extends Object
+public class AggregateID extends Object implements Serializable
 {
    /** The site ID */
    protected int  site;

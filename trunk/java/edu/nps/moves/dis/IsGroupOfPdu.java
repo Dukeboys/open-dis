@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IsGroupOfPdu extends EntityManagementFamilyPdu
+public class IsGroupOfPdu extends EntityManagementFamilyPdu implements Serializable
 {
    /** ID of aggregated entities */
    protected EntityID  groupEntityID = new EntityID(); 

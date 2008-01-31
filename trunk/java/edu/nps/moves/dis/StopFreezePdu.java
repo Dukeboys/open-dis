@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class StopFreezePdu extends SimulationManagementPdu
+public class StopFreezePdu extends SimulationManagementFamilyPdu implements Serializable
 {
    /** UTC time at which the simulation shall stop or freeze */
    protected ClockTime  realWorldTime = new ClockTime(); 

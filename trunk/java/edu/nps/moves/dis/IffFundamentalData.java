@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IffFundamentalData extends Object
+public class IffFundamentalData extends Object implements Serializable
 {
    /** system status */
    protected short  systemStatus;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class RadioEntityType extends Object
+public class RadioEntityType extends Object implements Serializable
 {
    /** Kind of entity */
    protected short  entityKind;

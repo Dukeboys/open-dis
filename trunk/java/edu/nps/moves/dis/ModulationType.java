@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ModulationType extends Object
+public class ModulationType extends Object implements Serializable
 {
    /** spread spectrum, 16 bit boolean array */
    protected int  spreadSpectrum;

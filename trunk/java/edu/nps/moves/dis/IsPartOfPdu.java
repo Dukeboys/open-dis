@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IsPartOfPdu extends EntityManagementFamilyPdu
+public class IsPartOfPdu extends EntityManagementFamilyPdu implements Serializable
 {
    /** ID of entity originating PDU */
    protected EntityID  orginatingEntityID = new EntityID(); 

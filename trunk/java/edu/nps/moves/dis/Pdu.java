@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class Pdu extends Object
+public class Pdu extends Object implements Serializable
 {
    /** The version of the protocol. 5=DIS-1995, 6=DIS-1998. */
    protected short  protocolVersion = 6;

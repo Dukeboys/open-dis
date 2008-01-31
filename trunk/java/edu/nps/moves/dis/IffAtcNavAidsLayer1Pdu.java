@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IffAtcNavAidsLayer1Pdu extends DistributedEmissionsPdu
+public class IffAtcNavAidsLayer1Pdu extends DistributedEmissionsFamilyPdu implements Serializable
 {
    /** ID of the entity that is the source of the emissions */
    protected EntityID  emittingEntityId = new EntityID(); 

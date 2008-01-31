@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class RemoveEntityPdu extends SimulationManagementPdu
+public class RemoveEntityPdu extends SimulationManagementFamilyPdu implements Serializable
 {
    /** Identifier for the request */
    protected long  requestID;

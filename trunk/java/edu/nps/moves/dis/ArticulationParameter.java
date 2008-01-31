@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ArticulationParameter extends Object
+public class ArticulationParameter extends Object implements Serializable
 {
    protected short  parameterTypeDesignator;
 

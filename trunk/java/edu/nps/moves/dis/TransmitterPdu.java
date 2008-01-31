@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class TransmitterPdu extends RadioCommunicationsPdu
+public class TransmitterPdu extends RadioCommunicationsFamilyPdu implements Serializable
 {
    /** linear accelleration of entity */
    protected RadioEntityType  radioEntityType = new RadioEntityType(); 

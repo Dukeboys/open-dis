@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ServiceRequestPdu extends LogisticsPdu
+public class ServiceRequestPdu extends LogisticsFamilyPdu implements Serializable
 {
    /** Entity that is requesting service */
    protected EntityID  requestingEntityID = new EntityID(); 

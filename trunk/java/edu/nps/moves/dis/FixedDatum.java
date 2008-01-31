@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class FixedDatum extends Object
+public class FixedDatum extends Object implements Serializable
 {
    /** ID of the fixed datum */
    protected long  fixedDatumID;

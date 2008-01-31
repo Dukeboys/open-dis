@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class Point extends Object
+public class Point extends Object implements Serializable
 {
    /** x */
    protected float  x;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class VectoringNozzleSystemData extends Object
+public class VectoringNozzleSystemData extends Object implements Serializable
 {
    /** horizontal deflection angle */
    protected float  horizontalDeflectionAngle;

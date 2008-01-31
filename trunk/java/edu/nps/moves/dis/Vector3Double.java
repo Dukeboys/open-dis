@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class Vector3Double extends Object
+public class Vector3Double extends Object implements Serializable
 {
    /** X value */
    protected double  x;

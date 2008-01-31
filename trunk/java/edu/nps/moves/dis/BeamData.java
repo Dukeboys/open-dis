@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class BeamData extends Object
+public class BeamData extends Object implements Serializable
 {
    /** Specifies the beam azimuth an elevation centers and corresponding half-angles     to describe the scan volume */
    protected float  beamAzimuthCenter;

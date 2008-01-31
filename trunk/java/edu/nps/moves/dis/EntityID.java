@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EntityID extends Object
+public class EntityID extends Object implements Serializable
 {
    /** The site ID */
    protected int  site;

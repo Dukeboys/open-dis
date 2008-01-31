@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IntercomControlPdu extends RadioCommunicationsPdu
+public class IntercomControlPdu extends RadioCommunicationsFamilyPdu implements Serializable
 {
    /** control type */
    protected short  controlType;

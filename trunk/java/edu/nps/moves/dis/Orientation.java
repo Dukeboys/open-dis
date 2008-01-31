@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class Orientation extends Object
+public class Orientation extends Object implements Serializable
 {
    protected float  psi;
 

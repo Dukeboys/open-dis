@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class DesignatorPdu extends DistributedEmissionsPdu
+public class DesignatorPdu extends DistributedEmissionsFamilyPdu implements Serializable
 {
    /** ID of the entity designating */
    protected EntityID  designatingEntityID = new EntityID(); 

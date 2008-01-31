@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class FundamentalParameterData extends Object
+public class FundamentalParameterData extends Object implements Serializable
 {
    /** center frequency of the emission in hertz. */
    protected float  frequency;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AcousticBeamData extends Object
+public class AcousticBeamData extends Object implements Serializable
 {
    /** beam data length */
    protected int  beamDataLength;

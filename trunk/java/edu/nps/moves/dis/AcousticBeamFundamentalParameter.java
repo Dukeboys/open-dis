@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AcousticBeamFundamentalParameter extends Object
+public class AcousticBeamFundamentalParameter extends Object implements Serializable
 {
    /** parameter index */
    protected int  activeEmissionParameterIndex;

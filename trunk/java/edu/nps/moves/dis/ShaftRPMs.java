@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ShaftRPMs extends Object
+public class ShaftRPMs extends Object implements Serializable
 {
    /** Current shaft RPMs */
    protected short  currentShaftRPMs;

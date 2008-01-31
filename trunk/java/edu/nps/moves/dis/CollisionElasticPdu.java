@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class CollisionElasticPdu extends EntityInformationPdu
+public class CollisionElasticPdu extends EntityInformationFamilyPdu implements Serializable
 {
    /** ID of the entity that issued the collision PDU */
    protected EntityID  issuingEntityID = new EntityID(); 

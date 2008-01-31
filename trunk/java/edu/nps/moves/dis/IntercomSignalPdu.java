@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IntercomSignalPdu extends RadioCommunicationsPdu
+public class IntercomSignalPdu extends RadioCommunicationsFamilyPdu implements Serializable
 {
    /** entity ID */
    protected EntityID  entityID = new EntityID(); 

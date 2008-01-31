@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ObjectType extends Object
+public class ObjectType extends Object implements Serializable
 {
    /** Kind of entity */
    protected short  entityKind;

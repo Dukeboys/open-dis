@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AngularVelocityVector extends Object
+public class AngularVelocityVector extends Object implements Serializable
 {
    /** velocity about the x axis */
    protected float  x = 0;

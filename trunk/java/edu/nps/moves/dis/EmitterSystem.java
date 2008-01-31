@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EmitterSystem extends Object
+public class EmitterSystem extends Object implements Serializable
 {
    /** Name of the emitter, 16 bit enumeration */
    protected int  emitterName;

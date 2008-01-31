@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class StartResumeReliablePdu extends SimulationManagementWithReliabilityPduFamily
+public class StartResumeReliablePdu extends SimulationManagementWithReliabilityFamilyPdu implements Serializable
 {
    /** time in real world for this operation to happen */
    protected ClockTime  realWorldTime = new ClockTime(); 

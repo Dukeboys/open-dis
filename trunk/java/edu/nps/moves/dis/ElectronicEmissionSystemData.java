@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ElectronicEmissionSystemData extends Object
+public class ElectronicEmissionSystemData extends Object implements Serializable
 {
    /** This field shall specify the length of this emitter system?s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
    protected short  systemDataLength;

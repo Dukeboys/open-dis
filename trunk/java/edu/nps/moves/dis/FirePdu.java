@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class FirePdu extends Warfare
+public class FirePdu extends WarfareFamilyPdu implements Serializable
 {
    /** ID of the munition that is being shot */
    protected EntityID  munitionID = new EntityID(); 

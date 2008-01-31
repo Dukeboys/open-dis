@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class GriddedDataPdu extends SyntheticEnvironmentPduFamily
+public class GriddedDataPdu extends SyntheticEnvironmentFamilyPdu implements Serializable
 {
    /** environmental simulation application ID */
    protected EntityID  environmentalSimulationApplicationID = new EntityID(); 

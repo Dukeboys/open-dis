@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AcousticEmitterSystem extends Object
+public class AcousticEmitterSystem extends Object implements Serializable
 {
    /** This field shall specify the system for a particular UA emitter. */
    protected int  acousticName;

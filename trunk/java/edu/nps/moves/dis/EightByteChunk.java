@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EightByteChunk extends Object
+public class EightByteChunk extends Object implements Serializable
 {
    /** Eight bytes of arbitrary data */
    protected byte[]  otherParameters = new byte[8]; 

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class TrackJamTarget extends Object
+public class TrackJamTarget extends Object implements Serializable
 {
    /** track/jam target */
    protected EntityID  trackJam = new EntityID(); 

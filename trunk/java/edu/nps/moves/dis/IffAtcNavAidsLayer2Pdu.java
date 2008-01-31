@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class IffAtcNavAidsLayer2Pdu extends IffAtcNavAidsLayer1Pdu
+public class IffAtcNavAidsLayer2Pdu extends IffAtcNavAidsLayer1Pdu implements Serializable
 {
    /** layer header */
    protected LayerHeader  layerHeader = new LayerHeader(); 

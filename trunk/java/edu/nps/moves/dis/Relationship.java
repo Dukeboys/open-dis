@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class Relationship extends Object
+public class Relationship extends Object implements Serializable
 {
    /** Nature of join */
    protected int  nature;

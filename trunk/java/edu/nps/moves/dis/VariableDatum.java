@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class VariableDatum extends Object
+public class VariableDatum extends Object implements Serializable
 {
    /** ID of the variable datum */
    protected long  variableDatumID;

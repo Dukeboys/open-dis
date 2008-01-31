@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class SignalPdu extends RadioCommunicationsPdu
+public class SignalPdu extends RadioCommunicationsFamilyPdu implements Serializable
 {
    /** encoding scheme used, and enumeration */
    protected int  encodingScheme;

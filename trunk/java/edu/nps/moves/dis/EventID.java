@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EventID extends Object
+public class EventID extends Object implements Serializable
 {
    /** The application ID */
    protected int  application;

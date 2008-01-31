@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class Environment extends Object
+public class Environment extends Object implements Serializable
 {
    /** Record type */
    protected long  environmentType;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class LinearObjectStatePdu extends SyntheticEnvironmentPduFamily
+public class LinearObjectStatePdu extends SyntheticEnvironmentFamilyPdu implements Serializable
 {
    /** Object in synthetic environment */
    protected EntityID  objectID = new EntityID(); 

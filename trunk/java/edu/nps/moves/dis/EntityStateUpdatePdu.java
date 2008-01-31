@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EntityStateUpdatePdu extends EntityInformationPdu
+public class EntityStateUpdatePdu extends EntityInformationFamilyPdu implements Serializable
 {
    /** This field shall identify the entity issuing the PDU */
    protected EntityID  entityID = new EntityID(); 

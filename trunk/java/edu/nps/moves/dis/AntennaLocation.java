@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AntennaLocation extends Object
+public class AntennaLocation extends Object implements Serializable
 {
    /** Location of the radiating portion of the antenna in world    coordinates */
    protected Vector3Double  antennaLocation = new Vector3Double(); 

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class FundamentalParameterDataIff extends Object
+public class FundamentalParameterDataIff extends Object implements Serializable
 {
    /** ERP */
    protected float  erp;

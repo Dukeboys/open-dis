@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class FastEntityStatePdu extends EntityInformationPdu
+public class FastEntityStatePdu extends EntityInformationFamilyPdu implements Serializable
 {
    /** The site ID */
    protected int  site;

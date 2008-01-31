@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AggregateType extends Object
+public class AggregateType extends Object implements Serializable
 {
    /** Kind of entity */
    protected short  aggregateKind;

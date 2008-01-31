@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class SphericalHarmonicAntennaPattern extends Object
+public class SphericalHarmonicAntennaPattern extends Object implements Serializable
 {
    protected byte  order;
 

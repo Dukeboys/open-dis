@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class SixByteChunk extends Object
+public class SixByteChunk extends Object implements Serializable
 {
    /** six bytes of arbitrary data */
    protected byte[]  otherParameters = new byte[6]; 

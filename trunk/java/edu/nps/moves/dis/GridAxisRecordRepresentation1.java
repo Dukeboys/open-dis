@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class GridAxisRecordRepresentation1 extends GridAxisRecord
+public class GridAxisRecordRepresentation1 extends GridAxisRecord implements Serializable
 {
    /** constant scale factor */
    protected float  fieldScale;

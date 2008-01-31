@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class DeadReckoningParameter extends Object
+public class DeadReckoningParameter extends Object implements Serializable
 {
    /** enumeration of what dead reckoning algorighm to use */
    protected short  deadReckoningAlgorithm;

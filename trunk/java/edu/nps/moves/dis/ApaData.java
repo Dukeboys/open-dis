@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ApaData extends Object
+public class ApaData extends Object implements Serializable
 {
    /** Index of APA parameter */
    protected int  parameterIndex;

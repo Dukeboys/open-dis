@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class SeesPdu extends DistributedEmissionsPdu
+public class SeesPdu extends DistributedEmissionsFamilyPdu implements Serializable
 {
    /** Originating entity ID */
    protected EntityID  orginatingEntityID = new EntityID(); 

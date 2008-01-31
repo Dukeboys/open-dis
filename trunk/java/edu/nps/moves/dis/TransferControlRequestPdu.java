@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class TransferControlRequestPdu extends EntityManagementFamilyPdu
+public class TransferControlRequestPdu extends EntityManagementFamilyPdu implements Serializable
 {
    /** ID of entity originating request */
    protected EntityID  orginatingEntityID = new EntityID(); 

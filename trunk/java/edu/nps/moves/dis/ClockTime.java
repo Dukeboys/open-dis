@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class ClockTime extends Object
+public class ClockTime extends Object implements Serializable
 {
    /** Hours in UTC */
    protected int  hour;

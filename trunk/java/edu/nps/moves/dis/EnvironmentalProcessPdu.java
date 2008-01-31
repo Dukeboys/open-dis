@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class EnvironmentalProcessPdu extends SyntheticEnvironmentPduFamily
+public class EnvironmentalProcessPdu extends SyntheticEnvironmentFamilyPdu implements Serializable
 {
    /** Environmental process ID */
    protected EntityID  environementalProcessID = new EntityID(); 

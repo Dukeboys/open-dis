@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class CommentReliablePdu extends SimulationManagementWithReliabilityPduFamily
+public class CommentReliablePdu extends SimulationManagementWithReliabilityFamilyPdu implements Serializable
 {
    /** Fixed datum record count */
    protected long  numberOfFixedDatumRecords;

@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AcousticEmitterSystemData extends Object
+public class AcousticEmitterSystemData extends Object implements Serializable
 {
    /** Length of emitter system data */
    protected short  emitterSystemDataLength;
