@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:complexType name="acknowledgePdu">
+  <xs:complexType name="acknowledgeReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementFamilyPdu">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="acknowledgeFlag" type="xs:int"/>
           <xs:element name="requestID" type="xs:long"/>
@@ -13,7 +13,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="simulationManagementFamilyPdu">
+  <xs:complexType name="simulationManagementWithReliabilityFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence>
@@ -42,29 +42,6 @@
       <xs:element name="entity" type="xs:int"/>
       <xs:element name="site" type="xs:int"/>
     </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="acknowledgeReliablePdu">
-    <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
-        <xs:sequence>
-          <xs:element name="acknowledgeFlag" type="xs:int"/>
-          <xs:element name="requestID" type="xs:long"/>
-          <xs:element name="responseFlag" type="xs:int"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="simulationManagementWithReliabilityFamilyPdu">
-    <xs:complexContent>
-      <xs:extension base="pdu">
-        <xs:sequence>
-          <xs:element name="originatingEntityID" type="entityID" minOccurs="0"/>
-          <xs:element name="receivingEntityID" type="entityID" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="acousticBeamData">
@@ -132,6 +109,17 @@
           <xs:element name="numberOfVariableDatumRecords" type="xs:long"/>
           <xs:element name="requestID" type="xs:long"/>
           <xs:element name="variableDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="simulationManagementFamilyPdu">
+    <xs:complexContent>
+      <xs:extension base="pdu">
+        <xs:sequence>
+          <xs:element name="originatingEntityID" type="entityID" minOccurs="0"/>
+          <xs:element name="receivingEntityID" type="entityID" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1171,7 +1159,7 @@
 
   <xs:complexType name="minefieldDataPdu">
     <xs:complexContent>
-      <xs:extension base="minfieldFamilyPdu">
+      <xs:extension base="minefieldFamilyPdu">
         <xs:sequence>
           <xs:element name="dataFilter" type="xs:long"/>
           <xs:element name="mineLocation" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -1192,7 +1180,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="minfieldFamilyPdu">
+  <xs:complexType name="minefieldFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence/>
@@ -1202,7 +1190,7 @@
 
   <xs:complexType name="minefieldQueryPdu">
     <xs:complexContent>
-      <xs:extension base="minfieldFamilyPdu">
+      <xs:extension base="minefieldFamilyPdu">
         <xs:sequence>
           <xs:element name="dataFilter" type="xs:long"/>
           <xs:element name="minefieldID" type="entityID" minOccurs="0"/>
@@ -1221,7 +1209,7 @@
 
   <xs:complexType name="minefieldResponseNackPdu">
     <xs:complexContent>
-      <xs:extension base="minfieldFamilyPdu">
+      <xs:extension base="minefieldFamilyPdu">
         <xs:sequence>
           <xs:element name="minefieldID" type="entityID" minOccurs="0"/>
           <xs:element name="missingPduSequenceNumbers" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -1235,7 +1223,7 @@
 
   <xs:complexType name="minefieldStatePdu">
     <xs:complexContent>
-      <xs:extension base="minfieldFamilyPdu">
+      <xs:extension base="minefieldFamilyPdu">
         <xs:sequence>
           <xs:element name="appearance" type="xs:int"/>
           <xs:element name="forceID" type="xs:short"/>
