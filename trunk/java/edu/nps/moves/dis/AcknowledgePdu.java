@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AcknowledgePdu extends SimulationManagementPdu
+public class AcknowledgePdu extends SimulationManagementFamilyPdu implements Serializable
 {
    /** type of message being acknowledged */
    protected int  acknowledgeFlag;
