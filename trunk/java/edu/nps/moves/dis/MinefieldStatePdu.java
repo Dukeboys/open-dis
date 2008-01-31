@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class MinefieldStatePdu extends MinfieldFamilyPdu implements Serializable
+public class MinefieldStatePdu extends MinefieldFamilyPdu implements Serializable
 {
    /** Minefield ID */
    protected EntityID  minefieldID = new EntityID(); 
