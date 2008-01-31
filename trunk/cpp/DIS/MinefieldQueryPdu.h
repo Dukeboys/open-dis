@@ -7,7 +7,7 @@
 #include <DIS/Point.h>
 #include <DIS/TwoByteChunk.h>
 #include <vector>
-#include <DIS/MinfieldFamilyPdu.h>
+#include <DIS/MinefieldFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -22,7 +22,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO MinefieldQueryPdu : public MinfieldFamilyPdu
+class EXPORT_MACRO MinefieldQueryPdu : public MinefieldFamilyPdu
 {
 protected:
   // Minefield ID

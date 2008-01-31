@@ -5,7 +5,7 @@
 #include <DIS/EntityID.h>
 #include <DIS/EightByteChunk.h>
 #include <vector>
-#include <DIS/MinfieldFamilyPdu.h>
+#include <DIS/MinefieldFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -20,7 +20,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO MinefieldResponseNackPdu : public MinfieldFamilyPdu
+class EXPORT_MACRO MinefieldResponseNackPdu : public MinefieldFamilyPdu
 {
 protected:
   // Minefield ID

@@ -8,7 +8,7 @@
 #include <DIS/Point.h>
 #include <DIS/EntityType.h>
 #include <vector>
-#include <DIS/MinfieldFamilyPdu.h>
+#include <DIS/MinefieldFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -23,7 +23,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO MinefieldStatePdu : public MinfieldFamilyPdu
+class EXPORT_MACRO MinefieldStatePdu : public MinefieldFamilyPdu
 {
 protected:
   // Minefield ID

@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-MinefieldQueryPdu::MinefieldQueryPdu() : MinfieldFamilyPdu(),
+MinefieldQueryPdu::MinefieldQueryPdu() : MinefieldFamilyPdu(),
    _minefieldID(), 
    _requestingEntityID(), 
    _requestID(0), 
@@ -139,7 +139,7 @@ void MinefieldQueryPdu::setSensorTypes(const std::vector<TwoByteChunk>& pX)
 
 void MinefieldQueryPdu::marshal(DataStream& dataStream) const
 {
-    MinfieldFamilyPdu::marshal(dataStream); // Marshal information in superclass first
+    MinefieldFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _minefieldID.marshal(dataStream);
     _requestingEntityID.marshal(dataStream);
     dataStream << _requestID;
@@ -166,7 +166,7 @@ void MinefieldQueryPdu::marshal(DataStream& dataStream) const
 
 void MinefieldQueryPdu::unmarshal(DataStream& dataStream)
 {
-    MinfieldFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    MinefieldFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _minefieldID.unmarshal(dataStream);
     _requestingEntityID.unmarshal(dataStream);
     dataStream >> _requestID;
@@ -198,7 +198,7 @@ bool MinefieldQueryPdu::operator ==(const MinefieldQueryPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = MinfieldFamilyPdu::operator==(rhs);
+     ivarsEqual = MinefieldFamilyPdu::operator==(rhs);
 
      if( ! (_minefieldID == rhs._minefieldID) ) ivarsEqual = false;
      if( ! (_requestingEntityID == rhs._requestingEntityID) ) ivarsEqual = false;
@@ -226,7 +226,7 @@ int MinefieldQueryPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = MinfieldFamilyPdu::getMarshalledSize();
+   marshalSize = MinefieldFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _minefieldID.getMarshalledSize();  // _minefieldID
    marshalSize = marshalSize + _requestingEntityID.getMarshalledSize();  // _requestingEntityID
    marshalSize = marshalSize + 1;  // _requestID
