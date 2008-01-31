@@ -59,7 +59,16 @@ public class PduFactory
         switch(pduTypeEnum)
         {
             case ESPDU: 
-                aPdu = new CollisionPdu();
+                // if the user has created the factory requesting that he get fast espdus back, give him those.
+                if(useFastEspdu == true)
+                {
+                   aPdu = new FastEntityStatePdu();
+                }
+                else
+                {
+                   aPdu = new EntityStatePdu();
+                }
+
                 aPdu.unmarshal(dis);
                 break;
                 
