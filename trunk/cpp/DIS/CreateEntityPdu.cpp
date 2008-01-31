@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-CreateEntityPdu::CreateEntityPdu() : SimulationManagementPdu(),
+CreateEntityPdu::CreateEntityPdu() : SimulationManagementFamilyPdu(),
    _requestID(0)
 {
     setPduType( 11 );
@@ -25,13 +25,13 @@ void CreateEntityPdu::setRequestID(unsigned int pX)
 
 void CreateEntityPdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _requestID;
 }
 
 void CreateEntityPdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _requestID;
 }
 
@@ -40,7 +40,7 @@ bool CreateEntityPdu::operator ==(const CreateEntityPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
      if( ! (_requestID == rhs._requestID) ) ivarsEqual = false;
 
@@ -51,7 +51,7 @@ int CreateEntityPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _requestID
     return marshalSize;
 }

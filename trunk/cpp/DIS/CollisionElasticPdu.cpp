@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-CollisionElasticPdu::CollisionElasticPdu() : EntityInformationPdu(),
+CollisionElasticPdu::CollisionElasticPdu() : EntityInformationFamilyPdu(),
    _issuingEntityID(), 
    _collidingEntityID(), 
    _collisionEventID(), 
@@ -210,7 +210,7 @@ void CollisionElasticPdu::setCoefficientOfRestitution(float pX)
 
 void CollisionElasticPdu::marshal(DataStream& dataStream) const
 {
-    EntityInformationPdu::marshal(dataStream); // Marshal information in superclass first
+    EntityInformationFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _issuingEntityID.marshal(dataStream);
     _collidingEntityID.marshal(dataStream);
     _collisionEventID.marshal(dataStream);
@@ -230,7 +230,7 @@ void CollisionElasticPdu::marshal(DataStream& dataStream) const
 
 void CollisionElasticPdu::unmarshal(DataStream& dataStream)
 {
-    EntityInformationPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    EntityInformationFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _issuingEntityID.unmarshal(dataStream);
     _collidingEntityID.unmarshal(dataStream);
     _collisionEventID.unmarshal(dataStream);
@@ -253,7 +253,7 @@ bool CollisionElasticPdu::operator ==(const CollisionElasticPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = EntityInformationPdu::operator==(rhs);
+     ivarsEqual = EntityInformationFamilyPdu::operator==(rhs);
 
      if( ! (_issuingEntityID == rhs._issuingEntityID) ) ivarsEqual = false;
      if( ! (_collidingEntityID == rhs._collidingEntityID) ) ivarsEqual = false;
@@ -278,7 +278,7 @@ int CollisionElasticPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = EntityInformationPdu::getMarshalledSize();
+   marshalSize = EntityInformationFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _issuingEntityID.getMarshalledSize();  // _issuingEntityID
    marshalSize = marshalSize + _collidingEntityID.getMarshalledSize();  // _collidingEntityID
    marshalSize = marshalSize + _collisionEventID.getMarshalledSize();  // _collisionEventID

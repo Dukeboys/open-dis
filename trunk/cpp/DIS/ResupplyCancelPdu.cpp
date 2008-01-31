@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ResupplyCancelPdu::ResupplyCancelPdu() : LogisticsPdu(),
+ResupplyCancelPdu::ResupplyCancelPdu() : LogisticsFamilyPdu(),
    _receivingEntityID(), 
    _supplyingEntityID()
 {
@@ -46,14 +46,14 @@ void ResupplyCancelPdu::setSupplyingEntityID(const EntityID &pX)
 
 void ResupplyCancelPdu::marshal(DataStream& dataStream) const
 {
-    LogisticsPdu::marshal(dataStream); // Marshal information in superclass first
+    LogisticsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _receivingEntityID.marshal(dataStream);
     _supplyingEntityID.marshal(dataStream);
 }
 
 void ResupplyCancelPdu::unmarshal(DataStream& dataStream)
 {
-    LogisticsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    LogisticsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _receivingEntityID.unmarshal(dataStream);
     _supplyingEntityID.unmarshal(dataStream);
 }
@@ -63,7 +63,7 @@ bool ResupplyCancelPdu::operator ==(const ResupplyCancelPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = LogisticsPdu::operator==(rhs);
+     ivarsEqual = LogisticsFamilyPdu::operator==(rhs);
 
      if( ! (_receivingEntityID == rhs._receivingEntityID) ) ivarsEqual = false;
      if( ! (_supplyingEntityID == rhs._supplyingEntityID) ) ivarsEqual = false;
@@ -75,7 +75,7 @@ int ResupplyCancelPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = LogisticsPdu::getMarshalledSize();
+   marshalSize = LogisticsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _receivingEntityID.getMarshalledSize();  // _receivingEntityID
    marshalSize = marshalSize + _supplyingEntityID.getMarshalledSize();  // _supplyingEntityID
     return marshalSize;

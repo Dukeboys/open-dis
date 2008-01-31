@@ -4,7 +4,7 @@
 #include <DIS/FixedDatum.h>
 #include <DIS/VariableDatum.h>
 #include <vector>
-#include <DIS/SimulationManagementPdu.h>
+#include <DIS/SimulationManagementFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -19,7 +19,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO SetDataPdu : public SimulationManagementPdu
+class EXPORT_MACRO SetDataPdu : public SimulationManagementFamilyPdu
 {
 protected:
   // ID of request

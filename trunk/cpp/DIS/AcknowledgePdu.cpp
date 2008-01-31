@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-AcknowledgePdu::AcknowledgePdu() : SimulationManagementPdu(),
+AcknowledgePdu::AcknowledgePdu() : SimulationManagementFamilyPdu(),
    _acknowledgeFlag(0), 
    _responseFlag(0), 
    _requestID(0)
@@ -47,7 +47,7 @@ void AcknowledgePdu::setRequestID(unsigned int pX)
 
 void AcknowledgePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _acknowledgeFlag;
     dataStream << _responseFlag;
     dataStream << _requestID;
@@ -55,7 +55,7 @@ void AcknowledgePdu::marshal(DataStream& dataStream) const
 
 void AcknowledgePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _acknowledgeFlag;
     dataStream >> _responseFlag;
     dataStream >> _requestID;
@@ -66,7 +66,7 @@ bool AcknowledgePdu::operator ==(const AcknowledgePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
      if( ! (_acknowledgeFlag == rhs._acknowledgeFlag) ) ivarsEqual = false;
      if( ! (_responseFlag == rhs._responseFlag) ) ivarsEqual = false;
@@ -79,7 +79,7 @@ int AcknowledgePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 2;  // _acknowledgeFlag
    marshalSize = marshalSize + 2;  // _responseFlag
    marshalSize = marshalSize + 4;  // _requestID

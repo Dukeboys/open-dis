@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ReceiverPdu::ReceiverPdu() : RadioCommunicationsPdu(),
+ReceiverPdu::ReceiverPdu() : RadioCommunicationsFamilyPdu(),
    _receiverState(0), 
    _padding1(0), 
    _receivedPoser(0.0), 
@@ -74,7 +74,7 @@ void ReceiverPdu::setTransmitterRadioId(unsigned short pX)
 
 void ReceiverPdu::marshal(DataStream& dataStream) const
 {
-    RadioCommunicationsPdu::marshal(dataStream); // Marshal information in superclass first
+    RadioCommunicationsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _receiverState;
     dataStream << _padding1;
     dataStream << _receivedPoser;
@@ -84,7 +84,7 @@ void ReceiverPdu::marshal(DataStream& dataStream) const
 
 void ReceiverPdu::unmarshal(DataStream& dataStream)
 {
-    RadioCommunicationsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    RadioCommunicationsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _receiverState;
     dataStream >> _padding1;
     dataStream >> _receivedPoser;
@@ -97,7 +97,7 @@ bool ReceiverPdu::operator ==(const ReceiverPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = RadioCommunicationsPdu::operator==(rhs);
+     ivarsEqual = RadioCommunicationsFamilyPdu::operator==(rhs);
 
      if( ! (_receiverState == rhs._receiverState) ) ivarsEqual = false;
      if( ! (_padding1 == rhs._padding1) ) ivarsEqual = false;
@@ -112,7 +112,7 @@ int ReceiverPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = RadioCommunicationsPdu::getMarshalledSize();
+   marshalSize = RadioCommunicationsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 2;  // _receiverState
    marshalSize = marshalSize + 2;  // _padding1
    marshalSize = marshalSize + 4;  // _receivedPoser

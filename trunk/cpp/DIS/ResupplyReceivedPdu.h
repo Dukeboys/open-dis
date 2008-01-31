@@ -5,7 +5,7 @@
 #include <DIS/EntityID.h>
 #include <DIS/SupplyQuantity.h>
 #include <vector>
-#include <DIS/LogisticsPdu.h>
+#include <DIS/LogisticsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -20,7 +20,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO ResupplyReceivedPdu : public LogisticsPdu
+class EXPORT_MACRO ResupplyReceivedPdu : public LogisticsFamilyPdu
 {
 protected:
   // Entity that is receiving service

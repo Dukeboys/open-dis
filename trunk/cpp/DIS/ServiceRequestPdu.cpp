@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ServiceRequestPdu::ServiceRequestPdu() : LogisticsPdu(),
+ServiceRequestPdu::ServiceRequestPdu() : LogisticsFamilyPdu(),
    _requestingEntityID(), 
    _servicingEntityID(), 
    _serviceTypeRequested(0), 
@@ -90,7 +90,7 @@ void ServiceRequestPdu::setSupplies(const std::vector<SupplyQuantity>& pX)
 
 void ServiceRequestPdu::marshal(DataStream& dataStream) const
 {
-    LogisticsPdu::marshal(dataStream); // Marshal information in superclass first
+    LogisticsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _requestingEntityID.marshal(dataStream);
     _servicingEntityID.marshal(dataStream);
     dataStream << _serviceTypeRequested;
@@ -107,7 +107,7 @@ void ServiceRequestPdu::marshal(DataStream& dataStream) const
 
 void ServiceRequestPdu::unmarshal(DataStream& dataStream)
 {
-    LogisticsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    LogisticsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _requestingEntityID.unmarshal(dataStream);
     _servicingEntityID.unmarshal(dataStream);
     dataStream >> _serviceTypeRequested;
@@ -128,7 +128,7 @@ bool ServiceRequestPdu::operator ==(const ServiceRequestPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = LogisticsPdu::operator==(rhs);
+     ivarsEqual = LogisticsFamilyPdu::operator==(rhs);
 
      if( ! (_requestingEntityID == rhs._requestingEntityID) ) ivarsEqual = false;
      if( ! (_servicingEntityID == rhs._servicingEntityID) ) ivarsEqual = false;
@@ -148,7 +148,7 @@ int ServiceRequestPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = LogisticsPdu::getMarshalledSize();
+   marshalSize = LogisticsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _requestingEntityID.getMarshalledSize();  // _requestingEntityID
    marshalSize = marshalSize + _servicingEntityID.getMarshalledSize();  // _servicingEntityID
    marshalSize = marshalSize + 1;  // _serviceTypeRequested

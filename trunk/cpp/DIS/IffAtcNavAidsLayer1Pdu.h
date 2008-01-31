@@ -6,7 +6,7 @@
 #include <DIS/Vector3Float.h>
 #include <DIS/SystemID.h>
 #include <DIS/IffFundamentalData.h>
-#include <DIS/DistributedEmissionsPdu.h>
+#include <DIS/DistributedEmissionsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -21,7 +21,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO IffAtcNavAidsLayer1Pdu : public DistributedEmissionsPdu
+class EXPORT_MACRO IffAtcNavAidsLayer1Pdu : public DistributedEmissionsFamilyPdu
 {
 protected:
   // ID of the entity that is the source of the emissions

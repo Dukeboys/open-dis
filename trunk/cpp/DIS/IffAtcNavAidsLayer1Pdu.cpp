@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-IffAtcNavAidsLayer1Pdu::IffAtcNavAidsLayer1Pdu() : DistributedEmissionsPdu(),
+IffAtcNavAidsLayer1Pdu::IffAtcNavAidsLayer1Pdu() : DistributedEmissionsFamilyPdu(),
    _emittingEntityId(), 
    _eventID(), 
    _location(), 
@@ -105,7 +105,7 @@ void IffAtcNavAidsLayer1Pdu::setFundamentalParameters(const IffFundamentalData &
 
 void IffAtcNavAidsLayer1Pdu::marshal(DataStream& dataStream) const
 {
-    DistributedEmissionsPdu::marshal(dataStream); // Marshal information in superclass first
+    DistributedEmissionsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _emittingEntityId.marshal(dataStream);
     _eventID.marshal(dataStream);
     _location.marshal(dataStream);
@@ -116,7 +116,7 @@ void IffAtcNavAidsLayer1Pdu::marshal(DataStream& dataStream) const
 
 void IffAtcNavAidsLayer1Pdu::unmarshal(DataStream& dataStream)
 {
-    DistributedEmissionsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    DistributedEmissionsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _emittingEntityId.unmarshal(dataStream);
     _eventID.unmarshal(dataStream);
     _location.unmarshal(dataStream);
@@ -130,7 +130,7 @@ bool IffAtcNavAidsLayer1Pdu::operator ==(const IffAtcNavAidsLayer1Pdu& rhs) cons
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = DistributedEmissionsPdu::operator==(rhs);
+     ivarsEqual = DistributedEmissionsFamilyPdu::operator==(rhs);
 
      if( ! (_emittingEntityId == rhs._emittingEntityId) ) ivarsEqual = false;
      if( ! (_eventID == rhs._eventID) ) ivarsEqual = false;
@@ -146,7 +146,7 @@ int IffAtcNavAidsLayer1Pdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = DistributedEmissionsPdu::getMarshalledSize();
+   marshalSize = DistributedEmissionsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _emittingEntityId.getMarshalledSize();  // _emittingEntityId
    marshalSize = marshalSize + _eventID.getMarshalledSize();  // _eventID
    marshalSize = marshalSize + _location.getMarshalledSize();  // _location

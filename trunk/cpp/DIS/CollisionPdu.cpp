@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-CollisionPdu::CollisionPdu() : EntityInformationPdu(),
+CollisionPdu::CollisionPdu() : EntityInformationFamilyPdu(),
    _issuingEntityID(), 
    _collidingEntityID(), 
    _eventID(), 
@@ -128,7 +128,7 @@ void CollisionPdu::setLocation(const Vector3Float &pX)
 
 void CollisionPdu::marshal(DataStream& dataStream) const
 {
-    EntityInformationPdu::marshal(dataStream); // Marshal information in superclass first
+    EntityInformationFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _issuingEntityID.marshal(dataStream);
     _collidingEntityID.marshal(dataStream);
     _eventID.marshal(dataStream);
@@ -141,7 +141,7 @@ void CollisionPdu::marshal(DataStream& dataStream) const
 
 void CollisionPdu::unmarshal(DataStream& dataStream)
 {
-    EntityInformationPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    EntityInformationFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _issuingEntityID.unmarshal(dataStream);
     _collidingEntityID.unmarshal(dataStream);
     _eventID.unmarshal(dataStream);
@@ -157,7 +157,7 @@ bool CollisionPdu::operator ==(const CollisionPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = EntityInformationPdu::operator==(rhs);
+     ivarsEqual = EntityInformationFamilyPdu::operator==(rhs);
 
      if( ! (_issuingEntityID == rhs._issuingEntityID) ) ivarsEqual = false;
      if( ! (_collidingEntityID == rhs._collidingEntityID) ) ivarsEqual = false;
@@ -175,7 +175,7 @@ int CollisionPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = EntityInformationPdu::getMarshalledSize();
+   marshalSize = EntityInformationFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _issuingEntityID.getMarshalledSize();  // _issuingEntityID
    marshalSize = marshalSize + _collidingEntityID.getMarshalledSize();  // _collidingEntityID
    marshalSize = marshalSize + _eventID.getMarshalledSize();  // _eventID

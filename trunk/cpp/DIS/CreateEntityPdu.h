@@ -1,7 +1,7 @@
 #ifndef CREATEENTITYPDU_H
 #define CREATEENTITYPDU_H
 
-#include <DIS/SimulationManagementPdu.h>
+#include <DIS/SimulationManagementFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -16,7 +16,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO CreateEntityPdu : public SimulationManagementPdu
+class EXPORT_MACRO CreateEntityPdu : public SimulationManagementFamilyPdu
 {
 protected:
   // Identifier for the request

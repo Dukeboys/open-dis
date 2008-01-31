@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-EventReportReliablePdu::EventReportReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+EventReportReliablePdu::EventReportReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _eventType(0), 
    _pad1(0), 
    _numberOfFixedDatumRecords(0), 
@@ -80,7 +80,7 @@ void EventReportReliablePdu::setVariableDatumRecords(const std::vector<VariableD
 
 void EventReportReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _eventType;
     dataStream << _pad1;
     dataStream << ( unsigned int )_fixedDatumRecords.size();
@@ -103,7 +103,7 @@ void EventReportReliablePdu::marshal(DataStream& dataStream) const
 
 void EventReportReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _eventType;
     dataStream >> _pad1;
     dataStream >> _numberOfFixedDatumRecords;
@@ -131,7 +131,7 @@ bool EventReportReliablePdu::operator ==(const EventReportReliablePdu& rhs) cons
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
      if( ! (_eventType == rhs._eventType) ) ivarsEqual = false;
      if( ! (_pad1 == rhs._pad1) ) ivarsEqual = false;
@@ -155,7 +155,7 @@ int EventReportReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 2;  // _eventType
    marshalSize = marshalSize + 4;  // _pad1
    marshalSize = marshalSize + 4;  // _numberOfFixedDatumRecords

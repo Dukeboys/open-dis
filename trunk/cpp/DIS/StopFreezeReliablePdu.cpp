@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-StopFreezeReliablePdu::StopFreezeReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+StopFreezeReliablePdu::StopFreezeReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _realWorldTime(), 
    _reason(0), 
    _frozenBehavior(0), 
@@ -85,7 +85,7 @@ void StopFreezeReliablePdu::setRequestID(unsigned int pX)
 
 void StopFreezeReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _realWorldTime.marshal(dataStream);
     dataStream << _reason;
     dataStream << _frozenBehavior;
@@ -96,7 +96,7 @@ void StopFreezeReliablePdu::marshal(DataStream& dataStream) const
 
 void StopFreezeReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _realWorldTime.unmarshal(dataStream);
     dataStream >> _reason;
     dataStream >> _frozenBehavior;
@@ -110,7 +110,7 @@ bool StopFreezeReliablePdu::operator ==(const StopFreezeReliablePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
      if( ! (_realWorldTime == rhs._realWorldTime) ) ivarsEqual = false;
      if( ! (_reason == rhs._reason) ) ivarsEqual = false;
@@ -126,7 +126,7 @@ int StopFreezeReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _realWorldTime.getMarshalledSize();  // _realWorldTime
    marshalSize = marshalSize + 1;  // _reason
    marshalSize = marshalSize + 1;  // _frozenBehavior

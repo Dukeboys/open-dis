@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-DetonationPdu::DetonationPdu() : Warfare(),
+DetonationPdu::DetonationPdu() : WarfareFamilyPdu(),
    _munitionID(), 
    _eventID(), 
    _velocity(), 
@@ -138,7 +138,7 @@ void DetonationPdu::setArticulationParameters(const std::vector<ArticulationPara
 
 void DetonationPdu::marshal(DataStream& dataStream) const
 {
-    Warfare::marshal(dataStream); // Marshal information in superclass first
+    WarfareFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _munitionID.marshal(dataStream);
     _eventID.marshal(dataStream);
     _velocity.marshal(dataStream);
@@ -158,7 +158,7 @@ void DetonationPdu::marshal(DataStream& dataStream) const
 
 void DetonationPdu::unmarshal(DataStream& dataStream)
 {
-    Warfare::unmarshal(dataStream); // unmarshal information in superclass first
+    WarfareFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _munitionID.unmarshal(dataStream);
     _eventID.unmarshal(dataStream);
     _velocity.unmarshal(dataStream);
@@ -182,7 +182,7 @@ bool DetonationPdu::operator ==(const DetonationPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = Warfare::operator==(rhs);
+     ivarsEqual = WarfareFamilyPdu::operator==(rhs);
 
      if( ! (_munitionID == rhs._munitionID) ) ivarsEqual = false;
      if( ! (_eventID == rhs._eventID) ) ivarsEqual = false;
@@ -205,7 +205,7 @@ int DetonationPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = Warfare::getMarshalledSize();
+   marshalSize = WarfareFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _munitionID.getMarshalledSize();  // _munitionID
    marshalSize = marshalSize + _eventID.getMarshalledSize();  // _eventID
    marshalSize = marshalSize + _velocity.getMarshalledSize();  // _velocity

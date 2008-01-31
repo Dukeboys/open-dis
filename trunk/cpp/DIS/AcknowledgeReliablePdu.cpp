@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-AcknowledgeReliablePdu::AcknowledgeReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+AcknowledgeReliablePdu::AcknowledgeReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _acknowledgeFlag(0), 
    _responseFlag(0), 
    _requestID(0)
@@ -47,7 +47,7 @@ void AcknowledgeReliablePdu::setRequestID(unsigned int pX)
 
 void AcknowledgeReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _acknowledgeFlag;
     dataStream << _responseFlag;
     dataStream << _requestID;
@@ -55,7 +55,7 @@ void AcknowledgeReliablePdu::marshal(DataStream& dataStream) const
 
 void AcknowledgeReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _acknowledgeFlag;
     dataStream >> _responseFlag;
     dataStream >> _requestID;
@@ -66,7 +66,7 @@ bool AcknowledgeReliablePdu::operator ==(const AcknowledgeReliablePdu& rhs) cons
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
      if( ! (_acknowledgeFlag == rhs._acknowledgeFlag) ) ivarsEqual = false;
      if( ! (_responseFlag == rhs._responseFlag) ) ivarsEqual = false;
@@ -79,7 +79,7 @@ int AcknowledgeReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 2;  // _acknowledgeFlag
    marshalSize = marshalSize + 2;  // _responseFlag
    marshalSize = marshalSize + 4;  // _requestID

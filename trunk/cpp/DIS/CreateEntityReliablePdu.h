@@ -1,7 +1,7 @@
 #ifndef CREATEENTITYRELIABLEPDU_H
 #define CREATEENTITYRELIABLEPDU_H
 
-#include <DIS/SimulationManagementWithReliabilityPduFamily.h>
+#include <DIS/SimulationManagementWithReliabilityFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -16,7 +16,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO CreateEntityReliablePdu : public SimulationManagementWithReliabilityPduFamily
+class EXPORT_MACRO CreateEntityReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {
 protected:
   // level of reliability service used for this transaction

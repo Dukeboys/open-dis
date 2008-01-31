@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-IntercomSignalPdu::IntercomSignalPdu() : RadioCommunicationsPdu(),
+IntercomSignalPdu::IntercomSignalPdu() : RadioCommunicationsFamilyPdu(),
    _entityID(), 
    _communicationsDeviceID(0), 
    _encodingScheme(0), 
@@ -107,7 +107,7 @@ void IntercomSignalPdu::setData(const std::vector<OneByteChunk>& pX)
 
 void IntercomSignalPdu::marshal(DataStream& dataStream) const
 {
-    RadioCommunicationsPdu::marshal(dataStream); // Marshal information in superclass first
+    RadioCommunicationsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _entityID.marshal(dataStream);
     dataStream << _communicationsDeviceID;
     dataStream << _encodingScheme;
@@ -126,7 +126,7 @@ void IntercomSignalPdu::marshal(DataStream& dataStream) const
 
 void IntercomSignalPdu::unmarshal(DataStream& dataStream)
 {
-    RadioCommunicationsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    RadioCommunicationsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _entityID.unmarshal(dataStream);
     dataStream >> _communicationsDeviceID;
     dataStream >> _encodingScheme;
@@ -149,7 +149,7 @@ bool IntercomSignalPdu::operator ==(const IntercomSignalPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = RadioCommunicationsPdu::operator==(rhs);
+     ivarsEqual = RadioCommunicationsFamilyPdu::operator==(rhs);
 
      if( ! (_entityID == rhs._entityID) ) ivarsEqual = false;
      if( ! (_communicationsDeviceID == rhs._communicationsDeviceID) ) ivarsEqual = false;
@@ -171,7 +171,7 @@ int IntercomSignalPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = RadioCommunicationsPdu::getMarshalledSize();
+   marshalSize = RadioCommunicationsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
    marshalSize = marshalSize + 2;  // _communicationsDeviceID
    marshalSize = marshalSize + 2;  // _encodingScheme

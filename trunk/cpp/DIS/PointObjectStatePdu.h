@@ -8,7 +8,7 @@
 #include <DIS/Orientation.h>
 #include <DIS/SimulationAddress.h>
 #include <DIS/SimulationAddress.h>
-#include <DIS/SyntheticEnvironmentPduFamily.h>
+#include <DIS/SyntheticEnvironmentFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -23,7 +23,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO PointObjectStatePdu : public SyntheticEnvironmentPduFamily
+class EXPORT_MACRO PointObjectStatePdu : public SyntheticEnvironmentFamilyPdu
 {
 protected:
   // Object in synthetic environment

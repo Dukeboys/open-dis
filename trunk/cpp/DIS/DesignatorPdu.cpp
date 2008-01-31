@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-DesignatorPdu::DesignatorPdu() : DistributedEmissionsPdu(),
+DesignatorPdu::DesignatorPdu() : DistributedEmissionsFamilyPdu(),
    _designatingEntityID(), 
    _codeName(0), 
    _designatedEntityID(), 
@@ -171,7 +171,7 @@ void DesignatorPdu::setEntityLinearAcceleration(const Vector3Float &pX)
 
 void DesignatorPdu::marshal(DataStream& dataStream) const
 {
-    DistributedEmissionsPdu::marshal(dataStream); // Marshal information in superclass first
+    DistributedEmissionsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _designatingEntityID.marshal(dataStream);
     dataStream << _codeName;
     _designatedEntityID.marshal(dataStream);
@@ -188,7 +188,7 @@ void DesignatorPdu::marshal(DataStream& dataStream) const
 
 void DesignatorPdu::unmarshal(DataStream& dataStream)
 {
-    DistributedEmissionsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    DistributedEmissionsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _designatingEntityID.unmarshal(dataStream);
     dataStream >> _codeName;
     _designatedEntityID.unmarshal(dataStream);
@@ -208,7 +208,7 @@ bool DesignatorPdu::operator ==(const DesignatorPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = DistributedEmissionsPdu::operator==(rhs);
+     ivarsEqual = DistributedEmissionsFamilyPdu::operator==(rhs);
 
      if( ! (_designatingEntityID == rhs._designatingEntityID) ) ivarsEqual = false;
      if( ! (_codeName == rhs._codeName) ) ivarsEqual = false;
@@ -230,7 +230,7 @@ int DesignatorPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = DistributedEmissionsPdu::getMarshalledSize();
+   marshalSize = DistributedEmissionsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _designatingEntityID.getMarshalledSize();  // _designatingEntityID
    marshalSize = marshalSize + 2;  // _codeName
    marshalSize = marshalSize + _designatedEntityID.getMarshalledSize();  // _designatedEntityID

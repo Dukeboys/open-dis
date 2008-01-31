@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-GriddedDataPdu::GriddedDataPdu() : SyntheticEnvironmentPduFamily(),
+GriddedDataPdu::GriddedDataPdu() : SyntheticEnvironmentFamilyPdu(),
    _environmentalSimulationApplicationID(), 
    _fieldNumber(0), 
    _pduNumber(0), 
@@ -194,7 +194,7 @@ void GriddedDataPdu::setGridDataList(const std::vector<GridAxisRecord>& pX)
 
 void GriddedDataPdu::marshal(DataStream& dataStream) const
 {
-    SyntheticEnvironmentPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _environmentalSimulationApplicationID.marshal(dataStream);
     dataStream << _fieldNumber;
     dataStream << _pduNumber;
@@ -220,7 +220,7 @@ void GriddedDataPdu::marshal(DataStream& dataStream) const
 
 void GriddedDataPdu::unmarshal(DataStream& dataStream)
 {
-    SyntheticEnvironmentPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _environmentalSimulationApplicationID.unmarshal(dataStream);
     dataStream >> _fieldNumber;
     dataStream >> _pduNumber;
@@ -250,7 +250,7 @@ bool GriddedDataPdu::operator ==(const GriddedDataPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SyntheticEnvironmentPduFamily::operator==(rhs);
+     ivarsEqual = SyntheticEnvironmentFamilyPdu::operator==(rhs);
 
      if( ! (_environmentalSimulationApplicationID == rhs._environmentalSimulationApplicationID) ) ivarsEqual = false;
      if( ! (_fieldNumber == rhs._fieldNumber) ) ivarsEqual = false;
@@ -279,7 +279,7 @@ int GriddedDataPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SyntheticEnvironmentPduFamily::getMarshalledSize();
+   marshalSize = SyntheticEnvironmentFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _environmentalSimulationApplicationID.getMarshalledSize();  // _environmentalSimulationApplicationID
    marshalSize = marshalSize + 2;  // _fieldNumber
    marshalSize = marshalSize + 2;  // _pduNumber

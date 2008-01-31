@@ -7,7 +7,7 @@
 #include <DIS/Vector3Float.h>
 #include <DIS/Vector3Float.h>
 #include <DIS/Vector3Float.h>
-#include <DIS/EntityInformationPdu.h>
+#include <DIS/EntityInformationFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -22,7 +22,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO CollisionElasticPdu : public EntityInformationPdu
+class EXPORT_MACRO CollisionElasticPdu : public EntityInformationFamilyPdu
 {
 protected:
   // ID of the entity that issued the collision PDU

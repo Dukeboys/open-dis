@@ -6,7 +6,7 @@
 #include <DIS/Vector3Double.h>
 #include <DIS/BurstDescriptor.h>
 #include <DIS/Vector3Float.h>
-#include <DIS/Warfare.h>
+#include <DIS/WarfareFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -21,7 +21,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO FirePdu : public Warfare
+class EXPORT_MACRO FirePdu : public WarfareFamilyPdu
 {
 protected:
   // ID of the munition that is being shot

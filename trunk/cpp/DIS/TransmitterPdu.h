@@ -8,7 +8,7 @@
 #include <DIS/Vector3Float.h>
 #include <DIS/Vector3Float.h>
 #include <vector>
-#include <DIS/RadioCommunicationsPdu.h>
+#include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -23,7 +23,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO TransmitterPdu : public RadioCommunicationsPdu
+class EXPORT_MACRO TransmitterPdu : public RadioCommunicationsFamilyPdu
 {
 protected:
   // linear accelleration of entity

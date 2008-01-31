@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-TransmitterPdu::TransmitterPdu() : RadioCommunicationsPdu(),
+TransmitterPdu::TransmitterPdu() : RadioCommunicationsFamilyPdu(),
    _radioEntityType(), 
    _transmitState(0), 
    _inputSource(0), 
@@ -243,7 +243,7 @@ void TransmitterPdu::setAntennaPatternList(const std::vector<Vector3Float>& pX)
 
 void TransmitterPdu::marshal(DataStream& dataStream) const
 {
-    RadioCommunicationsPdu::marshal(dataStream); // Marshal information in superclass first
+    RadioCommunicationsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _radioEntityType.marshal(dataStream);
     dataStream << _transmitState;
     dataStream << _inputSource;
@@ -279,7 +279,7 @@ void TransmitterPdu::marshal(DataStream& dataStream) const
 
 void TransmitterPdu::unmarshal(DataStream& dataStream)
 {
-    RadioCommunicationsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    RadioCommunicationsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _radioEntityType.unmarshal(dataStream);
     dataStream >> _transmitState;
     dataStream >> _inputSource;
@@ -320,7 +320,7 @@ bool TransmitterPdu::operator ==(const TransmitterPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = RadioCommunicationsPdu::operator==(rhs);
+     ivarsEqual = RadioCommunicationsFamilyPdu::operator==(rhs);
 
      if( ! (_radioEntityType == rhs._radioEntityType) ) ivarsEqual = false;
      if( ! (_transmitState == rhs._transmitState) ) ivarsEqual = false;
@@ -357,7 +357,7 @@ int TransmitterPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = RadioCommunicationsPdu::getMarshalledSize();
+   marshalSize = RadioCommunicationsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _radioEntityType.getMarshalledSize();  // _radioEntityType
    marshalSize = marshalSize + 1;  // _transmitState
    marshalSize = marshalSize + 1;  // _inputSource

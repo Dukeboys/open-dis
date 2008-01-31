@@ -1,7 +1,7 @@
 #ifndef ACKNOWLEDGEPDU_H
 #define ACKNOWLEDGEPDU_H
 
-#include <DIS/SimulationManagementPdu.h>
+#include <DIS/SimulationManagementFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -16,7 +16,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO AcknowledgePdu : public SimulationManagementPdu
+class EXPORT_MACRO AcknowledgePdu : public SimulationManagementFamilyPdu
 {
 protected:
   // type of message being acknowledged

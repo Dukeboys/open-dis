@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-EnvironmentalProcessPdu::EnvironmentalProcessPdu() : SyntheticEnvironmentPduFamily(),
+EnvironmentalProcessPdu::EnvironmentalProcessPdu() : SyntheticEnvironmentFamilyPdu(),
    _environementalProcessID(), 
    _environmentType(), 
    _modelType(0), 
@@ -101,7 +101,7 @@ void EnvironmentalProcessPdu::setEnvironmentRecords(const std::vector<Environmen
 
 void EnvironmentalProcessPdu::marshal(DataStream& dataStream) const
 {
-    SyntheticEnvironmentPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _environementalProcessID.marshal(dataStream);
     _environmentType.marshal(dataStream);
     dataStream << _modelType;
@@ -119,7 +119,7 @@ void EnvironmentalProcessPdu::marshal(DataStream& dataStream) const
 
 void EnvironmentalProcessPdu::unmarshal(DataStream& dataStream)
 {
-    SyntheticEnvironmentPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _environementalProcessID.unmarshal(dataStream);
     _environmentType.unmarshal(dataStream);
     dataStream >> _modelType;
@@ -141,7 +141,7 @@ bool EnvironmentalProcessPdu::operator ==(const EnvironmentalProcessPdu& rhs) co
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SyntheticEnvironmentPduFamily::operator==(rhs);
+     ivarsEqual = SyntheticEnvironmentFamilyPdu::operator==(rhs);
 
      if( ! (_environementalProcessID == rhs._environementalProcessID) ) ivarsEqual = false;
      if( ! (_environmentType == rhs._environmentType) ) ivarsEqual = false;
@@ -162,7 +162,7 @@ int EnvironmentalProcessPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SyntheticEnvironmentPduFamily::getMarshalledSize();
+   marshalSize = SyntheticEnvironmentFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _environementalProcessID.getMarshalledSize();  // _environementalProcessID
    marshalSize = marshalSize + _environmentType.getMarshalledSize();  // _environmentType
    marshalSize = marshalSize + 1;  // _modelType

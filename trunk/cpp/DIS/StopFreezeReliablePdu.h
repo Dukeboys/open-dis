@@ -2,7 +2,7 @@
 #define STOPFREEZERELIABLEPDU_H
 
 #include <DIS/ClockTime.h>
-#include <DIS/SimulationManagementWithReliabilityPduFamily.h>
+#include <DIS/SimulationManagementWithReliabilityFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -17,7 +17,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO StopFreezeReliablePdu : public SimulationManagementWithReliabilityPduFamily
+class EXPORT_MACRO StopFreezeReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {
 protected:
   // time in real world for this operation to happen

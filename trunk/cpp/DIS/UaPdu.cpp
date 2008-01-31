@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-UaPdu::UaPdu() : DistributedEmissionsPdu(),
+UaPdu::UaPdu() : DistributedEmissionsFamilyPdu(),
    _emittingEntityID(), 
    _eventID(), 
    _stateChangeIndicator(0), 
@@ -156,7 +156,7 @@ void UaPdu::setEmitterSystems(const std::vector<AcousticEmitterSystemData>& pX)
 
 void UaPdu::marshal(DataStream& dataStream) const
 {
-    DistributedEmissionsPdu::marshal(dataStream); // Marshal information in superclass first
+    DistributedEmissionsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _emittingEntityID.marshal(dataStream);
     _eventID.marshal(dataStream);
     dataStream << _stateChangeIndicator;
@@ -191,7 +191,7 @@ void UaPdu::marshal(DataStream& dataStream) const
 
 void UaPdu::unmarshal(DataStream& dataStream)
 {
-    DistributedEmissionsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    DistributedEmissionsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _emittingEntityID.unmarshal(dataStream);
     _eventID.unmarshal(dataStream);
     dataStream >> _stateChangeIndicator;
@@ -232,7 +232,7 @@ bool UaPdu::operator ==(const UaPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = DistributedEmissionsPdu::operator==(rhs);
+     ivarsEqual = DistributedEmissionsFamilyPdu::operator==(rhs);
 
      if( ! (_emittingEntityID == rhs._emittingEntityID) ) ivarsEqual = false;
      if( ! (_eventID == rhs._eventID) ) ivarsEqual = false;
@@ -266,7 +266,7 @@ int UaPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = DistributedEmissionsPdu::getMarshalledSize();
+   marshalSize = DistributedEmissionsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _emittingEntityID.getMarshalledSize();  // _emittingEntityID
    marshalSize = marshalSize + _eventID.getMarshalledSize();  // _eventID
    marshalSize = marshalSize + 1;  // _stateChangeIndicator

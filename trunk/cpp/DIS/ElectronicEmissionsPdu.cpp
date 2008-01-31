@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ElectronicEmissionsPdu::ElectronicEmissionsPdu() : DistributedEmissionsPdu(),
+ElectronicEmissionsPdu::ElectronicEmissionsPdu() : DistributedEmissionsFamilyPdu(),
    _emittingEntityID(), 
    _eventID(), 
    _stateUpdateIndicator(0), 
@@ -79,7 +79,7 @@ void ElectronicEmissionsPdu::setSystems(const std::vector<ElectronicEmissionSyst
 
 void ElectronicEmissionsPdu::marshal(DataStream& dataStream) const
 {
-    DistributedEmissionsPdu::marshal(dataStream); // Marshal information in superclass first
+    DistributedEmissionsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _emittingEntityID.marshal(dataStream);
     _eventID.marshal(dataStream);
     dataStream << _stateUpdateIndicator;
@@ -95,7 +95,7 @@ void ElectronicEmissionsPdu::marshal(DataStream& dataStream) const
 
 void ElectronicEmissionsPdu::unmarshal(DataStream& dataStream)
 {
-    DistributedEmissionsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    DistributedEmissionsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _emittingEntityID.unmarshal(dataStream);
     _eventID.unmarshal(dataStream);
     dataStream >> _stateUpdateIndicator;
@@ -115,7 +115,7 @@ bool ElectronicEmissionsPdu::operator ==(const ElectronicEmissionsPdu& rhs) cons
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = DistributedEmissionsPdu::operator==(rhs);
+     ivarsEqual = DistributedEmissionsFamilyPdu::operator==(rhs);
 
      if( ! (_emittingEntityID == rhs._emittingEntityID) ) ivarsEqual = false;
      if( ! (_eventID == rhs._eventID) ) ivarsEqual = false;
@@ -134,7 +134,7 @@ int ElectronicEmissionsPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = DistributedEmissionsPdu::getMarshalledSize();
+   marshalSize = DistributedEmissionsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _emittingEntityID.getMarshalledSize();  // _emittingEntityID
    marshalSize = marshalSize + _eventID.getMarshalledSize();  // _eventID
    marshalSize = marshalSize + 1;  // _stateUpdateIndicator

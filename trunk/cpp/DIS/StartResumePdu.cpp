@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-StartResumePdu::StartResumePdu() : SimulationManagementPdu(),
+StartResumePdu::StartResumePdu() : SimulationManagementFamilyPdu(),
    _realWorldTime(), 
    _simulationTime(), 
    _requestID(0)
@@ -57,7 +57,7 @@ void StartResumePdu::setRequestID(unsigned int pX)
 
 void StartResumePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _realWorldTime.marshal(dataStream);
     _simulationTime.marshal(dataStream);
     dataStream << _requestID;
@@ -65,7 +65,7 @@ void StartResumePdu::marshal(DataStream& dataStream) const
 
 void StartResumePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _realWorldTime.unmarshal(dataStream);
     _simulationTime.unmarshal(dataStream);
     dataStream >> _requestID;
@@ -76,7 +76,7 @@ bool StartResumePdu::operator ==(const StartResumePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
      if( ! (_realWorldTime == rhs._realWorldTime) ) ivarsEqual = false;
      if( ! (_simulationTime == rhs._simulationTime) ) ivarsEqual = false;
@@ -89,7 +89,7 @@ int StartResumePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _realWorldTime.getMarshalledSize();  // _realWorldTime
    marshalSize = marshalSize + _simulationTime.getMarshalledSize();  // _simulationTime
    marshalSize = marshalSize + 4;  // _requestID

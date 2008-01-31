@@ -9,7 +9,7 @@
 #include <DIS/SimulationAddress.h>
 #include <DIS/Vector3Double.h>
 #include <vector>
-#include <DIS/SyntheticEnvironmentPduFamily.h>
+#include <DIS/SyntheticEnvironmentFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -24,7 +24,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO ArealObjectStatePdu : public SyntheticEnvironmentPduFamily
+class EXPORT_MACRO ArealObjectStatePdu : public SyntheticEnvironmentFamilyPdu
 {
 protected:
   // Object in synthetic environment

@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-EntityStatePdu::EntityStatePdu() : EntityInformationPdu(),
+EntityStatePdu::EntityStatePdu() : EntityInformationFamilyPdu(),
    _entityID(), 
    _forceId(0), 
    _numberOfArticulationParameters(0), 
@@ -197,7 +197,7 @@ void EntityStatePdu::setArticulationParameters(const std::vector<ArticulationPar
 
 void EntityStatePdu::marshal(DataStream& dataStream) const
 {
-    EntityInformationPdu::marshal(dataStream); // Marshal information in superclass first
+    EntityInformationFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _entityID.marshal(dataStream);
     dataStream << _forceId;
     dataStream << ( char )_articulationParameters.size();
@@ -221,7 +221,7 @@ void EntityStatePdu::marshal(DataStream& dataStream) const
 
 void EntityStatePdu::unmarshal(DataStream& dataStream)
 {
-    EntityInformationPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    EntityInformationFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _entityID.unmarshal(dataStream);
     dataStream >> _forceId;
     dataStream >> _numberOfArticulationParameters;
@@ -249,7 +249,7 @@ bool EntityStatePdu::operator ==(const EntityStatePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = EntityInformationPdu::operator==(rhs);
+     ivarsEqual = EntityInformationFamilyPdu::operator==(rhs);
 
      if( ! (_entityID == rhs._entityID) ) ivarsEqual = false;
      if( ! (_forceId == rhs._forceId) ) ivarsEqual = false;
@@ -276,7 +276,7 @@ int EntityStatePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = EntityInformationPdu::getMarshalledSize();
+   marshalSize = EntityInformationFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
    marshalSize = marshalSize + 1;  // _forceId
    marshalSize = marshalSize + 1;  // _numberOfArticulationParameters

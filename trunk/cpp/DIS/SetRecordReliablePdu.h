@@ -3,7 +3,7 @@
 
 #include <DIS/RecordSet.h>
 #include <vector>
-#include <DIS/SimulationManagementWithReliabilityPduFamily.h>
+#include <DIS/SimulationManagementWithReliabilityFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -18,7 +18,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO SetRecordReliablePdu : public SimulationManagementWithReliabilityPduFamily
+class EXPORT_MACRO SetRecordReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {
 protected:
   // request ID

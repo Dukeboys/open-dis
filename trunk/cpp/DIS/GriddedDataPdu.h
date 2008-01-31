@@ -6,7 +6,7 @@
 #include <DIS/Orientation.h>
 #include <DIS/GridAxisRecord.h>
 #include <vector>
-#include <DIS/SyntheticEnvironmentPduFamily.h>
+#include <DIS/SyntheticEnvironmentFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -21,7 +21,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO GriddedDataPdu : public SyntheticEnvironmentPduFamily
+class EXPORT_MACRO GriddedDataPdu : public SyntheticEnvironmentFamilyPdu
 {
 protected:
   // environmental simulation application ID

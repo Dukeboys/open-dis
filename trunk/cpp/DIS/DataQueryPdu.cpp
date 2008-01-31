@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-DataQueryPdu::DataQueryPdu() : SimulationManagementPdu(),
+DataQueryPdu::DataQueryPdu() : SimulationManagementFamilyPdu(),
    _requestID(0), 
    _timeInterval(0), 
    _numberOfFixedDatumRecords(0), 
@@ -80,7 +80,7 @@ void DataQueryPdu::setVariableDatums(const std::vector<VariableDatum>& pX)
 
 void DataQueryPdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _requestID;
     dataStream << _timeInterval;
     dataStream << ( unsigned int )_fixedDatums.size();
@@ -103,7 +103,7 @@ void DataQueryPdu::marshal(DataStream& dataStream) const
 
 void DataQueryPdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _requestID;
     dataStream >> _timeInterval;
     dataStream >> _numberOfFixedDatumRecords;
@@ -131,7 +131,7 @@ bool DataQueryPdu::operator ==(const DataQueryPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
      if( ! (_requestID == rhs._requestID) ) ivarsEqual = false;
      if( ! (_timeInterval == rhs._timeInterval) ) ivarsEqual = false;
@@ -155,7 +155,7 @@ int DataQueryPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _requestID
    marshalSize = marshalSize + 4;  // _timeInterval
    marshalSize = marshalSize + 4;  // _numberOfFixedDatumRecords

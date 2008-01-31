@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ResupplyOfferPdu::ResupplyOfferPdu() : LogisticsPdu(),
+ResupplyOfferPdu::ResupplyOfferPdu() : LogisticsFamilyPdu(),
    _receivingEntityID(), 
    _supplyingEntityID(), 
    _numberOfSupplyTypes(0), 
@@ -90,7 +90,7 @@ void ResupplyOfferPdu::setSupplies(const std::vector<SupplyQuantity>& pX)
 
 void ResupplyOfferPdu::marshal(DataStream& dataStream) const
 {
-    LogisticsPdu::marshal(dataStream); // Marshal information in superclass first
+    LogisticsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _receivingEntityID.marshal(dataStream);
     _supplyingEntityID.marshal(dataStream);
     dataStream << ( unsigned char )_supplies.size();
@@ -107,7 +107,7 @@ void ResupplyOfferPdu::marshal(DataStream& dataStream) const
 
 void ResupplyOfferPdu::unmarshal(DataStream& dataStream)
 {
-    LogisticsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    LogisticsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _receivingEntityID.unmarshal(dataStream);
     _supplyingEntityID.unmarshal(dataStream);
     dataStream >> _numberOfSupplyTypes;
@@ -128,7 +128,7 @@ bool ResupplyOfferPdu::operator ==(const ResupplyOfferPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = LogisticsPdu::operator==(rhs);
+     ivarsEqual = LogisticsFamilyPdu::operator==(rhs);
 
      if( ! (_receivingEntityID == rhs._receivingEntityID) ) ivarsEqual = false;
      if( ! (_supplyingEntityID == rhs._supplyingEntityID) ) ivarsEqual = false;
@@ -148,7 +148,7 @@ int ResupplyOfferPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = LogisticsPdu::getMarshalledSize();
+   marshalSize = LogisticsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _receivingEntityID.getMarshalledSize();  // _receivingEntityID
    marshalSize = marshalSize + _supplyingEntityID.getMarshalledSize();  // _supplyingEntityID
    marshalSize = marshalSize + 1;  // _numberOfSupplyTypes

@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-CommentReliablePdu::CommentReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+CommentReliablePdu::CommentReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _numberOfFixedDatumRecords(0), 
    _numberOfVariableDatumRecords(0)
 {
@@ -58,7 +58,7 @@ void CommentReliablePdu::setVariableDatumRecords(const std::vector<VariableDatum
 
 void CommentReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << ( unsigned int )_fixedDatumRecords.size();
     dataStream << ( unsigned int )_variableDatumRecords.size();
 
@@ -79,7 +79,7 @@ void CommentReliablePdu::marshal(DataStream& dataStream) const
 
 void CommentReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _numberOfFixedDatumRecords;
     dataStream >> _numberOfVariableDatumRecords;
 
@@ -105,7 +105,7 @@ bool CommentReliablePdu::operator ==(const CommentReliablePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
 
      for(size_t idx = 0; idx < _fixedDatumRecords.size(); idx++)
@@ -127,7 +127,7 @@ int CommentReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _numberOfFixedDatumRecords
    marshalSize = marshalSize + 4;  // _numberOfVariableDatumRecords
 

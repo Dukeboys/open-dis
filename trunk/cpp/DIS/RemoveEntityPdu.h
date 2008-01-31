@@ -1,7 +1,7 @@
 #ifndef REMOVEENTITYPDU_H
 #define REMOVEENTITYPDU_H
 
-#include <DIS/SimulationManagementPdu.h>
+#include <DIS/SimulationManagementFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -16,7 +16,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO RemoveEntityPdu : public SimulationManagementPdu
+class EXPORT_MACRO RemoveEntityPdu : public SimulationManagementFamilyPdu
 {
 protected:
   // Identifier for the request

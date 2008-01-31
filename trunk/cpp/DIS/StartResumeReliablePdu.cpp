@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-StartResumeReliablePdu::StartResumeReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+StartResumeReliablePdu::StartResumeReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _realWorldTime(), 
    _simulationTime(), 
    _requiredReliabilityService(0), 
@@ -90,7 +90,7 @@ void StartResumeReliablePdu::setRequestID(unsigned int pX)
 
 void StartResumeReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _realWorldTime.marshal(dataStream);
     _simulationTime.marshal(dataStream);
     dataStream << _requiredReliabilityService;
@@ -101,7 +101,7 @@ void StartResumeReliablePdu::marshal(DataStream& dataStream) const
 
 void StartResumeReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _realWorldTime.unmarshal(dataStream);
     _simulationTime.unmarshal(dataStream);
     dataStream >> _requiredReliabilityService;
@@ -115,7 +115,7 @@ bool StartResumeReliablePdu::operator ==(const StartResumeReliablePdu& rhs) cons
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
      if( ! (_realWorldTime == rhs._realWorldTime) ) ivarsEqual = false;
      if( ! (_simulationTime == rhs._simulationTime) ) ivarsEqual = false;
@@ -131,7 +131,7 @@ int StartResumeReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _realWorldTime.getMarshalledSize();  // _realWorldTime
    marshalSize = marshalSize + _simulationTime.getMarshalledSize();  // _simulationTime
    marshalSize = marshalSize + 1;  // _requiredReliabilityService

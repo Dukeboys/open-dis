@@ -11,7 +11,7 @@
 #include <DIS/Marking.h>
 #include <DIS/ArticulationParameter.h>
 #include <vector>
-#include <DIS/EntityInformationPdu.h>
+#include <DIS/EntityInformationFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -26,7 +26,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO EntityStatePdu : public EntityInformationPdu
+class EXPORT_MACRO EntityStatePdu : public EntityInformationFamilyPdu
 {
 protected:
   // Unique ID for an entity that is tied to this state information

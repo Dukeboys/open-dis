@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-IntercomControlPdu::IntercomControlPdu() : RadioCommunicationsPdu(),
+IntercomControlPdu::IntercomControlPdu() : RadioCommunicationsFamilyPdu(),
    _controlType(0), 
    _communicationsChannelType(0), 
    _sourceEntityID(), 
@@ -156,7 +156,7 @@ void IntercomControlPdu::setIntercomParameters(const std::vector<IntercomCommuni
 
 void IntercomControlPdu::marshal(DataStream& dataStream) const
 {
-    RadioCommunicationsPdu::marshal(dataStream); // Marshal information in superclass first
+    RadioCommunicationsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _controlType;
     dataStream << _communicationsChannelType;
     _sourceEntityID.marshal(dataStream);
@@ -179,7 +179,7 @@ void IntercomControlPdu::marshal(DataStream& dataStream) const
 
 void IntercomControlPdu::unmarshal(DataStream& dataStream)
 {
-    RadioCommunicationsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    RadioCommunicationsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _controlType;
     dataStream >> _communicationsChannelType;
     _sourceEntityID.unmarshal(dataStream);
@@ -206,7 +206,7 @@ bool IntercomControlPdu::operator ==(const IntercomControlPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = RadioCommunicationsPdu::operator==(rhs);
+     ivarsEqual = RadioCommunicationsFamilyPdu::operator==(rhs);
 
      if( ! (_controlType == rhs._controlType) ) ivarsEqual = false;
      if( ! (_communicationsChannelType == rhs._communicationsChannelType) ) ivarsEqual = false;
@@ -232,7 +232,7 @@ int IntercomControlPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = RadioCommunicationsPdu::getMarshalledSize();
+   marshalSize = RadioCommunicationsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 1;  // _controlType
    marshalSize = marshalSize + 1;  // _communicationsChannelType
    marshalSize = marshalSize + _sourceEntityID.getMarshalledSize();  // _sourceEntityID

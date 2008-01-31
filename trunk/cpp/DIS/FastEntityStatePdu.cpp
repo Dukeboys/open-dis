@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-FastEntityStatePdu::FastEntityStatePdu() : EntityInformationPdu(),
+FastEntityStatePdu::FastEntityStatePdu() : EntityInformationFamilyPdu(),
    _site(0), 
    _application(0), 
    _entity(0), 
@@ -468,7 +468,7 @@ void FastEntityStatePdu::setArticulationParameters(const std::vector<Articulatio
 
 void FastEntityStatePdu::marshal(DataStream& dataStream) const
 {
-    EntityInformationPdu::marshal(dataStream); // Marshal information in superclass first
+    EntityInformationFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _site;
     dataStream << _application;
     dataStream << _entity;
@@ -529,7 +529,7 @@ void FastEntityStatePdu::marshal(DataStream& dataStream) const
 
 void FastEntityStatePdu::unmarshal(DataStream& dataStream)
 {
-    EntityInformationPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    EntityInformationFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _site;
     dataStream >> _application;
     dataStream >> _entity;
@@ -594,7 +594,7 @@ bool FastEntityStatePdu::operator ==(const FastEntityStatePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = EntityInformationPdu::operator==(rhs);
+     ivarsEqual = EntityInformationFamilyPdu::operator==(rhs);
 
      if( ! (_site == rhs._site) ) ivarsEqual = false;
      if( ! (_application == rhs._application) ) ivarsEqual = false;
@@ -658,7 +658,7 @@ int FastEntityStatePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = EntityInformationPdu::getMarshalledSize();
+   marshalSize = EntityInformationFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 2;  // _site
    marshalSize = marshalSize + 2;  // _application
    marshalSize = marshalSize + 2;  // _entity

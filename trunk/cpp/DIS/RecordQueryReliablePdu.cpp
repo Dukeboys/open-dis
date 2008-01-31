@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-RecordQueryReliablePdu::RecordQueryReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+RecordQueryReliablePdu::RecordQueryReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _requestID(0), 
    _requiredReliabilityService(0), 
    _pad1(0), 
@@ -102,7 +102,7 @@ void RecordQueryReliablePdu::setRecordIDs(const std::vector<FourByteChunk>& pX)
 
 void RecordQueryReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _requestID;
     dataStream << _requiredReliabilityService;
     dataStream << _pad1;
@@ -121,7 +121,7 @@ void RecordQueryReliablePdu::marshal(DataStream& dataStream) const
 
 void RecordQueryReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _requestID;
     dataStream >> _requiredReliabilityService;
     dataStream >> _pad1;
@@ -144,7 +144,7 @@ bool RecordQueryReliablePdu::operator ==(const RecordQueryReliablePdu& rhs) cons
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
      if( ! (_requestID == rhs._requestID) ) ivarsEqual = false;
      if( ! (_requiredReliabilityService == rhs._requiredReliabilityService) ) ivarsEqual = false;
@@ -166,7 +166,7 @@ int RecordQueryReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _requestID
    marshalSize = marshalSize + 1;  // _requiredReliabilityService
    marshalSize = marshalSize + 2;  // _pad1

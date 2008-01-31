@@ -8,7 +8,7 @@
 #include <DIS/BurstDescriptor.h>
 #include <DIS/ArticulationParameter.h>
 #include <vector>
-#include <DIS/Warfare.h>
+#include <DIS/WarfareFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -23,7 +23,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO DetonationPdu : public Warfare
+class EXPORT_MACRO DetonationPdu : public WarfareFamilyPdu
 {
 protected:
   // ID of muntion that was fired

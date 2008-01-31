@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-FirePdu::FirePdu() : Warfare(),
+FirePdu::FirePdu() : WarfareFamilyPdu(),
    _munitionID(), 
    _eventID(), 
    _fireMissionIndex(0), 
@@ -116,7 +116,7 @@ void FirePdu::setRange(float pX)
 
 void FirePdu::marshal(DataStream& dataStream) const
 {
-    Warfare::marshal(dataStream); // Marshal information in superclass first
+    WarfareFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _munitionID.marshal(dataStream);
     _eventID.marshal(dataStream);
     dataStream << _fireMissionIndex;
@@ -128,7 +128,7 @@ void FirePdu::marshal(DataStream& dataStream) const
 
 void FirePdu::unmarshal(DataStream& dataStream)
 {
-    Warfare::unmarshal(dataStream); // unmarshal information in superclass first
+    WarfareFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _munitionID.unmarshal(dataStream);
     _eventID.unmarshal(dataStream);
     dataStream >> _fireMissionIndex;
@@ -143,7 +143,7 @@ bool FirePdu::operator ==(const FirePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = Warfare::operator==(rhs);
+     ivarsEqual = WarfareFamilyPdu::operator==(rhs);
 
      if( ! (_munitionID == rhs._munitionID) ) ivarsEqual = false;
      if( ! (_eventID == rhs._eventID) ) ivarsEqual = false;
@@ -160,7 +160,7 @@ int FirePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = Warfare::getMarshalledSize();
+   marshalSize = WarfareFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _munitionID.getMarshalledSize();  // _munitionID
    marshalSize = marshalSize + _eventID.getMarshalledSize();  // _eventID
    marshalSize = marshalSize + 4;  // _fireMissionIndex

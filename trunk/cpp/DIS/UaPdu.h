@@ -7,7 +7,7 @@
 #include <DIS/ApaData.h>
 #include <DIS/AcousticEmitterSystemData.h>
 #include <vector>
-#include <DIS/DistributedEmissionsPdu.h>
+#include <DIS/DistributedEmissionsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -22,7 +22,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO UaPdu : public DistributedEmissionsPdu
+class EXPORT_MACRO UaPdu : public DistributedEmissionsFamilyPdu
 {
 protected:
   // ID of the entity that is the source of the emission

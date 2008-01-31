@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-StopFreezePdu::StopFreezePdu() : SimulationManagementPdu(),
+StopFreezePdu::StopFreezePdu() : SimulationManagementFamilyPdu(),
    _realWorldTime(), 
    _reason(0), 
    _frozenBehavior(0), 
@@ -74,7 +74,7 @@ void StopFreezePdu::setRequestID(unsigned int pX)
 
 void StopFreezePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _realWorldTime.marshal(dataStream);
     dataStream << _reason;
     dataStream << _frozenBehavior;
@@ -84,7 +84,7 @@ void StopFreezePdu::marshal(DataStream& dataStream) const
 
 void StopFreezePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _realWorldTime.unmarshal(dataStream);
     dataStream >> _reason;
     dataStream >> _frozenBehavior;
@@ -97,7 +97,7 @@ bool StopFreezePdu::operator ==(const StopFreezePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
      if( ! (_realWorldTime == rhs._realWorldTime) ) ivarsEqual = false;
      if( ! (_reason == rhs._reason) ) ivarsEqual = false;
@@ -112,7 +112,7 @@ int StopFreezePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _realWorldTime.getMarshalledSize();  // _realWorldTime
    marshalSize = marshalSize + 1;  // _reason
    marshalSize = marshalSize + 1;  // _frozenBehavior

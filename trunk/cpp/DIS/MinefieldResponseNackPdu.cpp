@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-MinefieldResponseNackPdu::MinefieldResponseNackPdu() : MinefieldPduFamily(),
+MinefieldResponseNackPdu::MinefieldResponseNackPdu() : MinfieldFamilyPdu(),
    _minefieldID(), 
    _requestingEntityID(), 
    _requestID(0), 
@@ -79,7 +79,7 @@ void MinefieldResponseNackPdu::setMissingPduSequenceNumbers(const std::vector<Ei
 
 void MinefieldResponseNackPdu::marshal(DataStream& dataStream) const
 {
-    MinefieldPduFamily::marshal(dataStream); // Marshal information in superclass first
+    MinfieldFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _minefieldID.marshal(dataStream);
     _requestingEntityID.marshal(dataStream);
     dataStream << _requestID;
@@ -95,7 +95,7 @@ void MinefieldResponseNackPdu::marshal(DataStream& dataStream) const
 
 void MinefieldResponseNackPdu::unmarshal(DataStream& dataStream)
 {
-    MinefieldPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    MinfieldFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _minefieldID.unmarshal(dataStream);
     _requestingEntityID.unmarshal(dataStream);
     dataStream >> _requestID;
@@ -115,7 +115,7 @@ bool MinefieldResponseNackPdu::operator ==(const MinefieldResponseNackPdu& rhs) 
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = MinefieldPduFamily::operator==(rhs);
+     ivarsEqual = MinfieldFamilyPdu::operator==(rhs);
 
      if( ! (_minefieldID == rhs._minefieldID) ) ivarsEqual = false;
      if( ! (_requestingEntityID == rhs._requestingEntityID) ) ivarsEqual = false;
@@ -134,7 +134,7 @@ int MinefieldResponseNackPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = MinefieldPduFamily::getMarshalledSize();
+   marshalSize = MinfieldFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _minefieldID.getMarshalledSize();  // _minefieldID
    marshalSize = marshalSize + _requestingEntityID.getMarshalledSize();  // _requestingEntityID
    marshalSize = marshalSize + 1;  // _requestID

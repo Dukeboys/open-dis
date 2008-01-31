@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-EntityStateUpdatePdu::EntityStateUpdatePdu() : EntityInformationPdu(),
+EntityStateUpdatePdu::EntityStateUpdatePdu() : EntityInformationFamilyPdu(),
    _entityID(), 
    _numberOfArticulationParameters(0), 
    _entityLinearVelocity(), 
@@ -112,7 +112,7 @@ void EntityStateUpdatePdu::setArticulationParameters(const std::vector<Articulat
 
 void EntityStateUpdatePdu::marshal(DataStream& dataStream) const
 {
-    EntityInformationPdu::marshal(dataStream); // Marshal information in superclass first
+    EntityInformationFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _entityID.marshal(dataStream);
     dataStream << ( char )_articulationParameters.size();
     _entityLinearVelocity.marshal(dataStream);
@@ -130,7 +130,7 @@ void EntityStateUpdatePdu::marshal(DataStream& dataStream) const
 
 void EntityStateUpdatePdu::unmarshal(DataStream& dataStream)
 {
-    EntityInformationPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    EntityInformationFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _entityID.unmarshal(dataStream);
     dataStream >> _numberOfArticulationParameters;
     _entityLinearVelocity.unmarshal(dataStream);
@@ -152,7 +152,7 @@ bool EntityStateUpdatePdu::operator ==(const EntityStateUpdatePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = EntityInformationPdu::operator==(rhs);
+     ivarsEqual = EntityInformationFamilyPdu::operator==(rhs);
 
      if( ! (_entityID == rhs._entityID) ) ivarsEqual = false;
      if( ! (_entityLinearVelocity == rhs._entityLinearVelocity) ) ivarsEqual = false;
@@ -173,7 +173,7 @@ int EntityStateUpdatePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = EntityInformationPdu::getMarshalledSize();
+   marshalSize = EntityInformationFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
    marshalSize = marshalSize + 1;  // _numberOfArticulationParameters
    marshalSize = marshalSize + _entityLinearVelocity.getMarshalledSize();  // _entityLinearVelocity

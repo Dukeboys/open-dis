@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-DataQueryReliablePdu::DataQueryReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+DataQueryReliablePdu::DataQueryReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _requiredReliabilityService(0), 
    _pad1(0), 
    _pad2(0), 
@@ -113,7 +113,7 @@ void DataQueryReliablePdu::setVariableDatumRecords(const std::vector<VariableDat
 
 void DataQueryReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _requiredReliabilityService;
     dataStream << _pad1;
     dataStream << _pad2;
@@ -139,7 +139,7 @@ void DataQueryReliablePdu::marshal(DataStream& dataStream) const
 
 void DataQueryReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _requiredReliabilityService;
     dataStream >> _pad1;
     dataStream >> _pad2;
@@ -170,7 +170,7 @@ bool DataQueryReliablePdu::operator ==(const DataQueryReliablePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
      if( ! (_requiredReliabilityService == rhs._requiredReliabilityService) ) ivarsEqual = false;
      if( ! (_pad1 == rhs._pad1) ) ivarsEqual = false;
@@ -197,7 +197,7 @@ int DataQueryReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 1;  // _requiredReliabilityService
    marshalSize = marshalSize + 2;  // _pad1
    marshalSize = marshalSize + 1;  // _pad2

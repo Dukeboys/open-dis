@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-SeesPdu::SeesPdu() : DistributedEmissionsPdu(),
+SeesPdu::SeesPdu() : DistributedEmissionsFamilyPdu(),
    _orginatingEntityID(), 
    _infraredSignatureRepresentationIndex(0), 
    _acousticSignatureRepresentationIndex(0), 
@@ -107,7 +107,7 @@ void SeesPdu::setVectoringSystemData(const std::vector<VectoringNozzleSystemData
 
 void SeesPdu::marshal(DataStream& dataStream) const
 {
-    DistributedEmissionsPdu::marshal(dataStream); // Marshal information in superclass first
+    DistributedEmissionsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _orginatingEntityID.marshal(dataStream);
     dataStream << _infraredSignatureRepresentationIndex;
     dataStream << _acousticSignatureRepresentationIndex;
@@ -132,7 +132,7 @@ void SeesPdu::marshal(DataStream& dataStream) const
 
 void SeesPdu::unmarshal(DataStream& dataStream)
 {
-    DistributedEmissionsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    DistributedEmissionsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _orginatingEntityID.unmarshal(dataStream);
     dataStream >> _infraredSignatureRepresentationIndex;
     dataStream >> _acousticSignatureRepresentationIndex;
@@ -162,7 +162,7 @@ bool SeesPdu::operator ==(const SeesPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = DistributedEmissionsPdu::operator==(rhs);
+     ivarsEqual = DistributedEmissionsFamilyPdu::operator==(rhs);
 
      if( ! (_orginatingEntityID == rhs._orginatingEntityID) ) ivarsEqual = false;
      if( ! (_infraredSignatureRepresentationIndex == rhs._infraredSignatureRepresentationIndex) ) ivarsEqual = false;
@@ -188,7 +188,7 @@ int SeesPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = DistributedEmissionsPdu::getMarshalledSize();
+   marshalSize = DistributedEmissionsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _orginatingEntityID.getMarshalledSize();  // _orginatingEntityID
    marshalSize = marshalSize + 2;  // _infraredSignatureRepresentationIndex
    marshalSize = marshalSize + 2;  // _acousticSignatureRepresentationIndex

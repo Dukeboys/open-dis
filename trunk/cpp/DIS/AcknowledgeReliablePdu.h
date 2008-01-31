@@ -1,7 +1,7 @@
 #ifndef ACKNOWLEDGERELIABLEPDU_H
 #define ACKNOWLEDGERELIABLEPDU_H
 
-#include <DIS/SimulationManagementWithReliabilityPduFamily.h>
+#include <DIS/SimulationManagementWithReliabilityFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -16,7 +16,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO AcknowledgeReliablePdu : public SimulationManagementWithReliabilityPduFamily
+class EXPORT_MACRO AcknowledgeReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {
 protected:
   // ack flags

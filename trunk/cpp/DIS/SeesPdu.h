@@ -5,7 +5,7 @@
 #include <DIS/PropulsionSystemData.h>
 #include <DIS/VectoringNozzleSystemData.h>
 #include <vector>
-#include <DIS/DistributedEmissionsPdu.h>
+#include <DIS/DistributedEmissionsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -20,7 +20,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO SeesPdu : public DistributedEmissionsPdu
+class EXPORT_MACRO SeesPdu : public DistributedEmissionsFamilyPdu
 {
 protected:
   // Originating entity ID

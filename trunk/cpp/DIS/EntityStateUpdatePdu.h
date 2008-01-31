@@ -7,7 +7,7 @@
 #include <DIS/Orientation.h>
 #include <DIS/ArticulationParameter.h>
 #include <vector>
-#include <DIS/EntityInformationPdu.h>
+#include <DIS/EntityInformationFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -22,7 +22,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO EntityStateUpdatePdu : public EntityInformationPdu
+class EXPORT_MACRO EntityStateUpdatePdu : public EntityInformationFamilyPdu
 {
 protected:
   // This field shall identify the entity issuing the PDU

@@ -4,7 +4,7 @@
 #include <DIS/EntityID.h>
 #include <DIS/OneByteChunk.h>
 #include <vector>
-#include <DIS/RadioCommunicationsPdu.h>
+#include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -19,7 +19,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO IntercomSignalPdu : public RadioCommunicationsPdu
+class EXPORT_MACRO IntercomSignalPdu : public RadioCommunicationsFamilyPdu
 {
 protected:
   // entity ID

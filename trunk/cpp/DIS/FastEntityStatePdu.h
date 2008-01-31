@@ -3,7 +3,7 @@
 
 #include <DIS/ArticulationParameter.h>
 #include <vector>
-#include <DIS/EntityInformationPdu.h>
+#include <DIS/EntityInformationFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -18,7 +18,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO FastEntityStatePdu : public EntityInformationPdu
+class EXPORT_MACRO FastEntityStatePdu : public EntityInformationFamilyPdu
 {
 protected:
   // The site ID

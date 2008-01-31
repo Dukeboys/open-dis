@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ActionResponseReliablePdu::ActionResponseReliablePdu() : SimulationManagementWithReliabilityPduFamily(),
+ActionResponseReliablePdu::ActionResponseReliablePdu() : SimulationManagementWithReliabilityFamilyPdu(),
    _requestID(0), 
    _responseStatus(0), 
    _numberOfFixedDatumRecords(0), 
@@ -80,7 +80,7 @@ void ActionResponseReliablePdu::setVariableDatumRecords(const std::vector<Variab
 
 void ActionResponseReliablePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementWithReliabilityPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _requestID;
     dataStream << _responseStatus;
     dataStream << ( unsigned int )_fixedDatumRecords.size();
@@ -103,7 +103,7 @@ void ActionResponseReliablePdu::marshal(DataStream& dataStream) const
 
 void ActionResponseReliablePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementWithReliabilityPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementWithReliabilityFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _requestID;
     dataStream >> _responseStatus;
     dataStream >> _numberOfFixedDatumRecords;
@@ -131,7 +131,7 @@ bool ActionResponseReliablePdu::operator ==(const ActionResponseReliablePdu& rhs
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementWithReliabilityPduFamily::operator==(rhs);
+     ivarsEqual = SimulationManagementWithReliabilityFamilyPdu::operator==(rhs);
 
      if( ! (_requestID == rhs._requestID) ) ivarsEqual = false;
      if( ! (_responseStatus == rhs._responseStatus) ) ivarsEqual = false;
@@ -155,7 +155,7 @@ int ActionResponseReliablePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementWithReliabilityPduFamily::getMarshalledSize();
+   marshalSize = SimulationManagementWithReliabilityFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _requestID
    marshalSize = marshalSize + 4;  // _responseStatus
    marshalSize = marshalSize + 4;  // _numberOfFixedDatumRecords

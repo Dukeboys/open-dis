@@ -5,7 +5,7 @@
 #include <DIS/EntityID.h>
 #include <DIS/IntercomCommunicationsParameters.h>
 #include <vector>
-#include <DIS/RadioCommunicationsPdu.h>
+#include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -20,7 +20,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO IntercomControlPdu : public RadioCommunicationsPdu
+class EXPORT_MACRO IntercomControlPdu : public RadioCommunicationsFamilyPdu
 {
 protected:
   // control type

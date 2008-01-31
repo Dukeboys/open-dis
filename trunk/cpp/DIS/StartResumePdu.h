@@ -3,7 +3,7 @@
 
 #include <DIS/ClockTime.h>
 #include <DIS/ClockTime.h>
-#include <DIS/SimulationManagementPdu.h>
+#include <DIS/SimulationManagementFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -18,7 +18,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO StartResumePdu : public SimulationManagementPdu
+class EXPORT_MACRO StartResumePdu : public SimulationManagementFamilyPdu
 {
 protected:
   // UTC time at which the simulation shall start or resume

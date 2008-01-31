@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-LinearObjectStatePdu::LinearObjectStatePdu() : SyntheticEnvironmentPduFamily(),
+LinearObjectStatePdu::LinearObjectStatePdu() : SyntheticEnvironmentFamilyPdu(),
    _objectID(), 
    _referencedObjectID(), 
    _updateNumber(0), 
@@ -138,7 +138,7 @@ void LinearObjectStatePdu::setLinearSegmentParameters(const std::vector<LinearSe
 
 void LinearObjectStatePdu::marshal(DataStream& dataStream) const
 {
-    SyntheticEnvironmentPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _objectID.marshal(dataStream);
     _referencedObjectID.marshal(dataStream);
     dataStream << _updateNumber;
@@ -158,7 +158,7 @@ void LinearObjectStatePdu::marshal(DataStream& dataStream) const
 
 void LinearObjectStatePdu::unmarshal(DataStream& dataStream)
 {
-    SyntheticEnvironmentPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _objectID.unmarshal(dataStream);
     _referencedObjectID.unmarshal(dataStream);
     dataStream >> _updateNumber;
@@ -182,7 +182,7 @@ bool LinearObjectStatePdu::operator ==(const LinearObjectStatePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SyntheticEnvironmentPduFamily::operator==(rhs);
+     ivarsEqual = SyntheticEnvironmentFamilyPdu::operator==(rhs);
 
      if( ! (_objectID == rhs._objectID) ) ivarsEqual = false;
      if( ! (_referencedObjectID == rhs._referencedObjectID) ) ivarsEqual = false;
@@ -205,7 +205,7 @@ int LinearObjectStatePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SyntheticEnvironmentPduFamily::getMarshalledSize();
+   marshalSize = SyntheticEnvironmentFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _objectID.getMarshalledSize();  // _objectID
    marshalSize = marshalSize + _referencedObjectID.getMarshalledSize();  // _referencedObjectID
    marshalSize = marshalSize + 2;  // _updateNumber

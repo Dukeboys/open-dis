@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-RepairResponsePdu::RepairResponsePdu() : LogisticsPdu(),
+RepairResponsePdu::RepairResponsePdu() : LogisticsFamilyPdu(),
    _receivingEntityID(), 
    _repairingEntityID(), 
    _repairResult(0), 
@@ -79,7 +79,7 @@ void RepairResponsePdu::setPadding2(char pX)
 
 void RepairResponsePdu::marshal(DataStream& dataStream) const
 {
-    LogisticsPdu::marshal(dataStream); // Marshal information in superclass first
+    LogisticsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _receivingEntityID.marshal(dataStream);
     _repairingEntityID.marshal(dataStream);
     dataStream << _repairResult;
@@ -89,7 +89,7 @@ void RepairResponsePdu::marshal(DataStream& dataStream) const
 
 void RepairResponsePdu::unmarshal(DataStream& dataStream)
 {
-    LogisticsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    LogisticsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _receivingEntityID.unmarshal(dataStream);
     _repairingEntityID.unmarshal(dataStream);
     dataStream >> _repairResult;
@@ -102,7 +102,7 @@ bool RepairResponsePdu::operator ==(const RepairResponsePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = LogisticsPdu::operator==(rhs);
+     ivarsEqual = LogisticsFamilyPdu::operator==(rhs);
 
      if( ! (_receivingEntityID == rhs._receivingEntityID) ) ivarsEqual = false;
      if( ! (_repairingEntityID == rhs._repairingEntityID) ) ivarsEqual = false;
@@ -117,7 +117,7 @@ int RepairResponsePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = LogisticsPdu::getMarshalledSize();
+   marshalSize = LogisticsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _receivingEntityID.getMarshalledSize();  // _receivingEntityID
    marshalSize = marshalSize + _repairingEntityID.getMarshalledSize();  // _repairingEntityID
    marshalSize = marshalSize + 1;  // _repairResult

@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ArealObjectStatePdu::ArealObjectStatePdu() : SyntheticEnvironmentPduFamily(),
+ArealObjectStatePdu::ArealObjectStatePdu() : SyntheticEnvironmentFamilyPdu(),
    _objectID(), 
    _referencedObjectID(), 
    _updateNumber(0), 
@@ -165,7 +165,7 @@ void ArealObjectStatePdu::setObjectLocation(const std::vector<Vector3Double>& pX
 
 void ArealObjectStatePdu::marshal(DataStream& dataStream) const
 {
-    SyntheticEnvironmentPduFamily::marshal(dataStream); // Marshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _objectID.marshal(dataStream);
     _referencedObjectID.marshal(dataStream);
     dataStream << _updateNumber;
@@ -187,7 +187,7 @@ void ArealObjectStatePdu::marshal(DataStream& dataStream) const
 
 void ArealObjectStatePdu::unmarshal(DataStream& dataStream)
 {
-    SyntheticEnvironmentPduFamily::unmarshal(dataStream); // unmarshal information in superclass first
+    SyntheticEnvironmentFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _objectID.unmarshal(dataStream);
     _referencedObjectID.unmarshal(dataStream);
     dataStream >> _updateNumber;
@@ -213,7 +213,7 @@ bool ArealObjectStatePdu::operator ==(const ArealObjectStatePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SyntheticEnvironmentPduFamily::operator==(rhs);
+     ivarsEqual = SyntheticEnvironmentFamilyPdu::operator==(rhs);
 
      if( ! (_objectID == rhs._objectID) ) ivarsEqual = false;
      if( ! (_referencedObjectID == rhs._referencedObjectID) ) ivarsEqual = false;
@@ -238,7 +238,7 @@ int ArealObjectStatePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SyntheticEnvironmentPduFamily::getMarshalledSize();
+   marshalSize = SyntheticEnvironmentFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _objectID.getMarshalledSize();  // _objectID
    marshalSize = marshalSize + _referencedObjectID.getMarshalledSize();  // _referencedObjectID
    marshalSize = marshalSize + 2;  // _updateNumber

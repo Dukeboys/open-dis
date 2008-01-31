@@ -6,7 +6,7 @@
 #include <DIS/Vector3Float.h>
 #include <DIS/Vector3Double.h>
 #include <DIS/Vector3Float.h>
-#include <DIS/DistributedEmissionsPdu.h>
+#include <DIS/DistributedEmissionsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -21,7 +21,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO DesignatorPdu : public DistributedEmissionsPdu
+class EXPORT_MACRO DesignatorPdu : public DistributedEmissionsFamilyPdu
 {
 protected:
   // ID of the entity designating

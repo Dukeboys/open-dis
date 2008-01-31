@@ -5,7 +5,7 @@
 #include <DIS/EntityType.h>
 #include <DIS/Environment.h>
 #include <vector>
-#include <DIS/SyntheticEnvironmentPduFamily.h>
+#include <DIS/SyntheticEnvironmentFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -20,7 +20,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO EnvironmentalProcessPdu : public SyntheticEnvironmentPduFamily
+class EXPORT_MACRO EnvironmentalProcessPdu : public SyntheticEnvironmentFamilyPdu
 {
 protected:
   // Environmental process ID

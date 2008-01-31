@@ -2,7 +2,7 @@
 #define RECEIVERPDU_H
 
 #include <DIS/EntityID.h>
-#include <DIS/RadioCommunicationsPdu.h>
+#include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -17,7 +17,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO ReceiverPdu : public RadioCommunicationsPdu
+class EXPORT_MACRO ReceiverPdu : public RadioCommunicationsFamilyPdu
 {
 protected:
   // encoding scheme used, and enumeration

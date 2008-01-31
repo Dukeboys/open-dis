@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-SignalPdu::SignalPdu() : RadioCommunicationsPdu(),
+SignalPdu::SignalPdu() : RadioCommunicationsFamilyPdu(),
    _encodingScheme(0), 
    _tdlType(0), 
    _sampleRate(0), 
@@ -69,7 +69,7 @@ void SignalPdu::setSamples(short pX)
 
 void SignalPdu::marshal(DataStream& dataStream) const
 {
-    RadioCommunicationsPdu::marshal(dataStream); // Marshal information in superclass first
+    RadioCommunicationsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _encodingScheme;
     dataStream << _tdlType;
     dataStream << _sampleRate;
@@ -79,7 +79,7 @@ void SignalPdu::marshal(DataStream& dataStream) const
 
 void SignalPdu::unmarshal(DataStream& dataStream)
 {
-    RadioCommunicationsPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    RadioCommunicationsFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _encodingScheme;
     dataStream >> _tdlType;
     dataStream >> _sampleRate;
@@ -92,7 +92,7 @@ bool SignalPdu::operator ==(const SignalPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = RadioCommunicationsPdu::operator==(rhs);
+     ivarsEqual = RadioCommunicationsFamilyPdu::operator==(rhs);
 
      if( ! (_encodingScheme == rhs._encodingScheme) ) ivarsEqual = false;
      if( ! (_tdlType == rhs._tdlType) ) ivarsEqual = false;
@@ -107,7 +107,7 @@ int SignalPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = RadioCommunicationsPdu::getMarshalledSize();
+   marshalSize = RadioCommunicationsFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 2;  // _encodingScheme
    marshalSize = marshalSize + 2;  // _tdlType
    marshalSize = marshalSize + 4;  // _sampleRate

@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-CommentPdu::CommentPdu() : SimulationManagementPdu(),
+CommentPdu::CommentPdu() : SimulationManagementFamilyPdu(),
    _numberOfFixedDatumRecords(0), 
    _numberOfVariableDatumRecords(0)
 {
@@ -58,7 +58,7 @@ void CommentPdu::setVariableDatums(const std::vector<VariableDatum>& pX)
 
 void CommentPdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << ( unsigned int )_fixedDatums.size();
     dataStream << ( unsigned int )_variableDatums.size();
 
@@ -79,7 +79,7 @@ void CommentPdu::marshal(DataStream& dataStream) const
 
 void CommentPdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _numberOfFixedDatumRecords;
     dataStream >> _numberOfVariableDatumRecords;
 
@@ -105,7 +105,7 @@ bool CommentPdu::operator ==(const CommentPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
 
      for(size_t idx = 0; idx < _fixedDatums.size(); idx++)
@@ -127,7 +127,7 @@ int CommentPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _numberOfFixedDatumRecords
    marshalSize = marshalSize + 4;  // _numberOfVariableDatumRecords
 

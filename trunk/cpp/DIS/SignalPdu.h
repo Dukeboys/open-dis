@@ -1,7 +1,7 @@
 #ifndef SIGNALPDU_H
 #define SIGNALPDU_H
 
-#include <DIS/RadioCommunicationsPdu.h>
+#include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
@@ -16,7 +16,7 @@ namespace DIS
 //
 // @author DMcG, jkg
 
-class EXPORT_MACRO SignalPdu : public RadioCommunicationsPdu
+class EXPORT_MACRO SignalPdu : public RadioCommunicationsFamilyPdu
 {
 protected:
   // encoding scheme used, and enumeration

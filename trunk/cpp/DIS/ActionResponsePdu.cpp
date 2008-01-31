@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-ActionResponsePdu::ActionResponsePdu() : SimulationManagementPdu(),
+ActionResponsePdu::ActionResponsePdu() : SimulationManagementFamilyPdu(),
    _requestID(0), 
    _requestStatus(0), 
    _numberOfFixedDatumRecords(0), 
@@ -80,7 +80,7 @@ void ActionResponsePdu::setVariableDatums(const std::vector<VariableDatum>& pX)
 
 void ActionResponsePdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _requestID;
     dataStream << _requestStatus;
     dataStream << ( unsigned int )_fixedDatums.size();
@@ -103,7 +103,7 @@ void ActionResponsePdu::marshal(DataStream& dataStream) const
 
 void ActionResponsePdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _requestID;
     dataStream >> _requestStatus;
     dataStream >> _numberOfFixedDatumRecords;
@@ -131,7 +131,7 @@ bool ActionResponsePdu::operator ==(const ActionResponsePdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
      if( ! (_requestID == rhs._requestID) ) ivarsEqual = false;
      if( ! (_requestStatus == rhs._requestStatus) ) ivarsEqual = false;
@@ -155,7 +155,7 @@ int ActionResponsePdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _requestID
    marshalSize = marshalSize + 4;  // _requestStatus
    marshalSize = marshalSize + 4;  // _numberOfFixedDatumRecords

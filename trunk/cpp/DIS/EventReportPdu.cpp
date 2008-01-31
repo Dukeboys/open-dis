@@ -3,7 +3,7 @@
 using namespace DIS;
 
 
-EventReportPdu::EventReportPdu() : SimulationManagementPdu(),
+EventReportPdu::EventReportPdu() : SimulationManagementFamilyPdu(),
    _eventType(0), 
    _padding1(0), 
    _numberOfFixedDatumRecords(0), 
@@ -80,7 +80,7 @@ void EventReportPdu::setVariableDatums(const std::vector<VariableDatum>& pX)
 
 void EventReportPdu::marshal(DataStream& dataStream) const
 {
-    SimulationManagementPdu::marshal(dataStream); // Marshal information in superclass first
+    SimulationManagementFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _eventType;
     dataStream << _padding1;
     dataStream << ( unsigned int )_fixedDatums.size();
@@ -103,7 +103,7 @@ void EventReportPdu::marshal(DataStream& dataStream) const
 
 void EventReportPdu::unmarshal(DataStream& dataStream)
 {
-    SimulationManagementPdu::unmarshal(dataStream); // unmarshal information in superclass first
+    SimulationManagementFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     dataStream >> _eventType;
     dataStream >> _padding1;
     dataStream >> _numberOfFixedDatumRecords;
@@ -131,7 +131,7 @@ bool EventReportPdu::operator ==(const EventReportPdu& rhs) const
  {
      bool ivarsEqual = true;
 
-     ivarsEqual = SimulationManagementPdu::operator==(rhs);
+     ivarsEqual = SimulationManagementFamilyPdu::operator==(rhs);
 
      if( ! (_eventType == rhs._eventType) ) ivarsEqual = false;
      if( ! (_padding1 == rhs._padding1) ) ivarsEqual = false;
@@ -155,7 +155,7 @@ int EventReportPdu::getMarshalledSize() const
 {
    int marshalSize = 0;
 
-   marshalSize = SimulationManagementPdu::getMarshalledSize();
+   marshalSize = SimulationManagementFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + 4;  // _eventType
    marshalSize = marshalSize + 4;  // _padding1
    marshalSize = marshalSize + 4;  // _numberOfFixedDatumRecords
