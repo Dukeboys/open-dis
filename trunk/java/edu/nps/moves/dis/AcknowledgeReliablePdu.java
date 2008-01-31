@@ -12,7 +12,7 @@ import edu.nps.moves.jaxb.dis.*;
  *
  * @author DMcG
  */
-public class AcknowledgeReliablePdu extends SimulationManagementWithReliabilityPduFamily
+public class AcknowledgeReliablePdu extends SimulationManagementWithReliabilityFamilyPdu implements Serializable
 {
    /** ack flags */
    protected int  acknowledgeFlag;
