@@ -3,7 +3,7 @@
 
   <xs:complexType name="acknowledgePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="acknowledgeFlag" type="xs:int"/>
           <xs:element name="requestID" type="xs:long"/>
@@ -13,7 +13,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="simulationManagementPdu">
+  <xs:complexType name="simulationManagementFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence>
@@ -46,7 +46,7 @@
 
   <xs:complexType name="acknowledgeReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="acknowledgeFlag" type="xs:int"/>
           <xs:element name="requestID" type="xs:long"/>
@@ -56,7 +56,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="simulationManagementWithReliabilityPduFamily">
+  <xs:complexType name="simulationManagementWithReliabilityFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence>
@@ -124,7 +124,7 @@
 
   <xs:complexType name="actionRequestPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="actionID" type="xs:long"/>
           <xs:element name="fixedDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -139,7 +139,7 @@
 
   <xs:complexType name="actionRequestReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="actionID" type="xs:long"/>
           <xs:element name="fixedDatumRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -157,7 +157,7 @@
 
   <xs:complexType name="actionResponsePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -172,7 +172,7 @@
 
   <xs:complexType name="actionResponseReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatumRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -302,7 +302,7 @@
 
   <xs:complexType name="arealObjectStatePdu">
     <xs:complexContent>
-      <xs:extension base="syntheticEnvironmentPduFamily">
+      <xs:extension base="syntheticEnvironmentFamilyPdu">
         <xs:sequence>
           <xs:element name="forceID" type="xs:short"/>
           <xs:element name="modifications" type="xs:short"/>
@@ -320,7 +320,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="syntheticEnvironmentPduFamily">
+  <xs:complexType name="syntheticEnvironmentFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence/>
@@ -393,7 +393,7 @@
 
   <xs:complexType name="collisionElasticPdu">
     <xs:complexContent>
-      <xs:extension base="entityInformationPdu">
+      <xs:extension base="entityInformationFamilyPdu">
         <xs:sequence>
           <xs:element name="coefficientOfRestitution" type="xs:float"/>
           <xs:element name="collidingEntityID" type="entityID" minOccurs="0"/>
@@ -415,7 +415,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="entityInformationPdu">
+  <xs:complexType name="entityInformationFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence/>
@@ -433,7 +433,7 @@
 
   <xs:complexType name="collisionPdu">
     <xs:complexContent>
-      <xs:extension base="entityInformationPdu">
+      <xs:extension base="entityInformationFamilyPdu">
         <xs:sequence>
           <xs:element name="collidingEntityID" type="entityID" minOccurs="0"/>
           <xs:element name="collisionType" type="xs:short"/>
@@ -450,7 +450,7 @@
 
   <xs:complexType name="commentPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -463,7 +463,7 @@
 
   <xs:complexType name="commentReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatumRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -476,7 +476,7 @@
 
   <xs:complexType name="createEntityPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="requestID" type="xs:long"/>
         </xs:sequence>
@@ -486,7 +486,7 @@
 
   <xs:complexType name="createEntityReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="pad1" type="xs:int"/>
           <xs:element name="pad2" type="xs:short"/>
@@ -499,7 +499,7 @@
 
   <xs:complexType name="dataPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -514,7 +514,7 @@
 
   <xs:complexType name="dataQueryPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -529,7 +529,7 @@
 
   <xs:complexType name="dataQueryReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatumRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -547,7 +547,7 @@
 
   <xs:complexType name="dataReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatumRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -573,7 +573,7 @@
 
   <xs:complexType name="designatorPdu">
     <xs:complexContent>
-      <xs:extension base="distributedEmissionsPdu">
+      <xs:extension base="distributedEmissionsFamilyPdu">
         <xs:sequence>
           <xs:element name="codeName" type="xs:int"/>
           <xs:element name="deadReckoningAlgorithm" type="xs:byte"/>
@@ -592,7 +592,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="distributedEmissionsPdu">
+  <xs:complexType name="distributedEmissionsFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence/>
@@ -602,7 +602,7 @@
 
   <xs:complexType name="detonationPdu">
     <xs:complexContent>
-      <xs:extension base="warfare">
+      <xs:extension base="warfareFamilyPdu">
         <xs:sequence>
           <xs:element name="articulationParameters" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="burstDescriptor" type="burstDescriptor" minOccurs="0"/>
@@ -618,7 +618,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="warfare">
+  <xs:complexType name="warfareFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence>
@@ -686,7 +686,7 @@
 
   <xs:complexType name="electronicEmissionsPdu">
     <xs:complexContent>
-      <xs:extension base="distributedEmissionsPdu">
+      <xs:extension base="distributedEmissionsFamilyPdu">
         <xs:sequence>
           <xs:element name="emittingEntityID" type="entityID" minOccurs="0"/>
           <xs:element name="eventID" type="eventID" minOccurs="0"/>
@@ -700,7 +700,7 @@
 
   <xs:complexType name="entityStatePdu">
     <xs:complexContent>
-      <xs:extension base="entityInformationPdu">
+      <xs:extension base="entityInformationFamilyPdu">
         <xs:sequence>
           <xs:element name="alternativeEntityType" type="entityType" minOccurs="0"/>
           <xs:element name="articulationParameters" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -729,7 +729,7 @@
 
   <xs:complexType name="entityStateUpdatePdu">
     <xs:complexContent>
-      <xs:extension base="entityInformationPdu">
+      <xs:extension base="entityInformationFamilyPdu">
         <xs:sequence>
           <xs:element name="articulationParameters" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="entityAppearance" type="xs:int"/>
@@ -756,7 +756,7 @@
 
   <xs:complexType name="environmentalProcessPdu">
     <xs:complexContent>
-      <xs:extension base="syntheticEnvironmentPduFamily">
+      <xs:extension base="syntheticEnvironmentFamilyPdu">
         <xs:sequence>
           <xs:element name="environementalProcessID" type="entityID" minOccurs="0"/>
           <xs:element name="environmentRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -772,7 +772,7 @@
 
   <xs:complexType name="eventReportPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="eventType" type="xs:long"/>
           <xs:element name="fixedDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -787,7 +787,7 @@
 
   <xs:complexType name="eventReportReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="eventType" type="xs:int"/>
           <xs:element name="fixedDatumRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -802,7 +802,7 @@
 
   <xs:complexType name="fastEntityStatePdu">
     <xs:complexContent>
-      <xs:extension base="entityInformationPdu">
+      <xs:extension base="entityInformationFamilyPdu">
         <xs:sequence>
           <xs:element name="altCategory" type="xs:short"/>
           <xs:element name="altCountry" type="xs:int"/>
@@ -851,7 +851,7 @@
 
   <xs:complexType name="firePdu">
     <xs:complexContent>
-      <xs:extension base="warfare">
+      <xs:extension base="warfareFamilyPdu">
         <xs:sequence>
           <xs:element name="burstDescriptor" type="burstDescriptor" minOccurs="0"/>
           <xs:element name="eventID" type="eventID" minOccurs="0"/>
@@ -935,7 +935,7 @@
 
   <xs:complexType name="griddedDataPdu">
     <xs:complexContent>
-      <xs:extension base="syntheticEnvironmentPduFamily">
+      <xs:extension base="syntheticEnvironmentFamilyPdu">
         <xs:sequence>
           <xs:element name="constantGrid" type="xs:short"/>
           <xs:element name="coordinateSystem" type="xs:int"/>
@@ -959,7 +959,7 @@
 
   <xs:complexType name="iffAtcNavAidsLayer1Pdu">
     <xs:complexContent>
-      <xs:extension base="distributedEmissionsPdu">
+      <xs:extension base="distributedEmissionsFamilyPdu">
         <xs:sequence>
           <xs:element name="emittingEntityId" type="entityID" minOccurs="0"/>
           <xs:element name="eventID" type="eventID" minOccurs="0"/>
@@ -1027,7 +1027,7 @@
 
   <xs:complexType name="intercomControlPdu">
     <xs:complexContent>
-      <xs:extension base="radioCommunicationsPdu">
+      <xs:extension base="radioCommunicationsFamilyPdu">
         <xs:sequence>
           <xs:element name="command" type="xs:short"/>
           <xs:element name="communicationsChannelType" type="xs:short"/>
@@ -1046,7 +1046,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="radioCommunicationsPdu">
+  <xs:complexType name="radioCommunicationsFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence>
@@ -1059,7 +1059,7 @@
 
   <xs:complexType name="intercomSignalPdu">
     <xs:complexContent>
-      <xs:extension base="radioCommunicationsPdu">
+      <xs:extension base="radioCommunicationsFamilyPdu">
         <xs:sequence>
           <xs:element name="communicationsDeviceID" type="xs:int"/>
           <xs:element name="data" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -1121,7 +1121,7 @@
 
   <xs:complexType name="linearObjectStatePdu">
     <xs:complexContent>
-      <xs:extension base="syntheticEnvironmentPduFamily">
+      <xs:extension base="syntheticEnvironmentFamilyPdu">
         <xs:sequence>
           <xs:element name="forceID" type="xs:short"/>
           <xs:element name="linearSegmentParameters" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -1161,7 +1161,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="logisticsPdu">
+  <xs:complexType name="logisticsFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence/>
@@ -1171,7 +1171,7 @@
 
   <xs:complexType name="minefieldDataPdu">
     <xs:complexContent>
-      <xs:extension base="minefieldPduFamily">
+      <xs:extension base="minfieldFamilyPdu">
         <xs:sequence>
           <xs:element name="dataFilter" type="xs:long"/>
           <xs:element name="mineLocation" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -1192,7 +1192,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="minefieldPduFamily">
+  <xs:complexType name="minfieldFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence/>
@@ -1202,7 +1202,7 @@
 
   <xs:complexType name="minefieldQueryPdu">
     <xs:complexContent>
-      <xs:extension base="minefieldPduFamily">
+      <xs:extension base="minfieldFamilyPdu">
         <xs:sequence>
           <xs:element name="dataFilter" type="xs:long"/>
           <xs:element name="minefieldID" type="entityID" minOccurs="0"/>
@@ -1221,7 +1221,7 @@
 
   <xs:complexType name="minefieldResponseNackPdu">
     <xs:complexContent>
-      <xs:extension base="minefieldPduFamily">
+      <xs:extension base="minfieldFamilyPdu">
         <xs:sequence>
           <xs:element name="minefieldID" type="entityID" minOccurs="0"/>
           <xs:element name="missingPduSequenceNumbers" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -1235,7 +1235,7 @@
 
   <xs:complexType name="minefieldStatePdu">
     <xs:complexContent>
-      <xs:extension base="minefieldPduFamily">
+      <xs:extension base="minfieldFamilyPdu">
         <xs:sequence>
           <xs:element name="appearance" type="xs:int"/>
           <xs:element name="forceID" type="xs:short"/>
@@ -1284,7 +1284,7 @@
 
   <xs:complexType name="pointObjectStatePdu">
     <xs:complexContent>
-      <xs:extension base="syntheticEnvironmentPduFamily">
+      <xs:extension base="syntheticEnvironmentFamilyPdu">
         <xs:sequence>
           <xs:element name="forceID" type="xs:short"/>
           <xs:element name="modifications" type="xs:short"/>
@@ -1324,7 +1324,7 @@
 
   <xs:complexType name="receiverPdu">
     <xs:complexContent>
-      <xs:extension base="radioCommunicationsPdu">
+      <xs:extension base="radioCommunicationsFamilyPdu">
         <xs:sequence>
           <xs:element name="padding1" type="xs:int"/>
           <xs:element name="receivedPoser" type="xs:float"/>
@@ -1338,7 +1338,7 @@
 
   <xs:complexType name="recordQueryReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="eventType" type="xs:int"/>
           <xs:element name="numberOfRecords" type="xs:long"/>
@@ -1366,7 +1366,7 @@
 
   <xs:complexType name="removeEntityPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="requestID" type="xs:long"/>
         </xs:sequence>
@@ -1376,7 +1376,7 @@
 
   <xs:complexType name="removeEntityReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="pad1" type="xs:int"/>
           <xs:element name="pad2" type="xs:short"/>
@@ -1389,7 +1389,7 @@
 
   <xs:complexType name="repairCompletePdu">
     <xs:complexContent>
-      <xs:extension base="logisticsPdu">
+      <xs:extension base="logisticsFamilyPdu">
         <xs:sequence>
           <xs:element name="receivingEntityID" type="entityID" minOccurs="0"/>
           <xs:element name="repair" type="xs:int"/>
@@ -1401,7 +1401,7 @@
 
   <xs:complexType name="repairResponsePdu">
     <xs:complexContent>
-      <xs:extension base="logisticsPdu">
+      <xs:extension base="logisticsFamilyPdu">
         <xs:sequence>
           <xs:element name="padding1" type="xs:short"/>
           <xs:element name="padding2" type="xs:byte"/>
@@ -1415,7 +1415,7 @@
 
   <xs:complexType name="resupplyCancelPdu">
     <xs:complexContent>
-      <xs:extension base="logisticsPdu">
+      <xs:extension base="logisticsFamilyPdu">
         <xs:sequence>
           <xs:element name="receivingEntityID" type="entityID" minOccurs="0"/>
           <xs:element name="supplyingEntityID" type="entityID" minOccurs="0"/>
@@ -1426,7 +1426,7 @@
 
   <xs:complexType name="resupplyOfferPdu">
     <xs:complexContent>
-      <xs:extension base="logisticsPdu">
+      <xs:extension base="logisticsFamilyPdu">
         <xs:sequence>
           <xs:element name="numberOfSupplyTypes" type="xs:short"/>
           <xs:element name="padding1" type="xs:short"/>
@@ -1441,7 +1441,7 @@
 
   <xs:complexType name="resupplyReceivedPdu">
     <xs:complexContent>
-      <xs:extension base="logisticsPdu">
+      <xs:extension base="logisticsFamilyPdu">
         <xs:sequence>
           <xs:element name="numberOfSupplyTypes" type="xs:short"/>
           <xs:element name="padding1" type="xs:short"/>
@@ -1456,7 +1456,7 @@
 
   <xs:complexType name="seesPdu">
     <xs:complexContent>
-      <xs:extension base="distributedEmissionsPdu">
+      <xs:extension base="distributedEmissionsFamilyPdu">
         <xs:sequence>
           <xs:element name="acousticSignatureRepresentationIndex" type="xs:int"/>
           <xs:element name="infraredSignatureRepresentationIndex" type="xs:int"/>
@@ -1473,7 +1473,7 @@
 
   <xs:complexType name="serviceRequestPdu">
     <xs:complexContent>
-      <xs:extension base="logisticsPdu">
+      <xs:extension base="logisticsFamilyPdu">
         <xs:sequence>
           <xs:element name="numberOfSupplyTypes" type="xs:short"/>
           <xs:element name="requestingEntityID" type="entityID" minOccurs="0"/>
@@ -1488,7 +1488,7 @@
 
   <xs:complexType name="setDataPdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -1503,7 +1503,7 @@
 
   <xs:complexType name="setDataReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="fixedDatumRecords" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="numberOfFixedDatumRecords" type="xs:long"/>
@@ -1520,7 +1520,7 @@
 
   <xs:complexType name="setRecordReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="numberOfRecordSets" type="xs:long"/>
           <xs:element name="pad1" type="xs:int"/>
@@ -1543,7 +1543,7 @@
 
   <xs:complexType name="signalPdu">
     <xs:complexContent>
-      <xs:extension base="radioCommunicationsPdu">
+      <xs:extension base="radioCommunicationsFamilyPdu">
         <xs:sequence>
           <xs:element name="dataLength" type="xs:short"/>
           <xs:element name="encodingScheme" type="xs:int"/>
@@ -1563,7 +1563,7 @@
 
   <xs:complexType name="startResumePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="realWorldTime" type="clockTime" minOccurs="0"/>
           <xs:element name="requestID" type="xs:long"/>
@@ -1575,7 +1575,7 @@
 
   <xs:complexType name="startResumeReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="pad1" type="xs:int"/>
           <xs:element name="pad2" type="xs:short"/>
@@ -1590,7 +1590,7 @@
 
   <xs:complexType name="stopFreezePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="frozenBehavior" type="xs:short"/>
           <xs:element name="padding1" type="xs:short"/>
@@ -1604,7 +1604,7 @@
 
   <xs:complexType name="stopFreezeReliablePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityPduFamily">
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
         <xs:sequence>
           <xs:element name="frozenBehavior" type="xs:short"/>
           <xs:element name="pad1" type="xs:short"/>
@@ -1651,7 +1651,7 @@
 
   <xs:complexType name="transmitterPdu">
     <xs:complexContent>
-      <xs:extension base="radioCommunicationsPdu">
+      <xs:extension base="radioCommunicationsFamilyPdu">
         <xs:sequence>
           <xs:element name="antennaLocation" type="vector3Double" minOccurs="0"/>
           <xs:element name="antennaPatternCount" type="xs:int"/>
@@ -1685,7 +1685,7 @@
 
   <xs:complexType name="uaPdu">
     <xs:complexContent>
-      <xs:extension base="distributedEmissionsPdu">
+      <xs:extension base="distributedEmissionsFamilyPdu">
         <xs:sequence>
           <xs:element name="apaData" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="emitterSystems" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
