@@ -60,7 +60,7 @@ public class PduFactory
         {
             case ESPDU: 
                 // if the user has created the factory requesting that he get fast espdus back, give him those.
-                if(useFastEspdu == true)
+                if(useFastPdu == true)
                 {
                    aPdu = new FastEntityStatePdu();
                 }
