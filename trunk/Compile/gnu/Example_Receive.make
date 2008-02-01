@@ -10,12 +10,12 @@ ifeq ($(CONFIG),Debug)
   LIBDIR := ../../lib
   OBJDIR := obj_gnu_Example_Receive_debug
   OUTDIR := ../../bin
-  CPPFLAGS := -MMD -D "_DEBUG" -I "../.." -I "../../cpp" -I "../../CppUtils" -I "/home/jkgrant/soft/dev/src/projects/DIS/delta3d/ext/inc"
+  CPPFLAGS := -MMD -D "_DEBUG" -I "../.." -I "../../cpp" -I "../../CppUtils"
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -g
   CXXFLAGS := $(CFLAGS)
-  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -L"/home/jkgrant/soft/dev/src/projects/DIS/delta3d/ext/lib" -lNL ../../bin/libDIS_debug.so -lpthread -lstdc++
+  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -lNL -lDIS_debug
   LDDEPS := ../../bin/libDIS_debug.so
-  RESFLAGS := -D "_DEBUG" -I "../.." -I "../../cpp" -I "../../CppUtils" -I "/home/jkgrant/soft/dev/src/projects/DIS/delta3d/ext/inc"
+  RESFLAGS := -D "_DEBUG" -I "../.." -I "../../cpp" -I "../../CppUtils"
   TARGET := Example_Receive_debug
   BLDCMD = $(CC) -o $(OUTDIR)/$(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
 endif
@@ -25,12 +25,12 @@ ifeq ($(CONFIG),Release)
   LIBDIR := ../../lib
   OBJDIR := obj_gnu_Example_Receive
   OUTDIR := ../../bin
-  CPPFLAGS := -MMD -I "../.." -I "../../cpp" -I "../../CppUtils" -I "/home/jkgrant/soft/dev/src/projects/DIS/delta3d/ext/inc"
+  CPPFLAGS := -MMD -I "../.." -I "../../cpp" -I "../../CppUtils"
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -O2
   CXXFLAGS := $(CFLAGS)
-  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -s -L"/home/jkgrant/soft/dev/src/projects/DIS/delta3d/ext/lib" -lNL ../../bin/libDIS.so -lpthread -lstdc++
+  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -Wl,-x -lNL -lDIS
   LDDEPS := ../../bin/libDIS.so
-  RESFLAGS := -I "../.." -I "../../cpp" -I "../../CppUtils" -I "/home/jkgrant/soft/dev/src/projects/DIS/delta3d/ext/inc"
+  RESFLAGS := -I "../.." -I "../../cpp" -I "../../CppUtils"
   TARGET := Example_Receive
   BLDCMD = $(CC) -o $(OUTDIR)/$(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
 endif
@@ -73,7 +73,8 @@ $(OUTDIR)/$(TARGET): $(OBJECTS) $(LDDEPS) $(RESOURCES)
 clean:
 	@echo Cleaning Example_Receive
 ifeq ($(MKDIR_TYPE),posix)
-	-@rm -rf $(OUTDIR)/$(TARGET) $(OBJDIR)
+	-@rm -f $(OUTDIR)/$(TARGET)
+	-@rm -rf $(OBJDIR)
 else
 	-@if exist $(subst /,\,$(OUTDIR)/$(TARGET)) del /q $(subst /,\,$(OUTDIR)/$(TARGET))
 	-@if exist $(subst /,\,$(OBJDIR)) del /q $(subst /,\,$(OBJDIR))

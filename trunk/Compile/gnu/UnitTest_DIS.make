@@ -13,7 +13,7 @@ ifeq ($(CONFIG),Debug)
   CPPFLAGS := -MMD -D "_DEBUG" -I "../../cpp" -I "../../CppUtils"
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -g
   CXXFLAGS := $(CFLAGS)
-  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) ../../bin/libDIS_debug.so -lcppunit
+  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -lDIS_debug -lcppunit
   LDDEPS := ../../bin/libDIS_debug.so
   RESFLAGS := -D "_DEBUG" -I "../../cpp" -I "../../CppUtils"
   TARGET := UnitTest_DIS_debug
@@ -28,7 +28,7 @@ ifeq ($(CONFIG),Release)
   CPPFLAGS := -MMD -I "../../cpp" -I "../../CppUtils"
   CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -O2
   CXXFLAGS := $(CFLAGS)
-  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -s ../../bin/libDIS.so -lcppunit
+  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -Wl,-x -lDIS -lcppunit
   LDDEPS := ../../bin/libDIS.so
   RESFLAGS := -I "../../cpp" -I "../../CppUtils"
   TARGET := UnitTest_DIS
@@ -74,7 +74,8 @@ $(OUTDIR)/$(TARGET): $(OBJECTS) $(LDDEPS) $(RESOURCES)
 clean:
 	@echo Cleaning UnitTest_DIS
 ifeq ($(MKDIR_TYPE),posix)
-	-@rm -rf $(OUTDIR)/$(TARGET) $(OBJDIR)
+	-@rm -f $(OUTDIR)/$(TARGET)
+	-@rm -rf $(OBJDIR)
 else
 	-@if exist $(subst /,\,$(OUTDIR)/$(TARGET)) del /q $(subst /,\,$(OUTDIR)/$(TARGET))
 	-@if exist $(subst /,\,$(OBJDIR)) del /q $(subst /,\,$(OBJDIR))

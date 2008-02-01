@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="DIS"
-	ProjectGUID="{80A43E02-A347-0245-A3E7-88B130EDA645}"
+	ProjectGUID="{D6D519F0-DD23-A1AD-776A-254B21BD85C2}"
 	RootNamespace="DIS"
 	Keyword="Win32Proj"
 	>
@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
-				PreprocessorDefinitions="WIN32;_DEBUG;EXPORT_LIBRARY"
+				PreprocessorDefinitions="_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -56,6 +56,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
 			/>
 			<Tool
@@ -63,13 +64,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/DIS_debug.dll"
+				OutputFile="$(OutDir)/libDIS_debug.so"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/DIS_debug.pdb"
+				ProgramDatabaseFile="$(OutDir)/libDIS_debug.pdb"
 				SubSystem="2"
-				ImportLibrary="../../lib/DIS_debug.lib"
+				ImportLibrary="../../lib/libDIS_debug.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -123,7 +124,6 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
-				PreprocessorDefinitions="WIN32;EXPORT_LIBRARY"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -144,14 +144,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/DIS.dll"
+				OutputFile="$(OutDir)/libDIS.so"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="../../lib/DIS.lib"
+				ImportLibrary="../../lib/libDIS.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -185,1161 +185,891 @@
 	<Files>
 		<Filter
 			Name="cpp"
+			Filter=""
 			>
 			<Filter
 				Name="DIS"
+				Filter=""
 				>
 				<File
-					RelativePath="..\..\cpp\DIS\AcknowledgePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AcknowledgePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcknowledgePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AcknowledgeReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcknowledgeReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticBeamData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcknowledgeReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticBeamFundamentalParameter.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticBeamData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticEmitter.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticBeamData.h"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticEmitterSystem.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticBeamFundamentalParameter.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticEmitterSystemData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticBeamFundamentalParameter.h"
-					>
+					RelativePath="..\..\cpp\DIS\ActionRequestPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticEmitter.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ActionRequestReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticEmitter.h"
-					>
+					RelativePath="..\..\cpp\DIS\ActionResponsePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticEmitterSystem.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ActionResponseReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticEmitterSystem.h"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateID.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticEmitterSystemData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateMarking.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AcousticEmitterSystemData.h"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateStatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionRequestPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateType.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionRequestPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AngularVelocityVector.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionRequestReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AntennaLocation.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionRequestReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ApaData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionResponsePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ArealObjectStatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionResponsePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ArticulationParameter.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionResponseReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\BeamAntennaPattern.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ActionResponseReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\BeamData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateID.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\BurstDescriptor.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateID.h"
-					>
+					RelativePath="..\..\cpp\DIS\ClockTime.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateMarking.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\CollisionElasticPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateMarking.h"
-					>
+					RelativePath="..\..\cpp\DIS\CollisionPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateStatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\CommentPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateStatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\CommentReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateType.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\CreateEntityPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AggregateType.h"
-					>
+					RelativePath="..\..\cpp\DIS\CreateEntityReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AngularVelocityVector.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\DataPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AngularVelocityVector.h"
-					>
+					RelativePath="..\..\cpp\DIS\DataQueryPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AntennaLocation.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\DataQueryReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\AntennaLocation.h"
-					>
+					RelativePath="..\..\cpp\DIS\DataReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ApaData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\DeadReckoningParameter.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ApaData.h"
-					>
+					RelativePath="..\..\cpp\DIS\DesignatorPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ArealObjectStatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\DetonationPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ArealObjectStatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\DistributedEmissionsFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ArticulationParameter.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EightByteChunk.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ArticulationParameter.h"
-					>
+					RelativePath="..\..\cpp\DIS\ElectronicEmissionBeamData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\BeamAntennaPattern.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ElectronicEmissionsPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\BeamAntennaPattern.h"
-					>
+					RelativePath="..\..\cpp\DIS\ElectronicEmissionSystemData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\BeamData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EmitterSystem.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\BeamData.h"
-					>
+					RelativePath="..\..\cpp\DIS\EntityID.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\BurstDescriptor.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EntityInformationFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\BurstDescriptor.h"
-					>
+					RelativePath="..\..\cpp\DIS\EntityManagementFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ClockTime.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EntityStatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ClockTime.h"
-					>
+					RelativePath="..\..\cpp\DIS\EntityStateUpdatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CollisionElasticPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EntityType.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CollisionElasticPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\Environment.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CollisionPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EnvironmentalProcessPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CollisionPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\EventID.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CommentPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EventReportPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CommentPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\EventReportReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CommentReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\FastEntityStatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CommentReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\FirePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CreateEntityPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\FixedDatum.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CreateEntityPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\FourByteChunk.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CreateEntityReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\FundamentalParameterData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\CreateEntityReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\FundamentalParameterDataIff.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecord.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation0.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataQueryPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation1.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataQueryPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation2.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataQueryReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\GriddedDataPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataQueryReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer1Pdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer2Pdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DataReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\IffFundamentalData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DeadReckoningParameter.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IntercomCommunicationsParameters.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DeadReckoningParameter.h"
-					>
+					RelativePath="..\..\cpp\DIS\IntercomControlPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DesignatorPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IntercomSignalPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DesignatorPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\IsGroupOfPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DetonationPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IsPartOfPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DetonationPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\LayerHeader.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DistributedEmissionsPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\LinearObjectStatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\DistributedEmissionsPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\LinearSegmentParameter.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EightByteChunk.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\LogisticsFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EightByteChunk.h"
-					>
+					RelativePath="..\..\cpp\DIS\LogisticsPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ElectronicEmissionBeamData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\Marking.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ElectronicEmissionBeamData.h"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldDataPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ElectronicEmissionsPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ElectronicEmissionsPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldPduFamily.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ElectronicEmissionSystemData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldQueryPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ElectronicEmissionSystemData.h"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldResponseNackPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EmitterSystem.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldStatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EmitterSystem.h"
-					>
+					RelativePath="..\..\cpp\DIS\ModulationType.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityID.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\msLibMacro.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityID.h"
-					>
+					RelativePath="..\..\cpp\DIS\NamedLocation.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityInformationPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ObjectType.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityInformationPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\OneByteChunk.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityManagementFamilyPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\Orientation.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityManagementFamilyPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\Pdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityStatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\Point.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityStatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\PointObjectStatePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityStateUpdatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\PropulsionSystemData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityStateUpdatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\RadioCommunicationsFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityType.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RadioEntityType.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EntityType.h"
-					>
+					RelativePath="..\..\cpp\DIS\ReceiverPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Environment.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RecordQueryReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Environment.h"
-					>
+					RelativePath="..\..\cpp\DIS\RecordSet.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EnvironmentalProcessPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\Relationship.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EnvironmentalProcessPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\RemoveEntityPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EventID.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RemoveEntityReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EventID.h"
-					>
+					RelativePath="..\..\cpp\DIS\RepairCompletePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EventReportPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RepairResponsePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EventReportPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ResupplyCancelPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EventReportReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ResupplyOfferPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\EventReportReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ResupplyReceivedPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FastEntityStatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SeesPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FastEntityStatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ServiceRequestPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FirePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SetDataPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FirePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\SetDataReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FixedDatum.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SetRecordReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FixedDatum.h"
-					>
+					RelativePath="..\..\cpp\DIS\ShaftRPMs.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FourByteChunk.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SignalPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FourByteChunk.h"
-					>
+					RelativePath="..\..\cpp\DIS\SimulationAddress.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FundamentalParameterData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SimulationManagementFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FundamentalParameterData.h"
-					>
+					RelativePath="..\..\cpp\DIS\SimulationManagementWithReliabilityFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FundamentalParameterDataIff.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SixByteChunk.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\FundamentalParameterDataIff.h"
-					>
+					RelativePath="..\..\cpp\DIS\SphericalHarmonicAntennaPattern.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecord.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\StartResumePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecord.h"
-					>
+					RelativePath="..\..\cpp\DIS\StartResumeReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation0.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\StopFreezePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation0.h"
-					>
+					RelativePath="..\..\cpp\DIS\StopFreezeReliablePdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation1.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SupplyQuantity.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation1.h"
-					>
+					RelativePath="..\..\cpp\DIS\SyntheticEnvironmentFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation2.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SystemID.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation2.h"
-					>
+					RelativePath="..\..\cpp\DIS\TrackJamTarget.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GriddedDataPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\TransferControlRequestPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\GriddedDataPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\TransmitterPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer1Pdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\TwoByteChunk.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer1Pdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\UaPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer2Pdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\VariableDatum.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer2Pdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\Vector3Double.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IffFundamentalData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\Vector3Float.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IffFundamentalData.h"
-					>
+					RelativePath="..\..\cpp\DIS\VectoringNozzleSystemData.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IntercomCommunicationsParameters.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\WarfareFamilyPdu.h">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IntercomCommunicationsParameters.h"
-					>
+					RelativePath="..\..\cpp\DIS\AcknowledgePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IntercomControlPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AcknowledgeReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IntercomControlPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticBeamData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IntercomSignalPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticBeamFundamentalParameter.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IntercomSignalPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticEmitter.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IsGroupOfPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticEmitterSystem.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IsGroupOfPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AcousticEmitterSystemData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IsPartOfPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ActionRequestPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\IsPartOfPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ActionRequestReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LayerHeader.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ActionResponsePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LayerHeader.h"
-					>
+					RelativePath="..\..\cpp\DIS\ActionResponseReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LinearObjectStatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateID.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LinearObjectStatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateMarking.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LinearSegmentParameter.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateStatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LinearSegmentParameter.h"
-					>
+					RelativePath="..\..\cpp\DIS\AggregateType.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LogisticsPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\AngularVelocityVector.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\LogisticsPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\AntennaLocation.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Marking.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ApaData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Marking.h"
-					>
+					RelativePath="..\..\cpp\DIS\ArealObjectStatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldDataPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ArticulationParameter.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldDataPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\BeamAntennaPattern.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldPduFamily.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\BeamData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldPduFamily.h"
-					>
+					RelativePath="..\..\cpp\DIS\BurstDescriptor.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldQueryPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ClockTime.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldQueryPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\CollisionElasticPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldResponseNackPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\CollisionPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldResponseNackPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\CommentPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldStatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\CommentReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\MinefieldStatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\CreateEntityPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ModulationType.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\CreateEntityReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ModulationType.h"
-					>
+					RelativePath="..\..\cpp\DIS\DataPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\msLibMacro.h"
-					>
+					RelativePath="..\..\cpp\DIS\DataQueryPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\NamedLocation.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\DataQueryReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\NamedLocation.h"
-					>
+					RelativePath="..\..\cpp\DIS\DataReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ObjectType.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\DeadReckoningParameter.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ObjectType.h"
-					>
+					RelativePath="..\..\cpp\DIS\DesignatorPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\OneByteChunk.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\DetonationPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\OneByteChunk.h"
-					>
+					RelativePath="..\..\cpp\DIS\DistributedEmissionsFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Orientation.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EightByteChunk.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Orientation.h"
-					>
+					RelativePath="..\..\cpp\DIS\ElectronicEmissionBeamData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Pdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ElectronicEmissionsPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Pdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ElectronicEmissionSystemData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Point.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EmitterSystem.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Point.h"
-					>
+					RelativePath="..\..\cpp\DIS\EntityID.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\PointObjectStatePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EntityInformationFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\PointObjectStatePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\EntityManagementFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\PropulsionSystemData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EntityStatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\PropulsionSystemData.h"
-					>
+					RelativePath="..\..\cpp\DIS\EntityStateUpdatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RadioCommunicationsPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EntityType.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RadioCommunicationsPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\Environment.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RadioEntityType.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EnvironmentalProcessPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RadioEntityType.h"
-					>
+					RelativePath="..\..\cpp\DIS\EventID.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ReceiverPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\EventReportPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ReceiverPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\EventReportReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RecordQueryReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\FastEntityStatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RecordQueryReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\FirePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RecordSet.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\FixedDatum.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RecordSet.h"
-					>
+					RelativePath="..\..\cpp\DIS\FourByteChunk.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Relationship.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\FundamentalParameterData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Relationship.h"
-					>
+					RelativePath="..\..\cpp\DIS\FundamentalParameterDataIff.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RemoveEntityPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecord.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RemoveEntityPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation0.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RemoveEntityReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation1.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RemoveEntityReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\GridAxisRecordRepresentation2.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RepairCompletePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\GriddedDataPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RepairCompletePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer1Pdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RepairResponsePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IffAtcNavAidsLayer2Pdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\RepairResponsePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\IffFundamentalData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ResupplyCancelPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IntercomCommunicationsParameters.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ResupplyCancelPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\IntercomControlPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ResupplyOfferPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IntercomSignalPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ResupplyOfferPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\IsGroupOfPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ResupplyReceivedPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\IsPartOfPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ResupplyReceivedPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\LayerHeader.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SeesPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\LinearObjectStatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SeesPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\LinearSegmentParameter.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ServiceRequestPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\LogisticsFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ServiceRequestPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\LogisticsPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SetDataPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\Marking.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SetDataPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldDataPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SetDataReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SetDataReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldPduFamily.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SetRecordReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldQueryPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SetRecordReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldResponseNackPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ShaftRPMs.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\MinefieldStatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\ShaftRPMs.h"
-					>
+					RelativePath="..\..\cpp\DIS\ModulationType.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SignalPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\NamedLocation.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SignalPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ObjectType.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SimulationAddress.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\OneByteChunk.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SimulationAddress.h"
-					>
+					RelativePath="..\..\cpp\DIS\Orientation.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SimulationManagementPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\Pdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SimulationManagementPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\Point.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SimulationManagementWithReliabilityPduFamily.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\PointObjectStatePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SimulationManagementWithReliabilityPduFamily.h"
-					>
+					RelativePath="..\..\cpp\DIS\PropulsionSystemData.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SixByteChunk.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RadioCommunicationsFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SixByteChunk.h"
-					>
+					RelativePath="..\..\cpp\DIS\RadioEntityType.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SphericalHarmonicAntennaPattern.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ReceiverPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SphericalHarmonicAntennaPattern.h"
-					>
+					RelativePath="..\..\cpp\DIS\RecordQueryReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StartResumePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RecordSet.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StartResumePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\Relationship.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StartResumeReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RemoveEntityPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StartResumeReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\RemoveEntityReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StopFreezePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\RepairCompletePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StopFreezePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\RepairResponsePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StopFreezeReliablePdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ResupplyCancelPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\StopFreezeReliablePdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\ResupplyOfferPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SupplyQuantity.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ResupplyReceivedPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SupplyQuantity.h"
-					>
+					RelativePath="..\..\cpp\DIS\SeesPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SyntheticEnvironmentPduFamily.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ServiceRequestPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SyntheticEnvironmentPduFamily.h"
-					>
+					RelativePath="..\..\cpp\DIS\SetDataPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SystemID.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SetDataReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\SystemID.h"
-					>
+					RelativePath="..\..\cpp\DIS\SetRecordReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TrackJamTarget.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\ShaftRPMs.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TrackJamTarget.h"
-					>
+					RelativePath="..\..\cpp\DIS\SignalPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TransferControlRequestPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SimulationAddress.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TransferControlRequestPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\SimulationManagementFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TransmitterPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SimulationManagementWithReliabilityFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TransmitterPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\SixByteChunk.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TwoByteChunk.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SphericalHarmonicAntennaPattern.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\TwoByteChunk.h"
-					>
+					RelativePath="..\..\cpp\DIS\StartResumePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\UaPdu.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\StartResumeReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\UaPdu.h"
-					>
+					RelativePath="..\..\cpp\DIS\StopFreezePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\VariableDatum.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\StopFreezeReliablePdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\VariableDatum.h"
-					>
+					RelativePath="..\..\cpp\DIS\SupplyQuantity.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Vector3Double.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\SyntheticEnvironmentFamilyPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Vector3Double.h"
-					>
+					RelativePath="..\..\cpp\DIS\SystemID.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Vector3Float.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\TrackJamTarget.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Vector3Float.h"
-					>
+					RelativePath="..\..\cpp\DIS\TransferControlRequestPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\VectoringNozzleSystemData.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\TransmitterPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\VectoringNozzleSystemData.h"
-					>
+					RelativePath="..\..\cpp\DIS\TwoByteChunk.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Warfare.cpp"
-					>
+					RelativePath="..\..\cpp\DIS\UaPdu.cpp">
 				</File>
 				<File
-					RelativePath="..\..\cpp\DIS\Warfare.h"
-					>
+					RelativePath="..\..\cpp\DIS\VariableDatum.cpp">
+				</File>
+				<File
+					RelativePath="..\..\cpp\DIS\Vector3Double.cpp">
+				</File>
+				<File
+					RelativePath="..\..\cpp\DIS\Vector3Float.cpp">
+				</File>
+				<File
+					RelativePath="..\..\cpp\DIS\VectoringNozzleSystemData.cpp">
+				</File>
+				<File
+					RelativePath="..\..\cpp\DIS\WarfareFamilyPdu.cpp">
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="CppUtils"
+			Filter=""
 			>
 			<Filter
 				Name="DIS"
+				Filter=""
 				>
 				<File
-					RelativePath="..\..\CppUtils\DIS\Conversion.cpp"
-					>
+					RelativePath="..\..\CppUtils\DIS\Conversion.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\Conversion.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\DataStream.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\DataStream.cpp"
-					>
+					RelativePath="..\..\CppUtils\DIS\Endian.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\DataStream.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\IBufferProcessor.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\Endian.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\IncomingMessage.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\IBufferProcessor.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\IPacketProcessor.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\IncomingMessage.cpp"
-					>
+					RelativePath="..\..\CppUtils\DIS\Masks.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\IncomingMessage.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\PacketFactory.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\IPacketProcessor.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\PDUBank.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\Masks.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\PDUType.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\PacketFactory.cpp"
-					>
+					RelativePath="..\..\CppUtils\DIS\StreamUtils.h">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\PacketFactory.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\Conversion.cpp">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\PDUBank.cpp"
-					>
+					RelativePath="..\..\CppUtils\DIS\DataStream.cpp">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\PDUBank.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\IncomingMessage.cpp">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\PDUType.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\PacketFactory.cpp">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\StreamUtils.cpp"
-					>
+					RelativePath="..\..\CppUtils\DIS\PDUBank.cpp">
 				</File>
 				<File
-					RelativePath="..\..\CppUtils\DIS\StreamUtils.h"
-					>
+					RelativePath="..\..\CppUtils\DIS\StreamUtils.cpp">
 				</File>
 			</Filter>
 		</Filter>

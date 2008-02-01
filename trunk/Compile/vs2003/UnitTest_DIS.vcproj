@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="UnitTest_DIS"
-	ProjectGUID="{6650AF9A-042C-4042-90B0-1783E6CCDB4D}"
+	ProjectGUID="{877A24CA-A2C3-C087-4D60-9163AA0C3F5B}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -19,8 +19,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
+				PreprocessorDefinitions="_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -35,9 +35,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../lib/DIS_debug.lib cppunit.lib"
-				OutputFile="$(OutDir)/UnitTest_DIS_debug.exe"
+				OutputFile="$(OutDir)/UnitTest_DIS_debug"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../lib;$(CPPUNIT_LIB)"
+				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/UnitTest_DIS_debug.pdb"
 				SubSystem="1"
@@ -53,7 +53,8 @@
 				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"/>
+				PreprocessorDefinitions="_DEBUG"
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -74,8 +75,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"
-				PreprocessorDefinitions="WIN32;_CONSOLE"
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -89,9 +89,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../lib/DIS.lib cppunit.lib"
-				OutputFile="$(OutDir)/UnitTest_DIS.exe"
+				OutputFile="$(OutDir)/UnitTest_DIS"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../lib;$(CPPUNIT_LIB)"
+				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="FALSE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -108,7 +108,7 @@
 				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"/>
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool

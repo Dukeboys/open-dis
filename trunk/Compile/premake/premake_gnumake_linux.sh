@@ -3,5 +3,7 @@ pushd Projects
 #export DIS_BIN_INSTALL="where you want the build system to send the other binary files to"
 #export HAWKNL_INC_DIR="where the headers for HawkNL exist."
 #export HAWKNL_LIB_DIR="where the library for HawkNL exists."
-premake --file DIS.lua --target gnu
+../premake.osx --file DIS.lua --target gnu
+../premake.osx --file DIS.lua --target vs2003
+../premake.osx --file DIS.lua --target vs2005
 popd
