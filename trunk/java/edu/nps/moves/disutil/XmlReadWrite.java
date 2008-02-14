@@ -88,14 +88,12 @@ public class XmlReadWrite extends Object
         
         edu.nps.moves.jaxb.dis.PduCollection jaxbPduCollection = factory.createPduCollection();
         List jaxbPdus = jaxbPduCollection.getPdus();
-        
+       
         // Convert the list of open-dis pdus to jaxb pdus. 
         for(int idx = 0; idx < pdus.size(); idx++)
         {
             edu.nps.moves.dis.Pdu aPdu = pdus.get(idx);
-            
             edu.nps.moves.jaxb.dis.Pdu jaxbPdu = this.getJaxbObject(aPdu);
-            jaxbPdu.setTimestamp(100);
             jaxbPdus.add(jaxbPdu); // We add to the live list of jaxbPduCollection here
         }
         
