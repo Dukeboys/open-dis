@@ -31,6 +31,11 @@
                includeAntRuntime="no"
                classpathref="lib.path" debug="${compile.debug}">
         </javac>
+        <copy todir="${bin}">
+            <fileset dir="${src}">
+                <include name="**/*.properties"/>
+            </fileset>   
+        </copy>
     </target>
     
     <target name="runSender" depends="jar" description="run DIS example program">
@@ -77,6 +82,36 @@
     
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
       <javadoc destdir="docs" packagenames="edu.nps.moves.dis" sourcepath="java"/>
+    </target>
+    
+    <target name="runlogger" depends="jar" description="Run DIS Logger">
+        <java classname="edu.nps.moves.logger.DisLogger">
+            <arg value="logger.properties"/>
+        <classpath>
+          <fileset dir="dist">
+            <include name="**/*.jar"/>
+          </fileset>
+          <fileset dir="lib">
+            <include name="**/*.jar"/>
+          </fileset>
+          <pathelement location="{$bin}"/>
+        </classpath>
+    </java>
+    </target>
+    
+     <target name="runreplay" depends="jar" description="Run DIS Log Replay">
+        <java classname="edu.nps.moves.logger.LogReplay">
+            <arg value="logger.properties"/>
+        <classpath>
+          <fileset dir="dist">
+            <include name="**/*.jar"/>
+          </fileset>
+          <fileset dir="lib">
+            <include name="**/*.jar"/>
+          </fileset>
+          <pathelement location="{$bin}"/>
+        </classpath>
+    </java>
     </target>
     
     <!-- Creates a new Ant tag that handles compling C++ code. Uses ant-contrib, a
