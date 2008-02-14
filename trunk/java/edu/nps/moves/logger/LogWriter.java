@@ -9,7 +9,11 @@ import edu.nps.moves.jaxb.dis.*;
 import edu.nps.moves.disutil.*;
 
 /**
- * Writes the contents of the buffer to the file in a separate thread.
+ * Writes the contents of the PDU buffer to the file in a separate thread.
+ * 
+ * This accepts Lists of PDUs from the reader thread and writes them out in
+ * XML format. Since the reader thread may be faster at times than the writer,
+ * we can queue up PDU lists and write them out as we get the chance.
  *
  * @author mcgredo
  */
@@ -23,17 +27,28 @@ public class LogWriter implements Runnable
     
     BlockingQueue<List> listQueue = new LinkedBlockingQueue();
     
-    /** Creates a new instance of LogWriter */
+    /** Creates a new instance of LogWriter. Exercise name is used to
+     * create a directory we write log files to
+     */
     public LogWriter(String pExerciseName)
     {
         exerciseName = pExerciseName;
     }
     
+    /** 
+     * Irritating interaction with the reder thread. They may have read a
+     * few PDUs, but don't have enough for a "full" list to send to us.
+     * this keeps the writer thread alive until it sends the data to us.
+     * @param state
+     */
     public void setUnqueuedPdus(boolean state)
     {
         unqueuedPdus = state;
     }
     
+    /**
+     *  Add a list of PDUs to our write queue
+     */
     public void addListToWriteQueue(List pduList)
     {
         try
@@ -47,6 +62,9 @@ public class LogWriter implements Runnable
         }
     }
     
+    /**
+     * Create a directory to hold the log files
+     */
     private void createLogDirectory()
     {
         try
@@ -70,6 +88,9 @@ public class LogWriter implements Runnable
         }
     }
     
+    /**
+     * Start writing PDUs. This blocks if it has no PDU lists to write.
+     */
     public void run()
     {
         this.createLogDirectory();
@@ -81,25 +102,20 @@ public class LogWriter implements Runnable
         {
             try
             {
-                System.out.println("queue size: " + listQueue.size());
-               
                 // Blocks until there's something in the queue to take
                 List pdusToLog = listQueue.take();
-                //System.out.println("dequeued list of size " + pdusToLog.size());
+
+                // Flip on a boolean so we don't quit out of the thread while
+                // still writing PDUs to disk
                 writing = true;
+                
+                // Create a log file name, or the format "exerciseName_nnnnn"
                 long time = System.currentTimeMillis();
                 String fileName = exerciseName +"/" + exerciseName + "_" + time + ".xml";
 
                 // Marshall the list out to a file
-                System.out.println("Starting to marshal to log file");
                 XmlReadWrite xmlReadWrite = new XmlReadWrite();
                 xmlReadWrite.marshalToXml(pdusToLog, fileName);
-
-                
-                long currentTime = System.currentTimeMillis();
-                count = count + pdusToLog.size();
-                long difference = currentTime - startTime;
-                System.out.println("Finished marshalling to log file, " + count + " in " + difference);
                 
                 writing = false;
 
@@ -112,6 +128,9 @@ public class LogWriter implements Runnable
         
     }
     
+    /**
+     *  Test to see whether we're done writing and it's OK to quit the thread
+     */
     public boolean finishedWriting()
     {
         if((listQueue.isEmpty() == true) && (writing == false) && (unqueuedPdus == false))

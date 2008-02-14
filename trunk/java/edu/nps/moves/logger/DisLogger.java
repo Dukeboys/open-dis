@@ -9,8 +9,22 @@ import edu.nps.moves.disutil.*;
 
 
 /**
- * Loggs DIS packets.
- *
+ * Logs DIS packets to XML format. You can easily receive DIS packets off the wire faster than
+ * they can be logged to XML, so you need to be careful about that. With a 2 GHz
+ * core duo and OSX, on a macbook pro laptop drive, you can log roughly 1,000 
+ * packets per second.<p>
+ * 
+ * Since we cannot hold all the PDUs in memory at once, we set up a rotating 
+ * system in which packets are read into a list, then, when the list is full,
+ * the list is handed off to a separate thread for marshalling to XML. This 
+ * gives us at least a chance of not dropping packets while writing to file.<p>
+ * 
+ * The classes here and in LogReplay are intended to be used from the command
+ * line, but it should be easy to wrap a GUI around them.<p>
+ * 
+ * the classes are configured via a properties file. this defines the multicast
+ * group to listen on, the directory to which files should be written, etc.
+ * 
  * @author DMcG
  */
 public class DisLogger implements Runnable
@@ -43,7 +57,7 @@ public class DisLogger implements Runnable
     
     private LogWriter logWriter;
 
-    /** Breaks us out of read log loop (perhaps after READ_TIMEOUT has passed */
+    /** Breaks us out of network read log loop (perhaps after READ_TIMEOUT has passed */
     public void setDone()
     {
         done = true;
@@ -131,34 +145,35 @@ public class DisLogger implements Runnable
                 
                 if(timedout == false)
                 {
-                    //System.out.println("got PDU");
+                    // Convert the byte array to an object
                     byte pduBytes[] = packet.getData();
                     pdu = pduFactory.createPdu(pduBytes);
 
+                    // If we got back a valid packet, add it to our list
                     if(pdu != null)
                     {
                        currentPduList.add(pdu);
                     }
-                    //System.out.println("current pdu list size=" + currentPduList.size());
-
-                    //System.out.println(count);
-
-                    // Once we pass a threshold of the number of PDUs we want per
-                    // file, we write those out to a log file. We do this in a 
-                    // separate thread so that we have a fighting chance of keeping
-                    // up with new incoming PDUs. we also write to file if the user
-                    // has specified he's done reading.
-                    if((currentPduList.size() > pdusPerFile) || (done == true))
-                    {
-                        //System.out.println("writing to file, list size=" + currentPduList.size());
-                        List pdusToLog = currentPduList;
-                        currentPduList = new ArrayList();
-                        
-                        logWriter.addListToWriteQueue(pdusToLog);
-                        logWriter.setUnqueuedPdus(false);
-                        Thread.yield();
-                    }
+             
                 } // end of timed out
+                
+                // Once we pass a threshold of the number of PDUs we want per
+                // file, we write those out to a log file. We do this in a 
+                // separate thread so that we have a fighting chance of keeping
+                // up with new incoming PDUs. we also write to file if the user
+                // has specified he's done reading. We 
+                if((currentPduList.size() > pdusPerFile) || (done == true))
+                {
+                    List pdusToLog = currentPduList;
+                    currentPduList = new ArrayList();
+
+                    // Tell the log writer thread to log this batch of PDUs. It
+                    // may already be involved in writing a list, so we add it to
+                    // a queue and the writer task will get to it as it can.
+                    logWriter.addListToWriteQueue(pdusToLog);
+                    logWriter.setUnqueuedPdus(false);
+                    Thread.yield(); // give writer task an opportunity to be scheduled
+                }
                 
             }
             catch(Exception e)
@@ -174,6 +189,12 @@ public class DisLogger implements Runnable
         
     }
     
+    /**
+     * We may have broken out of the netowrk read loop, but the writer task is
+     * still involved in flushing out the already captured PDUs to disk. This
+     * gives us a test until that is done.
+     * 
+     */
     public boolean finishedWriting()
     {
         if(done == false)
@@ -194,28 +215,30 @@ public class DisLogger implements Runnable
             System.exit(0);
         }
         
-        //System.out.println("props file: " + args[0]);
-        
         // preflight the property file passed in to make sure it exists
         try
         {
             Properties loggerProperties = new Properties();
-            //System.out.println("Attempting to load properties file " + args[0]);
             
+            // Load the configuration properties file
             InputStream propsFile = DisLogger.class.getResourceAsStream(args[0]);
             loggerProperties.load(propsFile);
 
+            // Start the logger thread listening
             DisLogger logger = new DisLogger(loggerProperties);
             Thread loggerThread = new Thread(logger);
             loggerThread.setDaemon(false);
             loggerThread.start(); 
             
+            // Let it listen for a while
             Thread.sleep(100000);
             
+            // tell the logger thread to stop
             logger.setDone();
             
             Thread.sleep(1000);
             
+            // Wait for the already-collected Pdus to be flushed out to disk
             while(logger.finishedWriting() == false)
             {
                 Thread.yield();
