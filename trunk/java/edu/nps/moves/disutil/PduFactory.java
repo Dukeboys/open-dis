@@ -143,7 +143,7 @@ public class PduFactory
                 break;
             
             default: 
-                System.out.println("PDU not implemented");
+                System.out.println("PDU not implemented. Type=" + pduType);
                 
         }
         
