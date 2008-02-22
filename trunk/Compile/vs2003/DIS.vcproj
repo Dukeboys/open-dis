@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="DIS"
-	ProjectGUID="{43D92C94-4C5F-A077-B8F7-06235EEA1783}"
+	ProjectGUID="{05F5CCC2-8942-2C48-9226-F4FC896B0EDF}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;EXPORT_LIBRARY"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -34,13 +34,13 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/libDIS_debug.so"
+				OutputFile="$(OutDir)/DIS_debug.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/libDIS_debug.pdb"
+				ProgramDatabaseFile="$(OutDir)/DIS_debug.pdb"
 				SubSystem="2"
-				ImportLibrary="../../lib/libDIS_debug.lib"
+				ImportLibrary="../../lib/DIS_debug.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -52,7 +52,7 @@
 				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;EXPORT_LIBRARY"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -75,6 +75,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
+				PreprocessorDefinitions="WIN32;EXPORT_LIBRARY"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -87,14 +88,14 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/libDIS.so"
+				OutputFile="$(OutDir)/DIS.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="FALSE"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="../../lib/libDIS.lib"
+				ImportLibrary="../../lib/DIS.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -106,6 +107,7 @@
 				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="WIN32;EXPORT_LIBRARY"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>

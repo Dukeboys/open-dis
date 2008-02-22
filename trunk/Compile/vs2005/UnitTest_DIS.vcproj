@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="UnitTest_DIS"
-	ProjectGUID="{BCF7F535-E579-51EC-0BED-6C395875AEEF}"
+	ProjectGUID="{326F5888-9721-AB45-A83A-87BD0D5D025E}"
 	RootNamespace="UnitTest_DIS"
 	Keyword="Win32Proj"
 	>
@@ -40,8 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
-				PreprocessorDefinitions="_DEBUG"
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -56,8 +56,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -65,9 +65,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../lib/DIS_debug.lib cppunit.lib"
-				OutputFile="$(OutDir)/UnitTest_DIS_debug"
+				OutputFile="$(OutDir)/UnitTest_DIS_debug.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../lib"
+				AdditionalLibraryDirectories="../../lib;$(CPPUNIT_LIB)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/UnitTest_DIS_debug.pdb"
 				SubSystem="1"
@@ -124,7 +124,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"
+				PreprocessorDefinitions="WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -138,7 +139,8 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
+				PreprocessorDefinitions="WIN32;_CONSOLE"
+				AdditionalIncludeDirectories="../../cpp;../../CppUtils;$(CPPUNIT_INC)"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -146,9 +148,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="../../lib/DIS.lib cppunit.lib"
-				OutputFile="$(OutDir)/UnitTest_DIS"
+				OutputFile="$(OutDir)/UnitTest_DIS.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../lib"
+				AdditionalLibraryDirectories="../../lib;$(CPPUNIT_LIB)"
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"

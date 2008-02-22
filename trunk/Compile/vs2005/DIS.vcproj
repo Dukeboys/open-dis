@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="DIS"
-	ProjectGUID="{D6D519F0-DD23-A1AD-776A-254B21BD85C2}"
+	ProjectGUID="{FC35B329-3A9F-7441-952C-883B9CFFEA1E}"
 	RootNamespace="DIS"
 	Keyword="Win32Proj"
 	>
@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;EXPORT_LIBRARY"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -56,7 +56,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;EXPORT_LIBRARY"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
 			/>
 			<Tool
@@ -64,13 +64,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/libDIS_debug.so"
+				OutputFile="$(OutDir)/DIS_debug.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/libDIS_debug.pdb"
+				ProgramDatabaseFile="$(OutDir)/DIS_debug.pdb"
 				SubSystem="2"
-				ImportLibrary="../../lib/libDIS_debug.lib"
+				ImportLibrary="../../lib/DIS_debug.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -124,6 +124,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
+				PreprocessorDefinitions="WIN32;EXPORT_LIBRARY"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -137,6 +138,7 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="WIN32;EXPORT_LIBRARY"
 				AdditionalIncludeDirectories="../../cpp;../../CppUtils"
 			/>
 			<Tool
@@ -144,14 +146,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/libDIS.so"
+				OutputFile="$(OutDir)/DIS.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../lib"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="../../lib/libDIS.lib"
+				ImportLibrary="../../lib/DIS.lib"
 				TargetMachine="1"
 			/>
 			<Tool

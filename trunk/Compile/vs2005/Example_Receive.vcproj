@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="Example_Receive"
-	ProjectGUID="{E397A98C-7A4D-2C18-A709-5FD8F10C8336}"
+	ProjectGUID="{45B671BB-2E8A-3B4B-8059-4E66E6B5ED11}"
 	RootNamespace="Example_Receive"
 	Keyword="Win32Proj"
 	>
@@ -40,8 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils"
-				PreprocessorDefinitions="_DEBUG"
+				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils;$(HAWKNL_INC_DIR)"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -56,18 +56,18 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils;$(HAWKNL_INC_DIR)"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="NL.lib ../../lib/DIS_debug.lib"
-				OutputFile="$(OutDir)/Example_Receive_debug"
+				AdditionalDependencies="HawkNL.lib ../../lib/DIS_debug.lib"
+				OutputFile="$(OutDir)/Example_Receive_debug.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../lib"
+				AdditionalLibraryDirectories="../../lib;$(HAWKNL_LIB_DIR)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/Example_Receive_debug.pdb"
 				SubSystem="1"
@@ -124,7 +124,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils"
+				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils;$(HAWKNL_INC_DIR)"
+				PreprocessorDefinitions="WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -138,17 +139,18 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils"
+				PreprocessorDefinitions="WIN32;_CONSOLE"
+				AdditionalIncludeDirectories="../..;../../cpp;../../CppUtils;$(HAWKNL_INC_DIR)"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="NL.lib ../../lib/DIS.lib"
-				OutputFile="$(OutDir)/Example_Receive"
+				AdditionalDependencies="HawkNL.lib ../../lib/DIS.lib"
+				OutputFile="$(OutDir)/Example_Receive.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../lib"
+				AdditionalLibraryDirectories="../../lib;$(HAWKNL_LIB_DIR)"
 				GenerateDebugInformation="false"
 				SubSystem="1"
 				OptimizeReferences="2"
