@@ -14,7 +14,7 @@ package.config.Debug.objdir = "obj_" .. options["target"] .. "_" .. package.name
 
 -- project build type
 package.kind = "dll"
-package.language = "c"
+package.language = "c++"
 
 -- project preprocessors
 if(windows) then
