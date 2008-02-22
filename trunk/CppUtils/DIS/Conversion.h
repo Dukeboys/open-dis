@@ -16,7 +16,7 @@ namespace DIS
       /// the number of bits used to store the type metric value
       /// within the Articulation Parameter's parameter type value.
       /// this mask is based on the IEEE Std 1278.1-1995
-      static const unsigned char ARTICULATION_PARAMETER_TYPE_METRIC_NUMBER_OF_BITS;
+      static const unsigned char ARTICULATION_PARAMETER_TYPE_METRIC_NUMBER_OF_BITS = 5;
 
       /// make the value needed for the ArticulationParameter's Parameter Type.
       /// @param typeclass the enumeration for the articulated part.

@@ -1,11 +1,9 @@
 #ifndef _dtdis_pdu_type_h_
 #define _dtdis_pdu_type_h_
 
-#include <DIS/msLibMacro.h>       // for library symbols
-
 namespace DIS
 {
-   enum EXPORT_MACRO PDUType
+   enum PDUType
    {
       PDU_OTHER = 0,
       PDU_ENTITY_STATE = 1,
