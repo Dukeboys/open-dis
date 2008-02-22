@@ -33,11 +33,19 @@ package.files = {
 dis_inc_dir = "../../cpp"
 dis_ext_dir = "../../CppUtils"
 cppunit_inc_dir = os.getenv("CPPUNIT_INC")
-package.includepaths = { dis_inc_dir , dis_ext_dir, cppunit_inc_dir }
+if( cppunit_inc_dir ) then
+package.includepaths = { dis_inc_dir , dis_ext_dir, "$(CPPUNIT_INC)" }
+else
+package.includepaths = { dis_inc_dir , dis_ext_dir }
+end
 
   -- project library dependencies
 dis_pkg_name = "DIS"
 cppunit_lib_name = "cppunit"
 package.links = { dis_pkg_name, cppunit_lib_name }
 cppunit_lib_dir = os.getenv("CPPUNIT_LIB")
-package.libpaths = { cppunit_lib_dir }
+if( cppunit_lib_dir ) then
+package.libpaths = { "$(CPPUNIT_LIB)" }
+else
+package.libpaths = {}
+end

@@ -41,7 +41,11 @@ dis_inc_dir = "../../cpp"
 dis_ext_dir = "../../CppUtils"
 example_inc_dir = "../.."
 hawk_inc_dir = os.getenv("HAWKNL_INC_DIR")
-package.includepaths = { example_inc_dir, dis_inc_dir , dis_ext_dir, hawk_inc_dir }
+if( hawk_inc_dir ) then
+package.includepaths = { example_inc_dir, dis_inc_dir , dis_ext_dir, "$(HAWKNL_INC_DIR)" }
+else
+package.includepaths = { example_inc_dir, dis_inc_dir , dis_ext_dir }
+end
 
   -- project library dependencies
 dis_pkg_name = "DIS"
@@ -56,4 +60,10 @@ if( linux ) then
 else
   package.links = { hawknl_lib_name, dis_pkg_name }
 end
-package.libpaths = { os.getenv("HAWKNL_LIB_DIR") }
+
+hawk_lib_dir = os.getenv("HAWKNL_LIB_DIR")
+if( hawk_lib_dir ) then
+package.libpaths = { "$(HAWKNL_LIB_DIR)" }
+else
+package.libpaths = {}
+end
