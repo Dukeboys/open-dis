@@ -22,7 +22,7 @@
 
 using namespace DIS;
 
-Pdu* PduBank::GetStaticPDU( DIS::PDUType type )
+Pdu* PduBank::GetStaticPDU( DIS::PDUType pdu_type )
 {
    static EntityStatePdu      entityStatePdu;
    static FirePdu             firePdu;
@@ -45,7 +45,7 @@ Pdu* PduBank::GetStaticPDU( DIS::PDUType type )
    static EventReportPdu      eventReportPdu;
    static CommentPdu          commentPdu;
 
-   switch(type)
+   switch(pdu_type)
    {
       case PDU_ENTITY_STATE:      return &entityStatePdu;      break;
       case PDU_FIRE:              return &firePdu;             break; 
