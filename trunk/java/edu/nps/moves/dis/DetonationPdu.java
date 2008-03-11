@@ -29,6 +29,9 @@ public class DetonationPdu extends WarfareFamilyPdu implements Serializable
    /** Describes munition used */
    protected BurstDescriptor  burstDescriptor = new BurstDescriptor(); 
 
+   /** location of the detonation or impact in the target entity's coordinate system. This information should be used for damage assessment. */
+   protected Vector3Float  locationInEntityCoordinates = new Vector3Float(); 
+
    /** result of the explosion */
    protected short  detonationResult;
 
@@ -93,6 +96,14 @@ public class DetonationPdu extends WarfareFamilyPdu implements Serializable
         foo_4 = new edu.nps.moves.dis.BurstDescriptor(x.getBurstDescriptor() );
      this.setBurstDescriptor(foo_4);
 
+
+     edu.nps.moves.dis.Vector3Float foo_5;
+     if(x.getLocationInEntityCoordinates() == null)
+        foo_5 = new edu.nps.moves.dis.Vector3Float();
+      else
+        foo_5 = new edu.nps.moves.dis.Vector3Float(x.getLocationInEntityCoordinates() );
+     this.setLocationInEntityCoordinates(foo_5);
+
      this.detonationResult = x.getDetonationResult();
      this.numberOfArticulationParameters = x.getNumberOfArticulationParameters();
      this.pad = x.getPad();
@@ -119,6 +130,7 @@ public class DetonationPdu extends WarfareFamilyPdu implements Serializable
      x.setVelocity( this.getVelocity().initializeJaxbObject(factory.createVector3Float()) );
      x.setLocationInWorldCoordinates( this.getLocationInWorldCoordinates().initializeJaxbObject(factory.createVector3Double()) );
      x.setBurstDescriptor( this.getBurstDescriptor().initializeJaxbObject(factory.createBurstDescriptor()) );
+     x.setLocationInEntityCoordinates( this.getLocationInEntityCoordinates().initializeJaxbObject(factory.createVector3Float()) );
      x.setDetonationResult( this.getDetonationResult() );
      x.setNumberOfArticulationParameters( this.getNumberOfArticulationParameters() );
      x.setPad( this.getPad() );
@@ -144,6 +156,7 @@ public int getMarshalledSize()
    marshalSize = marshalSize + velocity.getMarshalledSize();  // velocity
    marshalSize = marshalSize + locationInWorldCoordinates.getMarshalledSize();  // locationInWorldCoordinates
    marshalSize = marshalSize + burstDescriptor.getMarshalledSize();  // burstDescriptor
+   marshalSize = marshalSize + locationInEntityCoordinates.getMarshalledSize();  // locationInEntityCoordinates
    marshalSize = marshalSize + 1;  // detonationResult
    marshalSize = marshalSize + 1;  // numberOfArticulationParameters
    marshalSize = marshalSize + 2;  // pad
@@ -192,6 +205,13 @@ public void setBurstDescriptor(BurstDescriptor pBurstDescriptor)
 public BurstDescriptor getBurstDescriptor()
 { return burstDescriptor; }
 
+public void setLocationInEntityCoordinates(Vector3Float pLocationInEntityCoordinates)
+{ locationInEntityCoordinates = pLocationInEntityCoordinates;
+}
+
+public Vector3Float getLocationInEntityCoordinates()
+{ return locationInEntityCoordinates; }
+
 public void setDetonationResult(short pDetonationResult)
 { detonationResult = pDetonationResult;
 }
@@ -204,7 +224,7 @@ public short getNumberOfArticulationParameters()
 { return (short)articulationParameters.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -238,6 +258,7 @@ public void marshal(DataOutputStream dos)
        velocity.marshal(dos);
        locationInWorldCoordinates.marshal(dos);
        burstDescriptor.marshal(dos);
+       locationInEntityCoordinates.marshal(dos);
        dos.writeByte( (byte)detonationResult);
        dos.writeByte( (byte)articulationParameters.size());
        dos.writeShort( (short)pad);
@@ -265,6 +286,7 @@ public void unmarshal(DataInputStream dis)
        velocity.unmarshal(dis);
        locationInWorldCoordinates.unmarshal(dis);
        burstDescriptor.unmarshal(dis);
+       locationInEntityCoordinates.unmarshal(dis);
        detonationResult = dis.readByte();
        numberOfArticulationParameters = dis.readByte();
        pad = dis.readShort();
@@ -298,6 +320,7 @@ public void unmarshal(DataInputStream dis)
      if( ! (velocity.equals( rhs.velocity) )) ivarsEqual = false;
      if( ! (locationInWorldCoordinates.equals( rhs.locationInWorldCoordinates) )) ivarsEqual = false;
      if( ! (burstDescriptor.equals( rhs.burstDescriptor) )) ivarsEqual = false;
+     if( ! (locationInEntityCoordinates.equals( rhs.locationInEntityCoordinates) )) ivarsEqual = false;
      if( ! (detonationResult == rhs.detonationResult)) ivarsEqual = false;
      if( ! (numberOfArticulationParameters == rhs.numberOfArticulationParameters)) ivarsEqual = false;
      if( ! (pad == rhs.pad)) ivarsEqual = false;

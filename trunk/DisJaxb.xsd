@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:complexType name="acknowledgeReliablePdu">
+  <xs:complexType name="acknowledgePdu">
     <xs:complexContent>
-      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
+      <xs:extension base="simulationManagementFamilyPdu">
         <xs:sequence>
           <xs:element name="acknowledgeFlag" type="xs:int"/>
           <xs:element name="requestID" type="xs:long"/>
@@ -13,7 +13,7 @@
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="simulationManagementWithReliabilityFamilyPdu">
+  <xs:complexType name="simulationManagementFamilyPdu">
     <xs:complexContent>
       <xs:extension base="pdu">
         <xs:sequence>
@@ -42,6 +42,29 @@
       <xs:element name="entity" type="xs:int"/>
       <xs:element name="site" type="xs:int"/>
     </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="acknowledgeReliablePdu">
+    <xs:complexContent>
+      <xs:extension base="simulationManagementWithReliabilityFamilyPdu">
+        <xs:sequence>
+          <xs:element name="acknowledgeFlag" type="xs:int"/>
+          <xs:element name="requestID" type="xs:long"/>
+          <xs:element name="responseFlag" type="xs:int"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="simulationManagementWithReliabilityFamilyPdu">
+    <xs:complexContent>
+      <xs:extension base="pdu">
+        <xs:sequence>
+          <xs:element name="originatingEntityID" type="entityID" minOccurs="0"/>
+          <xs:element name="receivingEntityID" type="entityID" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="acousticBeamData">
@@ -109,17 +132,6 @@
           <xs:element name="numberOfVariableDatumRecords" type="xs:long"/>
           <xs:element name="requestID" type="xs:long"/>
           <xs:element name="variableDatums" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="simulationManagementFamilyPdu">
-    <xs:complexContent>
-      <xs:extension base="pdu">
-        <xs:sequence>
-          <xs:element name="originatingEntityID" type="entityID" minOccurs="0"/>
-          <xs:element name="receivingEntityID" type="entityID" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -596,6 +608,7 @@
           <xs:element name="burstDescriptor" type="burstDescriptor" minOccurs="0"/>
           <xs:element name="detonationResult" type="xs:short"/>
           <xs:element name="eventID" type="eventID" minOccurs="0"/>
+          <xs:element name="locationInEntityCoordinates" type="vector3Float" minOccurs="0"/>
           <xs:element name="locationInWorldCoordinates" type="vector3Double" minOccurs="0"/>
           <xs:element name="munitionID" type="entityID" minOccurs="0"/>
           <xs:element name="numberOfArticulationParameters" type="xs:short"/>

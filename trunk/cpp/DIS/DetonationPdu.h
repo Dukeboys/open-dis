@@ -6,6 +6,7 @@
 #include <DIS/Vector3Float.h>
 #include <DIS/Vector3Double.h>
 #include <DIS/BurstDescriptor.h>
+#include <DIS/Vector3Float.h>
 #include <DIS/ArticulationParameter.h>
 #include <vector>
 #include <DIS/WarfareFamilyPdu.h>
@@ -40,6 +41,9 @@ protected:
 
   // Describes munition used
   BurstDescriptor _burstDescriptor; 
+
+  // location of the detonation or impact in the target entity's coordinate system. This information should be used for damage assessment.
+  Vector3Float _locationInEntityCoordinates; 
 
   // result of the explosion
   unsigned char _detonationResult; 
@@ -79,6 +83,10 @@ protected:
     BurstDescriptor& getBurstDescriptor(); 
     const BurstDescriptor&  getBurstDescriptor() const; 
     void setBurstDescriptor(const BurstDescriptor    &pX);
+
+    Vector3Float& getLocationInEntityCoordinates(); 
+    const Vector3Float&  getLocationInEntityCoordinates() const; 
+    void setLocationInEntityCoordinates(const Vector3Float    &pX);
 
     unsigned char getDetonationResult() const; 
     void setDetonationResult(unsigned char pX); 
