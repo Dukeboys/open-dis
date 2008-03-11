@@ -5,7 +5,9 @@
 
 <classes>
 
-<java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*"
+<!--java imports="java.util.*, java.io.*" -->
+
+<java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*" 
       package="edu.nps.moves.dis"/>
       
 <cpp namespace="DIS"/>
@@ -1315,13 +1317,13 @@ PduHeader record, section 5.2.29.">
   
 </class>
 
-<class name="EntityInformationPdu" inheritsFrom="Pdu" 
+<class name="EntityInformationFamilyPdu" inheritsFrom="Pdu" 
        comment="Section 5.3.3. Common superclass for EntityState, Collision, collision-elastic, and entity state update PDUs. This should be abstract. COMPLETE">
     <initialValue name="protocolFamily" value="1"/>
            
 </class>
  
-<class name="EntityStatePdu" inheritsFrom="EntityInformationPdu" comment="Section 5.3.3.1. Represents the postion and state of one entity in the world. COMPLETE">
+<class name="EntityStatePdu" inheritsFrom="EntityInformationFamilyPdu" comment="Section 5.3.3.1. Represents the postion and state of one entity in the world. COMPLETE">
  
  <initialValue name="pduType" value="1"/>
   
@@ -1381,7 +1383,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="FastEntityStatePdu" inheritsFrom="EntityInformationPdu" comment="Section 5.3.3.1. Represents the postion and state of one entity in the world. This is identical in function to entity state pdu, but generates less garbage to collect in the Java world. COMPLETE">
+<class name="FastEntityStatePdu" inheritsFrom="EntityInformationFamilyPdu" comment="Section 5.3.3.1. Represents the postion and state of one entity in the world. This is identical in function to entity state pdu, but generates less garbage to collect in the Java world. COMPLETE">
  
  <initialValue name="pduType" value="1"/>
  
@@ -1558,7 +1560,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="CollisionPdu" inheritsFrom="EntityInformationPdu" comment="Section 5.3.3.2. Information about a collision. COMPLETE">
+<class name="CollisionPdu" inheritsFrom="EntityInformationFamilyPdu" comment="Section 5.3.3.2. Information about a collision. COMPLETE">
 
  <initialValue name="pduType" value="4"/>
  <initialValue name="protocolFamily" value="1"/>
@@ -1597,7 +1599,7 @@ PduHeader record, section 5.2.29.">
   
 </class>
 
-<class name="CollisionElasticPdu" inheritsFrom="EntityInformationPdu" comment="5.3.3.3. Information about elastic collisions in a DIS exercise shall be communicated using a Collision-Elastic PDU. COMPLETE">
+<class name="CollisionElasticPdu" inheritsFrom="EntityInformationFamilyPdu" comment="5.3.3.3. Information about elastic collisions in a DIS exercise shall be communicated using a Collision-Elastic PDU. COMPLETE">
     
  <initialValue name="pduType" value="66"/>
  <initialValue name="protocolFamily" value="1"/>
@@ -1664,7 +1666,7 @@ PduHeader record, section 5.2.29.">
   
 </class>
 
-<class name="EntityStateUpdatePdu" inheritsFrom="EntityInformationPdu" comment="5.3.3.4. Nonstatic information about a particular entity may be communicated by issuing an Entity State Update PDU. COMPLETE">
+<class name="EntityStateUpdatePdu" inheritsFrom="EntityInformationFamilyPdu" comment="5.3.3.4. Nonstatic information about a particular entity may be communicated by issuing an Entity State Update PDU. COMPLETE">
     
     <initialValue name="pduType" value="67"/>
     <initialValue name="protocolFamily" value="1"/>
@@ -1702,7 +1704,7 @@ PduHeader record, section 5.2.29.">
 </class>
 
 
-<class name="Warfare" inheritsFrom="Pdu" 
+<class name="WarfareFamilyPdu" inheritsFrom="Pdu" 
        comment="Section 5.3.4. abstract superclass for fire and detonation pdus that have shared information. COMPLETE">
 
  <initialValue name="protocolFamily" value="2"/>
@@ -1717,7 +1719,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="FirePdu" inheritsFrom="Warfare" comment="Sectioin 5.3.4.1. Information about someone firing something. COMPLETE">
+<class name="FirePdu" inheritsFrom="WarfareFamilyPdu" comment="Sectioin 5.3.4.1. Information about someone firing something. COMPLETE">
 
  <initialValue name="pduType" value="2"/>
  
@@ -1751,7 +1753,7 @@ PduHeader record, section 5.2.29.">
   
   </class>
   
-  <class name="DetonationPdu" inheritsFrom="Warfare" comment="Section 5.3.4.2. Information about stuff exploding. COMPLETE">
+  <class name="DetonationPdu" inheritsFrom="WarfareFamilyPdu" comment="Section 5.3.4.2. Information about stuff exploding. COMPLETE">
 
  <initialValue name="pduType" value="3"/>
  
@@ -1774,6 +1776,10 @@ PduHeader record, section 5.2.29.">
    <attribute name="burstDescriptor" comment="Describes munition used">
     <classRef name="BurstDescriptor"/>
   </attribute>
+ 
+   <attribute name="locationInEntityCoordinates" comment="location of the detonation or impact in the target entity's coordinate system. This information should be used for damage assessment.">
+    <classRef name="Vector3Float"/>
+   </attribute>
   
   <attribute name="detonationResult" comment="result of the explosion">
     <primitive type="unsigned byte"/>
@@ -1794,11 +1800,11 @@ PduHeader record, section 5.2.29.">
 </attribute>
   </class>
  
-<class name="LogisticsPdu" inheritsFrom="Pdu" comment="Section 5.3.5. Abstract superclass for logistics PDUs. COMPLETE">
+<class name="LogisticsFamilyPdu" inheritsFrom="Pdu" comment="Section 5.3.5. Abstract superclass for logistics PDUs. COMPLETE">
   <initialValue name="protocolFamily" value="3"/>
 </class>
   
-<class name="ServiceRequestPdu" inheritsFrom="LogisticsPdu" comment="Section 5.3.5.1. Information about a request for supplies. COMPLETE">
+<class name="ServiceRequestPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.3.5.1. Information about a request for supplies. COMPLETE">
 
  <initialValue name="pduType" value="5"/>
  
@@ -1831,7 +1837,7 @@ PduHeader record, section 5.2.29.">
 </class>
 
   
-<class name="ResupplyOfferPdu" inheritsFrom="LogisticsPdu" comment="Section 5.3.5.2. Information about a request for supplies. COMPLETE">
+<class name="ResupplyOfferPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.3.5.2. Information about a request for supplies. COMPLETE">
 
  <initialValue name="pduType" value="6"/>
 
@@ -1863,7 +1869,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="ResupplyReceivedPdu" inheritsFrom="LogisticsPdu" comment="Section 5.3.5.3. Receipt of supplies is communiated. COMPLETE">
+<class name="ResupplyReceivedPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.3.5.3. Receipt of supplies is communiated. COMPLETE">
 
  <initialValue name="pduType" value="7"/>
 
@@ -1894,7 +1900,7 @@ PduHeader record, section 5.2.29.">
 </attribute>
 </class>
 
-<class name="ResupplyCancelPdu" inheritsFrom="LogisticsPdu" comment="Section 5.2.5.4. Cancel of resupply by either the receiving or supplying entity. COMPLETE">
+<class name="ResupplyCancelPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.2.5.4. Cancel of resupply by either the receiving or supplying entity. COMPLETE">
 
  <initialValue name="pduType" value="8"/>
 
@@ -1908,7 +1914,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="RepairCompletePdu" inheritsFrom="LogisticsPdu" comment="Section 5.2.5.5. Repair is complete. COMPLETE">
+<class name="RepairCompletePdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.2.5.5. Repair is complete. COMPLETE">
 
  <initialValue name="pduType" value="9"/>
 
@@ -1930,7 +1936,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="RepairResponsePdu" inheritsFrom="LogisticsPdu" comment="Section 5.2.5.6. Sent after repair complete PDU. COMPLETE">
+<class name="RepairResponsePdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.2.5.6. Sent after repair complete PDU. COMPLETE">
 
  <initialValue name="pduType" value="10"/>
 
@@ -1956,7 +1962,7 @@ PduHeader record, section 5.2.29.">
  
  </class>
  
- <class name="SimulationManagementPdu" inheritsFrom="Pdu" comment="Section 5.3.6. Abstract superclass for PDUs relating to the simulation itself. COMPLETE">
+ <class name="SimulationManagementFamilyPdu" inheritsFrom="Pdu" comment="Section 5.3.6. Abstract superclass for PDUs relating to the simulation itself. COMPLETE">
  
  <initialValue name="protocolFamily" value="5"/>
 
@@ -1970,7 +1976,7 @@ PduHeader record, section 5.2.29.">
 
  </class>
  
-<class name="CreateEntityPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.1. Create a new entity. COMPLETE">
+<class name="CreateEntityPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.1. Create a new entity. COMPLETE">
 
  <initialValue name="pduType" value="11"/>
 
@@ -1980,7 +1986,7 @@ PduHeader record, section 5.2.29.">
  
  </class>
  
-<class name="RemoveEntityPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.2. Remove an entity. COMPLETE">
+<class name="RemoveEntityPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.2. Remove an entity. COMPLETE">
 
  <initialValue name="pduType" value="12"/>
 
@@ -1991,7 +1997,7 @@ PduHeader record, section 5.2.29.">
  </class>
 
  
- <class name="StartResumePdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.2.6.3. Start or resume an exercise. COMPLETE">
+ <class name="StartResumePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.2.6.3. Start or resume an exercise. COMPLETE">
 
  <initialValue name="pduType" value="13"/>
 
@@ -2009,7 +2015,7 @@ PduHeader record, section 5.2.29.">
  
  </class>
  
-  <class name="StopFreezePdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.2.3.4. Stop or freeze an exercise. COMPLETE">
+  <class name="StopFreezePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.2.3.4. Stop or freeze an exercise. COMPLETE">
   
   <initialValue name="pduType" value="14"/>
 
@@ -2035,7 +2041,7 @@ PduHeader record, section 5.2.29.">
   
   </class>
   
-   <class name="AcknowledgePdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.5. Acknowledge the receiptof a start/resume, stop/freeze, or RemoveEntityPDU. COMPLETE">
+   <class name="AcknowledgePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.5. Acknowledge the receiptof a start/resume, stop/freeze, or RemoveEntityPDU. COMPLETE">
    
    <initialValue name="pduType" value="15"/>
 
@@ -2053,7 +2059,7 @@ PduHeader record, section 5.2.29.">
   
    </class>
    
-<class name="ActionRequestPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.6. Request from simulation manager to an entity. COMPLETE">
+<class name="ActionRequestPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.6. Request from simulation manager to an entity. COMPLETE">
    
    <initialValue name="pduType" value="16"/>
 
@@ -2088,7 +2094,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="ActionResponsePdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.7. response to an action request PDU. COMPLETE">
+<class name="ActionResponsePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.7. response to an action request PDU. COMPLETE">
 
  <initialValue name="pduType" value="17"/>
 
@@ -2122,7 +2128,7 @@ PduHeader record, section 5.2.29.">
   
   </class>
 
-<class name="DataQueryPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.8. Request for data from an entity. COMPLETE">
+<class name="DataQueryPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.8. Request for data from an entity. COMPLETE">
 
  <initialValue name="pduType" value="18"/>
 
@@ -2156,7 +2162,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="SetDataPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.9. Change state information with the data contained in this. COMPLETE">
+<class name="SetDataPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.9. Change state information with the data contained in this. COMPLETE">
 
    <initialValue name="pduType" value="19"/>
 
@@ -2190,7 +2196,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="DataPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.10. Information issued in response to a data query pdu or a set data pdu is communicated using a data pdu. COMPLETE">
+<class name="DataPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.10. Information issued in response to a data query pdu or a set data pdu is communicated using a data pdu. COMPLETE">
     
   <initialValue name="pduType" value="20"/>
   
@@ -2224,7 +2230,7 @@ PduHeader record, section 5.2.29.">
   
 </class>
 
-<class name="EventReportPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.11. Reports occurance of a significant event to the simulation manager. COMPLETE">
+<class name="EventReportPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.11. Reports occurance of a significant event to the simulation manager. COMPLETE">
 
  <initialValue name="pduType" value="21"/>
 
@@ -2258,7 +2264,7 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="CommentPdu" inheritsFrom="SimulationManagementPdu" comment="Section 5.3.6.12. Arbitrary messages can be entered into the data stream via use of this PDU. COMPLETE">
+<class name="CommentPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.12. Arbitrary messages can be entered into the data stream via use of this PDU. COMPLETE">
 
  <initialValue name="pduType" value="22"/>
 
@@ -2284,11 +2290,11 @@ PduHeader record, section 5.2.29.">
 
 </class>
 
-<class name="DistributedEmissionsPdu" inheritsFrom="Pdu"  comment="Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU">
+<class name="DistributedEmissionsFamilyPdu" inheritsFrom="Pdu"  comment="Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU">
    <initialValue name="protocolFamily" value="6"/>
 </class>
 
-<class name="ElectronicEmissionsPdu" inheritsFrom="DistributedEmissionsPdu"
+<class name="ElectronicEmissionsPdu" inheritsFrom="DistributedEmissionsFamilyPdu"
        comment="Section 5.3.7.1. Information about active electronic warfare (EW) emissions and active EW countermeasures shall be communicated using an Electromagnetic Emission PDU. COMPLETE (I think)">
     
   <initialValue name="pduType" value="23"/> 
@@ -2319,7 +2325,7 @@ PduHeader record, section 5.2.29.">
  
 
 
-<class name="DesignatorPdu" inheritsFrom="DistributedEmissionsPdu"
+<class name="DesignatorPdu" inheritsFrom="DistributedEmissionsFamilyPdu"
        comment="Section 5.3.7.2. Handles designating operations. COMPLETE">
   
   <initialValue name="pduType" value="24"/> 
@@ -2374,7 +2380,7 @@ PduHeader record, section 5.2.29.">
   
 </class>
 
-<class name="UaPdu" inheritsFrom="DistributedEmissionsPdu" comment="Section 5.3.7.3. Information about underwater acoustic emmissions. This requires manual cleanup. 
+<class name="UaPdu" inheritsFrom="DistributedEmissionsFamilyPdu" comment="Section 5.3.7.3. Information about underwater acoustic emmissions. This requires manual cleanup. 
 The beam data records should ALL be a the finish, rather than attached to each emitter system. UNFINISHED">
     
     <initialValue name="pduType" value="29"/> 
@@ -2435,7 +2441,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     
 </class>
 
-<class name="IffAtcNavAidsLayer1Pdu" inheritsFrom="DistributedEmissionsPdu" 
+<class name="IffAtcNavAidsLayer1Pdu" inheritsFrom="DistributedEmissionsFamilyPdu" 
           comment="5.3.7.4.1: Navigational and IFF PDU. COMPLETE" >
  <initialValue name="pduType" value="28"/> 
 
@@ -2489,7 +2495,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 </class>
 
-<class name="SeesPdu" inheritsFrom="DistributedEmissionsPdu"
+<class name="SeesPdu" inheritsFrom="DistributedEmissionsFamilyPdu"
        comment="Section 5.3.7.5. SEES PDU, supplemental emissions entity state information. COMPLETE">
  
  <initialValue name="pduType" value="30"/>
@@ -2533,7 +2539,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 </class>
 
 
-<class name="RadioCommunicationsPdu" inheritsFrom="Pdu"
+<class name="RadioCommunicationsFamilyPdu" inheritsFrom="Pdu"
        comment="Section 5.3.8. Abstract superclass for radio communications PDUs.">
   
   <initialValue name="protocolFamily" value="4"/> 
@@ -2548,7 +2554,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   
 </class>
 
-<class name="IntercomSignalPdu" inheritsFrom="RadioCommunicationsPdu"
+<class name="IntercomSignalPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
        comment="Section 5.3.8.4. Actual transmission of intercome voice data. COMPLETE">
    
   <initialValue name="pduType" value="31"/>
@@ -2588,7 +2594,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </attribute>
 </class>
 
-<class name="TransmitterPdu" inheritsFrom="RadioCommunicationsPdu"
+<class name="TransmitterPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
        comment="Section 5.3.8.1. Detailed information about a radio transmitter. This PDU requires manually 
        written code to complete, since the modulation parameters are of variable length. UNFINISHED">
   
@@ -2675,7 +2681,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   </attribute>       
 </class>
 
-<class name="SignalPdu" inheritsFrom="RadioCommunicationsPdu"
+<class name="SignalPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
        comment="Section 5.3.8.2. Detailed information about a radio transmitter. This PDU requires
        manually written code to complete. The encodingScheme field can be used in multiple
        ways, which requires hand-written code to finish. UNFINISHED">
@@ -2704,7 +2710,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    
 </class>
 
-<class name="ReceiverPdu" inheritsFrom="RadioCommunicationsPdu"
+<class name="ReceiverPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
        comment="Section 5.3.8.3. Communication of a receiver state. COMPLETE">
     
     <initialValue name="pduType" value="27"/>
@@ -2733,7 +2739,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 
 
-<class name="IntercomControlPdu" inheritsFrom="RadioCommunicationsPdu"
+<class name="IntercomControlPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
        comment="Section 5.3.8.5. Detailed inofrmation about the state of an intercom device and the actions it is requestion 
        of another intercom device, or the response to a requested action. Required manual intervention to fix the intercom parameters,
        which can be of varialbe length. UNFINSISHED">
@@ -3012,14 +3018,14 @@ The beam data records should ALL be a the finish, rather than attached to each e
    
    </class>
    
-   <class name="MinefieldPduFamily" inheritsFrom="Pdu"
+   <class name="MinefieldFamilyPdu" inheritsFrom="Pdu"
        comment="Section 5.3.10.1 Abstract superclass for PDUs relating to minefields">
 
      <initialValue name="protocolFamily" value="8"/>
      
    </class>
    
-    <class name="MinefieldStatePdu" inheritsFrom="MinefieldPduFamily"
+    <class name="MinefieldStatePdu" inheritsFrom="MinefieldFamilyPdu"
        comment="Section 5.3.10.1 Abstract superclass for PDUs relating to minefields. COMPLETE">
 
      <initialValue name="pduType" value="37"/>
@@ -3078,7 +3084,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    
    </class>
    
-  <class name="MinefieldQueryPdu" inheritsFrom="MinefieldPduFamily"
+  <class name="MinefieldQueryPdu" inheritsFrom="MinefieldFamilyPdu"
        comment="Section 5.3.10.2 Query a minefield for information about individual mines. Requires manual clean up to get the padding right. UNFINISHED">
 
      <initialValue name="pduType" value="38"/>
@@ -3128,7 +3134,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </attribute>
 </class>
 
- <class name="MinefieldDataPdu" inheritsFrom="MinefieldPduFamily"
+ <class name="MinefieldDataPdu" inheritsFrom="MinefieldFamilyPdu"
        comment="Section 5.3.10.3 Information about individual mines within a minefield. This is very, very wrong. UNFINISHED">
 
      <initialValue name="pduType" value="39"/>
@@ -3195,7 +3201,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     
     </class>
     
-     <class name="MinefieldResponseNackPdu" inheritsFrom="MinefieldPduFamily"
+     <class name="MinefieldResponseNackPdu" inheritsFrom="MinefieldFamilyPdu"
        comment="Section 5.3.10.4 proivde the means to request a retransmit of a minefield data pdu. COMPLETE">
 
      <initialValue name="pduType" value="40"/>
@@ -3224,14 +3230,14 @@ The beam data records should ALL be a the finish, rather than attached to each e
     
     </class>
     
-     <class name="SyntheticEnvironmentPduFamily" inheritsFrom="Pdu"
+     <class name="SyntheticEnvironmentFamilyPdu" inheritsFrom="Pdu"
        comment="Section 5.3.11: Abstract superclass for synthetic environment PDUs">
 
      <initialValue name="protocolFamily" value="9"/>
      
      </class>
 
-<class name="EnvironmentalProcessPdu" inheritsFrom="SyntheticEnvironmentPduFamily"
+<class name="EnvironmentalProcessPdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
        comment="Section 5.3.11.1: Information about environmental effects and processes. This requires manual cleanup. the environmental
        record is variable, as is the padding. UNFINISHED">
        
@@ -3270,7 +3276,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
     </class>
     
-    <class name="GriddedDataPdu" inheritsFrom="SyntheticEnvironmentPduFamily"
+    <class name="GriddedDataPdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
        comment="Section 5.3.11.2: Information about globat, spatially varying enviornmental effects. This requires manual cleanup; the grid axis
        records are variable sized. UNFINISHED">
        
@@ -3341,7 +3347,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 </class>
 
-<class name="PointObjectStatePdu" inheritsFrom="SyntheticEnvironmentPduFamily"
+<class name="PointObjectStatePdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
     comment="Section 5.3.11.3: Inormation abut the addition or modification of a synthecic enviroment object that is anchored 
     to the terrain with a single point. COMPLETE">
     
@@ -3397,7 +3403,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    
    </class>
   
-   <class name="LinearObjectStatePdu" inheritsFrom="SyntheticEnvironmentPduFamily"
+   <class name="LinearObjectStatePdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
     comment="Section 5.3.11.4: Information abut the addition or modification of a synthecic enviroment object that 
     is anchored to the terrain with a single point and has size or orientation. COMPLETE">
       
@@ -3443,7 +3449,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   
     </class>
     
-     <class name="ArealObjectStatePdu" inheritsFrom="SyntheticEnvironmentPduFamily"
+     <class name="ArealObjectStatePdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
     comment="Section 5.3.11.5: Information about the addition/modification of an oobject that is geometrically 
     achored to the terrain with a set of three or more points that come to a closure. COMPLETE">
       
@@ -3497,7 +3503,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     
 </class>
 
-  <class name="SimulationManagementWithReliabilityPduFamily" inheritsFrom="Pdu"
+  <class name="SimulationManagementWithReliabilityFamilyPdu" inheritsFrom="Pdu"
        comment="Section 5.3.12: Abstract superclass for reliable simulation management PDUs">
 
      <initialValue name="protocolFamily" value="10"/>
@@ -3512,7 +3518,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
      
   </class>
   
-<class name="CreateEntityReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+<class name="CreateEntityReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.1: creation of an entity , reliable. COMPLETE">
       
    <initialValue name="pduType" value="51"/>
@@ -3535,7 +3541,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 </class>
 
-<class name="RemoveEntityReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+<class name="RemoveEntityReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.2: Removal of an entity , reliable. COMPLETE">
       
    <initialValue name="pduType" value="52"/>
@@ -3558,7 +3564,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 </class>
 
-<class name="StartResumeReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+<class name="StartResumeReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.3: Start resume simulation, relaible. COMPLETE">
       
    <initialValue name="pduType" value="53"/>
@@ -3589,7 +3595,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    
   </class> 
   
-  <class name="StopFreezeReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+  <class name="StopFreezeReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.4: Stop freeze simulation, relaible. COMPLETE">
       
    <initialValue name="pduType" value="54"/>
@@ -3620,7 +3626,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    
    </class>
    
-<class name="AcknowledgeReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+<class name="AcknowledgeReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.5: Ack receipt of a start-resume, stop-freeze, create-entity or remove enitty (reliable) pdus. COMPLETE">
       
    <initialValue name="pduType" value="55"/>
@@ -3639,7 +3645,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    
    </class>
    
-   <class name="ActionRequestReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+   <class name="ActionRequestReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.6: request from a simulation manager to a managed entity to perform a specified action. COMPLETE">
       
    <initialValue name="pduType" value="56"/>
@@ -3687,7 +3693,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     
     </class>
     
-  <class name="ActionResponseReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+  <class name="ActionResponseReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.7: Response from an entity to an action request PDU. COMPLETE">
       
    <initialValue name="pduType" value="57"/>
@@ -3723,7 +3729,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 </class>
 
- <class name="DataQueryReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+ <class name="DataQueryReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.8: request for data from an entity. COMPLETE">
       
    <initialValue name="pduType" value="58"/>
@@ -3770,7 +3776,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 </class>
 
- <class name="SetDataReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+ <class name="SetDataReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.9: initializing or chaning internal state information, reliable. Needs manual intervention to fix
     padding on variable datums. UNFINISHED">
       
@@ -3813,7 +3819,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </attribute>
 </class>
 
- <class name="DataReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+ <class name="DataReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.10: issued in response to a data query R or set dataR pdu. Needs manual intervention 
     to fix padding on variable datums. UNFINSIHED">
       
@@ -3857,7 +3863,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   
 </class>
 
- <class name="EventReportReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+ <class name="EventReportReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.11: reports the occurance of a significatnt event to the simulation manager. Needs manual
     intervention to fix padding in variable datums. UNFINISHED.">
       
@@ -3893,7 +3899,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     
     </class>
     
-    <class name="CommentReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+    <class name="CommentReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.12: Arbitrary messages. Only reliable this time. Neds manual intervention
     to fix padding in variable datums. UNFINISHED">
       
@@ -3920,7 +3926,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </attribute>
 </class>
 
- <class name="RecordQueryReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+ <class name="RecordQueryReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.13: A request for one or more records of data from an entity. COMPLETE">
       
    <initialValue name="pduType" value="63"/>
@@ -3961,7 +3967,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 </class>
 
- <class name="SetRecordReliablePdu" inheritsFrom="SimulationManagementWithReliabilityPduFamily"
+ <class name="SetRecordReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.14: Initializing or changing internal parameter info. Needs manual intervention
     to fix padding in recrod set PDUs. UNFINISHED">
       
