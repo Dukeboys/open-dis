@@ -39,6 +39,8 @@
                source="1.5" target="1.5"
                includeAntRuntime="no"
                classpathref="compile.path" debug="${compile.debug}">
+          <include name="**/*.java"/>
+          <exclude name="test/**/*"/>
         </javac>
         <copy todir="${bin}">
             <fileset dir="${src}">
@@ -46,6 +48,22 @@
             </fileset>   
         </copy>
     </target>
+
+    <!-- compile the java code with test cases -->
+    <target name="compile-test" depends="init" description="Compile java code">
+        <javac srcdir="${src}" destdir="${bin}"
+               source="1.5" target="1.5"
+               includeAntRuntime="no"
+               classpathref="compile.path" debug="${compile.debug}">
+          <include name="**/*.java"/>
+        </javac>
+        <copy todir="${bin}">
+            <fileset dir="${src}">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+    </target>
+
     
     <target name="runSender" depends="jar" description="run DIS example program">
       <java classname="edu.nps.moves.examples.EspduSender">
@@ -136,11 +154,11 @@
     </cc>
     </target>
     
-    <target name="dist" depends="init, compile, compile, javadoc, jar" description="do everything">
+    <target name="dist" depends="clean, init, compile, compile, javadoc, jar" description="do everything">
     </target>
     
     <!-- Run junit tests. -->
-    <target name="test" depends="init, compile" description="Run junit tests">
+    <target name="test" depends="init, compile-test" description="Run junit tests">
       <junit printsummary="yes" showoutput="yes">
         <classpath refid="test.path"/>
         <formatter type="plain" usefile="false"/>
