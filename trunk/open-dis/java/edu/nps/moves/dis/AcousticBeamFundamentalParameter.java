@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Used in UaPdu
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -38,39 +38,6 @@ public class AcousticBeamFundamentalParameter extends Object implements Serializ
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public AcousticBeamFundamentalParameter(edu.nps.moves.jaxb.dis.AcousticBeamFundamentalParameter x)
- {
-     this.activeEmissionParameterIndex = x.getActiveEmissionParameterIndex();
-     this.scanPattern = x.getScanPattern();
-     this.beamCenterAzimuth = x.getBeamCenterAzimuth();
-     this.azimuthalBeamwidth = x.getAzimuthalBeamwidth();
-     this.beamCenterDE = x.getBeamCenterDE();
-     this.deBeamwidth = x.getDeBeamwidth();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.AcousticBeamFundamentalParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.AcousticBeamFundamentalParameter x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setActiveEmissionParameterIndex( this.getActiveEmissionParameterIndex() );
-     x.setScanPattern( this.getScanPattern() );
-     x.setBeamCenterAzimuth( this.getBeamCenterAzimuth() );
-     x.setAzimuthalBeamwidth( this.getAzimuthalBeamwidth() );
-     x.setBeamCenterDE( this.getBeamCenterDE() );
-     x.setDeBeamwidth( this.getDeBeamwidth() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -90,6 +57,7 @@ public void setActiveEmissionParameterIndex(int pActiveEmissionParameterIndex)
 { activeEmissionParameterIndex = pActiveEmissionParameterIndex;
 }
 
+@XmlAttribute
 public int getActiveEmissionParameterIndex()
 { return activeEmissionParameterIndex; 
 }
@@ -98,6 +66,7 @@ public void setScanPattern(int pScanPattern)
 { scanPattern = pScanPattern;
 }
 
+@XmlAttribute
 public int getScanPattern()
 { return scanPattern; 
 }
@@ -106,6 +75,7 @@ public void setBeamCenterAzimuth(float pBeamCenterAzimuth)
 { beamCenterAzimuth = pBeamCenterAzimuth;
 }
 
+@XmlAttribute
 public float getBeamCenterAzimuth()
 { return beamCenterAzimuth; 
 }
@@ -114,6 +84,7 @@ public void setAzimuthalBeamwidth(float pAzimuthalBeamwidth)
 { azimuthalBeamwidth = pAzimuthalBeamwidth;
 }
 
+@XmlAttribute
 public float getAzimuthalBeamwidth()
 { return azimuthalBeamwidth; 
 }
@@ -122,6 +93,7 @@ public void setBeamCenterDE(float pBeamCenterDE)
 { beamCenterDE = pBeamCenterDE;
 }
 
+@XmlAttribute
 public float getBeamCenterDE()
 { return beamCenterDE; 
 }
@@ -130,6 +102,7 @@ public void setDeBeamwidth(float pDeBeamwidth)
 { deBeamwidth = pDeBeamwidth;
 }
 
+@XmlAttribute
 public float getDeBeamwidth()
 { return deBeamwidth; 
 }
@@ -155,8 +128,8 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       activeEmissionParameterIndex = dis.readShort();
-       scanPattern = dis.readShort();
+       activeEmissionParameterIndex = (int)dis.readUnsignedShort();
+       scanPattern = (int)dis.readUnsignedShort();
        beamCenterAzimuth = dis.readFloat();
        azimuthalBeamwidth = dis.readFloat();
        beamCenterDE = dis.readFloat();

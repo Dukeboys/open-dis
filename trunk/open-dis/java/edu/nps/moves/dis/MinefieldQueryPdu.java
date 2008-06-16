@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.10.2 Query a minefield for information about individual mines. Requires manual clean up to get the padding right. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -49,92 +49,6 @@ public class MinefieldQueryPdu extends MinefieldFamilyPdu implements Serializabl
     setPduType( (short)38 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public MinefieldQueryPdu(edu.nps.moves.jaxb.dis.MinefieldQueryPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getMinefieldID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getMinefieldID() );
-     this.setMinefieldID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getRequestingEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getRequestingEntityID() );
-     this.setRequestingEntityID(foo_1);
-
-     this.requestID = x.getRequestID();
-     this.numberOfPerimeterPoints = x.getNumberOfPerimeterPoints();
-     this.pad2 = x.getPad2();
-     this.numberOfSensorTypes = x.getNumberOfSensorTypes();
-     this.dataFilter = x.getDataFilter();
-
-     edu.nps.moves.dis.EntityType foo_7;
-     if(x.getRequestedMineType() == null)
-        foo_7 = new edu.nps.moves.dis.EntityType();
-      else
-        foo_7 = new edu.nps.moves.dis.EntityType(x.getRequestedMineType() );
-     this.setRequestedMineType(foo_7);
-
-     this.requestedPerimeterPoints = new ArrayList();
-     for(int idx = 0; idx < x.getRequestedPerimeterPoints().size(); idx++)
-     {
-        this.requestedPerimeterPoints.add( new edu.nps.moves.dis.Point((edu.nps.moves.jaxb.dis.Point) x.getRequestedPerimeterPoints().get(idx)));
-     }
-     this.sensorTypes = new ArrayList();
-     for(int idx = 0; idx < x.getSensorTypes().size(); idx++)
-     {
-        this.sensorTypes.add( new edu.nps.moves.dis.TwoByteChunk((edu.nps.moves.jaxb.dis.TwoByteChunk) x.getSensorTypes().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.MinefieldQueryPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.MinefieldQueryPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setMinefieldID( this.getMinefieldID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRequestingEntityID( this.getRequestingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRequestID( this.getRequestID() );
-     x.setNumberOfPerimeterPoints( this.getNumberOfPerimeterPoints() );
-     x.setPad2( this.getPad2() );
-     x.setNumberOfSensorTypes( this.getNumberOfSensorTypes() );
-     x.setDataFilter( this.getDataFilter() );
-     x.setRequestedMineType( this.getRequestedMineType().initializeJaxbObject(factory.createEntityType()) );
-
-     List requestedPerimeterPoints_1 = x.getRequestedPerimeterPoints();
-     for(int idx = 0; idx < requestedPerimeterPoints.size(); idx++)
-     {
-         Point a = (edu.nps.moves.dis.Point)requestedPerimeterPoints.get(idx);
-         requestedPerimeterPoints_1.add(a.initializeJaxbObject(factory.createPoint()));
-     }
-
-     List sensorTypes_1 = x.getSensorTypes();
-     for(int idx = 0; idx < sensorTypes.size(); idx++)
-     {
-         TwoByteChunk a = (edu.nps.moves.dis.TwoByteChunk)sensorTypes.get(idx);
-         sensorTypes_1.add(a.initializeJaxbObject(factory.createTwoByteChunk()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -167,29 +81,35 @@ public void setMinefieldID(EntityID pMinefieldID)
 { minefieldID = pMinefieldID;
 }
 
+@XmlElement
 public EntityID getMinefieldID()
-{ return minefieldID; }
+{ return minefieldID; 
+}
 
 public void setRequestingEntityID(EntityID pRequestingEntityID)
 { requestingEntityID = pRequestingEntityID;
 }
 
+@XmlElement
 public EntityID getRequestingEntityID()
-{ return requestingEntityID; }
+{ return requestingEntityID; 
+}
 
 public void setRequestID(short pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public short getRequestID()
 { return requestID; 
 }
 
+@XmlAttribute
 public short getNumberOfPerimeterPoints()
 { return (short)requestedPerimeterPoints.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfPerimeterPoints method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -201,15 +121,17 @@ public void setPad2(short pPad2)
 { pad2 = pPad2;
 }
 
+@XmlAttribute
 public short getPad2()
 { return pad2; 
 }
 
+@XmlAttribute
 public short getNumberOfSensorTypes()
 { return (short)sensorTypes.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfSensorTypes method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -221,6 +143,7 @@ public void setDataFilter(long pDataFilter)
 { dataFilter = pDataFilter;
 }
 
+@XmlAttribute
 public long getDataFilter()
 { return dataFilter; 
 }
@@ -229,13 +152,16 @@ public void setRequestedMineType(EntityType pRequestedMineType)
 { requestedMineType = pRequestedMineType;
 }
 
+@XmlElement
 public EntityType getRequestedMineType()
-{ return requestedMineType; }
+{ return requestedMineType; 
+}
 
 public void setRequestedPerimeterPoints(List pRequestedPerimeterPoints)
 { requestedPerimeterPoints = pRequestedPerimeterPoints;
 }
 
+@XmlElementWrapper(name="requestedPerimeterPointsList" )
 public List getRequestedPerimeterPoints()
 { return requestedPerimeterPoints; }
 
@@ -243,6 +169,7 @@ public void setSensorTypes(List pSensorTypes)
 { sensorTypes = pSensorTypes;
 }
 
+@XmlElementWrapper(name="sensorTypesList" )
 public List getSensorTypes()
 { return sensorTypes; }
 
@@ -288,10 +215,10 @@ public void unmarshal(DataInputStream dis)
     {
        minefieldID.unmarshal(dis);
        requestingEntityID.unmarshal(dis);
-       requestID = dis.readByte();
-       numberOfPerimeterPoints = dis.readByte();
-       pad2 = dis.readByte();
-       numberOfSensorTypes = dis.readByte();
+       requestID = (short)dis.readUnsignedByte();
+       numberOfPerimeterPoints = (short)dis.readUnsignedByte();
+       pad2 = (short)dis.readUnsignedByte();
+       numberOfSensorTypes = (short)dis.readUnsignedByte();
        dataFilter = dis.readInt();
        requestedMineType.unmarshal(dis);
         for(int idx = 0; idx < numberOfPerimeterPoints; idx++)

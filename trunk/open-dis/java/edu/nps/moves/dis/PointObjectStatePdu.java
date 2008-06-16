@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.11.3: Inormation abut the addition or modification of a synthecic enviroment object that is anchored      to the terrain with a single point. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -57,104 +57,6 @@ public class PointObjectStatePdu extends SyntheticEnvironmentFamilyPdu implement
     setPduType( (short)43 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public PointObjectStatePdu(edu.nps.moves.jaxb.dis.PointObjectStatePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getObjectID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getObjectID() );
-     this.setObjectID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getReferencedObjectID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getReferencedObjectID() );
-     this.setReferencedObjectID(foo_1);
-
-     this.updateNumber = x.getUpdateNumber();
-     this.forceID = x.getForceID();
-     this.modifications = x.getModifications();
-
-     edu.nps.moves.dis.ObjectType foo_5;
-     if(x.getObjectType() == null)
-        foo_5 = new edu.nps.moves.dis.ObjectType();
-      else
-        foo_5 = new edu.nps.moves.dis.ObjectType(x.getObjectType() );
-     this.setObjectType(foo_5);
-
-
-     edu.nps.moves.dis.Vector3Double foo_6;
-     if(x.getObjectLocation() == null)
-        foo_6 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_6 = new edu.nps.moves.dis.Vector3Double(x.getObjectLocation() );
-     this.setObjectLocation(foo_6);
-
-
-     edu.nps.moves.dis.Orientation foo_7;
-     if(x.getObjectOrientation() == null)
-        foo_7 = new edu.nps.moves.dis.Orientation();
-      else
-        foo_7 = new edu.nps.moves.dis.Orientation(x.getObjectOrientation() );
-     this.setObjectOrientation(foo_7);
-
-     this.objectAppearance = x.getObjectAppearance();
-
-     edu.nps.moves.dis.SimulationAddress foo_9;
-     if(x.getRequesterID() == null)
-        foo_9 = new edu.nps.moves.dis.SimulationAddress();
-      else
-        foo_9 = new edu.nps.moves.dis.SimulationAddress(x.getRequesterID() );
-     this.setRequesterID(foo_9);
-
-
-     edu.nps.moves.dis.SimulationAddress foo_10;
-     if(x.getReceivingID() == null)
-        foo_10 = new edu.nps.moves.dis.SimulationAddress();
-      else
-        foo_10 = new edu.nps.moves.dis.SimulationAddress(x.getReceivingID() );
-     this.setReceivingID(foo_10);
-
-     this.pad2 = x.getPad2();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.PointObjectStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.PointObjectStatePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setObjectID( this.getObjectID().initializeJaxbObject(factory.createEntityID()) );
-     x.setReferencedObjectID( this.getReferencedObjectID().initializeJaxbObject(factory.createEntityID()) );
-     x.setUpdateNumber( this.getUpdateNumber() );
-     x.setForceID( this.getForceID() );
-     x.setModifications( this.getModifications() );
-     x.setObjectType( this.getObjectType().initializeJaxbObject(factory.createObjectType()) );
-     x.setObjectLocation( this.getObjectLocation().initializeJaxbObject(factory.createVector3Double()) );
-     x.setObjectOrientation( this.getObjectOrientation().initializeJaxbObject(factory.createOrientation()) );
-     x.setObjectAppearance( this.getObjectAppearance() );
-     x.setRequesterID( this.getRequesterID().initializeJaxbObject(factory.createSimulationAddress()) );
-     x.setReceivingID( this.getReceivingID().initializeJaxbObject(factory.createSimulationAddress()) );
-     x.setPad2( this.getPad2() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -181,20 +83,25 @@ public void setObjectID(EntityID pObjectID)
 { objectID = pObjectID;
 }
 
+@XmlElement
 public EntityID getObjectID()
-{ return objectID; }
+{ return objectID; 
+}
 
 public void setReferencedObjectID(EntityID pReferencedObjectID)
 { referencedObjectID = pReferencedObjectID;
 }
 
+@XmlElement
 public EntityID getReferencedObjectID()
-{ return referencedObjectID; }
+{ return referencedObjectID; 
+}
 
 public void setUpdateNumber(int pUpdateNumber)
 { updateNumber = pUpdateNumber;
 }
 
+@XmlAttribute
 public int getUpdateNumber()
 { return updateNumber; 
 }
@@ -203,6 +110,7 @@ public void setForceID(short pForceID)
 { forceID = pForceID;
 }
 
+@XmlAttribute
 public short getForceID()
 { return forceID; 
 }
@@ -211,6 +119,7 @@ public void setModifications(short pModifications)
 { modifications = pModifications;
 }
 
+@XmlAttribute
 public short getModifications()
 { return modifications; 
 }
@@ -219,27 +128,34 @@ public void setObjectType(ObjectType pObjectType)
 { objectType = pObjectType;
 }
 
+@XmlElement
 public ObjectType getObjectType()
-{ return objectType; }
+{ return objectType; 
+}
 
 public void setObjectLocation(Vector3Double pObjectLocation)
 { objectLocation = pObjectLocation;
 }
 
+@XmlElement
 public Vector3Double getObjectLocation()
-{ return objectLocation; }
+{ return objectLocation; 
+}
 
 public void setObjectOrientation(Orientation pObjectOrientation)
 { objectOrientation = pObjectOrientation;
 }
 
+@XmlElement
 public Orientation getObjectOrientation()
-{ return objectOrientation; }
+{ return objectOrientation; 
+}
 
 public void setObjectAppearance(double pObjectAppearance)
 { objectAppearance = pObjectAppearance;
 }
 
+@XmlAttribute
 public double getObjectAppearance()
 { return objectAppearance; 
 }
@@ -248,20 +164,25 @@ public void setRequesterID(SimulationAddress pRequesterID)
 { requesterID = pRequesterID;
 }
 
+@XmlElement
 public SimulationAddress getRequesterID()
-{ return requesterID; }
+{ return requesterID; 
+}
 
 public void setReceivingID(SimulationAddress pReceivingID)
 { receivingID = pReceivingID;
 }
 
+@XmlElement
 public SimulationAddress getReceivingID()
-{ return receivingID; }
+{ return receivingID; 
+}
 
 public void setPad2(long pPad2)
 { pad2 = pPad2;
 }
 
+@XmlAttribute
 public long getPad2()
 { return pad2; 
 }
@@ -298,9 +219,9 @@ public void unmarshal(DataInputStream dis)
     {
        objectID.unmarshal(dis);
        referencedObjectID.unmarshal(dis);
-       updateNumber = dis.readShort();
-       forceID = dis.readByte();
-       modifications = dis.readByte();
+       updateNumber = (int)dis.readUnsignedShort();
+       forceID = (short)dis.readUnsignedByte();
+       modifications = (short)dis.readUnsignedByte();
        objectType.unmarshal(dis);
        objectLocation.unmarshal(dis);
        objectOrientation.unmarshal(dis);

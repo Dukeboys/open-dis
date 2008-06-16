@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.8.5. Detailed inofrmation about the state of an intercom device and the actions it is requestion         of another intercom device, or the response to a requested action. Required manual intervention to fix the intercom parameters,        which can be of varialbe length. UNFINSISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -56,79 +56,6 @@ public class IntercomControlPdu extends RadioCommunicationsFamilyPdu implements 
     setPduType( (short)32 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public IntercomControlPdu(edu.nps.moves.jaxb.dis.IntercomControlPdu x)
- {
-     super(x); // Call superclass constructor
-
-     this.controlType = x.getControlType();
-     this.communicationsChannelType = x.getCommunicationsChannelType();
-
-     edu.nps.moves.dis.EntityID foo_2;
-     if(x.getSourceEntityID() == null)
-        foo_2 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_2 = new edu.nps.moves.dis.EntityID(x.getSourceEntityID() );
-     this.setSourceEntityID(foo_2);
-
-     this.sourceCommunicationsDeviceID = x.getSourceCommunicationsDeviceID();
-     this.sourceLineID = x.getSourceLineID();
-     this.transmitPriority = x.getTransmitPriority();
-     this.transmitLineState = x.getTransmitLineState();
-     this.command = x.getCommand();
-
-     edu.nps.moves.dis.EntityID foo_8;
-     if(x.getMasterEntityID() == null)
-        foo_8 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_8 = new edu.nps.moves.dis.EntityID(x.getMasterEntityID() );
-     this.setMasterEntityID(foo_8);
-
-     this.masterCommunicationsDeviceID = x.getMasterCommunicationsDeviceID();
-     this.intercomParametersLength = x.getIntercomParametersLength();
-     this.intercomParameters = new ArrayList();
-     for(int idx = 0; idx < x.getIntercomParameters().size(); idx++)
-     {
-        this.intercomParameters.add( new edu.nps.moves.dis.IntercomCommunicationsParameters((edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters) x.getIntercomParameters().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.IntercomControlPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IntercomControlPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setControlType( this.getControlType() );
-     x.setCommunicationsChannelType( this.getCommunicationsChannelType() );
-     x.setSourceEntityID( this.getSourceEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setSourceCommunicationsDeviceID( this.getSourceCommunicationsDeviceID() );
-     x.setSourceLineID( this.getSourceLineID() );
-     x.setTransmitPriority( this.getTransmitPriority() );
-     x.setTransmitLineState( this.getTransmitLineState() );
-     x.setCommand( this.getCommand() );
-     x.setMasterEntityID( this.getMasterEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setMasterCommunicationsDeviceID( this.getMasterCommunicationsDeviceID() );
-     x.setIntercomParametersLength( this.getIntercomParametersLength() );
-
-     List intercomParameters_1 = x.getIntercomParameters();
-     for(int idx = 0; idx < intercomParameters.size(); idx++)
-     {
-         IntercomCommunicationsParameters a = (edu.nps.moves.dis.IntercomCommunicationsParameters)intercomParameters.get(idx);
-         intercomParameters_1.add(a.initializeJaxbObject(factory.createIntercomCommunicationsParameters()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -159,6 +86,7 @@ public void setControlType(short pControlType)
 { controlType = pControlType;
 }
 
+@XmlAttribute
 public short getControlType()
 { return controlType; 
 }
@@ -167,6 +95,7 @@ public void setCommunicationsChannelType(short pCommunicationsChannelType)
 { communicationsChannelType = pCommunicationsChannelType;
 }
 
+@XmlAttribute
 public short getCommunicationsChannelType()
 { return communicationsChannelType; 
 }
@@ -175,13 +104,16 @@ public void setSourceEntityID(EntityID pSourceEntityID)
 { sourceEntityID = pSourceEntityID;
 }
 
+@XmlElement
 public EntityID getSourceEntityID()
-{ return sourceEntityID; }
+{ return sourceEntityID; 
+}
 
 public void setSourceCommunicationsDeviceID(short pSourceCommunicationsDeviceID)
 { sourceCommunicationsDeviceID = pSourceCommunicationsDeviceID;
 }
 
+@XmlAttribute
 public short getSourceCommunicationsDeviceID()
 { return sourceCommunicationsDeviceID; 
 }
@@ -190,6 +122,7 @@ public void setSourceLineID(short pSourceLineID)
 { sourceLineID = pSourceLineID;
 }
 
+@XmlAttribute
 public short getSourceLineID()
 { return sourceLineID; 
 }
@@ -198,6 +131,7 @@ public void setTransmitPriority(short pTransmitPriority)
 { transmitPriority = pTransmitPriority;
 }
 
+@XmlAttribute
 public short getTransmitPriority()
 { return transmitPriority; 
 }
@@ -206,6 +140,7 @@ public void setTransmitLineState(short pTransmitLineState)
 { transmitLineState = pTransmitLineState;
 }
 
+@XmlAttribute
 public short getTransmitLineState()
 { return transmitLineState; 
 }
@@ -214,6 +149,7 @@ public void setCommand(short pCommand)
 { command = pCommand;
 }
 
+@XmlAttribute
 public short getCommand()
 { return command; 
 }
@@ -222,22 +158,26 @@ public void setMasterEntityID(EntityID pMasterEntityID)
 { masterEntityID = pMasterEntityID;
 }
 
+@XmlElement
 public EntityID getMasterEntityID()
-{ return masterEntityID; }
+{ return masterEntityID; 
+}
 
 public void setMasterCommunicationsDeviceID(int pMasterCommunicationsDeviceID)
 { masterCommunicationsDeviceID = pMasterCommunicationsDeviceID;
 }
 
+@XmlAttribute
 public int getMasterCommunicationsDeviceID()
 { return masterCommunicationsDeviceID; 
 }
 
+@XmlAttribute
 public long getIntercomParametersLength()
 { return (long)intercomParameters.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getintercomParametersLength method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -249,6 +189,7 @@ public void setIntercomParameters(List pIntercomParameters)
 { intercomParameters = pIntercomParameters;
 }
 
+@XmlElementWrapper(name="intercomParametersList" )
 public List getIntercomParameters()
 { return intercomParameters; }
 
@@ -288,16 +229,16 @@ public void unmarshal(DataInputStream dis)
 
     try 
     {
-       controlType = dis.readByte();
-       communicationsChannelType = dis.readByte();
+       controlType = (short)dis.readUnsignedByte();
+       communicationsChannelType = (short)dis.readUnsignedByte();
        sourceEntityID.unmarshal(dis);
-       sourceCommunicationsDeviceID = dis.readByte();
-       sourceLineID = dis.readByte();
-       transmitPriority = dis.readByte();
-       transmitLineState = dis.readByte();
-       command = dis.readByte();
+       sourceCommunicationsDeviceID = (short)dis.readUnsignedByte();
+       sourceLineID = (short)dis.readUnsignedByte();
+       transmitPriority = (short)dis.readUnsignedByte();
+       transmitLineState = (short)dis.readUnsignedByte();
+       command = (short)dis.readUnsignedByte();
        masterEntityID.unmarshal(dis);
-       masterCommunicationsDeviceID = dis.readShort();
+       masterCommunicationsDeviceID = (int)dis.readUnsignedShort();
        intercomParametersLength = dis.readInt();
         for(int idx = 0; idx < intercomParametersLength; idx++)
         {

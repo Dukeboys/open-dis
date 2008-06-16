@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.45. Fundamental IFF atc data
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -44,43 +44,6 @@ public class FundamentalParameterDataIff extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public FundamentalParameterDataIff(edu.nps.moves.jaxb.dis.FundamentalParameterDataIff x)
- {
-     this.erp = x.getErp();
-     this.frequency = x.getFrequency();
-     this.pgrf = x.getPgrf();
-     this.pulseWidth = x.getPulseWidth();
-     this.burstLength = x.getBurstLength();
-     this.applicableModes = x.getApplicableModes();
-     this.pad2 = x.getPad2();
-     this.pad3 = x.getPad3();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.FundamentalParameterDataIff initializeJaxbObject(edu.nps.moves.jaxb.dis.FundamentalParameterDataIff x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setErp( this.getErp() );
-     x.setFrequency( this.getFrequency() );
-     x.setPgrf( this.getPgrf() );
-     x.setPulseWidth( this.getPulseWidth() );
-     x.setBurstLength( this.getBurstLength() );
-     x.setApplicableModes( this.getApplicableModes() );
-     x.setPad2( this.getPad2() );
-     x.setPad3( this.getPad3() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -102,6 +65,7 @@ public void setErp(float pErp)
 { erp = pErp;
 }
 
+@XmlAttribute
 public float getErp()
 { return erp; 
 }
@@ -110,6 +74,7 @@ public void setFrequency(float pFrequency)
 { frequency = pFrequency;
 }
 
+@XmlAttribute
 public float getFrequency()
 { return frequency; 
 }
@@ -118,6 +83,7 @@ public void setPgrf(float pPgrf)
 { pgrf = pPgrf;
 }
 
+@XmlAttribute
 public float getPgrf()
 { return pgrf; 
 }
@@ -126,6 +92,7 @@ public void setPulseWidth(float pPulseWidth)
 { pulseWidth = pPulseWidth;
 }
 
+@XmlAttribute
 public float getPulseWidth()
 { return pulseWidth; 
 }
@@ -134,6 +101,7 @@ public void setBurstLength(long pBurstLength)
 { burstLength = pBurstLength;
 }
 
+@XmlAttribute
 public long getBurstLength()
 { return burstLength; 
 }
@@ -142,6 +110,7 @@ public void setApplicableModes(short pApplicableModes)
 { applicableModes = pApplicableModes;
 }
 
+@XmlAttribute
 public short getApplicableModes()
 { return applicableModes; 
 }
@@ -150,6 +119,7 @@ public void setPad2(int pPad2)
 { pad2 = pPad2;
 }
 
+@XmlAttribute
 public int getPad2()
 { return pad2; 
 }
@@ -158,6 +128,7 @@ public void setPad3(short pPad3)
 { pad3 = pPad3;
 }
 
+@XmlAttribute
 public short getPad3()
 { return pad3; 
 }
@@ -190,9 +161,9 @@ public void unmarshal(DataInputStream dis)
        pgrf = dis.readFloat();
        pulseWidth = dis.readFloat();
        burstLength = dis.readInt();
-       applicableModes = dis.readByte();
-       pad2 = dis.readShort();
-       pad3 = dis.readByte();
+       applicableModes = (short)dis.readUnsignedByte();
+       pad2 = (int)dis.readUnsignedShort();
+       pad3 = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

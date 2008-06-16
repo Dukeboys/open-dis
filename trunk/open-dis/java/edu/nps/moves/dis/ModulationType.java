@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Radio modulation
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -32,35 +32,6 @@ public class ModulationType extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public ModulationType(edu.nps.moves.jaxb.dis.ModulationType x)
- {
-     this.spreadSpectrum = x.getSpreadSpectrum();
-     this.major = x.getMajor();
-     this.detail = x.getDetail();
-     this.system = x.getSystem();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.ModulationType initializeJaxbObject(edu.nps.moves.jaxb.dis.ModulationType x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setSpreadSpectrum( this.getSpreadSpectrum() );
-     x.setMajor( this.getMajor() );
-     x.setDetail( this.getDetail() );
-     x.setSystem( this.getSystem() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -78,6 +49,7 @@ public void setSpreadSpectrum(int pSpreadSpectrum)
 { spreadSpectrum = pSpreadSpectrum;
 }
 
+@XmlAttribute
 public int getSpreadSpectrum()
 { return spreadSpectrum; 
 }
@@ -86,6 +58,7 @@ public void setMajor(int pMajor)
 { major = pMajor;
 }
 
+@XmlAttribute
 public int getMajor()
 { return major; 
 }
@@ -94,6 +67,7 @@ public void setDetail(int pDetail)
 { detail = pDetail;
 }
 
+@XmlAttribute
 public int getDetail()
 { return detail; 
 }
@@ -102,6 +76,7 @@ public void setSystem(int pSystem)
 { system = pSystem;
 }
 
+@XmlAttribute
 public int getSystem()
 { return system; 
 }
@@ -125,10 +100,10 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       spreadSpectrum = dis.readShort();
-       major = dis.readShort();
-       detail = dis.readShort();
-       system = dis.readShort();
+       spreadSpectrum = (int)dis.readUnsignedShort();
+       major = (int)dis.readUnsignedShort();
+       detail = (int)dis.readUnsignedShort();
+       system = (int)dis.readUnsignedShort();
     } // end try 
    catch(Exception e)
     { 

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.4.2. Information about stuff exploding. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -49,103 +49,6 @@ public class DetonationPdu extends WarfareFamilyPdu implements Serializable
     setPduType( (short)3 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public DetonationPdu(edu.nps.moves.jaxb.dis.DetonationPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getMunitionID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getMunitionID() );
-     this.setMunitionID(foo_0);
-
-
-     edu.nps.moves.dis.EventID foo_1;
-     if(x.getEventID() == null)
-        foo_1 = new edu.nps.moves.dis.EventID();
-      else
-        foo_1 = new edu.nps.moves.dis.EventID(x.getEventID() );
-     this.setEventID(foo_1);
-
-
-     edu.nps.moves.dis.Vector3Float foo_2;
-     if(x.getVelocity() == null)
-        foo_2 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_2 = new edu.nps.moves.dis.Vector3Float(x.getVelocity() );
-     this.setVelocity(foo_2);
-
-
-     edu.nps.moves.dis.Vector3Double foo_3;
-     if(x.getLocationInWorldCoordinates() == null)
-        foo_3 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_3 = new edu.nps.moves.dis.Vector3Double(x.getLocationInWorldCoordinates() );
-     this.setLocationInWorldCoordinates(foo_3);
-
-
-     edu.nps.moves.dis.BurstDescriptor foo_4;
-     if(x.getBurstDescriptor() == null)
-        foo_4 = new edu.nps.moves.dis.BurstDescriptor();
-      else
-        foo_4 = new edu.nps.moves.dis.BurstDescriptor(x.getBurstDescriptor() );
-     this.setBurstDescriptor(foo_4);
-
-
-     edu.nps.moves.dis.Vector3Float foo_5;
-     if(x.getLocationInEntityCoordinates() == null)
-        foo_5 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_5 = new edu.nps.moves.dis.Vector3Float(x.getLocationInEntityCoordinates() );
-     this.setLocationInEntityCoordinates(foo_5);
-
-     this.detonationResult = x.getDetonationResult();
-     this.numberOfArticulationParameters = x.getNumberOfArticulationParameters();
-     this.pad = x.getPad();
-     this.articulationParameters = new ArrayList();
-     for(int idx = 0; idx < x.getArticulationParameters().size(); idx++)
-     {
-        this.articulationParameters.add( new edu.nps.moves.dis.ArticulationParameter((edu.nps.moves.jaxb.dis.ArticulationParameter) x.getArticulationParameters().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.DetonationPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.DetonationPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setMunitionID( this.getMunitionID().initializeJaxbObject(factory.createEntityID()) );
-     x.setEventID( this.getEventID().initializeJaxbObject(factory.createEventID()) );
-     x.setVelocity( this.getVelocity().initializeJaxbObject(factory.createVector3Float()) );
-     x.setLocationInWorldCoordinates( this.getLocationInWorldCoordinates().initializeJaxbObject(factory.createVector3Double()) );
-     x.setBurstDescriptor( this.getBurstDescriptor().initializeJaxbObject(factory.createBurstDescriptor()) );
-     x.setLocationInEntityCoordinates( this.getLocationInEntityCoordinates().initializeJaxbObject(factory.createVector3Float()) );
-     x.setDetonationResult( this.getDetonationResult() );
-     x.setNumberOfArticulationParameters( this.getNumberOfArticulationParameters() );
-     x.setPad( this.getPad() );
-
-     List articulationParameters_1 = x.getArticulationParameters();
-     for(int idx = 0; idx < articulationParameters.size(); idx++)
-     {
-         ArticulationParameter a = (edu.nps.moves.dis.ArticulationParameter)articulationParameters.get(idx);
-         articulationParameters_1.add(a.initializeJaxbObject(factory.createArticulationParameter()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -174,52 +77,66 @@ public void setMunitionID(EntityID pMunitionID)
 { munitionID = pMunitionID;
 }
 
+@XmlElement
 public EntityID getMunitionID()
-{ return munitionID; }
+{ return munitionID; 
+}
 
 public void setEventID(EventID pEventID)
 { eventID = pEventID;
 }
 
+@XmlElement
 public EventID getEventID()
-{ return eventID; }
+{ return eventID; 
+}
 
 public void setVelocity(Vector3Float pVelocity)
 { velocity = pVelocity;
 }
 
+@XmlElement
 public Vector3Float getVelocity()
-{ return velocity; }
+{ return velocity; 
+}
 
 public void setLocationInWorldCoordinates(Vector3Double pLocationInWorldCoordinates)
 { locationInWorldCoordinates = pLocationInWorldCoordinates;
 }
 
+@XmlElement
 public Vector3Double getLocationInWorldCoordinates()
-{ return locationInWorldCoordinates; }
+{ return locationInWorldCoordinates; 
+}
 
 public void setBurstDescriptor(BurstDescriptor pBurstDescriptor)
 { burstDescriptor = pBurstDescriptor;
 }
 
+@XmlElement
 public BurstDescriptor getBurstDescriptor()
-{ return burstDescriptor; }
+{ return burstDescriptor; 
+}
 
 public void setLocationInEntityCoordinates(Vector3Float pLocationInEntityCoordinates)
 { locationInEntityCoordinates = pLocationInEntityCoordinates;
 }
 
+@XmlElement
 public Vector3Float getLocationInEntityCoordinates()
-{ return locationInEntityCoordinates; }
+{ return locationInEntityCoordinates; 
+}
 
 public void setDetonationResult(short pDetonationResult)
 { detonationResult = pDetonationResult;
 }
 
+@XmlAttribute
 public short getDetonationResult()
 { return detonationResult; 
 }
 
+@XmlAttribute
 public short getNumberOfArticulationParameters()
 { return (short)articulationParameters.size();
 }
@@ -236,6 +153,7 @@ public void setPad(short pPad)
 { pad = pPad;
 }
 
+@XmlAttribute
 public short getPad()
 { return pad; 
 }
@@ -244,6 +162,7 @@ public void setArticulationParameters(List pArticulationParameters)
 { articulationParameters = pArticulationParameters;
 }
 
+@XmlElementWrapper(name="articulationParametersList" )
 public List getArticulationParameters()
 { return articulationParameters; }
 
@@ -287,8 +206,8 @@ public void unmarshal(DataInputStream dis)
        locationInWorldCoordinates.unmarshal(dis);
        burstDescriptor.unmarshal(dis);
        locationInEntityCoordinates.unmarshal(dis);
-       detonationResult = dis.readByte();
-       numberOfArticulationParameters = dis.readByte();
+       detonationResult = (short)dis.readUnsignedByte();
+       numberOfArticulationParameters = (short)dis.readUnsignedByte();
        pad = dis.readShort();
         for(int idx = 0; idx < numberOfArticulationParameters; idx++)
         {

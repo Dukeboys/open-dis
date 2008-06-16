@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.12.8: request for data from an entity. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -46,69 +46,6 @@ public class DataQueryReliablePdu extends SimulationManagementWithReliabilityFam
     setPduType( (short)58 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public DataQueryReliablePdu(edu.nps.moves.jaxb.dis.DataQueryReliablePdu x)
- {
-     super(x); // Call superclass constructor
-
-     this.requiredReliabilityService = x.getRequiredReliabilityService();
-     this.pad1 = x.getPad1();
-     this.pad2 = x.getPad2();
-     this.requestID = x.getRequestID();
-     this.timeInterval = x.getTimeInterval();
-     this.numberOfFixedDatumRecords = x.getNumberOfFixedDatumRecords();
-     this.numberOfVariableDatumRecords = x.getNumberOfVariableDatumRecords();
-     this.fixedDatumRecords = new ArrayList();
-     for(int idx = 0; idx < x.getFixedDatumRecords().size(); idx++)
-     {
-        this.fixedDatumRecords.add( new edu.nps.moves.dis.FixedDatum((edu.nps.moves.jaxb.dis.FixedDatum) x.getFixedDatumRecords().get(idx)));
-     }
-     this.variableDatumRecords = new ArrayList();
-     for(int idx = 0; idx < x.getVariableDatumRecords().size(); idx++)
-     {
-        this.variableDatumRecords.add( new edu.nps.moves.dis.VariableDatum((edu.nps.moves.jaxb.dis.VariableDatum) x.getVariableDatumRecords().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.DataQueryReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.DataQueryReliablePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setRequiredReliabilityService( this.getRequiredReliabilityService() );
-     x.setPad1( this.getPad1() );
-     x.setPad2( this.getPad2() );
-     x.setRequestID( this.getRequestID() );
-     x.setTimeInterval( this.getTimeInterval() );
-     x.setNumberOfFixedDatumRecords( this.getNumberOfFixedDatumRecords() );
-     x.setNumberOfVariableDatumRecords( this.getNumberOfVariableDatumRecords() );
-
-     List fixedDatumRecords_1 = x.getFixedDatumRecords();
-     for(int idx = 0; idx < fixedDatumRecords.size(); idx++)
-     {
-         FixedDatum a = (edu.nps.moves.dis.FixedDatum)fixedDatumRecords.get(idx);
-         fixedDatumRecords_1.add(a.initializeJaxbObject(factory.createFixedDatum()));
-     }
-
-     List variableDatumRecords_1 = x.getVariableDatumRecords();
-     for(int idx = 0; idx < variableDatumRecords.size(); idx++)
-     {
-         VariableDatum a = (edu.nps.moves.dis.VariableDatum)variableDatumRecords.get(idx);
-         variableDatumRecords_1.add(a.initializeJaxbObject(factory.createVariableDatum()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -140,6 +77,7 @@ public void setRequiredReliabilityService(short pRequiredReliabilityService)
 { requiredReliabilityService = pRequiredReliabilityService;
 }
 
+@XmlAttribute
 public short getRequiredReliabilityService()
 { return requiredReliabilityService; 
 }
@@ -148,6 +86,7 @@ public void setPad1(int pPad1)
 { pad1 = pPad1;
 }
 
+@XmlAttribute
 public int getPad1()
 { return pad1; 
 }
@@ -156,6 +95,7 @@ public void setPad2(short pPad2)
 { pad2 = pPad2;
 }
 
+@XmlAttribute
 public short getPad2()
 { return pad2; 
 }
@@ -164,6 +104,7 @@ public void setRequestID(long pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public long getRequestID()
 { return requestID; 
 }
@@ -172,15 +113,17 @@ public void setTimeInterval(long pTimeInterval)
 { timeInterval = pTimeInterval;
 }
 
+@XmlAttribute
 public long getTimeInterval()
 { return timeInterval; 
 }
 
+@XmlAttribute
 public long getNumberOfFixedDatumRecords()
 { return (long)fixedDatumRecords.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfFixedDatumRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -188,11 +131,12 @@ public void setNumberOfFixedDatumRecords(long pNumberOfFixedDatumRecords)
 { numberOfFixedDatumRecords = pNumberOfFixedDatumRecords;
 }
 
+@XmlAttribute
 public long getNumberOfVariableDatumRecords()
 { return (long)variableDatumRecords.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -204,6 +148,7 @@ public void setFixedDatumRecords(List pFixedDatumRecords)
 { fixedDatumRecords = pFixedDatumRecords;
 }
 
+@XmlElementWrapper(name="fixedDatumRecordsList" )
 public List getFixedDatumRecords()
 { return fixedDatumRecords; }
 
@@ -211,6 +156,7 @@ public void setVariableDatumRecords(List pVariableDatumRecords)
 { variableDatumRecords = pVariableDatumRecords;
 }
 
+@XmlElementWrapper(name="variableDatumRecordsList" )
 public List getVariableDatumRecords()
 { return variableDatumRecords; }
 
@@ -253,9 +199,9 @@ public void unmarshal(DataInputStream dis)
 
     try 
     {
-       requiredReliabilityService = dis.readByte();
-       pad1 = dis.readShort();
-       pad2 = dis.readByte();
+       requiredReliabilityService = (short)dis.readUnsignedByte();
+       pad1 = (int)dis.readUnsignedShort();
+       pad2 = (short)dis.readUnsignedByte();
        requestID = dis.readInt();
        timeInterval = dis.readInt();
        numberOfFixedDatumRecords = dis.readInt();

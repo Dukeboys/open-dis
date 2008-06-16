@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.7.3. Information about underwater acoustic emmissions. This requires manual cleanup.  The beam data records should ALL be a the finish, rather than attached to each emitter system. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -53,99 +53,6 @@ public class UaPdu extends DistributedEmissionsFamilyPdu implements Serializable
     setPduType( (short)29 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public UaPdu(edu.nps.moves.jaxb.dis.UaPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getEmittingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getEmittingEntityID() );
-     this.setEmittingEntityID(foo_0);
-
-
-     edu.nps.moves.dis.EventID foo_1;
-     if(x.getEventID() == null)
-        foo_1 = new edu.nps.moves.dis.EventID();
-      else
-        foo_1 = new edu.nps.moves.dis.EventID(x.getEventID() );
-     this.setEventID(foo_1);
-
-     this.stateChangeIndicator = x.getStateChangeIndicator();
-     this.pad = x.getPad();
-     this.passiveParameterIndex = x.getPassiveParameterIndex();
-     this.propulsionPlantConfiguration = x.getPropulsionPlantConfiguration();
-     this.numberOfShafts = x.getNumberOfShafts();
-     this.numberOfAPAs = x.getNumberOfAPAs();
-     this.numberOfUAEmitterSystems = x.getNumberOfUAEmitterSystems();
-     this.shaftRPMs = new ArrayList();
-     for(int idx = 0; idx < x.getShaftRPMs().size(); idx++)
-     {
-        this.shaftRPMs.add( new edu.nps.moves.dis.ShaftRPMs((edu.nps.moves.jaxb.dis.ShaftRPMs) x.getShaftRPMs().get(idx)));
-     }
-     this.apaData = new ArrayList();
-     for(int idx = 0; idx < x.getApaData().size(); idx++)
-     {
-        this.apaData.add( new edu.nps.moves.dis.ApaData((edu.nps.moves.jaxb.dis.ApaData) x.getApaData().get(idx)));
-     }
-     this.emitterSystems = new ArrayList();
-     for(int idx = 0; idx < x.getEmitterSystems().size(); idx++)
-     {
-        this.emitterSystems.add( new edu.nps.moves.dis.AcousticEmitterSystemData((edu.nps.moves.jaxb.dis.AcousticEmitterSystemData) x.getEmitterSystems().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.UaPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.UaPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEmittingEntityID( this.getEmittingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setEventID( this.getEventID().initializeJaxbObject(factory.createEventID()) );
-     x.setStateChangeIndicator( this.getStateChangeIndicator() );
-     x.setPad( this.getPad() );
-     x.setPassiveParameterIndex( this.getPassiveParameterIndex() );
-     x.setPropulsionPlantConfiguration( this.getPropulsionPlantConfiguration() );
-     x.setNumberOfShafts( this.getNumberOfShafts() );
-     x.setNumberOfAPAs( this.getNumberOfAPAs() );
-     x.setNumberOfUAEmitterSystems( this.getNumberOfUAEmitterSystems() );
-
-     List shaftRPMs_1 = x.getShaftRPMs();
-     for(int idx = 0; idx < shaftRPMs.size(); idx++)
-     {
-         ShaftRPMs a = (edu.nps.moves.dis.ShaftRPMs)shaftRPMs.get(idx);
-         shaftRPMs_1.add(a.initializeJaxbObject(factory.createShaftRPMs()));
-     }
-
-     List apaData_1 = x.getApaData();
-     for(int idx = 0; idx < apaData.size(); idx++)
-     {
-         ApaData a = (edu.nps.moves.dis.ApaData)apaData.get(idx);
-         apaData_1.add(a.initializeJaxbObject(factory.createApaData()));
-     }
-
-     List emitterSystems_1 = x.getEmitterSystems();
-     for(int idx = 0; idx < emitterSystems.size(); idx++)
-     {
-         AcousticEmitterSystemData a = (edu.nps.moves.dis.AcousticEmitterSystemData)emitterSystems.get(idx);
-         emitterSystems_1.add(a.initializeJaxbObject(factory.createAcousticEmitterSystemData()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -184,20 +91,25 @@ public void setEmittingEntityID(EntityID pEmittingEntityID)
 { emittingEntityID = pEmittingEntityID;
 }
 
+@XmlElement
 public EntityID getEmittingEntityID()
-{ return emittingEntityID; }
+{ return emittingEntityID; 
+}
 
 public void setEventID(EventID pEventID)
 { eventID = pEventID;
 }
 
+@XmlElement
 public EventID getEventID()
-{ return eventID; }
+{ return eventID; 
+}
 
 public void setStateChangeIndicator(byte pStateChangeIndicator)
 { stateChangeIndicator = pStateChangeIndicator;
 }
 
+@XmlAttribute
 public byte getStateChangeIndicator()
 { return stateChangeIndicator; 
 }
@@ -206,6 +118,7 @@ public void setPad(byte pPad)
 { pad = pPad;
 }
 
+@XmlAttribute
 public byte getPad()
 { return pad; 
 }
@@ -214,6 +127,7 @@ public void setPassiveParameterIndex(int pPassiveParameterIndex)
 { passiveParameterIndex = pPassiveParameterIndex;
 }
 
+@XmlAttribute
 public int getPassiveParameterIndex()
 { return passiveParameterIndex; 
 }
@@ -222,15 +136,17 @@ public void setPropulsionPlantConfiguration(short pPropulsionPlantConfiguration)
 { propulsionPlantConfiguration = pPropulsionPlantConfiguration;
 }
 
+@XmlAttribute
 public short getPropulsionPlantConfiguration()
 { return propulsionPlantConfiguration; 
 }
 
+@XmlAttribute
 public short getNumberOfShafts()
 { return (short)shaftRPMs.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfShafts method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -238,11 +154,12 @@ public void setNumberOfShafts(short pNumberOfShafts)
 { numberOfShafts = pNumberOfShafts;
 }
 
+@XmlAttribute
 public short getNumberOfAPAs()
 { return (short)apaData.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfAPAs method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -250,11 +167,12 @@ public void setNumberOfAPAs(short pNumberOfAPAs)
 { numberOfAPAs = pNumberOfAPAs;
 }
 
+@XmlAttribute
 public short getNumberOfUAEmitterSystems()
 { return (short)emitterSystems.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfUAEmitterSystems method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -266,6 +184,7 @@ public void setShaftRPMs(List pShaftRPMs)
 { shaftRPMs = pShaftRPMs;
 }
 
+@XmlElementWrapper(name="shaftRPMsList" )
 public List getShaftRPMs()
 { return shaftRPMs; }
 
@@ -273,6 +192,7 @@ public void setApaData(List pApaData)
 { apaData = pApaData;
 }
 
+@XmlElementWrapper(name="apaDataList" )
 public List getApaData()
 { return apaData; }
 
@@ -280,6 +200,7 @@ public void setEmitterSystems(List pEmitterSystems)
 { emitterSystems = pEmitterSystems;
 }
 
+@XmlElementWrapper(name="emitterSystemsList" )
 public List getEmitterSystems()
 { return emitterSystems; }
 
@@ -335,11 +256,11 @@ public void unmarshal(DataInputStream dis)
        eventID.unmarshal(dis);
        stateChangeIndicator = dis.readByte();
        pad = dis.readByte();
-       passiveParameterIndex = dis.readShort();
-       propulsionPlantConfiguration = dis.readByte();
-       numberOfShafts = dis.readByte();
-       numberOfAPAs = dis.readByte();
-       numberOfUAEmitterSystems = dis.readByte();
+       passiveParameterIndex = (int)dis.readUnsignedShort();
+       propulsionPlantConfiguration = (short)dis.readUnsignedByte();
+       numberOfShafts = (short)dis.readUnsignedByte();
+       numberOfAPAs = (short)dis.readUnsignedByte();
+       numberOfUAEmitterSystems = (short)dis.readUnsignedByte();
         for(int idx = 0; idx < numberOfShafts; idx++)
         {
            ShaftRPMs anX = new ShaftRPMs();

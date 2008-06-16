@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.5.3. Receipt of supplies is communiated. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -37,67 +37,6 @@ public class ResupplyReceivedPdu extends LogisticsFamilyPdu implements Serializa
     setPduType( (short)7 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public ResupplyReceivedPdu(edu.nps.moves.jaxb.dis.ResupplyReceivedPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getReceivingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getReceivingEntityID() );
-     this.setReceivingEntityID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getSupplyingEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getSupplyingEntityID() );
-     this.setSupplyingEntityID(foo_1);
-
-     this.numberOfSupplyTypes = x.getNumberOfSupplyTypes();
-     this.padding1 = x.getPadding1();
-     this.padding2 = x.getPadding2();
-     this.supplies = new ArrayList();
-     for(int idx = 0; idx < x.getSupplies().size(); idx++)
-     {
-        this.supplies.add( new edu.nps.moves.dis.SupplyQuantity((edu.nps.moves.jaxb.dis.SupplyQuantity) x.getSupplies().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.ResupplyReceivedPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.ResupplyReceivedPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setReceivingEntityID( this.getReceivingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setSupplyingEntityID( this.getSupplyingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setNumberOfSupplyTypes( this.getNumberOfSupplyTypes() );
-     x.setPadding1( this.getPadding1() );
-     x.setPadding2( this.getPadding2() );
-
-     List supplies_1 = x.getSupplies();
-     for(int idx = 0; idx < supplies.size(); idx++)
-     {
-         SupplyQuantity a = (edu.nps.moves.dis.SupplyQuantity)supplies.get(idx);
-         supplies_1.add(a.initializeJaxbObject(factory.createSupplyQuantity()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -122,21 +61,26 @@ public void setReceivingEntityID(EntityID pReceivingEntityID)
 { receivingEntityID = pReceivingEntityID;
 }
 
+@XmlElement
 public EntityID getReceivingEntityID()
-{ return receivingEntityID; }
+{ return receivingEntityID; 
+}
 
 public void setSupplyingEntityID(EntityID pSupplyingEntityID)
 { supplyingEntityID = pSupplyingEntityID;
 }
 
+@XmlElement
 public EntityID getSupplyingEntityID()
-{ return supplyingEntityID; }
+{ return supplyingEntityID; 
+}
 
+@XmlAttribute
 public short getNumberOfSupplyTypes()
 { return (short)supplies.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfSupplyTypes method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -148,6 +92,7 @@ public void setPadding1(short pPadding1)
 { padding1 = pPadding1;
 }
 
+@XmlAttribute
 public short getPadding1()
 { return padding1; 
 }
@@ -156,6 +101,7 @@ public void setPadding2(byte pPadding2)
 { padding2 = pPadding2;
 }
 
+@XmlAttribute
 public byte getPadding2()
 { return padding2; 
 }
@@ -164,6 +110,7 @@ public void setSupplies(List pSupplies)
 { supplies = pSupplies;
 }
 
+@XmlElementWrapper(name="suppliesList" )
 public List getSupplies()
 { return supplies; }
 
@@ -199,7 +146,7 @@ public void unmarshal(DataInputStream dis)
     {
        receivingEntityID.unmarshal(dis);
        supplyingEntityID.unmarshal(dis);
-       numberOfSupplyTypes = dis.readByte();
+       numberOfSupplyTypes = (short)dis.readUnsignedByte();
        padding1 = dis.readShort();
        padding2 = dis.readByte();
         for(int idx = 0; idx < numberOfSupplyTypes; idx++)

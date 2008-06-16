@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.12.3: Start resume simulation, relaible. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -39,57 +39,6 @@ public class StartResumeReliablePdu extends SimulationManagementWithReliabilityF
     setPduType( (short)53 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public StartResumeReliablePdu(edu.nps.moves.jaxb.dis.StartResumeReliablePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.ClockTime foo_0;
-     if(x.getRealWorldTime() == null)
-        foo_0 = new edu.nps.moves.dis.ClockTime();
-      else
-        foo_0 = new edu.nps.moves.dis.ClockTime(x.getRealWorldTime() );
-     this.setRealWorldTime(foo_0);
-
-
-     edu.nps.moves.dis.ClockTime foo_1;
-     if(x.getSimulationTime() == null)
-        foo_1 = new edu.nps.moves.dis.ClockTime();
-      else
-        foo_1 = new edu.nps.moves.dis.ClockTime(x.getSimulationTime() );
-     this.setSimulationTime(foo_1);
-
-     this.requiredReliabilityService = x.getRequiredReliabilityService();
-     this.pad1 = x.getPad1();
-     this.pad2 = x.getPad2();
-     this.requestID = x.getRequestID();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.StartResumeReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.StartResumeReliablePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setRealWorldTime( this.getRealWorldTime().initializeJaxbObject(factory.createClockTime()) );
-     x.setSimulationTime( this.getSimulationTime().initializeJaxbObject(factory.createClockTime()) );
-     x.setRequiredReliabilityService( this.getRequiredReliabilityService() );
-     x.setPad1( this.getPad1() );
-     x.setPad2( this.getPad2() );
-     x.setRequestID( this.getRequestID() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -110,20 +59,25 @@ public void setRealWorldTime(ClockTime pRealWorldTime)
 { realWorldTime = pRealWorldTime;
 }
 
+@XmlElement
 public ClockTime getRealWorldTime()
-{ return realWorldTime; }
+{ return realWorldTime; 
+}
 
 public void setSimulationTime(ClockTime pSimulationTime)
 { simulationTime = pSimulationTime;
 }
 
+@XmlElement
 public ClockTime getSimulationTime()
-{ return simulationTime; }
+{ return simulationTime; 
+}
 
 public void setRequiredReliabilityService(short pRequiredReliabilityService)
 { requiredReliabilityService = pRequiredReliabilityService;
 }
 
+@XmlAttribute
 public short getRequiredReliabilityService()
 { return requiredReliabilityService; 
 }
@@ -132,6 +86,7 @@ public void setPad1(int pPad1)
 { pad1 = pPad1;
 }
 
+@XmlAttribute
 public int getPad1()
 { return pad1; 
 }
@@ -140,6 +95,7 @@ public void setPad2(short pPad2)
 { pad2 = pPad2;
 }
 
+@XmlAttribute
 public short getPad2()
 { return pad2; 
 }
@@ -148,6 +104,7 @@ public void setRequestID(long pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public long getRequestID()
 { return requestID; 
 }
@@ -178,9 +135,9 @@ public void unmarshal(DataInputStream dis)
     {
        realWorldTime.unmarshal(dis);
        simulationTime.unmarshal(dis);
-       requiredReliabilityService = dis.readByte();
-       pad1 = dis.readShort();
-       pad2 = dis.readByte();
+       requiredReliabilityService = (short)dis.readUnsignedByte();
+       pad1 = (int)dis.readUnsignedShort();
+       pad2 = (short)dis.readUnsignedByte();
        requestID = dis.readInt();
     } // end try 
    catch(Exception e)

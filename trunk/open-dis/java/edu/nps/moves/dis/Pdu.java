@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -41,41 +41,6 @@ public class Pdu extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public Pdu(edu.nps.moves.jaxb.dis.Pdu x)
- {
-     this.protocolVersion = x.getProtocolVersion();
-     this.exerciseID = x.getExerciseID();
-     this.pduType = x.getPduType();
-     this.protocolFamily = x.getProtocolFamily();
-     this.timestamp = x.getTimestamp();
-     this.length = x.getLength();
-     this.padding = x.getPadding();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.Pdu initializeJaxbObject(edu.nps.moves.jaxb.dis.Pdu x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setProtocolVersion( this.getProtocolVersion() );
-     x.setExerciseID( this.getExerciseID() );
-     x.setPduType( this.getPduType() );
-     x.setProtocolFamily( this.getProtocolFamily() );
-     x.setTimestamp( this.getTimestamp() );
-     x.setLength( this.getLength() );
-     x.setPadding( this.getPadding() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -96,6 +61,7 @@ public void setProtocolVersion(short pProtocolVersion)
 { protocolVersion = pProtocolVersion;
 }
 
+@XmlAttribute
 public short getProtocolVersion()
 { return protocolVersion; 
 }
@@ -104,6 +70,7 @@ public void setExerciseID(short pExerciseID)
 { exerciseID = pExerciseID;
 }
 
+@XmlAttribute
 public short getExerciseID()
 { return exerciseID; 
 }
@@ -112,6 +79,7 @@ public void setPduType(short pPduType)
 { pduType = pPduType;
 }
 
+@XmlAttribute
 public short getPduType()
 { return pduType; 
 }
@@ -120,6 +88,7 @@ public void setProtocolFamily(short pProtocolFamily)
 { protocolFamily = pProtocolFamily;
 }
 
+@XmlAttribute
 public short getProtocolFamily()
 { return protocolFamily; 
 }
@@ -128,6 +97,7 @@ public void setTimestamp(long pTimestamp)
 { timestamp = pTimestamp;
 }
 
+@XmlAttribute
 public long getTimestamp()
 { return timestamp; 
 }
@@ -136,6 +106,7 @@ public void setLength(int pLength)
 { length = pLength;
 }
 
+@XmlAttribute
 public int getLength()
 { return length; 
 }
@@ -144,6 +115,7 @@ public void setPadding(short pPadding)
 { padding = pPadding;
 }
 
+@XmlAttribute
 public short getPadding()
 { return padding; 
 }
@@ -170,12 +142,12 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       protocolVersion = dis.readByte();
-       exerciseID = dis.readByte();
-       pduType = dis.readByte();
-       protocolFamily = dis.readByte();
+       protocolVersion = (short)dis.readUnsignedByte();
+       exerciseID = (short)dis.readUnsignedByte();
+       pduType = (short)dis.readUnsignedByte();
+       protocolFamily = (short)dis.readUnsignedByte();
        timestamp = dis.readInt();
-       length = dis.readShort();
+       length = (int)dis.readUnsignedShort();
        padding = dis.readShort();
     } // end try 
    catch(Exception e)

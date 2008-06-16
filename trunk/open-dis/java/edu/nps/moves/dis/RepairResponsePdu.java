@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.5.6. Sent after repair complete PDU. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -36,55 +36,6 @@ public class RepairResponsePdu extends LogisticsFamilyPdu implements Serializabl
     setPduType( (short)10 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public RepairResponsePdu(edu.nps.moves.jaxb.dis.RepairResponsePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getReceivingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getReceivingEntityID() );
-     this.setReceivingEntityID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getRepairingEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getRepairingEntityID() );
-     this.setRepairingEntityID(foo_1);
-
-     this.repairResult = x.getRepairResult();
-     this.padding1 = x.getPadding1();
-     this.padding2 = x.getPadding2();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.RepairResponsePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RepairResponsePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setReceivingEntityID( this.getReceivingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRepairingEntityID( this.getRepairingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRepairResult( this.getRepairResult() );
-     x.setPadding1( this.getPadding1() );
-     x.setPadding2( this.getPadding2() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -104,20 +55,25 @@ public void setReceivingEntityID(EntityID pReceivingEntityID)
 { receivingEntityID = pReceivingEntityID;
 }
 
+@XmlElement
 public EntityID getReceivingEntityID()
-{ return receivingEntityID; }
+{ return receivingEntityID; 
+}
 
 public void setRepairingEntityID(EntityID pRepairingEntityID)
 { repairingEntityID = pRepairingEntityID;
 }
 
+@XmlElement
 public EntityID getRepairingEntityID()
-{ return repairingEntityID; }
+{ return repairingEntityID; 
+}
 
 public void setRepairResult(short pRepairResult)
 { repairResult = pRepairResult;
 }
 
+@XmlAttribute
 public short getRepairResult()
 { return repairResult; 
 }
@@ -126,6 +82,7 @@ public void setPadding1(short pPadding1)
 { padding1 = pPadding1;
 }
 
+@XmlAttribute
 public short getPadding1()
 { return padding1; 
 }
@@ -134,6 +91,7 @@ public void setPadding2(byte pPadding2)
 { padding2 = pPadding2;
 }
 
+@XmlAttribute
 public byte getPadding2()
 { return padding2; 
 }
@@ -163,7 +121,7 @@ public void unmarshal(DataInputStream dis)
     {
        receivingEntityID.unmarshal(dis);
        repairingEntityID.unmarshal(dis);
-       repairResult = dis.readByte();
+       repairResult = (short)dis.readUnsignedByte();
        padding1 = dis.readShort();
        padding2 = dis.readByte();
     } // end try 

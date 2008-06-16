@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.40. Information about a geometry, a state associated with a geometry, a bounding volume, or an associated entity ID. NOTE: this class requires hand coding.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -38,39 +38,6 @@ public class Environment extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public Environment(edu.nps.moves.jaxb.dis.Environment x)
- {
-     this.environmentType = x.getEnvironmentType();
-     this.length = x.getLength();
-     this.index = x.getIndex();
-     this.padding1 = x.getPadding1();
-     this.geometry = x.getGeometry();
-     this.padding2 = x.getPadding2();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.Environment initializeJaxbObject(edu.nps.moves.jaxb.dis.Environment x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEnvironmentType( this.getEnvironmentType() );
-     x.setLength( this.getLength() );
-     x.setIndex( this.getIndex() );
-     x.setPadding1( this.getPadding1() );
-     x.setGeometry( this.getGeometry() );
-     x.setPadding2( this.getPadding2() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -90,6 +57,7 @@ public void setEnvironmentType(long pEnvironmentType)
 { environmentType = pEnvironmentType;
 }
 
+@XmlAttribute
 public long getEnvironmentType()
 { return environmentType; 
 }
@@ -98,6 +66,7 @@ public void setLength(short pLength)
 { length = pLength;
 }
 
+@XmlAttribute
 public short getLength()
 { return length; 
 }
@@ -106,6 +75,7 @@ public void setIndex(short pIndex)
 { index = pIndex;
 }
 
+@XmlAttribute
 public short getIndex()
 { return index; 
 }
@@ -114,6 +84,7 @@ public void setPadding1(short pPadding1)
 { padding1 = pPadding1;
 }
 
+@XmlAttribute
 public short getPadding1()
 { return padding1; 
 }
@@ -122,6 +93,7 @@ public void setGeometry(short pGeometry)
 { geometry = pGeometry;
 }
 
+@XmlAttribute
 public short getGeometry()
 { return geometry; 
 }
@@ -130,6 +102,7 @@ public void setPadding2(short pPadding2)
 { padding2 = pPadding2;
 }
 
+@XmlAttribute
 public short getPadding2()
 { return padding2; 
 }
@@ -156,11 +129,11 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        environmentType = dis.readInt();
-       length = dis.readByte();
-       index = dis.readByte();
-       padding1 = dis.readByte();
-       geometry = dis.readByte();
-       padding2 = dis.readByte();
+       length = (short)dis.readUnsignedByte();
+       index = (short)dis.readUnsignedByte();
+       padding1 = (short)dis.readUnsignedByte();
+       geometry = (short)dis.readUnsignedByte();
+       padding2 = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * represents values used in dead reckoning algorithms
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -32,58 +32,6 @@ public class DeadReckoningParameter extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public DeadReckoningParameter(edu.nps.moves.jaxb.dis.DeadReckoningParameter x)
- {
-     this.deadReckoningAlgorithm = x.getDeadReckoningAlgorithm();
-     this.otherParameters = new byte[15];
-     for(int idx = 0; idx < 15; idx++)
-     {
-         byte[] y = x.getOtherParameters();
-         this.otherParameters[idx] = y[idx];
-     }
-
-     edu.nps.moves.dis.Vector3Float foo_2;
-     if(x.getEntityLinearAcceleration() == null)
-        foo_2 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_2 = new edu.nps.moves.dis.Vector3Float(x.getEntityLinearAcceleration() );
-     this.setEntityLinearAcceleration(foo_2);
-
-
-     edu.nps.moves.dis.Vector3Float foo_3;
-     if(x.getEntityAngularVelocity() == null)
-        foo_3 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_3 = new edu.nps.moves.dis.Vector3Float(x.getEntityAngularVelocity() );
-     this.setEntityAngularVelocity(foo_3);
-
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.DeadReckoningParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.DeadReckoningParameter x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setDeadReckoningAlgorithm( this.getDeadReckoningAlgorithm() );
-     x.setOtherParameters( new byte[15]);
-     for(int idx = 0; idx < 15; idx++)
-     {
-         x.getOtherParameters()[idx] = this.otherParameters[idx];
-     }
-     x.setEntityLinearAcceleration( this.getEntityLinearAcceleration().initializeJaxbObject(factory.createVector3Float()) );
-     x.setEntityAngularVelocity( this.getEntityAngularVelocity().initializeJaxbObject(factory.createVector3Float()) );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -101,6 +49,7 @@ public void setDeadReckoningAlgorithm(short pDeadReckoningAlgorithm)
 { deadReckoningAlgorithm = pDeadReckoningAlgorithm;
 }
 
+@XmlAttribute
 public short getDeadReckoningAlgorithm()
 { return deadReckoningAlgorithm; 
 }
@@ -109,6 +58,7 @@ public void setOtherParameters(byte[] pOtherParameters)
 { otherParameters = pOtherParameters;
 }
 
+@XmlElement(name="otherParameters" )
 public byte[] getOtherParameters()
 { return otherParameters; }
 
@@ -116,15 +66,19 @@ public void setEntityLinearAcceleration(Vector3Float pEntityLinearAcceleration)
 { entityLinearAcceleration = pEntityLinearAcceleration;
 }
 
+@XmlElement
 public Vector3Float getEntityLinearAcceleration()
-{ return entityLinearAcceleration; }
+{ return entityLinearAcceleration; 
+}
 
 public void setEntityAngularVelocity(Vector3Float pEntityAngularVelocity)
 { entityAngularVelocity = pEntityAngularVelocity;
 }
 
+@XmlElement
 public Vector3Float getEntityAngularVelocity()
-{ return entityAngularVelocity; }
+{ return entityAngularVelocity; 
+}
 
 
 public void marshal(DataOutputStream dos)
@@ -150,7 +104,7 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       deadReckoningAlgorithm = dis.readByte();
+       deadReckoningAlgorithm = (short)dis.readUnsignedByte();
        for(int idx = 0; idx < otherParameters.length; idx++)
        {
                 otherParameters[idx] = dis.readByte();

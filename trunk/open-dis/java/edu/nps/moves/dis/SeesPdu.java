@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.7.5. SEES PDU, supplemental emissions entity state information. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -43,74 +43,6 @@ public class SeesPdu extends DistributedEmissionsFamilyPdu implements Serializab
     setPduType( (short)30 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public SeesPdu(edu.nps.moves.jaxb.dis.SeesPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getOrginatingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getOrginatingEntityID() );
-     this.setOrginatingEntityID(foo_0);
-
-     this.infraredSignatureRepresentationIndex = x.getInfraredSignatureRepresentationIndex();
-     this.acousticSignatureRepresentationIndex = x.getAcousticSignatureRepresentationIndex();
-     this.radarCrossSectionSignatureRepresentationIndex = x.getRadarCrossSectionSignatureRepresentationIndex();
-     this.numberOfPropulsionSystems = x.getNumberOfPropulsionSystems();
-     this.numberOfVectoringNozzleSystems = x.getNumberOfVectoringNozzleSystems();
-     this.propulsionSystemData = new ArrayList();
-     for(int idx = 0; idx < x.getPropulsionSystemData().size(); idx++)
-     {
-        this.propulsionSystemData.add( new edu.nps.moves.dis.PropulsionSystemData((edu.nps.moves.jaxb.dis.PropulsionSystemData) x.getPropulsionSystemData().get(idx)));
-     }
-     this.vectoringSystemData = new ArrayList();
-     for(int idx = 0; idx < x.getVectoringSystemData().size(); idx++)
-     {
-        this.vectoringSystemData.add( new edu.nps.moves.dis.VectoringNozzleSystemData((edu.nps.moves.jaxb.dis.VectoringNozzleSystemData) x.getVectoringSystemData().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.SeesPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.SeesPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setOrginatingEntityID( this.getOrginatingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setInfraredSignatureRepresentationIndex( this.getInfraredSignatureRepresentationIndex() );
-     x.setAcousticSignatureRepresentationIndex( this.getAcousticSignatureRepresentationIndex() );
-     x.setRadarCrossSectionSignatureRepresentationIndex( this.getRadarCrossSectionSignatureRepresentationIndex() );
-     x.setNumberOfPropulsionSystems( this.getNumberOfPropulsionSystems() );
-     x.setNumberOfVectoringNozzleSystems( this.getNumberOfVectoringNozzleSystems() );
-
-     List propulsionSystemData_1 = x.getPropulsionSystemData();
-     for(int idx = 0; idx < propulsionSystemData.size(); idx++)
-     {
-         PropulsionSystemData a = (edu.nps.moves.dis.PropulsionSystemData)propulsionSystemData.get(idx);
-         propulsionSystemData_1.add(a.initializeJaxbObject(factory.createPropulsionSystemData()));
-     }
-
-     List vectoringSystemData_1 = x.getVectoringSystemData();
-     for(int idx = 0; idx < vectoringSystemData.size(); idx++)
-     {
-         VectoringNozzleSystemData a = (edu.nps.moves.dis.VectoringNozzleSystemData)vectoringSystemData.get(idx);
-         vectoringSystemData_1.add(a.initializeJaxbObject(factory.createVectoringNozzleSystemData()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -141,13 +73,16 @@ public void setOrginatingEntityID(EntityID pOrginatingEntityID)
 { orginatingEntityID = pOrginatingEntityID;
 }
 
+@XmlElement
 public EntityID getOrginatingEntityID()
-{ return orginatingEntityID; }
+{ return orginatingEntityID; 
+}
 
 public void setInfraredSignatureRepresentationIndex(int pInfraredSignatureRepresentationIndex)
 { infraredSignatureRepresentationIndex = pInfraredSignatureRepresentationIndex;
 }
 
+@XmlAttribute
 public int getInfraredSignatureRepresentationIndex()
 { return infraredSignatureRepresentationIndex; 
 }
@@ -156,6 +91,7 @@ public void setAcousticSignatureRepresentationIndex(int pAcousticSignatureRepres
 { acousticSignatureRepresentationIndex = pAcousticSignatureRepresentationIndex;
 }
 
+@XmlAttribute
 public int getAcousticSignatureRepresentationIndex()
 { return acousticSignatureRepresentationIndex; 
 }
@@ -164,15 +100,17 @@ public void setRadarCrossSectionSignatureRepresentationIndex(int pRadarCrossSect
 { radarCrossSectionSignatureRepresentationIndex = pRadarCrossSectionSignatureRepresentationIndex;
 }
 
+@XmlAttribute
 public int getRadarCrossSectionSignatureRepresentationIndex()
 { return radarCrossSectionSignatureRepresentationIndex; 
 }
 
+@XmlAttribute
 public int getNumberOfPropulsionSystems()
 { return (int)propulsionSystemData.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfPropulsionSystems method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -180,11 +118,12 @@ public void setNumberOfPropulsionSystems(int pNumberOfPropulsionSystems)
 { numberOfPropulsionSystems = pNumberOfPropulsionSystems;
 }
 
+@XmlAttribute
 public int getNumberOfVectoringNozzleSystems()
 { return (int)vectoringSystemData.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfVectoringNozzleSystems method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -196,6 +135,7 @@ public void setPropulsionSystemData(List pPropulsionSystemData)
 { propulsionSystemData = pPropulsionSystemData;
 }
 
+@XmlElementWrapper(name="propulsionSystemDataList" )
 public List getPropulsionSystemData()
 { return propulsionSystemData; }
 
@@ -203,6 +143,7 @@ public void setVectoringSystemData(List pVectoringSystemData)
 { vectoringSystemData = pVectoringSystemData;
 }
 
+@XmlElementWrapper(name="vectoringSystemDataList" )
 public List getVectoringSystemData()
 { return vectoringSystemData; }
 
@@ -245,11 +186,11 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        orginatingEntityID.unmarshal(dis);
-       infraredSignatureRepresentationIndex = dis.readShort();
-       acousticSignatureRepresentationIndex = dis.readShort();
-       radarCrossSectionSignatureRepresentationIndex = dis.readShort();
-       numberOfPropulsionSystems = dis.readShort();
-       numberOfVectoringNozzleSystems = dis.readShort();
+       infraredSignatureRepresentationIndex = (int)dis.readUnsignedShort();
+       acousticSignatureRepresentationIndex = (int)dis.readUnsignedShort();
+       radarCrossSectionSignatureRepresentationIndex = (int)dis.readUnsignedShort();
+       numberOfPropulsionSystems = (int)dis.readUnsignedShort();
+       numberOfVectoringNozzleSystems = (int)dis.readUnsignedShort();
         for(int idx = 0; idx < numberOfPropulsionSystems; idx++)
         {
            PropulsionSystemData anX = new PropulsionSystemData();

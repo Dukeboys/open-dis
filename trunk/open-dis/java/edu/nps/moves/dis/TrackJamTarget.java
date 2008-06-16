@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * One track/jam target
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -29,40 +29,6 @@ public class TrackJamTarget extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public TrackJamTarget(edu.nps.moves.jaxb.dis.TrackJamTarget x)
- {
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getTrackJam() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getTrackJam() );
-     this.setTrackJam(foo_0);
-
-     this.emitterID = x.getEmitterID();
-     this.beamID = x.getBeamID();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.TrackJamTarget initializeJaxbObject(edu.nps.moves.jaxb.dis.TrackJamTarget x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setTrackJam( this.getTrackJam().initializeJaxbObject(factory.createEntityID()) );
-     x.setEmitterID( this.getEmitterID() );
-     x.setBeamID( this.getBeamID() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -79,13 +45,16 @@ public void setTrackJam(EntityID pTrackJam)
 { trackJam = pTrackJam;
 }
 
+@XmlElement
 public EntityID getTrackJam()
-{ return trackJam; }
+{ return trackJam; 
+}
 
 public void setEmitterID(short pEmitterID)
 { emitterID = pEmitterID;
 }
 
+@XmlAttribute
 public short getEmitterID()
 { return emitterID; 
 }
@@ -94,6 +63,7 @@ public void setBeamID(short pBeamID)
 { beamID = pBeamID;
 }
 
+@XmlAttribute
 public short getBeamID()
 { return beamID; 
 }
@@ -117,8 +87,8 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        trackJam.unmarshal(dis);
-       emitterID = dis.readByte();
-       beamID = dis.readByte();
+       emitterID = (short)dis.readUnsignedByte();
+       beamID = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

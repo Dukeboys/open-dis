@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.6.2. Remove an entity. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -24,33 +24,6 @@ public class RemoveEntityPdu extends SimulationManagementFamilyPdu implements Se
     setPduType( (short)12 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public RemoveEntityPdu(edu.nps.moves.jaxb.dis.RemoveEntityPdu x)
- {
-     super(x); // Call superclass constructor
-
-     this.requestID = x.getRequestID();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.RemoveEntityPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RemoveEntityPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setRequestID( this.getRequestID() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -66,6 +39,7 @@ public void setRequestID(long pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public long getRequestID()
 { return requestID; 
 }

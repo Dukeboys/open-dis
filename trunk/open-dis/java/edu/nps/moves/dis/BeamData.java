@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.39. Specification of the data necessary to  describe the scan volume of an emitter.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -35,37 +35,6 @@ public class BeamData extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public BeamData(edu.nps.moves.jaxb.dis.BeamData x)
- {
-     this.beamAzimuthCenter = x.getBeamAzimuthCenter();
-     this.beamAzimuthSweep = x.getBeamAzimuthSweep();
-     this.beamElevationCenter = x.getBeamElevationCenter();
-     this.beamElevationSweep = x.getBeamElevationSweep();
-     this.beamSweepSync = x.getBeamSweepSync();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.BeamData initializeJaxbObject(edu.nps.moves.jaxb.dis.BeamData x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setBeamAzimuthCenter( this.getBeamAzimuthCenter() );
-     x.setBeamAzimuthSweep( this.getBeamAzimuthSweep() );
-     x.setBeamElevationCenter( this.getBeamElevationCenter() );
-     x.setBeamElevationSweep( this.getBeamElevationSweep() );
-     x.setBeamSweepSync( this.getBeamSweepSync() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -84,6 +53,7 @@ public void setBeamAzimuthCenter(float pBeamAzimuthCenter)
 { beamAzimuthCenter = pBeamAzimuthCenter;
 }
 
+@XmlAttribute
 public float getBeamAzimuthCenter()
 { return beamAzimuthCenter; 
 }
@@ -92,6 +62,7 @@ public void setBeamAzimuthSweep(float pBeamAzimuthSweep)
 { beamAzimuthSweep = pBeamAzimuthSweep;
 }
 
+@XmlAttribute
 public float getBeamAzimuthSweep()
 { return beamAzimuthSweep; 
 }
@@ -100,6 +71,7 @@ public void setBeamElevationCenter(float pBeamElevationCenter)
 { beamElevationCenter = pBeamElevationCenter;
 }
 
+@XmlAttribute
 public float getBeamElevationCenter()
 { return beamElevationCenter; 
 }
@@ -108,6 +80,7 @@ public void setBeamElevationSweep(float pBeamElevationSweep)
 { beamElevationSweep = pBeamElevationSweep;
 }
 
+@XmlAttribute
 public float getBeamElevationSweep()
 { return beamElevationSweep; 
 }
@@ -116,6 +89,7 @@ public void setBeamSweepSync(float pBeamSweepSync)
 { beamSweepSync = pBeamSweepSync;
 }
 
+@XmlAttribute
 public float getBeamSweepSync()
 { return beamSweepSync; 
 }

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.11.4: Information abut the addition or modification of a synthecic enviroment object that      is anchored to the terrain with a single point and has size or orientation. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -47,94 +47,6 @@ public class LinearObjectStatePdu extends SyntheticEnvironmentFamilyPdu implemen
     setPduType( (short)44 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public LinearObjectStatePdu(edu.nps.moves.jaxb.dis.LinearObjectStatePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getObjectID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getObjectID() );
-     this.setObjectID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getReferencedObjectID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getReferencedObjectID() );
-     this.setReferencedObjectID(foo_1);
-
-     this.updateNumber = x.getUpdateNumber();
-     this.forceID = x.getForceID();
-     this.numberOfSegments = x.getNumberOfSegments();
-
-     edu.nps.moves.dis.SimulationAddress foo_5;
-     if(x.getRequesterID() == null)
-        foo_5 = new edu.nps.moves.dis.SimulationAddress();
-      else
-        foo_5 = new edu.nps.moves.dis.SimulationAddress(x.getRequesterID() );
-     this.setRequesterID(foo_5);
-
-
-     edu.nps.moves.dis.SimulationAddress foo_6;
-     if(x.getReceivingID() == null)
-        foo_6 = new edu.nps.moves.dis.SimulationAddress();
-      else
-        foo_6 = new edu.nps.moves.dis.SimulationAddress(x.getReceivingID() );
-     this.setReceivingID(foo_6);
-
-
-     edu.nps.moves.dis.ObjectType foo_7;
-     if(x.getObjectType() == null)
-        foo_7 = new edu.nps.moves.dis.ObjectType();
-      else
-        foo_7 = new edu.nps.moves.dis.ObjectType(x.getObjectType() );
-     this.setObjectType(foo_7);
-
-     this.linearSegmentParameters = new ArrayList();
-     for(int idx = 0; idx < x.getLinearSegmentParameters().size(); idx++)
-     {
-        this.linearSegmentParameters.add( new edu.nps.moves.dis.LinearSegmentParameter((edu.nps.moves.jaxb.dis.LinearSegmentParameter) x.getLinearSegmentParameters().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.LinearObjectStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.LinearObjectStatePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setObjectID( this.getObjectID().initializeJaxbObject(factory.createEntityID()) );
-     x.setReferencedObjectID( this.getReferencedObjectID().initializeJaxbObject(factory.createEntityID()) );
-     x.setUpdateNumber( this.getUpdateNumber() );
-     x.setForceID( this.getForceID() );
-     x.setNumberOfSegments( this.getNumberOfSegments() );
-     x.setRequesterID( this.getRequesterID().initializeJaxbObject(factory.createSimulationAddress()) );
-     x.setReceivingID( this.getReceivingID().initializeJaxbObject(factory.createSimulationAddress()) );
-     x.setObjectType( this.getObjectType().initializeJaxbObject(factory.createObjectType()) );
-
-     List linearSegmentParameters_1 = x.getLinearSegmentParameters();
-     for(int idx = 0; idx < linearSegmentParameters.size(); idx++)
-     {
-         LinearSegmentParameter a = (edu.nps.moves.dis.LinearSegmentParameter)linearSegmentParameters.get(idx);
-         linearSegmentParameters_1.add(a.initializeJaxbObject(factory.createLinearSegmentParameter()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -162,20 +74,25 @@ public void setObjectID(EntityID pObjectID)
 { objectID = pObjectID;
 }
 
+@XmlElement
 public EntityID getObjectID()
-{ return objectID; }
+{ return objectID; 
+}
 
 public void setReferencedObjectID(EntityID pReferencedObjectID)
 { referencedObjectID = pReferencedObjectID;
 }
 
+@XmlElement
 public EntityID getReferencedObjectID()
-{ return referencedObjectID; }
+{ return referencedObjectID; 
+}
 
 public void setUpdateNumber(int pUpdateNumber)
 { updateNumber = pUpdateNumber;
 }
 
+@XmlAttribute
 public int getUpdateNumber()
 { return updateNumber; 
 }
@@ -184,15 +101,17 @@ public void setForceID(short pForceID)
 { forceID = pForceID;
 }
 
+@XmlAttribute
 public short getForceID()
 { return forceID; 
 }
 
+@XmlAttribute
 public short getNumberOfSegments()
 { return (short)linearSegmentParameters.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfSegments method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -204,27 +123,34 @@ public void setRequesterID(SimulationAddress pRequesterID)
 { requesterID = pRequesterID;
 }
 
+@XmlElement
 public SimulationAddress getRequesterID()
-{ return requesterID; }
+{ return requesterID; 
+}
 
 public void setReceivingID(SimulationAddress pReceivingID)
 { receivingID = pReceivingID;
 }
 
+@XmlElement
 public SimulationAddress getReceivingID()
-{ return receivingID; }
+{ return receivingID; 
+}
 
 public void setObjectType(ObjectType pObjectType)
 { objectType = pObjectType;
 }
 
+@XmlElement
 public ObjectType getObjectType()
-{ return objectType; }
+{ return objectType; 
+}
 
 public void setLinearSegmentParameters(List pLinearSegmentParameters)
 { linearSegmentParameters = pLinearSegmentParameters;
 }
 
+@XmlElementWrapper(name="linearSegmentParametersList" )
 public List getLinearSegmentParameters()
 { return linearSegmentParameters; }
 
@@ -263,9 +189,9 @@ public void unmarshal(DataInputStream dis)
     {
        objectID.unmarshal(dis);
        referencedObjectID.unmarshal(dis);
-       updateNumber = dis.readShort();
-       forceID = dis.readByte();
-       numberOfSegments = dis.readByte();
+       updateNumber = (int)dis.readUnsignedShort();
+       forceID = (short)dis.readUnsignedByte();
+       numberOfSegments = (short)dis.readUnsignedByte();
        requesterID.unmarshal(dis);
        receivingID.unmarshal(dis);
        objectType.unmarshal(dis);

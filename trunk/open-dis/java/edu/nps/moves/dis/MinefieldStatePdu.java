@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.10.1 Abstract superclass for PDUs relating to minefields. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -55,103 +55,6 @@ public class MinefieldStatePdu extends MinefieldFamilyPdu implements Serializabl
     setPduType( (short)37 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public MinefieldStatePdu(edu.nps.moves.jaxb.dis.MinefieldStatePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getMinefieldID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getMinefieldID() );
-     this.setMinefieldID(foo_0);
-
-     this.minefieldSequence = x.getMinefieldSequence();
-     this.forceID = x.getForceID();
-     this.numberOfPerimeterPoints = x.getNumberOfPerimeterPoints();
-
-     edu.nps.moves.dis.EntityType foo_4;
-     if(x.getMinefieldType() == null)
-        foo_4 = new edu.nps.moves.dis.EntityType();
-      else
-        foo_4 = new edu.nps.moves.dis.EntityType(x.getMinefieldType() );
-     this.setMinefieldType(foo_4);
-
-     this.numberOfMineTypes = x.getNumberOfMineTypes();
-
-     edu.nps.moves.dis.Vector3Double foo_6;
-     if(x.getMinefieldLocation() == null)
-        foo_6 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_6 = new edu.nps.moves.dis.Vector3Double(x.getMinefieldLocation() );
-     this.setMinefieldLocation(foo_6);
-
-
-     edu.nps.moves.dis.Orientation foo_7;
-     if(x.getMinefieldOrientation() == null)
-        foo_7 = new edu.nps.moves.dis.Orientation();
-      else
-        foo_7 = new edu.nps.moves.dis.Orientation(x.getMinefieldOrientation() );
-     this.setMinefieldOrientation(foo_7);
-
-     this.appearance = x.getAppearance();
-     this.protocolMode = x.getProtocolMode();
-     this.perimeterPoints = new ArrayList();
-     for(int idx = 0; idx < x.getPerimeterPoints().size(); idx++)
-     {
-        this.perimeterPoints.add( new edu.nps.moves.dis.Point((edu.nps.moves.jaxb.dis.Point) x.getPerimeterPoints().get(idx)));
-     }
-     this.mineType = new ArrayList();
-     for(int idx = 0; idx < x.getMineType().size(); idx++)
-     {
-        this.mineType.add( new edu.nps.moves.dis.EntityType((edu.nps.moves.jaxb.dis.EntityType) x.getMineType().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.MinefieldStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.MinefieldStatePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setMinefieldID( this.getMinefieldID().initializeJaxbObject(factory.createEntityID()) );
-     x.setMinefieldSequence( this.getMinefieldSequence() );
-     x.setForceID( this.getForceID() );
-     x.setNumberOfPerimeterPoints( this.getNumberOfPerimeterPoints() );
-     x.setMinefieldType( this.getMinefieldType().initializeJaxbObject(factory.createEntityType()) );
-     x.setNumberOfMineTypes( this.getNumberOfMineTypes() );
-     x.setMinefieldLocation( this.getMinefieldLocation().initializeJaxbObject(factory.createVector3Double()) );
-     x.setMinefieldOrientation( this.getMinefieldOrientation().initializeJaxbObject(factory.createOrientation()) );
-     x.setAppearance( this.getAppearance() );
-     x.setProtocolMode( this.getProtocolMode() );
-
-     List perimeterPoints_1 = x.getPerimeterPoints();
-     for(int idx = 0; idx < perimeterPoints.size(); idx++)
-     {
-         Point a = (edu.nps.moves.dis.Point)perimeterPoints.get(idx);
-         perimeterPoints_1.add(a.initializeJaxbObject(factory.createPoint()));
-     }
-
-     List mineType_1 = x.getMineType();
-     for(int idx = 0; idx < mineType.size(); idx++)
-     {
-         EntityType a = (edu.nps.moves.dis.EntityType)mineType.get(idx);
-         mineType_1.add(a.initializeJaxbObject(factory.createEntityType()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -186,13 +89,16 @@ public void setMinefieldID(EntityID pMinefieldID)
 { minefieldID = pMinefieldID;
 }
 
+@XmlElement
 public EntityID getMinefieldID()
-{ return minefieldID; }
+{ return minefieldID; 
+}
 
 public void setMinefieldSequence(int pMinefieldSequence)
 { minefieldSequence = pMinefieldSequence;
 }
 
+@XmlAttribute
 public int getMinefieldSequence()
 { return minefieldSequence; 
 }
@@ -201,15 +107,17 @@ public void setForceID(short pForceID)
 { forceID = pForceID;
 }
 
+@XmlAttribute
 public short getForceID()
 { return forceID; 
 }
 
+@XmlAttribute
 public short getNumberOfPerimeterPoints()
 { return (short)perimeterPoints.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfPerimeterPoints method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -221,14 +129,17 @@ public void setMinefieldType(EntityType pMinefieldType)
 { minefieldType = pMinefieldType;
 }
 
+@XmlElement
 public EntityType getMinefieldType()
-{ return minefieldType; }
+{ return minefieldType; 
+}
 
+@XmlAttribute
 public int getNumberOfMineTypes()
 { return (int)mineType.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfMineTypes method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -240,20 +151,25 @@ public void setMinefieldLocation(Vector3Double pMinefieldLocation)
 { minefieldLocation = pMinefieldLocation;
 }
 
+@XmlElement
 public Vector3Double getMinefieldLocation()
-{ return minefieldLocation; }
+{ return minefieldLocation; 
+}
 
 public void setMinefieldOrientation(Orientation pMinefieldOrientation)
 { minefieldOrientation = pMinefieldOrientation;
 }
 
+@XmlElement
 public Orientation getMinefieldOrientation()
-{ return minefieldOrientation; }
+{ return minefieldOrientation; 
+}
 
 public void setAppearance(int pAppearance)
 { appearance = pAppearance;
 }
 
+@XmlAttribute
 public int getAppearance()
 { return appearance; 
 }
@@ -262,6 +178,7 @@ public void setProtocolMode(int pProtocolMode)
 { protocolMode = pProtocolMode;
 }
 
+@XmlAttribute
 public int getProtocolMode()
 { return protocolMode; 
 }
@@ -270,6 +187,7 @@ public void setPerimeterPoints(List pPerimeterPoints)
 { perimeterPoints = pPerimeterPoints;
 }
 
+@XmlElementWrapper(name="perimeterPointsList" )
 public List getPerimeterPoints()
 { return perimeterPoints; }
 
@@ -277,6 +195,7 @@ public void setMineType(List pMineType)
 { mineType = pMineType;
 }
 
+@XmlElementWrapper(name="mineTypeList" )
 public List getMineType()
 { return mineType; }
 
@@ -323,15 +242,15 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        minefieldID.unmarshal(dis);
-       minefieldSequence = dis.readShort();
-       forceID = dis.readByte();
-       numberOfPerimeterPoints = dis.readByte();
+       minefieldSequence = (int)dis.readUnsignedShort();
+       forceID = (short)dis.readUnsignedByte();
+       numberOfPerimeterPoints = (short)dis.readUnsignedByte();
        minefieldType.unmarshal(dis);
-       numberOfMineTypes = dis.readShort();
+       numberOfMineTypes = (int)dis.readUnsignedShort();
        minefieldLocation.unmarshal(dis);
        minefieldOrientation.unmarshal(dis);
-       appearance = dis.readShort();
-       protocolMode = dis.readShort();
+       appearance = (int)dis.readUnsignedShort();
+       protocolMode = (int)dis.readUnsignedShort();
         for(int idx = 0; idx < numberOfPerimeterPoints; idx++)
         {
            Point anX = new Point();

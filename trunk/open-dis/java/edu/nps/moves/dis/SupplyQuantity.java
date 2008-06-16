@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.30. A supply, and the amount of that supply. Similar to an entity kind but with the addition of a quantity.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -26,38 +26,6 @@ public class SupplyQuantity extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public SupplyQuantity(edu.nps.moves.jaxb.dis.SupplyQuantity x)
- {
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getSupplyType() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getSupplyType() );
-     this.setSupplyType(foo_0);
-
-     this.quantity = x.getQuantity();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.SupplyQuantity initializeJaxbObject(edu.nps.moves.jaxb.dis.SupplyQuantity x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setSupplyType( this.getSupplyType().initializeJaxbObject(factory.createEntityID()) );
-     x.setQuantity( this.getQuantity() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -73,13 +41,16 @@ public void setSupplyType(EntityID pSupplyType)
 { supplyType = pSupplyType;
 }
 
+@XmlElement
 public EntityID getSupplyType()
-{ return supplyType; }
+{ return supplyType; 
+}
 
 public void setQuantity(short pQuantity)
 { quantity = pQuantity;
 }
 
+@XmlAttribute
 public short getQuantity()
 { return quantity; 
 }
@@ -102,7 +73,7 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        supplyType.unmarshal(dis);
-       quantity = dis.readByte();
+       quantity = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

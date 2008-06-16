@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.12.11: reports the occurance of a significatnt event to the simulation manager. Needs manual     intervention to fix padding in variable datums. UNFINISHED.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -37,63 +37,6 @@ public class EventReportReliablePdu extends SimulationManagementWithReliabilityF
     setPduType( (short)61 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public EventReportReliablePdu(edu.nps.moves.jaxb.dis.EventReportReliablePdu x)
- {
-     super(x); // Call superclass constructor
-
-     this.eventType = x.getEventType();
-     this.pad1 = x.getPad1();
-     this.numberOfFixedDatumRecords = x.getNumberOfFixedDatumRecords();
-     this.numberOfVariableDatumRecords = x.getNumberOfVariableDatumRecords();
-     this.fixedDatumRecords = new ArrayList();
-     for(int idx = 0; idx < x.getFixedDatumRecords().size(); idx++)
-     {
-        this.fixedDatumRecords.add( new edu.nps.moves.dis.FixedDatum((edu.nps.moves.jaxb.dis.FixedDatum) x.getFixedDatumRecords().get(idx)));
-     }
-     this.variableDatumRecords = new ArrayList();
-     for(int idx = 0; idx < x.getVariableDatumRecords().size(); idx++)
-     {
-        this.variableDatumRecords.add( new edu.nps.moves.dis.VariableDatum((edu.nps.moves.jaxb.dis.VariableDatum) x.getVariableDatumRecords().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.EventReportReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.EventReportReliablePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEventType( this.getEventType() );
-     x.setPad1( this.getPad1() );
-     x.setNumberOfFixedDatumRecords( this.getNumberOfFixedDatumRecords() );
-     x.setNumberOfVariableDatumRecords( this.getNumberOfVariableDatumRecords() );
-
-     List fixedDatumRecords_1 = x.getFixedDatumRecords();
-     for(int idx = 0; idx < fixedDatumRecords.size(); idx++)
-     {
-         FixedDatum a = (edu.nps.moves.dis.FixedDatum)fixedDatumRecords.get(idx);
-         fixedDatumRecords_1.add(a.initializeJaxbObject(factory.createFixedDatum()));
-     }
-
-     List variableDatumRecords_1 = x.getVariableDatumRecords();
-     for(int idx = 0; idx < variableDatumRecords.size(); idx++)
-     {
-         VariableDatum a = (edu.nps.moves.dis.VariableDatum)variableDatumRecords.get(idx);
-         variableDatumRecords_1.add(a.initializeJaxbObject(factory.createVariableDatum()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -122,6 +65,7 @@ public void setEventType(int pEventType)
 { eventType = pEventType;
 }
 
+@XmlAttribute
 public int getEventType()
 { return eventType; 
 }
@@ -130,15 +74,17 @@ public void setPad1(long pPad1)
 { pad1 = pPad1;
 }
 
+@XmlAttribute
 public long getPad1()
 { return pad1; 
 }
 
+@XmlAttribute
 public long getNumberOfFixedDatumRecords()
 { return (long)fixedDatumRecords.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfFixedDatumRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -146,11 +92,12 @@ public void setNumberOfFixedDatumRecords(long pNumberOfFixedDatumRecords)
 { numberOfFixedDatumRecords = pNumberOfFixedDatumRecords;
 }
 
+@XmlAttribute
 public long getNumberOfVariableDatumRecords()
 { return (long)variableDatumRecords.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -162,6 +109,7 @@ public void setFixedDatumRecords(List pFixedDatumRecords)
 { fixedDatumRecords = pFixedDatumRecords;
 }
 
+@XmlElementWrapper(name="fixedDatumRecordsList" )
 public List getFixedDatumRecords()
 { return fixedDatumRecords; }
 
@@ -169,6 +117,7 @@ public void setVariableDatumRecords(List pVariableDatumRecords)
 { variableDatumRecords = pVariableDatumRecords;
 }
 
+@XmlElementWrapper(name="variableDatumRecordsList" )
 public List getVariableDatumRecords()
 { return variableDatumRecords; }
 
@@ -208,7 +157,7 @@ public void unmarshal(DataInputStream dis)
 
     try 
     {
-       eventType = dis.readShort();
+       eventType = (int)dis.readUnsignedShort();
        pad1 = dis.readInt();
        numberOfFixedDatumRecords = dis.readInt();
        numberOfVariableDatumRecords = dis.readInt();

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.58. Used in IFF ATC PDU
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -32,35 +32,6 @@ public class SystemID extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public SystemID(edu.nps.moves.jaxb.dis.SystemID x)
- {
-     this.systemType = x.getSystemType();
-     this.systemName = x.getSystemName();
-     this.systemMode = x.getSystemMode();
-     this.changeOptions = x.getChangeOptions();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.SystemID initializeJaxbObject(edu.nps.moves.jaxb.dis.SystemID x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setSystemType( this.getSystemType() );
-     x.setSystemName( this.getSystemName() );
-     x.setSystemMode( this.getSystemMode() );
-     x.setChangeOptions( this.getChangeOptions() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -78,6 +49,7 @@ public void setSystemType(int pSystemType)
 { systemType = pSystemType;
 }
 
+@XmlAttribute
 public int getSystemType()
 { return systemType; 
 }
@@ -86,6 +58,7 @@ public void setSystemName(int pSystemName)
 { systemName = pSystemName;
 }
 
+@XmlAttribute
 public int getSystemName()
 { return systemName; 
 }
@@ -94,6 +67,7 @@ public void setSystemMode(short pSystemMode)
 { systemMode = pSystemMode;
 }
 
+@XmlAttribute
 public short getSystemMode()
 { return systemMode; 
 }
@@ -102,6 +76,7 @@ public void setChangeOptions(short pChangeOptions)
 { changeOptions = pChangeOptions;
 }
 
+@XmlAttribute
 public short getChangeOptions()
 { return changeOptions; 
 }
@@ -125,10 +100,10 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       systemType = dis.readShort();
-       systemName = dis.readShort();
-       systemMode = dis.readByte();
-       changeOptions = dis.readByte();
+       systemType = (int)dis.readUnsignedShort();
+       systemName = (int)dis.readUnsignedShort();
+       systemMode = (short)dis.readUnsignedByte();
+       changeOptions = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

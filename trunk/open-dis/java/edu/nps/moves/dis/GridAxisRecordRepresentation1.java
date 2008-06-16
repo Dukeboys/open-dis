@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.44: Grid data record, representation 1
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -31,49 +31,6 @@ public class GridAxisRecordRepresentation1 extends GridAxisRecord implements Ser
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public GridAxisRecordRepresentation1(edu.nps.moves.jaxb.dis.GridAxisRecordRepresentation1 x)
- {
-     super(x); // Call superclass constructor
-
-     this.fieldScale = x.getFieldScale();
-     this.fieldOffset = x.getFieldOffset();
-     this.numberOfValues = x.getNumberOfValues();
-     this.dataValues = new ArrayList();
-     for(int idx = 0; idx < x.getDataValues().size(); idx++)
-     {
-        this.dataValues.add( new edu.nps.moves.dis.TwoByteChunk((edu.nps.moves.jaxb.dis.TwoByteChunk) x.getDataValues().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.GridAxisRecordRepresentation1 initializeJaxbObject(edu.nps.moves.jaxb.dis.GridAxisRecordRepresentation1 x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setFieldScale( this.getFieldScale() );
-     x.setFieldOffset( this.getFieldOffset() );
-     x.setNumberOfValues( this.getNumberOfValues() );
-
-     List dataValues_1 = x.getDataValues();
-     for(int idx = 0; idx < dataValues.size(); idx++)
-     {
-         TwoByteChunk a = (edu.nps.moves.dis.TwoByteChunk)dataValues.get(idx);
-         dataValues_1.add(a.initializeJaxbObject(factory.createTwoByteChunk()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -96,6 +53,7 @@ public void setFieldScale(float pFieldScale)
 { fieldScale = pFieldScale;
 }
 
+@XmlAttribute
 public float getFieldScale()
 { return fieldScale; 
 }
@@ -104,15 +62,17 @@ public void setFieldOffset(float pFieldOffset)
 { fieldOffset = pFieldOffset;
 }
 
+@XmlAttribute
 public float getFieldOffset()
 { return fieldOffset; 
 }
 
+@XmlAttribute
 public int getNumberOfValues()
 { return (int)dataValues.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfValues method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -124,6 +84,7 @@ public void setDataValues(List pDataValues)
 { dataValues = pDataValues;
 }
 
+@XmlElementWrapper(name="dataValuesList" )
 public List getDataValues()
 { return dataValues; }
 
@@ -157,7 +118,7 @@ public void unmarshal(DataInputStream dis)
     {
        fieldScale = dis.readFloat();
        fieldOffset = dis.readFloat();
-       numberOfValues = dis.readShort();
+       numberOfValues = (int)dis.readUnsignedShort();
         for(int idx = 0; idx < numberOfValues; idx++)
         {
            TwoByteChunk anX = new TwoByteChunk();

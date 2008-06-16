@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.11.1: Information about environmental effects and processes. This requires manual cleanup. the environmental        record is variable, as is the padding. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -41,69 +41,6 @@ public class EnvironmentalProcessPdu extends SyntheticEnvironmentFamilyPdu imple
     setPduType( (short)41 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public EnvironmentalProcessPdu(edu.nps.moves.jaxb.dis.EnvironmentalProcessPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getEnvironementalProcessID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getEnvironementalProcessID() );
-     this.setEnvironementalProcessID(foo_0);
-
-
-     edu.nps.moves.dis.EntityType foo_1;
-     if(x.getEnvironmentType() == null)
-        foo_1 = new edu.nps.moves.dis.EntityType();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityType(x.getEnvironmentType() );
-     this.setEnvironmentType(foo_1);
-
-     this.modelType = x.getModelType();
-     this.environmentStatus = x.getEnvironmentStatus();
-     this.numberOfEnvironmentRecords = x.getNumberOfEnvironmentRecords();
-     this.sequenceNumber = x.getSequenceNumber();
-     this.environmentRecords = new ArrayList();
-     for(int idx = 0; idx < x.getEnvironmentRecords().size(); idx++)
-     {
-        this.environmentRecords.add( new edu.nps.moves.dis.Environment((edu.nps.moves.jaxb.dis.Environment) x.getEnvironmentRecords().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.EnvironmentalProcessPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.EnvironmentalProcessPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEnvironementalProcessID( this.getEnvironementalProcessID().initializeJaxbObject(factory.createEntityID()) );
-     x.setEnvironmentType( this.getEnvironmentType().initializeJaxbObject(factory.createEntityType()) );
-     x.setModelType( this.getModelType() );
-     x.setEnvironmentStatus( this.getEnvironmentStatus() );
-     x.setNumberOfEnvironmentRecords( this.getNumberOfEnvironmentRecords() );
-     x.setSequenceNumber( this.getSequenceNumber() );
-
-     List environmentRecords_1 = x.getEnvironmentRecords();
-     for(int idx = 0; idx < environmentRecords.size(); idx++)
-     {
-         Environment a = (edu.nps.moves.dis.Environment)environmentRecords.get(idx);
-         environmentRecords_1.add(a.initializeJaxbObject(factory.createEnvironment()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -129,20 +66,25 @@ public void setEnvironementalProcessID(EntityID pEnvironementalProcessID)
 { environementalProcessID = pEnvironementalProcessID;
 }
 
+@XmlElement
 public EntityID getEnvironementalProcessID()
-{ return environementalProcessID; }
+{ return environementalProcessID; 
+}
 
 public void setEnvironmentType(EntityType pEnvironmentType)
 { environmentType = pEnvironmentType;
 }
 
+@XmlElement
 public EntityType getEnvironmentType()
-{ return environmentType; }
+{ return environmentType; 
+}
 
 public void setModelType(short pModelType)
 { modelType = pModelType;
 }
 
+@XmlAttribute
 public short getModelType()
 { return modelType; 
 }
@@ -151,15 +93,17 @@ public void setEnvironmentStatus(short pEnvironmentStatus)
 { environmentStatus = pEnvironmentStatus;
 }
 
+@XmlAttribute
 public short getEnvironmentStatus()
 { return environmentStatus; 
 }
 
+@XmlAttribute
 public short getNumberOfEnvironmentRecords()
 { return (short)environmentRecords.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfEnvironmentRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -171,6 +115,7 @@ public void setSequenceNumber(int pSequenceNumber)
 { sequenceNumber = pSequenceNumber;
 }
 
+@XmlAttribute
 public int getSequenceNumber()
 { return sequenceNumber; 
 }
@@ -179,6 +124,7 @@ public void setEnvironmentRecords(List pEnvironmentRecords)
 { environmentRecords = pEnvironmentRecords;
 }
 
+@XmlElementWrapper(name="environmentRecordsList" )
 public List getEnvironmentRecords()
 { return environmentRecords; }
 
@@ -215,10 +161,10 @@ public void unmarshal(DataInputStream dis)
     {
        environementalProcessID.unmarshal(dis);
        environmentType.unmarshal(dis);
-       modelType = dis.readByte();
-       environmentStatus = dis.readByte();
-       numberOfEnvironmentRecords = dis.readByte();
-       sequenceNumber = dis.readShort();
+       modelType = (short)dis.readUnsignedByte();
+       environmentStatus = (short)dis.readUnsignedByte();
+       numberOfEnvironmentRecords = (short)dis.readUnsignedByte();
+       sequenceNumber = (int)dis.readUnsignedShort();
         for(int idx = 0; idx < numberOfEnvironmentRecords; idx++)
         {
            Environment anX = new Environment();

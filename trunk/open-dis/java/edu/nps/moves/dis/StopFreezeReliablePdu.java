@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.12.4: Stop freeze simulation, relaible. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -39,50 +39,6 @@ public class StopFreezeReliablePdu extends SimulationManagementWithReliabilityFa
     setPduType( (short)54 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public StopFreezeReliablePdu(edu.nps.moves.jaxb.dis.StopFreezeReliablePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.ClockTime foo_0;
-     if(x.getRealWorldTime() == null)
-        foo_0 = new edu.nps.moves.dis.ClockTime();
-      else
-        foo_0 = new edu.nps.moves.dis.ClockTime(x.getRealWorldTime() );
-     this.setRealWorldTime(foo_0);
-
-     this.reason = x.getReason();
-     this.frozenBehavior = x.getFrozenBehavior();
-     this.requiredReliablityService = x.getRequiredReliablityService();
-     this.pad1 = x.getPad1();
-     this.requestID = x.getRequestID();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.StopFreezeReliablePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.StopFreezeReliablePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setRealWorldTime( this.getRealWorldTime().initializeJaxbObject(factory.createClockTime()) );
-     x.setReason( this.getReason() );
-     x.setFrozenBehavior( this.getFrozenBehavior() );
-     x.setRequiredReliablityService( this.getRequiredReliablityService() );
-     x.setPad1( this.getPad1() );
-     x.setRequestID( this.getRequestID() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -103,13 +59,16 @@ public void setRealWorldTime(ClockTime pRealWorldTime)
 { realWorldTime = pRealWorldTime;
 }
 
+@XmlElement
 public ClockTime getRealWorldTime()
-{ return realWorldTime; }
+{ return realWorldTime; 
+}
 
 public void setReason(short pReason)
 { reason = pReason;
 }
 
+@XmlAttribute
 public short getReason()
 { return reason; 
 }
@@ -118,6 +77,7 @@ public void setFrozenBehavior(short pFrozenBehavior)
 { frozenBehavior = pFrozenBehavior;
 }
 
+@XmlAttribute
 public short getFrozenBehavior()
 { return frozenBehavior; 
 }
@@ -126,6 +86,7 @@ public void setRequiredReliablityService(short pRequiredReliablityService)
 { requiredReliablityService = pRequiredReliablityService;
 }
 
+@XmlAttribute
 public short getRequiredReliablityService()
 { return requiredReliablityService; 
 }
@@ -134,6 +95,7 @@ public void setPad1(short pPad1)
 { pad1 = pPad1;
 }
 
+@XmlAttribute
 public short getPad1()
 { return pad1; 
 }
@@ -142,6 +104,7 @@ public void setRequestID(long pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public long getRequestID()
 { return requestID; 
 }
@@ -171,10 +134,10 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        realWorldTime.unmarshal(dis);
-       reason = dis.readByte();
-       frozenBehavior = dis.readByte();
-       requiredReliablityService = dis.readByte();
-       pad1 = dis.readByte();
+       reason = (short)dis.readUnsignedByte();
+       frozenBehavior = (short)dis.readUnsignedByte();
+       requiredReliablityService = (short)dis.readUnsignedByte();
+       pad1 = (short)dis.readUnsignedByte();
        requestID = dis.readInt();
     } // end try 
    catch(Exception e)

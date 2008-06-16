@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.47.  Layer header.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -29,33 +29,6 @@ public class LayerHeader extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public LayerHeader(edu.nps.moves.jaxb.dis.LayerHeader x)
- {
-     this.layerNumber = x.getLayerNumber();
-     this.layerSpecificInformaiton = x.getLayerSpecificInformaiton();
-     this.length = x.getLength();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.LayerHeader initializeJaxbObject(edu.nps.moves.jaxb.dis.LayerHeader x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setLayerNumber( this.getLayerNumber() );
-     x.setLayerSpecificInformaiton( this.getLayerSpecificInformaiton() );
-     x.setLength( this.getLength() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -72,6 +45,7 @@ public void setLayerNumber(short pLayerNumber)
 { layerNumber = pLayerNumber;
 }
 
+@XmlAttribute
 public short getLayerNumber()
 { return layerNumber; 
 }
@@ -80,6 +54,7 @@ public void setLayerSpecificInformaiton(short pLayerSpecificInformaiton)
 { layerSpecificInformaiton = pLayerSpecificInformaiton;
 }
 
+@XmlAttribute
 public short getLayerSpecificInformaiton()
 { return layerSpecificInformaiton; 
 }
@@ -88,6 +63,7 @@ public void setLength(int pLength)
 { length = pLength;
 }
 
+@XmlAttribute
 public int getLength()
 { return length; 
 }
@@ -110,9 +86,9 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       layerNumber = dis.readByte();
-       layerSpecificInformaiton = dis.readByte();
-       length = dis.readShort();
+       layerNumber = (short)dis.readUnsignedByte();
+       layerSpecificInformaiton = (short)dis.readUnsignedByte();
+       length = (int)dis.readUnsignedShort();
     } // end try 
    catch(Exception e)
     { 

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.32. Variable Datum Record
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -27,43 +27,6 @@ public class VariableDatum extends Object implements Serializable
  public VariableDatum()
  {
  }
-
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public VariableDatum(edu.nps.moves.jaxb.dis.VariableDatum x)
- {
-     this.variableDatumID = x.getVariableDatumID();
-     this.variableDatumLength = x.getVariableDatumLength();
-     this.variableDatums = new ArrayList();
-     for(int idx = 0; idx < x.getVariableDatums().size(); idx++)
-     {
-        this.variableDatums.add( new edu.nps.moves.dis.EightByteChunk((edu.nps.moves.jaxb.dis.EightByteChunk) x.getVariableDatums().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.VariableDatum initializeJaxbObject(edu.nps.moves.jaxb.dis.VariableDatum x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setVariableDatumID( this.getVariableDatumID() );
-     x.setVariableDatumLength( this.getVariableDatumLength() );
-
-     List variableDatums_1 = x.getVariableDatums();
-     for(int idx = 0; idx < variableDatums.size(); idx++)
-     {
-         EightByteChunk a = (edu.nps.moves.dis.EightByteChunk)variableDatums.get(idx);
-         variableDatums_1.add(a.initializeJaxbObject(factory.createEightByteChunk()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
 
 public int getMarshalledSize()
 {
@@ -85,15 +48,17 @@ public void setVariableDatumID(long pVariableDatumID)
 { variableDatumID = pVariableDatumID;
 }
 
+@XmlAttribute
 public long getVariableDatumID()
 { return variableDatumID; 
 }
 
+@XmlAttribute
 public long getVariableDatumLength()
 { return (long)variableDatums.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getvariableDatumLength method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -105,6 +70,7 @@ public void setVariableDatums(List pVariableDatums)
 { variableDatums = pVariableDatums;
 }
 
+@XmlElementWrapper(name="variableDatumsList" )
 public List getVariableDatums()
 { return variableDatums; }
 

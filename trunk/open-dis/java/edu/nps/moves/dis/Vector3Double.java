@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.34. Three double precision floating point values, x, y, and z
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -29,33 +29,6 @@ public class Vector3Double extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public Vector3Double(edu.nps.moves.jaxb.dis.Vector3Double x)
- {
-     this.x = x.getX();
-     this.y = x.getY();
-     this.z = x.getZ();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.Vector3Double initializeJaxbObject(edu.nps.moves.jaxb.dis.Vector3Double x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setX( this.getX() );
-     x.setY( this.getY() );
-     x.setZ( this.getZ() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -72,6 +45,7 @@ public void setX(double pX)
 { x = pX;
 }
 
+@XmlAttribute
 public double getX()
 { return x; 
 }
@@ -80,6 +54,7 @@ public void setY(double pY)
 { y = pY;
 }
 
+@XmlAttribute
 public double getY()
 { return y; 
 }
@@ -88,6 +63,7 @@ public void setZ(double pZ)
 { z = pZ;
 }
 
+@XmlAttribute
 public double getZ()
 { return z; 
 }

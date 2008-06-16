@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.10.3 Information about individual mines within a minefield. This is very, very wrong. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -61,100 +61,6 @@ public class MinefieldDataPdu extends MinefieldFamilyPdu implements Serializable
     setPduType( (short)39 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public MinefieldDataPdu(edu.nps.moves.jaxb.dis.MinefieldDataPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getMinefieldID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getMinefieldID() );
-     this.setMinefieldID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getRequestingEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getRequestingEntityID() );
-     this.setRequestingEntityID(foo_1);
-
-     this.minefieldSequenceNumbeer = x.getMinefieldSequenceNumbeer();
-     this.requestID = x.getRequestID();
-     this.pduSequenceNumber = x.getPduSequenceNumber();
-     this.numberOfPdus = x.getNumberOfPdus();
-     this.numberOfMinesInThisPdu = x.getNumberOfMinesInThisPdu();
-     this.numberOfSensorTypes = x.getNumberOfSensorTypes();
-     this.pad2 = x.getPad2();
-     this.dataFilter = x.getDataFilter();
-
-     edu.nps.moves.dis.EntityType foo_10;
-     if(x.getMineType() == null)
-        foo_10 = new edu.nps.moves.dis.EntityType();
-      else
-        foo_10 = new edu.nps.moves.dis.EntityType(x.getMineType() );
-     this.setMineType(foo_10);
-
-     this.sensorTypes = new ArrayList();
-     for(int idx = 0; idx < x.getSensorTypes().size(); idx++)
-     {
-        this.sensorTypes.add( new edu.nps.moves.dis.TwoByteChunk((edu.nps.moves.jaxb.dis.TwoByteChunk) x.getSensorTypes().get(idx)));
-     }
-     this.pad3 = x.getPad3();
-     this.mineLocation = new ArrayList();
-     for(int idx = 0; idx < x.getMineLocation().size(); idx++)
-     {
-        this.mineLocation.add( new edu.nps.moves.dis.Vector3Float((edu.nps.moves.jaxb.dis.Vector3Float) x.getMineLocation().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.MinefieldDataPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.MinefieldDataPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setMinefieldID( this.getMinefieldID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRequestingEntityID( this.getRequestingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setMinefieldSequenceNumbeer( this.getMinefieldSequenceNumbeer() );
-     x.setRequestID( this.getRequestID() );
-     x.setPduSequenceNumber( this.getPduSequenceNumber() );
-     x.setNumberOfPdus( this.getNumberOfPdus() );
-     x.setNumberOfMinesInThisPdu( this.getNumberOfMinesInThisPdu() );
-     x.setNumberOfSensorTypes( this.getNumberOfSensorTypes() );
-     x.setPad2( this.getPad2() );
-     x.setDataFilter( this.getDataFilter() );
-     x.setMineType( this.getMineType().initializeJaxbObject(factory.createEntityType()) );
-
-     List sensorTypes_1 = x.getSensorTypes();
-     for(int idx = 0; idx < sensorTypes.size(); idx++)
-     {
-         TwoByteChunk a = (edu.nps.moves.dis.TwoByteChunk)sensorTypes.get(idx);
-         sensorTypes_1.add(a.initializeJaxbObject(factory.createTwoByteChunk()));
-     }
-     x.setPad3( this.getPad3() );
-
-     List mineLocation_1 = x.getMineLocation();
-     for(int idx = 0; idx < mineLocation.size(); idx++)
-     {
-         Vector3Float a = (edu.nps.moves.dis.Vector3Float)mineLocation.get(idx);
-         mineLocation_1.add(a.initializeJaxbObject(factory.createVector3Float()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -191,20 +97,25 @@ public void setMinefieldID(EntityID pMinefieldID)
 { minefieldID = pMinefieldID;
 }
 
+@XmlElement
 public EntityID getMinefieldID()
-{ return minefieldID; }
+{ return minefieldID; 
+}
 
 public void setRequestingEntityID(EntityID pRequestingEntityID)
 { requestingEntityID = pRequestingEntityID;
 }
 
+@XmlElement
 public EntityID getRequestingEntityID()
-{ return requestingEntityID; }
+{ return requestingEntityID; 
+}
 
 public void setMinefieldSequenceNumbeer(int pMinefieldSequenceNumbeer)
 { minefieldSequenceNumbeer = pMinefieldSequenceNumbeer;
 }
 
+@XmlAttribute
 public int getMinefieldSequenceNumbeer()
 { return minefieldSequenceNumbeer; 
 }
@@ -213,6 +124,7 @@ public void setRequestID(short pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public short getRequestID()
 { return requestID; 
 }
@@ -221,6 +133,7 @@ public void setPduSequenceNumber(short pPduSequenceNumber)
 { pduSequenceNumber = pPduSequenceNumber;
 }
 
+@XmlAttribute
 public short getPduSequenceNumber()
 { return pduSequenceNumber; 
 }
@@ -229,15 +142,17 @@ public void setNumberOfPdus(short pNumberOfPdus)
 { numberOfPdus = pNumberOfPdus;
 }
 
+@XmlAttribute
 public short getNumberOfPdus()
 { return numberOfPdus; 
 }
 
+@XmlAttribute
 public short getNumberOfMinesInThisPdu()
 { return (short)mineLocation.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfMinesInThisPdu method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -245,11 +160,12 @@ public void setNumberOfMinesInThisPdu(short pNumberOfMinesInThisPdu)
 { numberOfMinesInThisPdu = pNumberOfMinesInThisPdu;
 }
 
+@XmlAttribute
 public short getNumberOfSensorTypes()
 { return (short)sensorTypes.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfSensorTypes method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -261,6 +177,7 @@ public void setPad2(short pPad2)
 { pad2 = pPad2;
 }
 
+@XmlAttribute
 public short getPad2()
 { return pad2; 
 }
@@ -269,6 +186,7 @@ public void setDataFilter(long pDataFilter)
 { dataFilter = pDataFilter;
 }
 
+@XmlAttribute
 public long getDataFilter()
 { return dataFilter; 
 }
@@ -277,13 +195,16 @@ public void setMineType(EntityType pMineType)
 { mineType = pMineType;
 }
 
+@XmlElement
 public EntityType getMineType()
-{ return mineType; }
+{ return mineType; 
+}
 
 public void setSensorTypes(List pSensorTypes)
 { sensorTypes = pSensorTypes;
 }
 
+@XmlElementWrapper(name="sensorTypesList" )
 public List getSensorTypes()
 { return sensorTypes; }
 
@@ -291,6 +212,7 @@ public void setPad3(short pPad3)
 { pad3 = pPad3;
 }
 
+@XmlAttribute
 public short getPad3()
 { return pad3; 
 }
@@ -299,6 +221,7 @@ public void setMineLocation(List pMineLocation)
 { mineLocation = pMineLocation;
 }
 
+@XmlElementWrapper(name="mineLocationList" )
 public List getMineLocation()
 { return mineLocation; }
 
@@ -348,13 +271,13 @@ public void unmarshal(DataInputStream dis)
     {
        minefieldID.unmarshal(dis);
        requestingEntityID.unmarshal(dis);
-       minefieldSequenceNumbeer = dis.readShort();
-       requestID = dis.readByte();
-       pduSequenceNumber = dis.readByte();
-       numberOfPdus = dis.readByte();
-       numberOfMinesInThisPdu = dis.readByte();
-       numberOfSensorTypes = dis.readByte();
-       pad2 = dis.readByte();
+       minefieldSequenceNumbeer = (int)dis.readUnsignedShort();
+       requestID = (short)dis.readUnsignedByte();
+       pduSequenceNumber = (short)dis.readUnsignedByte();
+       numberOfPdus = (short)dis.readUnsignedByte();
+       numberOfMinesInThisPdu = (short)dis.readUnsignedByte();
+       numberOfSensorTypes = (short)dis.readUnsignedByte();
+       pad2 = (short)dis.readUnsignedByte();
        dataFilter = dis.readInt();
        mineType.unmarshal(dis);
         for(int idx = 0; idx < numberOfSensorTypes; idx++)
@@ -364,7 +287,7 @@ public void unmarshal(DataInputStream dis)
             sensorTypes.add(anX);
         };
 
-       pad3 = dis.readByte();
+       pad3 = (short)dis.readUnsignedByte();
         for(int idx = 0; idx < numberOfMinesInThisPdu; idx++)
         {
            Vector3Float anX = new Vector3Float();

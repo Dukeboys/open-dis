@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.42. Basic operational data ofr IFF ATC NAVAIDS
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -50,47 +50,6 @@ public class IffFundamentalData extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public IffFundamentalData(edu.nps.moves.jaxb.dis.IffFundamentalData x)
- {
-     this.systemStatus = x.getSystemStatus();
-     this.alternateParameter4 = x.getAlternateParameter4();
-     this.informationLayers = x.getInformationLayers();
-     this.modifier = x.getModifier();
-     this.parameter1 = x.getParameter1();
-     this.parameter2 = x.getParameter2();
-     this.parameter3 = x.getParameter3();
-     this.parameter4 = x.getParameter4();
-     this.parameter5 = x.getParameter5();
-     this.parameter6 = x.getParameter6();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.IffFundamentalData initializeJaxbObject(edu.nps.moves.jaxb.dis.IffFundamentalData x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setSystemStatus( this.getSystemStatus() );
-     x.setAlternateParameter4( this.getAlternateParameter4() );
-     x.setInformationLayers( this.getInformationLayers() );
-     x.setModifier( this.getModifier() );
-     x.setParameter1( this.getParameter1() );
-     x.setParameter2( this.getParameter2() );
-     x.setParameter3( this.getParameter3() );
-     x.setParameter4( this.getParameter4() );
-     x.setParameter5( this.getParameter5() );
-     x.setParameter6( this.getParameter6() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -114,6 +73,7 @@ public void setSystemStatus(short pSystemStatus)
 { systemStatus = pSystemStatus;
 }
 
+@XmlAttribute
 public short getSystemStatus()
 { return systemStatus; 
 }
@@ -122,6 +82,7 @@ public void setAlternateParameter4(short pAlternateParameter4)
 { alternateParameter4 = pAlternateParameter4;
 }
 
+@XmlAttribute
 public short getAlternateParameter4()
 { return alternateParameter4; 
 }
@@ -130,6 +91,7 @@ public void setInformationLayers(short pInformationLayers)
 { informationLayers = pInformationLayers;
 }
 
+@XmlAttribute
 public short getInformationLayers()
 { return informationLayers; 
 }
@@ -138,6 +100,7 @@ public void setModifier(short pModifier)
 { modifier = pModifier;
 }
 
+@XmlAttribute
 public short getModifier()
 { return modifier; 
 }
@@ -146,6 +109,7 @@ public void setParameter1(int pParameter1)
 { parameter1 = pParameter1;
 }
 
+@XmlAttribute
 public int getParameter1()
 { return parameter1; 
 }
@@ -154,6 +118,7 @@ public void setParameter2(int pParameter2)
 { parameter2 = pParameter2;
 }
 
+@XmlAttribute
 public int getParameter2()
 { return parameter2; 
 }
@@ -162,6 +127,7 @@ public void setParameter3(int pParameter3)
 { parameter3 = pParameter3;
 }
 
+@XmlAttribute
 public int getParameter3()
 { return parameter3; 
 }
@@ -170,6 +136,7 @@ public void setParameter4(int pParameter4)
 { parameter4 = pParameter4;
 }
 
+@XmlAttribute
 public int getParameter4()
 { return parameter4; 
 }
@@ -178,6 +145,7 @@ public void setParameter5(int pParameter5)
 { parameter5 = pParameter5;
 }
 
+@XmlAttribute
 public int getParameter5()
 { return parameter5; 
 }
@@ -186,6 +154,7 @@ public void setParameter6(int pParameter6)
 { parameter6 = pParameter6;
 }
 
+@XmlAttribute
 public int getParameter6()
 { return parameter6; 
 }
@@ -215,16 +184,16 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       systemStatus = dis.readByte();
-       alternateParameter4 = dis.readByte();
-       informationLayers = dis.readByte();
-       modifier = dis.readByte();
-       parameter1 = dis.readShort();
-       parameter2 = dis.readShort();
-       parameter3 = dis.readShort();
-       parameter4 = dis.readShort();
-       parameter5 = dis.readShort();
-       parameter6 = dis.readShort();
+       systemStatus = (short)dis.readUnsignedByte();
+       alternateParameter4 = (short)dis.readUnsignedByte();
+       informationLayers = (short)dis.readUnsignedByte();
+       modifier = (short)dis.readUnsignedByte();
+       parameter1 = (int)dis.readUnsignedShort();
+       parameter2 = (int)dis.readUnsignedShort();
+       parameter3 = (int)dis.readUnsignedShort();
+       parameter4 = (int)dis.readUnsignedShort();
+       parameter5 = (int)dis.readUnsignedShort();
+       parameter6 = (int)dis.readUnsignedShort();
     } // end try 
    catch(Exception e)
     { 

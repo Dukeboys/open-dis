@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.12: Abstract superclass for reliable simulation management PDUs
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -27,49 +27,6 @@ public class SimulationManagementWithReliabilityFamilyPdu extends Pdu implements
     setProtocolFamily( (short)10 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public SimulationManagementWithReliabilityFamilyPdu(edu.nps.moves.jaxb.dis.SimulationManagementWithReliabilityFamilyPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getOriginatingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getOriginatingEntityID() );
-     this.setOriginatingEntityID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getReceivingEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getReceivingEntityID() );
-     this.setReceivingEntityID(foo_1);
-
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.SimulationManagementWithReliabilityFamilyPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.SimulationManagementWithReliabilityFamilyPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setOriginatingEntityID( this.getOriginatingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setReceivingEntityID( this.getReceivingEntityID().initializeJaxbObject(factory.createEntityID()) );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -86,15 +43,19 @@ public void setOriginatingEntityID(EntityID pOriginatingEntityID)
 { originatingEntityID = pOriginatingEntityID;
 }
 
+@XmlElement
 public EntityID getOriginatingEntityID()
-{ return originatingEntityID; }
+{ return originatingEntityID; 
+}
 
 public void setReceivingEntityID(EntityID pReceivingEntityID)
 { receivingEntityID = pReceivingEntityID;
 }
 
+@XmlElement
 public EntityID getReceivingEntityID()
-{ return receivingEntityID; }
+{ return receivingEntityID; 
+}
 
 
 public void marshal(DataOutputStream dos)

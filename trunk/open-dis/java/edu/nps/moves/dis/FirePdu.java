@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Sectioin 5.3.4.1. Information about someone firing something. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -41,80 +41,6 @@ public class FirePdu extends WarfareFamilyPdu implements Serializable
     setPduType( (short)2 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public FirePdu(edu.nps.moves.jaxb.dis.FirePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getMunitionID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getMunitionID() );
-     this.setMunitionID(foo_0);
-
-
-     edu.nps.moves.dis.EventID foo_1;
-     if(x.getEventID() == null)
-        foo_1 = new edu.nps.moves.dis.EventID();
-      else
-        foo_1 = new edu.nps.moves.dis.EventID(x.getEventID() );
-     this.setEventID(foo_1);
-
-     this.fireMissionIndex = x.getFireMissionIndex();
-
-     edu.nps.moves.dis.Vector3Double foo_3;
-     if(x.getLocationInWorldCoordinates() == null)
-        foo_3 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_3 = new edu.nps.moves.dis.Vector3Double(x.getLocationInWorldCoordinates() );
-     this.setLocationInWorldCoordinates(foo_3);
-
-
-     edu.nps.moves.dis.BurstDescriptor foo_4;
-     if(x.getBurstDescriptor() == null)
-        foo_4 = new edu.nps.moves.dis.BurstDescriptor();
-      else
-        foo_4 = new edu.nps.moves.dis.BurstDescriptor(x.getBurstDescriptor() );
-     this.setBurstDescriptor(foo_4);
-
-
-     edu.nps.moves.dis.Vector3Float foo_5;
-     if(x.getVelocity() == null)
-        foo_5 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_5 = new edu.nps.moves.dis.Vector3Float(x.getVelocity() );
-     this.setVelocity(foo_5);
-
-     this.range = x.getRange();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.FirePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.FirePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setMunitionID( this.getMunitionID().initializeJaxbObject(factory.createEntityID()) );
-     x.setEventID( this.getEventID().initializeJaxbObject(factory.createEventID()) );
-     x.setFireMissionIndex( this.getFireMissionIndex() );
-     x.setLocationInWorldCoordinates( this.getLocationInWorldCoordinates().initializeJaxbObject(factory.createVector3Double()) );
-     x.setBurstDescriptor( this.getBurstDescriptor().initializeJaxbObject(factory.createBurstDescriptor()) );
-     x.setVelocity( this.getVelocity().initializeJaxbObject(factory.createVector3Float()) );
-     x.setRange( this.getRange() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -136,20 +62,25 @@ public void setMunitionID(EntityID pMunitionID)
 { munitionID = pMunitionID;
 }
 
+@XmlElement
 public EntityID getMunitionID()
-{ return munitionID; }
+{ return munitionID; 
+}
 
 public void setEventID(EventID pEventID)
 { eventID = pEventID;
 }
 
+@XmlElement
 public EventID getEventID()
-{ return eventID; }
+{ return eventID; 
+}
 
 public void setFireMissionIndex(int pFireMissionIndex)
 { fireMissionIndex = pFireMissionIndex;
 }
 
+@XmlAttribute
 public int getFireMissionIndex()
 { return fireMissionIndex; 
 }
@@ -158,27 +89,34 @@ public void setLocationInWorldCoordinates(Vector3Double pLocationInWorldCoordina
 { locationInWorldCoordinates = pLocationInWorldCoordinates;
 }
 
+@XmlElement
 public Vector3Double getLocationInWorldCoordinates()
-{ return locationInWorldCoordinates; }
+{ return locationInWorldCoordinates; 
+}
 
 public void setBurstDescriptor(BurstDescriptor pBurstDescriptor)
 { burstDescriptor = pBurstDescriptor;
 }
 
+@XmlElement
 public BurstDescriptor getBurstDescriptor()
-{ return burstDescriptor; }
+{ return burstDescriptor; 
+}
 
 public void setVelocity(Vector3Float pVelocity)
 { velocity = pVelocity;
 }
 
+@XmlElement
 public Vector3Float getVelocity()
-{ return velocity; }
+{ return velocity; 
+}
 
 public void setRange(float pRange)
 { range = pRange;
 }
 
+@XmlAttribute
 public float getRange()
 { return range; 
 }

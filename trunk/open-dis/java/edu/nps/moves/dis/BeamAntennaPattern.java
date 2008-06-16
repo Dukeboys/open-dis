@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.4.2. Used when the antenna pattern type field has a value of 1. Specifies           the direction, patter, and polarization of radiation from an antenna.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -40,50 +40,6 @@ public class BeamAntennaPattern extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public BeamAntennaPattern(edu.nps.moves.jaxb.dis.BeamAntennaPattern x)
- {
-
-     edu.nps.moves.dis.Orientation foo_0;
-     if(x.getBeamDirection() == null)
-        foo_0 = new edu.nps.moves.dis.Orientation();
-      else
-        foo_0 = new edu.nps.moves.dis.Orientation(x.getBeamDirection() );
-     this.setBeamDirection(foo_0);
-
-     this.azimuthBeamwidth = x.getAzimuthBeamwidth();
-     this.referenceSystem = x.getReferenceSystem();
-     this.padding1 = x.getPadding1();
-     this.padding2 = x.getPadding2();
-     this.ez = x.getEz();
-     this.ex = x.getEx();
-     this.phase = x.getPhase();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.BeamAntennaPattern initializeJaxbObject(edu.nps.moves.jaxb.dis.BeamAntennaPattern x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setBeamDirection( this.getBeamDirection().initializeJaxbObject(factory.createOrientation()) );
-     x.setAzimuthBeamwidth( this.getAzimuthBeamwidth() );
-     x.setReferenceSystem( this.getReferenceSystem() );
-     x.setPadding1( this.getPadding1() );
-     x.setPadding2( this.getPadding2() );
-     x.setEz( this.getEz() );
-     x.setEx( this.getEx() );
-     x.setPhase( this.getPhase() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -105,13 +61,16 @@ public void setBeamDirection(Orientation pBeamDirection)
 { beamDirection = pBeamDirection;
 }
 
+@XmlElement
 public Orientation getBeamDirection()
-{ return beamDirection; }
+{ return beamDirection; 
+}
 
 public void setAzimuthBeamwidth(float pAzimuthBeamwidth)
 { azimuthBeamwidth = pAzimuthBeamwidth;
 }
 
+@XmlAttribute
 public float getAzimuthBeamwidth()
 { return azimuthBeamwidth; 
 }
@@ -120,6 +79,7 @@ public void setReferenceSystem(float pReferenceSystem)
 { referenceSystem = pReferenceSystem;
 }
 
+@XmlAttribute
 public float getReferenceSystem()
 { return referenceSystem; 
 }
@@ -128,6 +88,7 @@ public void setPadding1(short pPadding1)
 { padding1 = pPadding1;
 }
 
+@XmlAttribute
 public short getPadding1()
 { return padding1; 
 }
@@ -136,6 +97,7 @@ public void setPadding2(byte pPadding2)
 { padding2 = pPadding2;
 }
 
+@XmlAttribute
 public byte getPadding2()
 { return padding2; 
 }
@@ -144,6 +106,7 @@ public void setEz(float pEz)
 { ez = pEz;
 }
 
+@XmlAttribute
 public float getEz()
 { return ez; 
 }
@@ -152,6 +115,7 @@ public void setEx(float pEx)
 { ex = pEx;
 }
 
+@XmlAttribute
 public float getEx()
 { return ex; 
 }
@@ -160,6 +124,7 @@ public void setPhase(float pPhase)
 { phase = pPhase;
 }
 
+@XmlAttribute
 public float getPhase()
 { return phase; 
 }

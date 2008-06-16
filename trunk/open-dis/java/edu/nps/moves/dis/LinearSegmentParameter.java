@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.48: Linear segment parameters
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -47,66 +47,6 @@ public class LinearSegmentParameter extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public LinearSegmentParameter(edu.nps.moves.jaxb.dis.LinearSegmentParameter x)
- {
-     this.segmentNumber = x.getSegmentNumber();
-
-     edu.nps.moves.dis.SixByteChunk foo_1;
-     if(x.getSegmentAppearance() == null)
-        foo_1 = new edu.nps.moves.dis.SixByteChunk();
-      else
-        foo_1 = new edu.nps.moves.dis.SixByteChunk(x.getSegmentAppearance() );
-     this.setSegmentAppearance(foo_1);
-
-
-     edu.nps.moves.dis.Vector3Double foo_2;
-     if(x.getLocation() == null)
-        foo_2 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_2 = new edu.nps.moves.dis.Vector3Double(x.getLocation() );
-     this.setLocation(foo_2);
-
-
-     edu.nps.moves.dis.Orientation foo_3;
-     if(x.getOrientation() == null)
-        foo_3 = new edu.nps.moves.dis.Orientation();
-      else
-        foo_3 = new edu.nps.moves.dis.Orientation(x.getOrientation() );
-     this.setOrientation(foo_3);
-
-     this.segmentLength = x.getSegmentLength();
-     this.segmentWidth = x.getSegmentWidth();
-     this.segmentHeight = x.getSegmentHeight();
-     this.segmentDepth = x.getSegmentDepth();
-     this.pad1 = x.getPad1();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.LinearSegmentParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.LinearSegmentParameter x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setSegmentNumber( this.getSegmentNumber() );
-     x.setSegmentAppearance( this.getSegmentAppearance().initializeJaxbObject(factory.createSixByteChunk()) );
-     x.setLocation( this.getLocation().initializeJaxbObject(factory.createVector3Double()) );
-     x.setOrientation( this.getOrientation().initializeJaxbObject(factory.createOrientation()) );
-     x.setSegmentLength( this.getSegmentLength() );
-     x.setSegmentWidth( this.getSegmentWidth() );
-     x.setSegmentHeight( this.getSegmentHeight() );
-     x.setSegmentDepth( this.getSegmentDepth() );
-     x.setPad1( this.getPad1() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -129,6 +69,7 @@ public void setSegmentNumber(short pSegmentNumber)
 { segmentNumber = pSegmentNumber;
 }
 
+@XmlAttribute
 public short getSegmentNumber()
 { return segmentNumber; 
 }
@@ -137,27 +78,34 @@ public void setSegmentAppearance(SixByteChunk pSegmentAppearance)
 { segmentAppearance = pSegmentAppearance;
 }
 
+@XmlElement
 public SixByteChunk getSegmentAppearance()
-{ return segmentAppearance; }
+{ return segmentAppearance; 
+}
 
 public void setLocation(Vector3Double pLocation)
 { location = pLocation;
 }
 
+@XmlElement
 public Vector3Double getLocation()
-{ return location; }
+{ return location; 
+}
 
 public void setOrientation(Orientation pOrientation)
 { orientation = pOrientation;
 }
 
+@XmlElement
 public Orientation getOrientation()
-{ return orientation; }
+{ return orientation; 
+}
 
 public void setSegmentLength(int pSegmentLength)
 { segmentLength = pSegmentLength;
 }
 
+@XmlAttribute
 public int getSegmentLength()
 { return segmentLength; 
 }
@@ -166,6 +114,7 @@ public void setSegmentWidth(int pSegmentWidth)
 { segmentWidth = pSegmentWidth;
 }
 
+@XmlAttribute
 public int getSegmentWidth()
 { return segmentWidth; 
 }
@@ -174,6 +123,7 @@ public void setSegmentHeight(int pSegmentHeight)
 { segmentHeight = pSegmentHeight;
 }
 
+@XmlAttribute
 public int getSegmentHeight()
 { return segmentHeight; 
 }
@@ -182,6 +132,7 @@ public void setSegmentDepth(int pSegmentDepth)
 { segmentDepth = pSegmentDepth;
 }
 
+@XmlAttribute
 public int getSegmentDepth()
 { return segmentDepth; 
 }
@@ -190,6 +141,7 @@ public void setPad1(long pPad1)
 { pad1 = pPad1;
 }
 
+@XmlAttribute
 public long getPad1()
 { return pad1; 
 }
@@ -218,14 +170,14 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       segmentNumber = dis.readByte();
+       segmentNumber = (short)dis.readUnsignedByte();
        segmentAppearance.unmarshal(dis);
        location.unmarshal(dis);
        orientation.unmarshal(dis);
-       segmentLength = dis.readShort();
-       segmentWidth = dis.readShort();
-       segmentHeight = dis.readShort();
-       segmentDepth = dis.readShort();
+       segmentLength = (int)dis.readUnsignedShort();
+       segmentWidth = (int)dis.readUnsignedShort();
+       segmentHeight = (int)dis.readUnsignedShort();
+       segmentDepth = (int)dis.readUnsignedShort();
        pad1 = dis.readInt();
     } // end try 
    catch(Exception e)

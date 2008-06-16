@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.8. Abstract superclass for radio communications PDUs.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -27,42 +27,6 @@ public class RadioCommunicationsFamilyPdu extends Pdu implements Serializable
     setProtocolFamily( (short)4 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public RadioCommunicationsFamilyPdu(edu.nps.moves.jaxb.dis.RadioCommunicationsFamilyPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getEntityId() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getEntityId() );
-     this.setEntityId(foo_0);
-
-     this.radioId = x.getRadioId();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.RadioCommunicationsFamilyPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RadioCommunicationsFamilyPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEntityId( this.getEntityId().initializeJaxbObject(factory.createEntityID()) );
-     x.setRadioId( this.getRadioId() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -79,13 +43,16 @@ public void setEntityId(EntityID pEntityId)
 { entityId = pEntityId;
 }
 
+@XmlElement
 public EntityID getEntityId()
-{ return entityId; }
+{ return entityId; 
+}
 
 public void setRadioId(int pRadioId)
 { radioId = pRadioId;
 }
 
+@XmlAttribute
 public int getRadioId()
 { return radioId; 
 }
@@ -111,7 +78,7 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        entityId.unmarshal(dis);
-       radioId = dis.readShort();
+       radioId = (int)dis.readUnsignedShort();
     } // end try 
    catch(Exception e)
     { 

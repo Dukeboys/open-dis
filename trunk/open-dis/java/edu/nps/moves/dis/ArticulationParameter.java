@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.5. Articulation parameters for  movable parts and attached parts of an entity. Specifes wether or not a change has occured,  the part identifcation of the articulated part to which it is attached, and the type and value of each parameter.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -30,37 +30,6 @@ public class ArticulationParameter extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public ArticulationParameter(edu.nps.moves.jaxb.dis.ArticulationParameter x)
- {
-     this.parameterTypeDesignator = x.getParameterTypeDesignator();
-     this.changeIndicator = x.getChangeIndicator();
-     this.partAttachedTo = x.getPartAttachedTo();
-     this.parameterType = x.getParameterType();
-     this.parameterValue = x.getParameterValue();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.ArticulationParameter initializeJaxbObject(edu.nps.moves.jaxb.dis.ArticulationParameter x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setParameterTypeDesignator( this.getParameterTypeDesignator() );
-     x.setChangeIndicator( this.getChangeIndicator() );
-     x.setPartAttachedTo( this.getPartAttachedTo() );
-     x.setParameterType( this.getParameterType() );
-     x.setParameterValue( this.getParameterValue() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -79,6 +48,7 @@ public void setParameterTypeDesignator(short pParameterTypeDesignator)
 { parameterTypeDesignator = pParameterTypeDesignator;
 }
 
+@XmlAttribute
 public short getParameterTypeDesignator()
 { return parameterTypeDesignator; 
 }
@@ -87,6 +57,7 @@ public void setChangeIndicator(short pChangeIndicator)
 { changeIndicator = pChangeIndicator;
 }
 
+@XmlAttribute
 public short getChangeIndicator()
 { return changeIndicator; 
 }
@@ -95,6 +66,7 @@ public void setPartAttachedTo(int pPartAttachedTo)
 { partAttachedTo = pPartAttachedTo;
 }
 
+@XmlAttribute
 public int getPartAttachedTo()
 { return partAttachedTo; 
 }
@@ -103,6 +75,7 @@ public void setParameterType(int pParameterType)
 { parameterType = pParameterType;
 }
 
+@XmlAttribute
 public int getParameterType()
 { return parameterType; 
 }
@@ -111,6 +84,7 @@ public void setParameterValue(double pParameterValue)
 { parameterValue = pParameterValue;
 }
 
+@XmlAttribute
 public double getParameterValue()
 { return parameterValue; 
 }
@@ -135,9 +109,9 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       parameterTypeDesignator = dis.readByte();
-       changeIndicator = dis.readByte();
-       partAttachedTo = dis.readShort();
+       parameterTypeDesignator = (short)dis.readUnsignedByte();
+       changeIndicator = (short)dis.readUnsignedByte();
+       partAttachedTo = (int)dis.readUnsignedShort();
        parameterType = dis.readInt();
        parameterValue = dis.readDouble();
     } // end try 

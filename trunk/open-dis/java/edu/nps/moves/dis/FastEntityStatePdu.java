@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.3.1. Represents the postion and state of one entity in the world. This is identical in function to entity state pdu, but generates less garbage to collect in the Java world. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -135,139 +135,6 @@ public class FastEntityStatePdu extends EntityInformationFamilyPdu implements Se
     setPduType( (short)1 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public FastEntityStatePdu(edu.nps.moves.jaxb.dis.FastEntityStatePdu x)
- {
-     super(x); // Call superclass constructor
-
-     this.site = x.getSite();
-     this.application = x.getApplication();
-     this.entity = x.getEntity();
-     this.forceId = x.getForceId();
-     this.numberOfArticulationParameters = x.getNumberOfArticulationParameters();
-     this.entityKind = x.getEntityKind();
-     this.domain = x.getDomain();
-     this.country = x.getCountry();
-     this.category = x.getCategory();
-     this.subcategory = x.getSubcategory();
-     this.specific = x.getSpecific();
-     this.extra = x.getExtra();
-     this.altEntityKind = x.getAltEntityKind();
-     this.altDomain = x.getAltDomain();
-     this.altCountry = x.getAltCountry();
-     this.altCategory = x.getAltCategory();
-     this.altSubcategory = x.getAltSubcategory();
-     this.altSpecific = x.getAltSpecific();
-     this.altExtra = x.getAltExtra();
-     this.xVelocity = x.getXVelocity();
-     this.yVelocity = x.getYVelocity();
-     this.zVelocity = x.getZVelocity();
-     this.xLocation = x.getXLocation();
-     this.yLocation = x.getYLocation();
-     this.zLocation = x.getZLocation();
-     this.psi = x.getPsi();
-     this.theta = x.getTheta();
-     this.phi = x.getPhi();
-     this.entityAppearance = x.getEntityAppearance();
-     this.deadReckoningAlgorithm = x.getDeadReckoningAlgorithm();
-     this.otherParameters = new byte[15];
-     for(int idx = 0; idx < 15; idx++)
-     {
-         byte[] y = x.getOtherParameters();
-         this.otherParameters[idx] = y[idx];
-     }
-     this.xAcceleration = x.getXAcceleration();
-     this.yAcceleration = x.getYAcceleration();
-     this.zAcceleration = x.getZAcceleration();
-     this.xAngularVelocity = x.getXAngularVelocity();
-     this.yAngularVelocity = x.getYAngularVelocity();
-     this.zAngularVelocity = x.getZAngularVelocity();
-     this.marking = new byte[12];
-     for(int idx = 0; idx < 12; idx++)
-     {
-         byte[] y = x.getMarking();
-         this.marking[idx] = y[idx];
-     }
-     this.capabilities = x.getCapabilities();
-     this.articulationParameters = new ArrayList();
-     for(int idx = 0; idx < x.getArticulationParameters().size(); idx++)
-     {
-        this.articulationParameters.add( new edu.nps.moves.dis.ArticulationParameter((edu.nps.moves.jaxb.dis.ArticulationParameter) x.getArticulationParameters().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.FastEntityStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.FastEntityStatePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setSite( this.getSite() );
-     x.setApplication( this.getApplication() );
-     x.setEntity( this.getEntity() );
-     x.setForceId( this.getForceId() );
-     x.setNumberOfArticulationParameters( this.getNumberOfArticulationParameters() );
-     x.setEntityKind( this.getEntityKind() );
-     x.setDomain( this.getDomain() );
-     x.setCountry( this.getCountry() );
-     x.setCategory( this.getCategory() );
-     x.setSubcategory( this.getSubcategory() );
-     x.setSpecific( this.getSpecific() );
-     x.setExtra( this.getExtra() );
-     x.setAltEntityKind( this.getAltEntityKind() );
-     x.setAltDomain( this.getAltDomain() );
-     x.setAltCountry( this.getAltCountry() );
-     x.setAltCategory( this.getAltCategory() );
-     x.setAltSubcategory( this.getAltSubcategory() );
-     x.setAltSpecific( this.getAltSpecific() );
-     x.setAltExtra( this.getAltExtra() );
-     x.setXVelocity( this.getXVelocity() );
-     x.setYVelocity( this.getYVelocity() );
-     x.setZVelocity( this.getZVelocity() );
-     x.setXLocation( this.getXLocation() );
-     x.setYLocation( this.getYLocation() );
-     x.setZLocation( this.getZLocation() );
-     x.setPsi( this.getPsi() );
-     x.setTheta( this.getTheta() );
-     x.setPhi( this.getPhi() );
-     x.setEntityAppearance( this.getEntityAppearance() );
-     x.setDeadReckoningAlgorithm( this.getDeadReckoningAlgorithm() );
-     x.setOtherParameters( new byte[15]);
-     for(int idx = 0; idx < 15; idx++)
-     {
-         x.getOtherParameters()[idx] = this.otherParameters[idx];
-     }
-     x.setXAcceleration( this.getXAcceleration() );
-     x.setYAcceleration( this.getYAcceleration() );
-     x.setZAcceleration( this.getZAcceleration() );
-     x.setXAngularVelocity( this.getXAngularVelocity() );
-     x.setYAngularVelocity( this.getYAngularVelocity() );
-     x.setZAngularVelocity( this.getZAngularVelocity() );
-     x.setMarking( new byte[12]);
-     for(int idx = 0; idx < 12; idx++)
-     {
-         x.getMarking()[idx] = this.marking[idx];
-     }
-     x.setCapabilities( this.getCapabilities() );
-
-     List articulationParameters_1 = x.getArticulationParameters();
-     for(int idx = 0; idx < articulationParameters.size(); idx++)
-     {
-         ArticulationParameter a = (edu.nps.moves.dis.ArticulationParameter)articulationParameters.get(idx);
-         articulationParameters_1.add(a.initializeJaxbObject(factory.createArticulationParameter()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -326,6 +193,7 @@ public void setSite(int pSite)
 { site = pSite;
 }
 
+@XmlAttribute
 public int getSite()
 { return site; 
 }
@@ -334,6 +202,7 @@ public void setApplication(int pApplication)
 { application = pApplication;
 }
 
+@XmlAttribute
 public int getApplication()
 { return application; 
 }
@@ -342,6 +211,7 @@ public void setEntity(int pEntity)
 { entity = pEntity;
 }
 
+@XmlAttribute
 public int getEntity()
 { return entity; 
 }
@@ -350,15 +220,17 @@ public void setForceId(short pForceId)
 { forceId = pForceId;
 }
 
+@XmlAttribute
 public short getForceId()
 { return forceId; 
 }
 
+@XmlAttribute
 public byte getNumberOfArticulationParameters()
 { return (byte)articulationParameters.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -370,6 +242,7 @@ public void setEntityKind(short pEntityKind)
 { entityKind = pEntityKind;
 }
 
+@XmlAttribute
 public short getEntityKind()
 { return entityKind; 
 }
@@ -378,6 +251,7 @@ public void setDomain(short pDomain)
 { domain = pDomain;
 }
 
+@XmlAttribute
 public short getDomain()
 { return domain; 
 }
@@ -386,6 +260,7 @@ public void setCountry(int pCountry)
 { country = pCountry;
 }
 
+@XmlAttribute
 public int getCountry()
 { return country; 
 }
@@ -394,6 +269,7 @@ public void setCategory(short pCategory)
 { category = pCategory;
 }
 
+@XmlAttribute
 public short getCategory()
 { return category; 
 }
@@ -402,6 +278,7 @@ public void setSubcategory(short pSubcategory)
 { subcategory = pSubcategory;
 }
 
+@XmlAttribute
 public short getSubcategory()
 { return subcategory; 
 }
@@ -410,6 +287,7 @@ public void setSpecific(short pSpecific)
 { specific = pSpecific;
 }
 
+@XmlAttribute
 public short getSpecific()
 { return specific; 
 }
@@ -418,6 +296,7 @@ public void setExtra(short pExtra)
 { extra = pExtra;
 }
 
+@XmlAttribute
 public short getExtra()
 { return extra; 
 }
@@ -426,6 +305,7 @@ public void setAltEntityKind(short pAltEntityKind)
 { altEntityKind = pAltEntityKind;
 }
 
+@XmlAttribute
 public short getAltEntityKind()
 { return altEntityKind; 
 }
@@ -434,6 +314,7 @@ public void setAltDomain(short pAltDomain)
 { altDomain = pAltDomain;
 }
 
+@XmlAttribute
 public short getAltDomain()
 { return altDomain; 
 }
@@ -442,6 +323,7 @@ public void setAltCountry(int pAltCountry)
 { altCountry = pAltCountry;
 }
 
+@XmlAttribute
 public int getAltCountry()
 { return altCountry; 
 }
@@ -450,6 +332,7 @@ public void setAltCategory(short pAltCategory)
 { altCategory = pAltCategory;
 }
 
+@XmlAttribute
 public short getAltCategory()
 { return altCategory; 
 }
@@ -458,6 +341,7 @@ public void setAltSubcategory(short pAltSubcategory)
 { altSubcategory = pAltSubcategory;
 }
 
+@XmlAttribute
 public short getAltSubcategory()
 { return altSubcategory; 
 }
@@ -466,6 +350,7 @@ public void setAltSpecific(short pAltSpecific)
 { altSpecific = pAltSpecific;
 }
 
+@XmlAttribute
 public short getAltSpecific()
 { return altSpecific; 
 }
@@ -474,6 +359,7 @@ public void setAltExtra(short pAltExtra)
 { altExtra = pAltExtra;
 }
 
+@XmlAttribute
 public short getAltExtra()
 { return altExtra; 
 }
@@ -482,6 +368,7 @@ public void setXVelocity(float pXVelocity)
 { xVelocity = pXVelocity;
 }
 
+@XmlAttribute
 public float getXVelocity()
 { return xVelocity; 
 }
@@ -490,6 +377,7 @@ public void setYVelocity(float pYVelocity)
 { yVelocity = pYVelocity;
 }
 
+@XmlAttribute
 public float getYVelocity()
 { return yVelocity; 
 }
@@ -498,6 +386,7 @@ public void setZVelocity(float pZVelocity)
 { zVelocity = pZVelocity;
 }
 
+@XmlAttribute
 public float getZVelocity()
 { return zVelocity; 
 }
@@ -506,6 +395,7 @@ public void setXLocation(float pXLocation)
 { xLocation = pXLocation;
 }
 
+@XmlAttribute
 public float getXLocation()
 { return xLocation; 
 }
@@ -514,6 +404,7 @@ public void setYLocation(float pYLocation)
 { yLocation = pYLocation;
 }
 
+@XmlAttribute
 public float getYLocation()
 { return yLocation; 
 }
@@ -522,6 +413,7 @@ public void setZLocation(float pZLocation)
 { zLocation = pZLocation;
 }
 
+@XmlAttribute
 public float getZLocation()
 { return zLocation; 
 }
@@ -530,6 +422,7 @@ public void setPsi(float pPsi)
 { psi = pPsi;
 }
 
+@XmlAttribute
 public float getPsi()
 { return psi; 
 }
@@ -538,6 +431,7 @@ public void setTheta(float pTheta)
 { theta = pTheta;
 }
 
+@XmlAttribute
 public float getTheta()
 { return theta; 
 }
@@ -546,6 +440,7 @@ public void setPhi(float pPhi)
 { phi = pPhi;
 }
 
+@XmlAttribute
 public float getPhi()
 { return phi; 
 }
@@ -554,6 +449,7 @@ public void setEntityAppearance(int pEntityAppearance)
 { entityAppearance = pEntityAppearance;
 }
 
+@XmlAttribute
 public int getEntityAppearance()
 { return entityAppearance; 
 }
@@ -562,6 +458,7 @@ public void setDeadReckoningAlgorithm(short pDeadReckoningAlgorithm)
 { deadReckoningAlgorithm = pDeadReckoningAlgorithm;
 }
 
+@XmlAttribute
 public short getDeadReckoningAlgorithm()
 { return deadReckoningAlgorithm; 
 }
@@ -570,6 +467,7 @@ public void setOtherParameters(byte[] pOtherParameters)
 { otherParameters = pOtherParameters;
 }
 
+@XmlElement(name="otherParameters" )
 public byte[] getOtherParameters()
 { return otherParameters; }
 
@@ -577,6 +475,7 @@ public void setXAcceleration(float pXAcceleration)
 { xAcceleration = pXAcceleration;
 }
 
+@XmlAttribute
 public float getXAcceleration()
 { return xAcceleration; 
 }
@@ -585,6 +484,7 @@ public void setYAcceleration(float pYAcceleration)
 { yAcceleration = pYAcceleration;
 }
 
+@XmlAttribute
 public float getYAcceleration()
 { return yAcceleration; 
 }
@@ -593,6 +493,7 @@ public void setZAcceleration(float pZAcceleration)
 { zAcceleration = pZAcceleration;
 }
 
+@XmlAttribute
 public float getZAcceleration()
 { return zAcceleration; 
 }
@@ -601,6 +502,7 @@ public void setXAngularVelocity(float pXAngularVelocity)
 { xAngularVelocity = pXAngularVelocity;
 }
 
+@XmlAttribute
 public float getXAngularVelocity()
 { return xAngularVelocity; 
 }
@@ -609,6 +511,7 @@ public void setYAngularVelocity(float pYAngularVelocity)
 { yAngularVelocity = pYAngularVelocity;
 }
 
+@XmlAttribute
 public float getYAngularVelocity()
 { return yAngularVelocity; 
 }
@@ -617,6 +520,7 @@ public void setZAngularVelocity(float pZAngularVelocity)
 { zAngularVelocity = pZAngularVelocity;
 }
 
+@XmlAttribute
 public float getZAngularVelocity()
 { return zAngularVelocity; 
 }
@@ -625,6 +529,7 @@ public void setMarking(byte[] pMarking)
 { marking = pMarking;
 }
 
+@XmlElement(name="marking" )
 public byte[] getMarking()
 { return marking; }
 
@@ -632,6 +537,7 @@ public void setCapabilities(int pCapabilities)
 { capabilities = pCapabilities;
 }
 
+@XmlAttribute
 public int getCapabilities()
 { return capabilities; 
 }
@@ -640,6 +546,7 @@ public void setArticulationParameters(List pArticulationParameters)
 { articulationParameters = pArticulationParameters;
 }
 
+@XmlElementWrapper(name="articulationParametersList" )
 public List getArticulationParameters()
 { return articulationParameters; }
 
@@ -717,25 +624,25 @@ public void unmarshal(DataInputStream dis)
 
     try 
     {
-       site = dis.readShort();
-       application = dis.readShort();
-       entity = dis.readShort();
-       forceId = dis.readByte();
+       site = (int)dis.readUnsignedShort();
+       application = (int)dis.readUnsignedShort();
+       entity = (int)dis.readUnsignedShort();
+       forceId = (short)dis.readUnsignedByte();
        numberOfArticulationParameters = dis.readByte();
-       entityKind = dis.readByte();
-       domain = dis.readByte();
-       country = dis.readShort();
-       category = dis.readByte();
-       subcategory = dis.readByte();
-       specific = dis.readByte();
-       extra = dis.readByte();
-       altEntityKind = dis.readByte();
-       altDomain = dis.readByte();
-       altCountry = dis.readShort();
-       altCategory = dis.readByte();
-       altSubcategory = dis.readByte();
-       altSpecific = dis.readByte();
-       altExtra = dis.readByte();
+       entityKind = (short)dis.readUnsignedByte();
+       domain = (short)dis.readUnsignedByte();
+       country = (int)dis.readUnsignedShort();
+       category = (short)dis.readUnsignedByte();
+       subcategory = (short)dis.readUnsignedByte();
+       specific = (short)dis.readUnsignedByte();
+       extra = (short)dis.readUnsignedByte();
+       altEntityKind = (short)dis.readUnsignedByte();
+       altDomain = (short)dis.readUnsignedByte();
+       altCountry = (int)dis.readUnsignedShort();
+       altCategory = (short)dis.readUnsignedByte();
+       altSubcategory = (short)dis.readUnsignedByte();
+       altSpecific = (short)dis.readUnsignedByte();
+       altExtra = (short)dis.readUnsignedByte();
        xVelocity = dis.readFloat();
        yVelocity = dis.readFloat();
        zVelocity = dis.readFloat();
@@ -746,7 +653,7 @@ public void unmarshal(DataInputStream dis)
        theta = dis.readFloat();
        phi = dis.readFloat();
        entityAppearance = dis.readInt();
-       deadReckoningAlgorithm = dis.readByte();
+       deadReckoningAlgorithm = (short)dis.readUnsignedByte();
        for(int idx = 0; idx < otherParameters.length; idx++)
        {
                 otherParameters[idx] = dis.readByte();

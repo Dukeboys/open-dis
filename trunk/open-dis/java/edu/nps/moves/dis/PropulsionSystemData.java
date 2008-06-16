@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Data about a propulsion system
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -26,31 +26,6 @@ public class PropulsionSystemData extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public PropulsionSystemData(edu.nps.moves.jaxb.dis.PropulsionSystemData x)
- {
-     this.powerSetting = x.getPowerSetting();
-     this.engineRpm = x.getEngineRpm();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.PropulsionSystemData initializeJaxbObject(edu.nps.moves.jaxb.dis.PropulsionSystemData x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setPowerSetting( this.getPowerSetting() );
-     x.setEngineRpm( this.getEngineRpm() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -66,6 +41,7 @@ public void setPowerSetting(float pPowerSetting)
 { powerSetting = pPowerSetting;
 }
 
+@XmlAttribute
 public float getPowerSetting()
 { return powerSetting; 
 }
@@ -74,6 +50,7 @@ public void setEngineRpm(float pEngineRpm)
 { engineRpm = pEngineRpm;
 }
 
+@XmlAttribute
 public float getEngineRpm()
 { return engineRpm; 
 }

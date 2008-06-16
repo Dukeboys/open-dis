@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.25. Identifies the type of radio
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -40,41 +40,6 @@ public class RadioEntityType extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public RadioEntityType(edu.nps.moves.jaxb.dis.RadioEntityType x)
- {
-     this.entityKind = x.getEntityKind();
-     this.domain = x.getDomain();
-     this.country = x.getCountry();
-     this.category = x.getCategory();
-     this.subcategory = x.getSubcategory();
-     this.nomenclatureVersion = x.getNomenclatureVersion();
-     this.nomenclature = x.getNomenclature();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.RadioEntityType initializeJaxbObject(edu.nps.moves.jaxb.dis.RadioEntityType x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEntityKind( this.getEntityKind() );
-     x.setDomain( this.getDomain() );
-     x.setCountry( this.getCountry() );
-     x.setCategory( this.getCategory() );
-     x.setSubcategory( this.getSubcategory() );
-     x.setNomenclatureVersion( this.getNomenclatureVersion() );
-     x.setNomenclature( this.getNomenclature() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -95,6 +60,7 @@ public void setEntityKind(short pEntityKind)
 { entityKind = pEntityKind;
 }
 
+@XmlAttribute
 public short getEntityKind()
 { return entityKind; 
 }
@@ -103,6 +69,7 @@ public void setDomain(short pDomain)
 { domain = pDomain;
 }
 
+@XmlAttribute
 public short getDomain()
 { return domain; 
 }
@@ -111,6 +78,7 @@ public void setCountry(int pCountry)
 { country = pCountry;
 }
 
+@XmlAttribute
 public int getCountry()
 { return country; 
 }
@@ -119,6 +87,7 @@ public void setCategory(short pCategory)
 { category = pCategory;
 }
 
+@XmlAttribute
 public short getCategory()
 { return category; 
 }
@@ -127,6 +96,7 @@ public void setSubcategory(short pSubcategory)
 { subcategory = pSubcategory;
 }
 
+@XmlAttribute
 public short getSubcategory()
 { return subcategory; 
 }
@@ -135,6 +105,7 @@ public void setNomenclatureVersion(short pNomenclatureVersion)
 { nomenclatureVersion = pNomenclatureVersion;
 }
 
+@XmlAttribute
 public short getNomenclatureVersion()
 { return nomenclatureVersion; 
 }
@@ -143,6 +114,7 @@ public void setNomenclature(int pNomenclature)
 { nomenclature = pNomenclature;
 }
 
+@XmlAttribute
 public int getNomenclature()
 { return nomenclature; 
 }
@@ -169,13 +141,13 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       entityKind = dis.readByte();
-       domain = dis.readByte();
-       country = dis.readShort();
-       category = dis.readByte();
-       subcategory = dis.readByte();
-       nomenclatureVersion = dis.readByte();
-       nomenclature = dis.readShort();
+       entityKind = (short)dis.readUnsignedByte();
+       domain = (short)dis.readUnsignedByte();
+       country = (int)dis.readUnsignedShort();
+       category = (short)dis.readUnsignedByte();
+       subcategory = (short)dis.readUnsignedByte();
+       nomenclatureVersion = (short)dis.readUnsignedByte();
+       nomenclature = (int)dis.readUnsignedShort();
     } // end try 
    catch(Exception e)
     { 

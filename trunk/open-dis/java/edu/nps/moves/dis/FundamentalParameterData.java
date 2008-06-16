@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.22. Contains electromagnetic emmision regineratin parameters that are        variable throughout a scenario dependent on the actions of the participants in the simulation. Also provides basic parametric data that may be used to support low-fidelity simulations.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -50,47 +50,6 @@ public class FundamentalParameterData extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public FundamentalParameterData(edu.nps.moves.jaxb.dis.FundamentalParameterData x)
- {
-     this.frequency = x.getFrequency();
-     this.frequencyRange = x.getFrequencyRange();
-     this.effectiveRadiatedPower = x.getEffectiveRadiatedPower();
-     this.pulseRepetitionFrequency = x.getPulseRepetitionFrequency();
-     this.pulseWidth = x.getPulseWidth();
-     this.beamAzimuthCenter = x.getBeamAzimuthCenter();
-     this.beamAzimuthSweep = x.getBeamAzimuthSweep();
-     this.beamElevationCenter = x.getBeamElevationCenter();
-     this.beamElevationSweep = x.getBeamElevationSweep();
-     this.beamSweepSync = x.getBeamSweepSync();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.FundamentalParameterData initializeJaxbObject(edu.nps.moves.jaxb.dis.FundamentalParameterData x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setFrequency( this.getFrequency() );
-     x.setFrequencyRange( this.getFrequencyRange() );
-     x.setEffectiveRadiatedPower( this.getEffectiveRadiatedPower() );
-     x.setPulseRepetitionFrequency( this.getPulseRepetitionFrequency() );
-     x.setPulseWidth( this.getPulseWidth() );
-     x.setBeamAzimuthCenter( this.getBeamAzimuthCenter() );
-     x.setBeamAzimuthSweep( this.getBeamAzimuthSweep() );
-     x.setBeamElevationCenter( this.getBeamElevationCenter() );
-     x.setBeamElevationSweep( this.getBeamElevationSweep() );
-     x.setBeamSweepSync( this.getBeamSweepSync() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -114,6 +73,7 @@ public void setFrequency(float pFrequency)
 { frequency = pFrequency;
 }
 
+@XmlAttribute
 public float getFrequency()
 { return frequency; 
 }
@@ -122,6 +82,7 @@ public void setFrequencyRange(float pFrequencyRange)
 { frequencyRange = pFrequencyRange;
 }
 
+@XmlAttribute
 public float getFrequencyRange()
 { return frequencyRange; 
 }
@@ -130,6 +91,7 @@ public void setEffectiveRadiatedPower(float pEffectiveRadiatedPower)
 { effectiveRadiatedPower = pEffectiveRadiatedPower;
 }
 
+@XmlAttribute
 public float getEffectiveRadiatedPower()
 { return effectiveRadiatedPower; 
 }
@@ -138,6 +100,7 @@ public void setPulseRepetitionFrequency(float pPulseRepetitionFrequency)
 { pulseRepetitionFrequency = pPulseRepetitionFrequency;
 }
 
+@XmlAttribute
 public float getPulseRepetitionFrequency()
 { return pulseRepetitionFrequency; 
 }
@@ -146,6 +109,7 @@ public void setPulseWidth(float pPulseWidth)
 { pulseWidth = pPulseWidth;
 }
 
+@XmlAttribute
 public float getPulseWidth()
 { return pulseWidth; 
 }
@@ -154,6 +118,7 @@ public void setBeamAzimuthCenter(float pBeamAzimuthCenter)
 { beamAzimuthCenter = pBeamAzimuthCenter;
 }
 
+@XmlAttribute
 public float getBeamAzimuthCenter()
 { return beamAzimuthCenter; 
 }
@@ -162,6 +127,7 @@ public void setBeamAzimuthSweep(float pBeamAzimuthSweep)
 { beamAzimuthSweep = pBeamAzimuthSweep;
 }
 
+@XmlAttribute
 public float getBeamAzimuthSweep()
 { return beamAzimuthSweep; 
 }
@@ -170,6 +136,7 @@ public void setBeamElevationCenter(float pBeamElevationCenter)
 { beamElevationCenter = pBeamElevationCenter;
 }
 
+@XmlAttribute
 public float getBeamElevationCenter()
 { return beamElevationCenter; 
 }
@@ -178,6 +145,7 @@ public void setBeamElevationSweep(float pBeamElevationSweep)
 { beamElevationSweep = pBeamElevationSweep;
 }
 
+@XmlAttribute
 public float getBeamElevationSweep()
 { return beamElevationSweep; 
 }
@@ -186,6 +154,7 @@ public void setBeamSweepSync(float pBeamSweepSync)
 { beamSweepSync = pBeamSweepSync;
 }
 
+@XmlAttribute
 public float getBeamSweepSync()
 { return beamSweepSync; 
 }

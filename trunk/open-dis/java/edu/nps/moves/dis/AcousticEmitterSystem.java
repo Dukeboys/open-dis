@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.3.35: Information about a particular UA emitter shall be represented using an Acoustic Emitter System record. This record shall consist of three fields: Acoustic Name, Function, and Acoustic ID Number
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -29,33 +29,6 @@ public class AcousticEmitterSystem extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public AcousticEmitterSystem(edu.nps.moves.jaxb.dis.AcousticEmitterSystem x)
- {
-     this.acousticName = x.getAcousticName();
-     this.acousticFunction = x.getAcousticFunction();
-     this.acousticID = x.getAcousticID();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.AcousticEmitterSystem initializeJaxbObject(edu.nps.moves.jaxb.dis.AcousticEmitterSystem x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setAcousticName( this.getAcousticName() );
-     x.setAcousticFunction( this.getAcousticFunction() );
-     x.setAcousticID( this.getAcousticID() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -72,6 +45,7 @@ public void setAcousticName(int pAcousticName)
 { acousticName = pAcousticName;
 }
 
+@XmlAttribute
 public int getAcousticName()
 { return acousticName; 
 }
@@ -80,6 +54,7 @@ public void setAcousticFunction(short pAcousticFunction)
 { acousticFunction = pAcousticFunction;
 }
 
+@XmlAttribute
 public short getAcousticFunction()
 { return acousticFunction; 
 }
@@ -88,6 +63,7 @@ public void setAcousticID(short pAcousticID)
 { acousticID = pAcousticID;
 }
 
+@XmlAttribute
 public short getAcousticID()
 { return acousticID; 
 }
@@ -110,9 +86,9 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       acousticName = dis.readShort();
-       acousticFunction = dis.readByte();
-       acousticID = dis.readByte();
+       acousticName = (int)dis.readUnsignedShort();
+       acousticFunction = (short)dis.readUnsignedByte();
+       acousticID = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

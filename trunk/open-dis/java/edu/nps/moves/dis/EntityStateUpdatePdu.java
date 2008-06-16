@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.3.3.4. Nonstatic information about a particular entity may be communicated by issuing an Entity State Update PDU. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -41,83 +41,6 @@ public class EntityStateUpdatePdu extends EntityInformationFamilyPdu implements 
     setProtocolFamily( (short)1 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public EntityStateUpdatePdu(edu.nps.moves.jaxb.dis.EntityStateUpdatePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getEntityID() );
-     this.setEntityID(foo_0);
-
-     this.numberOfArticulationParameters = x.getNumberOfArticulationParameters();
-
-     edu.nps.moves.dis.Vector3Float foo_2;
-     if(x.getEntityLinearVelocity() == null)
-        foo_2 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_2 = new edu.nps.moves.dis.Vector3Float(x.getEntityLinearVelocity() );
-     this.setEntityLinearVelocity(foo_2);
-
-
-     edu.nps.moves.dis.Vector3Double foo_3;
-     if(x.getEntityLocation() == null)
-        foo_3 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_3 = new edu.nps.moves.dis.Vector3Double(x.getEntityLocation() );
-     this.setEntityLocation(foo_3);
-
-
-     edu.nps.moves.dis.Orientation foo_4;
-     if(x.getEntityOrientation() == null)
-        foo_4 = new edu.nps.moves.dis.Orientation();
-      else
-        foo_4 = new edu.nps.moves.dis.Orientation(x.getEntityOrientation() );
-     this.setEntityOrientation(foo_4);
-
-     this.entityAppearance = x.getEntityAppearance();
-     this.articulationParameters = new ArrayList();
-     for(int idx = 0; idx < x.getArticulationParameters().size(); idx++)
-     {
-        this.articulationParameters.add( new edu.nps.moves.dis.ArticulationParameter((edu.nps.moves.jaxb.dis.ArticulationParameter) x.getArticulationParameters().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.EntityStateUpdatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.EntityStateUpdatePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEntityID( this.getEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setNumberOfArticulationParameters( this.getNumberOfArticulationParameters() );
-     x.setEntityLinearVelocity( this.getEntityLinearVelocity().initializeJaxbObject(factory.createVector3Float()) );
-     x.setEntityLocation( this.getEntityLocation().initializeJaxbObject(factory.createVector3Double()) );
-     x.setEntityOrientation( this.getEntityOrientation().initializeJaxbObject(factory.createOrientation()) );
-     x.setEntityAppearance( this.getEntityAppearance() );
-
-     List articulationParameters_1 = x.getArticulationParameters();
-     for(int idx = 0; idx < articulationParameters.size(); idx++)
-     {
-         ArticulationParameter a = (edu.nps.moves.dis.ArticulationParameter)articulationParameters.get(idx);
-         articulationParameters_1.add(a.initializeJaxbObject(factory.createArticulationParameter()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -143,14 +66,17 @@ public void setEntityID(EntityID pEntityID)
 { entityID = pEntityID;
 }
 
+@XmlElement
 public EntityID getEntityID()
-{ return entityID; }
+{ return entityID; 
+}
 
+@XmlAttribute
 public byte getNumberOfArticulationParameters()
 { return (byte)articulationParameters.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -162,27 +88,34 @@ public void setEntityLinearVelocity(Vector3Float pEntityLinearVelocity)
 { entityLinearVelocity = pEntityLinearVelocity;
 }
 
+@XmlElement
 public Vector3Float getEntityLinearVelocity()
-{ return entityLinearVelocity; }
+{ return entityLinearVelocity; 
+}
 
 public void setEntityLocation(Vector3Double pEntityLocation)
 { entityLocation = pEntityLocation;
 }
 
+@XmlElement
 public Vector3Double getEntityLocation()
-{ return entityLocation; }
+{ return entityLocation; 
+}
 
 public void setEntityOrientation(Orientation pEntityOrientation)
 { entityOrientation = pEntityOrientation;
 }
 
+@XmlElement
 public Orientation getEntityOrientation()
-{ return entityOrientation; }
+{ return entityOrientation; 
+}
 
 public void setEntityAppearance(int pEntityAppearance)
 { entityAppearance = pEntityAppearance;
 }
 
+@XmlAttribute
 public int getEntityAppearance()
 { return entityAppearance; 
 }
@@ -191,6 +124,7 @@ public void setArticulationParameters(List pArticulationParameters)
 { articulationParameters = pArticulationParameters;
 }
 
+@XmlElementWrapper(name="articulationParametersList" )
 public List getArticulationParameters()
 { return articulationParameters; }
 

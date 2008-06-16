@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.8.2. Detailed information about a radio transmitter. This PDU requires        manually written code to complete. The encodingScheme field can be used in multiple        ways, which requires hand-written code to finish. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -36,41 +36,6 @@ public class SignalPdu extends RadioCommunicationsFamilyPdu implements Serializa
     setPduType( (short)26 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public SignalPdu(edu.nps.moves.jaxb.dis.SignalPdu x)
- {
-     super(x); // Call superclass constructor
-
-     this.encodingScheme = x.getEncodingScheme();
-     this.tdlType = x.getTdlType();
-     this.sampleRate = x.getSampleRate();
-     this.dataLength = x.getDataLength();
-     this.samples = x.getSamples();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.SignalPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.SignalPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEncodingScheme( this.getEncodingScheme() );
-     x.setTdlType( this.getTdlType() );
-     x.setSampleRate( this.getSampleRate() );
-     x.setDataLength( this.getDataLength() );
-     x.setSamples( this.getSamples() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -90,6 +55,7 @@ public void setEncodingScheme(int pEncodingScheme)
 { encodingScheme = pEncodingScheme;
 }
 
+@XmlAttribute
 public int getEncodingScheme()
 { return encodingScheme; 
 }
@@ -98,6 +64,7 @@ public void setTdlType(int pTdlType)
 { tdlType = pTdlType;
 }
 
+@XmlAttribute
 public int getTdlType()
 { return tdlType; 
 }
@@ -106,6 +73,7 @@ public void setSampleRate(int pSampleRate)
 { sampleRate = pSampleRate;
 }
 
+@XmlAttribute
 public int getSampleRate()
 { return sampleRate; 
 }
@@ -114,6 +82,7 @@ public void setDataLength(short pDataLength)
 { dataLength = pDataLength;
 }
 
+@XmlAttribute
 public short getDataLength()
 { return dataLength; 
 }
@@ -122,6 +91,7 @@ public void setSamples(short pSamples)
 { samples = pSamples;
 }
 
+@XmlAttribute
 public short getSamples()
 { return samples; 
 }
@@ -149,8 +119,8 @@ public void unmarshal(DataInputStream dis)
 
     try 
     {
-       encodingScheme = dis.readShort();
-       tdlType = dis.readShort();
+       encodingScheme = (int)dis.readUnsignedShort();
+       tdlType = (int)dis.readUnsignedShort();
        sampleRate = dis.readInt();
        dataLength = dis.readShort();
        samples = dis.readShort();

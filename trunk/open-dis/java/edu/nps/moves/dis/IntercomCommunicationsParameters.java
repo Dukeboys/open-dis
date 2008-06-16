@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.46.  Intercom communcations parameters
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -29,33 +29,6 @@ public class IntercomCommunicationsParameters extends Object implements Serializ
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public IntercomCommunicationsParameters(edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters x)
- {
-     this.recordType = x.getRecordType();
-     this.recordLength = x.getRecordLength();
-     this.recordSpecificField = x.getRecordSpecificField();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters initializeJaxbObject(edu.nps.moves.jaxb.dis.IntercomCommunicationsParameters x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setRecordType( this.getRecordType() );
-     x.setRecordLength( this.getRecordLength() );
-     x.setRecordSpecificField( this.getRecordSpecificField() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -72,6 +45,7 @@ public void setRecordType(int pRecordType)
 { recordType = pRecordType;
 }
 
+@XmlAttribute
 public int getRecordType()
 { return recordType; 
 }
@@ -80,6 +54,7 @@ public void setRecordLength(int pRecordLength)
 { recordLength = pRecordLength;
 }
 
+@XmlAttribute
 public int getRecordLength()
 { return recordLength; 
 }
@@ -88,6 +63,7 @@ public void setRecordSpecificField(long pRecordSpecificField)
 { recordSpecificField = pRecordSpecificField;
 }
 
+@XmlAttribute
 public long getRecordSpecificField()
 { return recordSpecificField; 
 }
@@ -110,8 +86,8 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       recordType = dis.readShort();
-       recordLength = dis.readShort();
+       recordType = (int)dis.readUnsignedShort();
+       recordLength = (int)dis.readUnsignedShort();
        recordSpecificField = dis.readInt();
     } // end try 
    catch(Exception e)

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.9.1 informationa bout aggregating entities anc communicating information about the aggregated entities.        requires manual intervention to fix the padding between entityID lists and silent aggregate sysem lists--this padding        is dependent on how many entityIDs there are, and needs to be on a 32 bit word boundary. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -79,172 +79,6 @@ public class AggregateStatePdu extends EntityManagementFamilyPdu implements Seri
     setPduType( (short)33 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public AggregateStatePdu(edu.nps.moves.jaxb.dis.AggregateStatePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getAggregateID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getAggregateID() );
-     this.setAggregateID(foo_0);
-
-     this.forceID = x.getForceID();
-     this.aggregateState = x.getAggregateState();
-
-     edu.nps.moves.dis.EntityType foo_3;
-     if(x.getAggregateType() == null)
-        foo_3 = new edu.nps.moves.dis.EntityType();
-      else
-        foo_3 = new edu.nps.moves.dis.EntityType(x.getAggregateType() );
-     this.setAggregateType(foo_3);
-
-     this.formation = x.getFormation();
-
-     edu.nps.moves.dis.AggregateMarking foo_5;
-     if(x.getAggregateMarking() == null)
-        foo_5 = new edu.nps.moves.dis.AggregateMarking();
-      else
-        foo_5 = new edu.nps.moves.dis.AggregateMarking(x.getAggregateMarking() );
-     this.setAggregateMarking(foo_5);
-
-
-     edu.nps.moves.dis.Vector3Float foo_6;
-     if(x.getDimensions() == null)
-        foo_6 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_6 = new edu.nps.moves.dis.Vector3Float(x.getDimensions() );
-     this.setDimensions(foo_6);
-
-
-     edu.nps.moves.dis.Orientation foo_7;
-     if(x.getOrientation() == null)
-        foo_7 = new edu.nps.moves.dis.Orientation();
-      else
-        foo_7 = new edu.nps.moves.dis.Orientation(x.getOrientation() );
-     this.setOrientation(foo_7);
-
-
-     edu.nps.moves.dis.Vector3Double foo_8;
-     if(x.getCenterOfMass() == null)
-        foo_8 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_8 = new edu.nps.moves.dis.Vector3Double(x.getCenterOfMass() );
-     this.setCenterOfMass(foo_8);
-
-
-     edu.nps.moves.dis.Vector3Float foo_9;
-     if(x.getVelocity() == null)
-        foo_9 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_9 = new edu.nps.moves.dis.Vector3Float(x.getVelocity() );
-     this.setVelocity(foo_9);
-
-     this.numberOfDisAggregates = x.getNumberOfDisAggregates();
-     this.numberOfDisEntities = x.getNumberOfDisEntities();
-     this.numberOfSilentAggregateTypes = x.getNumberOfSilentAggregateTypes();
-     this.numberOfSilentEntityTypes = x.getNumberOfSilentEntityTypes();
-     this.aggregateIDList = new ArrayList();
-     for(int idx = 0; idx < x.getAggregateIDList().size(); idx++)
-     {
-        this.aggregateIDList.add( new edu.nps.moves.dis.AggregateID((edu.nps.moves.jaxb.dis.AggregateID) x.getAggregateIDList().get(idx)));
-     }
-     this.entityIDList = new ArrayList();
-     for(int idx = 0; idx < x.getEntityIDList().size(); idx++)
-     {
-        this.entityIDList.add( new edu.nps.moves.dis.EntityID((edu.nps.moves.jaxb.dis.EntityID) x.getEntityIDList().get(idx)));
-     }
-     this.pad2 = x.getPad2();
-     this.silentAggregateSystemList = new ArrayList();
-     for(int idx = 0; idx < x.getSilentAggregateSystemList().size(); idx++)
-     {
-        this.silentAggregateSystemList.add( new edu.nps.moves.dis.EntityType((edu.nps.moves.jaxb.dis.EntityType) x.getSilentAggregateSystemList().get(idx)));
-     }
-     this.silentEntitySystemList = new ArrayList();
-     for(int idx = 0; idx < x.getSilentEntitySystemList().size(); idx++)
-     {
-        this.silentEntitySystemList.add( new edu.nps.moves.dis.EntityType((edu.nps.moves.jaxb.dis.EntityType) x.getSilentEntitySystemList().get(idx)));
-     }
-     this.numberOfVariableDatumRecords = x.getNumberOfVariableDatumRecords();
-     this.variableDatumList = new ArrayList();
-     for(int idx = 0; idx < x.getVariableDatumList().size(); idx++)
-     {
-        this.variableDatumList.add( new edu.nps.moves.dis.VariableDatum((edu.nps.moves.jaxb.dis.VariableDatum) x.getVariableDatumList().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.AggregateStatePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.AggregateStatePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setAggregateID( this.getAggregateID().initializeJaxbObject(factory.createEntityID()) );
-     x.setForceID( this.getForceID() );
-     x.setAggregateState( this.getAggregateState() );
-     x.setAggregateType( this.getAggregateType().initializeJaxbObject(factory.createEntityType()) );
-     x.setFormation( this.getFormation() );
-     x.setAggregateMarking( this.getAggregateMarking().initializeJaxbObject(factory.createAggregateMarking()) );
-     x.setDimensions( this.getDimensions().initializeJaxbObject(factory.createVector3Float()) );
-     x.setOrientation( this.getOrientation().initializeJaxbObject(factory.createOrientation()) );
-     x.setCenterOfMass( this.getCenterOfMass().initializeJaxbObject(factory.createVector3Double()) );
-     x.setVelocity( this.getVelocity().initializeJaxbObject(factory.createVector3Float()) );
-     x.setNumberOfDisAggregates( this.getNumberOfDisAggregates() );
-     x.setNumberOfDisEntities( this.getNumberOfDisEntities() );
-     x.setNumberOfSilentAggregateTypes( this.getNumberOfSilentAggregateTypes() );
-     x.setNumberOfSilentEntityTypes( this.getNumberOfSilentEntityTypes() );
-
-     List aggregateIDList_1 = x.getAggregateIDList();
-     for(int idx = 0; idx < aggregateIDList.size(); idx++)
-     {
-         AggregateID a = (edu.nps.moves.dis.AggregateID)aggregateIDList.get(idx);
-         aggregateIDList_1.add(a.initializeJaxbObject(factory.createAggregateID()));
-     }
-
-     List entityIDList_1 = x.getEntityIDList();
-     for(int idx = 0; idx < entityIDList.size(); idx++)
-     {
-         EntityID a = (edu.nps.moves.dis.EntityID)entityIDList.get(idx);
-         entityIDList_1.add(a.initializeJaxbObject(factory.createEntityID()));
-     }
-     x.setPad2( this.getPad2() );
-
-     List silentAggregateSystemList_1 = x.getSilentAggregateSystemList();
-     for(int idx = 0; idx < silentAggregateSystemList.size(); idx++)
-     {
-         EntityType a = (edu.nps.moves.dis.EntityType)silentAggregateSystemList.get(idx);
-         silentAggregateSystemList_1.add(a.initializeJaxbObject(factory.createEntityType()));
-     }
-
-     List silentEntitySystemList_1 = x.getSilentEntitySystemList();
-     for(int idx = 0; idx < silentEntitySystemList.size(); idx++)
-     {
-         EntityType a = (edu.nps.moves.dis.EntityType)silentEntitySystemList.get(idx);
-         silentEntitySystemList_1.add(a.initializeJaxbObject(factory.createEntityType()));
-     }
-     x.setNumberOfVariableDatumRecords( this.getNumberOfVariableDatumRecords() );
-
-     List variableDatumList_1 = x.getVariableDatumList();
-     for(int idx = 0; idx < variableDatumList.size(); idx++)
-     {
-         VariableDatum a = (edu.nps.moves.dis.VariableDatum)variableDatumList.get(idx);
-         variableDatumList_1.add(a.initializeJaxbObject(factory.createVariableDatum()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -300,13 +134,16 @@ public void setAggregateID(EntityID pAggregateID)
 { aggregateID = pAggregateID;
 }
 
+@XmlElement
 public EntityID getAggregateID()
-{ return aggregateID; }
+{ return aggregateID; 
+}
 
 public void setForceID(short pForceID)
 { forceID = pForceID;
 }
 
+@XmlAttribute
 public short getForceID()
 { return forceID; 
 }
@@ -315,6 +152,7 @@ public void setAggregateState(short pAggregateState)
 { aggregateState = pAggregateState;
 }
 
+@XmlAttribute
 public short getAggregateState()
 { return aggregateState; 
 }
@@ -323,13 +161,16 @@ public void setAggregateType(EntityType pAggregateType)
 { aggregateType = pAggregateType;
 }
 
+@XmlElement
 public EntityType getAggregateType()
-{ return aggregateType; }
+{ return aggregateType; 
+}
 
 public void setFormation(long pFormation)
 { formation = pFormation;
 }
 
+@XmlAttribute
 public long getFormation()
 { return formation; 
 }
@@ -338,42 +179,53 @@ public void setAggregateMarking(AggregateMarking pAggregateMarking)
 { aggregateMarking = pAggregateMarking;
 }
 
+@XmlElement
 public AggregateMarking getAggregateMarking()
-{ return aggregateMarking; }
+{ return aggregateMarking; 
+}
 
 public void setDimensions(Vector3Float pDimensions)
 { dimensions = pDimensions;
 }
 
+@XmlElement
 public Vector3Float getDimensions()
-{ return dimensions; }
+{ return dimensions; 
+}
 
 public void setOrientation(Orientation pOrientation)
 { orientation = pOrientation;
 }
 
+@XmlElement
 public Orientation getOrientation()
-{ return orientation; }
+{ return orientation; 
+}
 
 public void setCenterOfMass(Vector3Double pCenterOfMass)
 { centerOfMass = pCenterOfMass;
 }
 
+@XmlElement
 public Vector3Double getCenterOfMass()
-{ return centerOfMass; }
+{ return centerOfMass; 
+}
 
 public void setVelocity(Vector3Float pVelocity)
 { velocity = pVelocity;
 }
 
+@XmlElement
 public Vector3Float getVelocity()
-{ return velocity; }
+{ return velocity; 
+}
 
+@XmlAttribute
 public int getNumberOfDisAggregates()
 { return (int)aggregateIDList.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfDisAggregates method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -381,11 +233,12 @@ public void setNumberOfDisAggregates(int pNumberOfDisAggregates)
 { numberOfDisAggregates = pNumberOfDisAggregates;
 }
 
+@XmlAttribute
 public int getNumberOfDisEntities()
 { return (int)entityIDList.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfDisEntities method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -393,11 +246,12 @@ public void setNumberOfDisEntities(int pNumberOfDisEntities)
 { numberOfDisEntities = pNumberOfDisEntities;
 }
 
+@XmlAttribute
 public int getNumberOfSilentAggregateTypes()
 { return (int)silentAggregateSystemList.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfSilentAggregateTypes method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -405,11 +259,12 @@ public void setNumberOfSilentAggregateTypes(int pNumberOfSilentAggregateTypes)
 { numberOfSilentAggregateTypes = pNumberOfSilentAggregateTypes;
 }
 
+@XmlAttribute
 public int getNumberOfSilentEntityTypes()
 { return (int)silentEntitySystemList.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfSilentEntityTypes method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -421,6 +276,7 @@ public void setAggregateIDList(List pAggregateIDList)
 { aggregateIDList = pAggregateIDList;
 }
 
+@XmlElementWrapper(name="aggregateIDListList" )
 public List getAggregateIDList()
 { return aggregateIDList; }
 
@@ -428,6 +284,7 @@ public void setEntityIDList(List pEntityIDList)
 { entityIDList = pEntityIDList;
 }
 
+@XmlElementWrapper(name="entityIDListList" )
 public List getEntityIDList()
 { return entityIDList; }
 
@@ -435,6 +292,7 @@ public void setPad2(short pPad2)
 { pad2 = pPad2;
 }
 
+@XmlAttribute
 public short getPad2()
 { return pad2; 
 }
@@ -443,6 +301,7 @@ public void setSilentAggregateSystemList(List pSilentAggregateSystemList)
 { silentAggregateSystemList = pSilentAggregateSystemList;
 }
 
+@XmlElementWrapper(name="silentAggregateSystemListList" )
 public List getSilentAggregateSystemList()
 { return silentAggregateSystemList; }
 
@@ -450,14 +309,16 @@ public void setSilentEntitySystemList(List pSilentEntitySystemList)
 { silentEntitySystemList = pSilentEntitySystemList;
 }
 
+@XmlElementWrapper(name="silentEntitySystemListList" )
 public List getSilentEntitySystemList()
 { return silentEntitySystemList; }
 
+@XmlAttribute
 public long getNumberOfVariableDatumRecords()
 { return (long)variableDatumList.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -469,6 +330,7 @@ public void setVariableDatumList(List pVariableDatumList)
 { variableDatumList = pVariableDatumList;
 }
 
+@XmlElementWrapper(name="variableDatumListList" )
 public List getVariableDatumList()
 { return variableDatumList; }
 
@@ -542,8 +404,8 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        aggregateID.unmarshal(dis);
-       forceID = dis.readByte();
-       aggregateState = dis.readByte();
+       forceID = (short)dis.readUnsignedByte();
+       aggregateState = (short)dis.readUnsignedByte();
        aggregateType.unmarshal(dis);
        formation = dis.readInt();
        aggregateMarking.unmarshal(dis);
@@ -551,10 +413,10 @@ public void unmarshal(DataInputStream dis)
        orientation.unmarshal(dis);
        centerOfMass.unmarshal(dis);
        velocity.unmarshal(dis);
-       numberOfDisAggregates = dis.readShort();
-       numberOfDisEntities = dis.readShort();
-       numberOfSilentAggregateTypes = dis.readShort();
-       numberOfSilentEntityTypes = dis.readShort();
+       numberOfDisAggregates = (int)dis.readUnsignedShort();
+       numberOfDisEntities = (int)dis.readUnsignedShort();
+       numberOfSilentAggregateTypes = (int)dis.readUnsignedShort();
+       numberOfSilentEntityTypes = (int)dis.readUnsignedShort();
         for(int idx = 0; idx < numberOfDisAggregates; idx++)
         {
            AggregateID anX = new AggregateID();
@@ -569,7 +431,7 @@ public void unmarshal(DataInputStream dis)
             entityIDList.add(anX);
         };
 
-       pad2 = dis.readByte();
+       pad2 = (short)dis.readUnsignedByte();
         for(int idx = 0; idx < numberOfSilentAggregateTypes; idx++)
         {
            EntityType anX = new EntityType();

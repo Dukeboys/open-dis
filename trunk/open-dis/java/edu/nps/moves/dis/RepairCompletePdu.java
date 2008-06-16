@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.5.5. Repair is complete. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -33,53 +33,6 @@ public class RepairCompletePdu extends LogisticsFamilyPdu implements Serializabl
     setPduType( (short)9 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public RepairCompletePdu(edu.nps.moves.jaxb.dis.RepairCompletePdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getReceivingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getReceivingEntityID() );
-     this.setReceivingEntityID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getRepairingEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getRepairingEntityID() );
-     this.setRepairingEntityID(foo_1);
-
-     this.repair = x.getRepair();
-     this.padding = x.getPadding();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.RepairCompletePdu initializeJaxbObject(edu.nps.moves.jaxb.dis.RepairCompletePdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setReceivingEntityID( this.getReceivingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRepairingEntityID( this.getRepairingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRepair( this.getRepair() );
-     x.setPadding( this.getPadding() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -98,20 +51,25 @@ public void setReceivingEntityID(EntityID pReceivingEntityID)
 { receivingEntityID = pReceivingEntityID;
 }
 
+@XmlElement
 public EntityID getReceivingEntityID()
-{ return receivingEntityID; }
+{ return receivingEntityID; 
+}
 
 public void setRepairingEntityID(EntityID pRepairingEntityID)
 { repairingEntityID = pRepairingEntityID;
 }
 
+@XmlElement
 public EntityID getRepairingEntityID()
-{ return repairingEntityID; }
+{ return repairingEntityID; 
+}
 
 public void setRepair(int pRepair)
 { repair = pRepair;
 }
 
+@XmlAttribute
 public int getRepair()
 { return repair; 
 }
@@ -120,6 +78,7 @@ public void setPadding(short pPadding)
 { padding = pPadding;
 }
 
+@XmlAttribute
 public short getPadding()
 { return padding; 
 }
@@ -148,7 +107,7 @@ public void unmarshal(DataInputStream dis)
     {
        receivingEntityID.unmarshal(dis);
        repairingEntityID.unmarshal(dis);
-       repair = dis.readShort();
+       repair = (int)dis.readUnsignedShort();
        padding = dis.readShort();
     } // end try 
    catch(Exception e)

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Used in UA PDU
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -26,31 +26,6 @@ public class ApaData extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public ApaData(edu.nps.moves.jaxb.dis.ApaData x)
- {
-     this.parameterIndex = x.getParameterIndex();
-     this.parameterValue = x.getParameterValue();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.ApaData initializeJaxbObject(edu.nps.moves.jaxb.dis.ApaData x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setParameterIndex( this.getParameterIndex() );
-     x.setParameterValue( this.getParameterValue() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -66,6 +41,7 @@ public void setParameterIndex(int pParameterIndex)
 { parameterIndex = pParameterIndex;
 }
 
+@XmlAttribute
 public int getParameterIndex()
 { return parameterIndex; 
 }
@@ -74,6 +50,7 @@ public void setParameterValue(short pParameterValue)
 { parameterValue = pParameterValue;
 }
 
+@XmlAttribute
 public short getParameterValue()
 { return parameterValue; 
 }
@@ -95,7 +72,7 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       parameterIndex = dis.readShort();
+       parameterIndex = (int)dis.readUnsignedShort();
        parameterValue = dis.readShort();
     } // end try 
    catch(Exception e)

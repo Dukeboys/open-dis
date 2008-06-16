@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.7. Specifies the type of muntion fired, the type of warhead, the         type of fuse, the number of rounds fired, and the rate at which the roudns are fired in         rounds per minute.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -35,44 +35,6 @@ public class BurstDescriptor extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public BurstDescriptor(edu.nps.moves.jaxb.dis.BurstDescriptor x)
- {
-
-     edu.nps.moves.dis.EntityType foo_0;
-     if(x.getMunition() == null)
-        foo_0 = new edu.nps.moves.dis.EntityType();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityType(x.getMunition() );
-     this.setMunition(foo_0);
-
-     this.warhead = x.getWarhead();
-     this.fuse = x.getFuse();
-     this.quantity = x.getQuantity();
-     this.rate = x.getRate();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.BurstDescriptor initializeJaxbObject(edu.nps.moves.jaxb.dis.BurstDescriptor x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setMunition( this.getMunition().initializeJaxbObject(factory.createEntityType()) );
-     x.setWarhead( this.getWarhead() );
-     x.setFuse( this.getFuse() );
-     x.setQuantity( this.getQuantity() );
-     x.setRate( this.getRate() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -91,13 +53,16 @@ public void setMunition(EntityType pMunition)
 { munition = pMunition;
 }
 
+@XmlElement
 public EntityType getMunition()
-{ return munition; }
+{ return munition; 
+}
 
 public void setWarhead(int pWarhead)
 { warhead = pWarhead;
 }
 
+@XmlAttribute
 public int getWarhead()
 { return warhead; 
 }
@@ -106,6 +71,7 @@ public void setFuse(int pFuse)
 { fuse = pFuse;
 }
 
+@XmlAttribute
 public int getFuse()
 { return fuse; 
 }
@@ -114,6 +80,7 @@ public void setQuantity(int pQuantity)
 { quantity = pQuantity;
 }
 
+@XmlAttribute
 public int getQuantity()
 { return quantity; 
 }
@@ -122,6 +89,7 @@ public void setRate(int pRate)
 { rate = pRate;
 }
 
+@XmlAttribute
 public int getRate()
 { return rate; 
 }
@@ -147,10 +115,10 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        munition.unmarshal(dis);
-       warhead = dis.readShort();
-       fuse = dis.readShort();
-       quantity = dis.readShort();
-       rate = dis.readShort();
+       warhead = (int)dis.readUnsignedShort();
+       fuse = (int)dis.readUnsignedShort();
+       quantity = (int)dis.readUnsignedShort();
+       rate = (int)dis.readUnsignedShort();
     } // end try 
    catch(Exception e)
     { 

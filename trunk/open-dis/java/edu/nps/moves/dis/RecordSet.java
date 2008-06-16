@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Record sets, used in transfer control request PDU
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -38,39 +38,6 @@ public class RecordSet extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public RecordSet(edu.nps.moves.jaxb.dis.RecordSet x)
- {
-     this.recordID = x.getRecordID();
-     this.recordSetSerialNumber = x.getRecordSetSerialNumber();
-     this.recordLength = x.getRecordLength();
-     this.recordCount = x.getRecordCount();
-     this.recordValues = x.getRecordValues();
-     this.pad4 = x.getPad4();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.RecordSet initializeJaxbObject(edu.nps.moves.jaxb.dis.RecordSet x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setRecordID( this.getRecordID() );
-     x.setRecordSetSerialNumber( this.getRecordSetSerialNumber() );
-     x.setRecordLength( this.getRecordLength() );
-     x.setRecordCount( this.getRecordCount() );
-     x.setRecordValues( this.getRecordValues() );
-     x.setPad4( this.getPad4() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -90,6 +57,7 @@ public void setRecordID(long pRecordID)
 { recordID = pRecordID;
 }
 
+@XmlAttribute
 public long getRecordID()
 { return recordID; 
 }
@@ -98,6 +66,7 @@ public void setRecordSetSerialNumber(long pRecordSetSerialNumber)
 { recordSetSerialNumber = pRecordSetSerialNumber;
 }
 
+@XmlAttribute
 public long getRecordSetSerialNumber()
 { return recordSetSerialNumber; 
 }
@@ -106,6 +75,7 @@ public void setRecordLength(int pRecordLength)
 { recordLength = pRecordLength;
 }
 
+@XmlAttribute
 public int getRecordLength()
 { return recordLength; 
 }
@@ -114,6 +84,7 @@ public void setRecordCount(int pRecordCount)
 { recordCount = pRecordCount;
 }
 
+@XmlAttribute
 public int getRecordCount()
 { return recordCount; 
 }
@@ -122,6 +93,7 @@ public void setRecordValues(int pRecordValues)
 { recordValues = pRecordValues;
 }
 
+@XmlAttribute
 public int getRecordValues()
 { return recordValues; 
 }
@@ -130,6 +102,7 @@ public void setPad4(short pPad4)
 { pad4 = pPad4;
 }
 
+@XmlAttribute
 public short getPad4()
 { return pad4; 
 }
@@ -157,10 +130,10 @@ public void unmarshal(DataInputStream dis)
     {
        recordID = dis.readInt();
        recordSetSerialNumber = dis.readInt();
-       recordLength = dis.readShort();
-       recordCount = dis.readShort();
-       recordValues = dis.readShort();
-       pad4 = dis.readByte();
+       recordLength = (int)dis.readUnsignedShort();
+       recordCount = (int)dis.readUnsignedShort();
+       recordValues = (int)dis.readUnsignedShort();
+       pad4 = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.9.3 Information initiating the dyanic allocation and control of simulation entities         between two simulation applications. Requires manual cleanup. The padding between record sets is variable. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -44,78 +44,6 @@ public class TransferControlRequestPdu extends EntityManagementFamilyPdu impleme
     setPduType( (short)35 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public TransferControlRequestPdu(edu.nps.moves.jaxb.dis.TransferControlRequestPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getOrginatingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getOrginatingEntityID() );
-     this.setOrginatingEntityID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getRecevingEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getRecevingEntityID() );
-     this.setRecevingEntityID(foo_1);
-
-     this.requestID = x.getRequestID();
-     this.requiredReliabilityService = x.getRequiredReliabilityService();
-     this.tranferType = x.getTranferType();
-
-     edu.nps.moves.dis.EntityID foo_5;
-     if(x.getTransferEntityID() == null)
-        foo_5 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_5 = new edu.nps.moves.dis.EntityID(x.getTransferEntityID() );
-     this.setTransferEntityID(foo_5);
-
-     this.numberOfRecordSets = x.getNumberOfRecordSets();
-     this.recordSets = new ArrayList();
-     for(int idx = 0; idx < x.getRecordSets().size(); idx++)
-     {
-        this.recordSets.add( new edu.nps.moves.dis.RecordSet((edu.nps.moves.jaxb.dis.RecordSet) x.getRecordSets().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.TransferControlRequestPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.TransferControlRequestPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setOrginatingEntityID( this.getOrginatingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRecevingEntityID( this.getRecevingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setRequestID( this.getRequestID() );
-     x.setRequiredReliabilityService( this.getRequiredReliabilityService() );
-     x.setTranferType( this.getTranferType() );
-     x.setTransferEntityID( this.getTransferEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setNumberOfRecordSets( this.getNumberOfRecordSets() );
-
-     List recordSets_1 = x.getRecordSets();
-     for(int idx = 0; idx < recordSets.size(); idx++)
-     {
-         RecordSet a = (edu.nps.moves.dis.RecordSet)recordSets.get(idx);
-         recordSets_1.add(a.initializeJaxbObject(factory.createRecordSet()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -142,20 +70,25 @@ public void setOrginatingEntityID(EntityID pOrginatingEntityID)
 { orginatingEntityID = pOrginatingEntityID;
 }
 
+@XmlElement
 public EntityID getOrginatingEntityID()
-{ return orginatingEntityID; }
+{ return orginatingEntityID; 
+}
 
 public void setRecevingEntityID(EntityID pRecevingEntityID)
 { recevingEntityID = pRecevingEntityID;
 }
 
+@XmlElement
 public EntityID getRecevingEntityID()
-{ return recevingEntityID; }
+{ return recevingEntityID; 
+}
 
 public void setRequestID(long pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public long getRequestID()
 { return requestID; 
 }
@@ -164,6 +97,7 @@ public void setRequiredReliabilityService(short pRequiredReliabilityService)
 { requiredReliabilityService = pRequiredReliabilityService;
 }
 
+@XmlAttribute
 public short getRequiredReliabilityService()
 { return requiredReliabilityService; 
 }
@@ -172,6 +106,7 @@ public void setTranferType(short pTranferType)
 { tranferType = pTranferType;
 }
 
+@XmlAttribute
 public short getTranferType()
 { return tranferType; 
 }
@@ -180,14 +115,17 @@ public void setTransferEntityID(EntityID pTransferEntityID)
 { transferEntityID = pTransferEntityID;
 }
 
+@XmlElement
 public EntityID getTransferEntityID()
-{ return transferEntityID; }
+{ return transferEntityID; 
+}
 
+@XmlAttribute
 public short getNumberOfRecordSets()
 { return (short)recordSets.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfRecordSets method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -199,6 +137,7 @@ public void setRecordSets(List pRecordSets)
 { recordSets = pRecordSets;
 }
 
+@XmlElementWrapper(name="recordSetsList" )
 public List getRecordSets()
 { return recordSets; }
 
@@ -237,10 +176,10 @@ public void unmarshal(DataInputStream dis)
        orginatingEntityID.unmarshal(dis);
        recevingEntityID.unmarshal(dis);
        requestID = dis.readInt();
-       requiredReliabilityService = dis.readByte();
-       tranferType = dis.readByte();
+       requiredReliabilityService = (short)dis.readUnsignedByte();
+       tranferType = (short)dis.readUnsignedByte();
        transferEntityID.unmarshal(dis);
-       numberOfRecordSets = dis.readByte();
+       numberOfRecordSets = (short)dis.readUnsignedByte();
         for(int idx = 0; idx < numberOfRecordSets; idx++)
         {
            RecordSet anX = new RecordSet();

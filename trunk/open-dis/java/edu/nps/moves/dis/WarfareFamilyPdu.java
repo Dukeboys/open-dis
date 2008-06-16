@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.4. abstract superclass for fire and detonation pdus that have shared information. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -27,49 +27,6 @@ public class WarfareFamilyPdu extends Pdu implements Serializable
     setProtocolFamily( (short)2 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public WarfareFamilyPdu(edu.nps.moves.jaxb.dis.WarfareFamilyPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getFiringEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getFiringEntityID() );
-     this.setFiringEntityID(foo_0);
-
-
-     edu.nps.moves.dis.EntityID foo_1;
-     if(x.getTargetEntityID() == null)
-        foo_1 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_1 = new edu.nps.moves.dis.EntityID(x.getTargetEntityID() );
-     this.setTargetEntityID(foo_1);
-
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.WarfareFamilyPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.WarfareFamilyPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setFiringEntityID( this.getFiringEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setTargetEntityID( this.getTargetEntityID().initializeJaxbObject(factory.createEntityID()) );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -86,15 +43,19 @@ public void setFiringEntityID(EntityID pFiringEntityID)
 { firingEntityID = pFiringEntityID;
 }
 
+@XmlElement
 public EntityID getFiringEntityID()
-{ return firingEntityID; }
+{ return firingEntityID; 
+}
 
 public void setTargetEntityID(EntityID pTargetEntityID)
 { targetEntityID = pTargetEntityID;
 }
 
+@XmlElement
 public EntityID getTargetEntityID()
-{ return targetEntityID; }
+{ return targetEntityID; 
+}
 
 
 public void marshal(DataOutputStream dos)

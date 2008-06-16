@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.6.10. Information issued in response to a data query pdu or a set data pdu is communicated using a data pdu. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -37,63 +37,6 @@ public class DataPdu extends SimulationManagementFamilyPdu implements Serializab
     setPduType( (short)20 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public DataPdu(edu.nps.moves.jaxb.dis.DataPdu x)
- {
-     super(x); // Call superclass constructor
-
-     this.requestID = x.getRequestID();
-     this.padding1 = x.getPadding1();
-     this.numberOfFixedDatumRecords = x.getNumberOfFixedDatumRecords();
-     this.numberOfVariableDatumRecords = x.getNumberOfVariableDatumRecords();
-     this.fixedDatums = new ArrayList();
-     for(int idx = 0; idx < x.getFixedDatums().size(); idx++)
-     {
-        this.fixedDatums.add( new edu.nps.moves.dis.FixedDatum((edu.nps.moves.jaxb.dis.FixedDatum) x.getFixedDatums().get(idx)));
-     }
-     this.variableDatums = new ArrayList();
-     for(int idx = 0; idx < x.getVariableDatums().size(); idx++)
-     {
-        this.variableDatums.add( new edu.nps.moves.dis.VariableDatum((edu.nps.moves.jaxb.dis.VariableDatum) x.getVariableDatums().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.DataPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.DataPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setRequestID( this.getRequestID() );
-     x.setPadding1( this.getPadding1() );
-     x.setNumberOfFixedDatumRecords( this.getNumberOfFixedDatumRecords() );
-     x.setNumberOfVariableDatumRecords( this.getNumberOfVariableDatumRecords() );
-
-     List fixedDatums_1 = x.getFixedDatums();
-     for(int idx = 0; idx < fixedDatums.size(); idx++)
-     {
-         FixedDatum a = (edu.nps.moves.dis.FixedDatum)fixedDatums.get(idx);
-         fixedDatums_1.add(a.initializeJaxbObject(factory.createFixedDatum()));
-     }
-
-     List variableDatums_1 = x.getVariableDatums();
-     for(int idx = 0; idx < variableDatums.size(); idx++)
-     {
-         VariableDatum a = (edu.nps.moves.dis.VariableDatum)variableDatums.get(idx);
-         variableDatums_1.add(a.initializeJaxbObject(factory.createVariableDatum()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -122,6 +65,7 @@ public void setRequestID(long pRequestID)
 { requestID = pRequestID;
 }
 
+@XmlAttribute
 public long getRequestID()
 { return requestID; 
 }
@@ -130,15 +74,17 @@ public void setPadding1(long pPadding1)
 { padding1 = pPadding1;
 }
 
+@XmlAttribute
 public long getPadding1()
 { return padding1; 
 }
 
+@XmlAttribute
 public long getNumberOfFixedDatumRecords()
 { return (long)fixedDatums.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfFixedDatumRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -146,11 +92,12 @@ public void setNumberOfFixedDatumRecords(long pNumberOfFixedDatumRecords)
 { numberOfFixedDatumRecords = pNumberOfFixedDatumRecords;
 }
 
+@XmlAttribute
 public long getNumberOfVariableDatumRecords()
 { return (long)variableDatums.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -162,6 +109,7 @@ public void setFixedDatums(List pFixedDatums)
 { fixedDatums = pFixedDatums;
 }
 
+@XmlElementWrapper(name="fixedDatumsList" )
 public List getFixedDatums()
 { return fixedDatums; }
 
@@ -169,6 +117,7 @@ public void setVariableDatums(List pVariableDatums)
 { variableDatums = pVariableDatums;
 }
 
+@XmlElementWrapper(name="variableDatumsList" )
 public List getVariableDatums()
 { return variableDatums; }
 

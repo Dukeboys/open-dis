@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Description of one electronic emission beam
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -49,64 +49,6 @@ public class ElectronicEmissionBeamData extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public ElectronicEmissionBeamData(edu.nps.moves.jaxb.dis.ElectronicEmissionBeamData x)
- {
-     this.beamDataLength = x.getBeamDataLength();
-     this.beamIDNumber = x.getBeamIDNumber();
-     this.beamParameterIndex = x.getBeamParameterIndex();
-
-     edu.nps.moves.dis.FundamentalParameterData foo_3;
-     if(x.getFundamentalParameterData() == null)
-        foo_3 = new edu.nps.moves.dis.FundamentalParameterData();
-      else
-        foo_3 = new edu.nps.moves.dis.FundamentalParameterData(x.getFundamentalParameterData() );
-     this.setFundamentalParameterData(foo_3);
-
-     this.beamFunction = x.getBeamFunction();
-     this.numberOfTrackJamTargets = x.getNumberOfTrackJamTargets();
-     this.highDensityTrackJam = x.getHighDensityTrackJam();
-     this.pad4 = x.getPad4();
-     this.jammingModeSequence = x.getJammingModeSequence();
-     this.trackJamTargets = new ArrayList();
-     for(int idx = 0; idx < x.getTrackJamTargets().size(); idx++)
-     {
-        this.trackJamTargets.add( new edu.nps.moves.dis.TrackJamTarget((edu.nps.moves.jaxb.dis.TrackJamTarget) x.getTrackJamTargets().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.ElectronicEmissionBeamData initializeJaxbObject(edu.nps.moves.jaxb.dis.ElectronicEmissionBeamData x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setBeamDataLength( this.getBeamDataLength() );
-     x.setBeamIDNumber( this.getBeamIDNumber() );
-     x.setBeamParameterIndex( this.getBeamParameterIndex() );
-     x.setFundamentalParameterData( this.getFundamentalParameterData().initializeJaxbObject(factory.createFundamentalParameterData()) );
-     x.setBeamFunction( this.getBeamFunction() );
-     x.setNumberOfTrackJamTargets( this.getNumberOfTrackJamTargets() );
-     x.setHighDensityTrackJam( this.getHighDensityTrackJam() );
-     x.setPad4( this.getPad4() );
-     x.setJammingModeSequence( this.getJammingModeSequence() );
-
-     List trackJamTargets_1 = x.getTrackJamTargets();
-     for(int idx = 0; idx < trackJamTargets.size(); idx++)
-     {
-         TrackJamTarget a = (edu.nps.moves.dis.TrackJamTarget)trackJamTargets.get(idx);
-         trackJamTargets_1.add(a.initializeJaxbObject(factory.createTrackJamTarget()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -134,6 +76,7 @@ public void setBeamDataLength(short pBeamDataLength)
 { beamDataLength = pBeamDataLength;
 }
 
+@XmlAttribute
 public short getBeamDataLength()
 { return beamDataLength; 
 }
@@ -142,6 +85,7 @@ public void setBeamIDNumber(short pBeamIDNumber)
 { beamIDNumber = pBeamIDNumber;
 }
 
+@XmlAttribute
 public short getBeamIDNumber()
 { return beamIDNumber; 
 }
@@ -150,6 +94,7 @@ public void setBeamParameterIndex(int pBeamParameterIndex)
 { beamParameterIndex = pBeamParameterIndex;
 }
 
+@XmlAttribute
 public int getBeamParameterIndex()
 { return beamParameterIndex; 
 }
@@ -158,22 +103,26 @@ public void setFundamentalParameterData(FundamentalParameterData pFundamentalPar
 { fundamentalParameterData = pFundamentalParameterData;
 }
 
+@XmlElement
 public FundamentalParameterData getFundamentalParameterData()
-{ return fundamentalParameterData; }
+{ return fundamentalParameterData; 
+}
 
 public void setBeamFunction(short pBeamFunction)
 { beamFunction = pBeamFunction;
 }
 
+@XmlAttribute
 public short getBeamFunction()
 { return beamFunction; 
 }
 
+@XmlAttribute
 public short getNumberOfTrackJamTargets()
 { return (short)trackJamTargets.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfTrackJamTargets method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -185,6 +134,7 @@ public void setHighDensityTrackJam(short pHighDensityTrackJam)
 { highDensityTrackJam = pHighDensityTrackJam;
 }
 
+@XmlAttribute
 public short getHighDensityTrackJam()
 { return highDensityTrackJam; 
 }
@@ -193,6 +143,7 @@ public void setPad4(short pPad4)
 { pad4 = pPad4;
 }
 
+@XmlAttribute
 public short getPad4()
 { return pad4; 
 }
@@ -201,6 +152,7 @@ public void setJammingModeSequence(long pJammingModeSequence)
 { jammingModeSequence = pJammingModeSequence;
 }
 
+@XmlAttribute
 public long getJammingModeSequence()
 { return jammingModeSequence; 
 }
@@ -209,6 +161,7 @@ public void setTrackJamTargets(List pTrackJamTargets)
 { trackJamTargets = pTrackJamTargets;
 }
 
+@XmlElementWrapper(name="trackJamTargetsList" )
 public List getTrackJamTargets()
 { return trackJamTargets; }
 
@@ -243,14 +196,14 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       beamDataLength = dis.readByte();
-       beamIDNumber = dis.readByte();
-       beamParameterIndex = dis.readShort();
+       beamDataLength = (short)dis.readUnsignedByte();
+       beamIDNumber = (short)dis.readUnsignedByte();
+       beamParameterIndex = (int)dis.readUnsignedShort();
        fundamentalParameterData.unmarshal(dis);
-       beamFunction = dis.readByte();
-       numberOfTrackJamTargets = dis.readByte();
-       highDensityTrackJam = dis.readByte();
-       pad4 = dis.readByte();
+       beamFunction = (short)dis.readUnsignedByte();
+       numberOfTrackJamTargets = (short)dis.readUnsignedByte();
+       highDensityTrackJam = (short)dis.readUnsignedByte();
+       pad4 = (short)dis.readUnsignedByte();
        jammingModeSequence = dis.readInt();
         for(int idx = 0; idx < numberOfTrackJamTargets; idx++)
         {

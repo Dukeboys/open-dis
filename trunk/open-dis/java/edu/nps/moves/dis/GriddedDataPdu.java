@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.11.2: Information about globat, spatially varying enviornmental effects. This requires manual cleanup; the grid axis        records are variable sized. UNFINISHED
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -65,92 +65,6 @@ public class GriddedDataPdu extends SyntheticEnvironmentFamilyPdu implements Ser
     setPduType( (short)42 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public GriddedDataPdu(edu.nps.moves.jaxb.dis.GriddedDataPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getEnvironmentalSimulationApplicationID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getEnvironmentalSimulationApplicationID() );
-     this.setEnvironmentalSimulationApplicationID(foo_0);
-
-     this.fieldNumber = x.getFieldNumber();
-     this.pduNumber = x.getPduNumber();
-     this.pduTotal = x.getPduTotal();
-     this.coordinateSystem = x.getCoordinateSystem();
-     this.numberOfGridAxes = x.getNumberOfGridAxes();
-     this.constantGrid = x.getConstantGrid();
-
-     edu.nps.moves.dis.EntityType foo_7;
-     if(x.getEnvironmentType() == null)
-        foo_7 = new edu.nps.moves.dis.EntityType();
-      else
-        foo_7 = new edu.nps.moves.dis.EntityType(x.getEnvironmentType() );
-     this.setEnvironmentType(foo_7);
-
-
-     edu.nps.moves.dis.Orientation foo_8;
-     if(x.getOrientation() == null)
-        foo_8 = new edu.nps.moves.dis.Orientation();
-      else
-        foo_8 = new edu.nps.moves.dis.Orientation(x.getOrientation() );
-     this.setOrientation(foo_8);
-
-     this.sampleTime = x.getSampleTime();
-     this.totalValues = x.getTotalValues();
-     this.vectorDimension = x.getVectorDimension();
-     this.padding1 = x.getPadding1();
-     this.padding2 = x.getPadding2();
-     this.gridDataList = new ArrayList();
-     for(int idx = 0; idx < x.getGridDataList().size(); idx++)
-     {
-        this.gridDataList.add( new edu.nps.moves.dis.GridAxisRecord((edu.nps.moves.jaxb.dis.GridAxisRecord) x.getGridDataList().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.GriddedDataPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.GriddedDataPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEnvironmentalSimulationApplicationID( this.getEnvironmentalSimulationApplicationID().initializeJaxbObject(factory.createEntityID()) );
-     x.setFieldNumber( this.getFieldNumber() );
-     x.setPduNumber( this.getPduNumber() );
-     x.setPduTotal( this.getPduTotal() );
-     x.setCoordinateSystem( this.getCoordinateSystem() );
-     x.setNumberOfGridAxes( this.getNumberOfGridAxes() );
-     x.setConstantGrid( this.getConstantGrid() );
-     x.setEnvironmentType( this.getEnvironmentType().initializeJaxbObject(factory.createEntityType()) );
-     x.setOrientation( this.getOrientation().initializeJaxbObject(factory.createOrientation()) );
-     x.setSampleTime( this.getSampleTime() );
-     x.setTotalValues( this.getTotalValues() );
-     x.setVectorDimension( this.getVectorDimension() );
-     x.setPadding1( this.getPadding1() );
-     x.setPadding2( this.getPadding2() );
-
-     List gridDataList_1 = x.getGridDataList();
-     for(int idx = 0; idx < gridDataList.size(); idx++)
-     {
-         GridAxisRecord a = (edu.nps.moves.dis.GridAxisRecord)gridDataList.get(idx);
-         gridDataList_1.add(a.initializeJaxbObject(factory.createGridAxisRecord()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -184,13 +98,16 @@ public void setEnvironmentalSimulationApplicationID(EntityID pEnvironmentalSimul
 { environmentalSimulationApplicationID = pEnvironmentalSimulationApplicationID;
 }
 
+@XmlElement
 public EntityID getEnvironmentalSimulationApplicationID()
-{ return environmentalSimulationApplicationID; }
+{ return environmentalSimulationApplicationID; 
+}
 
 public void setFieldNumber(int pFieldNumber)
 { fieldNumber = pFieldNumber;
 }
 
+@XmlAttribute
 public int getFieldNumber()
 { return fieldNumber; 
 }
@@ -199,6 +116,7 @@ public void setPduNumber(int pPduNumber)
 { pduNumber = pPduNumber;
 }
 
+@XmlAttribute
 public int getPduNumber()
 { return pduNumber; 
 }
@@ -207,6 +125,7 @@ public void setPduTotal(int pPduTotal)
 { pduTotal = pPduTotal;
 }
 
+@XmlAttribute
 public int getPduTotal()
 { return pduTotal; 
 }
@@ -215,15 +134,17 @@ public void setCoordinateSystem(int pCoordinateSystem)
 { coordinateSystem = pCoordinateSystem;
 }
 
+@XmlAttribute
 public int getCoordinateSystem()
 { return coordinateSystem; 
 }
 
+@XmlAttribute
 public short getNumberOfGridAxes()
 { return (short)gridDataList.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfGridAxes method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -235,6 +156,7 @@ public void setConstantGrid(short pConstantGrid)
 { constantGrid = pConstantGrid;
 }
 
+@XmlAttribute
 public short getConstantGrid()
 { return constantGrid; 
 }
@@ -243,20 +165,25 @@ public void setEnvironmentType(EntityType pEnvironmentType)
 { environmentType = pEnvironmentType;
 }
 
+@XmlElement
 public EntityType getEnvironmentType()
-{ return environmentType; }
+{ return environmentType; 
+}
 
 public void setOrientation(Orientation pOrientation)
 { orientation = pOrientation;
 }
 
+@XmlElement
 public Orientation getOrientation()
-{ return orientation; }
+{ return orientation; 
+}
 
 public void setSampleTime(long pSampleTime)
 { sampleTime = pSampleTime;
 }
 
+@XmlAttribute
 public long getSampleTime()
 { return sampleTime; 
 }
@@ -265,6 +192,7 @@ public void setTotalValues(long pTotalValues)
 { totalValues = pTotalValues;
 }
 
+@XmlAttribute
 public long getTotalValues()
 { return totalValues; 
 }
@@ -273,6 +201,7 @@ public void setVectorDimension(short pVectorDimension)
 { vectorDimension = pVectorDimension;
 }
 
+@XmlAttribute
 public short getVectorDimension()
 { return vectorDimension; 
 }
@@ -281,6 +210,7 @@ public void setPadding1(int pPadding1)
 { padding1 = pPadding1;
 }
 
+@XmlAttribute
 public int getPadding1()
 { return padding1; 
 }
@@ -289,6 +219,7 @@ public void setPadding2(short pPadding2)
 { padding2 = pPadding2;
 }
 
+@XmlAttribute
 public short getPadding2()
 { return padding2; 
 }
@@ -297,6 +228,7 @@ public void setGridDataList(List pGridDataList)
 { gridDataList = pGridDataList;
 }
 
+@XmlElementWrapper(name="gridDataListList" )
 public List getGridDataList()
 { return gridDataList; }
 
@@ -340,19 +272,19 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        environmentalSimulationApplicationID.unmarshal(dis);
-       fieldNumber = dis.readShort();
-       pduNumber = dis.readShort();
-       pduTotal = dis.readShort();
-       coordinateSystem = dis.readShort();
-       numberOfGridAxes = dis.readByte();
-       constantGrid = dis.readByte();
+       fieldNumber = (int)dis.readUnsignedShort();
+       pduNumber = (int)dis.readUnsignedShort();
+       pduTotal = (int)dis.readUnsignedShort();
+       coordinateSystem = (int)dis.readUnsignedShort();
+       numberOfGridAxes = (short)dis.readUnsignedByte();
+       constantGrid = (short)dis.readUnsignedByte();
        environmentType.unmarshal(dis);
        orientation.unmarshal(dis);
        sampleTime = dis.readLong();
        totalValues = dis.readInt();
-       vectorDimension = dis.readByte();
-       padding1 = dis.readShort();
-       padding2 = dis.readByte();
+       vectorDimension = (short)dis.readUnsignedByte();
+       padding1 = (int)dis.readUnsignedShort();
+       padding2 = (short)dis.readUnsignedByte();
         for(int idx = 0; idx < numberOfGridAxes; idx++)
         {
            GridAxisRecord anX = new GridAxisRecord();

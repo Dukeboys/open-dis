@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.8.4. Actual transmission of intercome voice data. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -44,64 +44,6 @@ public class IntercomSignalPdu extends RadioCommunicationsFamilyPdu implements S
     setPduType( (short)31 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public IntercomSignalPdu(edu.nps.moves.jaxb.dis.IntercomSignalPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getEntityID() );
-     this.setEntityID(foo_0);
-
-     this.communicationsDeviceID = x.getCommunicationsDeviceID();
-     this.encodingScheme = x.getEncodingScheme();
-     this.TdlType = x.getTdlType();
-     this.sampleRate = x.getSampleRate();
-     this.dataLength = x.getDataLength();
-     this.samples = x.getSamples();
-     this.data = new ArrayList();
-     for(int idx = 0; idx < x.getData().size(); idx++)
-     {
-        this.data.add( new edu.nps.moves.dis.OneByteChunk((edu.nps.moves.jaxb.dis.OneByteChunk) x.getData().get(idx)));
-     }
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.IntercomSignalPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.IntercomSignalPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEntityID( this.getEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setCommunicationsDeviceID( this.getCommunicationsDeviceID() );
-     x.setEncodingScheme( this.getEncodingScheme() );
-     x.setTdlType( this.getTdlType() );
-     x.setSampleRate( this.getSampleRate() );
-     x.setDataLength( this.getDataLength() );
-     x.setSamples( this.getSamples() );
-
-     List data_1 = x.getData();
-     for(int idx = 0; idx < data.size(); idx++)
-     {
-         OneByteChunk a = (edu.nps.moves.dis.OneByteChunk)data.get(idx);
-         data_1.add(a.initializeJaxbObject(factory.createOneByteChunk()));
-     }
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -128,13 +70,16 @@ public void setEntityID(EntityID pEntityID)
 { entityID = pEntityID;
 }
 
+@XmlElement
 public EntityID getEntityID()
-{ return entityID; }
+{ return entityID; 
+}
 
 public void setCommunicationsDeviceID(int pCommunicationsDeviceID)
 { communicationsDeviceID = pCommunicationsDeviceID;
 }
 
+@XmlAttribute
 public int getCommunicationsDeviceID()
 { return communicationsDeviceID; 
 }
@@ -143,6 +88,7 @@ public void setEncodingScheme(int pEncodingScheme)
 { encodingScheme = pEncodingScheme;
 }
 
+@XmlAttribute
 public int getEncodingScheme()
 { return encodingScheme; 
 }
@@ -151,6 +97,7 @@ public void setTdlType(int pTdlType)
 { TdlType = pTdlType;
 }
 
+@XmlAttribute
 public int getTdlType()
 { return TdlType; 
 }
@@ -159,15 +106,17 @@ public void setSampleRate(long pSampleRate)
 { sampleRate = pSampleRate;
 }
 
+@XmlAttribute
 public long getSampleRate()
 { return sampleRate; 
 }
 
+@XmlAttribute
 public int getDataLength()
 { return (int)data.size();
 }
 
-/** Note that setting this value will ot change the marshalled value. The list whose length this describes is used for that purpose.
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getdataLength method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
@@ -179,6 +128,7 @@ public void setSamples(int pSamples)
 { samples = pSamples;
 }
 
+@XmlAttribute
 public int getSamples()
 { return samples; 
 }
@@ -187,6 +137,7 @@ public void setData(List pData)
 { data = pData;
 }
 
+@XmlElementWrapper(name="dataList" )
 public List getData()
 { return data; }
 
@@ -223,12 +174,12 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        entityID.unmarshal(dis);
-       communicationsDeviceID = dis.readShort();
-       encodingScheme = dis.readShort();
-       TdlType = dis.readShort();
+       communicationsDeviceID = (int)dis.readUnsignedShort();
+       encodingScheme = (int)dis.readUnsignedShort();
+       TdlType = (int)dis.readUnsignedShort();
        sampleRate = dis.readInt();
-       dataLength = dis.readShort();
-       samples = dis.readShort();
+       dataLength = (int)dis.readUnsignedShort();
+       samples = (int)dis.readUnsignedShort();
         for(int idx = 0; idx < dataLength; idx++)
         {
            OneByteChunk anX = new OneByteChunk();

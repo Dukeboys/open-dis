@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.2.11. This field shall specify information about a particular emitter system
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -29,33 +29,6 @@ public class EmitterSystem extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public EmitterSystem(edu.nps.moves.jaxb.dis.EmitterSystem x)
- {
-     this.emitterName = x.getEmitterName();
-     this.function = x.getFunction();
-     this.emitterIdNumber = x.getEmitterIdNumber();
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.EmitterSystem initializeJaxbObject(edu.nps.moves.jaxb.dis.EmitterSystem x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setEmitterName( this.getEmitterName() );
-     x.setFunction( this.getFunction() );
-     x.setEmitterIdNumber( this.getEmitterIdNumber() );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -72,6 +45,7 @@ public void setEmitterName(int pEmitterName)
 { emitterName = pEmitterName;
 }
 
+@XmlAttribute
 public int getEmitterName()
 { return emitterName; 
 }
@@ -80,6 +54,7 @@ public void setFunction(short pFunction)
 { function = pFunction;
 }
 
+@XmlAttribute
 public short getFunction()
 { return function; 
 }
@@ -88,6 +63,7 @@ public void setEmitterIdNumber(short pEmitterIdNumber)
 { emitterIdNumber = pEmitterIdNumber;
 }
 
+@XmlAttribute
 public short getEmitterIdNumber()
 { return emitterIdNumber; 
 }
@@ -110,9 +86,9 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       emitterName = dis.readShort();
-       function = dis.readByte();
-       emitterIdNumber = dis.readByte();
+       emitterName = (int)dis.readUnsignedShort();
+       function = (short)dis.readUnsignedByte();
+       emitterIdNumber = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
     { 

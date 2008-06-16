@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * 5.2.3: location of the radiating portion of the antenna, specified in world coordinates and         entity coordinates.
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -26,45 +26,6 @@ public class AntennaLocation extends Object implements Serializable
  {
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public AntennaLocation(edu.nps.moves.jaxb.dis.AntennaLocation x)
- {
-
-     edu.nps.moves.dis.Vector3Double foo_0;
-     if(x.getAntennaLocation() == null)
-        foo_0 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_0 = new edu.nps.moves.dis.Vector3Double(x.getAntennaLocation() );
-     this.setAntennaLocation(foo_0);
-
-
-     edu.nps.moves.dis.Vector3Float foo_1;
-     if(x.getRelativeAntennaLocation() == null)
-        foo_1 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_1 = new edu.nps.moves.dis.Vector3Float(x.getRelativeAntennaLocation() );
-     this.setRelativeAntennaLocation(foo_1);
-
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.AntennaLocation initializeJaxbObject(edu.nps.moves.jaxb.dis.AntennaLocation x)
- {
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setAntennaLocation( this.getAntennaLocation().initializeJaxbObject(factory.createVector3Double()) );
-     x.setRelativeAntennaLocation( this.getRelativeAntennaLocation().initializeJaxbObject(factory.createVector3Float()) );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -80,15 +41,19 @@ public void setAntennaLocation(Vector3Double pAntennaLocation)
 { antennaLocation = pAntennaLocation;
 }
 
+@XmlElement
 public Vector3Double getAntennaLocation()
-{ return antennaLocation; }
+{ return antennaLocation; 
+}
 
 public void setRelativeAntennaLocation(Vector3Float pRelativeAntennaLocation)
 { relativeAntennaLocation = pRelativeAntennaLocation;
 }
 
+@XmlElement
 public Vector3Float getRelativeAntennaLocation()
-{ return relativeAntennaLocation; }
+{ return relativeAntennaLocation; 
+}
 
 
 public void marshal(DataOutputStream dos)

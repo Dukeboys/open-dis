@@ -2,12 +2,12 @@ package edu.nps.moves.dis;
 
 import java.util.*;
 import java.io.*;
-import edu.nps.moves.jaxb.dis.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.7.2. Handles designating operations. COMPLETE
  *
- * Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved.
+ * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
@@ -57,90 +57,6 @@ public class DesignatorPdu extends DistributedEmissionsFamilyPdu implements Seri
     setPduType( (short)24 );
  }
 
-/** 
- * Constructor--takes a parallel jaxb object and returns an open-dis object 
- * 1.4_sed_bait_start */
- public DesignatorPdu(edu.nps.moves.jaxb.dis.DesignatorPdu x)
- {
-     super(x); // Call superclass constructor
-
-
-     edu.nps.moves.dis.EntityID foo_0;
-     if(x.getDesignatingEntityID() == null)
-        foo_0 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_0 = new edu.nps.moves.dis.EntityID(x.getDesignatingEntityID() );
-     this.setDesignatingEntityID(foo_0);
-
-     this.codeName = x.getCodeName();
-
-     edu.nps.moves.dis.EntityID foo_2;
-     if(x.getDesignatedEntityID() == null)
-        foo_2 = new edu.nps.moves.dis.EntityID();
-      else
-        foo_2 = new edu.nps.moves.dis.EntityID(x.getDesignatedEntityID() );
-     this.setDesignatedEntityID(foo_2);
-
-     this.designatorCode = x.getDesignatorCode();
-     this.designatorPower = x.getDesignatorPower();
-     this.designatorWavelength = x.getDesignatorWavelength();
-
-     edu.nps.moves.dis.Vector3Float foo_6;
-     if(x.getDesignatorSpotWrtDesignated() == null)
-        foo_6 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_6 = new edu.nps.moves.dis.Vector3Float(x.getDesignatorSpotWrtDesignated() );
-     this.setDesignatorSpotWrtDesignated(foo_6);
-
-
-     edu.nps.moves.dis.Vector3Double foo_7;
-     if(x.getDesignatorSpotLocation() == null)
-        foo_7 = new edu.nps.moves.dis.Vector3Double();
-      else
-        foo_7 = new edu.nps.moves.dis.Vector3Double(x.getDesignatorSpotLocation() );
-     this.setDesignatorSpotLocation(foo_7);
-
-     this.deadReckoningAlgorithm = x.getDeadReckoningAlgorithm();
-     this.padding1 = x.getPadding1();
-     this.padding2 = x.getPadding2();
-
-     edu.nps.moves.dis.Vector3Float foo_11;
-     if(x.getEntityLinearAcceleration() == null)
-        foo_11 = new edu.nps.moves.dis.Vector3Float();
-      else
-        foo_11 = new edu.nps.moves.dis.Vector3Float(x.getEntityLinearAcceleration() );
-     this.setEntityLinearAcceleration(foo_11);
-
- }
-/* 1.4_sed_bait_end */
-
-
-/**
- * returns a jaxb object intialized from this object, given an empty jaxb object
- * 1.4_sed_bait_start **/
- public edu.nps.moves.jaxb.dis.DesignatorPdu initializeJaxbObject(edu.nps.moves.jaxb.dis.DesignatorPdu x)
- {
-     super.initializeJaxbObject(x); // Call superclass initializer
-
-     ObjectFactory factory = new ObjectFactory();
-
-     x.setDesignatingEntityID( this.getDesignatingEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setCodeName( this.getCodeName() );
-     x.setDesignatedEntityID( this.getDesignatedEntityID().initializeJaxbObject(factory.createEntityID()) );
-     x.setDesignatorCode( this.getDesignatorCode() );
-     x.setDesignatorPower( this.getDesignatorPower() );
-     x.setDesignatorWavelength( this.getDesignatorWavelength() );
-     x.setDesignatorSpotWrtDesignated( this.getDesignatorSpotWrtDesignated().initializeJaxbObject(factory.createVector3Float()) );
-     x.setDesignatorSpotLocation( this.getDesignatorSpotLocation().initializeJaxbObject(factory.createVector3Double()) );
-     x.setDeadReckoningAlgorithm( this.getDeadReckoningAlgorithm() );
-     x.setPadding1( this.getPadding1() );
-     x.setPadding2( this.getPadding2() );
-     x.setEntityLinearAcceleration( this.getEntityLinearAcceleration().initializeJaxbObject(factory.createVector3Float()) );
-   return x;
- }
-/* 1.4_sed_bait_end */
-
-
 public int getMarshalledSize()
 {
    int marshalSize = 0; 
@@ -167,13 +83,16 @@ public void setDesignatingEntityID(EntityID pDesignatingEntityID)
 { designatingEntityID = pDesignatingEntityID;
 }
 
+@XmlElement
 public EntityID getDesignatingEntityID()
-{ return designatingEntityID; }
+{ return designatingEntityID; 
+}
 
 public void setCodeName(int pCodeName)
 { codeName = pCodeName;
 }
 
+@XmlAttribute
 public int getCodeName()
 { return codeName; 
 }
@@ -182,13 +101,16 @@ public void setDesignatedEntityID(EntityID pDesignatedEntityID)
 { designatedEntityID = pDesignatedEntityID;
 }
 
+@XmlElement
 public EntityID getDesignatedEntityID()
-{ return designatedEntityID; }
+{ return designatedEntityID; 
+}
 
 public void setDesignatorCode(int pDesignatorCode)
 { designatorCode = pDesignatorCode;
 }
 
+@XmlAttribute
 public int getDesignatorCode()
 { return designatorCode; 
 }
@@ -197,6 +119,7 @@ public void setDesignatorPower(float pDesignatorPower)
 { designatorPower = pDesignatorPower;
 }
 
+@XmlAttribute
 public float getDesignatorPower()
 { return designatorPower; 
 }
@@ -205,6 +128,7 @@ public void setDesignatorWavelength(float pDesignatorWavelength)
 { designatorWavelength = pDesignatorWavelength;
 }
 
+@XmlAttribute
 public float getDesignatorWavelength()
 { return designatorWavelength; 
 }
@@ -213,20 +137,25 @@ public void setDesignatorSpotWrtDesignated(Vector3Float pDesignatorSpotWrtDesign
 { designatorSpotWrtDesignated = pDesignatorSpotWrtDesignated;
 }
 
+@XmlElement
 public Vector3Float getDesignatorSpotWrtDesignated()
-{ return designatorSpotWrtDesignated; }
+{ return designatorSpotWrtDesignated; 
+}
 
 public void setDesignatorSpotLocation(Vector3Double pDesignatorSpotLocation)
 { designatorSpotLocation = pDesignatorSpotLocation;
 }
 
+@XmlElement
 public Vector3Double getDesignatorSpotLocation()
-{ return designatorSpotLocation; }
+{ return designatorSpotLocation; 
+}
 
 public void setDeadReckoningAlgorithm(byte pDeadReckoningAlgorithm)
 { deadReckoningAlgorithm = pDeadReckoningAlgorithm;
 }
 
+@XmlAttribute
 public byte getDeadReckoningAlgorithm()
 { return deadReckoningAlgorithm; 
 }
@@ -235,6 +164,7 @@ public void setPadding1(int pPadding1)
 { padding1 = pPadding1;
 }
 
+@XmlAttribute
 public int getPadding1()
 { return padding1; 
 }
@@ -243,6 +173,7 @@ public void setPadding2(byte pPadding2)
 { padding2 = pPadding2;
 }
 
+@XmlAttribute
 public byte getPadding2()
 { return padding2; 
 }
@@ -251,8 +182,10 @@ public void setEntityLinearAcceleration(Vector3Float pEntityLinearAcceleration)
 { entityLinearAcceleration = pEntityLinearAcceleration;
 }
 
+@XmlElement
 public Vector3Float getEntityLinearAcceleration()
-{ return entityLinearAcceleration; }
+{ return entityLinearAcceleration; 
+}
 
 
 public void marshal(DataOutputStream dos)
@@ -285,15 +218,15 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        designatingEntityID.unmarshal(dis);
-       codeName = dis.readShort();
+       codeName = (int)dis.readUnsignedShort();
        designatedEntityID.unmarshal(dis);
-       designatorCode = dis.readShort();
+       designatorCode = (int)dis.readUnsignedShort();
        designatorPower = dis.readFloat();
        designatorWavelength = dis.readFloat();
        designatorSpotWrtDesignated.unmarshal(dis);
        designatorSpotLocation.unmarshal(dis);
        deadReckoningAlgorithm = dis.readByte();
-       padding1 = dis.readShort();
+       padding1 = (int)dis.readUnsignedShort();
        padding2 = dis.readByte();
        entityLinearAcceleration.unmarshal(dis);
     } // end try 
