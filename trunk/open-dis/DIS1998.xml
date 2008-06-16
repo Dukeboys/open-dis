@@ -5,9 +5,10 @@
 
 <classes>
 
-<!--java imports="java.util.*, java.io.*" -->
-
-<java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*" 
+<!--
+<java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*, javax.xml.bind.annotation.*" 
+-->
+<java imports="java.util.*, java.io.*, javax.xml.bind.annotation.*"
       package="edu.nps.moves.dis"/>
       
 <cpp namespace="DIS"/>
@@ -3999,6 +4000,24 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </list> 
     </attribute>
     
+    </class>
+    
+    <!-- Generic holder of PDUs. This is mostly for XML compatability -->
+    <class name="PduContainer" 
+           inheritsFrom="root"
+           comment="Used for XML compatability. A container that holds PDUs"
+           xmlRootElement="true">
+      
+   <attribute name="numberOfPdus" comment="Number of PDUs in the container list">
+     <primitive type= "int"/>
+   </attribute>
+        
+     <attribute name="pdus" comment="record sets">
+     <list type="variable" countFieldName="numberOfPdus">
+       <classRef name="Pdu"/>
+    </list> 
+    </attribute>
+        
     </class>
     
 </classes>
