@@ -1,0 +1,110 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<project name="Xmlpg" default="dist" basedir=".">
+    <property name="src" location="src"/>
+    <property name="bin" location="bin"/>
+    <property name="lib" location="lib"/>
+    <property name="dist" location="dist"/>
+    <property name="jarfile" location="${dist}/${ant.project.name}.jar"/>
+    <property name="compile.debug" value="true"/>
+    <property name="opendis" location="../open-dis"/>
+
+    <fileset id="lib.jars" dir="${lib}">
+        <include name="**/*.jar"/>
+    </fileset>
+
+    <path id="lib.path">
+        <fileset refid="lib.jars"/>
+    </path>
+
+    <target name="init" description="create initial directories">
+      <mkdir dir="${opendis}/java/edu/nps/moves/dis"/>
+      <mkdir dir="${opendis}/cpp/DIS"/>
+      <mkdir dir="${opendis}/cpp/obj"/>
+      <mkdir dir="${opendis}/docs"/>
+      <mkdir dir="dist"/>
+      <mkdir dir="bin"/>
+    </target>
+
+    <target name="compile" depends="init" description="Compile code">
+        <javac srcdir="${src}" destdir="${bin}"
+               source="1.5" target="1.5"
+               includeAntRuntime="no"
+               classpathref="lib.path" debug="${compile.debug}">
+        </javac>
+    </target>
+    
+    <target name="run" depends="compile" description = "run program to generate java and cpp">
+      <java classname="edu.nps.moves.xmlpg.Xmlpg">
+        <classpath>
+          <fileset dir="dist">
+            <include name="**/*.jar"/>
+          </fileset>
+          <fileset dir="lib">
+            <include name="**/*.jar"/>
+          </fileset>
+          <pathelement path="${bin}"/>
+        </classpath>
+        <arg value="${opendis}/DIS1998.xml"/>
+        <arg value="${opendis}/java"/>
+        <arg value="${opendis}/cpp/DIS"/>
+      </java>
+    </target>
+    
+    <!-- Stuff for another project 
+     <target name="ccl" description = "run program to generate java and cpp compact control language (ccl) files">
+      <java classname="edu.nps.moves.xmlpg.Xmlpg">
+        <classpath>
+          <fileset dir="dist">
+            <include name="**/*.jar"/>
+          </fileset>
+          <fileset dir="lib">
+            <include name="**/*.jar"/>
+          </fileset>
+          <pathelement path="${bin}"/>
+        </classpath>
+        <arg value="ccl/ccl.xml"/>
+        <arg value="ccl/java"/>
+        <arg value="ccl/cpp/CCL"/>
+      </java>
+    </target>
+    -->
+    
+    <!-- Creates a new Ant tag that handles compling C++ code. Uses ant-contrib, a
+         sourceforge project. The jar file for ant-contrib is in the lib directory
+         as cpptasks.jar. Note: this is not working -->
+         <!--
+    <taskdef name="cc" classname="net.sf.antcontrib.cpptasks.CCTask">
+      <classpath>
+        <pathelement location="lib/cpptasks.jar"/>
+      </classpath>
+    </taskdef>
+    -->
+    
+    <!-- Compile the generated cpp code and place the object files in the cpp/obj directory -->
+    <!-- Note: not working 
+    <target name="compileCpp" depends="run">
+    
+      <cc name="gcc" outfile="DIS/dis.exe" objdir="DIS/cpp/obj" outtype="executable" >
+        <compiler name="gcc"/>
+        <fileset dir="DIS/CppUtils"/>
+        <fileset dir="DIS/cpp"/>
+                
+        <includepath location="DIS/cpp"/>
+        <includepath location="DIS/CppUtils"/>
+        
+    </cc>
+    </target>
+    -->
+    
+    <target name="dist" depends="clean, init, compile, run" description="compile and run everything">
+    </target>
+
+    <target name="clean" description="Remove build and dist directories">
+        <delete dir="${bin}"/>
+        <delete dir="${dist}"/>
+        <delete dir="${opendis}/java/edu/nps/moves/dis"/>
+        <delete dir="${opendis}/cpp"/>
+        <delete dir="${opendis}/docs"/>
+        <delete file="${opendis}/open-dis.jar"/>
+    </target>
+</project>
