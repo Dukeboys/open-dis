@@ -108,7 +108,7 @@ public void setLength(int pLength)
 
 @XmlAttribute
 public int getLength()
-{ return length; 
+{ return this.getMarshalledSize(); 
 }
 
 public void setPadding(short pPadding)
@@ -130,7 +130,7 @@ public void marshal(DataOutputStream dos)
        dos.writeByte( (byte)pduType);
        dos.writeByte( (byte)protocolFamily);
        dos.writeInt( (int)timestamp);
-       dos.writeShort( (short)length);
+       dos.writeShort( (short)this.getLength());
        dos.writeShort( (short)padding);
     } // end try 
     catch(Exception e)
