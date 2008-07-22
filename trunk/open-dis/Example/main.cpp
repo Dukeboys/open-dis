@@ -253,6 +253,8 @@ void init_effects(DIS::DetonationPdu &detonation, const DIS::EntityID& firing, c
 
       detonation.setDetonationResult( 5 ); // 5 Detonation
    }
+
+   detonation.setLength( detonation.getMarshalledSize() );
 }
 
 void UpdateHelo(DIS::EntityStatePdu& helo, Example::HeloFlightDynamics& dynamics, double dt, unsigned int frame_stamp)
