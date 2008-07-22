@@ -74,20 +74,17 @@ void init_entities(DIS::EntityStatePdu& friendly0,
       enemy.setExerciseID(0);
       //enemy.setPduType(1);
       //enemy.setProtocolFamily(1);
-      enemy.setLength(144);
 
       friendly0.setProtocolVersion(6);
       friendly0.setExerciseID(0);
       //friendly0.setPduType(1);
       //friendly0.setProtocolFamily(1);
-      friendly0.setLength(144);
       //friendly0.setArticulationParameterCount(0);
 
       friendly1.setProtocolVersion(6);
       friendly1.setExerciseID(0);
       //friendly1.setPduType(1);
       //friendly1.setProtocolFamily(1);
-      friendly1.setLength(144);
       //friendly1.setArticulationParameterCount(0);
    }
 
@@ -184,6 +181,10 @@ void init_entities(DIS::EntityStatePdu& friendly0,
       params[Example::INDEX_GUN_ELEVATION] = turret_gun_elevation;
       params[Example::INDEX_GUN_2_ELEVATION] = gun2_elevation;
    }
+
+   friendly0.setLength( friendly0.getMarshalledSize());
+   friendly1.setLength( friendly1.getMarshalledSize());
+   enemy.setLength(enemy.getMarshalledSize());
 }
 
 
