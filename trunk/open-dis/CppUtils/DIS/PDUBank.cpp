@@ -19,6 +19,8 @@
 #include <DIS/SetDataPdu.h>
 #include <DIS/EventReportPdu.h>
 #include <DIS/CommentPdu.h>
+#include <DIS/StopFreezePdu.h>
+
 
 using namespace DIS;
 
@@ -44,6 +46,7 @@ Pdu* PduBank::GetStaticPDU( DIS::PDUType pdu_type )
    static SetDataPdu          setDataPdu;
    static EventReportPdu      eventReportPdu;
    static CommentPdu          commentPdu;
+   static StopFreezePdu       stopFreezePdu;
 
    switch(pdu_type)
    {
@@ -67,6 +70,7 @@ Pdu* PduBank::GetStaticPDU( DIS::PDUType pdu_type )
       case PDU_SET_DATA:          return &setDataPdu;          break; 
       case PDU_EVENT_REPORT:      return &eventReportPdu;      break; 
       case PDU_COMMENT:           return &commentPdu;          break; 
+      case PDU_STOP_FREEZE:       return &stopFreezePdu;       break;
    }
 
    return NULL;
