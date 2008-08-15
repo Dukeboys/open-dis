@@ -80,7 +80,7 @@ public void marshal(DataOutputStream dos)
     try 
     {
        dos.writeInt( (int)variableDatumID);
-       dos.writeInt( (int)variableDatums.size());
+       dos.writeInt( (int)variableDatums.size() * 64 );
 
        for(int idx = 0; idx < variableDatums.size(); idx++)
        {
@@ -100,6 +100,7 @@ public void unmarshal(DataInputStream dis)
     {
        variableDatumID = dis.readInt();
        variableDatumLength = dis.readInt();
+       variableDatumLength = (variableDatumLength / 64) + ((variableDatumLength % 64) > 0);
         for(int idx = 0; idx < variableDatumLength; idx++)
         {
            EightByteChunk anX = new EightByteChunk();
