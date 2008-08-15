@@ -47,7 +47,7 @@ void VariableDatum::setVariableDatums(const std::vector<EightByteChunk>& pX)
 void VariableDatum::marshal(DataStream& dataStream) const
 {
     dataStream << _variableDatumID;
-    dataStream << ( unsigned int )_variableDatums.size();
+    dataStream << ( unsigned int )_variableDatums.size() * 64;
 
      for(size_t idx = 0; idx < _variableDatums.size(); idx++)
      {
@@ -61,6 +61,7 @@ void VariableDatum::unmarshal(DataStream& dataStream)
 {
     dataStream >> _variableDatumID;
     dataStream >> _variableDatumLength;
+    _variableDatumLength = (_variableDatumLength / 64) + ((_variableDatumLength % 64) > 0);
 
      _variableDatums.clear();
      for(size_t idx = 0; idx < _variableDatumLength; idx++)
