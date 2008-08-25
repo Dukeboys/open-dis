@@ -146,7 +146,11 @@ public void unmarshal(DataInputStream dis)
        exerciseID = (short)dis.readUnsignedByte();
        pduType = (short)dis.readUnsignedByte();
        protocolFamily = (short)dis.readUnsignedByte();
-       timestamp = dis.readInt();
+       int ch1 = dis.read();
+       int ch2 = dis.read();
+       int ch3 = dis.read();
+       int ch4 = dis.read();
+       timestamp = (((long)ch1 << 24) + ((long)ch2 << 16) + (ch3 << 8) + (ch4 << 0));
        length = (int)dis.readUnsignedShort();
        padding = dis.readShort();
     } // end try 
