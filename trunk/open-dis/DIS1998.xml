@@ -277,12 +277,12 @@ that omits the specific and extra fields.">
 
 <class name="EventID" inheritsFrom="root" comment="Section 5.2.18. Identifies a unique event in a simulation via the combination of three values">
 
- <attribute name="application" comment="The application ID">
-  <primitive type="unsigned short"/>
- </attribute>
- 
  <attribute name="site" comment="The site ID">
    <primitive type="unsigned short"/>
+ </attribute>
+ 
+ <attribute name="application" comment="The application ID">
+  <primitive type="unsigned short"/>
  </attribute>
  
  <attribute name="eventNumber" comment="the number of the event">
