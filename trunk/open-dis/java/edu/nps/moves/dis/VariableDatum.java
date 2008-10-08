@@ -100,7 +100,9 @@ public void unmarshal(DataInputStream dis)
     {
        variableDatumID = dis.readInt();
        variableDatumLength = dis.readInt();
-       variableDatumLength = (variableDatumLength / 64) + ((variableDatumLength % 64) > 0);
+        int over = variableDatumLength % 64 > 0 ? 1 : 0;
+       //variableDatumLength = (variableDatumLength / 64) + ((variableDatumLength % 64) > 0);
+        variableDatumLength = (variableDatumLength / 64) + over;
         for(int idx = 0; idx < variableDatumLength; idx++)
         {
            EightByteChunk anX = new EightByteChunk();

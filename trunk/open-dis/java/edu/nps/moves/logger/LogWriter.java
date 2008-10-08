@@ -112,6 +112,9 @@ public class LogWriter implements Runnable
                 // Create a log file name, or the format "exerciseName_nnnnn"
                 long time = System.currentTimeMillis();
                 String fileName = exerciseName +"/" + exerciseName + "_" + time + ".xml";
+                
+                PduContainer container = new PduContainer();
+                container.setPdus(pdusToLog);
 
                 // Marshall the list out to a file. The long list of class names is
                 // essentially all the classes in the dis package; this is the safest
@@ -253,11 +256,12 @@ public class LogWriter implements Runnable
                 edu.nps.moves.dis.ResupplyCancelPdu.class,
                 edu.nps.moves.dis.RadioCommunicationsFamilyPdu.class,
                 edu.nps.moves.dis.LogisticsFamilyPdu.class,
-                edu.nps.moves.dis.SupplyQuantity.class    );
+                edu.nps.moves.dis.SupplyQuantity.class
+                                                              );
         
                  Marshaller marshaller = context.createMarshaller();
                  marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                 marshaller.marshal(this, new FileOutputStream(fileName));
+                 marshaller.marshal(container, new FileOutputStream(fileName));
                  
                 writing = false;
 

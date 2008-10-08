@@ -214,6 +214,8 @@ public class DisLogger implements Runnable
             System.out.println("Usage: DisLogger propertyFile");
             System.exit(0);
         }
+        System.out.println("Properties file=" + args[0]);
+
         
         // preflight the property file passed in to make sure it exists
         try
@@ -223,6 +225,8 @@ public class DisLogger implements Runnable
             // Load the configuration properties file
             InputStream propsFile = DisLogger.class.getResourceAsStream(args[0]);
             loggerProperties.load(propsFile);
+            
+            System.out.println("loaded properties file");
 
             // Start the logger thread listening
             DisLogger logger = new DisLogger(loggerProperties);

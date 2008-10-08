@@ -31,8 +31,11 @@
                includeAntRuntime="no"
                classpathref="lib.path" debug="${compile.debug}">
         </javac>
+        <copy todir="${build}">
+          <fileset dir="java" includes="**/*.properties"/>
+        </copy> 
     </target>
-    
+   
     <target name="runSender" depends="jar" description="run DIS example program">
       <java classname="edu.nps.moves.examples.EspduSender">
         <classpath>
@@ -54,6 +57,18 @@
         </classpath>
     </java>
     </target>
+
+ <target name="runModelLoader" depends="jar" description="run DIS example program">
+      <java classname="edu.nps.moves.disutil.ModelLookup">
+        <classpath>
+          <fileset dir="dist">
+            <include name="**/*.jar"/>
+          </fileset>
+          <pathelement location="{$build}"/>
+        </classpath>
+    </java>
+    </target>
+
     
     <!-- XJC ant task -->
     <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
@@ -94,6 +109,21 @@
         </classpath>
     </java>
     </target> 
+
+    <target name="runLogger" depends="jar" description="runs example DIS logging program">
+      <java classname="edu.nps.moves.logger.DisLogger">
+     <arg value="logger.properties"/>
+        <classpath>
+            <fileset dir="lib">
+               <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="dist">
+                <include name="**/*.jar"/>
+            </fileset>
+        </classpath>
+    </java>
+    </target>
+
 
     <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
