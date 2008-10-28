@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.*;
 public class SupplyQuantity extends Object implements Serializable
 {
    /** Type of supply */
-   protected EntityID  supplyType = new EntityID(); 
+   protected EntityType  supplyType = new EntityType(); 
 
    /** quantity to be supplied */
    protected short  quantity;
@@ -37,12 +37,12 @@ public int getMarshalledSize()
 }
 
 
-public void setSupplyType(EntityID pSupplyType)
+public void setSupplyType(EntityType pSupplyType)
 { supplyType = pSupplyType;
 }
 
 @XmlElement
-public EntityID getSupplyType()
+public EntityType getSupplyType()
 { return supplyType; 
 }
 
