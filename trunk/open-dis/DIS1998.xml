@@ -389,7 +389,7 @@ Also provides basic parametric data that may be used to support low-fidelity sim
  <class name="SupplyQuantity" inheritsFrom="root" comment="Section 5.2.30. A supply, and the amount of that supply. Similar to an entity kind but with the addition of a quantity.">
   
     <attribute name="supplyType" comment="Type of supply">
-    <classRef name="EntityID"/>
+    <classRef name="EntityType"/>
   </attribute>
    
    <attribute name="quantity" comment="quantity to be supplied">
@@ -546,7 +546,7 @@ Also provides basic parametric data that may be used to support low-fidelity sim
  </attribute>
  
  <attribute name="characters" comment="The characters">
-     <list type="fixed" length="11">
+     <list type="fixed" length="11" couldBeString="true">
          <primitive type="byte"/>
      </list>
  </attribute>
@@ -1544,7 +1544,7 @@ PduHeader record, section 5.2.29.">
   </attribute>
 
  <attribute name="marking" comment="characters that can be used for debugging, or to draw unique strings on the side of entities in the world">
-   <list type="fixed" length="12">
+   <list type="fixed" length="12" couldBeString="true">
      <primitive type="byte"/>
    </list>
  </attribute>
