@@ -261,7 +261,7 @@ public void writeHeaderFile(GeneratedClass aClass)
         {
             pw.println("// " + aClass.getClassComments() );
             pw.println();
-            pw.println("// Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. ");
+            pw.println("// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. ");
             pw.println("//");
             pw.println("// This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html");
             pw.println("//");
@@ -370,6 +370,8 @@ public void writeHeaderFile(GeneratedClass aClass)
                 pw.println("    " + arrayType + "*  get" + this.initialCap(anAttribute.getName()) + "(); ");
                 pw.println("    const " + arrayType + "*  get" + this.initialCap(anAttribute.getName()) + "() const; ");
                 pw.println("    void set" + this.initialCap(anAttribute.getName()) + "( const " + arrayType + "*    pX);");
+                pw.println("    void " + "setByString" + this.initialCap(anAttribute.getName()) + "(const " + arrayType + " * pX);");
+
             }
             
             
@@ -813,6 +815,7 @@ private void writeCtor(PrintWriter pw, GeneratedClass aClass)
                          
             }
             
+                       
             // We need to allcoate ivars that are objects....
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
             { 
@@ -836,6 +839,25 @@ private void writeCtor(PrintWriter pw, GeneratedClass aClass)
             String setterName = anInitialValue.getSetterMethodName();
             pw.println("    " + setterName + "( " + anInitialValue.getVariableValue() + " );");
         }
+    
+       for(int idx = 0; idx < aClass.getClassAttributes().size(); idx++)
+       {
+          ClassAttribute attribute = (ClassAttribute)aClass.getClassAttributes().get(idx);
+        
+          // We need to initialize primitive array types
+          if(attribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
+          {
+              pw.println("     // Initialize fixed length array");
+              int arrayLength = attribute.getListLength();
+              String indexName = "length" + attribute.getName();
+              pw.println("     int " + indexName + " = 0");
+              pw.println("     for(" + indexName + "= 0; " + indexName + " < " + arrayLength + "; " + indexName + "++)");
+              pw.println("     {");
+              pw.println("         " + attribute.getName() + "[" + indexName + "] = 0");
+              pw.println("     }");
+              pw.println();
+          }
+       }
     
     pw.println("}\n");
 }
@@ -959,6 +981,19 @@ public void writeSetterMethod(PrintWriter pw, GeneratedClass aClass, ClassAttrib
         pw.println("        " +  IVAR_PREFIX + anAttribute.getName() + "[i] = x[i];");
         pw.println("   }");
         pw.println("}\n");
+        
+        // An alternative that is c-string friendly
+        
+        if(anAttribute.getCouldBeString() == true)
+        {
+            pw.println("// An alternate method to set the value if this could be a string. This is not strictly comnpliant with the DIS standard.");
+            pw.println("void " + aClass.getName()  + "::" + "setByString" + this.initialCap(anAttribute.getName()) + "(const " + this.getArrayType(anAttribute.getType()) + "* x)");
+            pw.println("{");
+            pw.println("   strncpy(" + anAttribute.getName() + ", x, " + anAttribute.getListLength() + "-1);");
+            pw.println("   " + anAttribute.getName() + "[" + anAttribute.getListLength() + " -1] = '\\0';");
+            pw.println("}");
+            pw.println();
+        }
     }
     
     

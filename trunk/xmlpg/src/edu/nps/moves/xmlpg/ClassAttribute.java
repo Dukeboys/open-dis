@@ -64,6 +64,14 @@ public class ClassAttribute
      */
     protected boolean underlyingTypeIsClass = false;
     
+    /** Some fields, such as Marking, could have arrays that are treated a C strings. At least on the set
+     *  method, if we pass in an array we can have an alternate method that treats the input string as
+     * a c-style string, with a terminating null character. This is not strictly compliant with the DIS
+     * standard, which makes no assumptions about null-terminated strings, but it happens often enough
+     * in the C world to special case it.
+     */
+    protected boolean couldBeString = false;
+    
     /** Get the name of the class attribute/iname*/
     public String getName()
     {
@@ -171,6 +179,16 @@ public class ClassAttribute
     public boolean getUnderlyingTypeIsPrimitive()
     {
         return underlyingTypeIsPrimitive;
+    }
+    
+    public boolean getCouldBeString()
+    {
+        return couldBeString;
+    }
+    
+    public void setCouldBeString(boolean couldBeString)
+    {
+        this.couldBeString = couldBeString;
     }
     
     public void setIsDynamicListLengthField(boolean flag)
