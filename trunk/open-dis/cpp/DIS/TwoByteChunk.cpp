@@ -5,6 +5,13 @@ using namespace DIS;
 
 TwoByteChunk::TwoByteChunk()
 {
+     // Initialize fixed length array
+     int lengthotherParameters = 0
+     for(lengthotherParameters= 0; lengthotherParameters < 2; lengthotherParameters++)
+     {
+         otherParameters[lengthotherParameters] = 0
+     }
+
 }
 
 TwoByteChunk::~TwoByteChunk()
