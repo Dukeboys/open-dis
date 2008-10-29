@@ -5,6 +5,13 @@ using namespace DIS;
 
 OneByteChunk::OneByteChunk()
 {
+     // Initialize fixed length array
+     int lengthotherParameters = 0
+     for(lengthotherParameters= 0; lengthotherParameters < 1; lengthotherParameters++)
+     {
+         otherParameters[lengthotherParameters] = 0
+     }
+
 }
 
 OneByteChunk::~OneByteChunk()
