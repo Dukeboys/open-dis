@@ -5,6 +5,13 @@ using namespace DIS;
 
 FourByteChunk::FourByteChunk()
 {
+     // Initialize fixed length array
+     int lengthotherParameters = 0
+     for(lengthotherParameters= 0; lengthotherParameters < 4; lengthotherParameters++)
+     {
+         otherParameters[lengthotherParameters] = 0
+     }
+
 }
 
 FourByteChunk::~FourByteChunk()
