@@ -9,7 +9,7 @@ namespace DIS
 {
 // Section 5.2.38. Identifies the type of aggregate including kind of entity, domain (surface, subsurface, air, etc) country, category, etc.
 
-// Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
 // This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
 //

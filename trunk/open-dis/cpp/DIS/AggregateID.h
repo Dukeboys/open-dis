@@ -9,7 +9,7 @@ namespace DIS
 {
 // Section 5.2.36. Each agregate in a given simulation app is given an aggregate identifier number unique for all other aggregates in that app and in that exercise. The id is valid for the duration of the the exercise.
 
-// Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
 // This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
 //

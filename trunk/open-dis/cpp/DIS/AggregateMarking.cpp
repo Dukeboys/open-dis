@@ -6,6 +6,13 @@ using namespace DIS;
 AggregateMarking::AggregateMarking():
    _characterSet(0)
 {
+     // Initialize fixed length array
+     int lengthcharacters = 0
+     for(lengthcharacters= 0; lengthcharacters < 31; lengthcharacters++)
+     {
+         characters[lengthcharacters] = 0
+     }
+
 }
 
 AggregateMarking::~AggregateMarking()
