@@ -43,6 +43,20 @@ FastEntityStatePdu::FastEntityStatePdu() : EntityInformationFamilyPdu(),
    _capabilities(0)
 {
     setPduType( 1 );
+     // Initialize fixed length array
+     int lengthotherParameters = 0
+     for(lengthotherParameters= 0; lengthotherParameters < 15; lengthotherParameters++)
+     {
+         otherParameters[lengthotherParameters] = 0
+     }
+
+     // Initialize fixed length array
+     int lengthmarking = 0
+     for(lengthmarking= 0; lengthmarking < 12; lengthmarking++)
+     {
+         marking[lengthmarking] = 0
+     }
+
 }
 
 FastEntityStatePdu::~FastEntityStatePdu()
@@ -439,6 +453,13 @@ void FastEntityStatePdu::setMarking(const char* x)
    {
         _marking[i] = x[i];
    }
+}
+
+// An alternate method to set the value if this could be a string. This is not strictly comnpliant with the DIS standard.
+void FastEntityStatePdu::setByStringMarking(const char* x)
+{
+   strncpy(marking, x, 12-1);
+   marking[12 -1] = '\0';
 }
 
 int FastEntityStatePdu::getCapabilities() const

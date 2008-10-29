@@ -12,7 +12,7 @@ namespace DIS
 {
 // Section 5.3.3.1. Represents the postion and state of one entity in the world. This is identical in function to entity state pdu, but generates less garbage to collect in the Java world. COMPLETE
 
-// Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
 // This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
 //
@@ -258,6 +258,7 @@ protected:
     char*  getMarking(); 
     const char*  getMarking() const; 
     void setMarking( const char*    pX);
+    void setByStringMarking(const char * pX);
 
     int getCapabilities() const; 
     void setCapabilities(int pX); 
