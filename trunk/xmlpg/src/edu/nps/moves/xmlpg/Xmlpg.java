@@ -469,6 +469,17 @@ public class Xmlpg
                         
                     }
                     
+                    if(attributes.getQName(idx).equalsIgnoreCase("couldBeString"))
+                    {
+                        String val = attributes.getValue(idx);
+                        
+                        if(val.equalsIgnoreCase("true"))
+                           {
+                              currentClassAttribute.setCouldBeString(true);  
+                           }
+                    }
+                    
+                    
                     if(attributes.getQName(idx).equalsIgnoreCase("length"))
                     {
                         String length = attributes.getValue(idx);

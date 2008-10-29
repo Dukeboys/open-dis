@@ -370,7 +370,10 @@ public void writeHeaderFile(GeneratedClass aClass)
                 pw.println("    " + arrayType + "*  get" + this.initialCap(anAttribute.getName()) + "(); ");
                 pw.println("    const " + arrayType + "*  get" + this.initialCap(anAttribute.getName()) + "() const; ");
                 pw.println("    void set" + this.initialCap(anAttribute.getName()) + "( const " + arrayType + "*    pX);");
-                pw.println("    void " + "setByString" + this.initialCap(anAttribute.getName()) + "(const " + arrayType + " * pX);");
+                if(anAttribute.getCouldBeString() == true)
+                {
+                    pw.println("    void " + "setByString" + this.initialCap(anAttribute.getName()) + "(const " + arrayType + " * pX);");
+                }
 
             }
             
