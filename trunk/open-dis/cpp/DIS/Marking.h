@@ -9,7 +9,7 @@ namespace DIS
 {
 // Section 5.2.15. Specifies the character set used inthe first byte, followed by 11 characters of text data.
 
-// Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
 // This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
 //
@@ -38,6 +38,7 @@ protected:
     char*  getCharacters(); 
     const char*  getCharacters() const; 
     void setCharacters( const char*    pX);
+    void setByStringCharacters(const char * pX);
 
 
 virtual int getMarshalledSize() const;

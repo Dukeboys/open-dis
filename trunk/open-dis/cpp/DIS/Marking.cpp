@@ -6,6 +6,13 @@ using namespace DIS;
 Marking::Marking():
    _characterSet(0)
 {
+     // Initialize fixed length array
+     int lengthcharacters = 0
+     for(lengthcharacters= 0; lengthcharacters < 11; lengthcharacters++)
+     {
+         characters[lengthcharacters] = 0
+     }
+
 }
 
 Marking::~Marking()
@@ -38,6 +45,13 @@ void Marking::setCharacters(const char* x)
    {
         _characters[i] = x[i];
    }
+}
+
+// An alternate method to set the value if this could be a string. This is not strictly comnpliant with the DIS standard.
+void Marking::setByStringCharacters(const char* x)
+{
+   strncpy(characters, x, 11-1);
+   characters[11 -1] = '\0';
 }
 
 void Marking::marshal(DataStream& dataStream) const
