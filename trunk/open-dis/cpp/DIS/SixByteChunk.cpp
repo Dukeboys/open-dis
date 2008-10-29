@@ -5,6 +5,13 @@ using namespace DIS;
 
 SixByteChunk::SixByteChunk()
 {
+     // Initialize fixed length array
+     int lengthotherParameters = 0
+     for(lengthotherParameters= 0; lengthotherParameters < 6; lengthotherParameters++)
+     {
+         otherParameters[lengthotherParameters] = 0
+     }
+
 }
 
 SixByteChunk::~SixByteChunk()
