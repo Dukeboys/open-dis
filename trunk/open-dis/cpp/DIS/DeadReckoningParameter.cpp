@@ -8,6 +8,13 @@ DeadReckoningParameter::DeadReckoningParameter():
    _entityLinearAcceleration(), 
    _entityAngularVelocity()
 {
+     // Initialize fixed length array
+     int lengthotherParameters = 0
+     for(lengthotherParameters= 0; lengthotherParameters < 15; lengthotherParameters++)
+     {
+         otherParameters[lengthotherParameters] = 0
+     }
+
 }
 
 DeadReckoningParameter::~DeadReckoningParameter()
