@@ -14,84 +14,82 @@ namespace DIS
 
 // Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
-// This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
-//
 // @author DMcG, jkg
 
 class EXPORT_MACRO FastEntityStatePdu : public EntityInformationFamilyPdu
 {
 protected:
-  // The site ID
+  /** The site ID */
   unsigned short _site; 
 
-  // The application ID
+  /** The application ID */
   unsigned short _application; 
 
-  // the entity ID
+  /** the entity ID */
   unsigned short _entity; 
 
-  // what force this entity is affiliated with, eg red, blue, neutral, etc
+  /** what force this entity is affiliated with, eg red, blue, neutral, etc */
   unsigned char _forceId; 
 
-  // How many articulation parameters are in the variable length list
+  /** How many articulation parameters are in the variable length list */
   char _numberOfArticulationParameters; 
 
-  // Kind of entity
+  /** Kind of entity */
   unsigned char _entityKind; 
 
-  // Domain of entity (air, surface, subsurface, space, etc)
+  /** Domain of entity (air, surface, subsurface, space, etc) */
   unsigned char _domain; 
 
-  // country to which the design of the entity is attributed
+  /** country to which the design of the entity is attributed */
   unsigned short _country; 
 
-  // category of entity
+  /** category of entity */
   unsigned char _category; 
 
-  // subcategory of entity
+  /** subcategory of entity */
   unsigned char _subcategory; 
 
-  // specific info based on subcategory field
+  /** specific info based on subcategory field */
   unsigned char _specific; 
 
   unsigned char _extra; 
 
-  // Kind of entity
+  /** Kind of entity */
   unsigned char _altEntityKind; 
 
-  // Domain of entity (air, surface, subsurface, space, etc)
+  /** Domain of entity (air, surface, subsurface, space, etc) */
   unsigned char _altDomain; 
 
-  // country to which the design of the entity is attributed
+  /** country to which the design of the entity is attributed */
   unsigned short _altCountry; 
 
-  // category of entity
+  /** category of entity */
   unsigned char _altCategory; 
 
-  // subcategory of entity
+  /** subcategory of entity */
   unsigned char _altSubcategory; 
 
-  // specific info based on subcategory field
+  /** specific info based on subcategory field */
   unsigned char _altSpecific; 
 
   unsigned char _altExtra; 
 
-  // X velo
+  /** X velo */
   float _xVelocity; 
 
-  // y Value
+  /** y Value */
   float _yVelocity; 
 
-  // Z value
+  /** Z value */
   float _zVelocity; 
 
-  // X value
+  /** X value */
   float _xLocation; 
 
-  // y Value
+  /** y Value */
   float _yLocation; 
 
-  // Z value
+  /** Z value */
   float _zLocation; 
 
   float _psi; 
@@ -100,40 +98,40 @@ protected:
 
   float _phi; 
 
-  // a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc.
+  /** a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc. */
   int _entityAppearance; 
 
-  // enumeration of what dead reckoning algorighm to use
+  /** enumeration of what dead reckoning algorighm to use */
   unsigned char _deadReckoningAlgorithm; 
 
-  // other parameters to use in the dead reckoning algorithm
+  /** other parameters to use in the dead reckoning algorithm */
   char _otherParameters[15]; 
 
-  // X value
+  /** X value */
   float _xAcceleration; 
 
-  // y Value
+  /** y Value */
   float _yAcceleration; 
 
-  // Z value
+  /** Z value */
   float _zAcceleration; 
 
-  // X value
+  /** X value */
   float _xAngularVelocity; 
 
-  // y Value
+  /** y Value */
   float _yAngularVelocity; 
 
-  // Z value
+  /** Z value */
   float _zAngularVelocity; 
 
-  // characters that can be used for debugging, or to draw unique strings on the side of entities in the world
+  /** characters that can be used for debugging, or to draw unique strings on the side of entities in the world */
   char _marking[12]; 
 
-  // a series of bit flags
+  /** a series of bit flags */
   int _capabilities; 
 
-  // variable length list of articulation parameters
+  /** variable length list of articulation parameters */
   std::vector<ArticulationParameter> _articulationParameters; 
 
 
@@ -275,3 +273,33 @@ virtual int getMarshalledSize() const;
 }
 
 #endif
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.

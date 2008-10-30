@@ -16,58 +16,56 @@ namespace DIS
 {
 // 5.3.3.3. Information about elastic collisions in a DIS exercise shall be communicated using a Collision-Elastic PDU. COMPLETE
 
-// Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
+// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
 // @author DMcG, jkg
 
 class EXPORT_MACRO CollisionElasticPdu : public EntityInformationFamilyPdu
 {
 protected:
-  // ID of the entity that issued the collision PDU
+  /** ID of the entity that issued the collision PDU */
   EntityID _issuingEntityID; 
 
-  // ID of entity that has collided with the issuing entity ID
+  /** ID of entity that has collided with the issuing entity ID */
   EntityID _collidingEntityID; 
 
-  // ID of event
+  /** ID of event */
   EventID _collisionEventID; 
 
-  // some padding
+  /** some padding */
   short _pad; 
 
-  // velocity at collision
+  /** velocity at collision */
   Vector3Float _contactVelocity; 
 
-  // mass of issuing entity
+  /** mass of issuing entity */
   float _mass; 
 
-  // Location with respect to entity the issuing entity collided with
+  /** Location with respect to entity the issuing entity collided with */
   Vector3Float _location; 
 
-  // tensor values
+  /** tensor values */
   float _collisionResultXX; 
 
-  // tensor values
+  /** tensor values */
   float _collisionResultXY; 
 
-  // tensor values
+  /** tensor values */
   float _collisionResultXZ; 
 
-  // tensor values
+  /** tensor values */
   float _collisionResultYY; 
 
-  // tensor values
+  /** tensor values */
   float _collisionResultYZ; 
 
-  // tensor values
+  /** tensor values */
   float _collisionResultZZ; 
 
-  // This record shall represent the normal vector to the surface at the point of collision detection. The surface normal shall be represented in world coordinates.
+  /** This record shall represent the normal vector to the surface at the point of collision detection. The surface normal shall be represented in world coordinates. */
   Vector3Float _unitSurfaceNormal; 
 
-  // This field shall represent the degree to which energy is conserved in a collision
+  /** This field shall represent the degree to which energy is conserved in a collision */
   float _coefficientOfRestitution; 
 
 
@@ -137,3 +135,33 @@ virtual int getMarshalledSize() const;
 }
 
 #endif
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.

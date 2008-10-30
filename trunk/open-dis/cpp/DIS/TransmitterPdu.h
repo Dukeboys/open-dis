@@ -17,70 +17,68 @@ namespace DIS
 {
 // Section 5.3.8.1. Detailed information about a radio transmitter. This PDU requires manually         written code to complete, since the modulation parameters are of variable length. UNFINISHED
 
-// Copyright (c) 2007, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
+// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
 // @author DMcG, jkg
 
 class EXPORT_MACRO TransmitterPdu : public RadioCommunicationsFamilyPdu
 {
 protected:
-  // linear accelleration of entity
+  /** linear accelleration of entity */
   RadioEntityType _radioEntityType; 
 
-  // transmit state
+  /** transmit state */
   unsigned char _transmitState; 
 
-  // input source
+  /** input source */
   unsigned char _inputSource; 
 
-  // padding
+  /** padding */
   unsigned short _padding1; 
 
-  // Location of antenna
+  /** Location of antenna */
   Vector3Double _antennaLocation; 
 
-  // relative location of antenna
+  /** relative location of antenna */
   Vector3Double _relativeAntennaLocation; 
 
-  // antenna pattern type
+  /** antenna pattern type */
   unsigned short _antennaPatternType; 
 
-  // atenna pattern length
+  /** atenna pattern length */
   unsigned short _antennaPatternCount; 
 
-  // frequency
+  /** frequency */
   double _frequency; 
 
-  // transmit frequency Bandwidth
+  /** transmit frequency Bandwidth */
   float _transmitFrequencyBandwidth; 
 
-  // transmission power
+  /** transmission power */
   float _power; 
 
-  // modulation
+  /** modulation */
   ModulationType _modulationType; 
 
-  // crypto system enumeration
+  /** crypto system enumeration */
   unsigned short _cryptoSystem; 
 
-  // crypto system key identifer
+  /** crypto system key identifer */
   unsigned short _cryptoKeyId; 
 
-  // how many modulation parameters we have
+  /** how many modulation parameters we have */
   unsigned char _modulationParameterCount; 
 
-  // padding2
+  /** padding2 */
   unsigned short _padding2; 
 
-  // padding3
+  /** padding3 */
   unsigned char _padding3; 
 
-  // variable length list of modulation parameters
+  /** variable length list of modulation parameters */
   std::vector<Vector3Float> _modulationParametersList; 
 
-  // variable length list of antenna pattern records
+  /** variable length list of antenna pattern records */
   std::vector<Vector3Float> _antennaPatternList; 
 
 
@@ -160,3 +158,33 @@ virtual int getMarshalledSize() const;
 }
 
 #endif
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
