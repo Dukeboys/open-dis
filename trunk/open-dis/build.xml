@@ -131,7 +131,7 @@
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
-      <javadoc destdir="docs" packagenames="edu.nps.moves.dis" sourcepath="java">
+      <javadoc destdir="docs" packagenames="edu.nps.moves.*" sourcepath="java">
           <classpath>
               <fileset dir="lib">
                   <include name="**/*.jar"/>
