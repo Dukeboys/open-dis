@@ -53,7 +53,7 @@ public class PduFactory
         
         switch(pduTypeEnum)
         {
-            case ESPDU: 
+            case ENTITY_STATE: 
                 // if the user has created the factory requesting that he get fast espdus back, give him those.
                 if(useFastPdu == true)
                 {
@@ -67,78 +67,86 @@ public class PduFactory
                 aPdu.unmarshal(dis);
                 break;
                 
-            case FIRE_PDU: 
+            case FIRE: 
                 aPdu = new FirePdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case DETONATION_PDU:
+            case DETONATION:
                 aPdu = new DetonationPdu();
                 aPdu.unmarshal(dis);
                 break;
+                
+            case COLLISION:
+                aPdu = new CollisionPdu();
+                aPdu.unmarshal(dis);
+                break;
             
-            case SERVICE_REQUEST_PDU:
+            case SERVICE_REQUEST:
                 aPdu = new ServiceRequestPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case RESUPPLY_OFFER_PDU:
+            case RESUPPLY_OFFER:
                 aPdu = new ResupplyOfferPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case RESUPPLY_RECEIVED_PDU:
+            case RESUPPLY_RECEIVED:
                 aPdu = new ResupplyReceivedPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case RESUPPLY_CANCEL_PDU:
+            case RESUPPLY_CANCEL:
                 aPdu = new ResupplyCancelPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case REPAIR_COMPLETE_PDU:
+            case REPAIR_COMPLETE:
                 aPdu = new RepairCompletePdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case REPAIR_RESPONSE_PDU:
+            case REPAIR_RESPONSE:
                 aPdu = new RepairResponsePdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case CREATE_ENTITY_PDU:
+            case CREATE_ENTITY:
                 aPdu = new CreateEntityPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case REMOVE_ENTITY_PDU:
+            case REMOVE_ENTITY:
                 aPdu = new RemoveEntityPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case START_RESUME_PDU:
+            case START_RESUME:
                 aPdu = new StartResumePdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case STOP_FREEZE_PDU:
+            case STOP_FREEZE:
                 aPdu = new StopFreezePdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case ACKNOWLEDGE_PDU:
+            case ACKNOWLEDGE:
                 aPdu = new AcknowledgePdu();
                 aPdu.unmarshal(dis);
                 break;
                 
-            case ACTION_REQUEST_PDU:
+            case ACTION_REQUEST:
                 aPdu = new ActionRequestPdu();
                 aPdu.unmarshal(dis);
                 break;
             
             default: 
-                System.out.println("PDU not implemented. Type=" + pduType);
+                System.out.print("PDU not implemented. Type=" + pduType);
+                if(pduTypeEnum != null)
+                    System.out.print("  PDU not implemented name is " + pduTypeEnum.getDescription());
+                System.out.println();
                 
         }
         
