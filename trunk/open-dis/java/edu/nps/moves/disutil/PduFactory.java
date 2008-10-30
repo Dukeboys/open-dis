@@ -1,12 +1,3 @@
-/*
- * PduFactory.java
- *
- * Created on July 16, 2007, 9:15 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package edu.nps.moves.disutil;
 
 import java.io.*;
@@ -17,6 +8,10 @@ import edu.nps.moves.disenum.PduType;
 /**
  * Simple factory for PDUs. When bytes are received on the wire, they're passed off to us
  * and the correct constructor called to return the correct PDU type.<p>
+ *
+ * This should be reworked to use the separate enumerations package, which is generated
+ * from the XML EBV file. That's included with the open-dis distribution, but it's still
+ * a little new.
  *
  * @author DMcG
  */
