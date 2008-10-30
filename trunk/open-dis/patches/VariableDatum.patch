@@ -1,0 +1,21 @@
+--- disOld/VariableDatum.java	2008-10-28 10:19:47.000000000 -0700
++++ dis/VariableDatum.java	2008-10-28 10:15:29.000000000 -0700
+@@ -80,7 +80,7 @@
+     try 
+     {
+        dos.writeInt( (int)variableDatumID);
+-       dos.writeInt( (int)variableDatums.size());
++       dos.writeInt( (int)variableDatums.size() * 64 );
+ 
+        for(int idx = 0; idx < variableDatums.size(); idx++)
+        {
+@@ -100,6 +100,9 @@
+     {
+        variableDatumID = dis.readInt();
+        variableDatumLength = dis.readInt();
++        int over = variableDatumLength % 64 > 0 ? 1 : 0;
++       //variableDatumLength = (variableDatumLength / 64) + ((variableDatumLength % 64) > 0);
++        variableDatumLength = (variableDatumLength / 64) + over;
+         for(int idx = 0; idx < variableDatumLength; idx++)
+         {
+            EightByteChunk anX = new EightByteChunk();
