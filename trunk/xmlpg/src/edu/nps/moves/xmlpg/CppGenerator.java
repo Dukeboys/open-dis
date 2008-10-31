@@ -263,8 +263,6 @@ public void writeHeaderFile(GeneratedClass aClass)
             pw.println();
             pw.println("// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. ");
             pw.println("//");
-            pw.println("// This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html");
-            pw.println("//");
             pw.println("// @author DMcG, jkg");
             pw.println();
         }
@@ -290,7 +288,7 @@ public void writeHeaderFile(GeneratedClass aClass)
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
             { 
                 if(anAttribute.getComment() != null)
-                    pw.println("  " + "// " + anAttribute.getComment());
+                    pw.println("  " + "/** " + anAttribute.getComment() + " */");
                   
                 pw.println("  " + types.get(anAttribute.getType()) + " " + IVAR_PREFIX + anAttribute.getName() + "; ");
                 pw.println();
@@ -300,7 +298,7 @@ public void writeHeaderFile(GeneratedClass aClass)
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
             { 
                 if(anAttribute.getComment() != null)
-                    pw.println("  " + "// " + anAttribute.getComment());
+                    pw.println("  " + "/** " + anAttribute.getComment() + " */");
                 
                  pw.println("  " + anAttribute.getType() + " " + IVAR_PREFIX + anAttribute.getName() + "; ");
                  pw.println();
@@ -309,7 +307,7 @@ public void writeHeaderFile(GeneratedClass aClass)
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
             { 
                 if(anAttribute.getComment() != null)
-                    pw.println("  " + "// " + anAttribute.getComment());
+                    pw.println("  " + "/** " + anAttribute.getComment() + " */");
                 
                 pw.println("  " + types.get(anAttribute.getType()) + " " + IVAR_PREFIX + anAttribute.getName() + "[" + anAttribute.getListLength() + "]; ");
                 pw.println();
@@ -318,7 +316,7 @@ public void writeHeaderFile(GeneratedClass aClass)
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
             { 
                 if(anAttribute.getComment() != null)
-                    pw.println("  " + "// " + anAttribute.getComment());
+                    pw.println("  " + "/** " + anAttribute.getComment() + " */");
                 
                 pw.println("  std::vector<" + anAttribute.getType() + "> " + IVAR_PREFIX + anAttribute.getName() + "; ");
                 pw.println();
@@ -372,7 +370,7 @@ public void writeHeaderFile(GeneratedClass aClass)
                 pw.println("    void set" + this.initialCap(anAttribute.getName()) + "( const " + arrayType + "*    pX);");
                 if(anAttribute.getCouldBeString() == true)
                 {
-                    pw.println("    void " + "setByString" + this.initialCap(anAttribute.getName()) + "(const " + arrayType + " * pX);");
+                    pw.println("    void " + "setByString" + this.initialCap(anAttribute.getName()) + "(const " + arrayType + "* pX);");
                 }
 
             }
@@ -406,6 +404,8 @@ public void writeHeaderFile(GeneratedClass aClass)
         
         // Close if #ifndef statement that prevents multiple #includes
         pw.println("\n#endif");
+        
+        this.writeLicenseNotice(pw);
         
         pw.flush();
         pw.close();
@@ -467,6 +467,9 @@ public void writeCppFile(GeneratedClass aClass)
         // Method to determine the marshalled length of the PDU
         this.writeGetMarshalledSizeMethod(pw, aClass);
         
+        // License notice
+        this.writeLicenseNotice(pw);
+       
         pw.flush();
         pw.close();
     }
@@ -853,10 +856,9 @@ private void writeCtor(PrintWriter pw, GeneratedClass aClass)
               pw.println("     // Initialize fixed length array");
               int arrayLength = attribute.getListLength();
               String indexName = "length" + attribute.getName();
-              pw.println("     int " + indexName + " = 0");
-              pw.println("     for(" + indexName + "= 0; " + indexName + " < " + arrayLength + "; " + indexName + "++)");
+              pw.println("     for(int " + indexName + "= 0; " + indexName + " < " + arrayLength + "; " + indexName + "++)");
               pw.println("     {");
-              pw.println("         " + attribute.getName() + "[" + indexName + "] = 0");
+              pw.println("         _" + attribute.getName() + "[" + indexName + "] = 0");
               pw.println("     }");
               pw.println();
           }
@@ -992,8 +994,8 @@ public void writeSetterMethod(PrintWriter pw, GeneratedClass aClass, ClassAttrib
             pw.println("// An alternate method to set the value if this could be a string. This is not strictly comnpliant with the DIS standard.");
             pw.println("void " + aClass.getName()  + "::" + "setByString" + this.initialCap(anAttribute.getName()) + "(const " + this.getArrayType(anAttribute.getType()) + "* x)");
             pw.println("{");
-            pw.println("   strncpy(" + anAttribute.getName() + ", x, " + anAttribute.getListLength() + "-1);");
-            pw.println("   " + anAttribute.getName() + "[" + anAttribute.getListLength() + " -1] = '\\0';");
+            pw.println("   strncpy(_" + anAttribute.getName() + ", x, " + anAttribute.getListLength() + "-1);");
+            pw.println("   _" + anAttribute.getName() + "[" + anAttribute.getListLength() + " -1] = '\\0';");
             pw.println("}");
             pw.println();
         }
@@ -1139,6 +1141,42 @@ private String getArrayType(String xmlType)
         return marshalType;
     }
     
+}
+                       
+private void writeLicenseNotice(PrintWriter pw)
+{
+        pw.println("// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.");
+       
+        pw.println("// Redistribution and use in source and binary forms, with or without");
+        pw.println("// modification, are permitted provided that the following conditions");
+        pw.println("//  are met:");
+        pw.println("// ");
+        pw.println("//  * Redistributions of source code must retain the above copyright");
+        pw.println("// notice, this list of conditions and the following disclaimer.");
+        pw.println("// * Redistributions in binary form must reproduce the above copyright");
+        pw.println("// notice, this list of conditions and the following disclaimer");
+        pw.println("// in the documentation and/or other materials provided with the");
+        pw.println("// distribution.");
+        pw.println("// * Neither the names of the Naval Postgraduate School (NPS)");
+        pw.println("//  Modeling Virtual Environments and Simulation (MOVES) Institute");
+        pw.println("// (http://www.nps.edu and http://www.MovesInstitute.org)");
+        pw.println("// nor the names of its contributors may be used to endorse or");
+        pw.println("//  promote products derived from this software without specific");
+        pw.println("// prior written permission.");
+        pw.println("// ");
+        pw.println("// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS");
+        pw.println("// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT");
+        pw.println("// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS");
+        pw.println("// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE");
+        pw.println("// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,");
+        pw.println("// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,");
+        pw.println("// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;");
+        pw.println("// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER");
+        pw.println("// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT");
+        pw.println("// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN");
+        pw.println("// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE");
+        pw.println("// POSSIBILITY OF SUCH DAMAGE.");
+                       
 }
 
 
