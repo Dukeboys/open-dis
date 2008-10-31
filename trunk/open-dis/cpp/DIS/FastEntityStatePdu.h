@@ -256,7 +256,7 @@ protected:
     char*  getMarking(); 
     const char*  getMarking() const; 
     void setMarking( const char*    pX);
-    void setByStringMarking(const char * pX);
+    void setByStringMarking(const char* pX);
 
     int getCapabilities() const; 
     void setCapabilities(int pX); 
