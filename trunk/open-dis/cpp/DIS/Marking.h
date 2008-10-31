@@ -36,7 +36,7 @@ protected:
     char*  getCharacters(); 
     const char*  getCharacters() const; 
     void setCharacters( const char*    pX);
-    void setByStringCharacters(const char * pX);
+    void setByStringCharacters(const char* pX);
 
 
 virtual int getMarshalledSize() const;

@@ -49,8 +49,8 @@ void Marking::setCharacters(const char* x)
 // An alternate method to set the value if this could be a string. This is not strictly comnpliant with the DIS standard.
 void Marking::setByStringCharacters(const char* x)
 {
-   strncpy(characters, x, 11-1);
-   characters[11 -1] = '\0';
+   strncpy(_characters, x, 11-1);
+   _characters[11 -1] = '\0';
 }
 
 void Marking::marshal(DataStream& dataStream) const
