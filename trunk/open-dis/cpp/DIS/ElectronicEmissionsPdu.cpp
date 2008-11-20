@@ -7,9 +7,11 @@ ElectronicEmissionsPdu::ElectronicEmissionsPdu() : DistributedEmissionsFamilyPdu
    _emittingEntityID(), 
    _eventID(), 
    _stateUpdateIndicator(0), 
-   _numberOfSystems(0)
+   _numberOfSystems(0), 
+   _paddingForEmissionsPdu(0)
 {
     setPduType( 23 );
+    setPaddingForEmissionsPdu( 0 );
 }
 
 ElectronicEmissionsPdu::~ElectronicEmissionsPdu()
@@ -62,6 +64,16 @@ unsigned char ElectronicEmissionsPdu::getNumberOfSystems() const
    return _systems.size();
 }
 
+unsigned short ElectronicEmissionsPdu::getPaddingForEmissionsPdu() const
+{
+    return _paddingForEmissionsPdu;
+}
+
+void ElectronicEmissionsPdu::setPaddingForEmissionsPdu(unsigned short pX)
+{
+    _paddingForEmissionsPdu = pX;
+}
+
 std::vector<ElectronicEmissionSystemData>& ElectronicEmissionsPdu::getSystems() 
 {
     return _systems;
@@ -84,6 +96,7 @@ void ElectronicEmissionsPdu::marshal(DataStream& dataStream) const
     _eventID.marshal(dataStream);
     dataStream << _stateUpdateIndicator;
     dataStream << ( unsigned char )_systems.size();
+    dataStream << _paddingForEmissionsPdu;
 
      for(size_t idx = 0; idx < _systems.size(); idx++)
      {
@@ -100,6 +113,7 @@ void ElectronicEmissionsPdu::unmarshal(DataStream& dataStream)
     _eventID.unmarshal(dataStream);
     dataStream >> _stateUpdateIndicator;
     dataStream >> _numberOfSystems;
+    dataStream >> _paddingForEmissionsPdu;
 
      _systems.clear();
      for(size_t idx = 0; idx < _numberOfSystems; idx++)
@@ -120,6 +134,7 @@ bool ElectronicEmissionsPdu::operator ==(const ElectronicEmissionsPdu& rhs) cons
      if( ! (_emittingEntityID == rhs._emittingEntityID) ) ivarsEqual = false;
      if( ! (_eventID == rhs._eventID) ) ivarsEqual = false;
      if( ! (_stateUpdateIndicator == rhs._stateUpdateIndicator) ) ivarsEqual = false;
+     if( ! (_paddingForEmissionsPdu == rhs._paddingForEmissionsPdu) ) ivarsEqual = false;
 
      for(size_t idx = 0; idx < _systems.size(); idx++)
      {
@@ -139,6 +154,7 @@ int ElectronicEmissionsPdu::getMarshalledSize() const
    marshalSize = marshalSize + _eventID.getMarshalledSize();  // _eventID
    marshalSize = marshalSize + 1;  // _stateUpdateIndicator
    marshalSize = marshalSize + 1;  // _numberOfSystems
+   marshalSize = marshalSize + 2;  // _paddingForEmissionsPdu
 
    for(int idx=0; idx < _systems.size(); idx++)
    {

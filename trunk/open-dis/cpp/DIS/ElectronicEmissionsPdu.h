@@ -33,6 +33,9 @@ protected:
   /** This field shall specify the number of emission systems being described in the current PDU. */
   unsigned char _numberOfSystems; 
 
+  /** padding */
+  unsigned short _paddingForEmissionsPdu; 
+
   /** Electronic emmissions systems */
   std::vector<ElectronicEmissionSystemData> _systems; 
 
@@ -56,6 +59,9 @@ protected:
     void setStateUpdateIndicator(unsigned char pX); 
 
     unsigned char getNumberOfSystems() const; 
+
+    unsigned short getPaddingForEmissionsPdu() const; 
+    void setPaddingForEmissionsPdu(unsigned short pX); 
 
     std::vector<ElectronicEmissionSystemData>& getSystems(); 
     const std::vector<ElectronicEmissionSystemData>& getSystems() const; 
