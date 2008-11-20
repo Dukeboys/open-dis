@@ -15,6 +15,7 @@ SignalPdu::SignalPdu() : RadioCommunicationsFamilyPdu(),
 
 SignalPdu::~SignalPdu()
 {
+    _data.clear();
 }
 
 unsigned short SignalPdu::getEncodingScheme() const
@@ -49,12 +50,7 @@ void SignalPdu::setSampleRate(int pX)
 
 short SignalPdu::getDataLength() const
 {
-    return _dataLength;
-}
-
-void SignalPdu::setDataLength(short pX)
-{
-    _dataLength = pX;
+   return _data.size();
 }
 
 short SignalPdu::getSamples() const
@@ -67,14 +63,36 @@ void SignalPdu::setSamples(short pX)
     _samples = pX;
 }
 
+std::vector<OneByteChunk>& SignalPdu::getData() 
+{
+    return _data;
+}
+
+const std::vector<OneByteChunk>& SignalPdu::getData() const
+{
+    return _data;
+}
+
+void SignalPdu::setData(const std::vector<OneByteChunk>& pX)
+{
+     _data = pX;
+}
+
 void SignalPdu::marshal(DataStream& dataStream) const
 {
     RadioCommunicationsFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     dataStream << _encodingScheme;
     dataStream << _tdlType;
     dataStream << _sampleRate;
-    dataStream << _dataLength;
+    dataStream << ( short )_data.size();
     dataStream << _samples;
+
+     for(size_t idx = 0; idx < _data.size(); idx++)
+     {
+        OneByteChunk x = _data[idx];
+        x.marshal(dataStream);
+     }
+
 }
 
 void SignalPdu::unmarshal(DataStream& dataStream)
@@ -85,6 +103,14 @@ void SignalPdu::unmarshal(DataStream& dataStream)
     dataStream >> _sampleRate;
     dataStream >> _dataLength;
     dataStream >> _samples;
+
+     _data.clear();
+     for(size_t idx = 0; idx < _dataLength; idx++)
+     {
+        OneByteChunk x;
+        x.unmarshal(dataStream);
+        _data.push_back(x);
+     }
 }
 
 
@@ -97,8 +123,13 @@ bool SignalPdu::operator ==(const SignalPdu& rhs) const
      if( ! (_encodingScheme == rhs._encodingScheme) ) ivarsEqual = false;
      if( ! (_tdlType == rhs._tdlType) ) ivarsEqual = false;
      if( ! (_sampleRate == rhs._sampleRate) ) ivarsEqual = false;
-     if( ! (_dataLength == rhs._dataLength) ) ivarsEqual = false;
      if( ! (_samples == rhs._samples) ) ivarsEqual = false;
+
+     for(size_t idx = 0; idx < _data.size(); idx++)
+     {
+        if( ! ( _data[idx] == rhs._data[idx]) ) ivarsEqual = false;
+     }
+
 
     return ivarsEqual;
  }
@@ -113,6 +144,13 @@ int SignalPdu::getMarshalledSize() const
    marshalSize = marshalSize + 4;  // _sampleRate
    marshalSize = marshalSize + 2;  // _dataLength
    marshalSize = marshalSize + 2;  // _samples
+
+   for(int idx=0; idx < _data.size(); idx++)
+   {
+        OneByteChunk listElement = _data[idx];
+        marshalSize = marshalSize + listElement.getMarshalledSize();
+    }
+
     return marshalSize;
 }
 

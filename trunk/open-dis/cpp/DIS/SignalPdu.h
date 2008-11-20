@@ -1,6 +1,8 @@
 #ifndef SIGNALPDU_H
 #define SIGNALPDU_H
 
+#include <DIS/OneByteChunk.h>
+#include <vector>
 #include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
@@ -32,6 +34,9 @@ protected:
   /** number of samples */
   short _samples; 
 
+  /** list of eight bit values */
+  std::vector<OneByteChunk> _data; 
+
 
  public:
     SignalPdu();
@@ -50,10 +55,13 @@ protected:
     void setSampleRate(int pX); 
 
     short getDataLength() const; 
-    void setDataLength(short pX); 
 
     short getSamples() const; 
     void setSamples(short pX); 
+
+    std::vector<OneByteChunk>& getData(); 
+    const std::vector<OneByteChunk>& getData() const; 
+    void setData(const std::vector<OneByteChunk>&    pX);
 
 
 virtual int getMarshalledSize() const;
