@@ -26,6 +26,9 @@ public class ElectronicEmissionsPdu extends DistributedEmissionsFamilyPdu implem
    /** This field shall specify the number of emission systems being described in the current PDU. */
    protected short  numberOfSystems;
 
+   /** padding */
+   protected int  paddingForEmissionsPdu;
+
    /** Electronic emmissions systems */
    protected List systems = new ArrayList(); 
 
@@ -33,6 +36,7 @@ public class ElectronicEmissionsPdu extends DistributedEmissionsFamilyPdu implem
  public ElectronicEmissionsPdu()
  {
     setPduType( (short)23 );
+    setPaddingForEmissionsPdu( (int)0 );
  }
 
 public int getMarshalledSize()
@@ -44,6 +48,7 @@ public int getMarshalledSize()
    marshalSize = marshalSize + eventID.getMarshalledSize();  // eventID
    marshalSize = marshalSize + 1;  // stateUpdateIndicator
    marshalSize = marshalSize + 1;  // numberOfSystems
+   marshalSize = marshalSize + 2;  // paddingForEmissionsPdu
    for(int idx=0; idx < systems.size(); idx++)
    {
         ElectronicEmissionSystemData listElement = (ElectronicEmissionSystemData)systems.get(idx);
@@ -94,6 +99,15 @@ public void setNumberOfSystems(short pNumberOfSystems)
 { numberOfSystems = pNumberOfSystems;
 }
 
+public void setPaddingForEmissionsPdu(int pPaddingForEmissionsPdu)
+{ paddingForEmissionsPdu = pPaddingForEmissionsPdu;
+}
+
+@XmlAttribute
+public int getPaddingForEmissionsPdu()
+{ return paddingForEmissionsPdu; 
+}
+
 public void setSystems(List pSystems)
 { systems = pSystems;
 }
@@ -112,6 +126,7 @@ public void marshal(DataOutputStream dos)
        eventID.marshal(dos);
        dos.writeByte( (byte)stateUpdateIndicator);
        dos.writeByte( (byte)systems.size());
+       dos.writeShort( (short)paddingForEmissionsPdu);
 
        for(int idx = 0; idx < systems.size(); idx++)
        {
@@ -135,6 +150,7 @@ public void unmarshal(DataInputStream dis)
        eventID.unmarshal(dis);
        stateUpdateIndicator = (short)dis.readUnsignedByte();
        numberOfSystems = (short)dis.readUnsignedByte();
+       paddingForEmissionsPdu = (int)dis.readUnsignedShort();
         for(int idx = 0; idx < numberOfSystems; idx++)
         {
            ElectronicEmissionSystemData anX = new ElectronicEmissionSystemData();
@@ -164,6 +180,7 @@ public void unmarshal(DataInputStream dis)
      if( ! (eventID.equals( rhs.eventID) )) ivarsEqual = false;
      if( ! (stateUpdateIndicator == rhs.stateUpdateIndicator)) ivarsEqual = false;
      if( ! (numberOfSystems == rhs.numberOfSystems)) ivarsEqual = false;
+     if( ! (paddingForEmissionsPdu == rhs.paddingForEmissionsPdu)) ivarsEqual = false;
 
      for(int idx = 0; idx < systems.size(); idx++)
      {
