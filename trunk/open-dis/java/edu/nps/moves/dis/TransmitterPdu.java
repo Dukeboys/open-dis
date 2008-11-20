@@ -100,12 +100,12 @@ public int getMarshalledSize()
    marshalSize = marshalSize + 1;  // padding3
    for(int idx=0; idx < modulationParametersList.size(); idx++)
    {
-        Vector3Float listElement = (Vector3Float)modulationParametersList.get(idx);
+        EightByteChunk listElement = (EightByteChunk)modulationParametersList.get(idx);
         marshalSize = marshalSize + listElement.getMarshalledSize();
    }
    for(int idx=0; idx < antennaPatternList.size(); idx++)
    {
-        Vector3Float listElement = (Vector3Float)antennaPatternList.get(idx);
+        EightByteChunk listElement = (EightByteChunk)antennaPatternList.get(idx);
         marshalSize = marshalSize + listElement.getMarshalledSize();
    }
 
@@ -316,15 +316,15 @@ public void marshal(DataOutputStream dos)
 
        for(int idx = 0; idx < modulationParametersList.size(); idx++)
        {
-            Vector3Float aVector3Float = (Vector3Float)modulationParametersList.get(idx);
-            aVector3Float.marshal(dos);
+            EightByteChunk aEightByteChunk = (EightByteChunk)modulationParametersList.get(idx);
+            aEightByteChunk.marshal(dos);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < antennaPatternList.size(); idx++)
        {
-            Vector3Float aVector3Float = (Vector3Float)antennaPatternList.get(idx);
-            aVector3Float.marshal(dos);
+            EightByteChunk aEightByteChunk = (EightByteChunk)antennaPatternList.get(idx);
+            aEightByteChunk.marshal(dos);
        } // end of list marshalling
 
     } // end try 
@@ -358,14 +358,14 @@ public void unmarshal(DataInputStream dis)
        padding3 = (short)dis.readUnsignedByte();
         for(int idx = 0; idx < modulationParameterCount; idx++)
         {
-           Vector3Float anX = new Vector3Float();
+           EightByteChunk anX = new EightByteChunk();
             anX.unmarshal(dis);
             modulationParametersList.add(anX);
         };
 
         for(int idx = 0; idx < antennaPatternCount; idx++)
         {
-           Vector3Float anX = new Vector3Float();
+           EightByteChunk anX = new EightByteChunk();
             anX.unmarshal(dis);
             antennaPatternList.add(anX);
         };
@@ -408,14 +408,14 @@ public void unmarshal(DataInputStream dis)
 
      for(int idx = 0; idx < modulationParametersList.size(); idx++)
      {
-        Vector3Float x = (Vector3Float)modulationParametersList.get(idx);
+        EightByteChunk x = (EightByteChunk)modulationParametersList.get(idx);
         if( ! ( modulationParametersList.get(idx).equals(rhs.modulationParametersList.get(idx)))) ivarsEqual = false;
      }
 
 
      for(int idx = 0; idx < antennaPatternList.size(); idx++)
      {
-        Vector3Float x = (Vector3Float)antennaPatternList.get(idx);
+        EightByteChunk x = (EightByteChunk)antennaPatternList.get(idx);
         if( ! ( antennaPatternList.get(idx).equals(rhs.antennaPatternList.get(idx)))) ivarsEqual = false;
      }
 
