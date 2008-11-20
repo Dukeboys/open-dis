@@ -26,9 +26,6 @@ public class RadioEntityType extends Object implements Serializable
    /** category of entity */
    protected short  category;
 
-   /** subcategory of entity */
-   protected short  subcategory;
-
    /** specific info based on subcategory field */
    protected short  nomenclatureVersion;
 
@@ -48,7 +45,6 @@ public int getMarshalledSize()
    marshalSize = marshalSize + 1;  // domain
    marshalSize = marshalSize + 2;  // country
    marshalSize = marshalSize + 1;  // category
-   marshalSize = marshalSize + 1;  // subcategory
    marshalSize = marshalSize + 1;  // nomenclatureVersion
    marshalSize = marshalSize + 2;  // nomenclature
 
@@ -92,15 +88,6 @@ public short getCategory()
 { return category; 
 }
 
-public void setSubcategory(short pSubcategory)
-{ subcategory = pSubcategory;
-}
-
-@XmlAttribute
-public short getSubcategory()
-{ return subcategory; 
-}
-
 public void setNomenclatureVersion(short pNomenclatureVersion)
 { nomenclatureVersion = pNomenclatureVersion;
 }
@@ -128,7 +115,6 @@ public void marshal(DataOutputStream dos)
        dos.writeByte( (byte)domain);
        dos.writeShort( (short)country);
        dos.writeByte( (byte)category);
-       dos.writeByte( (byte)subcategory);
        dos.writeByte( (byte)nomenclatureVersion);
        dos.writeShort( (short)nomenclature);
     } // end try 
@@ -145,7 +131,6 @@ public void unmarshal(DataInputStream dis)
        domain = (short)dis.readUnsignedByte();
        country = (int)dis.readUnsignedShort();
        category = (short)dis.readUnsignedByte();
-       subcategory = (short)dis.readUnsignedByte();
        nomenclatureVersion = (short)dis.readUnsignedByte();
        nomenclature = (int)dis.readUnsignedShort();
     } // end try 
@@ -170,7 +155,6 @@ public void unmarshal(DataInputStream dis)
      if( ! (domain == rhs.domain)) ivarsEqual = false;
      if( ! (country == rhs.country)) ivarsEqual = false;
      if( ! (category == rhs.category)) ivarsEqual = false;
-     if( ! (subcategory == rhs.subcategory)) ivarsEqual = false;
      if( ! (nomenclatureVersion == rhs.nomenclatureVersion)) ivarsEqual = false;
      if( ! (nomenclature == rhs.nomenclature)) ivarsEqual = false;
 
