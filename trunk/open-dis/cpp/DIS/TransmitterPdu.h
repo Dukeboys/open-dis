@@ -3,7 +3,7 @@
 
 #include <DIS/RadioEntityType.h>
 #include <DIS/Vector3Double.h>
-#include <DIS/Vector3Double.h>
+#include <DIS/Vector3Float.h>
 #include <DIS/ModulationType.h>
 #include <DIS/Vector3Float.h>
 #include <DIS/Vector3Float.h>
@@ -40,7 +40,7 @@ protected:
   Vector3Double _antennaLocation; 
 
   /** relative location of antenna */
-  Vector3Double _relativeAntennaLocation; 
+  Vector3Float _relativeAntennaLocation; 
 
   /** antenna pattern type */
   unsigned short _antennaPatternType; 
@@ -106,9 +106,9 @@ protected:
     const Vector3Double&  getAntennaLocation() const; 
     void setAntennaLocation(const Vector3Double    &pX);
 
-    Vector3Double& getRelativeAntennaLocation(); 
-    const Vector3Double&  getRelativeAntennaLocation() const; 
-    void setRelativeAntennaLocation(const Vector3Double    &pX);
+    Vector3Float& getRelativeAntennaLocation(); 
+    const Vector3Float&  getRelativeAntennaLocation() const; 
+    void setRelativeAntennaLocation(const Vector3Float    &pX);
 
     unsigned short getAntennaPatternType() const; 
     void setAntennaPatternType(unsigned short pX); 

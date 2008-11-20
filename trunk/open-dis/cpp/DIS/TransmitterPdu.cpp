@@ -91,17 +91,17 @@ void TransmitterPdu::setAntennaLocation(const Vector3Double &pX)
     _antennaLocation = pX;
 }
 
-Vector3Double& TransmitterPdu::getRelativeAntennaLocation() 
+Vector3Float& TransmitterPdu::getRelativeAntennaLocation() 
 {
     return _relativeAntennaLocation;
 }
 
-const Vector3Double& TransmitterPdu::getRelativeAntennaLocation() const
+const Vector3Float& TransmitterPdu::getRelativeAntennaLocation() const
 {
     return _relativeAntennaLocation;
 }
 
-void TransmitterPdu::setRelativeAntennaLocation(const Vector3Double &pX)
+void TransmitterPdu::setRelativeAntennaLocation(const Vector3Float &pX)
 {
     _relativeAntennaLocation = pX;
 }
