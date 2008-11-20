@@ -372,10 +372,6 @@ Also provides basic parametric data that may be used to support low-fidelity sim
   <primitive type="unsigned byte"/>
 </attribute>
 
-<attribute name="subcategory" comment="subcategory of entity">
-  <primitive type="unsigned byte"/>
-</attribute>
-
 <attribute name="nomenclatureVersion" comment="specific info based on subcategory field">
   <primitive type="unsigned byte"/>
 </attribute>
@@ -2299,6 +2295,7 @@ PduHeader record, section 5.2.29.">
        comment="Section 5.3.7.1. Information about active electronic warfare (EW) emissions and active EW countermeasures shall be communicated using an Electromagnetic Emission PDU. COMPLETE (I think)">
     
   <initialValue name="pduType" value="23"/> 
+  <initialValue name="paddingForEmissionsPdu" value="0"/>
   
   <attribute name="emittingEntityID" comment="ID of the entity emitting">
     <classRef name="EntityID"/>
@@ -2315,7 +2312,11 @@ PduHeader record, section 5.2.29.">
    <attribute name="numberOfSystems" comment="This field shall specify the number of emission systems being described in the current PDU.">
     <primitive type= "unsigned byte"/>
   </attribute>
-  
+ 
+  <attribute name="paddingForEmissionsPdu" comment="padding">
+    <primitive type="unsigned short"/>
+  </attribute>
+ 
    <attribute name="systems" comment="Electronic emmissions systems">
       <list type="variable" countFieldName="numberOfSystems">
           <classRef name="ElectronicEmissionSystemData"/>
@@ -2622,7 +2623,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   </attribute> 
   
   <attribute name="relativeAntennaLocation" comment="relative location of antenna">
-    <classRef name="Vector3Double"/>
+    <classRef name="Vector3Float"/>
   </attribute> 
   
   <attribute name="antennaPatternType" comment="antenna pattern type">
@@ -2708,7 +2709,13 @@ The beam data records should ALL be a the finish, rather than attached to each e
   <attribute name="samples" comment="number of samples">
     <primitive type= "short"/>
   </attribute>
-   
+  
+  <attribute name="data" comment="list of eight bit values">
+    <list type="variable" countFieldName="dataLength">
+       <classRef name="OneByteChunk"/>
+    </list>
+  </attribute>
+ 
 </class>
 
 <class name="ReceiverPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
