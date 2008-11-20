@@ -30,7 +30,7 @@ public class TransmitterPdu extends RadioCommunicationsFamilyPdu implements Seri
    protected Vector3Double  antennaLocation = new Vector3Double(); 
 
    /** relative location of antenna */
-   protected Vector3Double  relativeAntennaLocation = new Vector3Double(); 
+   protected Vector3Float  relativeAntennaLocation = new Vector3Float(); 
 
    /** antenna pattern type */
    protected int  antennaPatternType;
@@ -158,12 +158,12 @@ public Vector3Double getAntennaLocation()
 { return antennaLocation; 
 }
 
-public void setRelativeAntennaLocation(Vector3Double pRelativeAntennaLocation)
+public void setRelativeAntennaLocation(Vector3Float pRelativeAntennaLocation)
 { relativeAntennaLocation = pRelativeAntennaLocation;
 }
 
 @XmlElement
-public Vector3Double getRelativeAntennaLocation()
+public Vector3Float getRelativeAntennaLocation()
 { return relativeAntennaLocation; 
 }
 
