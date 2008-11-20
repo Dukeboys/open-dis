@@ -28,9 +28,6 @@ protected:
   /** category of entity */
   unsigned char _category; 
 
-  /** subcategory of entity */
-  unsigned char _subcategory; 
-
   /** specific info based on subcategory field */
   unsigned char _nomenclatureVersion; 
 
@@ -55,9 +52,6 @@ protected:
 
     unsigned char getCategory() const; 
     void setCategory(unsigned char pX); 
-
-    unsigned char getSubcategory() const; 
-    void setSubcategory(unsigned char pX); 
 
     unsigned char getNomenclatureVersion() const; 
     void setNomenclatureVersion(unsigned char pX); 
