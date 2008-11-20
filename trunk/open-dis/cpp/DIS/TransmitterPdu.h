@@ -5,8 +5,8 @@
 #include <DIS/Vector3Double.h>
 #include <DIS/Vector3Float.h>
 #include <DIS/ModulationType.h>
-#include <DIS/Vector3Float.h>
-#include <DIS/Vector3Float.h>
+#include <DIS/EightByteChunk.h>
+#include <DIS/EightByteChunk.h>
 #include <vector>
 #include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
@@ -76,10 +76,10 @@ protected:
   unsigned char _padding3; 
 
   /** variable length list of modulation parameters */
-  std::vector<Vector3Float> _modulationParametersList; 
+  std::vector<EightByteChunk> _modulationParametersList; 
 
   /** variable length list of antenna pattern records */
-  std::vector<Vector3Float> _antennaPatternList; 
+  std::vector<EightByteChunk> _antennaPatternList; 
 
 
  public:
@@ -142,13 +142,13 @@ protected:
     unsigned char getPadding3() const; 
     void setPadding3(unsigned char pX); 
 
-    std::vector<Vector3Float>& getModulationParametersList(); 
-    const std::vector<Vector3Float>& getModulationParametersList() const; 
-    void setModulationParametersList(const std::vector<Vector3Float>&    pX);
+    std::vector<EightByteChunk>& getModulationParametersList(); 
+    const std::vector<EightByteChunk>& getModulationParametersList() const; 
+    void setModulationParametersList(const std::vector<EightByteChunk>&    pX);
 
-    std::vector<Vector3Float>& getAntennaPatternList(); 
-    const std::vector<Vector3Float>& getAntennaPatternList() const; 
-    void setAntennaPatternList(const std::vector<Vector3Float>&    pX);
+    std::vector<EightByteChunk>& getAntennaPatternList(); 
+    const std::vector<EightByteChunk>& getAntennaPatternList() const; 
+    void setAntennaPatternList(const std::vector<EightByteChunk>&    pX);
 
 
 virtual int getMarshalledSize() const;

@@ -211,32 +211,32 @@ void TransmitterPdu::setPadding3(unsigned char pX)
     _padding3 = pX;
 }
 
-std::vector<Vector3Float>& TransmitterPdu::getModulationParametersList() 
+std::vector<EightByteChunk>& TransmitterPdu::getModulationParametersList() 
 {
     return _modulationParametersList;
 }
 
-const std::vector<Vector3Float>& TransmitterPdu::getModulationParametersList() const
+const std::vector<EightByteChunk>& TransmitterPdu::getModulationParametersList() const
 {
     return _modulationParametersList;
 }
 
-void TransmitterPdu::setModulationParametersList(const std::vector<Vector3Float>& pX)
+void TransmitterPdu::setModulationParametersList(const std::vector<EightByteChunk>& pX)
 {
      _modulationParametersList = pX;
 }
 
-std::vector<Vector3Float>& TransmitterPdu::getAntennaPatternList() 
+std::vector<EightByteChunk>& TransmitterPdu::getAntennaPatternList() 
 {
     return _antennaPatternList;
 }
 
-const std::vector<Vector3Float>& TransmitterPdu::getAntennaPatternList() const
+const std::vector<EightByteChunk>& TransmitterPdu::getAntennaPatternList() const
 {
     return _antennaPatternList;
 }
 
-void TransmitterPdu::setAntennaPatternList(const std::vector<Vector3Float>& pX)
+void TransmitterPdu::setAntennaPatternList(const std::vector<EightByteChunk>& pX)
 {
      _antennaPatternList = pX;
 }
@@ -264,14 +264,14 @@ void TransmitterPdu::marshal(DataStream& dataStream) const
 
      for(size_t idx = 0; idx < _modulationParametersList.size(); idx++)
      {
-        Vector3Float x = _modulationParametersList[idx];
+        EightByteChunk x = _modulationParametersList[idx];
         x.marshal(dataStream);
      }
 
 
      for(size_t idx = 0; idx < _antennaPatternList.size(); idx++)
      {
-        Vector3Float x = _antennaPatternList[idx];
+        EightByteChunk x = _antennaPatternList[idx];
         x.marshal(dataStream);
      }
 
@@ -301,7 +301,7 @@ void TransmitterPdu::unmarshal(DataStream& dataStream)
      _modulationParametersList.clear();
      for(size_t idx = 0; idx < _modulationParameterCount; idx++)
      {
-        Vector3Float x;
+        EightByteChunk x;
         x.unmarshal(dataStream);
         _modulationParametersList.push_back(x);
      }
@@ -309,7 +309,7 @@ void TransmitterPdu::unmarshal(DataStream& dataStream)
      _antennaPatternList.clear();
      for(size_t idx = 0; idx < _antennaPatternCount; idx++)
      {
-        Vector3Float x;
+        EightByteChunk x;
         x.unmarshal(dataStream);
         _antennaPatternList.push_back(x);
      }
@@ -378,14 +378,14 @@ int TransmitterPdu::getMarshalledSize() const
 
    for(int idx=0; idx < _modulationParametersList.size(); idx++)
    {
-        Vector3Float listElement = _modulationParametersList[idx];
+        EightByteChunk listElement = _modulationParametersList[idx];
         marshalSize = marshalSize + listElement.getMarshalledSize();
     }
 
 
    for(int idx=0; idx < _antennaPatternList.size(); idx++)
    {
-        Vector3Float listElement = _antennaPatternList[idx];
+        EightByteChunk listElement = _antennaPatternList[idx];
         marshalSize = marshalSize + listElement.getMarshalledSize();
     }
 
