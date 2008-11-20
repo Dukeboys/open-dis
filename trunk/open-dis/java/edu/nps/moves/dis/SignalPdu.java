@@ -29,6 +29,8 @@ public class SignalPdu extends RadioCommunicationsFamilyPdu implements Serializa
    /** number of samples */
    protected short  samples;
 
+   /** list of eight bit values */
+   protected List data = new ArrayList(); 
 
 /** Constructor */
  public SignalPdu()
@@ -46,6 +48,11 @@ public int getMarshalledSize()
    marshalSize = marshalSize + 4;  // sampleRate
    marshalSize = marshalSize + 2;  // dataLength
    marshalSize = marshalSize + 2;  // samples
+   for(int idx=0; idx < data.size(); idx++)
+   {
+        OneByteChunk listElement = (OneByteChunk)data.get(idx);
+        marshalSize = marshalSize + listElement.getMarshalledSize();
+   }
 
    return marshalSize;
 }
@@ -78,13 +85,17 @@ public int getSampleRate()
 { return sampleRate; 
 }
 
-public void setDataLength(short pDataLength)
-{ dataLength = pDataLength;
-}
-
 @XmlAttribute
 public short getDataLength()
-{ return dataLength; 
+{ return (short)data.size();
+}
+
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getdataLength method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setDataLength(short pDataLength)
+{ dataLength = pDataLength;
 }
 
 public void setSamples(short pSamples)
@@ -96,6 +107,14 @@ public short getSamples()
 { return samples; 
 }
 
+public void setData(List pData)
+{ data = pData;
+}
+
+@XmlElementWrapper(name="dataList" )
+public List getData()
+{ return data; }
+
 
 public void marshal(DataOutputStream dos)
 {
@@ -105,8 +124,15 @@ public void marshal(DataOutputStream dos)
        dos.writeShort( (short)encodingScheme);
        dos.writeShort( (short)tdlType);
        dos.writeInt( (int)sampleRate);
-       dos.writeShort( (short)dataLength);
+       dos.writeShort( (short)data.size());
        dos.writeShort( (short)samples);
+
+       for(int idx = 0; idx < data.size(); idx++)
+       {
+            OneByteChunk aOneByteChunk = (OneByteChunk)data.get(idx);
+            aOneByteChunk.marshal(dos);
+       } // end of list marshalling
+
     } // end try 
     catch(Exception e)
     { 
@@ -124,6 +150,13 @@ public void unmarshal(DataInputStream dis)
        sampleRate = dis.readInt();
        dataLength = dis.readShort();
        samples = dis.readShort();
+        for(int idx = 0; idx < dataLength; idx++)
+        {
+           OneByteChunk anX = new OneByteChunk();
+            anX.unmarshal(dis);
+            data.add(anX);
+        };
+
     } // end try 
    catch(Exception e)
     { 
@@ -147,6 +180,13 @@ public void unmarshal(DataInputStream dis)
      if( ! (sampleRate == rhs.sampleRate)) ivarsEqual = false;
      if( ! (dataLength == rhs.dataLength)) ivarsEqual = false;
      if( ! (samples == rhs.samples)) ivarsEqual = false;
+
+     for(int idx = 0; idx < data.size(); idx++)
+     {
+        OneByteChunk x = (OneByteChunk)data.get(idx);
+        if( ! ( data.get(idx).equals(rhs.data.get(idx)))) ivarsEqual = false;
+     }
+
 
     return ivarsEqual;
  }
