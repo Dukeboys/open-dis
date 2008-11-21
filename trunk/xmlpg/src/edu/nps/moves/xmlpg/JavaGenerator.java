@@ -132,6 +132,7 @@ public class JavaGenerator extends Generator
               
               // Create the new, empty file, and create printwriter object for output to it
               File outputFile = new File(fullPath);
+              outputFile.getParentFile().mkdirs();
               outputFile.createNewFile();
               PrintWriter pw = new PrintWriter(outputFile);
               
@@ -162,6 +163,11 @@ public class JavaGenerator extends Generator
         this.writeGettersAndSetters(pw, aClass);
         this.writeMarshalMethod(pw, aClass);
         this.writeUnmarshallMethod(pw, aClass);
+        this.writeMarshalMethodWithByteBuffer(pw, aClass);
+        this.writeUnmarshallMethodWithByteBuffer(pw, aClass);
+        if( aClass.getName().equals("Pdu") ){
+            this.writeMarshalMethodToByteArray(pw, aClass);
+        }
         
         if(aClass.isXmlRootElement())
         {
@@ -856,6 +862,334 @@ public class JavaGenerator extends Generator
         
         pw.println(" } // end of unmarshal method \n");
         
+    }
+
+
+
+    private void writeMarshalMethodWithByteBuffer(PrintWriter pw, GeneratedClass aClass)
+    {
+        List ivars = aClass.getClassAttributes();
+        
+        pw.println();
+        pw.println("/**");
+        pw.println(" * Packs a Pdu into the ByteBuffer.");
+        pw.println(" * @throws java.nio.BufferOverflowException if buff is too small");
+        pw.println(" * @throws java.nio.ReadOnlyBufferException if buff is read only");
+        pw.println(" * @see java.nio.ByteBuffer");
+        pw.println(" * @param buff The ByteBuffer at the position to begin writing");
+        pw.println(" * @since ??");
+        pw.println(" */");
+        pw.println("public void marshal(java.nio.ByteBuffer buff)");
+        pw.println("{");
+
+        // If we're a sublcass of another class, we should first call super
+        // to make sure the superclass's ivars are marshaled out.
+
+        String superclassName = aClass.getParentClass();
+        if(!(superclassName.equalsIgnoreCase("root")))
+        {
+            pw.println("    super.marshal(buff);");
+        }
+
+
+        //pw.println("    try \n    {");
+
+        // Loop through the class attributes, generating the output for each.
+
+        ivars = aClass.getClassAttributes();
+        for(int idx = 0; idx < ivars.size(); idx++)
+        {
+            ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+            // Write out a method call to serialize a primitive type
+            if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+            {
+                String marshalType = marshalTypes.getProperty(anAttribute.getType());
+                String capped = this.initialCap(marshalType);
+                if( capped.equals("Byte") ){
+                    capped = "";    // ByteBuffer just has put() for bytesf
+                }
+
+                // If we're a normal primitivetype, marshal out directly; otherwise, marshall out
+                // the list length.
+                if(anAttribute.getIsDynamicListLengthField() == false)
+                {
+                     //pw.println("       dos.write" + capped + "( (" + marshalType + ")" + anAttribute.getName() + ");");
+                     pw.println("       buff.put" + capped + "( (" + marshalType + ")" + anAttribute.getName() + ");");
+                }
+               else
+               {
+                   ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
+                   //pw.println("       dos.write" + capped + "( (" + marshalType + ")" + listAttribute.getName() + ".size());");
+                   pw.println("       buff.put" + capped + "( (" + marshalType + ")" + listAttribute.getName() + ".size());");
+               }
+
+            }
+
+            // Write out a method call to serialize a class.
+            if( anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF )
+            {
+                String marshalType = anAttribute.getType();
+
+                //pw.println("       " + anAttribute.getName() + ".marshal(dos);" );
+                pw.println("       " + anAttribute.getName() + ".marshal(buff);" );
+            }
+
+            // Write out the method call to marshal a fixed length list, aka an array.
+            if( (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST) )
+            {
+                pw.println();
+                pw.println("       for(int idx = 0; idx < " + anAttribute.getName() + ".length; idx++)");
+                pw.println("       {");
+
+                // This is some sleaze. We're an array, but an array of what? We could be either a
+                // primitive or a class. We need to figure out which. This is done via the expedient
+                // but not very reliable way of trying to do a lookup on the type. If we don't find
+                // it in our map of primitives to marshal types, we assume it is a class.
+
+                String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+                if(anAttribute.getUnderlyingTypeIsPrimitive())
+                {
+                    String capped = this.initialCap(marshalType);
+                    if( capped.equals("Byte") ){
+                        capped = "";    // ByteBuffer just has put() for bytesf
+                    }
+                    //pw.println("           dos.write" + capped + "(" + anAttribute.getName() + "[idx]);");
+                    pw.println("           buff.put" + capped + "(" + anAttribute.getName() + "[idx]);");
+                }
+                else
+                {
+                     //pw.println("           " + anAttribute.getName() + "[idx].marshal(dos);" );
+                     pw.println("           " + anAttribute.getName() + "[idx].marshal(buff);" );
+                }
+
+                pw.println("       } // end of array marshaling");
+                pw.println();
+            }
+
+            // Write out a section of code to marshal a variable length list. The code should look like
+            //
+            // for(int idx = 0; idx < attrName.size(); idx++)
+            // { anAttribute.marshal(dos);
+            // }
+            //
+
+            if( (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) )
+            {
+                pw.println();
+                pw.println("       for(int idx = 0; idx < " + anAttribute.getName() + ".size(); idx++)");
+                pw.println("       {");
+
+                // This is some sleaze. We're an array, but an array of what? We could be either a
+                // primitive or a class. We need to figure out which. This is done via the expedient
+                // but not very reliable way of trying to do a lookup on the type. If we don't find
+                // it in our map of primitives to marshal types, we assume it is a class.
+
+                String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+                if(anAttribute.getUnderlyingTypeIsPrimitive())
+                {
+                    String capped = this.initialCap(marshalType);
+                    if( capped.equals("Byte") ){
+                        capped = "";    // ByteBuffer just uses put() for bytes
+                    }
+                    //pw.println("           dos.write" + capped + "(" + anAttribute.getName() + ");");
+                    pw.println("           buff.put" + capped + "(" + anAttribute.getName() + ");");
+                }
+                else
+                {
+                    //pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")" +
+                    //                                                                 anAttribute.getName() + ".get(idx);"));
+                    //pw.println("            a" + initialCap(anAttribute.getType()) + ".marshal(dos);" );
+                    pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")" +
+                                                                                     anAttribute.getName() + ".get(idx);"));
+                    pw.println("            a" + initialCap(anAttribute.getType()) + ".marshal(buff);" );
+                }
+
+                pw.println("       } // end of list marshalling");
+                pw.println();
+            }
+        } // End of loop through the ivars for a marshal method
+
+        //pw.println("    } // end try \n    catch(Exception e)");
+        //pw.println("    { \n      System.out.println(e);}");
+
+        pw.println("    } // end of marshal method");
+    }
+
+    private void writeUnmarshallMethodWithByteBuffer(PrintWriter pw, GeneratedClass aClass)
+    {
+        List ivars = aClass.getClassAttributes();
+        String superclassName;
+
+        pw.println();
+        pw.println("/**");
+        pw.println(" * Unpacks a Pdu from the underlying data.");
+        pw.println(" * @throws java.nio.BufferUnderflowException if buff is too small");
+        pw.println(" * @see java.nio.ByteBuffer");
+        pw.println(" * @param buff The ByteBuffer at the position to begin reading");
+        pw.println(" * @since ??");
+        pw.println(" */");
+        pw.println("public void unmarshal(java.nio.ByteBuffer buff)");
+        pw.println("{");
+
+        superclassName = aClass.getParentClass();
+        if(!(superclassName.equalsIgnoreCase("root")))
+        {
+            pw.println("    super.unmarshal(buff);\n");
+        }
+
+
+        //pw.println("    try \n    {");
+
+        // Loop through the class attributes, generating the output for each.
+
+        ivars = aClass.getClassAttributes();
+        for(int idx = 0; idx < ivars.size(); idx++)
+        {
+            ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+            // Write out a method call to deserialize a primitive type
+            if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+            {
+                String marshalType = unmarshalTypes.getProperty(anAttribute.getType());
+                String capped = this.initialCap(marshalType);
+                if( capped.equals("Byte") ){
+                    capped = "";
+                }
+                if(marshalType.equalsIgnoreCase("UnsignedByte")){
+                    //pw.println("       " + anAttribute.getName() + " = (short)dis.read" + capped + "();");
+                    pw.println("       " + anAttribute.getName() + " = (short)(buff.get() & 0xFF);");
+                }
+                else if (marshalType.equalsIgnoreCase("UnsignedShort")){
+                    //pw.println("       " + anAttribute.getName() + " = (int)dis.read" + capped + "();");
+                    pw.println("       " + anAttribute.getName() + " = (int)(buff.getShort() & 0xFFFF);");
+                }
+                else{
+                    //pw.println("       " + anAttribute.getName() + " = dis.read" + capped + "();");
+                    pw.println("       " + anAttribute.getName() + " = buff.get" + capped + "();");
+                }
+
+            }
+
+            // Write out a method call to deserialize a class.
+            if( anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+            {
+                String marshalType = anAttribute.getType();
+
+                //pw.println("       " + anAttribute.getName() + ".unmarshal(dis);" );
+                pw.println("       " + anAttribute.getName() + ".unmarshal(buff);" );
+            }
+
+            // Write out the method call to unmarshal a fixed length list, aka an array.
+            if( (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST) )
+            {
+                pw.println("       for(int idx = 0; idx < " + anAttribute.getName() + ".length; idx++)");
+                pw.println("       {");
+
+                // This is some sleaze. We're an array, but an array of what? We could be either a
+                // primitive or a class. We need to figure out which. This is done via the expedient
+                // but not very reliable way of trying to do a lookup on the type. If we don't find
+                // it in our map of primitives to marshal types, we assume it is a class.
+
+                String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+                if(marshalType == null) // It's a class
+                {
+                    //pw.println("           " + anAttribute.getName() + "[idx].unmarshal(dis);" );
+                    pw.println("           " + anAttribute.getName() + "[idx].unmarshal(buff);" );
+                }
+                else // It's a primitive
+                {
+                    String capped = this.initialCap(marshalType);
+                    if( capped.equals("Byte") ){
+                        capped = "";
+                    }
+                    pw.println("                " +  anAttribute.getName() + "[idx] = buff.get" + capped + "();");
+                }
+
+                pw.println("       } // end of array unmarshaling");
+            } // end of array unmarshalling
+
+            // Unmarshall a variable length array.
+
+            if( (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) )
+            {
+                pw.println("        for(int idx = 0; idx < " + anAttribute.getCountFieldName() + "; idx++)");
+                pw.println("        {");
+
+                // This is some sleaze. We're an array, but an array of what? We could be either a
+                // primitive or a class. We need to figure out which. This is done via the expedient
+                // but not very reliable way of trying to do a lookup on the type. If we don't find
+                // it in our map of primitives to marshal types, we assume it is a class.
+
+                String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+                if(marshalType == null) // It's a class
+                {
+                    pw.println("           " + anAttribute.getType() + " anX = new " + anAttribute.getType() + "();");
+                    //pw.println("            anX.unmarshal(dis);");
+                    pw.println("            anX.unmarshal(buff);");
+                    pw.println("            " + anAttribute.getName() + ".add(anX);");
+                }
+                else // It's a primitive
+                {
+                    String capped = this.initialCap(marshalType);
+                    if( capped.equals("Byte") ){
+                        capped = "";
+                    }
+                    //pw.println("           dis.read" + capped + "(" + anAttribute.getName() + ");");
+                    pw.println("           buff.get" + capped + "(" + anAttribute.getName() + ");");
+                }
+                pw.println("        };");
+                pw.println();
+            } // end of unmarshalling a variable list
+
+        } // End of loop through ivars for writing the unmarshal method
+
+        //pw.println("    } // end try \n   catch(Exception e)");
+        //pw.println("    { \n      System.out.println(e); \n    }");
+
+        pw.println(" } // end of unmarshal method \n");
+
+    }
+
+
+
+    /**
+     * Placed in the {@link Pdu} class, this method provides a convenient,
+     * though inefficient way to marshal a Pdu. Better is to reuse a
+     * ByteBuffer and pass it along to the similarly-named method, but
+     * still, there's something to be said for convenience.
+     *
+     * <pre>public byte[] marshal(){
+     *     byte[] data = new byte[getMarshalledSize()];
+     *     java.nio.ByteBuffer buff = java.nio.ByteBuffer.wrap(data);
+     *     marshal(buff);
+     *     return data;
+     * }</pre>
+     *
+     * @param pw
+     * @param aClass
+     */
+    private void writeMarshalMethodToByteArray(PrintWriter pw, GeneratedClass aClass)
+    {
+        pw.println();
+        pw.println("/**");
+        pw.println(" * A convenience method for marshalling to a byte array.");
+        pw.println(" * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.");
+        pw.println(" * @return a byte array with the marshalled {@link Pdu}");
+        pw.println(" * @since ??");
+        pw.println(" */");
+        pw.println("public byte[] marshal()");
+        pw.println("{");
+        pw.println("    byte[] data = new byte[getMarshalledSize()];");
+        pw.println("    java.nio.ByteBuffer buff = java.nio.ByteBuffer.wrap(data);");
+        pw.println("    marshal(buff);");
+        pw.println("    return data;");
+        pw.println("}");
+
     }
     
   
