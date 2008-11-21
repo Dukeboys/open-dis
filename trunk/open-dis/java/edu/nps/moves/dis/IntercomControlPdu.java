@@ -255,6 +255,69 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+    super.marshal(buff);
+       buff.put( (byte)controlType);
+       buff.put( (byte)communicationsChannelType);
+       sourceEntityID.marshal(buff);
+       buff.put( (byte)sourceCommunicationsDeviceID);
+       buff.put( (byte)sourceLineID);
+       buff.put( (byte)transmitPriority);
+       buff.put( (byte)transmitLineState);
+       buff.put( (byte)command);
+       masterEntityID.marshal(buff);
+       buff.putShort( (short)masterCommunicationsDeviceID);
+       buff.putInt( (int)intercomParameters.size());
+
+       for(int idx = 0; idx < intercomParameters.size(); idx++)
+       {
+            IntercomCommunicationsParameters aIntercomCommunicationsParameters = (IntercomCommunicationsParameters)intercomParameters.get(idx);
+            aIntercomCommunicationsParameters.marshal(buff);
+       } // end of list marshalling
+
+    } // end of marshal method
+
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+    super.unmarshal(buff);
+
+       controlType = (short)(buff.get() & 0xFF);
+       communicationsChannelType = (short)(buff.get() & 0xFF);
+       sourceEntityID.unmarshal(buff);
+       sourceCommunicationsDeviceID = (short)(buff.get() & 0xFF);
+       sourceLineID = (short)(buff.get() & 0xFF);
+       transmitPriority = (short)(buff.get() & 0xFF);
+       transmitLineState = (short)(buff.get() & 0xFF);
+       command = (short)(buff.get() & 0xFF);
+       masterEntityID.unmarshal(buff);
+       masterCommunicationsDeviceID = (int)(buff.getShort() & 0xFFFF);
+       intercomParametersLength = buff.getInt();
+        for(int idx = 0; idx < intercomParametersLength; idx++)
+        {
+           IntercomCommunicationsParameters anX = new IntercomCommunicationsParameters();
+            anX.unmarshal(buff);
+            intercomParameters.add(anX);
+        };
+
+ } // end of unmarshal method 
+
+
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
@@ -287,33 +350,3 @@ public void unmarshal(DataInputStream dis)
     return ivarsEqual;
  }
 } // end of class
-// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions
-//  are met:
-// 
-//  * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-// * Redistributions in binary form must reproduce the above copyright
-// notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-// * Neither the names of the Naval Postgraduate School (NPS)
-//  Modeling Virtual Environments and Simulation (MOVES) Institute
-// (http://www.nps.edu and http://www.MovesInstitute.org)
-// nor the names of its contributors may be used to endorse or
-//  promote products derived from this software without specific
-// prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.

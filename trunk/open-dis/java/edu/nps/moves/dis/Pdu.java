@@ -146,11 +146,7 @@ public void unmarshal(DataInputStream dis)
        exerciseID = (short)dis.readUnsignedByte();
        pduType = (short)dis.readUnsignedByte();
        protocolFamily = (short)dis.readUnsignedByte();
-       int ch1 = dis.read();
-       int ch2 = dis.read();
-       int ch3 = dis.read();
-       int ch4 = dis.read();
-       timestamp = (((long)ch1 << 24) + ((long)ch2 << 16) + (ch3 << 8) + (ch4 << 0));
+       timestamp = dis.readInt();
        length = (int)dis.readUnsignedShort();
        padding = dis.readShort();
     } // end try 
@@ -160,6 +156,58 @@ public void unmarshal(DataInputStream dis)
     }
  } // end of unmarshal method 
 
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       buff.put( (byte)protocolVersion);
+       buff.put( (byte)exerciseID);
+       buff.put( (byte)pduType);
+       buff.put( (byte)protocolFamily);
+       buff.putInt( (int)timestamp);
+       buff.putShort( (short)length);
+       buff.putShort( (short)padding);
+    } // end of marshal method
+
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       protocolVersion = (short)(buff.get() & 0xFF);
+       exerciseID = (short)(buff.get() & 0xFF);
+       pduType = (short)(buff.get() & 0xFF);
+       protocolFamily = (short)(buff.get() & 0xFF);
+       timestamp = buff.getInt();
+       length = (int)(buff.getShort() & 0xFFFF);
+       padding = buff.getShort();
+ } // end of unmarshal method 
+
+
+/**
+ * A convenience method for marshalling to a byte array.
+ * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
+ * @return a byte array with the marshalled {@link Pdu}
+ * @since ??
+ */
+public byte[] marshal()
+{
+    byte[] data = new byte[getMarshalledSize()];
+    java.nio.ByteBuffer buff = java.nio.ByteBuffer.wrap(data);
+    marshal(buff);
+    return data;
+}
 
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
@@ -182,33 +230,3 @@ public void unmarshal(DataInputStream dis)
     return ivarsEqual;
  }
 } // end of class
-// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions
-//  are met:
-// 
-//  * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-// * Redistributions in binary form must reproduce the above copyright
-// notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-// * Neither the names of the Naval Postgraduate School (NPS)
-//  Modeling Virtual Environments and Simulation (MOVES) Institute
-// (http://www.nps.edu and http://www.MovesInstitute.org)
-// nor the names of its contributors may be used to endorse or
-//  promote products derived from this software without specific
-// prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.

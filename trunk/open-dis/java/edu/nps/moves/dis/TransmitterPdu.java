@@ -100,12 +100,12 @@ public int getMarshalledSize()
    marshalSize = marshalSize + 1;  // padding3
    for(int idx=0; idx < modulationParametersList.size(); idx++)
    {
-        EightByteChunk listElement = (EightByteChunk)modulationParametersList.get(idx);
+        Vector3Float listElement = (Vector3Float)modulationParametersList.get(idx);
         marshalSize = marshalSize + listElement.getMarshalledSize();
    }
    for(int idx=0; idx < antennaPatternList.size(); idx++)
    {
-        EightByteChunk listElement = (EightByteChunk)antennaPatternList.get(idx);
+        Vector3Float listElement = (Vector3Float)antennaPatternList.get(idx);
         marshalSize = marshalSize + listElement.getMarshalledSize();
    }
 
@@ -316,15 +316,15 @@ public void marshal(DataOutputStream dos)
 
        for(int idx = 0; idx < modulationParametersList.size(); idx++)
        {
-            EightByteChunk aEightByteChunk = (EightByteChunk)modulationParametersList.get(idx);
-            aEightByteChunk.marshal(dos);
+            Vector3Float aVector3Float = (Vector3Float)modulationParametersList.get(idx);
+            aVector3Float.marshal(dos);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < antennaPatternList.size(); idx++)
        {
-            EightByteChunk aEightByteChunk = (EightByteChunk)antennaPatternList.get(idx);
-            aEightByteChunk.marshal(dos);
+            Vector3Float aVector3Float = (Vector3Float)antennaPatternList.get(idx);
+            aVector3Float.marshal(dos);
        } // end of list marshalling
 
     } // end try 
@@ -358,14 +358,14 @@ public void unmarshal(DataInputStream dis)
        padding3 = (short)dis.readUnsignedByte();
         for(int idx = 0; idx < modulationParameterCount; idx++)
         {
-           EightByteChunk anX = new EightByteChunk();
+           Vector3Float anX = new Vector3Float();
             anX.unmarshal(dis);
             modulationParametersList.add(anX);
         };
 
         for(int idx = 0; idx < antennaPatternCount; idx++)
         {
-           EightByteChunk anX = new EightByteChunk();
+           Vector3Float anX = new Vector3Float();
             anX.unmarshal(dis);
             antennaPatternList.add(anX);
         };
@@ -375,6 +375,95 @@ public void unmarshal(DataInputStream dis)
     { 
       System.out.println(e); 
     }
+ } // end of unmarshal method 
+
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+    super.marshal(buff);
+       radioEntityType.marshal(buff);
+       buff.put( (byte)transmitState);
+       buff.put( (byte)inputSource);
+       buff.putShort( (short)padding1);
+       antennaLocation.marshal(buff);
+       relativeAntennaLocation.marshal(buff);
+       buff.putShort( (short)antennaPatternType);
+       buff.putShort( (short)antennaPatternList.size());
+       buff.putDouble( (double)frequency);
+       buff.putFloat( (float)transmitFrequencyBandwidth);
+       buff.putFloat( (float)power);
+       modulationType.marshal(buff);
+       buff.putShort( (short)cryptoSystem);
+       buff.putShort( (short)cryptoKeyId);
+       buff.put( (byte)modulationParametersList.size());
+       buff.putShort( (short)padding2);
+       buff.put( (byte)padding3);
+
+       for(int idx = 0; idx < modulationParametersList.size(); idx++)
+       {
+            Vector3Float aVector3Float = (Vector3Float)modulationParametersList.get(idx);
+            aVector3Float.marshal(buff);
+       } // end of list marshalling
+
+
+       for(int idx = 0; idx < antennaPatternList.size(); idx++)
+       {
+            Vector3Float aVector3Float = (Vector3Float)antennaPatternList.get(idx);
+            aVector3Float.marshal(buff);
+       } // end of list marshalling
+
+    } // end of marshal method
+
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+    super.unmarshal(buff);
+
+       radioEntityType.unmarshal(buff);
+       transmitState = (short)(buff.get() & 0xFF);
+       inputSource = (short)(buff.get() & 0xFF);
+       padding1 = (int)(buff.getShort() & 0xFFFF);
+       antennaLocation.unmarshal(buff);
+       relativeAntennaLocation.unmarshal(buff);
+       antennaPatternType = (int)(buff.getShort() & 0xFFFF);
+       antennaPatternCount = (int)(buff.getShort() & 0xFFFF);
+       frequency = buff.getDouble();
+       transmitFrequencyBandwidth = buff.getFloat();
+       power = buff.getFloat();
+       modulationType.unmarshal(buff);
+       cryptoSystem = (int)(buff.getShort() & 0xFFFF);
+       cryptoKeyId = (int)(buff.getShort() & 0xFFFF);
+       modulationParameterCount = (short)(buff.get() & 0xFF);
+       padding2 = (int)(buff.getShort() & 0xFFFF);
+       padding3 = (short)(buff.get() & 0xFF);
+        for(int idx = 0; idx < modulationParameterCount; idx++)
+        {
+           Vector3Float anX = new Vector3Float();
+            anX.unmarshal(buff);
+            modulationParametersList.add(anX);
+        };
+
+        for(int idx = 0; idx < antennaPatternCount; idx++)
+        {
+           Vector3Float anX = new Vector3Float();
+            anX.unmarshal(buff);
+            antennaPatternList.add(anX);
+        };
+
  } // end of unmarshal method 
 
 
@@ -408,14 +497,14 @@ public void unmarshal(DataInputStream dis)
 
      for(int idx = 0; idx < modulationParametersList.size(); idx++)
      {
-        EightByteChunk x = (EightByteChunk)modulationParametersList.get(idx);
+        Vector3Float x = (Vector3Float)modulationParametersList.get(idx);
         if( ! ( modulationParametersList.get(idx).equals(rhs.modulationParametersList.get(idx)))) ivarsEqual = false;
      }
 
 
      for(int idx = 0; idx < antennaPatternList.size(); idx++)
      {
-        EightByteChunk x = (EightByteChunk)antennaPatternList.get(idx);
+        Vector3Float x = (Vector3Float)antennaPatternList.get(idx);
         if( ! ( antennaPatternList.get(idx).equals(rhs.antennaPatternList.get(idx)))) ivarsEqual = false;
      }
 
@@ -423,33 +512,3 @@ public void unmarshal(DataInputStream dis)
     return ivarsEqual;
  }
 } // end of class
-// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions
-//  are met:
-// 
-//  * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-// * Redistributions in binary form must reproduce the above copyright
-// notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-// * Neither the names of the Naval Postgraduate School (NPS)
-//  Modeling Virtual Environments and Simulation (MOVES) Institute
-// (http://www.nps.edu and http://www.MovesInstitute.org)
-// nor the names of its contributors may be used to endorse or
-//  promote products derived from this software without specific
-// prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.

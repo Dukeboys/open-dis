@@ -684,6 +684,141 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+    super.marshal(buff);
+       buff.putShort( (short)site);
+       buff.putShort( (short)application);
+       buff.putShort( (short)entity);
+       buff.put( (byte)forceId);
+       buff.put( (byte)articulationParameters.size());
+       buff.put( (byte)entityKind);
+       buff.put( (byte)domain);
+       buff.putShort( (short)country);
+       buff.put( (byte)category);
+       buff.put( (byte)subcategory);
+       buff.put( (byte)specific);
+       buff.put( (byte)extra);
+       buff.put( (byte)altEntityKind);
+       buff.put( (byte)altDomain);
+       buff.putShort( (short)altCountry);
+       buff.put( (byte)altCategory);
+       buff.put( (byte)altSubcategory);
+       buff.put( (byte)altSpecific);
+       buff.put( (byte)altExtra);
+       buff.putFloat( (float)xVelocity);
+       buff.putFloat( (float)yVelocity);
+       buff.putFloat( (float)zVelocity);
+       buff.putFloat( (float)xLocation);
+       buff.putFloat( (float)yLocation);
+       buff.putFloat( (float)zLocation);
+       buff.putFloat( (float)psi);
+       buff.putFloat( (float)theta);
+       buff.putFloat( (float)phi);
+       buff.putInt( (int)entityAppearance);
+       buff.put( (byte)deadReckoningAlgorithm);
+
+       for(int idx = 0; idx < otherParameters.length; idx++)
+       {
+           buff.put(otherParameters[idx]);
+       } // end of array marshaling
+
+       buff.putFloat( (float)xAcceleration);
+       buff.putFloat( (float)yAcceleration);
+       buff.putFloat( (float)zAcceleration);
+       buff.putFloat( (float)xAngularVelocity);
+       buff.putFloat( (float)yAngularVelocity);
+       buff.putFloat( (float)zAngularVelocity);
+
+       for(int idx = 0; idx < marking.length; idx++)
+       {
+           buff.put(marking[idx]);
+       } // end of array marshaling
+
+       buff.putInt( (int)capabilities);
+
+       for(int idx = 0; idx < articulationParameters.size(); idx++)
+       {
+            ArticulationParameter aArticulationParameter = (ArticulationParameter)articulationParameters.get(idx);
+            aArticulationParameter.marshal(buff);
+       } // end of list marshalling
+
+    } // end of marshal method
+
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+    super.unmarshal(buff);
+
+       site = (int)(buff.getShort() & 0xFFFF);
+       application = (int)(buff.getShort() & 0xFFFF);
+       entity = (int)(buff.getShort() & 0xFFFF);
+       forceId = (short)(buff.get() & 0xFF);
+       numberOfArticulationParameters = buff.get();
+       entityKind = (short)(buff.get() & 0xFF);
+       domain = (short)(buff.get() & 0xFF);
+       country = (int)(buff.getShort() & 0xFFFF);
+       category = (short)(buff.get() & 0xFF);
+       subcategory = (short)(buff.get() & 0xFF);
+       specific = (short)(buff.get() & 0xFF);
+       extra = (short)(buff.get() & 0xFF);
+       altEntityKind = (short)(buff.get() & 0xFF);
+       altDomain = (short)(buff.get() & 0xFF);
+       altCountry = (int)(buff.getShort() & 0xFFFF);
+       altCategory = (short)(buff.get() & 0xFF);
+       altSubcategory = (short)(buff.get() & 0xFF);
+       altSpecific = (short)(buff.get() & 0xFF);
+       altExtra = (short)(buff.get() & 0xFF);
+       xVelocity = buff.getFloat();
+       yVelocity = buff.getFloat();
+       zVelocity = buff.getFloat();
+       xLocation = buff.getFloat();
+       yLocation = buff.getFloat();
+       zLocation = buff.getFloat();
+       psi = buff.getFloat();
+       theta = buff.getFloat();
+       phi = buff.getFloat();
+       entityAppearance = buff.getInt();
+       deadReckoningAlgorithm = (short)(buff.get() & 0xFF);
+       for(int idx = 0; idx < otherParameters.length; idx++)
+       {
+                otherParameters[idx] = buff.get();
+       } // end of array unmarshaling
+       xAcceleration = buff.getFloat();
+       yAcceleration = buff.getFloat();
+       zAcceleration = buff.getFloat();
+       xAngularVelocity = buff.getFloat();
+       yAngularVelocity = buff.getFloat();
+       zAngularVelocity = buff.getFloat();
+       for(int idx = 0; idx < marking.length; idx++)
+       {
+                marking[idx] = buff.get();
+       } // end of array unmarshaling
+       capabilities = buff.getInt();
+        for(int idx = 0; idx < numberOfArticulationParameters; idx++)
+        {
+           ArticulationParameter anX = new ArticulationParameter();
+            anX.unmarshal(buff);
+            articulationParameters.add(anX);
+        };
+
+ } // end of unmarshal method 
+
+
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
@@ -754,33 +889,3 @@ public void unmarshal(DataInputStream dis)
     return ivarsEqual;
  }
 } // end of class
-// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions
-//  are met:
-// 
-//  * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-// * Redistributions in binary form must reproduce the above copyright
-// notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-// * Neither the names of the Naval Postgraduate School (NPS)
-//  Modeling Virtual Environments and Simulation (MOVES) Institute
-// (http://www.nps.edu and http://www.MovesInstitute.org)
-// nor the names of its contributors may be used to endorse or
-//  promote products derived from this software without specific
-// prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
-// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.
