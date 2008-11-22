@@ -167,4 +167,8 @@
         <delete dir="${dist}"/>
         <delete dir="docs"/>
     </target>
+    
+    <target name="updateEnumerations" description="get update .jar from Enumerations project">
+      <copy todir="lib" file="../Enumerations/dist/Enumerations.jar"/>
+    </target>
 </project>
