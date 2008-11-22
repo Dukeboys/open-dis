@@ -34,6 +34,15 @@ public class PduFactory
     {
         this.useFastPdu = useFastPdu;
     }
+
+
+    public void setUseFastPdu(boolean use){
+        this.useFastPdu = use;
+    }
+
+    public boolean getUseFastPdu(){
+        return this.useFastPdu;
+    }
     
     /** 
      * PDU factory. Pass in an array of bytes, get the correct type of pdu back,
@@ -152,5 +161,114 @@ public class PduFactory
         
         return aPdu;
     }
+
+
+
+    /**
+     * PDU factory. Pass in an array of bytes, get the correct type of pdu back,
+     * based on the PDU type field contained in the byte buffer.
+     * @return null if there was an error creating the Pdu
+     */
+    public Pdu createPdu( java.nio.ByteBuffer buff )
+    {
+        int pos = buff.position();          // Save buffer's position
+        buff.position(pos + 2);             // Advance to third byte
+        int pduType = buff.get() & 0xFF;    // Read Pdu type
+        buff.position(pos);                 // Reset buffer
+
+        // Do a lookup to get the enumeration instance that corresponds to this value.
+        PduType pduTypeEnum = PduType.lookup[pduType];
+
+        Pdu aPdu = null;
+
+        switch(pduTypeEnum)
+        {
+            case ENTITY_STATE:
+                // if the user has created the factory requesting that he get fast espdus back, give him those.
+                if(useFastPdu == true) {
+                   aPdu = new FastEntityStatePdu();
+                } else {
+                   aPdu = new EntityStatePdu();
+                }
+                break;
+
+            case FIRE:
+                aPdu = new FirePdu();
+                break;
+
+            case DETONATION:
+                aPdu = new DetonationPdu();
+                break;
+
+            case COLLISION:
+                aPdu = new CollisionPdu();
+                break;
+
+            case SERVICE_REQUEST:
+                aPdu = new ServiceRequestPdu();
+                break;
+
+            case RESUPPLY_OFFER:
+                aPdu = new ResupplyOfferPdu();
+                break;
+
+            case RESUPPLY_RECEIVED:
+                aPdu = new ResupplyReceivedPdu();
+                break;
+
+            case RESUPPLY_CANCEL:
+                aPdu = new ResupplyCancelPdu();
+                break;
+
+            case REPAIR_COMPLETE:
+                aPdu = new RepairCompletePdu();
+                break;
+
+            case REPAIR_RESPONSE:
+                aPdu = new RepairResponsePdu();
+                break;
+
+            case CREATE_ENTITY:
+                aPdu = new CreateEntityPdu();
+                break;
+
+            case REMOVE_ENTITY:
+                aPdu = new RemoveEntityPdu();
+                break;
+
+            case START_RESUME:
+                aPdu = new StartResumePdu();
+                break;
+
+            case STOP_FREEZE:
+                aPdu = new StopFreezePdu();
+                break;
+
+            case ACKNOWLEDGE:
+                aPdu = new AcknowledgePdu();
+                break;
+
+            case ACTION_REQUEST:
+                aPdu = new ActionRequestPdu();
+                break;
+
+            default:
+                System.out.print("PDU not implemented. Type=" + pduType);
+                if(pduTypeEnum != null)
+                    System.out.print("  PDU not implemented name is " + pduTypeEnum.getDescription());
+                System.out.println();
+
+        }   // end switch
+
+        try{
+            aPdu.unmarshal( buff );
+        } catch( Exception exc ){
+            //System.err.println("Could not unmarshal Pdu: " + exc.getMessage());
+            aPdu = null;
+        }
+
+        return aPdu;
+    }
+
     
 }
