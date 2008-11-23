@@ -100,7 +100,7 @@ public class PduSender extends Object
                         break;
                         
                     default: 
-                        System.out.print("PDU not explictly handled. Type=" + pdu);
+                        System.out.print("PDU of type " + pdu + " not created or sent ");
                         System.out.println();
                 }
                 
@@ -127,7 +127,7 @@ public class PduSender extends Object
                 buffer = baos.toByteArray();
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length, multicastAddress, PORT);
                 socket.send(packet);
-                //System.out.println(".");
+                System.out.println("Sent PDU of type " + aPdu.getClass().getName());
             }
             
             // write the PDUs out to an XML file.
