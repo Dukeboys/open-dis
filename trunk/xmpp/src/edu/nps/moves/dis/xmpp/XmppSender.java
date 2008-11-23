@@ -132,7 +132,7 @@ public class XmppSender
                  // We can also marshall the ESPDU to XML and send that as an attachment, again
                  // in string format. This is still limited to java-only, since it is a 
                  // java string object.
-                 List pduList = new ArrayList();
+                 List<Pdu> pduList = new ArrayList<Pdu>();
                  pduList.add(espdu);
                  PduContainer container = new PduContainer();
                  container.setPdus(pduList);
