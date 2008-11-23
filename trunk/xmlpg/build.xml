@@ -32,7 +32,10 @@
                classpathref="lib.path" debug="${compile.debug}">
         </javac>
     </target>
-    
+   
+<!-- Generate the Java and C++ Open-DIS code. This relies on the open-dis directory with
+     its DIS1998.xml file being available.
+--> 
     <target name="run" depends="compile" description = "run program to generate java and cpp">
       <java classname="edu.nps.moves.xmlpg.Xmlpg">
         <classpath>
@@ -66,33 +69,6 @@
         <arg value="ccl/java"/>
         <arg value="ccl/cpp/CCL"/>
       </java>
-    </target>
-    -->
-    
-    <!-- Creates a new Ant tag that handles compling C++ code. Uses ant-contrib, a
-         sourceforge project. The jar file for ant-contrib is in the lib directory
-         as cpptasks.jar. Note: this is not working -->
-         <!--
-    <taskdef name="cc" classname="net.sf.antcontrib.cpptasks.CCTask">
-      <classpath>
-        <pathelement location="lib/cpptasks.jar"/>
-      </classpath>
-    </taskdef>
-    -->
-    
-    <!-- Compile the generated cpp code and place the object files in the cpp/obj directory -->
-    <!-- Note: not working 
-    <target name="compileCpp" depends="run">
-    
-      <cc name="gcc" outfile="DIS/dis.exe" objdir="DIS/cpp/obj" outtype="executable" >
-        <compiler name="gcc"/>
-        <fileset dir="DIS/CppUtils"/>
-        <fileset dir="DIS/cpp"/>
-                
-        <includepath location="DIS/cpp"/>
-        <includepath location="DIS/CppUtils"/>
-        
-    </cc>
     </target>
     -->
     
