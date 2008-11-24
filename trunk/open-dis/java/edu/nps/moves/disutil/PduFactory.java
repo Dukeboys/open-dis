@@ -172,6 +172,9 @@ public class PduFactory
     public Pdu createPdu( java.nio.ByteBuffer buff )
     {
         int pos = buff.position();          // Save buffer's position
+        if( pos + 2 > buff.limit() ){       // Make sure there's enough space in buffer
+            return null;                    // Else return null
+        }   // end if: buffer too short
         buff.position(pos + 2);             // Advance to third byte
         int pduType = buff.get() & 0xFF;    // Read Pdu type
         buff.position(pos);                 // Reset buffer

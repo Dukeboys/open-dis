@@ -34,6 +34,7 @@ public class PduMulticastReceiver extends UdpServer {
     private Pdu pdu;    // Last pdu received
     private ByteBuffer buffer;
     private boolean unmarshalWithByteBuffer = true; // instead of data input stream
+    //private boolean lookForMultiplePdusPerPacket;
 
 
     /**
@@ -55,33 +56,38 @@ public class PduMulticastReceiver extends UdpServer {
             Pdu temp;
             @Override
             public void udpServerPacketReceived(UdpServer.Event evt) {
-                
-                temp = null;
-                // Efficient and clean
-                if( unmarshalWithByteBuffer ){
-                    buffer.rewind();
-                    buffer.position( packet.getOffset() );
-                    while( (temp = pduFactory.createPdu(buffer)) != null ){
-                        lastPdu = temp;     // This inner class
-                        pdu = temp;         // The server's reference
-                        firePduReceived();
-                    }
-                }   // end if: use byte buffer
+                try{
+                    temp = null;
+                    // Efficient and clean
+                    if( unmarshalWithByteBuffer ){
+                        buffer.rewind();
+                        buffer.position( packet.getOffset() );
+                        buffer.limit(packet.getOffset() + packet.getLength() );
+                        while( (temp = pduFactory.createPdu(buffer)) != null ){
+                            lastPdu = temp;     // This inner class
+                            pdu = temp;         // The server's reference
+                            firePduReceived();
+                        }   // end while: more pdus to check
+                    }   // end if: use byte buffer
 
-                // Inefficient and dirty
-                else {
-                    if( packet.getOffset() == 0 ){
-                        temp = pduFactory.createPdu( packet.getData() );
-                    } else {
-                        byte[] data = new byte[ packet.getLength() ];
-                        System.arraycopy( packet.getData(), packet.getOffset(), data,0,data.length );
-                        temp = pduFactory.createPdu(data);
+                    // Inefficient and dirty
+                    else {
+                        if( packet.getOffset() == 0 ){
+                            temp = pduFactory.createPdu( packet.getData() );
+                        } else {
+                            byte[] data = new byte[ packet.getLength() ];
+                            System.arraycopy( packet.getData(), packet.getOffset(), data,0,data.length );
+                            temp = pduFactory.createPdu(data);
+                        }   // end else: need to clean up array
+
                         lastPdu = temp;     // This inner class
                         pdu = temp;         // The server's reference
                         firePduReceived();
-                    }   // end else: need to clean up array
-                }   // end else: use old system
-                
+                    }   // end else: use old system
+                }catch(Exception e){
+                    System.err.println("Encountered an error. Please contact open-dis developers.");
+                    e.printStackTrace();
+                }
             }   // end packet received
         }); // end listener
     }
@@ -94,6 +100,8 @@ public class PduMulticastReceiver extends UdpServer {
     public Pdu getPdu(){
         return this.pdu;
     }
+
+
 
     /**
      * Returns whether or not the ByteBuffer marshalling
