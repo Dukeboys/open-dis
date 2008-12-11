@@ -336,7 +336,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
         setTitle("PDU Byte Buffer Efficiency Test");
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() & ~java.awt.Font.BOLD));
-        jLabel1.setText("<html><b>Purpose:</b> To test the efficiency of marshaling and unmarshaling PDUs with DataInputStreams/DataOuputStreams vs reusable ByteBuffers.</html>");
+        jLabel1.setText("<html><b>Purpose:</b> To test the efficiency of marshaling and unmarshaling PDUs with DataInputStreams/DataOuputStreams vs reusable ByteBuffers. <strong>Recommend running with -Xincgc argument for better visualization with garbage collection</strong>.</html>");
         jLabel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
 
         jTabbedPane2.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
@@ -421,7 +421,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(actualSendRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
                 .addContainerGap())
         );
         senderPanelLayout.setVerticalGroup(
@@ -452,7 +452,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
                 .addGroup(senderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(actualSendRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PDU Sender", senderPanel);
@@ -542,7 +542,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
                         .addComponent(recvRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
                 .addContainerGap())
         );
         receiverPanelLayout.setVerticalGroup(
@@ -572,7 +572,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
                 .addGroup(receiverPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(recvRateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("PDU Receiver", receiverPanel);
