@@ -12,6 +12,7 @@
 package edu.nps.moves.examples;
 
 import edu.nps.moves.dis.EntityStatePdu;
+import edu.nps.moves.dis.Pdu;
 import edu.nps.moves.disutil.PduMulticastReceiver;
 import edu.nps.moves.disutil.UdpServer;
 import java.awt.BorderLayout;
@@ -27,6 +28,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.text.ParseException;
+import java.util.LinkedList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -41,7 +45,7 @@ import javax.swing.SwingWorker;
  * @author rharder
  */
 public class PduByteBufferTester extends javax.swing.JFrame implements PduMulticastReceiver.Listener, UdpServer.Listener {
-
+    //private byte[] getOverThe5MbStackHurdle = new byte[1024*1024*5];
     private final static String START_FLOOD = "Begin Packet Flood";
     private final static String STOP_FLOOD = "Stop";
     
@@ -62,7 +66,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
     private final static int INTERVAL = 0;
     private final static int SENT_COUNT = 1;
     private final static int RECV_COUNT = 2;
-
+    private List<Pdu> receivedPdus = new LinkedList<Pdu>();
 
 
     private PduMulticastReceiver pduServer;
@@ -194,7 +198,6 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
                         if( marshalWithByteBuffer ){
                             buff.rewind();
                             espdu.marshal(buff);
-                            //espdu.marshal(buff);
                             packet.setData(data, 0, buff.position());
                             socket.send(packet);
                             sentCount++;
@@ -283,6 +286,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
     public void pduReceived( PduMulticastReceiver.Event evt ){
         // Woo Hoo!
         this.recvCount++;
+        this.receivedPdus.add( evt.getPdu() );
     }
 
 
@@ -672,6 +676,7 @@ public class PduByteBufferTester extends javax.swing.JFrame implements PduMultic
                     break;
                 case STARTED:
                     this.pduServer.stop();
+                    this.receivedPdus.clear();
                     break;
                 default:
                     System.err.println("Shouldn't see this. State: " + state );
