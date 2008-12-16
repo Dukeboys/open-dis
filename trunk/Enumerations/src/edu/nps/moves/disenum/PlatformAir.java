@@ -7,7 +7,7 @@ package edu.nps.moves.disenum;
  * Copyright 2008. This work is licensed under the BSD license, available at
  * http://www.movesinstitute.org/licenses
  *
- * @author DMcG
+ * @author DMcG, Jason Nelson
  */
 
 public enum PlatformAir 
@@ -59,12 +59,14 @@ PlatformAir(int value, String description)
     this.description = description;
 }
 
+/** Returns the enumerated value for this enumeration */
 public int getValue()
 {
   return value;
 }
 
 
+/** Returns a text descriptioni for this enumerated value. This is usually used as the basis for the enumeration name. */
 public String getDescription()
 {
   return description;

@@ -1,6 +1,6 @@
 package edu.nps.moves.disenum;
 
-/** Enumeration values for CountryType
+/** Enumeration values for CountryType.
  * The enumeration values are generated from the SISO DIS XML EBV document, which was
  * obtained from http://discussions.sisostds.org/default.asp?action=10&fd=31
  *
@@ -312,16 +312,19 @@ CountryType(int value, String description, String internetDomainCode)
     this.internetDomainCode = internetDomainCode;
 }
 
+/** Returns the enumerated value for this enumeration */
 public int getValue()
 {
   return value;
 }
 
+/** Returns the string description for this enumeration. */
 public String getDescription()
 {
   return description;
 }
 
+/** As an alternative, returns the internet domain code for this country, if it exists. */
 public String getInternetDomainCode()
 {
   return internetDomainCode;
