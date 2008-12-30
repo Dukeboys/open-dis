@@ -1475,15 +1475,15 @@ PduHeader record, section 5.2.29.">
   </attribute>
 
   <attribute name="xLocation" comment = "X value">
-    <primitive type="float"/>
+    <primitive type="double"/>
   </attribute>
   
   <attribute name="yLocation" comment="y Value">
-    <primitive type="float"/>
+    <primitive type="double"/>
   </attribute>
   
   <attribute name="zLocation" comment="Z value">
-    <primitive type="float"/>
+    <primitive type="double"/>
   </attribute>
 
 
