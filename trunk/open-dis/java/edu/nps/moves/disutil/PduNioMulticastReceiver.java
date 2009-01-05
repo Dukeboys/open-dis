@@ -52,22 +52,16 @@ public class PduNioMulticastReceiver extends NioServer {
         pduFactory = new PduFactory();
 
         super.addNioServerListener(new NioServer.Adapter() {
-            Pdu lastPdu;
             Pdu temp;
             @Override
-            public void nioServerDataReceived(NioServer.Event evt) {
+            public void nioServerUdpDataReceived(NioServer.Event evt) {
                 try{
                     temp = null;
                     // Efficient and clean
                     if( unmarshalWithByteBuffer ){
-                        //buffer.rewind();
-                        //buffer.position( packet.getOffset() );
-                        //buffer.limit(packet.getOffset() + packet.getLength() );
                         ByteBuffer buffer = evt.getBuffer();
                         while( (temp = pduFactory.createPdu(buffer)) != null ){
-                            lastPdu = temp;     // This inner class
-                            pdu = temp;         // The server's reference
-                            firePduReceived();
+                            firePduReceived( temp );
                         }   // end while: more pdus to check
                     }   // end if: use byte buffer
 
@@ -77,9 +71,7 @@ public class PduNioMulticastReceiver extends NioServer {
                         byte[] data = new byte[ buffer.remaining() ];
                         buffer.get(data);
                         temp = pduFactory.createPdu(data);
-                        lastPdu = temp;     // This inner class
-                        pdu = temp;         // The server's reference
-                        firePduReceived();
+                        firePduReceived(temp);
                     }   // end else: use old system
                 }catch(Exception e){
                     System.err.println("Encountered an error. Please contact open-dis developers.");
@@ -100,7 +92,6 @@ public class PduNioMulticastReceiver extends NioServer {
     }
 
 
-
     /**
      * Returns whether or not the ByteBuffer marshalling
      * technique is being used (default).
@@ -118,6 +109,7 @@ public class PduNioMulticastReceiver extends NioServer {
     public void setUseByteBuffer( boolean use ){
         this.unmarshalWithByteBuffer = use;
     }
+
 
     /**
      * Returns whether or not FastEspdu objects
@@ -163,8 +155,8 @@ public class PduNioMulticastReceiver extends NioServer {
     /**
      * Fires event on calling thread.
      */
-    protected synchronized void firePduReceived() {
-
+    protected synchronized void firePduReceived( Pdu pdu ) {
+        this.pdu = pdu;
         PduNioMulticastReceiver.Listener[] ll = listeners.toArray(new PduNioMulticastReceiver.Listener[ listeners.size() ] );
         for( PduNioMulticastReceiver.Listener l : ll ){
             try{

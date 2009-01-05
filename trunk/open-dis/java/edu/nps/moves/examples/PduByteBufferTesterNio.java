@@ -95,7 +95,7 @@ public class PduByteBufferTesterNio extends javax.swing.JFrame implements PduNio
 
         this.pduServer.setUseByteBuffer( this.unmarshalWithByteBufferCheckbox.isSelected() );
         
-        NioServer.setLoggingLevel(Level.OFF);
+        NioServer.setLoggingLevel(Level.ALL);
         this.pduServer.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent evt) {
 
@@ -225,9 +225,9 @@ public class PduByteBufferTesterNio extends javax.swing.JFrame implements PduNio
                 packet.setPort(port);
 
                 // Sample coding with java.nio
-                //DatagramChannel channel = DatagramChannel.open();
-                //ByteBuffer buffCh = ByteBuffer.allocateDirect(1024);
-                //InetSocketAddress destCh = new InetSocketAddress( dest, port );
+                DatagramChannel channel = DatagramChannel.open();
+                ByteBuffer buffCh = ByteBuffer.allocateDirect(1024);
+                InetSocketAddress destCh = new InetSocketAddress( dest, port );
 
                 int burst = burstSize;
                 int i = 0;
@@ -238,15 +238,15 @@ public class PduByteBufferTesterNio extends javax.swing.JFrame implements PduNio
 
                         // With Byte Buffers
                         if( marshalWithByteBuffer ){
-                            //buffCh.clear();                     // java.nio
-                            //espdu.marshal(buffCh);
-                            //buffCh.flip();
-                            //channel.send( buffCh, destCh);
+                            buffCh.clear();                     // java.nio
+                            espdu.marshal(buffCh);
+                            buffCh.flip();
+                            channel.send( buffCh, destCh);
                             
-                            buff.clear();                       // java.io
-                            espdu.marshal(buff);
-                            packet.setData(data, 0, buff.position());
-                            socket.send(packet);
+                            //buff.clear();                       // java.io
+                            //espdu.marshal(buff);
+                            //packet.setData(data, 0, buff.position());
+                            //socket.send(packet);
 
                             sentCount++;
                         }   // end if: buffers
@@ -696,10 +696,10 @@ public class PduByteBufferTesterNio extends javax.swing.JFrame implements PduNio
             try {
                 JFormattedTextField field = (JFormattedTextField) evt.getSource();
                 field.commitEdit();
-                //this.pduServer.setPort((Integer)field.getValue());
-                this.pduServer.clearTcpBindings().clearUdpBindings();
-                SocketAddress addr = new InetSocketAddress( (Integer)field.getValue() );
-                this.pduServer.addTcpBinding(addr).addUdpBinding(addr,this.recvGroupField.getText());
+                this.pduServer.setSingleUdpPort((Integer)this.recvPortField.getValue(), this.recvGroupField.getText());
+                //this.pduServer/*.clearTcpBindings()*/.clearUdpBindings();
+                //SocketAddress addr = new InetSocketAddress( (Integer)field.getValue() );
+                //this.pduServer/*.addTcpBinding(addr)*/.addUdpBinding(addr,this.recvGroupField.getText());
             } catch (ParseException ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             }
@@ -708,19 +708,21 @@ public class PduByteBufferTesterNio extends javax.swing.JFrame implements PduNio
     private void recvGroupFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recvGroupFieldActionPerformed
             JTextField field = (JTextField)evt.getSource();
             String val = field.getText();
-            
-            this.pduServer.clearTcpBindings().clearUdpBindings();
-            SocketAddress addr = new InetSocketAddress( (Integer)this.recvPortField.getValue() );
-            this.pduServer.addTcpBinding(addr).addUdpBinding(addr,this.recvGroupField.getText());
+
+            this.pduServer.setSingleUdpPort((Integer)this.recvPortField.getValue(), this.recvGroupField.getText());
+//            this.pduServer.clearTcpBindings().clearUdpBindings();
+//            SocketAddress addr = new InetSocketAddress( (Integer)this.recvPortField.getValue() );
+//            this.pduServer.addTcpBinding(addr).addUdpBinding(addr,this.recvGroupField.getText());
 }//GEN-LAST:event_recvGroupFieldActionPerformed
 
     private void recvGroupFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_recvGroupFieldFocusLost
             JTextField field = (JTextField)evt.getSource();
             String val = field.getText();
 
-            this.pduServer.clearTcpBindings().clearUdpBindings();
-            SocketAddress addr = new InetSocketAddress( (Integer)this.recvPortField.getValue() );
-            this.pduServer.addTcpBinding(addr).addUdpBinding(addr,this.recvGroupField.getText());
+                this.pduServer.setSingleUdpPort((Integer)this.recvPortField.getValue(), this.recvGroupField.getText());
+//            this.pduServer.clearTcpBindings().clearUdpBindings();
+//            SocketAddress addr = new InetSocketAddress( (Integer)this.recvPortField.getValue() );
+//            this.pduServer.addTcpBinding(addr).addUdpBinding(addr,this.recvGroupField.getText());
 }//GEN-LAST:event_recvGroupFieldFocusLost
 
         private void startStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopButtonActionPerformed

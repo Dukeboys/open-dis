@@ -33,6 +33,7 @@ public class PduMulticastReceiver extends UdpServer {
     private PduFactory pduFactory;
     private Pdu pdu;    // Last pdu received
     private ByteBuffer buffer;
+    private ByteBuffer directBuffer;
     private boolean unmarshalWithByteBuffer = true; // instead of data input stream
     //private boolean lookForMultiplePdusPerPacket;
 

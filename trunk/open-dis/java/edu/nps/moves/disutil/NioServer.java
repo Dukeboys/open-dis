@@ -17,23 +17,33 @@ import java.lang.reflect.Method;
 
 
 /**
- * <p>A robust class for establishing a TCP server and manipulating
- * its listening port.
+ * <p>A robust class for establishing simultaneous TCP and UDP servers and manipulating
+ * their listening ports.
  * The {@link Event}s and property change events make
  * it an appropriate tool in a threaded, GUI application.
  * It is almost identical in design to the UdpServer and TcpServer classes that
  * should have accompanied this class when you downloaded it.</p>
  * 
- * <p>To start a TCP server, create a new NioServer and call start():</p>
+ * <p>To start a server, create a new NioServer and call start():</p>
  * 
  * <pre> NioServer server = new NioServer();
  * server.start();</pre>
+ *
+ * <p>You'll want to bind to a port or two:</p>
+ *
+ * <pre> server.addTcpBinding( new InetSocketAddress( 80 ) );
+ * server.addUdpBinding( new InetSocketAddress( 80 ) );</pre>
  * 
  * <p>Of course it won't be much help unless you register as a listener
  * so you'll know when data has come in:</p>
  * 
  * <pre> server.addNioServerListener( new NioServer.Adapter(){
- *     public void nioServerDataReceived( NioServer.Event evt ){
+ *     public void nioServerTcpDataReceived( NioServer.Event evt ){
+ *         ByteBuffer buff = evt.getBuffer();
+ *         ...
+ *     }   // end data received
+ *
+ *     public void nioServerUdpDataReceived( NioServer.Event evt ){
  *         ByteBuffer buff = evt.getBuffer();
  *         ...
  *     }   // end data received
@@ -43,7 +53,7 @@ import java.lang.reflect.Method;
  * Consider offloading heavy processing to another thread. Be aware that
  * you can register multiple listeners to respond to incoming data
  * so be mindful of more than one listener being around to makes calls
- * on the new Socket.</p>
+ * on the data.</p>
  * 
  * <p>The public methods are all synchronized on <tt>this</tt>, and great
  * care has been taken to avoid deadlocks and race conditions. That being said,
@@ -57,6 +67,11 @@ import java.lang.reflect.Method;
  * <p>The supporting {@link Event}, {@link Listener}, and {@link Adapter}
  * classes are static inner classes in this file so that you have only one
  * file to copy to your project. You're welcome.</p>
+ *
+ * <p>Since the TcpServer.java, UdpServer.java, and NioServer.java are
+ * so similar, and since lots of copying and pasting was going on among them,
+ * you may find some comments that refer to TCP instead of UDP or vice versa.
+ * Please feel free to let me know, so I can correct that.</p>
  * 
  * <p>This code is released into the Public Domain.
  * Since this is Public Domain, you don't need to worry about
@@ -76,7 +91,8 @@ import java.lang.reflect.Method;
  * @see Listener
  */
 public class NioServer {
-    
+
+    /** Standard Java logger. */
     private final static Logger LOGGER = Logger.getLogger(NioServer.class.getName());
     
 
@@ -101,18 +117,22 @@ public class NioServer {
     public final static String STATE_PROP = "state";
     
     
-    private final Collection<Listener> listeners = new LinkedList<Listener>();                // Event listeners
-    private final NioServer.Event event = new NioServer.Event(this);                                              // Shared event
-    private final PropertyChangeSupport propSupport = new PropertyChangeSupport(this);        // Properties
+    public final static String LAST_EXCEPTION_PROP = "lastException";
+    private Throwable lastException;
+
     
-    private final NioServer This = this;                                             // To aid in synchronizing
+    private final Collection<Listener> listeners = new LinkedList<Listener>();          // Event listeners
+    private final NioServer.Event event = new NioServer.Event(this);                    // Shared event
+    private final PropertyChangeSupport propSupport = new PropertyChangeSupport(this);  // Properties
+    
     private ThreadFactory threadFactory;                                                // Optional thread factory
     private Thread ioThread;                                                            // Performs IO
-    private Selector selector;                                                  // Brokers all the connections
-
+    private Selector selector;                                                          // Brokers all the connections
 
     public final static String TCP_BINDINGS_PROP = "tcpBindings";
     public final static String UDP_BINDINGS_PROP = "udpBindings";
+    public final static String SINGLE_TCP_PORT_PROP = "singleTcpPort";
+    public final static String SINGLE_UDP_PORT_PROP = "singleUdpPort";
     
     private final Map<SocketAddress,SelectionKey> tcpBindings = new HashMap<SocketAddress,SelectionKey>();// Requested TCP bindings, e.g., "listen on port 80"
     private final Map<SocketAddress,SelectionKey> udpBindings = new HashMap<SocketAddress,SelectionKey>();// Requested UDP bindings
@@ -125,21 +145,18 @@ public class NioServer {
     private final Map<SocketAddress,SelectionKey> pendingTcpRemoves = new HashMap<SocketAddress,SelectionKey>(); // TCP bindings to remove from selector on next cycle
     private final Map<SocketAddress,SelectionKey> pendingUdpRemoves = new HashMap<SocketAddress,SelectionKey>(); // UDP bindings to remove from selector on next cycle
 
-
 /* ********  C O N S T R U C T O R S  ******** */
     
     
     /**
-     * Constructs a new NioServer that will listen on the default port 8000
-     * (but not until {@link #start} is called).
-     * The I/O thread will not be in daemon mode.
+     * Constructs a new NioServer, listening to nothing, and not started.
      */
     public NioServer(){
     }
     
     /**
-     * Constructs a new NioServer that will listen on the given port
-     * (but not until {@link #start} is called). The provided
+     * Constructs a new NioServer, listening to nothing, and not started.
+     * The provided
      * ThreadFactory will be used when starting and running the server.
      * @param factory the ThreadFactory to use when starting the server
      */
@@ -197,10 +214,16 @@ public class NioServer {
     public synchronized void stop(){
         if( this.currentState == State.STARTED || this.currentState == State.STARTING ){   // Only if already STARTED
             setState( State.STOPPING );             // Mark as STOPPING
-            if( this.selector != null ){           //
+            if( this.selector != null ){  
                 try{
+                    Set<SelectionKey> keys = this.selector.keys();
+                    for( SelectionKey key : this.selector.keys() ){
+                        key.channel().close();
+                        key.cancel();
+                    }
                     this.selector.close();
                 } catch( IOException exc ){
+                    fireExceptionNotification(exc);
                     LOGGER.log( 
                       Level.SEVERE,
                       "An error occurred while closing the server. " +
@@ -446,16 +469,19 @@ public class NioServer {
                         this.selector.close();
                         LOGGER.info( "Server closed normally." );
                     } catch( IOException exc2 ){
+                        this.lastException = exc2;
                         LOGGER.log( 
                           Level.SEVERE,
                           "An error occurred while closing the server. " +
                           "This may have left the server in an undefined state.",
                           exc2 );
+                        fireExceptionNotification(exc2);
                     }   // end catch IOException
                 } else {
                     LOGGER.log( Level.WARNING, "Server closed unexpectedly: " + exc.getMessage(), exc );
                 }   // end else
             }   // end sync
+            fireExceptionNotification(exc);
         } finally {
             setState( State.STOPPING );
             if( this.selector != null ){
@@ -468,10 +494,11 @@ public class NioServer {
                       "An error occurred while closing the server. " +
                       "This may have left the server in an undefined state.",
                       exc2 );
+                    fireExceptionNotification(exc2);
                 }   // end catch IOException
             }   // end if: not null
             this.selector = null;
-        }
+        }   // end finally
     }
 
 
@@ -645,10 +672,10 @@ public class NioServer {
      */
     public synchronized NioServer removeTcpBinding( SocketAddress addr ){
         Set<SocketAddress> oldVal = this.getTcpBindings();                      // Save old set for prop change event
-        this.tcpBindings.remove(addr);                                          // Remove binding
-        Set<SocketAddress> newVal = this.getTcpBindings();                      // Save new set for prop change event
         this.pendingTcpRemoves.put( addr, this.tcpBindings.get(addr) );         // Prepare pending remove action
+        this.tcpBindings.remove(addr);                                          // Remove binding
         this.pendingTcpAdds.remove(addr);                                       // In case it's also pending an add
+        Set<SocketAddress> newVal = this.getTcpBindings();                      // Save new set for prop change event
         
         if( this.selector != null ){                                            // If there's a selector...
             this.selector.wakeup();                                             // Wake it up to handle the remove action
@@ -783,11 +810,11 @@ public class NioServer {
      */
     public synchronized NioServer removeUdpBinding( SocketAddress addr ){
         Map<SocketAddress,String> oldVal = this.getUdpBindings();               // Save old set for prop change event
+        this.pendingUdpRemoves.put( addr, this.udpBindings.get(addr) );         // Prepare pending remove action
         this.udpBindings.remove(addr);                                          // Remove binding
         this.multicastGroups.remove(addr);                                      // Remove multicast note
-        Map<SocketAddress,String> newVal = this.getUdpBindings();               // Save new set for prop change event
-        this.pendingUdpRemoves.put( addr, this.udpBindings.get(addr) );         // Prepare pending remove action
         this.pendingUdpAdds.remove(addr);                                       // In case it's also pending an add
+        Map<SocketAddress,String> newVal = this.getUdpBindings();               // Save new set for prop change event
 
         if( this.selector != null ){                                            // If there's a selector...
             this.selector.wakeup();                                             // Wake it up to handle the remove action
@@ -869,8 +896,100 @@ public class NioServer {
     }
 
 
-    
-    
+/* ********  S I N G L E   P O R T  ******** */
+
+
+
+    /**
+     * Convenience method for clearing all bindings and
+     * setting up listening for TCP on the given port.
+     * @param port the port to listen to
+     * @return <code>this</code> to aid in chaining
+     * @throw IllegalArgumentException if port is out of range
+     */
+    public synchronized NioServer setSingleTcpPort( int port ){
+        int oldVal = getSingleTcpPort();
+        if( oldVal == port ){
+            return this;
+        }
+        clearTcpBindings();
+        addTcpBinding( new InetSocketAddress(port) );
+        int newVal =  port;
+        firePropertyChange( SINGLE_TCP_PORT_PROP, oldVal, newVal );
+        return this;
+    }
+
+
+    /**
+     * Convenience method for clearing all bindings and
+     * setting up listening for UDP on the given port.
+     * @param port the port to listen to
+     * @return <code>this</code> to aid in chaining
+     * @throw IllegalArgumentException if port is out of range
+     */
+    public synchronized NioServer setSingleUdpPort( int port ){
+        int oldVal = getSingleUdpPort();
+        if( oldVal == port ){
+            return this;
+        }
+        clearUdpBindings();
+        addUdpBinding( new InetSocketAddress(port) );
+        int newVal =  port;
+        firePropertyChange( SINGLE_UDP_PORT_PROP, oldVal, newVal );
+        return this;
+    }
+
+
+    public synchronized NioServer setSingleUdpPort( int port, String group ){
+        int oldVal = getSingleUdpPort();
+        if( oldVal == port ){
+            return this;
+        }
+        clearUdpBindings();
+        addUdpBinding( new InetSocketAddress(port), group );
+        int newVal =  port;
+        firePropertyChange( SINGLE_UDP_PORT_PROP, oldVal, newVal );
+        return this;
+    }
+
+
+    /**
+     * Returns the port for the single TCP binding in effect,
+     * or -1 (minus one) if there are no or multiple TCP
+     * bindings or some other error.
+     * @return TCP listening port or -1
+     */
+    public synchronized int getSingleTcpPort(){
+        int port = -1;
+        Set<SocketAddress> bindings = getTcpBindings();
+        if( bindings.size() == 1 ){
+            SocketAddress sa = bindings.iterator().next();
+            if( sa instanceof InetSocketAddress ){
+                port = ((InetSocketAddress)sa).getPort();
+            }   // end if: inet
+        }   // end if: only one binding
+        return port;
+    }
+
+
+
+    /**
+     * Returns the port for the single UDP binding in effect,
+     * or -1 (minus one) if there are no or multiple UDP
+     * bindings or some other error.
+     * @return UDP listening port or -1
+     */
+    public synchronized int getSingleUdpPort(){
+        int port = -1;
+        Map<SocketAddress,String> bindings = getUdpBindings();
+        if( bindings.size() == 1 ){
+            SocketAddress sa = bindings.keySet().iterator().next();
+            if( sa instanceof InetSocketAddress ){
+                port = ((InetSocketAddress)sa).getPort();
+            }   // end if: inet
+        }   // end if: only one binding
+        return port;
+    }
     
 /* ********  E V E N T S  ******** */
     
@@ -897,7 +1016,23 @@ public class NioServer {
      * @param key the SelectionKey associated with the data
      */
     protected synchronized void fireTcpDataReceived(SelectionKey key) {
-        fireUdpDataReceived(key,null);
+
+        final NioServer.Listener[] ll = listeners.toArray(new NioServer.Listener[ listeners.size() ] );
+        this.event.setKey(key);
+        this.event.setRemoteAddress(null); // Used for UDP, discovered "on the fly" for TCP
+
+        // Make a Runnable object to execute the calls to listeners.
+        // In the event we don't have an Executor, this results in
+        // an unnecessary object instantiation, but it also makes
+        // the code more maintainable.
+        for( NioServer.Listener l : ll ){
+            try{
+                l.nioServerTcpDataReceived(event);
+            } catch( Exception exc ){
+                LOGGER.warning("NioServer.Listener " + l + " threw an exception: " + exc.getMessage() );
+                fireExceptionNotification(exc);
+            }   // end catch
+        }   // end for: each listener
     }
 
 
@@ -918,9 +1053,10 @@ public class NioServer {
         // the code more maintainable.
         for( NioServer.Listener l : ll ){
             try{
-                l.nioServerDataReceived(event);
+                l.nioServerUdpDataReceived(event);
             } catch( Exception exc ){
                 LOGGER.warning("NioServer.Listener " + l + " threw an exception: " + exc.getMessage() );
+                fireExceptionNotification(exc);
             }   // end catch
         }   // end for: each listener
      }  // end fireNioServerPacketReceived
@@ -945,6 +1081,7 @@ public class NioServer {
                 l.nioServerConnectionClosed(event);
             } catch( Exception exc ){
                 LOGGER.warning("NioServer.Listener " + l + " threw an exception: " + exc.getMessage() );
+                fireExceptionNotification(exc);
             }   // end catch
         }   // end for: each listener
      }  // end fireNioServerPacketReceived
@@ -969,6 +1106,7 @@ public class NioServer {
                 l.nioServerNewConnectionReceived(event);
             } catch( Exception exc ){
                 LOGGER.warning("NioServer.Listener " + l + " threw an exception: " + exc.getMessage() );
+                fireExceptionNotification(exc);
             }   // end catch
         }   // end for: each listener
      }  // end fireNioServerPacketReceived
@@ -1004,6 +1142,7 @@ public class NioServer {
             LOGGER.log(Level.WARNING,
                     "A property change listener threw an exception: " + exc.getMessage()
                     ,exc);
+            fireExceptionNotification(exc);
         }   // end catch
     }   // end fire
     
@@ -1045,8 +1184,30 @@ public class NioServer {
     public synchronized void removePropertyChangeListener( String property, PropertyChangeListener listener ){
         propSupport.removePropertyChangeListener(property,listener);
     }
-    
-    
+
+
+
+/* ********  E X C E P T I O N S  ******** */
+
+
+    /**
+     * Returns the last exception (Throwable, actually)
+     * that the server encountered.
+     * @return last exception
+     */
+    public synchronized Throwable getLastException(){
+        return this.lastException;
+    }
+
+    /**
+     * Fires a property change event with the new exception.
+     * @param t
+     */
+    protected void fireExceptionNotification( Throwable t ){
+        Throwable oldVal = this.lastException;
+        this.lastException = t;
+        firePropertyChange( LAST_EXCEPTION_PROP, oldVal, t );
+    }
     
     
     
@@ -1138,7 +1299,7 @@ public class NioServer {
 
 
         /**
-         * <p>Called when data is received. Retrieve the associated ByteBuffer
+         * <p>Called when TCP data is received. Retrieve the associated ByteBuffer
          * with <code>evt.getBuffer()</code>. This is the source ByteBuffer
          * used by the server directly to receive the data. It is a 
          * "direct" ByteBuffer (created with <code>ByteBuffer.allocateDirect(..)</code>).
@@ -1151,10 +1312,6 @@ public class NioServer {
          * or you won't be able to receive anything next time around
          * (unless you call {@link #setBufferSize} to resize buffer).</p>
          *
-         * <p>You will get these events for both TCP and UDP incoming data.
-         * Consider using the {@link Event#isTcp} and {@link Event#isUdp}
-         * convenience methods for distinguishing between them.</p>
-         *
          * <p>Example: You are receiving lines of text. The ByteBuffer
          * returned here contains one and a half lines of text.
          * When you realize this, you process the first line as you
@@ -1164,7 +1321,21 @@ public class NioServer {
          *
          * @param evt the shared event
          */
-        public abstract void nioServerDataReceived( NioServer.Event evt );
+        public abstract void nioServerTcpDataReceived( NioServer.Event evt );
+
+
+
+        /**
+         * <p>Called when UDP data is received. Retrieve the associated ByteBuffer
+         * with <code>evt.getBuffer()</code>. This is the source ByteBuffer
+         * used by the server directly to receive the data. It is a
+         * "direct" ByteBuffer (created with <code>ByteBuffer.allocateDirect(..)</code>).
+         * The contents of the ByteBuffer will be the entire contents
+         * received from the UDP datagram.</p>
+         *
+         * @param evt the shared event
+         */
+        public abstract void nioServerUdpDataReceived( NioServer.Event evt );
 
         /**
          * Called when a connection is closed remotely. If you close the connection
@@ -1217,7 +1388,15 @@ public class NioServer {
          * @see Listener
          * @param evt the shared event
          */
-        public void nioServerDataReceived(NioServer.Event evt) {}
+        public void nioServerTcpDataReceived(NioServer.Event evt) {}
+
+
+        /**
+         * Empty method.
+         * @see Listener
+         * @param evt the shared event
+         */
+        public void nioServerUdpDataReceived(NioServer.Event evt) {}
 
 
         /**
@@ -1390,9 +1569,6 @@ public class NioServer {
          * essentially a convenience method for returning the same-name
          * methods from the key's channel after checking the type
          * of channel (SocketChannel or DatagramChannel).</p>
-         *
-         * <p>For UDP datagrams, use the {@link #getSourceAddress}
-         * method to get the source of the datagram.</p>
          *
          * @return remote address from which connection came
          */
