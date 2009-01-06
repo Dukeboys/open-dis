@@ -928,18 +928,18 @@ public class NioServer {
      * @throw IllegalArgumentException if port is out of range
      */
     public synchronized NioServer setSingleUdpPort( int port ){
-        int oldVal = getSingleUdpPort();
-        if( oldVal == port ){
-            return this;
-        }
-        clearUdpBindings();
-        addUdpBinding( new InetSocketAddress(port) );
-        int newVal =  port;
-        firePropertyChange( SINGLE_UDP_PORT_PROP, oldVal, newVal );
-        return this;
+        return setSingleUdpPort(port,null);
     }
 
 
+    /**
+     * Convenience method for clearing all bindings and
+     * setting up listening for UDP on the given port
+     * and joining the provided multicast group.
+     * @param port the port to listen to
+     * @return <code>this</code> to aid in chaining
+     * @throw IllegalArgumentException if port is out of range
+     */
     public synchronized NioServer setSingleUdpPort( int port, String group ){
         int oldVal = getSingleUdpPort();
         if( oldVal == port ){
