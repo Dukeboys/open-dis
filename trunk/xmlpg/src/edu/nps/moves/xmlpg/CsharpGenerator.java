@@ -1,0 +1,1292 @@
+package edu.nps.moves.xmlpg;
+
+import java.util.*;
+import java.io.*;
+
+/**
+ * Given the input object, something of an abstract syntax tree, this generates
+ * a source code file in the C# language. It has ivars, getters,  setters,
+ * and serialization/deserialization methods.
+ *
+ * @author DMcG
+ * modified by Peter Smith (Naval Air Warfare Center - Training Systems Division
+ */
+public class CsharpGenerator extends Generator
+{
+    /** Maps the primitive types listed in the XML file to the C# types */
+    Properties types = new Properties();
+    
+    /** What primitive types should be marshalled as. This may be different from
+     * the C# get/set methods, ie an unsigned short might have ints as the getter/setter,
+     * but is marshalled as a short.
+    */
+    Properties marshalTypes = new Properties();
+
+	/** Similar to above, but used on unmarshalling. There are some special cases (unsigned
+     * types) to be handled here.
+     */
+	Properties unmarshalTypes = new Properties();
+
+	/** sizes of various primitive types */
+	Properties primitiveSizes = new Properties();
+
+    /** A property list that contains c#-specific code generation information, such
+     * as namespace which correlates to package names, using which correlates to imports, etc.
+     */
+    Properties csharpProperties;
+
+	public CsharpGenerator(HashMap pClassDescriptions, String pDirectory, Properties pCsharpProperties)
+    {
+        super(pClassDescriptions, pDirectory, pCsharpProperties);
+
+		System.out.println("CsharpProperties : ");
+		pCsharpProperties.list(System.out);
+
+        // Set up a mapping between the strings used in the XML file and the strings used
+        // in the C# file, specifically the data types. This could be externalized to
+        // a properties file, but there's only a dozen or so and an external props file
+        // would just add some complexity.
+        types.setProperty("unsigned short", "ushort"); //int
+        types.setProperty("unsigned byte", "byte"); //short
+        types.setProperty("unsigned int", "uint"); //long
+        
+        types.setProperty("byte", "byte");
+        types.setProperty("short", "short"); //short
+        types.setProperty("int", "uint");
+        types.setProperty("long", "long");
+        
+        types.setProperty("double", "double");
+        types.setProperty("float", "float");
+        
+        // Set up the mapping between primitive types and marshal types.
+        
+        marshalTypes.setProperty("unsigned short", "ushort"); //short
+        marshalTypes.setProperty("unsigned byte", "byte");
+        marshalTypes.setProperty("unsigned int", "uint"); //int
+        
+        marshalTypes.setProperty("byte", "byte");
+        marshalTypes.setProperty("short", "short");
+        marshalTypes.setProperty("int", "uint");
+        marshalTypes.setProperty("long", "long");
+        
+        marshalTypes.setProperty("double", "double");
+        marshalTypes.setProperty("float", "float");
+
+		// Unmarshalling types
+		unmarshalTypes.setProperty("unsigned short", "ushort");
+		unmarshalTypes.setProperty("unsigned byte", "byte");
+		unmarshalTypes.setProperty("unsigned int", "uint");
+
+		unmarshalTypes.setProperty("byte", "byte");
+		unmarshalTypes.setProperty("short", "short");
+		unmarshalTypes.setProperty("int", "uint");
+		unmarshalTypes.setProperty("long", "long");
+
+		unmarshalTypes.setProperty("double", "double");
+		unmarshalTypes.setProperty("float", "float");
+
+		// How big various primitive types are
+		primitiveSizes.setProperty("unsigned short", "2");
+		primitiveSizes.setProperty("unsigned byte", "1");
+		primitiveSizes.setProperty("unsigned int", "4");
+
+		primitiveSizes.setProperty("byte", "1");
+		primitiveSizes.setProperty("short", "2");
+		primitiveSizes.setProperty("int", "4");
+		primitiveSizes.setProperty("long", "8");
+
+		primitiveSizes.setProperty("double", "8");
+		primitiveSizes.setProperty("float", "4");
+    }
+    
+    /**
+     * Generate the classes and write them to a directory
+     */
+    public void writeClasses()
+    {
+        this.createDirectory();
+        
+        Iterator it = classDescriptions.values().iterator();
+        
+        while(it.hasNext())
+        {
+            try
+           {
+              GeneratedClass aClass = (GeneratedClass)it.next();
+              String name = aClass.getName();
+
+              // Create namespace structure, if any
+              String namespace = languageProperties.getProperty("namespace");
+              String fullPath;
+
+              // If we have a namespace specified, replace the dots in the namespace name
+              // with slashes and create that directory
+			  if (namespace != null)
+              {
+				  namespace = namespace.replace(".", "/");
+                  fullPath = directory + "/" + name + ".cs";
+                  //System.out.println("full path is " + fullPath);
+              }
+              else
+             {
+                   fullPath = directory + "/" + name + ".cs";
+             }
+              System.out.println("Creating Csharp source code file for " + fullPath);
+              
+              // Create the new, empty file, and create printwriter object for output to it
+              File outputFile = new File(fullPath);
+			  //outputFile.getParentFile().mkdirs(); //NEW
+              outputFile.createNewFile();
+              PrintWriter pw = new PrintWriter(outputFile);
+              
+              // print the source code of the class to the file
+              this.writeClass(pw, aClass);
+           }
+           catch(Exception e)
+           {
+               System.out.println("error creating source code " + e);
+           }
+            
+        } // End while
+    
+    } // End write classes
+    
+      /**
+     * Generate a source code file with getters, setters, ivars, and marshal/unmarshal
+     * methods for one class.
+     */
+    public void writeClass(PrintWriter pw, GeneratedClass aClass)
+    {
+        // Write the namespace
+		//Note inside of the DIS XML1998 or XML1995 file the following needs to be inserted
+		//<csharp namespace="DIS1998net" />  DIS1998net can be renamed to whatever the namespace is needed.
+
+		String namespace = languageProperties.getProperty("namespace");
+
+		this.writeImports(pw, aClass);
+		this.writeClassComments(pw, aClass);
+		this.writeClassDeclaration(pw, aClass);
+		this.writeIvars(pw, aClass);
+		this.writeConstructor(pw, aClass);
+		this.writeGetMarshalledSizeMethod(pw, aClass);
+		this.writeGettersAndSetters(pw, aClass);
+		this.writeMarshalMethod(pw, aClass);
+		this.writeUnmarshallMethod(pw, aClass);
+		this.writeReflectionMethod(pw, aClass);
+
+		//For C# - do not belive these are necessary as the MemoryStream used in previous MarshalMethod
+		//should provide the same type features.
+		//this.writeMarshalMethodWithByteBuffer(pw, aClass);
+		//this.writeUnmarshallMethodWithByteBuffer(pw, aClass);
+		//if (aClass.getName().equals("Pdu"))
+		//{
+		//    this.writeMarshalMethodToByteArray(pw, aClass);
+		//}
+
+		this.writeEqualityMethod(pw, aClass);
+
+
+		pw.println("} // end of class");
+		pw.println("} // end of namespace");
+		pw.flush();
+		pw.close();
+		
+	}
+	/**
+	 * Writes the namespace and namespace using code at the top of the C# source file
+	 * 
+	 * @param pw
+	 * @param aClass
+	 */
+	private void writeImports(PrintWriter pw, GeneratedClass aClass)
+	{
+
+		// Write the various import statements
+		String using = languageProperties.getProperty("using");
+		StringTokenizer tokenizer = new StringTokenizer(using, ", ");
+		while (tokenizer.hasMoreTokens())
+		{
+			String aPackage = (String)tokenizer.nextToken();
+			pw.println("using " + aPackage + ";");
+		}
+
+
+		String namespace = languageProperties.getProperty("namespace");
+
+		//if missing create default name
+		if (namespace == null)
+			namespace = "DISnet";
+
+		pw.println();
+		pw.println("namespace " + namespace + "\n{");
+		
+		pw.println();
+	}
+
+	/**
+	 * Write the class comments block
+	 * @param pw
+	 * @param aClass
+	 */
+	private void writeClassComments(PrintWriter pw, GeneratedClass aClass)
+	{
+		// Print class comments header
+		pw.println("/**");
+		if (aClass.getClassComments() != null)
+		{
+			pw.println(" * " + aClass.getClassComments());
+			pw.println(" *");
+			pw.println(" * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.");
+			pw.println(" * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html");
+			pw.println(" *");
+			pw.println(" * @author DMcG");
+			pw.println(" * Modified for use with C#:");
+			pw.println(" * Peter Smith (Naval Air Warfare Center - Training Systems Division)");
+		}
+		pw.println(" */");
+	}
+
+	/**
+	 * Writes the class declaration, including any inheritence and interfaces
+	 * 
+	 * @param pw
+	 * @param aClass
+	 */
+	private void writeClassDeclaration(PrintWriter pw, GeneratedClass aClass)
+	{
+		// Class declaration
+		String parentClass = aClass.getParentClass();
+		if (parentClass.equalsIgnoreCase("root"))
+		{
+			parentClass = "Object";
+		}
+
+
+		//Added serializable attribute, additional tags will be needed for non-serializable and
+		//if XML serialization will be used
+		pw.println("[Serializable]");
+		pw.println("[XmlRoot]");	//PES added for XML compatiblity
+
+		//Following will find the classes that are referenced within the current class being processed
+		//These will then be added to the Xmlinclude attribute to allow the reflection of those classes
+		List ivars = aClass.getClassAttributes();
+		List referencedClasses = new ArrayList();
+
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			String attributeType = types.getProperty(anAttribute.getType());
+
+			//if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+			//{
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+				{
+					if (!referencedClasses.contains(anAttribute.getType()))
+					{
+						referencedClasses.add(anAttribute.getType());
+						pw.println("[XmlInclude(typeof(" + anAttribute.getType() + "))]");
+					}
+
+					//pw.println("   protected " + attributeType + "  " + anAttribute.getName() + " = new " + attributeType + "(); \n");
+				}
+			//}
+
+			if (anAttribute.listIsClass() == true)
+			{
+				pw.println("[XmlInclude(typeof(" + anAttribute.getType() + "))]");
+			}
+		}
+
+
+		pw.println("public class " + aClass.getName() + " : " + parentClass);
+
+		pw.println("{");
+	}
+
+	private void writeIvars(PrintWriter pw, GeneratedClass aClass)
+	{
+		List ivars = aClass.getClassAttributes();
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			// This attribute is a primitive. 
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+			{
+				// The primitive type--we need to do a lookup from the abstract type in the
+				// xml to the C#-specific type. The output should look something like
+				//
+				// /** This is a comment */
+				// protected int foo;
+				//
+				String attributeType = types.getProperty(anAttribute.getType());
+				if (anAttribute.getComment() != null)
+				{
+					pw.println("   /** " + anAttribute.getComment() + " */");
+				}
+
+				String defaultValue = anAttribute.getDefaultValue();
+
+				pw.print("   protected " + attributeType + "  _" + anAttribute.getName()); //Create standard type using underscore
+				if (defaultValue != null)
+					pw.print(" = " + defaultValue);
+				pw.println(";\n");
+			} // end of primitive attribute type
+
+			// this attribute is a reference to another class defined in the XML document, The output should look like
+			//
+			// /** This is a comment */
+			// protected AClass foo = new AClass();
+			//
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+			{
+				String attributeType = anAttribute.getType();
+				if (anAttribute.getComment() != null)
+				{
+					pw.println("   /** " + anAttribute.getComment() + " */");
+				}
+
+				pw.println("   protected " + attributeType + "  _" + anAttribute.getName() + " = new " + attributeType + "(); \n");
+			}
+
+			// The attribute is a fixed list, ie an array of some type--maybe primitve, maybe a class.
+
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+			{
+				String attributeType = anAttribute.getType();
+				int listLength = anAttribute.getListLength();
+				String listLengthString = (new Integer(listLength)).toString();
+
+				if (anAttribute.getComment() != null)
+				{
+					pw.println("   /** " + anAttribute.getComment() + " */");
+				}
+
+				if (anAttribute.getUnderlyingTypeIsPrimitive() == true)
+				{
+					pw.println("   protected " + types.getProperty(attributeType) + "[]  _" + anAttribute.getName() + " = new " +
+							   types.getProperty(attributeType) + "[" + listLengthString + "]" + "; \n");
+				}
+				else if (anAttribute.listIsClass() == true)
+				{
+					pw.println("   protected " + attributeType + "[]  _" + anAttribute.getName() + " = new " +
+							   attributeType + "[" + listLengthString + "]" + "; \n");
+				}
+			}
+
+			// The attribute is a variable list of some kind. 
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
+			{
+				String attributeType = anAttribute.getType();
+				int listLength = anAttribute.getListLength();
+				String listLengthString = (new Integer(listLength)).toString();
+
+				if (anAttribute.getComment() != null)
+				{
+					pw.println("   /** " + anAttribute.getComment() + " */");
+				}
+
+				pw.println("   protected List<object> _" + anAttribute.getName() + " = new List<object>(); ");
+			}
+		} // End of loop through ivars
+	}
+
+	private void writeConstructor(PrintWriter pw, GeneratedClass aClass)
+	{
+		List ivars = aClass.getClassAttributes();
+
+		// Write a constructor
+		pw.println();
+		pw.println("/** Constructor */");
+		pw.println(" public " + aClass.getName() + "()");
+		pw.println(" {");
+
+		// Set primitive types with initial values
+		List inits = aClass.getInitialValues();
+		for (int idx = 0; idx < inits.size(); idx++)
+		{
+			InitialValue anInit = (InitialValue)inits.get(idx);
+
+			// This is irritating. we have to match up the attribute name with the type,
+			// so we can do a cast. Otherwise java pukes because it wants to interpret all
+			// numeric strings as ints or doubles, and the attribute may be a short.
+
+			boolean found = false;
+			GeneratedClass currentClass = aClass;
+			String aType = null;
+
+			while (currentClass != null)
+			{
+				List thisClassesAttributes = currentClass.getClassAttributes();
+				for (int jdx = 0; jdx < thisClassesAttributes.size(); jdx++)
+				{
+					ClassAttribute anAttribute = (ClassAttribute)thisClassesAttributes.get(jdx);
+
+					if (anInit.getVariable().equals(anAttribute.getName()))
+					{
+						found = true;
+						aType = anAttribute.getType();
+						break;
+					}
+				}
+				currentClass = (GeneratedClass)classDescriptions.get(currentClass.getParentClass());
+			}
+			if (!found)
+			{
+				
+				System.out.println("Could not find initial value matching attribute name for " + anInit.getVariable() + " in class " + aClass.getName());
+			}
+			else
+			{
+				//PES modified the InitalValue.java class to provide a method name that would work with the changes made in this file
+				pw.println("    " + anInit.getSetterMethodNameCSharp() + " = (" + types.getProperty(aType) + ")" + anInit.getVariableValue() + ";");
+			}
+		} // End initialize initial values
+
+		// If we have fixed lists with object instances in them, initialize thos
+
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
+			{
+				//System.out.println("Generating constructor fixed list for " + anAttribute.getName() + " listIsClass:" + anAttribute.listIsClass());
+				if (anAttribute.listIsClass() == true)
+				{
+					pw.println("\n     for(int idx = 0; idx < " + anAttribute.getName() + ".Length; idx++)");
+					pw.println("     {");
+					pw.println("         " + anAttribute.getName() + "[idx] = new " + anAttribute.getType() + "();");
+					pw.println("     }\n");
+				}
+			}
+
+		}
+		pw.println(" }");
+
+	}
+
+	public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
+	{
+		List ivars = aClass.getClassAttributes();
+		// Create a getMarshalledSize() method
+		pw.println();
+		pw.println("public int getMarshalledSize()");
+		pw.println("{");
+		pw.println("   int marshalSize = 0; ");
+		pw.println();
+
+		// Size of superclass is the starting point
+		if (!aClass.getParentClass().equalsIgnoreCase("root"))
+		{
+			pw.println("   marshalSize = base.getMarshalledSize();");
+		}
+
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+			{
+				pw.print("   marshalSize = marshalSize + ");
+				pw.println(primitiveSizes.get(anAttribute.getType()) + ";  // _" + anAttribute.getName());
+			}
+
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+			{
+				pw.print("   marshalSize = marshalSize + ");
+				pw.println("_" + anAttribute.getName() + ".getMarshalledSize();  // _" + anAttribute.getName());
+			}
+
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
+			{
+				//System.out.println("Generating fixed list for " + anAttribute.getName() + " listIsClass:" + anAttribute.listIsClass());
+				// If this is a fixed list of primitives, it's the list size times the size of the primitive.
+				if (anAttribute.getUnderlyingTypeIsPrimitive() == true)
+				{
+					pw.println("   marshalSize = marshalSize + " + anAttribute.getListLength() + " * " + primitiveSizes.get(anAttribute.getType()) + ";  // _" + anAttribute.getName());
+				}
+				else if (anAttribute.listIsClass() == true)
+				{
+					pw.println("\n   for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+					pw.println("   {");
+					pw.println("       marshalSize = marshalSize + _" + anAttribute.getName() + "[idx].getMarshalledSize();");
+					pw.println("   }\n");
+				}
+				else
+				{
+					//pw.println( anAttribute.getListLength() + " * " +  " new " + anAttribute.getType() + "().getMarshalledSize()"  + ";  // _" + anAttribute.getName());
+					pw.println(" THIS IS A CONDITION NOT HANDLED BY XMLPG: a fixed list array of lists. That's  why you got the compile error.");
+				}
+			}
+
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
+			{
+				// If this is a dynamic list of primitives, it's the list size times the size of the primitive.
+				if (anAttribute.getUnderlyingTypeIsPrimitive() == true)
+				{
+					pw.println("_" + anAttribute.getName() + ".Count " + " * " + primitiveSizes.get(anAttribute.getType()) + ";  // " + anAttribute.getName());
+				}
+				else
+				{
+					pw.println("   for(int idx=0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+					pw.println("   {");
+					//pw.println( anAttribute.getName() + ".size() " + " * " +  " new " + anAttribute.getType() + "().getMarshalledSize()"  + ";  // _" + anAttribute.getName());
+					pw.println("        " + anAttribute.getType() + " listElement = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
+					pw.println("        marshalSize = marshalSize + listElement.getMarshalledSize();");
+					pw.println("   }");
+				}
+			}
+
+		}
+
+		pw.println();
+		pw.println("   return marshalSize;");
+		pw.println("}");
+		pw.println();
+	}
+
+	private void writeGettersAndSetters(PrintWriter pw, GeneratedClass aClass)
+	{
+		List ivars = aClass.getClassAttributes();
+
+		pw.println();
+		String classNameConflictModifier;
+
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			classNameConflictModifier = ""; //Used to modify the get/set public accessor if class name is the same
+
+			//Check to see if conflict with Class name or C# key words.  Appended underscore as a temporary workaround.  Also note that
+			//the key words and class names should be put into a collection to make future testing easier.
+			if (aClass.getName().equals(this.initialCap(anAttribute.getName())) || anAttribute.getName().equalsIgnoreCase("system"))
+			{
+				classNameConflictModifier = "_";
+			}
+
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+			{
+				if (anAttribute.getIsDynamicListLengthField() == false)
+				{
+					String beanType = types.getProperty(anAttribute.getType());
+					pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + beanType + " p" + this.initialCap(anAttribute.getName()) + ")");
+					pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+					pw.println("}");
+
+					pw.println();
+
+					pw.println("[XmlElement(Type= typeof(" + beanType + "), ElementName=\"" + anAttribute.getName() + "\")]");
+					pw.println("public " + beanType + " " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
+					pw.println("{");
+					pw.println("     get\n{");
+					pw.println("          return _" + anAttribute.getName() + ";\n}");
+					pw.println("     set\n{");
+					pw.println("          _" + anAttribute.getName() + " = value;\n}");
+					pw.println("}");
+					pw.println();
+				}
+
+			} // End is primitive
+
+			// The attribute is a class of some sort. Generate getters and setters.
+
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+			{
+				pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + " p" + this.initialCap(anAttribute.getName()) + ")");
+				pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+				pw.println("}");
+
+				pw.println();
+
+				pw.println("public " + anAttribute.getType() + " get" + this.initialCap(anAttribute.getName()) + "()");
+				pw.println("{ return _" + anAttribute.getName() + "; \n}");
+				pw.println();
+
+
+				pw.println("[XmlElement(Type= typeof(" + anAttribute.getType() + "), ElementName=\"" + anAttribute.getName() + "\")]");
+				pw.println("public " + anAttribute.getType() + " " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
+				pw.println("{");
+				pw.println("     get\n{");
+				pw.println("          return _" + anAttribute.getName() + ";\n}");
+				pw.println("     set\n{");
+				pw.println("          _" + anAttribute.getName() + " = value;\n}");
+				pw.println("}");
+				pw.println();
+
+
+			}
+
+			// The attribute is an array of some sort. Generate getters and setters.
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+			{
+				if (anAttribute.getUnderlyingTypeIsPrimitive())
+				{
+					pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + types.getProperty(anAttribute.getType()) + "[] p" + this.initialCap(anAttribute.getName()) + ")");
+					pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+					pw.println("}");
+
+					pw.println();
+
+					//pw.println("@XmlElement(name=\"" + anAttribute.getName() + "\" )");
+					pw.println("public " + types.getProperty(anAttribute.getType()) + "[] get" + this.initialCap(anAttribute.getName()) + "()");
+					pw.println("{ return _" + anAttribute.getName() + "; }");
+					pw.println();
+
+
+
+					pw.println("[XmlArray(ElementName=\"" + anAttribute.getName() + "\")]");
+					pw.println("public " + types.getProperty(anAttribute.getType()) + "[] " + this.initialCap(anAttribute.getName()) + classNameConflictModifier );
+					pw.println("{");
+					pw.println("     get\n{");
+					pw.println("          return _" + anAttribute.getName() + ";\n}");
+					pw.println("     set\n{");
+					pw.println("          _" + anAttribute.getName() + " = value;\n}");
+					pw.println("}");
+					pw.println();
+
+				}
+				else if (anAttribute.listIsClass() == true)
+				{
+					pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + "[] p" + this.initialCap(anAttribute.getName()) + ")");
+					pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+					pw.println("}");
+
+					pw.println();
+
+					//pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "Array\" )");
+					pw.println("public " + anAttribute.getType() + "[] get" + this.initialCap(anAttribute.getName()) + "()");
+					pw.println("{ return _" + anAttribute.getName() + "; }");
+					pw.println();
+
+					pw.println("[XmlArrayItem(ElementName = \"" + anAttribute.getName() + "Array\",DataType=\"" + anAttribute.getType() + "\"))]");
+					pw.println("public " + anAttribute.getType() + "[] " + this.initialCap(anAttribute.getName()));
+					pw.println("{");
+					pw.println("     get\n{");
+					pw.println("          return _" + anAttribute.getName() + ";\n}");
+					pw.println("     set\n{");
+					pw.println("          _" + anAttribute.getName() + " = value;\n}");
+					pw.println("}");
+					pw.println();
+
+				}
+
+			}
+
+
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
+			{
+				pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(List<object>" + " p" + this.initialCap(anAttribute.getName()) + ")");
+				pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+				pw.println("}");
+
+				pw.println();
+
+				//pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "List\" )");
+				pw.println("public List<object>" + " get" + this.initialCap(anAttribute.getName()) + "()");
+				pw.println("{ return _" + anAttribute.getName() + "; }");
+				pw.println();
+
+
+				pw.println("[XmlElement(ElementName = \"" + anAttribute.getName() + "List\",Type = typeof(List<object>))]");
+				pw.println("public List<object> " + this.initialCap(anAttribute.getName()));
+				pw.println("{");
+				pw.println("     get\n{");
+				pw.println("          return _" + anAttribute.getName() + ";\n}");
+				pw.println("     set\n{");
+				pw.println("          _" + anAttribute.getName() + " = value;\n}");
+				pw.println("}");
+				pw.println();
+
+			}
+		} // End of loop trough writing getter/setter methods
+
+	}
+
+	private void writeMarshalMethod(PrintWriter pw, GeneratedClass aClass)
+	{
+		List ivars = aClass.getClassAttributes();
+
+		pw.println();
+		pw.println("public void marshal(DataOutputStream dos)");
+		pw.println("{");
+
+		// If we're a base class of another class, we should first call base
+		// to make sure the base's ivars are marshaled out.
+
+		String baseclassName = aClass.getParentClass();
+		if (!(baseclassName.equalsIgnoreCase("root")))
+		{
+			pw.println("    base.marshal(dos);");
+		}
+
+
+		pw.println("    try \n    {");
+
+		// Loop through the class attributes, generating the output for each.
+
+		ivars = aClass.getClassAttributes();
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			// Write out a method call to serialize a primitive type
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+			{
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+				String capped = this.initialCap(marshalType);
+
+				// If we're a normal primitivetype, marshal out directly; otherwise, marshall out
+				// the list length.
+				if (anAttribute.getIsDynamicListLengthField() == false)
+				{
+					pw.println("       dos.write" + capped + "( (" + marshalType + ")_" + anAttribute.getName() + ");");
+				}
+				else
+				{
+					ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
+					pw.println("       dos.write" + capped + "( (" + marshalType + ")_" + listAttribute.getName() + ".Count);");
+				}
+
+			}
+
+			// Write out a method call to serialize a class.
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+			{
+				String marshalType = anAttribute.getType();
+
+				pw.println("       _" + anAttribute.getName() + ".marshal(dos);");
+			}
+
+			// Write out the method call to marshal a fixed length list, aka an array.
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+			{
+				pw.println();
+				pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+				pw.println("       {");
+
+				// This is some sleaze. We're an array, but an array of what? We could be either a
+				// primitive or a class. We need to figure out which. This is done via the expedient
+				// but not very reliable way of trying to do a lookup on the type. If we don't find
+				// it in our map of primitives to marshal types, we assume it is a class.
+
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+				if (anAttribute.getUnderlyingTypeIsPrimitive())
+				{
+					String capped = this.initialCap(marshalType);
+					pw.println("           dos.write" + capped + "(_" + anAttribute.getName() + "[idx]);");
+				}
+				else
+				{
+					pw.println("           _" + anAttribute.getName() + "[idx].marshal(dos);");
+				}
+
+				pw.println("       } // end of array marshaling");
+				pw.println();
+
+			}
+
+			// Write out a section of code to marshal a variable length list. The code should look like
+			//
+			// for(int idx = 0; idx < attrName.size(); idx++)
+			// { anAttribute.marshal(dos);
+			// }
+			//    
+
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
+			{
+				pw.println();
+				pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+				pw.println("       {");
+
+				// This is some sleaze. We're an array, but an array of what? We could be either a
+				// primitive or a class. We need to figure out which. This is done via the expedient
+				// but not very reliable way of trying to do a lookup on the type. If we don't find
+				// it in our map of primitives to marshal types, we assume it is a class.
+
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+				if (anAttribute.getUnderlyingTypeIsPrimitive())
+				{
+					String capped = this.initialCap(marshalType);
+					pw.println("           dos.write" + capped + "(_" + anAttribute.getName() + ");");
+				}
+				else
+				{
+					pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")_" +
+																					 anAttribute.getName() + "[idx];"));
+					pw.println("            a" + initialCap(anAttribute.getType()) + ".marshal(dos);");
+				}
+
+				pw.println("       } // end of list marshalling");
+				pw.println();
+			}
+		} // End of loop through the ivars for a marshal method
+
+		pw.println("    } // end try \n    catch(Exception e)");
+		pw.println("    { \n      Trace.WriteLine(e);\n      Trace.Flush();\n    }");
+
+		pw.println("} // end of marshal method");
+	}
+
+	private void writeUnmarshallMethod(PrintWriter pw, GeneratedClass aClass)
+	{
+		List ivars = aClass.getClassAttributes();
+		String baseclassName;
+
+		pw.println();
+		pw.println("public void unmarshal(DataInputStream dis)");
+		pw.println("{");
+
+		baseclassName = aClass.getParentClass();
+		if (!(baseclassName.equalsIgnoreCase("root")))
+		{
+			pw.println("    base.unmarshal(dis);\n");
+		}
+
+
+		pw.println("    try \n    {");
+
+		// Loop through the class attributes, generating the output for each.
+
+		ivars = aClass.getClassAttributes();
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			// Write out a method call to deserialize a primitive type
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+			{
+				String marshalType = unmarshalTypes.getProperty(anAttribute.getType());
+				String capped = this.initialCap(marshalType);
+				if (marshalType.equalsIgnoreCase("UnsignedByte"))
+					pw.println("       _" + anAttribute.getName() + " = (short)dis.read" + capped + "();");
+				else if (marshalType.equalsIgnoreCase("UnsignedShort"))
+					pw.println("       _" + anAttribute.getName() + " = (int)dis.read" + capped + "();");
+				else
+					pw.println("       _" + anAttribute.getName() + " = dis.read" + capped + "();");
+
+			}
+
+			// Write out a method call to deserialize a class.
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+			{
+				String marshalType = anAttribute.getType();
+
+				pw.println("       _" + anAttribute.getName() + ".unmarshal(dis);");
+			}
+
+			// Write out the method call to unmarshal a fixed length list, aka an array.
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+			{
+				pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+				pw.println("       {");
+
+				// This is some sleaze. We're an array, but an array of what? We could be either a
+				// primitive or a class. We need to figure out which. This is done via the expedient
+				// but not very reliable way of trying to do a lookup on the type. If we don't find
+				// it in our map of primitives to marshal types, we assume it is a class.
+
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+				if (marshalType == null) // It's a class
+				{
+					pw.println("           _" + anAttribute.getName() + "[idx].unmarshal(dis);");
+				}
+				else // It's a primitive
+				{
+					String capped = this.initialCap(marshalType);
+					pw.println("                _" + anAttribute.getName() + "[idx] = dis.read" + capped + "();");
+				}
+
+				pw.println("       } // end of array unmarshaling");
+			} // end of array unmarshalling
+
+			// Unmarshall a variable length array.
+
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
+			{
+				pw.println("        for(int idx = 0; idx < _" + anAttribute.getCountFieldName() + "; idx++)");
+				pw.println("        {");
+
+				// This is some sleaze. We're an array, but an array of what? We could be either a
+				// primitive or a class. We need to figure out which. This is done via the expedient
+				// but not very reliable way of trying to do a lookup on the type. If we don't find
+				// it in our map of primitives to marshal types, we assume it is a class.
+
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+				if (marshalType == null) // It's a class
+				{
+					pw.println("           " + anAttribute.getType() + " anX = new " + anAttribute.getType() + "();");
+					pw.println("            anX.unmarshal(dis);");
+					pw.println("            _" + anAttribute.getName() + ".Add(anX);");
+				}
+				else // It's a primitive
+				{
+					String capped = this.initialCap(marshalType);
+					pw.println("           dis.read" + capped + "(_" + anAttribute.getName() + ");");
+				}
+				pw.println("        };");
+				pw.println();
+			} // end of unmarshalling a variable list
+
+		} // End of loop through ivars for writing the unmarshal method
+
+		pw.println("    } // end try \n   catch(Exception e)");
+		pw.println("    { \n      Trace.WriteLine(e); \n      Trace.Flush();\n    }");
+
+		pw.println(" } // end of unmarshal method \n");
+
+	}
+
+	//private void writeMarshalMethodWithByteBuffer(PrintWriter pw, GeneratedClass aClass)
+	//{
+	//    List ivars = aClass.getClassAttributes();
+
+	//    pw.println();
+	//    pw.println("/**");
+	//    pw.println(" * Packs a Pdu into the ByteBuffer.");
+	//    pw.println(" * @throws java.nio.BufferOverflowException if buff is too small");
+	//    pw.println(" * @throws java.nio.ReadOnlyBufferException if buff is read only");
+	//    pw.println(" * @see java.nio.ByteBuffer");
+	//    pw.println(" * @param buff The ByteBuffer at the position to begin writing");
+	//    pw.println(" * @since ??");
+	//    pw.println(" */");
+	//    pw.println("public void marshal(java.nio.ByteBuffer buff)");
+	//    pw.println("{");
+
+	//    // If we're a sublcass of another class, we should first call super
+	//    // to make sure the superclass's ivars are marshaled out.
+
+	//    String baseclassName = aClass.getParentClass();
+	//    if (!(baseclassName.equalsIgnoreCase("root")))
+	//    {
+	//        pw.println("    base.marshal(buff);");
+	//    }
+
+	//    // Loop through the class attributes, generating the output for each.
+
+	//    ivars = aClass.getClassAttributes();
+	//    for (int idx = 0; idx < ivars.size(); idx++)
+	//    {
+	//        ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+	//        // Write out a method call to serialize a primitive type
+	//        if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+	//        {
+	//            String marshalType = marshalTypes.getProperty(anAttribute.getType());
+	//            String capped = this.initialCap(marshalType);
+	//            if (capped.equals("Byte"))
+	//            {
+	//                capped = "";    // ByteBuffer just has put() for bytesf
+	//            }
+
+	//            // If we're a normal primitivetype, marshal out directly; otherwise, marshall out
+	//            // the list length.
+	//            if (anAttribute.getIsDynamicListLengthField() == false)
+	//            {
+	//                pw.println("       buff.put" + capped + "( (" + marshalType + ")_" + anAttribute.getName() + ");");
+	//            }
+	//            else
+	//            {
+	//                ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
+	//                pw.println("       buff.put" + capped + "( (" + marshalType + ")_" + listAttribute.getName() + ".Count);");
+	//            }
+
+	//        }
+
+	//        // Write out a method call to serialize a class.
+	//        if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+	//        {
+	//            String marshalType = anAttribute.getType();
+
+	//            //pw.println("       _" + anAttribute.getName() + ".marshal(dos);" );
+	//            pw.println("       _" + anAttribute.getName() + ".marshal(buff);");
+	//        }
+
+	//        // Write out the method call to marshal a fixed length list, aka an array.
+	//        if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+	//        {
+	//            pw.println();
+	//            pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+	//            pw.println("       {");
+
+	//            // This is some sleaze. We're an array, but an array of what? We could be either a
+	//            // primitive or a class. We need to figure out which. This is done via the expedient
+	//            // but not very reliable way of trying to do a lookup on the type. If we don't find
+	//            // it in our map of primitives to marshal types, we assume it is a class.
+
+	//            String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+	//            if (anAttribute.getUnderlyingTypeIsPrimitive())
+	//            {
+	//                String capped = this.initialCap(marshalType);
+	//                if (capped.equals("Byte"))
+	//                {
+	//                    capped = "";    // ByteBuffer just has put() for bytesf
+	//                }
+	//                pw.println("           buff.put" + capped + "(_" + anAttribute.getName() + "[idx]);");
+	//            }
+	//            else
+	//            {
+	//                pw.println("           _" + anAttribute.getName() + "[idx].marshal(buff);");
+	//            }
+
+	//            pw.println("       } // end of array marshaling");
+	//            pw.println();
+	//        }
+
+	//        if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
+	//        {
+	//            pw.println();
+	//            pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+	//            pw.println("       {");
+
+	//            // This is some sleaze. We're an array, but an array of what? We could be either a
+	//            // primitive or a class. We need to figure out which. This is done via the expedient
+	//            // but not very reliable way of trying to do a lookup on the type. If we don't find
+	//            // it in our map of primitives to marshal types, we assume it is a class.
+
+	//            String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+	//            if (anAttribute.getUnderlyingTypeIsPrimitive())
+	//            {
+	//                String capped = this.initialCap(marshalType);
+	//                if (capped.equals("Byte"))
+	//                {
+	//                    capped = "";    // ByteBuffer just uses put() for bytes
+	//                }
+	//                pw.println("           buff.put" + capped + "(_" + anAttribute.getName() + ");");
+	//            }
+	//            else
+	//            {
+	//                pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")_" +
+	//                                                                                 anAttribute.getName() + "[idx];"));
+	//                pw.println("            a" + initialCap(anAttribute.getType()) + ".marshal(buff);");
+	//            }
+
+	//            pw.println("       } // end of list marshalling");
+	//            pw.println();
+	//        }
+	//    } // End of loop through the ivars for a marshal method
+
+	//    pw.println("    } // end of marshal method");
+	//}
+
+	//Generate listing of all parameters using psuedo reflection.  This method needs to be further refined as it is only useful for 
+	//printing out all the data, the format used is not nice.  This method however will display faster than using the XML reflection method provided.
+	//Only used for debugging purposes until a better method could be developed.
+	private void writeReflectionMethod(PrintWriter pw, GeneratedClass aClass)
+	{
+		List ivars = aClass.getClassAttributes();
+		String tab = "\\t ";
+
+		pw.println();
+		pw.println("public void reflection(StringBuilder sb)");
+		pw.println("{");
+
+
+		pw.println("    sb.Append(\"----- " + aClass.getName() + "-----\"  + System.Environment.NewLine);");
+
+		// If we're a base class of another class, we should first call base
+		// to make sure the base's ivars are reflected out.
+
+		String baseclassName = aClass.getParentClass();
+		if (!(baseclassName.equalsIgnoreCase("root")))
+		{
+			pw.println("    base.reflection(sb);");
+		}
+
+
+		pw.println("    try \n    {");
+
+		// Loop through the class attributes, generating the output for each.
+
+		ivars = aClass.getClassAttributes();
+		for (int idx = 0; idx < ivars.size(); idx++)
+		{
+			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
+			// Write out a method call to reflect a primitive type
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+			{
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+				String capped = this.initialCap(marshalType);
+
+				// If we're a normal primitivetype, marshal out directly; otherwise, marshall out
+				// the list length.
+				if (anAttribute.getIsDynamicListLengthField() == false)
+				{
+					pw.println("           sb.Append(\"" + marshalType + tab + "_" + anAttribute.getName() + tab + "\" + _" + anAttribute.getName() + ".ToString() + System.Environment.NewLine);");
+				}
+				else
+				{
+					ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
+					pw.println("           sb.Append(\"" + marshalType + tab + "_" + listAttribute.getName() + tab + "\" + _" + listAttribute.getName() + ".Count.ToString() + System.Environment.NewLine);");
+				}
+
+			}
+
+			// Write out a method call to reflect another class.
+			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+			{
+				String marshalType = anAttribute.getType();
+
+				pw.println("       sb.Append(\"=====_" + anAttribute.getName() + "=====\" + System.Environment.NewLine);");
+				pw.println("       _" + anAttribute.getName() + ".reflection(sb);");
+			}
+
+			// Write out the method call to marshal a fixed length list, aka an array.
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+			{
+				pw.println();
+				pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+				pw.println("       {");
+
+				// This is some sleaze. We're an array, but an array of what? We could be either a
+				// primitive or a class. We need to figure out which. This is done via the expedient
+				// but not very reliable way of trying to do a lookup on the type. If we don't find
+				// it in our map of primitives to marshal types, we assume it is a class.
+
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+				if (anAttribute.getUnderlyingTypeIsPrimitive())
+				{
+					String capped = this.initialCap(marshalType);
+					pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "[idx] + System.Environment.NewLine);");
+				}
+				else
+				{
+					
+					pw.println("           _" + anAttribute.getName() + "[idx].reflection(sb);");
+				}
+
+				pw.println("       } // end of array reflection");
+				pw.println();
+			}   
+
+			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
+			{
+				pw.println();
+				pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+				pw.println("       {");
+
+				// This is some sleaze. We're an array, but an array of what? We could be either a
+				// primitive or a class. We need to figure out which. This is done via the expedient
+				// but not very reliable way of trying to do a lookup on the type. If we don't find
+				// it in our map of primitives to marshal types, we assume it is a class.
+
+				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+				if (anAttribute.getUnderlyingTypeIsPrimitive())
+				{
+					String capped = this.initialCap(marshalType);
+					pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "  + System.Environment.NewLine);");
+				}
+				else
+				{
+					pw.println("           sb.Append(\"" + anAttribute.getType() + tab + "\" + _" + anAttribute.getName() + "[idx] + System.Environment.NewLine);");
+
+					pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];"));
+					pw.println("            a" + initialCap(anAttribute.getType()) + ".reflection(sb);");
+				}
+
+				pw.println("       } // end of list marshalling");
+				pw.println();
+			}
+		} // End of loop through the ivars for a marshal method
+
+		pw.println("    } // end try \n    catch(Exception e)");
+		pw.println("    { \n      Trace.WriteLine(e);\n      Trace.Flush();\n}");
+
+		pw.println("    } // end of marshal method");
+	}
+
+	public void writeEqualityMethod(PrintWriter pw, GeneratedClass aClass)
+		{
+				try
+			{
+			pw.println();
+			pw.println(" /**");
+			pw.println("  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.");
+			pw.println("  */");
+			pw.println(" public bool equals(" + aClass.getName() + " rhs)");
+			pw.println(" {");
+			pw.println("     bool ivarsEqual = true;");
+			pw.println();
+
+			pw.println("    if(rhs.GetType() != this.GetType())");
+			pw.println("        return false;");
+			pw.println();
+
+			//pw.println("      ivarsEqual = this.super().equals(rhs.super());");
+			//pw.println("      if(ivarsEqual == false)");
+			// pw.println("           return false;");
+			//pw.println();
+
+			for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++)
+			{
+				ClassAttribute anAttribute = (ClassAttribute)aClass.getClassAttributes().get(idx);
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+				{
+					pw.println("     if( ! (_" + anAttribute.getName() + " == rhs._" + anAttribute.getName() + ")) ivarsEqual = false;");
+				}
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+				{
+					pw.println("     if( ! (_" + anAttribute.getName() + ".Equals( rhs._" + anAttribute.getName() + ") )) ivarsEqual = false;");
+				}
+
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
+				{
+					pw.println();
+					pw.println("     for(int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
+					pw.println("     {");
+					pw.println("          if(!(_" + anAttribute.getName() + "[idx] == rhs._" + anAttribute.getName() + "[idx])) ivarsEqual = false;");
+					pw.println("     }");
+					pw.println();
+				}
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
+				{
+					pw.println();
+					pw.println("     for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+					pw.println("     {");
+					pw.println("        " + anAttribute.getType() + " x = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
+					pw.println("        if( ! ( _" + anAttribute.getName() + "[idx].Equals(rhs._" + anAttribute.getName() + "[idx]))) ivarsEqual = false;");
+					pw.println("     }");
+					pw.println();
+				}
+
+			}
+
+
+			pw.println();
+			pw.println("    return ivarsEqual;");
+			pw.println(" }");
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+
+	}
+
+	/** 
+     * returns a string with the first letter capitalized. 
+     */
+	public String initialCap(String aString)
+	{
+		StringBuffer stb = new StringBuffer(aString);
+		stb.setCharAt(0, Character.toUpperCase(aString.charAt(0)));
+
+		return new String(stb);
+	}
+}

@@ -29,7 +29,7 @@ public class Xmlpg
     protected HashMap generatedClassNames = new HashMap();
     
     /** The language types we generate */
-    public enum LanguageType {C, JAVA}
+    public enum LanguageType {C, JAVA, CSHARP }
     
     /** As we parse the XML document, this is the class we are currently working on */
     private GeneratedClass currentGeneratedClass = null;
@@ -43,6 +43,10 @@ public class Xmlpg
     /** C++ properties--includes, etc. */
     Properties cppProperties = new Properties();
     
+    //PES
+	/** C# properties--using, namespace, etc. */
+	Properties csharpProperties = new Properties();
+    
     /** Hash table of all the primitive types we can use (short, long, byte, etc.)*/
     private HashSet primitiveTypes = new HashSet();
     
@@ -52,13 +56,16 @@ public class Xmlpg
     /** Directory in which the C++ classes are created */
     private String cppDirectory = null;
     
+    //PES
+	/** Directory in which the C# classes are created */
+	private String csharpDirectory = null;
    
     /**
      * Create a new collection of Java objects by reading an XML file; these
      * java objects can be used to generate code templates of any language,
      * once you write the translator.
      */
-    public Xmlpg(String xmlDescriptionFileName, String pJavaDirectory, String pCppDirectory)
+    public Xmlpg(String xmlDescriptionFileName, String pJavaDirectory, String pCppDirectory, String pCsharpDirectory)
     {
         try
         {
@@ -75,6 +82,8 @@ public class Xmlpg
         
         javaDirectory = pJavaDirectory;
         cppDirectory = pCppDirectory;
+        //PES added for C#
+		csharpDirectory = pCsharpDirectory;
         
         Iterator iterator = generatedClassNames.values().iterator();
         
@@ -100,6 +109,11 @@ public class Xmlpg
         // Use the same information to generate classes in C++
         CppGenerator cppGenerator = new CppGenerator(generatedClassNames, cppDirectory, cppProperties);
         cppGenerator.writeClasses();
+        
+        //PES added for C#
+		// Create a new generator object to write out the source code for all the classes in csharp
+		CsharpGenerator csharpGenerator = new CsharpGenerator(generatedClassNames, csharpDirectory, csharpProperties);
+		csharpGenerator.writeClasses();
     }
     
     /**
@@ -110,14 +124,15 @@ public class Xmlpg
     {
         String language = null;
         
-        if(args.length < 3)
+        if(args.length < 4) //PES changed to accomodate additional arg for C#
         {
-            System.out.println("Usage: Xmlpg xmlFile javaDirectoryName cppDirectoryName");
+			System.out.println("Usage: Xmlpg xmlFile javaDirectoryName cppDirectoryName csharpDirectoryName"); //PES modified to print out correct help
             System.exit(0);
         }
         
         // Should preflight the args here
-        Xmlpg gen = new Xmlpg(args[0], args[1], args[2]);
+		Xmlpg gen = new Xmlpg(args[0], args[1], args[2], args[3]); //PES added one more arg for C#
+        
         
                 
     } // end of main
@@ -254,7 +269,18 @@ public class Xmlpg
                     cppProperties.setProperty(attributes.getQName(idx), attributes.getValue(idx));
                 }
             }
-
+            
+            //PES added to pick up any attributes needed for Csharp
+			// c# element--place all the attributes and values into a property list
+			if (qName.compareToIgnoreCase("csharp") == 0)
+			{
+				for (int idx = 0; idx < attributes.getLength(); idx++)
+				{
+					csharpProperties.setProperty(attributes.getQName(idx), attributes.getValue(idx));
+				}
+			}
+            
+            
             // We've hit the start of a class element. Pick up the attributes of this (name, and any comments)
             // and then prepare for reading attributes.
             if(qName.compareToIgnoreCase("class") == 0)
