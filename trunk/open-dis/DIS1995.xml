@@ -7,6 +7,10 @@
 
 <java imports="java.util.*, java.io.*"
       package="edu.nps.moves.dis"/>
+
+<!--PES added for C# support-->
+<csharp using="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"/>
+<csharp namespace="DIS1995net"/>
       
 <cpp namespace="DIS"/>
 
