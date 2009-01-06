@@ -10,6 +10,11 @@
 -->
 <java imports="java.util.*, java.io.*, javax.xml.bind.annotation.*"
       package="edu.nps.moves.dis"/>
+
+<!--PES added for C# support-->
+<csharp using="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"/>
+<csharp namespace="DIS1998net"/>
+
       
 <cpp namespace="DIS"/>
 
@@ -2573,7 +2578,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "unsigned short"/>
   </attribute>
   
-   <attribute name="TdlType" comment="tactical data link type">
+   <attribute name="tdlType" comment="tactical data link type">
     <primitive type= "unsigned short"/>
   </attribute>
   
