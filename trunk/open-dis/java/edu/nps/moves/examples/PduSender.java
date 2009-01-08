@@ -109,6 +109,9 @@ public class PduSender extends Object
                     generatedPdus.add(aPdu);
                 }
             }
+
+            // Sort the created PDUs by class name
+            Collections.sort(generatedPdus, new ClassNameComparator());
                         
             // Send the PDUs we created
             InetAddress multicastAddress = InetAddress.getByName(MULTICAST_ADDRESS);
