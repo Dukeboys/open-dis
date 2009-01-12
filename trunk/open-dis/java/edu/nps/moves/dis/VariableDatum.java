@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.*;
  * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
+ * Patches applied to generated source code by the patch files in open-dis/patches
+ *
  * @author DMcG
  */
 public class VariableDatum extends Object implements Serializable
@@ -80,7 +82,7 @@ public void marshal(DataOutputStream dos)
     try 
     {
        dos.writeInt( (int)variableDatumID);
-       dos.writeInt( (int)variableDatums.size());
+       dos.writeInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
 
        for(int idx = 0; idx < variableDatums.size(); idx++)
        {
@@ -99,7 +101,9 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        variableDatumID = dis.readInt();
-       variableDatumLength = dis.readInt();
+        int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
+        variableDatumLength = (variableDatumLength / 64) + over;
+        
         for(int idx = 0; idx < variableDatumLength; idx++)
         {
            EightByteChunk anX = new EightByteChunk();
