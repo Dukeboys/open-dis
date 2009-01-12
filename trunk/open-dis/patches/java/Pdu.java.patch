@@ -1,0 +1,57 @@
+Index: Pdu.java
+===================================================================
+--- Pdu.java	(revision 217)
++++ Pdu.java	(working copy)
+@@ -10,6 +10,8 @@
+  * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
+  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
+  *
++ * This has been patched from the generated source code to handle unmarhsalling an unsigned long.
++ *
+  * @author DMcG
+  */
+ public class Pdu extends Object implements Serializable
+@@ -108,7 +110,7 @@
+ 
+ @XmlAttribute
+ public int getLength()
+-{ return length; 
++{ return this.getMarshalledSize(); // post-processing patch; compute length field
+ }
+ 
+ public void setPadding(short pPadding)
+@@ -146,7 +148,11 @@
+        exerciseID = (short)dis.readUnsignedByte();
+        pduType = (short)dis.readUnsignedByte();
+        protocolFamily = (short)dis.readUnsignedByte();
+-       timestamp = dis.readInt();
++       int ch1 = dis.read(); // post-processing patch; read unsigned int and put it in a long
++       int ch2 = dis.read();
++       int ch3 = dis.read();
++       int ch4 = dis.read();
++       timestamp = (((long)ch1 << 24) + ((long)ch2 << 16) + (ch3 << 8) + (ch4 << 0)); 
+        length = (int)dis.readUnsignedShort();
+        padding = dis.readShort();
+     } // end try 
+@@ -171,7 +177,7 @@
+        buff.put( (byte)exerciseID);
+        buff.put( (byte)pduType);
+        buff.put( (byte)protocolFamily);
+-       buff.putInt( (int)timestamp);
++       buff.putInt( (int)timestamp);   // post-processing patch; fix timestamp
+        buff.putShort( (short)length);
+        buff.putShort( (short)padding);
+     } // end of marshal method
+@@ -189,7 +195,11 @@
+        exerciseID = (short)(buff.get() & 0xFF);
+        pduType = (short)(buff.get() & 0xFF);
+        protocolFamily = (short)(buff.get() & 0xFF);
+-       timestamp = buff.getInt();
++       int ch1 = buff.get(); // post-processing patch; read unsigned int for timestamp and put it in a long
++       int ch2 = buff.get();
++       int ch3 = buff.get();
++       int ch4 = buff.get();
++       timestamp = (((long)ch1 << 24) + ((long)ch2 << 16) + (ch3 << 8) + (ch4 << 0)); 
+        length = (int)(buff.getShort() & 0xFFFF);
+        padding = buff.getShort();
+  } // end of unmarshal method 
