@@ -858,6 +858,7 @@
           </xs:element>
         </xs:sequence>
         <xs:attribute name="numberOfSystems" type="xs:short" use="required"/>
+        <xs:attribute name="paddingForEmissionsPdu" type="xs:int" use="required"/>
         <xs:attribute name="stateUpdateIndicator" type="xs:short" use="required"/>
       </xs:extension>
     </xs:complexContent>
@@ -1626,7 +1627,6 @@
     <xs:attribute name="entityKind" type="xs:short" use="required"/>
     <xs:attribute name="nomenclature" type="xs:int" use="required"/>
     <xs:attribute name="nomenclatureVersion" type="xs:short" use="required"/>
-    <xs:attribute name="subcategory" type="xs:short" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="receiverPdu">
@@ -1914,7 +1914,15 @@
   <xs:complexType name="signalPdu">
     <xs:complexContent>
       <xs:extension base="radioCommunicationsFamilyPdu">
-        <xs:sequence/>
+        <xs:sequence>
+          <xs:element name="dataList" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="data" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
         <xs:attribute name="dataLength" type="xs:short" use="required"/>
         <xs:attribute name="encodingScheme" type="xs:int" use="required"/>
         <xs:attribute name="sampleRate" type="xs:int" use="required"/>
@@ -1987,7 +1995,7 @@
 
   <xs:complexType name="supplyQuantity">
     <xs:sequence>
-      <xs:element name="supplyType" type="entityID" minOccurs="0"/>
+      <xs:element name="supplyType" type="entityType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="quantity" type="xs:short" use="required"/>
   </xs:complexType>
@@ -2044,7 +2052,7 @@
           </xs:element>
           <xs:element name="modulationType" type="modulationType" minOccurs="0"/>
           <xs:element name="radioEntityType" type="radioEntityType" minOccurs="0"/>
-          <xs:element name="relativeAntennaLocation" type="vector3Double" minOccurs="0"/>
+          <xs:element name="relativeAntennaLocation" type="vector3Float" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute name="antennaPatternCount" type="xs:int" use="required"/>
         <xs:attribute name="antennaPatternType" type="xs:int" use="required"/>
