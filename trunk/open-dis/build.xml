@@ -5,8 +5,9 @@
     <property name="build" location="build"/>
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
+    <property name="version" value="3.0"/>
     
-    <property name="jarfile" location="${dist}/${ant.project.name}.jar"/>
+    <property name="jarfile" location="${dist}/${ant.project.name}_${version}.jar"/>
     <property name="compile.debug" value="true"/>
 
     <fileset id="lib.jars" dir="${lib}">
@@ -91,14 +92,14 @@
     </target>
 
     
-    <!-- XJC ant task -->
+    <!-- XJC ant task, which generates source code from schema (not used)-->
     <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
       <classpath>
         <fileset dir="lib" includes="**/*.jar" />
       </classpath>
     </taskdef>
     
-    <!-- schemagen ant task -->
+    <!-- schemagen ant task, which generates a schema from java beans-complaint source code -->
     <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
       <classpath>
         <fileset dir="lib" includes="**/*.jar" />
@@ -133,14 +134,15 @@
         <arg value="cpp/DIS"/>
         <arg value="Csharp/DIS"/>
       </java>
+      <!-- apply the patches, manual changes to the code captured in the patch files -->
+     <exec executable="patches/applyPatches.bash">
+    </exec>
     </target>
     
-    <!-- Run patch scripts on the generated code to fix various problems -->
+    <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
     <target name="patch" description="patch generated source code">
-    
     <exec executable="patches/applyPatches.bash">
     </exec>
-    
     </target>
     
      <target name="runXml" depends="jar" description="runs example XML marshal/unmarshal program">
@@ -173,7 +175,8 @@
 
     <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
-        <jar jarfile="dist/open-dis.jar" basedir="build"/>
+        <jar jarfile="dist/open-dis_${version}.jar" basedir="build"/>
+        <copy file="dist/open_dis_${version}.jar tofile="open_dis_${version}.jar"/>
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
@@ -194,8 +197,5 @@
         <delete dir="${dist}"/>
         <delete dir="docs"/>
     </target>
-    
-    <target name="updateEnumerations" description="get update .jar from Enumerations project">
-      <copy todir="lib" file="../Enumerations/dist/Enumerations.jar"/>
-    </target>
+   
 </project>
