@@ -1,7 +1,5 @@
-Index: Pdu.java
-===================================================================
---- Pdu.java	(revision 217)
-+++ Pdu.java	(working copy)
+--- Pdu.java	2009-01-12 16:54:22.000000000 -0800
++++ PduChanged.java	2009-01-12 16:54:18.000000000 -0800
 @@ -10,6 +10,8 @@
   * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
   * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
@@ -11,7 +9,20 @@ Index: Pdu.java
   * @author DMcG
   */
  public class Pdu extends Object implements Serializable
-@@ -108,7 +110,7 @@
+@@ -102,13 +104,19 @@
+ { return timestamp; 
+ }
+ 
++/** 
++ * Does nothing; the length is always determed by the getLength() method,
++ * which is dynamically computed each time rather than relying on the 
++ * ivar. This method is only here for java beans completeness. This change
++ * is a patch from the generated code; see the patches directory for details.
++ */
+ public void setLength(int pLength)
+-{ length = pLength;
++{ 
+ }
  
  @XmlAttribute
  public int getLength()
@@ -20,7 +31,16 @@ Index: Pdu.java
  }
  
  public void setPadding(short pPadding)
-@@ -146,7 +148,11 @@
+@@ -130,7 +138,7 @@
+        dos.writeByte( (byte)pduType);
+        dos.writeByte( (byte)protocolFamily);
+        dos.writeInt( (int)timestamp);
+-       dos.writeShort( (short)length);
++       dos.writeShort( (short)this.getLength()); // post-processing patch
+        dos.writeShort( (short)padding);
+     } // end try 
+     catch(Exception e)
+@@ -146,7 +154,11 @@
         exerciseID = (short)dis.readUnsignedByte();
         pduType = (short)dis.readUnsignedByte();
         protocolFamily = (short)dis.readUnsignedByte();
@@ -33,16 +53,18 @@ Index: Pdu.java
         length = (int)dis.readUnsignedShort();
         padding = dis.readShort();
      } // end try 
-@@ -171,7 +177,7 @@
+@@ -171,8 +183,8 @@
         buff.put( (byte)exerciseID);
         buff.put( (byte)pduType);
         buff.put( (byte)protocolFamily);
 -       buff.putInt( (int)timestamp);
+-       buff.putShort( (short)length);
 +       buff.putInt( (int)timestamp);   // post-processing patch; fix timestamp
-        buff.putShort( (short)length);
++       buff.putShort( (short)this.getLength()); // post-processing patch
         buff.putShort( (short)padding);
      } // end of marshal method
-@@ -189,7 +195,11 @@
+ 
+@@ -189,7 +201,11 @@
         exerciseID = (short)(buff.get() & 0xFF);
         pduType = (short)(buff.get() & 0xFF);
         protocolFamily = (short)(buff.get() & 0xFF);
