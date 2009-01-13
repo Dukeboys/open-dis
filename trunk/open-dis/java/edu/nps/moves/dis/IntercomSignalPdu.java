@@ -24,7 +24,7 @@ public class IntercomSignalPdu extends RadioCommunicationsFamilyPdu implements S
    protected int  encodingScheme;
 
    /** tactical data link type */
-   protected int  TdlType;
+   protected int  tdlType;
 
    /** sample rate */
    protected long  sampleRate;
@@ -52,7 +52,7 @@ public int getMarshalledSize()
    marshalSize = marshalSize + entityID.getMarshalledSize();  // entityID
    marshalSize = marshalSize + 2;  // communicationsDeviceID
    marshalSize = marshalSize + 2;  // encodingScheme
-   marshalSize = marshalSize + 2;  // TdlType
+   marshalSize = marshalSize + 2;  // tdlType
    marshalSize = marshalSize + 4;  // sampleRate
    marshalSize = marshalSize + 2;  // dataLength
    marshalSize = marshalSize + 2;  // samples
@@ -94,12 +94,12 @@ public int getEncodingScheme()
 }
 
 public void setTdlType(int pTdlType)
-{ TdlType = pTdlType;
+{ tdlType = pTdlType;
 }
 
 @XmlAttribute
 public int getTdlType()
-{ return TdlType; 
+{ return tdlType; 
 }
 
 public void setSampleRate(long pSampleRate)
@@ -150,7 +150,7 @@ public void marshal(DataOutputStream dos)
        entityID.marshal(dos);
        dos.writeShort( (short)communicationsDeviceID);
        dos.writeShort( (short)encodingScheme);
-       dos.writeShort( (short)TdlType);
+       dos.writeShort( (short)tdlType);
        dos.writeInt( (int)sampleRate);
        dos.writeShort( (short)data.size());
        dos.writeShort( (short)samples);
@@ -176,7 +176,7 @@ public void unmarshal(DataInputStream dis)
        entityID.unmarshal(dis);
        communicationsDeviceID = (int)dis.readUnsignedShort();
        encodingScheme = (int)dis.readUnsignedShort();
-       TdlType = (int)dis.readUnsignedShort();
+       tdlType = (int)dis.readUnsignedShort();
        sampleRate = dis.readInt();
        dataLength = (int)dis.readUnsignedShort();
        samples = (int)dis.readUnsignedShort();
@@ -209,7 +209,7 @@ public void marshal(java.nio.ByteBuffer buff)
        entityID.marshal(buff);
        buff.putShort( (short)communicationsDeviceID);
        buff.putShort( (short)encodingScheme);
-       buff.putShort( (short)TdlType);
+       buff.putShort( (short)tdlType);
        buff.putInt( (int)sampleRate);
        buff.putShort( (short)data.size());
        buff.putShort( (short)samples);
@@ -236,7 +236,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
        entityID.unmarshal(buff);
        communicationsDeviceID = (int)(buff.getShort() & 0xFFFF);
        encodingScheme = (int)(buff.getShort() & 0xFFFF);
-       TdlType = (int)(buff.getShort() & 0xFFFF);
+       tdlType = (int)(buff.getShort() & 0xFFFF);
        sampleRate = buff.getInt();
        dataLength = (int)(buff.getShort() & 0xFFFF);
        samples = (int)(buff.getShort() & 0xFFFF);
@@ -263,7 +263,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
      if( ! (entityID.equals( rhs.entityID) )) ivarsEqual = false;
      if( ! (communicationsDeviceID == rhs.communicationsDeviceID)) ivarsEqual = false;
      if( ! (encodingScheme == rhs.encodingScheme)) ivarsEqual = false;
-     if( ! (TdlType == rhs.TdlType)) ivarsEqual = false;
+     if( ! (tdlType == rhs.tdlType)) ivarsEqual = false;
      if( ! (sampleRate == rhs.sampleRate)) ivarsEqual = false;
      if( ! (dataLength == rhs.dataLength)) ivarsEqual = false;
      if( ! (samples == rhs.samples)) ivarsEqual = false;

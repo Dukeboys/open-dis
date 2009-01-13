@@ -79,13 +79,13 @@ public class FastEntityStatePdu extends EntityInformationFamilyPdu implements Se
    protected float  zVelocity;
 
    /** X value */
-   protected float  xLocation;
+   protected double  xLocation;
 
    /** y Value */
-   protected float  yLocation;
+   protected double  yLocation;
 
    /** Z value */
-   protected float  zLocation;
+   protected double  zLocation;
 
    protected float  psi;
 
@@ -162,9 +162,9 @@ public int getMarshalledSize()
    marshalSize = marshalSize + 4;  // xVelocity
    marshalSize = marshalSize + 4;  // yVelocity
    marshalSize = marshalSize + 4;  // zVelocity
-   marshalSize = marshalSize + 4;  // xLocation
-   marshalSize = marshalSize + 4;  // yLocation
-   marshalSize = marshalSize + 4;  // zLocation
+   marshalSize = marshalSize + 8;  // xLocation
+   marshalSize = marshalSize + 8;  // yLocation
+   marshalSize = marshalSize + 8;  // zLocation
    marshalSize = marshalSize + 4;  // psi
    marshalSize = marshalSize + 4;  // theta
    marshalSize = marshalSize + 4;  // phi
@@ -391,30 +391,30 @@ public float getZVelocity()
 { return zVelocity; 
 }
 
-public void setXLocation(float pXLocation)
+public void setXLocation(double pXLocation)
 { xLocation = pXLocation;
 }
 
 @XmlAttribute
-public float getXLocation()
+public double getXLocation()
 { return xLocation; 
 }
 
-public void setYLocation(float pYLocation)
+public void setYLocation(double pYLocation)
 { yLocation = pYLocation;
 }
 
 @XmlAttribute
-public float getYLocation()
+public double getYLocation()
 { return yLocation; 
 }
 
-public void setZLocation(float pZLocation)
+public void setZLocation(double pZLocation)
 { zLocation = pZLocation;
 }
 
 @XmlAttribute
-public float getZLocation()
+public double getZLocation()
 { return zLocation; 
 }
 
@@ -578,9 +578,9 @@ public void marshal(DataOutputStream dos)
        dos.writeFloat( (float)xVelocity);
        dos.writeFloat( (float)yVelocity);
        dos.writeFloat( (float)zVelocity);
-       dos.writeFloat( (float)xLocation);
-       dos.writeFloat( (float)yLocation);
-       dos.writeFloat( (float)zLocation);
+       dos.writeDouble( (double)xLocation);
+       dos.writeDouble( (double)yLocation);
+       dos.writeDouble( (double)zLocation);
        dos.writeFloat( (float)psi);
        dos.writeFloat( (float)theta);
        dos.writeFloat( (float)phi);
@@ -646,9 +646,9 @@ public void unmarshal(DataInputStream dis)
        xVelocity = dis.readFloat();
        yVelocity = dis.readFloat();
        zVelocity = dis.readFloat();
-       xLocation = dis.readFloat();
-       yLocation = dis.readFloat();
-       zLocation = dis.readFloat();
+       xLocation = dis.readDouble();
+       yLocation = dis.readDouble();
+       zLocation = dis.readDouble();
        psi = dis.readFloat();
        theta = dis.readFloat();
        phi = dis.readFloat();
@@ -717,9 +717,9 @@ public void marshal(java.nio.ByteBuffer buff)
        buff.putFloat( (float)xVelocity);
        buff.putFloat( (float)yVelocity);
        buff.putFloat( (float)zVelocity);
-       buff.putFloat( (float)xLocation);
-       buff.putFloat( (float)yLocation);
-       buff.putFloat( (float)zLocation);
+       buff.putDouble( (double)xLocation);
+       buff.putDouble( (double)yLocation);
+       buff.putDouble( (double)zLocation);
        buff.putFloat( (float)psi);
        buff.putFloat( (float)theta);
        buff.putFloat( (float)phi);
@@ -786,9 +786,9 @@ public void unmarshal(java.nio.ByteBuffer buff)
        xVelocity = buff.getFloat();
        yVelocity = buff.getFloat();
        zVelocity = buff.getFloat();
-       xLocation = buff.getFloat();
-       yLocation = buff.getFloat();
-       zLocation = buff.getFloat();
+       xLocation = buff.getDouble();
+       yLocation = buff.getDouble();
+       zLocation = buff.getDouble();
        psi = buff.getFloat();
        theta = buff.getFloat();
        phi = buff.getFloat();

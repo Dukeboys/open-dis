@@ -10,7 +10,8 @@ import javax.xml.bind.annotation.*;
  * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
- * Patches applied to generated source code by the patch files in open-dis/patches
+ * post-generation patches have been applied to this file from the patches directory. See that directory
+ * for details.
  *
  * @author DMcG
  */
@@ -93,17 +94,19 @@ public void marshal(DataOutputStream dos)
     } // end try 
     catch(Exception e)
     { 
-      System.out.println(e);}
-    } // end of marshal method
+      System.out.println(e);
+    }
+} // end of marshal method
 
 public void unmarshal(DataInputStream dis)
 {
     try 
     {
        variableDatumID = dis.readInt();
+        variableDatumLength = dis.readInt();
         int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
         variableDatumLength = (variableDatumLength / 64) + over;
-        
+
         for(int idx = 0; idx < variableDatumLength; idx++)
         {
            EightByteChunk anX = new EightByteChunk();
@@ -130,7 +133,7 @@ public void unmarshal(DataInputStream dis)
 public void marshal(java.nio.ByteBuffer buff)
 {
        buff.putInt( (int)variableDatumID);
-       buff.putInt( (int)variableDatums.size());
+       buff.putInt( (int)variableDatums.size() * 64);
 
        for(int idx = 0; idx < variableDatums.size(); idx++)
        {
@@ -151,6 +154,9 @@ public void unmarshal(java.nio.ByteBuffer buff)
 {
        variableDatumID = buff.getInt();
        variableDatumLength = buff.getInt();
+       int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
+       variableDatumLength = (variableDatumLength / 64) + over;
+    
         for(int idx = 0; idx < variableDatumLength; idx++)
         {
            EightByteChunk anX = new EightByteChunk();

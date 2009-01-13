@@ -104,8 +104,14 @@ public long getTimestamp()
 { return timestamp; 
 }
 
+/** 
+ * Does nothing; the length is always determed by the getLength() method,
+ * which is dynamically computed each time rather than relying on the 
+ * ivar. This method is only here for java beans completeness. This change
+ * is a patch from the generated code; see the patches directory for details.
+ */
 public void setLength(int pLength)
-{ length = pLength;
+{ 
 }
 
 @XmlAttribute
@@ -132,7 +138,7 @@ public void marshal(DataOutputStream dos)
        dos.writeByte( (byte)pduType);
        dos.writeByte( (byte)protocolFamily);
        dos.writeInt( (int)timestamp);
-       dos.writeShort( (short)length);
+       dos.writeShort( (short)this.getLength()); // post-processing patch
        dos.writeShort( (short)padding);
     } // end try 
     catch(Exception e)
@@ -178,7 +184,7 @@ public void marshal(java.nio.ByteBuffer buff)
        buff.put( (byte)pduType);
        buff.put( (byte)protocolFamily);
        buff.putInt( (int)timestamp);   // post-processing patch; fix timestamp
-       buff.putShort( (short)length);
+       buff.putShort( (short)this.getLength()); // post-processing patch
        buff.putShort( (short)padding);
     } // end of marshal method
 
