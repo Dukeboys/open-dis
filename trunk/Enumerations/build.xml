@@ -6,8 +6,9 @@
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="docs" location="docs"/>
+    <property name="version" value="1.0"/>
     
-    <property name="jarfile" location="${dist}/dis-enum.jar"/>
+    <property name="jarfile" location="${dist}/dis-enum_${version}.jar"/>
     <property name="compile.debug" value="true"/>
 
     <fileset id="lib.jars" dir="${lib}">
@@ -68,12 +69,13 @@
     
     <!-- generate java classes from the EBV xsd schema. This helps with parsing the EBV document -->
     <target name="generateEbvClasses" depends="init" description="Generate a schema from the Java code">
-        <xjc schema="data/siso-std-010.xsd" package="edu.nps.moves.siso.jaxb" destdir="src/edu/nps/moves/siso/jaxb"/>
+        <xjc schema="data/siso-std-010.xsd" package="edu.nps.moves.siso.jaxb" destdir="src"/>
     </target>
     
     <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
-        <jar jarfile="dist/dis-enums.jar" basedir="build"/>
+        <jar jarfile="dist/dis-enums_${version}.jar" basedir="build"/>
+        <copy file="dist/dis-enums_${version}.jar" tofile="dis-enums_${version}.jar"/>
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the enumeration code">
