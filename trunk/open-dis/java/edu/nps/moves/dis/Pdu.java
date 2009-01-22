@@ -36,6 +36,9 @@ public class Pdu extends Object implements Serializable
 
    /** zero-filled array of padding */
    protected short  padding = 0;
+    
+    /** Calendar object, used for computing timestamp times */
+  //  transient protected Calendar calendar = new GregorianCalendar();
 
 
 /** Constructor */
@@ -224,7 +227,21 @@ public byte[] marshal()
     marshal(buff);
     return data;
 }
-
+    
+/**
+ * Marshal using the offical DIS absolute timestamp format, which is units since the top of 
+ * the hour. A time unit is 2^31 - 1. DIS has two standards for timestamps: absolute and
+ * relative. The absolute timestamp format is See the DIS standard for  more information. 
+ */
+    /*
+    public byte[] marshalWithDisCurrentAbsoluteTimestamp()
+    {
+        long currentTime = System.getCurrentTimeMillis();
+        calendar.setTimeInMillis(currentTime);
+        
+        this.setTimestamp();
+    }
+*/
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */

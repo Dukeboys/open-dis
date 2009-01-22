@@ -49,7 +49,7 @@ public class MarshallExample
        try
        { 
         JAXBContext context = JAXBContext.newInstance(
-        edu.nps.moves.dis.MinefieldStatePdu.class,
+       /* edu.nps.moves.dis.MinefieldStatePdu.class,
         edu.nps.moves.dis.AcknowledgeReliablePdu.class,
         edu.nps.moves.dis.SyntheticEnvironmentFamilyPdu.class,
         edu.nps.moves.dis.DesignatorPdu.class,
@@ -183,7 +183,7 @@ public class MarshallExample
         edu.nps.moves.dis.ResupplyCancelPdu.class,
         edu.nps.moves.dis.RadioCommunicationsFamilyPdu.class,
         edu.nps.moves.dis.LogisticsFamilyPdu.class,
-        edu.nps.moves.dis.SupplyQuantity.class    );
+        edu.nps.moves.dis.SupplyQuantity.class */   );
                 
           
            // Just to prove nothing funny is going on, read the XML file back in
