@@ -1,79 +1,90 @@
---- Pdu.java	2009-01-12 16:54:22.000000000 -0800
-+++ PduChanged.java	2009-01-12 16:54:18.000000000 -0800
-@@ -10,6 +10,8 @@
-  * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
-  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
-  *
-+ * This has been patched from the generated source code to handle unmarhsalling an unsigned long.
-+ *
-  * @author DMcG
+--- Pdu.java	2009-01-23 11:48:47.000000000 -0800
++++ PduChanged.java	2009-01-23 00:20:16.000000000 -0800
+@@ -3,6 +3,7 @@
+ import java.util.*;
+ import java.io.*;
+ import javax.xml.bind.annotation.*;
++import edu.nps.moves.disutil.*;
+ 
+ /**
+  * The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
+@@ -16,6 +17,12 @@
   */
  public class Pdu extends Object implements Serializable
-@@ -102,13 +104,19 @@
- { return timestamp; 
+ {
++    /** The DIS absolute timestamp mask; used to ensure the LSB in timestamps is always set to 1 */
++    public static final int ABSOLUTE_TIMESTAMP_MASK = 0x00000001;
++    
++    /** The DIS relative timestamp mask; used to ensure the LSB in timestamps is always set to 0 */
++    public static final int RELATIVE_TIMESTAMP_MASK = 0xFFFFFFFE;
++    
+    /** The version of the protocol. 5=DIS-1995, 6=DIS-1998. */
+    protected short  protocolVersion = 6;
+ 
+@@ -36,7 +43,7 @@
+ 
+    /** zero-filled array of padding */
+    protected short  padding = 0;
+-
++    
+ 
+ /** Constructor */
+  public Pdu()
+@@ -212,9 +219,10 @@
+ 
+ 
+ /**
+- * A convenience method for marshalling to a byte array.
++ * A convenience method for marshalling to a byte array. The method will marshal
++ * the PDU as is.
+  * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
+- * @return a byte array with the marshalled {@link Pdu}
++ * @return a byte array with the marshalled {@link Pdu}.
+  * @since ??
+  */
+ public byte[] marshal()
+@@ -225,6 +233,44 @@
+     return data;
  }
  
-+/** 
-+ * Does nothing; the length is always determed by the getLength() method,
-+ * which is dynamically computed each time rather than relying on the 
-+ * ivar. This method is only here for java beans completeness. This change
-+ * is a patch from the generated code; see the patches directory for details.
++/**
++ * A convieneince method to marshal to a byte array with the timestamp set to
++ * the DIS standard for absolute timestamps (which works only if the host is
++ * slaved to NTP). This means the timestamp will roll over every hour.
 + */
- public void setLength(int pLength)
--{ length = pLength;
-+{ 
- }
- 
- @XmlAttribute
- public int getLength()
--{ return length; 
-+{ return this.getMarshalledSize(); // post-processing patch; compute length field
- }
- 
- public void setPadding(short pPadding)
-@@ -130,7 +138,7 @@
-        dos.writeByte( (byte)pduType);
-        dos.writeByte( (byte)protocolFamily);
-        dos.writeInt( (int)timestamp);
--       dos.writeShort( (short)length);
-+       dos.writeShort( (short)this.getLength()); // post-processing patch
-        dos.writeShort( (short)padding);
-     } // end try 
-     catch(Exception e)
-@@ -146,7 +154,11 @@
-        exerciseID = (short)dis.readUnsignedByte();
-        pduType = (short)dis.readUnsignedByte();
-        protocolFamily = (short)dis.readUnsignedByte();
--       timestamp = dis.readInt();
-+       int ch1 = dis.read(); // post-processing patch; read unsigned int and put it in a long
-+       int ch2 = dis.read();
-+       int ch3 = dis.read();
-+       int ch4 = dis.read();
-+       timestamp = (((long)ch1 << 24) + ((long)ch2 << 16) + (ch3 << 8) + (ch4 << 0)); 
-        length = (int)dis.readUnsignedShort();
-        padding = dis.readShort();
-     } // end try 
-@@ -171,8 +183,8 @@
-        buff.put( (byte)exerciseID);
-        buff.put( (byte)pduType);
-        buff.put( (byte)protocolFamily);
--       buff.putInt( (int)timestamp);
--       buff.putShort( (short)length);
-+       buff.putInt( (int)timestamp);   // post-processing patch; fix timestamp
-+       buff.putShort( (short)this.getLength()); // post-processing patch
-        buff.putShort( (short)padding);
-     } // end of marshal method
- 
-@@ -189,7 +201,11 @@
-        exerciseID = (short)(buff.get() & 0xFF);
-        pduType = (short)(buff.get() & 0xFF);
-        protocolFamily = (short)(buff.get() & 0xFF);
--       timestamp = buff.getInt();
-+       int ch1 = buff.get(); // post-processing patch; read unsigned int for timestamp and put it in a long
-+       int ch2 = buff.get();
-+       int ch3 = buff.get();
-+       int ch4 = buff.get();
-+       timestamp = (((long)ch1 << 24) + ((long)ch2 << 16) + (ch3 << 8) + (ch4 << 0)); 
-        length = (int)(buff.getShort() & 0xFFFF);
-        padding = buff.getShort();
-  } // end of unmarshal method 
++public byte[] marshalWithDisAbsoluteTimestamp()
++{
++    DisTime disTime = DisTime.getInstance();
++    this.setTimestamp(disTime.getDisAbsoluteTimestamp());
++    return this.marshal();
++}
++
++/**
++ * A convieneince method to marshal to a byte array with the timestamp set to
++ * the DIS standard for relative timestamps. The timestamp will roll over every
++ * hour
++ */
++public byte[] marshalWithDisRelativeTimestamp()
++{
++    DisTime disTime = DisTime.getInstance();
++    this.setTimestamp(disTime.getDisRelativeTimestamp());
++    return this.marshal();
++}
++
++/**
++ * A convienience method to marshal a PDU using the NPS-specific format for
++ * timestamps, which is hundredths of a second since the start of the year.
++ * This effectively eliminates the rollover issues from a practical standpoint.
++ * @return
++ */
++public byte[] marshalWithNpsTimestamp()
++{
++    DisTime disTime = DisTime.getInstance();
++    this.setTimestamp(disTime.getNpsTimestamp());
++    return this.marshal();
++}
++ 
++
+  /**
+   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
+   */
