@@ -3,7 +3,7 @@ package edu.nps.moves.dis;
 import java.util.*;
 import java.io.*;
 import javax.xml.bind.annotation.*;
-import edu.nps.moves.disutil.DisTime;
+import edu.nps.moves.disutil.*;
 
 /**
  * The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
