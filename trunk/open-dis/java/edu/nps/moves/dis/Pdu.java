@@ -3,6 +3,7 @@ package edu.nps.moves.dis;
 import java.util.*;
 import java.io.*;
 import javax.xml.bind.annotation.*;
+import edu.nps.moves.disutil.DisTime;
 
 /**
  * The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
@@ -16,6 +17,12 @@ import javax.xml.bind.annotation.*;
  */
 public class Pdu extends Object implements Serializable
 {
+    /** The DIS absolute timestamp mask; used to ensure the LSB in timestamps is always set to 1 */
+    public static final int ABSOLUTE_TIMESTAMP_MASK = 0x00000001;
+    
+    /** The DIS relative timestamp mask; used to ensure the LSB in timestamps is always set to 0 */
+    public static final int RELATIVE_TIMESTAMP_MASK = 0xFFFFFFFE;
+    
    /** The version of the protocol. 5=DIS-1995, 6=DIS-1998. */
    protected short  protocolVersion = 6;
 
@@ -37,9 +44,6 @@ public class Pdu extends Object implements Serializable
    /** zero-filled array of padding */
    protected short  padding = 0;
     
-    /** Calendar object, used for computing timestamp times */
-  //  transient protected Calendar calendar = new GregorianCalendar();
-
 
 /** Constructor */
  public Pdu()
@@ -215,9 +219,10 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
 
 /**
- * A convenience method for marshalling to a byte array.
+ * A convenience method for marshalling to a byte array. The method will marshal
+ * the PDU as is.
  * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
- * @return a byte array with the marshalled {@link Pdu}
+ * @return a byte array with the marshalled {@link Pdu}.
  * @since ??
  */
 public byte[] marshal()
@@ -227,21 +232,45 @@ public byte[] marshal()
     marshal(buff);
     return data;
 }
-    
+
 /**
- * Marshal using the offical DIS absolute timestamp format, which is units since the top of 
- * the hour. A time unit is 2^31 - 1. DIS has two standards for timestamps: absolute and
- * relative. The absolute timestamp format is See the DIS standard for  more information. 
+ * A convieneince method to marshal to a byte array with the timestamp set to
+ * the DIS standard for absolute timestamps (which works only if the host is
+ * slaved to NTP). This means the timestamp will roll over every hour.
  */
-    /*
-    public byte[] marshalWithDisCurrentAbsoluteTimestamp()
-    {
-        long currentTime = System.getCurrentTimeMillis();
-        calendar.setTimeInMillis(currentTime);
-        
-        this.setTimestamp();
-    }
-*/
+public byte[] marshalWithDisAbsoluteTimestamp()
+{
+    DisTime disTime = DisTime.getInstance();
+    this.setTimestamp(disTime.getDisAbsoluteTimestamp());
+    return this.marshal();
+}
+
+/**
+ * A convieneince method to marshal to a byte array with the timestamp set to
+ * the DIS standard for relative timestamps. The timestamp will roll over every
+ * hour
+ */
+public byte[] marshalWithDisRelativeTimestamp()
+{
+    DisTime disTime = DisTime.getInstance();
+    this.setTimestamp(disTime.getDisRelativeTimestamp());
+    return this.marshal();
+}
+
+/**
+ * A convienience method to marshal a PDU using the NPS-specific format for
+ * timestamps, which is hundredths of a second since the start of the year.
+ * This effectively eliminates the rollover issues from a practical standpoint.
+ * @return
+ */
+public byte[] marshalWithNpsTimestamp()
+{
+    DisTime disTime = DisTime.getInstance();
+    this.setTimestamp(disTime.getNpsTimestamp());
+    return this.marshal();
+}
+ 
+
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
