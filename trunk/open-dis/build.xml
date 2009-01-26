@@ -113,6 +113,7 @@
                 <fileset dir="lib">
                     <include name="**/*.jar"/>
                 </fileset>
+                <pathelement location="${build}"/>
             </classpath>
         </schemagen>
         <move file="schema1.xsd" tofile="disJaxb.xsd"/>
@@ -175,8 +176,8 @@
 
     <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
-        <jar jarfile="dist/open-dis_${version}.jar" basedir="build"/>
-        <copy file="dist/open_dis_${version}.jar" tofile="open_dis_${version}.jar"/>
+        <jar jarfile="${dist}/open-dis_${version}.jar" basedir="build"/>
+        <copy file="dist/open-dis_${version}.jar" tofile="open_dis_${version}.jar"/>
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
