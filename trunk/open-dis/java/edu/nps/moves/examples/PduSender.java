@@ -3,7 +3,6 @@ package edu.nps.moves.examples;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import javax.xml.bind.*;
 
 import edu.nps.moves.dis.*;
 import edu.nps.moves.disenum.*;
@@ -14,51 +13,39 @@ import edu.nps.moves.disenum.*;
  * an XML file.
  *
  * @author DMcG
+ * @version $Id:$
  */
+public class PduSender {
 
-public class PduSender extends Object
-{
     public static final int PORT = 62040;
     public static final String MULTICAST_ADDRESS = "239.1.2.3";
-   
     private int port;
-    InetAddress multicastAddress;    
-    
-    public PduSender(int port, String multicast)
-    {
-        try
-        {
+    InetAddress multicastAddress;
+
+    public PduSender(int port, String multicast) {
+        try {
             this.port = port;
             multicastAddress = InetAddress.getByName(multicast);
-            if(!multicastAddress.isMulticastAddress())
-            {
-                System.out.println("Not a multicast address:" + multicast);
+            if (!multicastAddress.isMulticastAddress()) {
+                System.out.println("Not a multicast address: " + multicast);
             }
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Unable to open socket");
         }
-        
-        
     }
 
-    public void run()
-    {
-         try
-        {
+    public void run() {
+        try {
             List<Pdu> generatedPdus = new ArrayList<Pdu>();
 
             // Loop through all the enumerated PDU types, create a PDU for each type,
             // and add that PDU to a list.
-            for(PduType pdu: PduType.values())
-            {
+            for (PduType pdu : PduType.values()) {
                 Pdu aPdu = null;
 
-                switch(pdu)
-                {
+                switch (pdu) {
                     case ENTITY_STATE:
-                        new EntityStatePdu();
+                        aPdu = new EntityStatePdu();
                         break;
 
                     case FIRE:
@@ -126,8 +113,7 @@ public class PduSender extends Object
                         System.out.println();
                 }
 
-                if(aPdu != null)
-                {
+                if (aPdu != null) {
                     generatedPdus.add(aPdu);
                 }
             }
@@ -136,12 +122,11 @@ public class PduSender extends Object
             Collections.sort(generatedPdus, new ClassNameComparator());
 
             // Send the PDUs we created
-            InetAddress multicastAddress = InetAddress.getByName(MULTICAST_ADDRESS);
+            InetAddress localMulticastAddress = InetAddress.getByName(MULTICAST_ADDRESS);
             MulticastSocket socket = new MulticastSocket(PORT);
-            socket.joinGroup(multicastAddress);
+            socket.joinGroup(localMulticastAddress);
 
-            for(int idx = 0; idx < generatedPdus.size(); idx++)
-            {
+            for (int idx = 0; idx < generatedPdus.size(); idx++) {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 DataOutputStream dos = new DataOutputStream(baos);
                 byte[] buffer;
@@ -150,7 +135,7 @@ public class PduSender extends Object
                 aPdu.marshal(dos);
 
                 buffer = baos.toByteArray();
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, multicastAddress, PORT);
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, localMulticastAddress, PORT);
                 socket.send(packet);
                 System.out.println("Sent PDU of type " + aPdu.getClass().getName());
             }
@@ -159,25 +144,17 @@ public class PduSender extends Object
             PduContainer container = new PduContainer();
             container.setPdus(generatedPdus);
             container.marshallToXml("examplePdus.xml");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
-    
-    public static void main(String args[])
-    {
-        if(args.length == 2)
-        {
+
+    public static void main(String args[]) {
+        if (args.length == 2) {
             PduSender sender = new PduSender(Integer.parseInt(args[0]), args[1]);
-            sender.run();                                         
-        }
-        else
-        {
+            sender.run();
+        } else {
             System.out.println("Usage: PduSender <port> <multicast group>");
         }
     }
-
 }

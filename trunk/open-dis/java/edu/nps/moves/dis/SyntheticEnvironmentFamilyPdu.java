@@ -1,8 +1,7 @@
+
 package edu.nps.moves.dis;
 
-import java.util.*;
 import java.io.*;
-import javax.xml.bind.annotation.*;
 
 /**
  * Section 5.3.11: Abstract superclass for synthetic environment PDUs
@@ -11,90 +10,83 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
+ * @version $Id;$
  */
-public class SyntheticEnvironmentFamilyPdu extends Pdu implements Serializable
-{
+public class SyntheticEnvironmentFamilyPdu extends Pdu implements Serializable {
 
-/** Constructor */
- public SyntheticEnvironmentFamilyPdu()
- {
-    setProtocolFamily( (short)9 );
- }
-
-public int getMarshalledSize()
-{
-   int marshalSize = 0; 
-
-   marshalSize = super.getMarshalledSize();
-
-   return marshalSize;
-}
-
-
-
-public void marshal(DataOutputStream dos)
-{
-    super.marshal(dos);
-    try 
-    {
-    } // end try 
-    catch(Exception e)
-    { 
-      System.out.println(e);}
-    } // end of marshal method
-
-public void unmarshal(DataInputStream dis)
-{
-    super.unmarshal(dis);
-
-    try 
-    {
-    } // end try 
-   catch(Exception e)
-    { 
-      System.out.println(e); 
+    /** Constructor */
+    public SyntheticEnvironmentFamilyPdu() {
+        setProtocolFamily((short) 9);
     }
- } // end of unmarshal method 
 
+    @Override
+    public int getMarshalledSize() {
+        int marshalSize = 0;
 
-/**
- * Packs a Pdu into the ByteBuffer.
- * @throws java.nio.BufferOverflowException if buff is too small
- * @throws java.nio.ReadOnlyBufferException if buff is read only
- * @see java.nio.ByteBuffer
- * @param buff The ByteBuffer at the position to begin writing
- * @since ??
- */
-public void marshal(java.nio.ByteBuffer buff)
-{
-    super.marshal(buff);
+        marshalSize = super.getMarshalledSize();
+
+        return marshalSize;
+    }
+
+    @Override
+    public void marshal(DataOutputStream dos) {
+        super.marshal(dos);
+        try {
+        } // end try
+        catch (Exception e) {
+            System.out.println(e);
+        }
     } // end of marshal method
 
-/**
- * Unpacks a Pdu from the underlying data.
- * @throws java.nio.BufferUnderflowException if buff is too small
- * @see java.nio.ByteBuffer
- * @param buff The ByteBuffer at the position to begin reading
- * @since ??
- */
-public void unmarshal(java.nio.ByteBuffer buff)
-{
-    super.unmarshal(buff);
+    @Override
+    public void unmarshal(DataInputStream dis) {
+        super.unmarshal(dis);
 
- } // end of unmarshal method 
+        try {
+        } // end try
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    } // end of unmarshal method
 
+    /**
+     * Packs a Pdu into the ByteBuffer.
+     * @throws java.nio.BufferOverflowException if buff is too small
+     * @throws java.nio.ReadOnlyBufferException if buff is read only
+     * @see java.nio.ByteBuffer
+     * @param buff The ByteBuffer at the position to begin writing
+     * @since ??
+     */
+    @Override
+    public void marshal(java.nio.ByteBuffer buff) {
+        super.marshal(buff);
+    } // end of marshal method
 
- /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-  */
- public boolean equals(SyntheticEnvironmentFamilyPdu rhs)
- {
-     boolean ivarsEqual = true;
+    /**
+     * Unpacks a Pdu from the underlying data.
+     * @throws java.nio.BufferUnderflowException if buff is too small
+     * @see java.nio.ByteBuffer
+     * @param buff The ByteBuffer at the position to begin reading
+     * @since ??
+     */
+    @Override
+    public void unmarshal(java.nio.ByteBuffer buff) {
+        super.unmarshal(buff);
 
-    if(rhs.getClass() != this.getClass())
-        return false;
+    } // end of unmarshal method
 
+    /**
+     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
+     * @param rhs
+     * @return
+     */
+    public boolean equals(SyntheticEnvironmentFamilyPdu rhs) {
+        boolean ivarsEqual = true;
 
-    return ivarsEqual;
- }
+        if (rhs.getClass() != this.getClass()) {
+            return false;
+        }
+
+        return ivarsEqual;
+    }
 } // end of class

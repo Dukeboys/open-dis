@@ -11,233 +11,230 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
+ * @version $Id:$
  */
-public class ResupplyReceivedPdu extends LogisticsFamilyPdu implements Serializable
-{
-   /** Entity that is receiving service */
-   protected EntityID  receivingEntityID = new EntityID(); 
+public class ResupplyReceivedPdu extends LogisticsFamilyPdu implements Serializable {
 
-   /** Entity that is supplying */
-   protected EntityID  supplyingEntityID = new EntityID(); 
+    /** Entity that is receiving service */
+    protected EntityID receivingEntityID = new EntityID();
+    /** Entity that is supplying */
+    protected EntityID supplyingEntityID = new EntityID();
+    /** how many supplies are being offered */
+    protected short numberOfSupplyTypes;
+    /** padding */
+    protected short padding1 = 0;
+    /** padding */
+    protected byte padding2 = 0;
+    protected List<SupplyQuantity> supplies = new ArrayList<SupplyQuantity>();
 
-   /** how many supplies are being offered */
-   protected short  numberOfSupplyTypes;
-
-   /** padding */
-   protected short  padding1 = 0;
-
-   /** padding */
-   protected byte  padding2 = 0;
-
-   protected List supplies = new ArrayList(); 
-
-/** Constructor */
- public ResupplyReceivedPdu()
- {
-    setPduType( (short)7 );
- }
-
-public int getMarshalledSize()
-{
-   int marshalSize = 0; 
-
-   marshalSize = super.getMarshalledSize();
-   marshalSize = marshalSize + receivingEntityID.getMarshalledSize();  // receivingEntityID
-   marshalSize = marshalSize + supplyingEntityID.getMarshalledSize();  // supplyingEntityID
-   marshalSize = marshalSize + 1;  // numberOfSupplyTypes
-   marshalSize = marshalSize + 2;  // padding1
-   marshalSize = marshalSize + 1;  // padding2
-   for(int idx=0; idx < supplies.size(); idx++)
-   {
-        SupplyQuantity listElement = (SupplyQuantity)supplies.get(idx);
-        marshalSize = marshalSize + listElement.getMarshalledSize();
-   }
-
-   return marshalSize;
-}
-
-
-public void setReceivingEntityID(EntityID pReceivingEntityID)
-{ receivingEntityID = pReceivingEntityID;
-}
-
-@XmlElement
-public EntityID getReceivingEntityID()
-{ return receivingEntityID; 
-}
-
-public void setSupplyingEntityID(EntityID pSupplyingEntityID)
-{ supplyingEntityID = pSupplyingEntityID;
-}
-
-@XmlElement
-public EntityID getSupplyingEntityID()
-{ return supplyingEntityID; 
-}
-
-@XmlAttribute
-public short getNumberOfSupplyTypes()
-{ return (short)supplies.size();
-}
-
-/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
- * The getnumberOfSupplyTypes method will also be based on the actual list length rather than this value. 
- * The method is simply here for java bean completeness.
- */
-public void setNumberOfSupplyTypes(short pNumberOfSupplyTypes)
-{ numberOfSupplyTypes = pNumberOfSupplyTypes;
-}
-
-public void setPadding1(short pPadding1)
-{ padding1 = pPadding1;
-}
-
-@XmlAttribute
-public short getPadding1()
-{ return padding1; 
-}
-
-public void setPadding2(byte pPadding2)
-{ padding2 = pPadding2;
-}
-
-@XmlAttribute
-public byte getPadding2()
-{ return padding2; 
-}
-
-public void setSupplies(List pSupplies)
-{ supplies = pSupplies;
-}
-
-@XmlElementWrapper(name="suppliesList" )
-public List getSupplies()
-{ return supplies; }
-
-
-public void marshal(DataOutputStream dos)
-{
-    super.marshal(dos);
-    try 
-    {
-       receivingEntityID.marshal(dos);
-       supplyingEntityID.marshal(dos);
-       dos.writeByte( (byte)supplies.size());
-       dos.writeShort( (short)padding1);
-       dos.writeByte( (byte)padding2);
-
-       for(int idx = 0; idx < supplies.size(); idx++)
-       {
-            SupplyQuantity aSupplyQuantity = (SupplyQuantity)supplies.get(idx);
-            aSupplyQuantity.marshal(dos);
-       } // end of list marshalling
-
-    } // end try 
-    catch(Exception e)
-    { 
-      System.out.println(e);}
-    } // end of marshal method
-
-public void unmarshal(DataInputStream dis)
-{
-    super.unmarshal(dis);
-
-    try 
-    {
-       receivingEntityID.unmarshal(dis);
-       supplyingEntityID.unmarshal(dis);
-       numberOfSupplyTypes = (short)dis.readUnsignedByte();
-       padding1 = dis.readShort();
-       padding2 = dis.readByte();
-        for(int idx = 0; idx < numberOfSupplyTypes; idx++)
-        {
-           SupplyQuantity anX = new SupplyQuantity();
-            anX.unmarshal(dis);
-            supplies.add(anX);
-        };
-
-    } // end try 
-   catch(Exception e)
-    { 
-      System.out.println(e); 
+    /** Constructor */
+    public ResupplyReceivedPdu() {
+        setPduType((short) 7);
     }
- } // end of unmarshal method 
 
+    @Override
+    public int getMarshalledSize() {
+        int marshalSize = 0;
 
-/**
- * Packs a Pdu into the ByteBuffer.
- * @throws java.nio.BufferOverflowException if buff is too small
- * @throws java.nio.ReadOnlyBufferException if buff is read only
- * @see java.nio.ByteBuffer
- * @param buff The ByteBuffer at the position to begin writing
- * @since ??
- */
-public void marshal(java.nio.ByteBuffer buff)
-{
-    super.marshal(buff);
-       receivingEntityID.marshal(buff);
-       supplyingEntityID.marshal(buff);
-       buff.put( (byte)supplies.size());
-       buff.putShort( (short)padding1);
-       buff.put( (byte)padding2);
+        marshalSize = super.getMarshalledSize();
+        marshalSize = marshalSize + receivingEntityID.getMarshalledSize();  // receivingEntityID
+        marshalSize = marshalSize + supplyingEntityID.getMarshalledSize();  // supplyingEntityID
+        marshalSize = marshalSize + 1;  // numberOfSupplyTypes
+        marshalSize = marshalSize + 2;  // padding1
+        marshalSize = marshalSize + 1;  // padding2
+        for (int idx = 0; idx < supplies.size(); idx++) {
+            SupplyQuantity listElement = supplies.get(idx);
+            marshalSize = marshalSize + listElement.getMarshalledSize();
+        }
 
-       for(int idx = 0; idx < supplies.size(); idx++)
-       {
-            SupplyQuantity aSupplyQuantity = (SupplyQuantity)supplies.get(idx);
+        return marshalSize;
+    }
+
+    public void setReceivingEntityID(EntityID pReceivingEntityID) {
+        receivingEntityID = pReceivingEntityID;
+    }
+
+    @XmlElement
+    public EntityID getReceivingEntityID() {
+        return receivingEntityID;
+    }
+
+    public void setSupplyingEntityID(EntityID pSupplyingEntityID) {
+        supplyingEntityID = pSupplyingEntityID;
+    }
+
+    @XmlElement
+    public EntityID getSupplyingEntityID() {
+        return supplyingEntityID;
+    }
+
+    @XmlAttribute
+    public short getNumberOfSupplyTypes() {
+        return (short) supplies.size();
+    }
+
+    /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+     * The getnumberOfSupplyTypes method will also be based on the actual list length rather than this value.
+     * The method is simply here for java bean completeness.
+     * @param pNumberOfSupplyTypes
+     */
+    public void setNumberOfSupplyTypes(short pNumberOfSupplyTypes) {
+        numberOfSupplyTypes = pNumberOfSupplyTypes;
+    }
+
+    public void setPadding1(short pPadding1) {
+        padding1 = pPadding1;
+    }
+
+    @XmlAttribute
+    public short getPadding1() {
+        return padding1;
+    }
+
+    public void setPadding2(byte pPadding2) {
+        padding2 = pPadding2;
+    }
+
+    @XmlAttribute
+    public byte getPadding2() {
+        return padding2;
+    }
+
+    public void setSupplies(List<SupplyQuantity> pSupplies) {
+        supplies = pSupplies;
+    }
+
+    @XmlElementWrapper(name = "suppliesList")
+    public List<SupplyQuantity> getSupplies() {
+        return supplies;
+    }
+
+    @Override
+    public void marshal(DataOutputStream dos) {
+        super.marshal(dos);
+        try {
+            receivingEntityID.marshal(dos);
+            supplyingEntityID.marshal(dos);
+            dos.writeByte((byte) supplies.size());
+            dos.writeShort(padding1);
+            dos.writeByte(padding2);
+
+            for (int idx = 0; idx < supplies.size(); idx++) {
+                SupplyQuantity aSupplyQuantity = supplies.get(idx);
+                aSupplyQuantity.marshal(dos);
+            } // end of list marshalling
+
+        } // end try
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    } // end of marshal method
+
+    @Override
+    public void unmarshal(DataInputStream dis) {
+        super.unmarshal(dis);
+
+        try {
+            receivingEntityID.unmarshal(dis);
+            supplyingEntityID.unmarshal(dis);
+            numberOfSupplyTypes = (short) dis.readUnsignedByte();
+            padding1 = dis.readShort();
+            padding2 = dis.readByte();
+            for (int idx = 0; idx < numberOfSupplyTypes; idx++) {
+                SupplyQuantity anX = new SupplyQuantity();
+                anX.unmarshal(dis);
+                supplies.add(anX);
+            }
+
+        } // end try
+        catch (Exception e) {
+            System.out.println(e);
+        }
+    } // end of unmarshal method
+
+    /**
+     * Packs a Pdu into the ByteBuffer.
+     * @throws java.nio.BufferOverflowException if buff is too small
+     * @throws java.nio.ReadOnlyBufferException if buff is read only
+     * @see java.nio.ByteBuffer
+     * @param buff The ByteBuffer at the position to begin writing
+     * @since ??
+     */
+    @Override
+    public void marshal(java.nio.ByteBuffer buff) {
+        super.marshal(buff);
+        receivingEntityID.marshal(buff);
+        supplyingEntityID.marshal(buff);
+        buff.put((byte) supplies.size());
+        buff.putShort(padding1);
+        buff.put(padding2);
+
+        for (int idx = 0; idx < supplies.size(); idx++) {
+            SupplyQuantity aSupplyQuantity = supplies.get(idx);
             aSupplyQuantity.marshal(buff);
-       } // end of list marshalling
+        } // end of list marshalling
 
     } // end of marshal method
 
-/**
- * Unpacks a Pdu from the underlying data.
- * @throws java.nio.BufferUnderflowException if buff is too small
- * @see java.nio.ByteBuffer
- * @param buff The ByteBuffer at the position to begin reading
- * @since ??
- */
-public void unmarshal(java.nio.ByteBuffer buff)
-{
-    super.unmarshal(buff);
+    /**
+     * Unpacks a Pdu from the underlying data.
+     * @throws java.nio.BufferUnderflowException if buff is too small
+     * @see java.nio.ByteBuffer
+     * @param buff The ByteBuffer at the position to begin reading
+     * @since ??
+     */
+    @Override
+    public void unmarshal(java.nio.ByteBuffer buff) {
+        super.unmarshal(buff);
 
-       receivingEntityID.unmarshal(buff);
-       supplyingEntityID.unmarshal(buff);
-       numberOfSupplyTypes = (short)(buff.get() & 0xFF);
-       padding1 = buff.getShort();
-       padding2 = buff.get();
-        for(int idx = 0; idx < numberOfSupplyTypes; idx++)
-        {
-           SupplyQuantity anX = new SupplyQuantity();
+        receivingEntityID.unmarshal(buff);
+        supplyingEntityID.unmarshal(buff);
+        numberOfSupplyTypes = (short) (buff.get() & 0xFF);
+        padding1 = buff.getShort();
+        padding2 = buff.get();
+        for (int idx = 0; idx < numberOfSupplyTypes; idx++) {
+            SupplyQuantity anX = new SupplyQuantity();
             anX.unmarshal(buff);
             supplies.add(anX);
-        };
+        }
 
- } // end of unmarshal method 
+    } // end of unmarshal method
 
+    /**
+     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
+     * @param rhs
+     * @return
+     */
+    public boolean equals(ResupplyReceivedPdu rhs) {
+        boolean ivarsEqual = true;
 
- /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-  */
- public boolean equals(ResupplyReceivedPdu rhs)
- {
-     boolean ivarsEqual = true;
+        if (rhs.getClass() != this.getClass()) {
+            return false;
+        }
 
-    if(rhs.getClass() != this.getClass())
-        return false;
+        if (!(receivingEntityID.equals(rhs.receivingEntityID))) {
+            ivarsEqual = false;
+        }
+        if (!(supplyingEntityID.equals(rhs.supplyingEntityID))) {
+            ivarsEqual = false;
+        }
+        if (!(numberOfSupplyTypes == rhs.numberOfSupplyTypes)) {
+            ivarsEqual = false;
+        }
+        if (!(padding1 == rhs.padding1)) {
+            ivarsEqual = false;
+        }
+        if (!(padding2 == rhs.padding2)) {
+            ivarsEqual = false;
+        }
 
-     if( ! (receivingEntityID.equals( rhs.receivingEntityID) )) ivarsEqual = false;
-     if( ! (supplyingEntityID.equals( rhs.supplyingEntityID) )) ivarsEqual = false;
-     if( ! (numberOfSupplyTypes == rhs.numberOfSupplyTypes)) ivarsEqual = false;
-     if( ! (padding1 == rhs.padding1)) ivarsEqual = false;
-     if( ! (padding2 == rhs.padding2)) ivarsEqual = false;
+        for (int idx = 0; idx < supplies.size(); idx++) {
+            SupplyQuantity x = supplies.get(idx);
+            if (!(x.equals(rhs.supplies.get(idx)))) {
+                ivarsEqual = false;
+            }
+        }
 
-     for(int idx = 0; idx < supplies.size(); idx++)
-     {
-        SupplyQuantity x = (SupplyQuantity)supplies.get(idx);
-        if( ! ( supplies.get(idx).equals(rhs.supplies.get(idx)))) ivarsEqual = false;
-     }
-
-
-    return ivarsEqual;
- }
+        return ivarsEqual;
+    }
 } // end of class

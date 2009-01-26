@@ -3,24 +3,20 @@ package edu.nps.moves.dis;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PduCollection 
-{
-    List<Pdu> pdus = new ArrayList();
-    
-    public PduCollection()
-    {
+/** @version $Id:$ */
+public class PduCollection {
+
+    List<Pdu> pdus;
+
+    public PduCollection() {
+        pdus = new ArrayList<Pdu>();
     }
-    
-    public List<Pdu> getPdus()
-    {
+
+    public List<Pdu> getPdus() {
         return pdus;
     }
-    
-    public void setPdus(List<Pdu> pdus)
-    {
+
+    public void setPdus(List<Pdu> pdus) {
         this.pdus = pdus;
     }
-    
-    
-
 }

@@ -1,6 +1,7 @@
 
 package edu.nps.moves.examples;
 
+import edu.nps.moves.dis.Pdu;
 import java.util.*;
 
 /**
@@ -12,16 +13,18 @@ import java.util.*;
  * Collections.sort(aList, new ClassNameComparator());
  *
  * @author DMcG
+ * @version $Id:$
  */
-public class ClassNameComparator implements Comparator
-{
+public class ClassNameComparator implements Comparator<Pdu> {
+
     /**
      * Returns a number less than, equal to, or greater than zero,
      * depending on whether the object is lexically less than, equal to,
      * or greater than the other object.
+     * @param object1
+     * @param object2
      */
-    public int compare(Object object1, Object object2)
-    {
+    public int compare(Pdu object1, Pdu object2) {
         return object1.getClass().getName().compareTo(object2.getClass().getName());
     }
 
@@ -31,12 +34,13 @@ public class ClassNameComparator implements Comparator
      * @param obj
      * @return
      */
- @Override
- public boolean equals(Object obj)
- {
-     return obj.getClass().equals(this.getClass());
- }
+    @Override
+    public boolean equals(Object obj) {
+        return obj.getClass().equals(this.getClass());
+    }
 
-
-
+    @Override
+    public int hashCode() {
+        return 3;
+    }
 }

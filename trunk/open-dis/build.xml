@@ -7,8 +7,9 @@
     <property name="dist" location="dist"/>
     <property name="version" value="3.0"/>
     
-    <property name="jarfile" location="${dist}/${ant.project.name}_${version}.jar"/>
+    <property name="jarfile" location="${dist}/${ant.project.name}.jar"/>
     <property name="compile.debug" value="true"/>
+    <property name="javac.unchecked" value="-Xlint:unchecked"/>
 
     <fileset id="lib.jars" dir="${lib}">
         <include name="**/*.jar"/>
@@ -19,102 +20,92 @@
     </path>
     
     <target name="init" description="create initial directories">
-      <mkdir dir="cpp/obj"/>
-      <mkdir dir="docs"/>
-      <mkdir dir="dist"/>
-      <mkdir dir="build"/>
+        <mkdir dir="cpp/obj"/>
+        <mkdir dir="docs"/>
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${build}"/>
     </target>
 
     <!-- compile the java code -->
     <target name="compile" depends="init" description="Compile java code">
-        <javac srcdir="${src}" destdir="${build}"
-               source="1.5" target="1.5"
+        <javac srcdir="${src}"
+               destdir="${build}"
+               source="1.5"
+               target="1.5"
                includeAntRuntime="no"
-               classpathref="lib.path" debug="${compile.debug}">
+               classpathref="lib.path" 
+               debug="${compile.debug}"
+               deprecation="true">
+        
+            <!-- Reveals generics warings -->
+            <compilerarg value="${javac.unchecked}"/>
+            <compilerarg value="-g:lines,vars,source"/>
         </javac>
+
         <copy todir="${build}">
-          <fileset dir="java" includes="**/*.properties"/>
-        </copy> 
+            <fileset dir="java" includes="**/*.properties"/>
+        </copy>
     </target>
    
     <target name="runSender" depends="jar" description="run DIS example program">
-      <java classname="edu.nps.moves.examples.EspduSender">
-        <classpath>
-          <fileset dir="dist">
-            <include name="**/*.jar"/>
-          </fileset>
-          <pathelement location="{$build}"/>
-        </classpath>
-    </java>
+        <java classname="edu.nps.moves.examples.EspduSender">
+            <classpath>
+                <fileset dir="${dist}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </java>
     </target>
     
     <!-- Runs a generator that sends many or most of the PDU types, and saves an example XML file -->
-     <target name="runGenerator" depends="jar" description="run DIS PDU generator program">
-      <java classname="edu.nps.moves.examples.PduSender">
-      <arg value="62040"/>
-      <arg value="239.1.2.3"/>
-        <classpath>
-          <fileset dir="dist">
-            <include name="**/*.jar"/>
-          </fileset>
-          <fileset dir="lib">
-            <include name="**/*.jar"/>
-          </fileset>
-          <pathelement location="{$build}"/>
-        </classpath>
-    </java>
+    <target name="runGenerator" depends="jar" description="run DIS PDU generator program">
+        <java classname="edu.nps.moves.examples.PduSender">
+            <arg value="62040"/>
+            <arg value="239.1.2.3"/>
+            <classpath>
+                <fileset dir="${dist}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset refid="lib.jars"/>
+            </classpath>
+        </java>
     </target>
-
     
-     <target name="runReceiver" depends="jar" description="run DIS receiver program">
-      <java classname="edu.nps.moves.examples.EspduReceiver">
-        <classpath>
-          <fileset dir="dist">
-            <include name="**/*.jar"/>
-          </fileset>
-          <fileset dir="lib">
-           <include name="**/*.jar"/>
-          </fileset>
-          <pathelement location="{$build}"/>
-        </classpath>
-    </java>
+    <target name="runReceiver" depends="jar" description="run DIS receiver program">
+        <java classname="edu.nps.moves.examples.EspduReceiver">
+            <classpath>
+                <fileset dir="${dist}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset refid="lib.jars"/>
+            </classpath>
+        </java>
     </target>
 
- <target name="runModelLoader" depends="jar" description="run DIS example program">
-      <java classname="edu.nps.moves.disutil.ModelLookup">
-        <classpath>
-          <fileset dir="dist">
-            <include name="**/*.jar"/>
-          </fileset>
-          <pathelement location="{$build}"/>
-        </classpath>
-    </java>
+    <target name="runModelLoader" depends="jar" description="run DIS example program">
+        <java classname="edu.nps.moves.disutil.ModelLookup">
+            <classpath>
+                <fileset dir="${dist}">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </java>
     </target>
-
     
     <!-- XJC ant task, which generates source code from schema (not used)-->
     <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-      <classpath>
-        <fileset dir="lib" includes="**/*.jar" />
-      </classpath>
+        <classpath refid="lib.path"/>
     </taskdef>
     
     <!-- schemagen ant task, which generates a schema from java beans-complaint source code -->
     <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
-      <classpath>
-        <fileset dir="lib" includes="**/*.jar" />
-      </classpath>
+        <classpath refid="lib.path"/>
     </taskdef>
     
     <!-- generate schema from the java source code -->
     <target name="generateSchema" depends="compile" description="Generate a schema from the Java code">
         <schemagen srcdir="java/edu/nps/moves/dis" destdir=".">
-            <classpath>
-                <fileset dir="lib">
-                    <include name="**/*.jar"/>
-                </fileset>
-                <pathelement location="${build}"/>
-            </classpath>
+            <classpath refid="lib.path"/>
         </schemagen>
         <move file="schema1.xsd" tofile="disJaxb.xsd"/>
     </target>
@@ -124,74 +115,60 @@
          must run patch after this to apply known manual fixes to the source code generated.
     --> 
     <target name="generateDisSourceCode" depends="init" description = "run program to generate java, c#, and cpp">
-      <java classname="edu.nps.moves.xmlpg.Xmlpg">
-        <classpath>
-          <fileset dir="lib">
-            <include name="**/*.jar"/>
-          </fileset>
-        </classpath>
-        <arg value="DIS1998.xml"/>
-        <arg value="java"/>
-        <arg value="cpp/DIS"/>
-        <arg value="Csharp/DIS"/>
-      </java>
+        <java classname="edu.nps.moves.xmlpg.Xmlpg">
+            <classpath refid="lib.path"/>
+            <arg value="DIS1998.xml"/>
+            <arg value="java"/>
+            <arg value="cpp/DIS"/>
+            <arg value="Csharp/DIS"/>
+        </java>
       <!-- apply the patches, manual changes to the code captured in the patch files -->
-     <exec executable="patches/applyPatches.bash">
-    </exec>
+        <exec executable="patches/applyPatches.bash">
+        </exec>
     </target>
     
     <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
     <target name="patch" description="patch generated source code">
-    <exec executable="patches/applyPatches.bash">
-    </exec>
+        <exec executable="patches/applyPatches.bash">
+        </exec>
     </target>
     
-     <target name="runXml" depends="jar" description="runs example XML marshal/unmarshal program">
-      <java classname="edu.nps.moves.examples.MarshallExample">
-        <classpath>
-            <fileset dir="lib">
-               <include name="**/*.jar"/>
-            </fileset>
-            <fileset dir="dist">
-                <include name="**/*.jar"/>
-            </fileset>
-        </classpath>
-    </java>
-    </target> 
-
-    <target name="runLogger" depends="jar" description="runs example DIS logging program">
-      <java classname="edu.nps.moves.logger.DisLogger">
-     <arg value="logger.properties"/>
-        <classpath>
-            <fileset dir="lib">
-               <include name="**/*.jar"/>
-            </fileset>
-            <fileset dir="dist">
-                <include name="**/*.jar"/>
-            </fileset>
-        </classpath>
-    </java>
+    <target name="runXml" depends="jar" description="runs example XML marshal/unmarshal program">
+        <java classname="edu.nps.moves.examples.MarshallExample">
+            <classpath>
+                <fileset dir="${dist}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset refid="lib.jars"/>
+            </classpath>
+        </java>
     </target>
 
+    <target name="runLogger" depends="jar" description="runs example DIS logging program">
+        <java classname="edu.nps.moves.logger.DisLogger">
+            <arg value="logger.properties"/>
+            <classpath>
+                <fileset dir="${dist}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset refid="lib.jars"/>
+            </classpath>
+        </java>
+    </target>
 
     <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
-        <jar jarfile="${dist}/open-dis_${version}.jar" basedir="build"/>
-        <copy file="dist/open-dis_${version}.jar" tofile="open_dis_${version}.jar"/>
+        <jar jarfile="${jarfile}" basedir="build"/>
+        <copy file="${jarfile}" tofile="open_dis_${version}.jar"/>
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
-      <javadoc destdir="docs" packagenames="edu.nps.moves.*" sourcepath="java">
-          <classpath>
-              <fileset dir="lib">
-                  <include name="**/*.jar"/>
-              </fileset>
-          </classpath>
+        <javadoc destdir="docs" packagenames="edu.nps.moves.*" sourcepath="java">
+            <classpath refid="lib.path"/>
         </javadoc>
     </target>
     
-    <target name="dist" depends="init, compile, javadoc, jar, generateSchema" description="do everything">
-    </target>
+    <target name="dist" depends="init, compile, javadoc, jar, generateSchema" description="do everything"/>
 
     <target name="clean" description="Remove build and dist directories">
         <delete dir="${build}"/>
