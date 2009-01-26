@@ -344,7 +344,7 @@ public class JavaGenerator extends Generator
                     pw.println("   /** " + anAttribute.getComment() + " */");
                 }
                 
-                pw.println("   protected List " + anAttribute.getName() + " = new ArrayList(); ");
+                pw.println("   protected List< " + attributeType + "> " + anAttribute.getName() + " = new ArrayList<" + attributeType + ">(); ");
             }
         } // End of loop through ivars
     }
@@ -399,7 +399,7 @@ public class JavaGenerator extends Generator
             }
         } // End initialize initial values
         
-        // If we have fixed lists with object instances in them, initialize thos
+        // If we have fixed lists with object instances in them, initialize those
 
         for(int idx = 0; idx < ivars.size(); idx++)
         {
@@ -488,7 +488,7 @@ public class JavaGenerator extends Generator
                     pw.println("   for(int idx=0; idx < " + anAttribute.getName() + ".size(); idx++)");
                     pw.println("   {");
                     //pw.println( anAttribute.getName() + ".size() " + " * " +  " new " + anAttribute.getType() + "().getMarshalledSize()"  + ";  // " + anAttribute.getName());
-                    pw.println("        " + anAttribute.getType() + " listElement = (" + anAttribute.getType() + ")" + anAttribute.getName() + ".get(idx);");
+                    pw.println("        " + anAttribute.getType() + " listElement = " + anAttribute.getName() + ".get(idx);");
                     pw.println("        marshalSize = marshalSize + listElement.getMarshalledSize();");
                     pw.println("   }");
                 }
@@ -737,7 +737,7 @@ public class JavaGenerator extends Generator
                 }
                 else
                 {
-                    pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")" +
+                    pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = " +
                                                                                      anAttribute.getName() + ".get(idx);"));
                     pw.println("            a" + initialCap(anAttribute.getType()) + ".marshal(dos);" );
                 }
@@ -765,7 +765,7 @@ public class JavaGenerator extends Generator
         superclassName = aClass.getParentClass();
         if(!(superclassName.equalsIgnoreCase("root")))
         {
-            pw.println("    super.unmarshal(dis);\n");
+            pw.println("     super.unmarshal(dis);\n");
         }
         
         
@@ -830,8 +830,8 @@ public class JavaGenerator extends Generator
             
             if( (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) )
             {
-                pw.println("        for(int idx = 0; idx < " + anAttribute.getCountFieldName() + "; idx++)");
-                pw.println("        {");
+                pw.println("       for(int idx = 0; idx < " + anAttribute.getCountFieldName() + "; idx++)");
+                pw.println("       {");
                 
                 // This is some sleaze. We're an array, but an array of what? We could be either a
                 // primitive or a class. We need to figure out which. This is done via the expedient
@@ -843,15 +843,15 @@ public class JavaGenerator extends Generator
                 if(marshalType == null) // It's a class
                 {
                     pw.println("           " + anAttribute.getType() + " anX = new " + anAttribute.getType() + "();");
-                    pw.println("            anX.unmarshal(dis);");
-                    pw.println("            " + anAttribute.getName() + ".add(anX);");
+                    pw.println("           anX.unmarshal(dis);");
+                    pw.println("           " + anAttribute.getName() + ".add(anX);");
                 }
                 else // It's a primitive
                 {
                     String capped = this.initialCap(marshalType);
                     pw.println("           dis.read" + capped + "(" + anAttribute.getName() + ");");
                 }
-                pw.println("        };");
+                pw.println("       }");
                 pw.println();
             } // end of unmarshalling a variable list
             
@@ -888,7 +888,7 @@ public class JavaGenerator extends Generator
         String superclassName = aClass.getParentClass();
         if(!(superclassName.equalsIgnoreCase("root")))
         {
-            pw.println("    super.marshal(buff);");
+            pw.println("       super.marshal(buff);");
         }
 
 
@@ -1037,7 +1037,7 @@ public class JavaGenerator extends Generator
         superclassName = aClass.getParentClass();
         if(!(superclassName.equalsIgnoreCase("root")))
         {
-            pw.println("    super.unmarshal(buff);\n");
+            pw.println("       super.unmarshal(buff);\n");
         }
 
 
@@ -1116,8 +1116,8 @@ public class JavaGenerator extends Generator
 
             if( (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) )
             {
-                pw.println("        for(int idx = 0; idx < " + anAttribute.getCountFieldName() + "; idx++)");
-                pw.println("        {");
+                pw.println("       for(int idx = 0; idx < " + anAttribute.getCountFieldName() + "; idx++)");
+                pw.println("       {");
 
                 // This is some sleaze. We're an array, but an array of what? We could be either a
                 // primitive or a class. We need to figure out which. This is done via the expedient
@@ -1128,7 +1128,7 @@ public class JavaGenerator extends Generator
 
                 if(marshalType == null) // It's a class
                 {
-                    pw.println("           " + anAttribute.getType() + " anX = new " + anAttribute.getType() + "();");
+                    pw.println("            " + anAttribute.getType() + " anX = new " + anAttribute.getType() + "();");
                     //pw.println("            anX.unmarshal(dis);");
                     pw.println("            anX.unmarshal(buff);");
                     pw.println("            " + anAttribute.getName() + ".add(anX);");
@@ -1142,7 +1142,7 @@ public class JavaGenerator extends Generator
                     //pw.println("           dis.read" + capped + "(" + anAttribute.getName() + ");");
                     pw.println("           buff.get" + capped + "(" + anAttribute.getName() + ");");
                 }
-                pw.println("        };");
+                pw.println("       }");
                 pw.println();
             } // end of unmarshalling a variable list
 
@@ -1579,7 +1579,7 @@ public class JavaGenerator extends Generator
                 pw.println();
                 pw.println("     for(int idx = 0; idx < " + anAttribute.getName() + ".size(); idx++)");
                 pw.println("     {");
-                pw.println("        " + anAttribute.getType() + " x = (" + anAttribute.getType() + ")" +  anAttribute.getName() + ".get(idx);");
+                //pw.println("        " + anAttribute.getType() + " x = (" + anAttribute.getType() + ")" +  anAttribute.getName() + ".get(idx);");
                 pw.println("        if( ! ( " + anAttribute.getName() + ".get(idx).equals(rhs." + anAttribute.getName() + ".get(idx)))) ivarsEqual = false;");
                 pw.println("     }");
                 pw.println();
