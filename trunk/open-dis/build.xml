@@ -17,6 +17,7 @@
 
     <path id="lib.path">
         <fileset refid="lib.jars"/>
+        <pathelement location="${build}"/>
     </path>
     
     <target name="init" description="create initial directories">
