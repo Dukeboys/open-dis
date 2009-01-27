@@ -76,23 +76,59 @@ public class PduFactory
                 aPdu.unmarshal(dis);
                 break;
                 
-            case FIRE: 
-                aPdu = new FirePdu();
-                aPdu.unmarshal(dis);
-                break;
-                
-            case DETONATION:
-                aPdu = new DetonationPdu();
-                aPdu.unmarshal(dis);
-                break;
                 
             case COLLISION:
                 aPdu = new CollisionPdu();
                 aPdu.unmarshal(dis);
                 break;
             
+            case COMMENT:
+                aPdu = new CommentPdu();
+                aPdu.unmarshal(dis);
+                break;       
+                
+            case CREATE_ENTITY:
+                aPdu = new CreateEntityPdu();
+                aPdu.unmarshal(dis);
+                break;          
+                
+            case DATA:
+                aPdu = new DataPdu();
+                aPdu.unmarshal(dis);
+                break;   
+                
+            case DATA_QUERY:
+                aPdu = new DataQueryPdu();
+                aPdu.unmarshal(dis);
+                break;   
+                
+            case DETONATION:
+                aPdu = new DetonationPdu();
+                aPdu.unmarshal(dis);
+                break;
+                
+            case FIRE: 
+                aPdu = new FirePdu();
+                aPdu.unmarshal(dis);
+                break;
+                
             case SERVICE_REQUEST:
                 aPdu = new ServiceRequestPdu();
+                aPdu.unmarshal(dis);
+                break;
+             
+            case REMOVE_ENTITY:
+                aPdu = new RemoveEntityPdu();
+                aPdu.unmarshal(dis);
+                break;              
+                
+            case REPAIR_COMPLETE:
+                aPdu = new RepairCompletePdu();
+                aPdu.unmarshal(dis);
+                break;                
+                
+            case RESUPPLY_CANCEL:
+                aPdu = new ResupplyCancelPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
@@ -101,33 +137,8 @@ public class PduFactory
                 aPdu.unmarshal(dis);
                 break;
                 
-            case RESUPPLY_RECEIVED:
-                aPdu = new ResupplyReceivedPdu();
-                aPdu.unmarshal(dis);
-                break;
-                
-            case RESUPPLY_CANCEL:
-                aPdu = new ResupplyCancelPdu();
-                aPdu.unmarshal(dis);
-                break;
-                
-            case REPAIR_COMPLETE:
-                aPdu = new RepairCompletePdu();
-                aPdu.unmarshal(dis);
-                break;
-                
             case REPAIR_RESPONSE:
                 aPdu = new RepairResponsePdu();
-                aPdu.unmarshal(dis);
-                break;
-                
-            case CREATE_ENTITY:
-                aPdu = new CreateEntityPdu();
-                aPdu.unmarshal(dis);
-                break;
-                
-            case REMOVE_ENTITY:
-                aPdu = new RemoveEntityPdu();
                 aPdu.unmarshal(dis);
                 break;
                 
