@@ -1,5 +1,5 @@
---- Pdu.java	2009-01-27 10:58:55.000000000 -0800
-+++ Pdu.java.mod	2009-01-27 10:57:03.000000000 -0800
+--- Pdu.java	2009-01-27 11:26:09.000000000 -0800
++++ Pdu.java.mod	2009-01-27 11:25:32.000000000 -0800
 @@ -3,6 +3,8 @@
  import java.util.*;
  import java.io.*;
@@ -61,7 +61,7 @@
   * @since ??
   */
  public byte[] marshal()
-@@ -209,6 +228,63 @@
+@@ -209,6 +228,62 @@
      return data;
  }
  
@@ -93,7 +93,6 @@
 + * A convienience method to marshal a PDU using the NPS-specific format for
 + * timestamps, which is hundredths of a second since the start of the year.
 + * This effectively eliminates the rollover issues from a practical standpoint.
-+ * @return
 + */
 +public byte[] marshalWithNpsTimestamp()
 +{
