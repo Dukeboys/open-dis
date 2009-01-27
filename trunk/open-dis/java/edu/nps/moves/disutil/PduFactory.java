@@ -75,6 +75,16 @@ public class PduFactory
 
                 aPdu.unmarshal(dis);
                 break;
+            
+            case ACKNOWLEDGE:
+                aPdu = new AcknowledgePdu();
+                aPdu.unmarshal(dis);
+                break;
+                
+            case ACTION_REQUEST:
+                aPdu = new ActionRequestPdu();
+                aPdu.unmarshal(dis);
+                break;
                 
                 
             case COLLISION:
@@ -152,16 +162,7 @@ public class PduFactory
                 aPdu.unmarshal(dis);
                 break;
                 
-            case ACKNOWLEDGE:
-                aPdu = new AcknowledgePdu();
-                aPdu.unmarshal(dis);
-                break;
-                
-            case ACTION_REQUEST:
-                aPdu = new ActionRequestPdu();
-                aPdu.unmarshal(dis);
-                break;
-            
+                       
             default: 
                 System.out.print("PDU not implemented. Type=" + pduType);
                 if(pduTypeEnum != null)
