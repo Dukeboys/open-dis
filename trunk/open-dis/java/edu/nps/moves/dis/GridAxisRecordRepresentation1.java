@@ -80,12 +80,12 @@ public void setNumberOfValues(int pNumberOfValues)
 { numberOfValues = pNumberOfValues;
 }
 
-public void setDataValues(List pDataValues)
+public void setDataValues(List<TwoByteChunk> pDataValues)
 { dataValues = pDataValues;
 }
 
 @XmlElementWrapper(name="dataValuesList" )
-public List getDataValues()
+public List<TwoByteChunk> getDataValues()
 { return dataValues; }
 
 

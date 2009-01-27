@@ -272,20 +272,20 @@ public void setNumberOfSilentEntityTypes(int pNumberOfSilentEntityTypes)
 { numberOfSilentEntityTypes = pNumberOfSilentEntityTypes;
 }
 
-public void setAggregateIDList(List pAggregateIDList)
+public void setAggregateIDList(List<AggregateID> pAggregateIDList)
 { aggregateIDList = pAggregateIDList;
 }
 
 @XmlElementWrapper(name="aggregateIDListList" )
-public List getAggregateIDList()
+public List<AggregateID> getAggregateIDList()
 { return aggregateIDList; }
 
-public void setEntityIDList(List pEntityIDList)
+public void setEntityIDList(List<EntityID> pEntityIDList)
 { entityIDList = pEntityIDList;
 }
 
 @XmlElementWrapper(name="entityIDListList" )
-public List getEntityIDList()
+public List<EntityID> getEntityIDList()
 { return entityIDList; }
 
 public void setPad2(short pPad2)
@@ -297,20 +297,20 @@ public short getPad2()
 { return pad2; 
 }
 
-public void setSilentAggregateSystemList(List pSilentAggregateSystemList)
+public void setSilentAggregateSystemList(List<EntityType> pSilentAggregateSystemList)
 { silentAggregateSystemList = pSilentAggregateSystemList;
 }
 
 @XmlElementWrapper(name="silentAggregateSystemListList" )
-public List getSilentAggregateSystemList()
+public List<EntityType> getSilentAggregateSystemList()
 { return silentAggregateSystemList; }
 
-public void setSilentEntitySystemList(List pSilentEntitySystemList)
+public void setSilentEntitySystemList(List<EntityType> pSilentEntitySystemList)
 { silentEntitySystemList = pSilentEntitySystemList;
 }
 
 @XmlElementWrapper(name="silentEntitySystemListList" )
-public List getSilentEntitySystemList()
+public List<EntityType> getSilentEntitySystemList()
 { return silentEntitySystemList; }
 
 @XmlAttribute
@@ -326,12 +326,12 @@ public void setNumberOfVariableDatumRecords(long pNumberOfVariableDatumRecords)
 { numberOfVariableDatumRecords = pNumberOfVariableDatumRecords;
 }
 
-public void setVariableDatumList(List pVariableDatumList)
+public void setVariableDatumList(List<VariableDatum> pVariableDatumList)
 { variableDatumList = pVariableDatumList;
 }
 
 @XmlElementWrapper(name="variableDatumListList" )
-public List getVariableDatumList()
+public List<VariableDatum> getVariableDatumList()
 { return variableDatumList; }
 
 

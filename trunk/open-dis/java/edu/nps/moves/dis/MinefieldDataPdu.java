@@ -200,12 +200,12 @@ public EntityType getMineType()
 { return mineType; 
 }
 
-public void setSensorTypes(List pSensorTypes)
+public void setSensorTypes(List<TwoByteChunk> pSensorTypes)
 { sensorTypes = pSensorTypes;
 }
 
 @XmlElementWrapper(name="sensorTypesList" )
-public List getSensorTypes()
+public List<TwoByteChunk> getSensorTypes()
 { return sensorTypes; }
 
 public void setPad3(short pPad3)
@@ -217,12 +217,12 @@ public short getPad3()
 { return pad3; 
 }
 
-public void setMineLocation(List pMineLocation)
+public void setMineLocation(List<Vector3Float> pMineLocation)
 { mineLocation = pMineLocation;
 }
 
 @XmlElementWrapper(name="mineLocationList" )
-public List getMineLocation()
+public List<Vector3Float> getMineLocation()
 { return mineLocation; }
 
 

@@ -120,12 +120,12 @@ public int getSequenceNumber()
 { return sequenceNumber; 
 }
 
-public void setEnvironmentRecords(List pEnvironmentRecords)
+public void setEnvironmentRecords(List<Environment> pEnvironmentRecords)
 { environmentRecords = pEnvironmentRecords;
 }
 
 @XmlElementWrapper(name="environmentRecordsList" )
-public List getEnvironmentRecords()
+public List<Environment> getEnvironmentRecords()
 { return environmentRecords; }
 
 

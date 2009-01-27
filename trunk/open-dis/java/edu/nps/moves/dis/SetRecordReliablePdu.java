@@ -107,12 +107,12 @@ public void setNumberOfRecordSets(long pNumberOfRecordSets)
 { numberOfRecordSets = pNumberOfRecordSets;
 }
 
-public void setRecordSets(List pRecordSets)
+public void setRecordSets(List<RecordSet> pRecordSets)
 { recordSets = pRecordSets;
 }
 
 @XmlElementWrapper(name="recordSetsList" )
-public List getRecordSets()
+public List<RecordSet> getRecordSets()
 { return recordSets; }
 
 

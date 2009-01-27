@@ -133,12 +133,12 @@ public void setNumberOfRecords(long pNumberOfRecords)
 { numberOfRecords = pNumberOfRecords;
 }
 
-public void setRecordIDs(List pRecordIDs)
+public void setRecordIDs(List<FourByteChunk> pRecordIDs)
 { recordIDs = pRecordIDs;
 }
 
 @XmlElementWrapper(name="recordIDsList" )
-public List getRecordIDs()
+public List<FourByteChunk> getRecordIDs()
 { return recordIDs; }
 
 

@@ -146,12 +146,12 @@ public ObjectType getObjectType()
 { return objectType; 
 }
 
-public void setLinearSegmentParameters(List pLinearSegmentParameters)
+public void setLinearSegmentParameters(List<LinearSegmentParameter> pLinearSegmentParameters)
 { linearSegmentParameters = pLinearSegmentParameters;
 }
 
 @XmlElementWrapper(name="linearSegmentParametersList" )
-public List getLinearSegmentParameters()
+public List<LinearSegmentParameter> getLinearSegmentParameters()
 { return linearSegmentParameters; }
 
 

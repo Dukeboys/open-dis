@@ -133,12 +133,12 @@ public int getSamples()
 { return samples; 
 }
 
-public void setData(List pData)
+public void setData(List<OneByteChunk> pData)
 { data = pData;
 }
 
 @XmlElementWrapper(name="dataList" )
-public List getData()
+public List<OneByteChunk> getData()
 { return data; }
 
 

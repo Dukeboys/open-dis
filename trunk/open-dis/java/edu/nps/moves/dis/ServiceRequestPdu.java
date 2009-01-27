@@ -106,12 +106,12 @@ public short getServiceRequestPadding()
 { return serviceRequestPadding; 
 }
 
-public void setSupplies(List pSupplies)
+public void setSupplies(List<SupplyQuantity> pSupplies)
 { supplies = pSupplies;
 }
 
 @XmlElementWrapper(name="suppliesList" )
-public List getSupplies()
+public List<SupplyQuantity> getSupplies()
 { return supplies; }
 
 

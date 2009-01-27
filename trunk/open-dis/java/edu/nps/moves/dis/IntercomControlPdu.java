@@ -185,12 +185,12 @@ public void setIntercomParametersLength(long pIntercomParametersLength)
 { intercomParametersLength = pIntercomParametersLength;
 }
 
-public void setIntercomParameters(List pIntercomParameters)
+public void setIntercomParameters(List<IntercomCommunicationsParameters> pIntercomParameters)
 { intercomParameters = pIntercomParameters;
 }
 
 @XmlElementWrapper(name="intercomParametersList" )
-public List getIntercomParameters()
+public List<IntercomCommunicationsParameters> getIntercomParameters()
 { return intercomParameters; }
 
 

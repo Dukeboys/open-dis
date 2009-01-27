@@ -108,12 +108,12 @@ public int getPaddingForEmissionsPdu()
 { return paddingForEmissionsPdu; 
 }
 
-public void setSystems(List pSystems)
+public void setSystems(List<ElectronicEmissionSystemData> pSystems)
 { systems = pSystems;
 }
 
 @XmlElementWrapper(name="systemsList" )
-public List getSystems()
+public List<ElectronicEmissionSystemData> getSystems()
 { return systems; }
 
 

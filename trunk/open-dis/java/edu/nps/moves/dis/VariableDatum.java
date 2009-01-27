@@ -69,12 +69,12 @@ public void setVariableDatumLength(long pVariableDatumLength)
 { variableDatumLength = pVariableDatumLength;
 }
 
-public void setVariableDatums(List pVariableDatums)
+public void setVariableDatums(List<EightByteChunk> pVariableDatums)
 { variableDatums = pVariableDatums;
 }
 
 @XmlElementWrapper(name="variableDatumsList" )
-public List getVariableDatums()
+public List<EightByteChunk> getVariableDatums()
 { return variableDatums; }
 
 

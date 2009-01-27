@@ -105,12 +105,12 @@ public Vector3Float getLocation()
 { return location; 
 }
 
-public void setBeamDataRecords(List pBeamDataRecords)
+public void setBeamDataRecords(List<ElectronicEmissionBeamData> pBeamDataRecords)
 { beamDataRecords = pBeamDataRecords;
 }
 
 @XmlElementWrapper(name="beamDataRecordsList" )
-public List getBeamDataRecords()
+public List<ElectronicEmissionBeamData> getBeamDataRecords()
 { return beamDataRecords; }
 
 

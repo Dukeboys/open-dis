@@ -94,12 +94,12 @@ public void setNumberOfMissingPdus(short pNumberOfMissingPdus)
 { numberOfMissingPdus = pNumberOfMissingPdus;
 }
 
-public void setMissingPduSequenceNumbers(List pMissingPduSequenceNumbers)
+public void setMissingPduSequenceNumbers(List<EightByteChunk> pMissingPduSequenceNumbers)
 { missingPduSequenceNumbers = pMissingPduSequenceNumbers;
 }
 
 @XmlElementWrapper(name="missingPduSequenceNumbersList" )
-public List getMissingPduSequenceNumbers()
+public List<EightByteChunk> getMissingPduSequenceNumbers()
 { return missingPduSequenceNumbers; }
 
 

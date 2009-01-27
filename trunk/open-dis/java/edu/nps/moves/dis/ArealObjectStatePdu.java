@@ -172,12 +172,12 @@ public SimulationAddress getReceivingID()
 { return receivingID; 
 }
 
-public void setObjectLocation(List pObjectLocation)
+public void setObjectLocation(List<Vector3Double> pObjectLocation)
 { objectLocation = pObjectLocation;
 }
 
 @XmlElementWrapper(name="objectLocationList" )
-public List getObjectLocation()
+public List<Vector3Double> getObjectLocation()
 { return objectLocation; }
 
 

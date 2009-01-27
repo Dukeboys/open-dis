@@ -55,12 +55,12 @@ public void setNumberOfPdus(int pNumberOfPdus)
 { numberOfPdus = pNumberOfPdus;
 }
 
-public void setPdus(List pPdus)
+public void setPdus(List<Pdu> pPdus)
 { pdus = pPdus;
 }
 
 @XmlElementWrapper(name="pdusList" )
-public List getPdus()
+public List<Pdu> getPdus()
 { return pdus; }
 
 

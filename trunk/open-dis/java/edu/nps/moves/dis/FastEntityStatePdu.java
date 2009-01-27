@@ -542,12 +542,12 @@ public int getCapabilities()
 { return capabilities; 
 }
 
-public void setArticulationParameters(List pArticulationParameters)
+public void setArticulationParameters(List<ArticulationParameter> pArticulationParameters)
 { articulationParameters = pArticulationParameters;
 }
 
 @XmlElementWrapper(name="articulationParametersList" )
-public List getArticulationParameters()
+public List<ArticulationParameter> getArticulationParameters()
 { return articulationParameters; }
 
 

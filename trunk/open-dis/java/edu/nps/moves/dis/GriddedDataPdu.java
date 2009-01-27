@@ -224,12 +224,12 @@ public short getPadding2()
 { return padding2; 
 }
 
-public void setGridDataList(List pGridDataList)
+public void setGridDataList(List<GridAxisRecord> pGridDataList)
 { gridDataList = pGridDataList;
 }
 
 @XmlElementWrapper(name="gridDataListList" )
-public List getGridDataList()
+public List<GridAxisRecord> getGridDataList()
 { return gridDataList; }
 
 

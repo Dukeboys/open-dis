@@ -157,12 +157,12 @@ public long getJammingModeSequence()
 { return jammingModeSequence; 
 }
 
-public void setTrackJamTargets(List pTrackJamTargets)
+public void setTrackJamTargets(List<TrackJamTarget> pTrackJamTargets)
 { trackJamTargets = pTrackJamTargets;
 }
 
 @XmlElementWrapper(name="trackJamTargetsList" )
-public List getTrackJamTargets()
+public List<TrackJamTarget> getTrackJamTargets()
 { return trackJamTargets; }
 
 

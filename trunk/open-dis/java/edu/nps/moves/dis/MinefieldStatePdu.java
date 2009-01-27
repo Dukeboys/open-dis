@@ -183,20 +183,20 @@ public int getProtocolMode()
 { return protocolMode; 
 }
 
-public void setPerimeterPoints(List pPerimeterPoints)
+public void setPerimeterPoints(List<Point> pPerimeterPoints)
 { perimeterPoints = pPerimeterPoints;
 }
 
 @XmlElementWrapper(name="perimeterPointsList" )
-public List getPerimeterPoints()
+public List<Point> getPerimeterPoints()
 { return perimeterPoints; }
 
-public void setMineType(List pMineType)
+public void setMineType(List<EntityType> pMineType)
 { mineType = pMineType;
 }
 
 @XmlElementWrapper(name="mineTypeList" )
-public List getMineType()
+public List<EntityType> getMineType()
 { return mineType; }
 
 

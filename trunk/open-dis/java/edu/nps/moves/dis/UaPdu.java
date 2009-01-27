@@ -180,28 +180,28 @@ public void setNumberOfUAEmitterSystems(short pNumberOfUAEmitterSystems)
 { numberOfUAEmitterSystems = pNumberOfUAEmitterSystems;
 }
 
-public void setShaftRPMs(List pShaftRPMs)
+public void setShaftRPMs(List<ShaftRPMs> pShaftRPMs)
 { shaftRPMs = pShaftRPMs;
 }
 
 @XmlElementWrapper(name="shaftRPMsList" )
-public List getShaftRPMs()
+public List<ShaftRPMs> getShaftRPMs()
 { return shaftRPMs; }
 
-public void setApaData(List pApaData)
+public void setApaData(List<ApaData> pApaData)
 { apaData = pApaData;
 }
 
 @XmlElementWrapper(name="apaDataList" )
-public List getApaData()
+public List<ApaData> getApaData()
 { return apaData; }
 
-public void setEmitterSystems(List pEmitterSystems)
+public void setEmitterSystems(List<AcousticEmitterSystemData> pEmitterSystems)
 { emitterSystems = pEmitterSystems;
 }
 
 @XmlElementWrapper(name="emitterSystemsList" )
-public List getEmitterSystems()
+public List<AcousticEmitterSystemData> getEmitterSystems()
 { return emitterSystems; }
 
 

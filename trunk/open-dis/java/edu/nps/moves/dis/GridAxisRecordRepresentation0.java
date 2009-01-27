@@ -54,12 +54,12 @@ public void setNumberOfBytes(int pNumberOfBytes)
 { numberOfBytes = pNumberOfBytes;
 }
 
-public void setDataValues(List pDataValues)
+public void setDataValues(List<OneByteChunk> pDataValues)
 { dataValues = pDataValues;
 }
 
 @XmlElementWrapper(name="dataValuesList" )
-public List getDataValues()
+public List<OneByteChunk> getDataValues()
 { return dataValues; }
 
 

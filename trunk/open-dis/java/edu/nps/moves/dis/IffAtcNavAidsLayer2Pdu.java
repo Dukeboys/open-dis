@@ -76,12 +76,12 @@ public BeamData getSecondaryOperationalData()
 { return secondaryOperationalData; 
 }
 
-public void setFundamentalIffParameters(List pFundamentalIffParameters)
+public void setFundamentalIffParameters(List<FundamentalParameterDataIff> pFundamentalIffParameters)
 { fundamentalIffParameters = pFundamentalIffParameters;
 }
 
 @XmlElementWrapper(name="fundamentalIffParametersList" )
-public List getFundamentalIffParameters()
+public List<FundamentalParameterDataIff> getFundamentalIffParameters()
 { return fundamentalIffParameters; }
 
 

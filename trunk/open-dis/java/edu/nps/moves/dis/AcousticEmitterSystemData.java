@@ -105,12 +105,12 @@ public Vector3Float getEmitterLocation()
 { return emitterLocation; 
 }
 
-public void setBeamRecords(List pBeamRecords)
+public void setBeamRecords(List<AcousticBeamData> pBeamRecords)
 { beamRecords = pBeamRecords;
 }
 
 @XmlElementWrapper(name="beamRecordsList" )
-public List getBeamRecords()
+public List<AcousticBeamData> getBeamRecords()
 { return beamRecords; }
 
 

@@ -120,12 +120,12 @@ public double getLongitude()
 { return longitude; 
 }
 
-public void setGroupedEntityDescriptions(List pGroupedEntityDescriptions)
+public void setGroupedEntityDescriptions(List<VariableDatum> pGroupedEntityDescriptions)
 { groupedEntityDescriptions = pGroupedEntityDescriptions;
 }
 
 @XmlElementWrapper(name="groupedEntityDescriptionsList" )
-public List getGroupedEntityDescriptions()
+public List<VariableDatum> getGroupedEntityDescriptions()
 { return groupedEntityDescriptions; }
 
 

@@ -79,20 +79,20 @@ public void setNumberOfVariableDatumRecords(long pNumberOfVariableDatumRecords)
 { numberOfVariableDatumRecords = pNumberOfVariableDatumRecords;
 }
 
-public void setFixedDatums(List pFixedDatums)
+public void setFixedDatums(List<FixedDatum> pFixedDatums)
 { fixedDatums = pFixedDatums;
 }
 
 @XmlElementWrapper(name="fixedDatumsList" )
-public List getFixedDatums()
+public List<FixedDatum> getFixedDatums()
 { return fixedDatums; }
 
-public void setVariableDatums(List pVariableDatums)
+public void setVariableDatums(List<VariableDatum> pVariableDatums)
 { variableDatums = pVariableDatums;
 }
 
 @XmlElementWrapper(name="variableDatumsList" )
-public List getVariableDatums()
+public List<VariableDatum> getVariableDatums()
 { return variableDatums; }
 
 

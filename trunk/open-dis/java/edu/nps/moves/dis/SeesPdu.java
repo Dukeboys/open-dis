@@ -131,20 +131,20 @@ public void setNumberOfVectoringNozzleSystems(int pNumberOfVectoringNozzleSystem
 { numberOfVectoringNozzleSystems = pNumberOfVectoringNozzleSystems;
 }
 
-public void setPropulsionSystemData(List pPropulsionSystemData)
+public void setPropulsionSystemData(List<PropulsionSystemData> pPropulsionSystemData)
 { propulsionSystemData = pPropulsionSystemData;
 }
 
 @XmlElementWrapper(name="propulsionSystemDataList" )
-public List getPropulsionSystemData()
+public List<PropulsionSystemData> getPropulsionSystemData()
 { return propulsionSystemData; }
 
-public void setVectoringSystemData(List pVectoringSystemData)
+public void setVectoringSystemData(List<VectoringNozzleSystemData> pVectoringSystemData)
 { vectoringSystemData = pVectoringSystemData;
 }
 
 @XmlElementWrapper(name="vectoringSystemDataList" )
-public List getVectoringSystemData()
+public List<VectoringNozzleSystemData> getVectoringSystemData()
 { return vectoringSystemData; }
 
 

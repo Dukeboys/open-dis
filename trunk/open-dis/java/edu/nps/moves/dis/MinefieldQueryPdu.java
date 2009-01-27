@@ -157,20 +157,20 @@ public EntityType getRequestedMineType()
 { return requestedMineType; 
 }
 
-public void setRequestedPerimeterPoints(List pRequestedPerimeterPoints)
+public void setRequestedPerimeterPoints(List<Point> pRequestedPerimeterPoints)
 { requestedPerimeterPoints = pRequestedPerimeterPoints;
 }
 
 @XmlElementWrapper(name="requestedPerimeterPointsList" )
-public List getRequestedPerimeterPoints()
+public List<Point> getRequestedPerimeterPoints()
 { return requestedPerimeterPoints; }
 
-public void setSensorTypes(List pSensorTypes)
+public void setSensorTypes(List<TwoByteChunk> pSensorTypes)
 { sensorTypes = pSensorTypes;
 }
 
 @XmlElementWrapper(name="sensorTypesList" )
-public List getSensorTypes()
+public List<TwoByteChunk> getSensorTypes()
 { return sensorTypes; }
 
 

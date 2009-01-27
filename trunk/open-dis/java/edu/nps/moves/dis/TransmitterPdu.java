@@ -274,20 +274,20 @@ public short getPadding3()
 { return padding3; 
 }
 
-public void setModulationParametersList(List pModulationParametersList)
+public void setModulationParametersList(List<Vector3Float> pModulationParametersList)
 { modulationParametersList = pModulationParametersList;
 }
 
 @XmlElementWrapper(name="modulationParametersListList" )
-public List getModulationParametersList()
+public List<Vector3Float> getModulationParametersList()
 { return modulationParametersList; }
 
-public void setAntennaPatternList(List pAntennaPatternList)
+public void setAntennaPatternList(List<Vector3Float> pAntennaPatternList)
 { antennaPatternList = pAntennaPatternList;
 }
 
 @XmlElementWrapper(name="antennaPatternListList" )
-public List getAntennaPatternList()
+public List<Vector3Float> getAntennaPatternList()
 { return antennaPatternList; }
 
 
