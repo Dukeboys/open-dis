@@ -167,8 +167,6 @@ public class DisLogger implements Runnable {
      * We may have broken out of the netowrk read loop, but the writer task is
      * still involved in flushing out the already captured PDUs to disk. This
      * gives us a test until that is done.
-     * 
-     * @return
      */
     public boolean finishedWriting() {
         if (done == false) {

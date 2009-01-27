@@ -96,7 +96,6 @@ public class PduMulticastReceiver extends UdpServer {
 
     /**
      * Returns the last parsed PDU.
-     * @return
      */
     public Pdu getPdu(){
         return this.pdu;
@@ -107,7 +106,6 @@ public class PduMulticastReceiver extends UdpServer {
     /**
      * Returns whether or not the ByteBuffer marshalling
      * technique is being used (default).
-     * @return
      */
     public boolean getUseByteBuffer(){
         return this.unmarshalWithByteBuffer;

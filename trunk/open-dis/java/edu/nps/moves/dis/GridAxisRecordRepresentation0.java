@@ -17,7 +17,7 @@ public class GridAxisRecordRepresentation0 extends GridAxisRecord implements Ser
    /** number of bytes of environmental state data */
    protected int  numberOfBytes;
 
-   /** variable length list of data parameters @@@this is wrong--need padding as well */
+   /** variable length list of data parameters ^^^this is wrong--need padding as well */
    protected List< OneByteChunk> dataValues = new ArrayList<OneByteChunk>(); 
 
 /** Constructor */

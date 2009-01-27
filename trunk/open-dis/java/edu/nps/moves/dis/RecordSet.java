@@ -26,10 +26,10 @@ public class RecordSet extends Object implements Serializable
    /** record count */
    protected int  recordCount;
 
-   /** @@@This is wrong--variable sized data records */
+   /** ^^^This is wrong--variable sized data records */
    protected int  recordValues;
 
-   /** @@@This is wrong--variable sized padding */
+   /** ^^^This is wrong--variable sized padding */
    protected short  pad4;
 
 

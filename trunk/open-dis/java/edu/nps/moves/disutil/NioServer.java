@@ -507,7 +507,6 @@ public class NioServer {
      * Handles accepting new connections.
      * @param sel The selector with which we'll register
      * @param key The OP_ACCEPT key
-     * @throws java.io.IOException if an error occurs
      */
     private void handleAccept( SelectionKey key ) throws IOException{
         assert key.isAcceptable() : key.readyOps();                             // We know it should be acceptable
@@ -539,7 +538,6 @@ public class NioServer {
      * Handles reading incoming data and then firing events.
      * @param key The key associated with the reading
      * @param buff the ByteBuffer to hold the data
-     * @throws java.io.IOException if an error occurs
      */
     private void handleRead(SelectionKey key, ByteBuffer buff ) throws IOException {
 
@@ -622,7 +620,6 @@ public class NioServer {
      * that will be passed along with {@link Event}
      * objects as data is received and so forth.
      * @param size The size of the ByteBuffer
-     * @throws IllegalArgumentException if size is not positive
      */
     public synchronized void setBufferSize( int size ){
         if( size <= 0 ){
@@ -907,7 +904,6 @@ public class NioServer {
      * setting up listening for TCP on the given port.
      * @param port the port to listen to
      * @return <code>this</code> to aid in chaining
-     * @throw IllegalArgumentException if port is out of range
      */
     public synchronized NioServer setSingleTcpPort( int port ){
         int oldVal = getSingleTcpPort();
@@ -927,7 +923,6 @@ public class NioServer {
      * setting up listening for UDP on the given port.
      * @param port the port to listen to
      * @return <code>this</code> to aid in chaining
-     * @throw IllegalArgumentException if port is out of range
      */
     public synchronized NioServer setSingleUdpPort( int port ){
         return setSingleUdpPort( port, null );
@@ -941,7 +936,6 @@ public class NioServer {
      * and joining the provided multicast group.
      * @param port the port to listen to
      * @return <code>this</code> to aid in chaining
-     * @throw IllegalArgumentException if port is out of range
      */
     public synchronized NioServer setSingleUdpPort( int port, String group ){
         int oldVal = getSingleUdpPort();
@@ -1049,7 +1043,6 @@ public class NioServer {
      * @param key the SelectionKey associated with the data
      * @param buffer the buffer containing the data
      * @param remote the source address of the datagram or null if not available
-     * @param buffer the buffer containing the data
      */
     protected synchronized void fireUdpDataReceived(SelectionKey key, ByteBuffer buffer, SocketAddress remote) {
 

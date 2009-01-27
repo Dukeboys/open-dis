@@ -47,7 +47,7 @@ public class IntercomControlPdu extends RadioCommunicationsFamilyPdu implements 
    /** number of intercom parameters */
    protected long  intercomParametersLength;
 
-   /** @@@This is wrong--the length of the data field is variable. Using a long for now. */
+   /** ^^^This is wrong--the length of the data field is variable. Using a long for now. */
    protected List< IntercomCommunicationsParameters> intercomParameters = new ArrayList<IntercomCommunicationsParameters>(); 
 
 /** Constructor */

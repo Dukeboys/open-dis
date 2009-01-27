@@ -49,7 +49,7 @@ public class MinefieldDataPdu extends MinefieldFamilyPdu implements Serializable
 
    /** Sensor types, each 16 bits long */
    protected List< TwoByteChunk> sensorTypes = new ArrayList<TwoByteChunk>(); 
-   /** Padding to get things 32-bit aligned. @@@this is wrong--dyanmically sized padding needed */
+   /** Padding to get things 32-bit aligned. ^^^this is wrong--dyanmically sized padding needed */
    protected short  pad3;
 
    /** Mine locations */

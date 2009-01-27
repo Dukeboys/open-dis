@@ -6,7 +6,7 @@ import java.text.*;
 import javax.swing.Timer;
 
 /**
- * <em>Used in support of {@link PduByteBufferTester}</em><br />
+ * <em>Used in support of  PduByteBufferTester</em><br />
  * Frame to display amount of free memory in the running application.
 * <P>
 * Handy for use with NetBeans Developer's internal execution. Then the statistic

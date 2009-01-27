@@ -57,7 +57,6 @@ public class DisTime
     /**
      * Shared instance. This is not thread-safe. If you are working in multiple threads,
      * create a new instance for each thread.
-     * @return
      */
   public static DisTime getInstance()
   {
@@ -106,7 +105,6 @@ public class DisTime
 
  /**
   * Returns the absolute timestamp, assuminng that this host is sync'd to NTP.
-  * @return
   */
  public int getDisAbsoluteTimestamp()
  {
@@ -118,7 +116,6 @@ public class DisTime
  /**
   * Returns the DIS standard relative timestamp, which should be used if this host
   * is not slaved to NTP
-  * @return
   */
  public int getDisRelativeTimestamp()
  {
@@ -131,7 +128,6 @@ public class DisTime
   * Returns a useful timestamp, hundredths of a second since the start of the year.
   * This effectively eliminates the need for receivers to handle timestamp rollover,
   * as long as you're not working on New Year's Eve.
-  * @return
   */
   public long getNpsTimestamp()
   {

@@ -38,7 +38,6 @@ public class TimestampComparator
      * Returns true if this comparator is the same class as the comparator passed in.
      *
      * @param obj
-     * @return
      */
  @Override
  public boolean equals(Object obj)

@@ -256,7 +256,6 @@ public class LogWriter implements Runnable {
 
     /**
      *  Test to see whether we're done writing and it's OK to quit the thread
-     * @return
      */
     public boolean finishedWriting() {
         return ((listQueue.isEmpty()) && (!writing) && (!unqueuedPdus));

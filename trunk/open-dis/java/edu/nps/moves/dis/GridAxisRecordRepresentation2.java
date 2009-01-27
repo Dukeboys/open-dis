@@ -17,7 +17,7 @@ public class GridAxisRecordRepresentation2 extends GridAxisRecord implements Ser
    /** number of values */
    protected int  numberOfValues;
 
-   /** variable length list of data parameters @@@this is wrong--need padding as well */
+   /** variable length list of data parameters ^^^this is wrong--need padding as well */
    protected List< FourByteChunk> dataValues = new ArrayList<FourByteChunk>(); 
 
 /** Constructor */

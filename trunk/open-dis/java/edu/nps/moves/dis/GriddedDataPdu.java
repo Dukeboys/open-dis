@@ -56,7 +56,7 @@ public class GriddedDataPdu extends SyntheticEnvironmentFamilyPdu implements Ser
    /** padding */
    protected short  padding2;
 
-   /** Grid data @@@This is wrong */
+   /** Grid data ^^^This is wrong */
    protected List< GridAxisRecord> gridDataList = new ArrayList<GridAxisRecord>(); 
 
 /** Constructor */

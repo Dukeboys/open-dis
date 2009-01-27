@@ -60,7 +60,7 @@ public class AggregateStatePdu extends EntityManagementFamilyPdu implements Seri
    protected List< AggregateID> aggregateIDList = new ArrayList<AggregateID>(); 
    /** entity ID list */
    protected List< EntityID> entityIDList = new ArrayList<EntityID>(); 
-   /** @@@padding to put the start of the next list on a 32 bit boundary. This needs to be fixed */
+   /** ^^^padding to put the start of the next list on a 32 bit boundary. This needs to be fixed */
    protected short  pad2;
 
    /** silent entity types */

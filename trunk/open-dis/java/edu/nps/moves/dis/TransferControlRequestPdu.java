@@ -35,7 +35,7 @@ public class TransferControlRequestPdu extends EntityManagementFamilyPdu impleme
    /** number of record sets to transfer */
    protected short  numberOfRecordSets;
 
-   /** @@@This is wrong--the RecordSet class needs more work */
+   /** ^^^This is wrong--the RecordSet class needs more work */
    protected List< RecordSet> recordSets = new ArrayList<RecordSet>(); 
 
 /** Constructor */

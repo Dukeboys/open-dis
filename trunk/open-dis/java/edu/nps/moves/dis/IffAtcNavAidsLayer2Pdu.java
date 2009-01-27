@@ -23,7 +23,7 @@ public class IffAtcNavAidsLayer2Pdu extends IffAtcNavAidsLayer1Pdu implements Se
    /** Secondary operational data, 5.2.57 */
    protected BeamData  secondaryOperationalData = new BeamData(); 
 
-   /** variable length list of fundamental parameters. @@@This is wrong */
+   /** variable length list of fundamental parameters. ^^^This is wrong */
    protected List< FundamentalParameterDataIff> fundamentalIffParameters = new ArrayList<FundamentalParameterDataIff>(); 
 
 /** Constructor */

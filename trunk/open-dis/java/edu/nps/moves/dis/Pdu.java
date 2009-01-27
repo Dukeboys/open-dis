@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import javax.xml.bind.annotation.*;
 import edu.nps.moves.disutil.*;
+import edu.nps.moves.disenum.*;
 
 /**
  * The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
@@ -90,6 +91,16 @@ public void setPduType(short pPduType)
 public short getPduType()
 { return pduType; 
 }
+
+/**
+ * Returns the PduType, an enumeration from the disenum jar file. This is an enumerated
+ * java type, rather than a simple short integer. This should NOT be marshalled to DIS
+ * or XML. 
+ */
+public PduType getPduTypeEnum()
+{
+   return PduType.lookup[pduType];
+} 
 
 public void setProtocolFamily(short pProtocolFamily)
 { protocolFamily = pProtocolFamily;
@@ -245,13 +256,31 @@ public byte[] marshalWithDisRelativeTimestamp()
  * A convienience method to marshal a PDU using the NPS-specific format for
  * timestamps, which is hundredths of a second since the start of the year.
  * This effectively eliminates the rollover issues from a practical standpoint.
- * @return
  */
 public byte[] marshalWithNpsTimestamp()
 {
     DisTime disTime = DisTime.getInstance();
     this.setTimestamp(disTime.getNpsTimestamp());
     return this.marshal();
+}
+
+/**
+ * Another option for marshalling with the timestamp field set automatically. The UNIX
+ * time is conventionally seconds since January 1, 1970. UTC time is used, and leap seconds
+ * are excluded. This approach is popular in the wild, but the time resolution is not very
+ * good for high frequency updates, such as aircraft. An entity updating at 30 PDUs/second
+ * would see 30 PDUs sent out with the same timestamp, and have 29 of them discarded as
+ * duplicate packets.
+ *
+ * Note that there are other "Unix times", such milliseconds since 1/1/1970, saved in a long.
+ * This cannot be used, since the value is saved in a long. Java's System.getCurrentTimeMillis()
+ * uses this value.
+ */
+public byte[] marshalWithUnixTimestamp()
+{
+  DisTime disTime = DisTime.getInstance();
+  this.setTimestamp(disTime.getUnixTimestamp());
+  return this.marshal();
 }
  
 

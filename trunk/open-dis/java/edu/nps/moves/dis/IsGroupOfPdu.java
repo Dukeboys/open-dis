@@ -32,7 +32,7 @@ public class IsGroupOfPdu extends EntityManagementFamilyPdu implements Serializa
    /** longitude */
    protected double  longitude;
 
-   /** GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements */
+   /** GED records about each individual entity in the group. ^^^this is wrong--need a database lookup to find the actual size of the list elements */
    protected List< VariableDatum> groupedEntityDescriptions = new ArrayList<VariableDatum>(); 
 
 /** Constructor */
