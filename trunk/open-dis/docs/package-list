@@ -4,3 +4,5 @@ edu.nps.moves.dis
 edu.nps.moves.disutil
 edu.nps.moves.examples
 edu.nps.moves.logger
+edu.nps.moves.math
+edu.nps.moves.net
