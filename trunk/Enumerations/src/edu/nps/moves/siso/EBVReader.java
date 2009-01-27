@@ -47,972 +47,975 @@ public class EBVReader
                  if(gen instanceof EnumT)
                  {
                      EnumT en = (EnumT)gen;
+                     HeaderT header = en.getHeader().get(0);
+                     ColT col = header.getCol().get(0);
 
                      // Pdu Type
-                     if(en.getId().equalsIgnoreCase("pduheader.pdutype"))
+                     if(col.getId().equalsIgnoreCase("pduheader.pdutype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PduType", "src/edu/nps/moves/disenum/PduType", en);
                      }
                      
-                     // Country
-                     if(en.getId().equalsIgnoreCase("es.type.country"))
+                     // Country. this uses a special writer so that we can also pick up the internet code for
+                     // that country, eg US, UK, DE, etc.
+                     if(col.getId().equalsIgnoreCase("es.type.country"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeCountryEnumeration("CountryType", "src/edu/nps/moves/disenum/CountryType", en); 
                      }
                      
                      // Protocol family (entity interaction, logistics, etc
-                     if(en.getId().equalsIgnoreCase("pduheader.protocolfamily"))
+                     if(col.getId().equalsIgnoreCase("pduheader.protocolfamily"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ProtocolFamily", "src/edu/nps/moves/disenum/ProtocolFamily", en); 
                      }
                      
                      // Force ID (friendly, enemy, neutral, etc.)
-                     if(en.getId().equalsIgnoreCase("es.forceid"))
+                     if(col.getId().equalsIgnoreCase("es.forceid"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ForceID", "src/edu/nps/moves/disenum/ForceID", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("EntityKind", "src/edu/nps/moves/disenum/EntityKind", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.1.domain.1.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.1.domain.1.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PlatformLand", "src/edu/nps/moves/disenum/PlatformLand", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.1.domain.2.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.1.domain.2.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PlatformAir", "src/edu/nps/moves/disenum/PlatformAir", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.1.domain.3.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.1.domain.3.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PlatformSurface", "src/edu/nps/moves/disenum/PlatformSurface", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.1.domain.4.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.1.domain.4.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PlatformSubSurface", "src/edu/nps/moves/disenum/PlatformSubSurface", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.1.domain.5.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.1.domain.5.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PlatformSpace", "src/edu/nps/moves/disenum/PlatformSpace", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.2.domain"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.2.domain"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("MunitionDomain", "src/edu/nps/moves/disenum/MunitionDomain", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.2.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.2.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("MunitionCategory", "src/edu/nps/moves/disenum/MunitionCategory", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.225.kind.3.subcat"))
+                     if(col.getId().equalsIgnoreCase("es.type.225.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("USWeaponsForLifeForms", "src/edu/nps/moves/disenum/USWeaponsForLifeForms", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.222.kind.3.subcat"))
+                     if(col.getId().equalsIgnoreCase("es.type.222.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("CISWeaponsForLifeForms", "src/edu/nps/moves/disenum/CISWeaponsForLifeForms", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.224.kind.3.subcat"))
+                     if(col.getId().equalsIgnoreCase("es.type.224.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("UKWeaponsForLifeForms", "src/edu/nps/moves/disenum/UKWeaponsForLifeForms", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.71.kind.3.subcat"))
+                     if(col.getId().equalsIgnoreCase("es.type.71.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("FrenchWeaponsForLifeForms", "src/edu/nps/moves/disenum/FrenchWeaponsForLifeForms", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.78.kind.3.subcat"))
+                     if(col.getId().equalsIgnoreCase("es.type.78.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("GermanWeaponsForLifeForms", "src/edu/nps/moves/disenum/GermanWeaponsForLifeForms", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("pduheader.protocolversion"))
+                     if(col.getId().equalsIgnoreCase("pduheader.protocolversion"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ProtocolVersion", "src/edu/nps/moves/disenum/ProtocolVersion", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.1.domain"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.1.domain"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("EntityDomain", "src/edu/nps/moves/disenum/EntityDomain", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.4.subcat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.4.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("EnvironmentalKind", "src/edu/nps/moves/disenum/EnvironmentalKind", en); 
                      }
                     
-                    if(en.getId().equalsIgnoreCase("es.type.kind.7.cat"))
+                    if(col.getId().equalsIgnoreCase("es.type.kind.7.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RadioCategory", "src/edu/nps/moves/disenum/RadioCategory", en); 
                      }
                     
-                    if(en.getId().equalsIgnoreCase("es.type.kind.7.version"))
+                    if(col.getId().equalsIgnoreCase("es.type.kind.7.version"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RadioNomenclatureVersion", "src/edu/nps/moves/disenum/RadioNomenclatureVersion", en); 
                      }
                     
-                     if(en.getId().equalsIgnoreCase("es.type.kind.7.nomenclature"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.7.nomenclature"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RadioNomenclature", "src/edu/nps/moves/disenum/RadioNomenclature", en); 
                      }
                     
-                    if(en.getId().equalsIgnoreCase("es.type.kind.8.domain.2.cat"))
+                    if(col.getId().equalsIgnoreCase("es.type.kind.8.domain.2.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ExpendableAirCategory", "src/edu/nps/moves/disenum/ExpendableAirCategory", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.8.domain.3.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.8.domain.3.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ExpendableSurfaceCategory", "src/edu/nps/moves/disenum/ExpendableSurfaceCategory", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.8.domain.4.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.8.domain.4.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ExpendableSubsurfaceCategory", "src/edu/nps/moves/disenum/ExpendableSubsurfaceCategory", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.type.kind.9.cat"))
+                     if(col.getId().equalsIgnoreCase("es.type.kind.9.cat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SensorEmitterCategory", "src/edu/nps/moves/disenum/SensorEmitterCategory", en); 
                      }
                                           
-                     if(en.getId().equalsIgnoreCase("es.dra"))
+                     if(col.getId().equalsIgnoreCase("es.dra"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DeadReckoningAlgorithm", "src/edu/nps/moves/disenum/DeadReckoningAlgorithm", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.markingtext"))
+                     if(col.getId().equalsIgnoreCase("es.markingtext"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("EntityMarking", "src/edu/nps/moves/disenum/EntityMarking", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.markingtext.cctt.div"))
+                     if(col.getId().equalsIgnoreCase("es.markingtext.cctt.div"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DivisionCorpsDesignation", "src/edu/nps/moves/disenum/DivisionCorpsDesignation", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.markingtext.cctt.1cavunit"))
+                     if(col.getId().equalsIgnoreCase("es.markingtext.cctt.1cavunit"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("FirstCavHighLevelUnit", "src/edu/nps/moves/disenum/FirstCavHighLevelUnit", en); 
                      }
                     
-                    if(en.getId().equalsIgnoreCase("es.markingtext.cctt.1infunit"))
+                    if(col.getId().equalsIgnoreCase("es.markingtext.cctt.1infunit"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("FirstInfHighLevelUnit", "src/edu/nps/moves/disenum/FirstInfHighLevelUnit", en); 
                      }
                     
-                    if(en.getId().equalsIgnoreCase("es.markingtext.cctt.company"))
+                    if(col.getId().equalsIgnoreCase("es.markingtext.cctt.company"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("CompanyBatteryTroop", "src/edu/nps/moves/disenum/CompanyBatteryTroop", en); 
                      }
                     
-                     if(en.getId().equalsIgnoreCase("es.markingtext.cctt.platoon"))
+                     if(col.getId().equalsIgnoreCase("es.markingtext.cctt.platoon"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PlatoonSection", "src/edu/nps/moves/disenum/PlatoonSection", en); 
                      }
                     
-                    if(en.getId().equalsIgnoreCase("es.markingtext.cctt.vehicle"))
+                    if(col.getId().equalsIgnoreCase("es.markingtext.cctt.vehicle"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Vehicle", "src/edu/nps/moves/disenum/Vehicle", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.markingtext.cctt.symbol1"))
+                     if(col.getId().equalsIgnoreCase("es.markingtext.cctt.symbol1"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Bytes8_9_10_12", "src/edu/nps/moves/disenum/Bytes8_9_10_12", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.markingtext.cctt.symbol2"))
+                     if(col.getId().equalsIgnoreCase("es.markingtext.cctt.symbol2"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Byte11", "src/edu/nps/moves/disenum/Byte11", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.markingtext.chevron.symbol"))
+                     if(col.getId().equalsIgnoreCase("es.markingtext.chevron.symbol"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DigitChevronCode", "src/edu/nps/moves/disenum/DigitChevronCode", en); 
                      }
                     
-                    if(en.getId().equalsIgnoreCase("es.vp.type"))
+                    if(col.getId().equalsIgnoreCase("es.vp.type"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ParameterTypeDesignator", "src/edu/nps/moves/disenum/ParameterTypeDesignator", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.vp.type.1.attached"))
+                     if(col.getId().equalsIgnoreCase("es.vp.type.1.attached"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AttachedParts", "src/edu/nps/moves/disenum/AttachedParts", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.vp.type.0.articulated.offset"))
+                     if(col.getId().equalsIgnoreCase("es.vp.type.0.articulated.offset"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ArticulatedPartsOffsetNumber", "src/edu/nps/moves/disenum/ArticulatedPartsOffsetNumber", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("es.vp.type.0.articulated.index"))
+                     if(col.getId().equalsIgnoreCase("es.vp.type.0.articulated.index"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ArticulatedPartsIndexNumber", "src/edu/nps/moves/disenum/ArticulatedPartsIndexNumber", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("warfare.burstdescriptor.warhead"))
+                     if(col.getId().equalsIgnoreCase("warfare.burstdescriptor.warhead"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Warhead", "src/edu/nps/moves/disenum/Warhead", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("warfare.burstdescriptor.fuse"))
+                     if(col.getId().equalsIgnoreCase("warfare.burstdescriptor.fuse"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Fuse", "src/edu/nps/moves/disenum/Fuse", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("warfare.detonationresult"))
+                     if(col.getId().equalsIgnoreCase("warfare.detonationresult"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetonationResult", "src/edu/nps/moves/disenum/DetonationResult", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.servicerequest"))
+                     if(col.getId().equalsIgnoreCase("log.servicerequest"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ServiceRequestPDU", "src/edu/nps/moves/disenum/ServiceRequestPDU", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.general"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.general"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("GeneralRepairCode", "src/edu/nps/moves/disenum/GeneralRepairCode", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.drivetrain"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.drivetrain"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DriveTrain", "src/edu/nps/moves/disenum/DriveTrain", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.hull"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.hull"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("HullAirframeBody", "src/edu/nps/moves/disenum/HullAirframeBody", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.environment"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.environment"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("InterfacesWithEnvironment", "src/edu/nps/moves/disenum/InterfacesWithEnvironment", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.weapons"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.weapons"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Weapons", "src/edu/nps/moves/disenum/Weapons", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.fuelsystem"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.fuelsystem"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("FuelSystems", "src/edu/nps/moves/disenum/FuelSystems", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.electronics"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.electronics"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Electronics", "src/edu/nps/moves/disenum/Electronics", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.lifesupport"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.lifesupport"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("LifeSupportSystems", "src/edu/nps/moves/disenum/LifeSupportSystems", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.hydraulic"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.hydraulic"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("HydraulicSystemsAndActuators", "src/edu/nps/moves/disenum/HydraulicSystemsAndActuators", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repaircomplete.auxilary"))
+                     if(col.getId().equalsIgnoreCase("log.repaircomplete.auxilary"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AuxiliaryCraft", "src/edu/nps/moves/disenum/AuxiliaryCraft", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("log.repairresponse"))
+                     if(col.getId().equalsIgnoreCase("log.repairresponse"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RepairResponsePDU", "src/edu/nps/moves/disenum/RepairResponsePDU", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.datumid"))
+                     if(col.getId().equalsIgnoreCase("simman.datumid"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DatumSpecificationRecord", "src/edu/nps/moves/disenum/DatumSpecificationRecord", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.stop.reason"))
+                     if(col.getId().equalsIgnoreCase("simman.stop.reason"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Reason", "src/edu/nps/moves/disenum/Reason", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.ack.ackflag"))
+                     if(col.getId().equalsIgnoreCase("simman.ack.ackflag"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AcknowledgeFlag", "src/edu/nps/moves/disenum/AcknowledgeFlag", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.ack.responseflag"))
+                     if(col.getId().equalsIgnoreCase("simman.ack.responseflag"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ResponseFlag", "src/edu/nps/moves/disenum/ResponseFlag", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.actionrequest.actionid"))
+                     if(col.getId().equalsIgnoreCase("simman.actionrequest.actionid"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ActionID", "src/edu/nps/moves/disenum/ActionID", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.actionresponse.status"))
+                     if(col.getId().equalsIgnoreCase("simman.actionresponse.status"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RequestStatus", "src/edu/nps/moves/disenum/RequestStatus", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.eventreport.eventtype"))
+                     if(col.getId().equalsIgnoreCase("simman.eventreport.eventtype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("EventType", "src/edu/nps/moves/disenum/EventType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("simman.reliability.service"))
+                     if(col.getId().equalsIgnoreCase("simman.reliability.service"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RequiredReliabilityService", "src/edu/nps/moves/disenum/RequiredReliabilityService", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.emission.name.electro"))
+                     if(col.getId().equalsIgnoreCase("der.emission.name.electro"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ElectromagneticEmitters", "src/edu/nps/moves/disenum/ElectromagneticEmitters", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.emission.name.acoustic"))
+                     if(col.getId().equalsIgnoreCase("der.emission.name.acoustic"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AcousticEmitters", "src/edu/nps/moves/disenum/AcousticEmitters", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.emission.name.other"))
+                     if(col.getId().equalsIgnoreCase("der.emission.name.other"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("OtherAcousticEmitters", "src/edu/nps/moves/disenum/OtherAcousticEmitters", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.emission.function"))
+                     if(col.getId().equalsIgnoreCase("der.emission.function"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Function", "src/edu/nps/moves/disenum/Function", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.emission.stateupdate"))
+                     if(col.getId().equalsIgnoreCase("der.emission.stateupdate"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("StateUpdateIndicator", "src/edu/nps/moves/disenum/StateUpdateIndicator", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.emission.beamfunction"))
+                     if(col.getId().equalsIgnoreCase("der.emission.beamfunction"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("BeamFunction", "src/edu/nps/moves/disenum/BeamFunction", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.emission.hdtj"))
+                     if(col.getId().equalsIgnoreCase("der.emission.hdtj"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("HighDensityTrackJam", "src/edu/nps/moves/disenum/HighDensityTrackJam", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.designator.codename"))
+                     if(col.getId().equalsIgnoreCase("der.designator.codename"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("CodeName", "src/edu/nps/moves/disenum/CodeName", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.designator.code"))
+                     if(col.getId().equalsIgnoreCase("der.designator.code"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DesignatorCode", "src/edu/nps/moves/disenum/DesignatorCode", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SystemType", "src/edu/nps/moves/disenum/SystemType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.name"))
+                     if(col.getId().equalsIgnoreCase("der.iff.name"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SystemName", "src/edu/nps/moves/disenum/SystemName", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.mode"))
+                     if(col.getId().equalsIgnoreCase("der.iff.mode"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SystemMode", "src/edu/nps/moves/disenum/SystemMode", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.layerspecific"))
+                     if(col.getId().equalsIgnoreCase("der.iff.layerspecific"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("LayerSpecificInformation", "src/edu/nps/moves/disenum/LayerSpecificInformation", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.1.fop.altp4"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.1.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type1AltParameter4", "src/edu/nps/moves/disenum/Type1AltParameter4", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.1.sop.param1"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.1.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type1OperationalParameter1", "src/edu/nps/moves/disenum/Type1OperationalParameter1", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.1.sop.param2"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.1.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type1OperationalParameter2", "src/edu/nps/moves/disenum/Type1OperationalParameter2", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.2.fop.altp4"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.2.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type2AltParameter4", "src/edu/nps/moves/disenum/Type2AltParameter4", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.2.sop.param1"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.2.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type2OperationalParameter1", "src/edu/nps/moves/disenum/Type2OperationalParameter1", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.2.sop.param2"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.2.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type2OperationalParameter2", "src/edu/nps/moves/disenum/Type2OperationalParameter2", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.3.fop.altp4"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.3.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type3AltParameter4", "src/edu/nps/moves/disenum/Type3AltParameter4", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.3.sop.param1"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.3.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type3OperationalParameter1", "src/edu/nps/moves/disenum/Type3OperationalParameter1", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.3.sop.param2"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.3.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type3OperationalParameter2", "src/edu/nps/moves/disenum/Type3OperationalParameter2", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.4.fop.altp4"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.4.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type4AltParameter4", "src/edu/nps/moves/disenum/Type4AltParameter4", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.4.sop.param1"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.4.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type4OperationalParameter1", "src/edu/nps/moves/disenum/Type4OperationalParameter1", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.4.sop.param2"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.4.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type4OperationalParameter2", "src/edu/nps/moves/disenum/Type4OperationalParameter2", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.5.fop.altp4"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.5.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type5AltParameter4", "src/edu/nps/moves/disenum/Type5AltParameter4", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.5.sop.param1"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.5.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type5OperationalParameter1", "src/edu/nps/moves/disenum/Type5OperationalParameter1", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.iff.type.5.sop.param2"))
+                     if(col.getId().equalsIgnoreCase("der.iff.type.5.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Type5OperationalParameter2", "src/edu/nps/moves/disenum/Type5OperationalParameter2", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.ua.statechangeupdate"))
+                     if(col.getId().equalsIgnoreCase("der.ua.statechangeupdate"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("StateChangeUpdateIndicator", "src/edu/nps/moves/disenum/StateChangeUpdateIndicator", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.ua.systemname"))
+                     if(col.getId().equalsIgnoreCase("der.ua.systemname"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AcousticSystemName", "src/edu/nps/moves/disenum/AcousticSystemName", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.ua.function"))
+                     if(col.getId().equalsIgnoreCase("der.ua.function"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Function", "src/edu/nps/moves/disenum/Function", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.ua.activeparameterindex"))
+                     if(col.getId().equalsIgnoreCase("der.ua.activeparameterindex"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ActiveEmissionParameterIndex", "src/edu/nps/moves/disenum/ActiveEmissionParameterIndex", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.ua.scanpattern"))
+                     if(col.getId().equalsIgnoreCase("der.ua.scanpattern"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ScanPattern", "src/edu/nps/moves/disenum/ScanPattern", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.ua.passiveparameterindex"))
+                     if(col.getId().equalsIgnoreCase("der.ua.passiveparameterindex"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PassiveParameterIndex", "src/edu/nps/moves/disenum/PassiveParameterIndex", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.ua.apaparameterindex"))
+                     if(col.getId().equalsIgnoreCase("der.ua.apaparameterindex"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AdditionalPassiveActivity", "src/edu/nps/moves/disenum/AdditionalPassiveActivity", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.sees.power.aircraft"))
+                     if(col.getId().equalsIgnoreCase("der.sees.power.aircraft"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Aircraft", "src/edu/nps/moves/disenum/Aircraft", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.sees.power.helicopters"))
+                     if(col.getId().equalsIgnoreCase("der.sees.power.helicopters"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Helicopters", "src/edu/nps/moves/disenum/Helicopters", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("der.sees.power.tanks"))
+                     if(col.getId().equalsIgnoreCase("der.sees.power.tanks"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Tanks", "src/edu/nps/moves/disenum/Tanks", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("MajorModulation", "src/edu/nps/moves/disenum/MajorModulation", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major.1.detail"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major.1.detail"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetailedModAmpMod", "src/edu/nps/moves/disenum/DetailedModAmpMod", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major.2.detail"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major.2.detail"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetailedModAmpAndAngle", "src/edu/nps/moves/disenum/DetailedModAmpAndAngle", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major.3.detail"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major.3.detail"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetailedModAngleMod", "src/edu/nps/moves/disenum/DetailedModAngleMod", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major.4.detail"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major.4.detail"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetailedModCombinationMod", "src/edu/nps/moves/disenum/DetailedModCombinationMod", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major.5.detail"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major.5.detail"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetailedModPulseMod", "src/edu/nps/moves/disenum/DetailedModPulseMod", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major.6.detail"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major.6.detail"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetailedModUnmodulatedMod", "src/edu/nps/moves/disenum/DetailedModUnmodulatedMod", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.major.7.detail"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.major.7.detail"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DetailedModCarrierPhaseShift", "src/edu/nps/moves/disenum/DetailedModCarrierPhaseShift", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.mod.system"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.mod.system"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RadioSystem", "src/edu/nps/moves/disenum/RadioSystem", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.state"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.state"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("TransmitState", "src/edu/nps/moves/disenum/TransmitState", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.inputsource"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.inputsource"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("InputSource", "src/edu/nps/moves/disenum/InputSource", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.cryptosystem"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.cryptosystem"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("CryptoSystem", "src/edu/nps/moves/disenum/CryptoSystem", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.antennapatterntype"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.antennapatterntype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AntennaPatternType", "src/edu/nps/moves/disenum/AntennaPatternType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.referencesystem"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.referencesystem"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ReferenceSystem", "src/edu/nps/moves/disenum/ReferenceSystem", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.param.cctt.start"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.param.cctt.start"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("MessageStart", "src/edu/nps/moves/disenum/MessageStart", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.param.cctt.clear"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.param.cctt.clear"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ClearChannel", "src/edu/nps/moves/disenum/ClearChannel", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.param.jtids.mode1"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.param.jtids.mode1"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("XmitTermPriMode", "src/edu/nps/moves/disenum/XmitTermPriMode", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.param.jtids.mode2"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.param.jtids.mode2"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("XmitTermSecMode", "src/edu/nps/moves/disenum/XmitTermSecMode", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.param.jtids.sync"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.param.jtids.sync"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SynchronizationState", "src/edu/nps/moves/disenum/SynchronizationState", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.protocolid"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.protocolid"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("UserProtocolIDNum", "src/edu/nps/moves/disenum/UserProtocolIDNum", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.tx.tdltype"))
+                     if(col.getId().equalsIgnoreCase("radio.tx.tdltype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("TDLType", "src/edu/nps/moves/disenum/TDLType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.rx.state"))
+                     if(col.getId().equalsIgnoreCase("radio.rx.state"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ReceiverState", "src/edu/nps/moves/disenum/ReceiverState", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.ic.controltype"))
+                     if(col.getId().equalsIgnoreCase("radio.ic.controltype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ControlType", "src/edu/nps/moves/disenum/ControlType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.ic.commtype"))
+                     if(col.getId().equalsIgnoreCase("radio.ic.commtype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("CommunicationType", "src/edu/nps/moves/disenum/CommunicationType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.ic.command"))
+                     if(col.getId().equalsIgnoreCase("radio.ic.command"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Command", "src/edu/nps/moves/disenum/Command", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.ic.transmitstate"))
+                     if(col.getId().equalsIgnoreCase("radio.ic.transmitstate"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("XmitLineState", "src/edu/nps/moves/disenum/XmitLineState", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.ic.deststate"))
+                     if(col.getId().equalsIgnoreCase("radio.ic.deststate"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DestLineState", "src/edu/nps/moves/disenum/DestLineState", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("radio.ic.param.type"))
+                     if(col.getId().equalsIgnoreCase("radio.ic.param.type"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RecordType", "src/edu/nps/moves/disenum/RecordType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.collision.type"))
+                     if(col.getId().equalsIgnoreCase("entity.collision.type"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("CollisionType", "src/edu/nps/moves/disenum/CollisionType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SensorTypes", "src/edu/nps/moves/disenum/SensorTypes", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.1.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.1.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Optical", "src/edu/nps/moves/disenum/Optical", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.2.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.2.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("FLIR", "src/edu/nps/moves/disenum/FLIR", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.3.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RADAR", "src/edu/nps/moves/disenum/RADAR", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.4.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.4.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Magnetic", "src/edu/nps/moves/disenum/Magnetic", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.5.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.5.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Laser", "src/edu/nps/moves/disenum/Laser", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.6.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.6.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SONAR", "src/edu/nps/moves/disenum/SONAR", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.7.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.7.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Physical", "src/edu/nps/moves/disenum/Physical", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("entity.mine.sensortype.8.subcat"))
+                     if(col.getId().equalsIgnoreCase("entity.mine.sensortype.8.subcat"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Multispectral", "src/edu/nps/moves/disenum/Multispectral", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.aggregate.state"))
+                     if(col.getId().equalsIgnoreCase("eman.aggregate.state"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AggregateState", "src/edu/nps/moves/disenum/AggregateState", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.aggregate.formation"))
+                     if(col.getId().equalsIgnoreCase("eman.aggregate.formation"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Formation", "src/edu/nps/moves/disenum/Formation", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.aggregate.type.kind"))
+                     if(col.getId().equalsIgnoreCase("eman.aggregate.type.kind"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("AggregateKind", "src/edu/nps/moves/disenum/AggregateKind", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.aggregate.type.subcategory"))
+                     if(col.getId().equalsIgnoreCase("eman.aggregate.type.subcategory"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Subcategory", "src/edu/nps/moves/disenum/Subcategory", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.aggregate.type.specific"))
+                     if(col.getId().equalsIgnoreCase("eman.aggregate.type.specific"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Specific", "src/edu/nps/moves/disenum/Specific", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.ispartof.nature"))
+                     if(col.getId().equalsIgnoreCase("eman.ispartof.nature"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Nature", "src/edu/nps/moves/disenum/Nature", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.ispartof.position"))
+                     if(col.getId().equalsIgnoreCase("eman.ispartof.position"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("Position", "src/edu/nps/moves/disenum/Position", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.ispartof.stationname"))
+                     if(col.getId().equalsIgnoreCase("eman.ispartof.stationname"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("StationName", "src/edu/nps/moves/disenum/StationName", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.isgroupof.category"))
+                     if(col.getId().equalsIgnoreCase("eman.isgroupof.category"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("GroupedEntityCategory", "src/edu/nps/moves/disenum/GroupedEntityCategory", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.isgroupof.reststatus"))
+                     if(col.getId().equalsIgnoreCase("eman.isgroupof.reststatus"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("RestStatus", "src/edu/nps/moves/disenum/RestStatus", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("eman.tc.transfertype"))
+                     if(col.getId().equalsIgnoreCase("eman.tc.transfertype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("TransferType", "src/edu/nps/moves/disenum/TransferType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.obj.objecttype.kind"))
+                     if(col.getId().equalsIgnoreCase("env.obj.objecttype.kind"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ObjectKind", "src/edu/nps/moves/disenum/ObjectKind", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.gridded.fieldnumber"))
+                     if(col.getId().equalsIgnoreCase("env.gridded.fieldnumber"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("FieldNumber", "src/edu/nps/moves/disenum/FieldNumber", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.gridded.coordinatesystem"))
+                     if(col.getId().equalsIgnoreCase("env.gridded.coordinatesystem"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("CoordinateSystem", "src/edu/nps/moves/disenum/CoordinateSystem", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.gridded.constantgrid"))
+                     if(col.getId().equalsIgnoreCase("env.gridded.constantgrid"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ConstantGrid", "src/edu/nps/moves/disenum/ConstantGrid", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.gridded.sampletype"))
+                     if(col.getId().equalsIgnoreCase("env.gridded.sampletype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("SampleType", "src/edu/nps/moves/disenum/SampleType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.gridded.datarepresentation"))
+                     if(col.getId().equalsIgnoreCase("env.gridded.datarepresentation"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("DataRepresentation", "src/edu/nps/moves/disenum/DataRepresentation", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.process.modeltype"))
+                     if(col.getId().equalsIgnoreCase("env.process.modeltype"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("ModelType", "src/edu/nps/moves/disenum/ModelType", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.process.type.geometryrecord"))
+                     if(col.getId().equalsIgnoreCase("env.process.type.geometryrecord"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("GeometryRecordTypeField", "src/edu/nps/moves/disenum/GeometryRecordTypeField", en); 
                      }
                      
-                     if(en.getId().equalsIgnoreCase("env.process.type.staterecord"))
+                     if(col.getId().equalsIgnoreCase("env.process.type.staterecord"))
                      {
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("StateRecordTypeField", "src/edu/nps/moves/disenum/StateRecordTypeField", en); 
