@@ -1,11 +1,127 @@
---- Pdu.java	2009-01-27 10:27:40.000000000 -0800
-+++ Pdu.java.mod	2009-01-27 10:28:27.000000000 -0800
-@@ -280,7 +280,7 @@
- public byte[] marshalWithUnixTimestamp()
+--- Pdu.java	2009-01-27 10:58:55.000000000 -0800
++++ Pdu.java.mod	2009-01-27 10:57:03.000000000 -0800
+@@ -3,6 +3,8 @@
+ import java.util.*;
+ import java.io.*;
+ import javax.xml.bind.annotation.*;
++import edu.nps.moves.disutil.*;
++import edu.nps.moves.disenum.*;
+ 
+ /**
+  * The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
+@@ -14,6 +16,12 @@
+  */
+ public class Pdu extends Object implements Serializable
  {
-   DisTime disTime = disTime.getInstance();
--  this.setTimestamp(disTime.getUnixTimestamp();
-+  this.setTimestamp(disTime.getUnixTimestamp());
-   return this.marshal();
++    /** The DIS absolute timestamp mask; used to ensure the LSB in timestamps is always set to 1 */
++    public static final int ABSOLUTE_TIMESTAMP_MASK = 0x00000001;
++    
++    /** The DIS relative timestamp mask; used to ensure the LSB in timestamps is always set to 0 */
++    public static final int RELATIVE_TIMESTAMP_MASK = 0xFFFFFFFE;
++    
+    /** The version of the protocol. 5=DIS-1995, 6=DIS-1998. */
+    protected short  protocolVersion = 6;
+ 
+@@ -34,7 +42,7 @@
+ 
+    /** zero-filled array of padding */
+    protected short  padding = 0;
+-
++    
+ 
+ /** Constructor */
+  public Pdu()
+@@ -84,6 +92,16 @@
+ { return pduType; 
  }
-  
+ 
++/**
++ * Returns the PduType, an enumeration from the disenum jar file. This is an enumerated
++ * java type, rather than a simple short integer. This should NOT be marshalled to DIS
++ * or XML. 
++ */
++public PduType getPduTypeEnum()
++{
++   return PduType.lookup[pduType];
++} 
++
+ public void setProtocolFamily(short pProtocolFamily)
+ { protocolFamily = pProtocolFamily;
+ }
+@@ -196,9 +214,10 @@
+ 
+ 
+ /**
+- * A convenience method for marshalling to a byte array.
++ * A convenience method for marshalling to a byte array. The method will marshal
++ * the PDU as is.
+  * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
+- * @return a byte array with the marshalled {@link Pdu}
++ * @return a byte array with the marshalled {@link Pdu}.
+  * @since ??
+  */
+ public byte[] marshal()
+@@ -209,6 +228,63 @@
+     return data;
+ }
+ 
++/**
++ * A convieneince method to marshal to a byte array with the timestamp set to
++ * the DIS standard for absolute timestamps (which works only if the host is
++ * slaved to NTP). This means the timestamp will roll over every hour.
++ */
++public byte[] marshalWithDisAbsoluteTimestamp()
++{
++    DisTime disTime = DisTime.getInstance();
++    this.setTimestamp(disTime.getDisAbsoluteTimestamp());
++    return this.marshal();
++}
++
++/**
++ * A convieneince method to marshal to a byte array with the timestamp set to
++ * the DIS standard for relative timestamps. The timestamp will roll over every
++ * hour
++ */
++public byte[] marshalWithDisRelativeTimestamp()
++{
++    DisTime disTime = DisTime.getInstance();
++    this.setTimestamp(disTime.getDisRelativeTimestamp());
++    return this.marshal();
++}
++
++/**
++ * A convienience method to marshal a PDU using the NPS-specific format for
++ * timestamps, which is hundredths of a second since the start of the year.
++ * This effectively eliminates the rollover issues from a practical standpoint.
++ * @return
++ */
++public byte[] marshalWithNpsTimestamp()
++{
++    DisTime disTime = DisTime.getInstance();
++    this.setTimestamp(disTime.getNpsTimestamp());
++    return this.marshal();
++}
++
++/**
++ * Another option for marshalling with the timestamp field set automatically. The UNIX
++ * time is conventionally seconds since January 1, 1970. UTC time is used, and leap seconds
++ * are excluded. This approach is popular in the wild, but the time resolution is not very
++ * good for high frequency updates, such as aircraft. An entity updating at 30 PDUs/second
++ * would see 30 PDUs sent out with the same timestamp, and have 29 of them discarded as
++ * duplicate packets.
++ *
++ * Note that there are other "Unix times", such milliseconds since 1/1/1970, saved in a long.
++ * This cannot be used, since the value is saved in a long. Java's System.getCurrentTimeMillis()
++ * uses this value.
++ */
++public byte[] marshalWithUnixTimestamp()
++{
++  DisTime disTime = DisTime.getInstance();
++  this.setTimestamp(disTime.getUnixTimestamp());
++  return this.marshal();
++}
++ 
++
+  /**
+   * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+   */
