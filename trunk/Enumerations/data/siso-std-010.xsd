@@ -2,11 +2,12 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation xml:lang="en">
-      Machine Readable Enumeration and Bit Encoded Values Schema
+      Machine Readable Enumeration and Bit Encoded Values Schema, Draft $Revision: 34 $
     </xs:documentation>
   </xs:annotation>
   <xs:complexType name="generictable_t">
-    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+    <xs:attribute name="cname" type="xs:string" use="required"/>
     <xs:attribute name="length" type="xs:positiveInteger" use="required"/>
     <xs:attribute name="name" type="xs:string" use="required"/>
     <xs:attribute name="source" type="xs:string" use="required"/>
@@ -87,8 +88,9 @@
         <xs:sequence>
           <xs:element name="meta" type="meta_t" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:float" use="required"/>
-        <xs:attribute name="id2" type="xs:float" use="optional"/>
+        <!-- 'id' and 'id2' specify a signed integer datatype because 'der.sees.power' uses negative 'id' values -->
+        <xs:attribute name="id" type="xs:int" use="required"/>
+        <xs:attribute name="id2" type="xs:int" use="optional"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -112,7 +114,7 @@
         <xs:sequence>
           <xs:element name="enumrow" type="enumrow_t" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:float" use="required"/>
+        <xs:attribute name="id" type="xs:nonNegativeInteger" use="required"/>
         <xs:attribute name="id2" type="xs:nonNegativeInteger" use="optional"/>
         <xs:attribute name="name" type="xs:string" use="optional"/>
       </xs:extension>
@@ -146,7 +148,7 @@
         <xs:sequence>
           <xs:element name="subcategory" type="subcategory_t" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:float" use="required"/>
+        <xs:attribute name="id" type="xs:nonNegativeInteger" use="required"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -156,7 +158,7 @@
         <xs:sequence>
           <xs:element name="specific" type="specific_t" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:float" use="required"/>
+        <xs:attribute name="id" type="xs:nonNegativeInteger" use="required"/>
         <xs:attribute name="id2" type="xs:nonNegativeInteger" use="optional"/>
       </xs:extension>
     </xs:complexContent>
@@ -167,7 +169,7 @@
         <xs:sequence>
           <xs:element name="extra" type="extra_t" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="id" type="xs:float" use="required"/>
+        <xs:attribute name="id" type="xs:nonNegativeInteger" use="required"/>
         <xs:attribute name="id2" type="xs:nonNegativeInteger" use="optional"/>
       </xs:extension>
     </xs:complexContent>
@@ -175,7 +177,7 @@
   <xs:complexType name="extra_t">
     <xs:complexContent>
       <xs:extension base="genericentry_t">
-        <xs:attribute name="id" type="xs:float" use="required"/>
+        <xs:attribute name="id" type="xs:nonNegativeInteger" use="required"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

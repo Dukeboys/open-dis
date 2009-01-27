@@ -1,27 +1,13 @@
+<?xml version="1.0"?>
 <!--
   xml2xls.xslt
   Transform EBV-MR XML file to Microsoft Excel file
   peter.ross@dsto.defence.gov.au
 -->
-
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-			xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-			xmlns:o="urn:schemas-microsoft-com:office:office"
-			xmlns:x="urn:schemas-microsoft-com:office:excel"
-			xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-			xmlns:html="http://www.w3.org/TR/REC-html40"
-			version="1.0">
-
-  <xsl:output method="xml" />
-
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40" version="1.0">
+  <xsl:output method="xml"/>
   <xsl:template match="ebv">
-    <Workbook
-			xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-			xmlns:o="urn:schemas-microsoft-com:office:office"
-			xmlns:x="urn:schemas-microsoft-com:office:excel"
-			xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-			xmlns:html="http://www.w3.org/TR/REC-html40" >
-
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
       <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
         <Title>
           <xsl:value-of select="@title"/>
@@ -30,10 +16,9 @@
           <xsl:value-of select="@organisation"/>
         </Company>
       </DocumentProperties>
-
       <Styles>
         <Style ss:ID="banner">
-          <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>^
+          <Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
           <Font x:Family="Swiss" ss:Size="12" ss:Bold="1"/>
           <Interior ss:Color="#FF99CC" ss:Pattern="Solid"/>
         </Style>
@@ -48,30 +33,29 @@
           <Alignment ss:Vertical="Center"/>
         </Style>
       </Styles>
-
       <Worksheet ss:Name="Index">
-
-        <Table ss:ExpandedColumnCount="5" x:FullColumns="1" x:FullRows="1">
+        <Table ss:ExpandedColumnCount="6" x:FullColumns="1" x:FullRows="1">
+          <Column ss:Width="25"/>
           <Column ss:Width="200"/>
           <Column ss:Width="50"/>
           <Column ss:Width="50"/>
           <Column ss:Width="200"/>
           <Column ss:Width="60"/>
           <Row ss:AutoFitHeight="0" ss:Height="32">
-            <Cell ss:MergeAcross="4" ss:StyleID="banner">
+            <Cell ss:MergeAcross="5" ss:StyleID="banner">
               <Data ss:Type="String">Enumeration and Bit Encoded Values for use with Protocols for Distributed Interactive Simulation Applications</Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="20">
-            <Cell ss:MergeAcross="4" ss:StyleID="banner">
+            <Cell ss:MergeAcross="5" ss:StyleID="banner">
               <Data ss:Type="String">
-                <xsl:value-of select="@organisation" />
+                <xsl:value-of select="@organisation"/>
               </Data>
             </Cell>
           </Row>
           <Row ss:AutoFitHeight="0" ss:Height="20">
-            <Cell ss:MergeAcross="4" ss:StyleID="banner">
-              <Data ss:Type="String">Title: <xsl:value-of select="@title" />, Release: <xsl:value-of select="@release" />, Date: <xsl:value-of select="@date" />
+            <Cell ss:MergeAcross="5" ss:StyleID="banner">
+              <Data ss:Type="String">Title: <xsl:value-of select="@title"/>, Release: <xsl:value-of select="@release"/>, Date: <xsl:value-of select="@date"/>
             </Data>
             </Cell>
           </Row>
@@ -80,6 +64,9 @@
           <Row>
             <Cell ss:StyleID="heading">
               <Data ss:Type="String">Id</Data>
+            </Cell>
+            <Cell ss:StyleID="heading">
+              <Data ss:Type="String">CName</Data>
             </Cell>
             <Cell ss:StyleID="heading">
               <Data ss:Type="String">Type</Data>
@@ -92,10 +79,10 @@
             </Cell>
             <Cell ss:StyleID="heading">
               <Data ss:Type="String">Source</Data>
-				<Comment ss:ShowAlways="1">
-					<ss:Data>Original SISO-STD-002(2006) Section Number</ss:Data>
-				</Comment>
-			</Cell>
+              <Comment ss:ShowAlways="1">
+                <ss:Data>Original SISO-STD-010(2006) Section Number</ss:Data>
+              </Comment>
+            </Cell>
           </Row>
           <xsl:apply-templates mode="index"/>
         </Table>
@@ -104,23 +91,23 @@
           <TabColorIndex>42</TabColorIndex>
         </WorksheetOptions>
       </Worksheet>
-
-      <xsl:apply-templates mode="body" />
-
+      <xsl:apply-templates mode="body"/>
     </Workbook>
   </xsl:template>
-
   <!--=== Index ===-->
-
   <xsl:template match="enum|bitmask|cet|cot|record" mode="index">
     <Row>
+      <Cell>
+        <Data ss:Type="Number">
+          <xsl:value-of select="@id"/>
+        </Data>
+      </Cell>
       <Cell ss:StyleID="hyperlink">
         <xsl:attribute name="ss:HRef">
-          <xsl:value-of select="concat('#',@id,'!A1')" />
+          <xsl:value-of select="concat('#',@cname,'!A1')"/>
         </xsl:attribute>
-
         <Data ss:Type="String">
-          <xsl:value-of select="@id" />
+          <xsl:value-of select="@cname"/>
         </Data>
       </Cell>
       <Cell>
@@ -145,9 +132,7 @@
       </Cell>
     </Row>
   </xsl:template>
-
   <!--=== Revisions ===-->
-
   <xsl:template match="revisions" mode="body">
     <Worksheet ss:Name="Revisions">
       <Table ss:ExpandedColumnCount="4" ss:ExpandedRowCount="{count(revision)+1}" x:FullColumns="1" x:FullRows="1">
@@ -174,10 +159,9 @@
       <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
         <TabColorIndex>42</TabColorIndex>
       </WorksheetOptions>
-    </Worksheet>    
+    </Worksheet>
   </xsl:template>
-  
-  <xsl:template match="revision" >
+  <xsl:template match="revision">
     <Row>
       <Cell>
         <Data ss:Type="String">
@@ -201,9 +185,7 @@
       </Cell>
     </Row>
   </xsl:template>
-
   <!--=== Acronyms ===-->
-  
   <xsl:template match="acronyms" mode="body">
     <Worksheet ss:Name="Acronyms">
       <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="{count(acronym)+1}" x:FullColumns="1" x:FullRows="1">
@@ -224,9 +206,7 @@
       </WorksheetOptions>
     </Worksheet>
   </xsl:template>
-  
-  
-  <xsl:template match="acronym" >
+  <xsl:template match="acronym">
     <Row>
       <Cell>
         <Data ss:Type="String">
@@ -240,13 +220,11 @@
       </Cell>
     </Row>
   </xsl:template>
-
   <!--=== Enum ===-->
-
   <xsl:template match="enum" mode="body">
     <Worksheet>
       <xsl:attribute name="ss:Name">
-        <xsl:value-of select="@id"/>
+        <xsl:value-of select="@cname"/>
       </xsl:attribute>
       <Table ss:ExpandedColumnCount="{3 + count(header/col)}" ss:ExpandedRowCount="{count(enumrow)+1}" x:FullColumns="1" x:FullRows="1">
         <Column ss:Width="50"/>
@@ -262,17 +240,15 @@
           <Cell ss:StyleID="heading">
             <Data ss:Type="String">Description</Data>
           </Cell>
-          <xsl:apply-templates select="header" />
+          <xsl:apply-templates select="header"/>
         </Row>
         <xsl:apply-templates select="enumrow"/>
       </Table>
     </Worksheet>
   </xsl:template>
-
   <xsl:template match="header">
-    <xsl:apply-templates select="col" />
+    <xsl:apply-templates select="col"/>
   </xsl:template>
-
   <xsl:template match="col">
     <Cell ss:StyleID="heading">
       <Data ss:Type="String">
@@ -280,7 +256,6 @@
       </Data>
     </Cell>
   </xsl:template>
-
   <xsl:template match="enumrow">
     <Row>
       <Cell>
@@ -299,9 +274,9 @@
         <xsl:apply-templates select="." mode="outputdescription"/>
       </Cell>
       <xsl:if test="../header">
-        <xsl:variable name="tmpnode" select="." />
-        <xsl:for-each select="../header/col" >
-          <xsl:variable name="tmpid" select="@id" />
+        <xsl:variable name="tmpnode" select="."/>
+        <xsl:for-each select="../header/col">
+          <xsl:variable name="tmpid" select="@id"/>
           <Cell>
             <Data ss:Type="String">
               <xsl:value-of select="$tmpnode/meta[@id=$tmpid]/@value"/>
@@ -311,15 +286,12 @@
       </xsl:if>
     </Row>
   </xsl:template>
-
   <!--=== Bitmask ===-->
-
   <xsl:template match="bitmask" mode="body">
     <Worksheet>
       <xsl:attribute name="ss:Name">
         <xsl:value-of select="@id"/>
       </xsl:attribute>
-
       <Table ss:ExpandedColumnCount="4" ss:ExpandedRowCount="{count(bitmaskrow)+1}" x:FullColumns="1" x:FullRows="1">
         <Column ss:Width="100"/>
         <Column ss:Width="50"/>
@@ -343,8 +315,7 @@
       </Table>
     </Worksheet>
   </xsl:template>
-
-  <xsl:template match="bitmaskrow" >
+  <xsl:template match="bitmaskrow">
     <Row>
       <Cell>
         <Data ss:Type="String">
@@ -368,15 +339,12 @@
       </Cell>
     </Row>
   </xsl:template>
-  
   <!--=== CET ===-->
-
   <xsl:template match="cet" mode="body">
     <Worksheet>
       <xsl:attribute name="ss:Name">
         <xsl:value-of select="@id"/>
       </xsl:attribute>
-      
       <Table ss:ExpandedColumnCount="9" x:FullColumns="1" x:FullRows="1">
         <Column ss:Width="40"/>
         <Column ss:Width="40"/>
@@ -412,15 +380,13 @@
             <Data ss:Type="String">Description</Data>
           </Cell>
         </Row>
-        <xsl:apply-templates />
+        <xsl:apply-templates/>
       </Table>
     </Worksheet>
   </xsl:template>
-
   <xsl:template match="entity">
-    <xsl:apply-templates />
+    <xsl:apply-templates/>
   </xsl:template>
-
   <xsl:template match="category">
     <Row>
       <Cell>
@@ -443,16 +409,15 @@
           <xsl:value-of select="@id"/>
         </Data>
       </Cell>
-      <Cell></Cell>
-      <Cell></Cell>
-      <Cell></Cell>
+      <Cell/>
+      <Cell/>
+      <Cell/>
       <Cell>
         <xsl:apply-templates select="." mode="outputdescription"/>
       </Cell>
     </Row>
-    <xsl:apply-templates />
+    <xsl:apply-templates/>
   </xsl:template>
-
   <xsl:template match="subcategory">
     <Row>
       <Cell>
@@ -485,15 +450,14 @@
           </Comment>
         </xsl:if>
       </Cell>
-      <Cell></Cell>
-      <Cell></Cell>
+      <Cell/>
+      <Cell/>
       <Cell>
         <xsl:apply-templates select="." mode="outputdescription"/>
       </Cell>
     </Row>
-    <xsl:apply-templates />
+    <xsl:apply-templates/>
   </xsl:template>
-
   <xsl:template match="specific">
     <Row>
       <Cell>
@@ -526,14 +490,13 @@
           <xsl:value-of select="@id"/>
         </Data>
       </Cell>
-      <Cell></Cell>
+      <Cell/>
       <Cell>
         <xsl:apply-templates select="." mode="outputdescription"/>
       </Cell>
     </Row>
-    <xsl:apply-templates />
+    <xsl:apply-templates/>
   </xsl:template>
-
   <xsl:template match="extra">
     <Row>
       <Cell>
@@ -574,19 +537,15 @@
       <Cell>
         <xsl:apply-templates select="." mode="outputdescription"/>
       </Cell>
-
     </Row>
-    <xsl:apply-templates />
+    <xsl:apply-templates/>
   </xsl:template>
-  
   <!--=== COT ===-->
-  
   <xsl:template match="cot" mode="body">
     <Worksheet>
       <xsl:attribute name="ss:Name">
         <xsl:value-of select="@id"/>
       </xsl:attribute>
-
       <Table ss:ExpandedColumnCount="5" x:FullColumns="1" x:FullRows="1">
         <Column ss:Width="40"/>
         <Column ss:Width="40"/>
@@ -610,11 +569,10 @@
             <Data ss:Type="String">Description</Data>
           </Cell>
         </Row>
-        <xsl:apply-templates select="object" mode="cot" />
+        <xsl:apply-templates select="object" mode="cot"/>
       </Table>
     </Worksheet>
   </xsl:template>
-
   <xsl:template match="object" mode="cot">
     <Row>
       <Cell>
@@ -627,15 +585,14 @@
           <xsl:value-of select="@kind"/>
         </Data>
       </Cell>
-      <Cell></Cell>
-      <Cell></Cell>
+      <Cell/>
+      <Cell/>
       <Cell>
         <xsl:apply-templates select="." mode="outputdescription"/>
       </Cell>
     </Row>
-    <xsl:apply-templates select="category" mode="cot" />
+    <xsl:apply-templates select="category" mode="cot"/>
   </xsl:template>
-
   <xsl:template match="category" mode="cot">
     <Row>
       <Cell>
@@ -653,14 +610,13 @@
           <xsl:value-of select="@id"/>
         </Data>
       </Cell>
-      <Cell></Cell>
+      <Cell/>
       <Cell>
         <xsl:apply-templates select="." mode="outputdescription"/>
       </Cell>
     </Row>
-    <xsl:apply-templates select="subcategory" mode="cot" />
+    <xsl:apply-templates select="subcategory" mode="cot"/>
   </xsl:template>
-
   <xsl:template match="subcategory" mode="cot">
     <Row>
       <Cell>
@@ -688,15 +644,12 @@
       </Cell>
     </Row>
   </xsl:template>
-  
   <!--=== Record ===-->
-
   <xsl:template match="record" mode="body">
     <Worksheet>
       <xsl:attribute name="ss:Name">
         <xsl:value-of select="@id"/>
       </xsl:attribute>
-
       <Table ss:ExpandedColumnCount="2" x:FullColumns="1" x:FullRows="1">
         <Column ss:Width="150"/>
         <Column ss:Width="250"/>
@@ -712,7 +665,6 @@
       </Table>
     </Worksheet>
   </xsl:template>
-
   <xsl:template match="field" mode="record">
     <Row>
       <Cell ss:StyleID="valigncenter">
@@ -734,28 +686,26 @@
       </Cell>
       <xsl:apply-templates select="datatype[position()=1]" mode="entry"/>
     </Row>
-    <xsl:apply-templates select="datatype[position()>1]" mode="record"/>
+    <xsl:apply-templates select="datatype[position()&gt;1]" mode="record"/>
   </xsl:template>
-
   <xsl:template match="datatype" mode="entry">
     <Cell>
       <Data ss:Type="String">
-        <xsl:if test="@name"><xsl:value-of select="@name"/> - </xsl:if><xsl:value-of select="@type"/>
+        <xsl:if test="@name"><xsl:value-of select="@name"/> - </xsl:if>
+        <xsl:value-of select="@type"/>
       </Data>
     </Cell>
   </xsl:template>
-
   <xsl:template match="datatype" mode="record">
     <Row>
       <Cell ss:Index="2">
         <Data ss:Type="String">
-          <xsl:if test="@name"><xsl:value-of select="@name"/> - </xsl:if><xsl:value-of select="@type"/>
+          <xsl:if test="@name"><xsl:value-of select="@name"/> - </xsl:if>
+          <xsl:value-of select="@type"/>
         </Data>
       </Cell>
     </Row>
   </xsl:template>
-  
-  
   <!--=== Output Description ==-->
   <xsl:template match="*" mode="outputdescription">
     <Data ss:Type="String">
@@ -771,6 +721,4 @@
       </Comment>
     </xsl:if>
   </xsl:template>
-  
-
 </xsl:stylesheet>
