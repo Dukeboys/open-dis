@@ -11,187 +11,192 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
- * @version $Id:$
  */
-public class IffAtcNavAidsLayer2Pdu extends IffAtcNavAidsLayer1Pdu implements Serializable {
+public class IffAtcNavAidsLayer2Pdu extends IffAtcNavAidsLayer1Pdu implements Serializable
+{
+   /** layer header */
+   protected LayerHeader  layerHeader = new LayerHeader(); 
 
-    /** layer header */
-    protected LayerHeader layerHeader = new LayerHeader();
-    /** beam data */
-    protected BeamData beamData = new BeamData();
-    /** Secondary operational data, 5.2.57 */
-    protected BeamData secondaryOperationalData = new BeamData();
-    /** variable length list of fundamental parameters. @@@This is wrong */
-    protected List<FundamentalParameterDataIff> fundamentalIffParameters = new ArrayList<FundamentalParameterDataIff>();
+   /** beam data */
+   protected BeamData  beamData = new BeamData(); 
 
-    /** Constructor */
-    public IffAtcNavAidsLayer2Pdu() {
-    }
+   /** Secondary operational data, 5.2.57 */
+   protected BeamData  secondaryOperationalData = new BeamData(); 
 
-    @Override
-    public int getMarshalledSize() {
-        int marshalSize = 0;
+   /** variable length list of fundamental parameters. @@@This is wrong */
+   protected List< FundamentalParameterDataIff> fundamentalIffParameters = new ArrayList<FundamentalParameterDataIff>(); 
 
-        marshalSize = super.getMarshalledSize();
-        marshalSize = marshalSize + layerHeader.getMarshalledSize();  // layerHeader
-        marshalSize = marshalSize + beamData.getMarshalledSize();  // beamData
-        marshalSize = marshalSize + secondaryOperationalData.getMarshalledSize();  // secondaryOperationalData
-        for (int idx = 0; idx < fundamentalIffParameters.size(); idx++) {
-            FundamentalParameterDataIff listElement = fundamentalIffParameters.get(idx);
-            marshalSize = marshalSize + listElement.getMarshalledSize();
-        }
+/** Constructor */
+ public IffAtcNavAidsLayer2Pdu()
+ {
+ }
 
-        return marshalSize;
-    }
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-    public void setLayerHeader(LayerHeader pLayerHeader) {
-        layerHeader = pLayerHeader;
-    }
+   marshalSize = super.getMarshalledSize();
+   marshalSize = marshalSize + layerHeader.getMarshalledSize();  // layerHeader
+   marshalSize = marshalSize + beamData.getMarshalledSize();  // beamData
+   marshalSize = marshalSize + secondaryOperationalData.getMarshalledSize();  // secondaryOperationalData
+   for(int idx=0; idx < fundamentalIffParameters.size(); idx++)
+   {
+        FundamentalParameterDataIff listElement = fundamentalIffParameters.get(idx);
+        marshalSize = marshalSize + listElement.getMarshalledSize();
+   }
 
-    @XmlElement
-    public LayerHeader getLayerHeader() {
-        return layerHeader;
-    }
+   return marshalSize;
+}
 
-    public void setBeamData(BeamData pBeamData) {
-        beamData = pBeamData;
-    }
 
-    @XmlElement
-    public BeamData getBeamData() {
-        return beamData;
-    }
+public void setLayerHeader(LayerHeader pLayerHeader)
+{ layerHeader = pLayerHeader;
+}
 
-    public void setSecondaryOperationalData(BeamData pSecondaryOperationalData) {
-        secondaryOperationalData = pSecondaryOperationalData;
-    }
+@XmlElement
+public LayerHeader getLayerHeader()
+{ return layerHeader; 
+}
 
-    @XmlElement
-    public BeamData getSecondaryOperationalData() {
-        return secondaryOperationalData;
-    }
+public void setBeamData(BeamData pBeamData)
+{ beamData = pBeamData;
+}
 
-    public void setFundamentalIffParameters(List<FundamentalParameterDataIff> pFundamentalIffParameters) {
-        fundamentalIffParameters = pFundamentalIffParameters;
-    }
+@XmlElement
+public BeamData getBeamData()
+{ return beamData; 
+}
 
-    @XmlElementWrapper(name = "fundamentalIffParametersList")
-    public List<FundamentalParameterDataIff> getFundamentalIffParameters() {
-        return fundamentalIffParameters;
-    }
+public void setSecondaryOperationalData(BeamData pSecondaryOperationalData)
+{ secondaryOperationalData = pSecondaryOperationalData;
+}
 
-    @Override
-    public void marshal(DataOutputStream dos) {
-        super.marshal(dos);
-        try {
-            layerHeader.marshal(dos);
-            beamData.marshal(dos);
-            secondaryOperationalData.marshal(dos);
+@XmlElement
+public BeamData getSecondaryOperationalData()
+{ return secondaryOperationalData; 
+}
 
-            for (int idx = 0; idx < fundamentalIffParameters.size(); idx++) {
-                FundamentalParameterDataIff aFundamentalParameterDataIff = fundamentalIffParameters.get(idx);
-                aFundamentalParameterDataIff.marshal(dos);
-            } // end of list marshalling
+public void setFundamentalIffParameters(List pFundamentalIffParameters)
+{ fundamentalIffParameters = pFundamentalIffParameters;
+}
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of marshal method
+@XmlElementWrapper(name="fundamentalIffParametersList" )
+public List getFundamentalIffParameters()
+{ return fundamentalIffParameters; }
 
-    @Override
-    public void unmarshal(DataInputStream dis) {
-        super.unmarshal(dis);
 
-        try {
-            layerHeader.unmarshal(dis);
-            beamData.unmarshal(dis);
-            secondaryOperationalData.unmarshal(dis);
-            for (int idx = 0; idx < pad2; idx++) {
-                FundamentalParameterDataIff anX = new FundamentalParameterDataIff();
-                anX.unmarshal(dis);
-                fundamentalIffParameters.add(anX);
-            }
+public void marshal(DataOutputStream dos)
+{
+    super.marshal(dos);
+    try 
+    {
+       layerHeader.marshal(dos);
+       beamData.marshal(dos);
+       secondaryOperationalData.marshal(dos);
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of unmarshal method
-
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    @Override
-    public void marshal(java.nio.ByteBuffer buff) {
-        super.marshal(buff);
-        layerHeader.marshal(buff);
-        beamData.marshal(buff);
-        secondaryOperationalData.marshal(buff);
-
-        for (int idx = 0; idx < fundamentalIffParameters.size(); idx++) {
+       for(int idx = 0; idx < fundamentalIffParameters.size(); idx++)
+       {
             FundamentalParameterDataIff aFundamentalParameterDataIff = fundamentalIffParameters.get(idx);
+            aFundamentalParameterDataIff.marshal(dos);
+       } // end of list marshalling
+
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
+    } // end of marshal method
+
+public void unmarshal(DataInputStream dis)
+{
+     super.unmarshal(dis);
+
+    try 
+    {
+       layerHeader.unmarshal(dis);
+       beamData.unmarshal(dis);
+       secondaryOperationalData.unmarshal(dis);
+       for(int idx = 0; idx < pad2; idx++)
+       {
+           FundamentalParameterDataIff anX = new FundamentalParameterDataIff();
+           anX.unmarshal(dis);
+           fundamentalIffParameters.add(anX);
+       }
+
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
+    }
+ } // end of unmarshal method 
+
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       super.marshal(buff);
+       layerHeader.marshal(buff);
+       beamData.marshal(buff);
+       secondaryOperationalData.marshal(buff);
+
+       for(int idx = 0; idx < fundamentalIffParameters.size(); idx++)
+       {
+            FundamentalParameterDataIff aFundamentalParameterDataIff = (FundamentalParameterDataIff)fundamentalIffParameters.get(idx);
             aFundamentalParameterDataIff.marshal(buff);
-        } // end of list marshalling
+       } // end of list marshalling
 
     } // end of marshal method
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    @Override
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        super.unmarshal(buff);
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       super.unmarshal(buff);
 
-        layerHeader.unmarshal(buff);
-        beamData.unmarshal(buff);
-        secondaryOperationalData.unmarshal(buff);
-        for (int idx = 0; idx < pad2; idx++) {
+       layerHeader.unmarshal(buff);
+       beamData.unmarshal(buff);
+       secondaryOperationalData.unmarshal(buff);
+       for(int idx = 0; idx < pad2; idx++)
+       {
             FundamentalParameterDataIff anX = new FundamentalParameterDataIff();
             anX.unmarshal(buff);
             fundamentalIffParameters.add(anX);
-        }
+       }
 
-    } // end of unmarshal method
+ } // end of unmarshal method 
 
-    /**
-     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return 
-     */
-    public boolean equals(IffAtcNavAidsLayer2Pdu rhs) {
-        boolean ivarsEqual = true;
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(IffAtcNavAidsLayer2Pdu rhs)
+ {
+     boolean ivarsEqual = true;
 
-        if (!(layerHeader.equals(rhs.layerHeader))) {
-            ivarsEqual = false;
-        }
-        if (!(beamData.equals(rhs.beamData))) {
-            ivarsEqual = false;
-        }
-        if (!(secondaryOperationalData.equals(rhs.secondaryOperationalData))) {
-            ivarsEqual = false;
-        }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-        for (int idx = 0; idx < fundamentalIffParameters.size(); idx++) {
-            FundamentalParameterDataIff x = fundamentalIffParameters.get(idx);
-            if (!(x.equals(rhs.fundamentalIffParameters.get(idx)))) {
-                ivarsEqual = false;
-            }
-        }
+     if( ! (layerHeader.equals( rhs.layerHeader) )) ivarsEqual = false;
+     if( ! (beamData.equals( rhs.beamData) )) ivarsEqual = false;
+     if( ! (secondaryOperationalData.equals( rhs.secondaryOperationalData) )) ivarsEqual = false;
 
-        return ivarsEqual;
-    }
+     for(int idx = 0; idx < fundamentalIffParameters.size(); idx++)
+     {
+        if( ! ( fundamentalIffParameters.get(idx).equals(rhs.fundamentalIffParameters.get(idx)))) ivarsEqual = false;
+     }
+
+
+    return ivarsEqual;
+ }
 } // end of class

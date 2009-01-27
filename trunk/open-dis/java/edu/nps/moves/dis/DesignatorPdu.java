@@ -213,7 +213,7 @@ public void marshal(DataOutputStream dos)
 
 public void unmarshal(DataInputStream dis)
 {
-    super.unmarshal(dis);
+     super.unmarshal(dis);
 
     try 
     {
@@ -247,7 +247,7 @@ public void unmarshal(DataInputStream dis)
  */
 public void marshal(java.nio.ByteBuffer buff)
 {
-    super.marshal(buff);
+       super.marshal(buff);
        designatingEntityID.marshal(buff);
        buff.putShort( (short)codeName);
        designatedEntityID.marshal(buff);
@@ -271,7 +271,7 @@ public void marshal(java.nio.ByteBuffer buff)
  */
 public void unmarshal(java.nio.ByteBuffer buff)
 {
-    super.unmarshal(buff);
+       super.unmarshal(buff);
 
        designatingEntityID.unmarshal(buff);
        codeName = (int)(buff.getShort() & 0xFFFF);
@@ -289,7 +289,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
 
  /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
   */
  public boolean equals(DesignatorPdu rhs)
  {

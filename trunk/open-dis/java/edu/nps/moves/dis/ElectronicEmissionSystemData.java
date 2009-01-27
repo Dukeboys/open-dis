@@ -11,218 +11,225 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
- * @version $Id:$
  */
-public class ElectronicEmissionSystemData extends Object implements Serializable {
+public class ElectronicEmissionSystemData extends Object implements Serializable
+{
+   /** This field shall specify the length of this emitter system?s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
+   protected short  systemDataLength;
 
-    /** This field shall specify the length of this emitter system?s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
-    protected short systemDataLength;
-    /** This field shall specify the number of beams being described in the current PDU for the system being described.  */
-    protected short numberOfBeams;
-    /** padding. */
-    protected int emissionsPadding2 = 0;
-    /** This field shall specify information about a particular emitter system */
-    protected EmitterSystem emitterSystem = new EmitterSystem();
-    /** Location with respect to the entity */
-    protected Vector3Float location = new Vector3Float();
-    /** variable length list of beam data records */
-    protected List<ElectronicEmissionBeamData> beamDataRecords = new ArrayList<ElectronicEmissionBeamData>();
+   /** This field shall specify the number of beams being described in the current PDU for the system being described.  */
+   protected short  numberOfBeams;
 
-    /** Constructor */
-    public ElectronicEmissionSystemData() {
-    }
+   /** padding. */
+   protected int  emissionsPadding2 = 0;
 
-    public int getMarshalledSize() {
-        int marshalSize = 0;
+   /** This field shall specify information about a particular emitter system */
+   protected EmitterSystem  emitterSystem = new EmitterSystem(); 
 
-        marshalSize = marshalSize + 1;  // systemDataLength
-        marshalSize = marshalSize + 1;  // numberOfBeams
-        marshalSize = marshalSize + 2;  // emissionsPadding2
-        marshalSize = marshalSize + emitterSystem.getMarshalledSize();  // emitterSystem
-        marshalSize = marshalSize + location.getMarshalledSize();  // location
-        for (int idx = 0; idx < beamDataRecords.size(); idx++) {
-            ElectronicEmissionBeamData listElement = beamDataRecords.get(idx);
-            marshalSize = marshalSize + listElement.getMarshalledSize();
-        }
+   /** Location with respect to the entity */
+   protected Vector3Float  location = new Vector3Float(); 
 
-        return marshalSize;
-    }
+   /** variable length list of beam data records */
+   protected List< ElectronicEmissionBeamData> beamDataRecords = new ArrayList<ElectronicEmissionBeamData>(); 
 
-    public void setSystemDataLength(short pSystemDataLength) {
-        systemDataLength = pSystemDataLength;
-    }
+/** Constructor */
+ public ElectronicEmissionSystemData()
+ {
+ }
 
-    @XmlAttribute
-    public short getSystemDataLength() {
-        return systemDataLength;
-    }
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-    @XmlAttribute
-    public short getNumberOfBeams() {
-        return (short) beamDataRecords.size();
-    }
+   marshalSize = marshalSize + 1;  // systemDataLength
+   marshalSize = marshalSize + 1;  // numberOfBeams
+   marshalSize = marshalSize + 2;  // emissionsPadding2
+   marshalSize = marshalSize + emitterSystem.getMarshalledSize();  // emitterSystem
+   marshalSize = marshalSize + location.getMarshalledSize();  // location
+   for(int idx=0; idx < beamDataRecords.size(); idx++)
+   {
+        ElectronicEmissionBeamData listElement = beamDataRecords.get(idx);
+        marshalSize = marshalSize + listElement.getMarshalledSize();
+   }
 
-    /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-     * The getnumberOfBeams method will also be based on the actual list length rather than this value.
-     * The method is simply here for java bean completeness.
-     * @param pNumberOfBeams
-     */
-    public void setNumberOfBeams(short pNumberOfBeams) {
-        numberOfBeams = pNumberOfBeams;
-    }
+   return marshalSize;
+}
 
-    public void setEmissionsPadding2(int pEmissionsPadding2) {
-        emissionsPadding2 = pEmissionsPadding2;
-    }
 
-    @XmlAttribute
-    public int getEmissionsPadding2() {
-        return emissionsPadding2;
-    }
+public void setSystemDataLength(short pSystemDataLength)
+{ systemDataLength = pSystemDataLength;
+}
 
-    public void setEmitterSystem(EmitterSystem pEmitterSystem) {
-        emitterSystem = pEmitterSystem;
-    }
+@XmlAttribute
+public short getSystemDataLength()
+{ return systemDataLength; 
+}
 
-    @XmlElement
-    public EmitterSystem getEmitterSystem() {
-        return emitterSystem;
-    }
+@XmlAttribute
+public short getNumberOfBeams()
+{ return (short)beamDataRecords.size();
+}
 
-    public void setLocation(Vector3Float pLocation) {
-        location = pLocation;
-    }
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfBeams method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfBeams(short pNumberOfBeams)
+{ numberOfBeams = pNumberOfBeams;
+}
 
-    @XmlElement
-    public Vector3Float getLocation() {
-        return location;
-    }
+public void setEmissionsPadding2(int pEmissionsPadding2)
+{ emissionsPadding2 = pEmissionsPadding2;
+}
 
-    public void setBeamDataRecords(List<ElectronicEmissionBeamData> pBeamDataRecords) {
-        beamDataRecords = pBeamDataRecords;
-    }
+@XmlAttribute
+public int getEmissionsPadding2()
+{ return emissionsPadding2; 
+}
 
-    @XmlElementWrapper(name = "beamDataRecordsList")
-    public List<ElectronicEmissionBeamData> getBeamDataRecords() {
-        return beamDataRecords;
-    }
+public void setEmitterSystem(EmitterSystem pEmitterSystem)
+{ emitterSystem = pEmitterSystem;
+}
 
-    public void marshal(DataOutputStream dos) {
-        try {
-            dos.writeByte((byte) systemDataLength);
-            dos.writeByte((byte) beamDataRecords.size());
-            dos.writeShort((short) emissionsPadding2);
-            emitterSystem.marshal(dos);
-            location.marshal(dos);
+@XmlElement
+public EmitterSystem getEmitterSystem()
+{ return emitterSystem; 
+}
 
-            for (int idx = 0; idx < beamDataRecords.size(); idx++) {
-                ElectronicEmissionBeamData aElectronicEmissionBeamData = beamDataRecords.get(idx);
-                aElectronicEmissionBeamData.marshal(dos);
-            } // end of list marshalling
+public void setLocation(Vector3Float pLocation)
+{ location = pLocation;
+}
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of marshal method
+@XmlElement
+public Vector3Float getLocation()
+{ return location; 
+}
 
-    public void unmarshal(DataInputStream dis) {
-        try {
-            systemDataLength = (short) dis.readUnsignedByte();
-            numberOfBeams = (short) dis.readUnsignedByte();
-            emissionsPadding2 = dis.readUnsignedShort();
-            emitterSystem.unmarshal(dis);
-            location.unmarshal(dis);
-            for (int idx = 0; idx < numberOfBeams; idx++) {
-                ElectronicEmissionBeamData anX = new ElectronicEmissionBeamData();
-                anX.unmarshal(dis);
-                beamDataRecords.add(anX);
-            }
+public void setBeamDataRecords(List pBeamDataRecords)
+{ beamDataRecords = pBeamDataRecords;
+}
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of unmarshal method
+@XmlElementWrapper(name="beamDataRecordsList" )
+public List getBeamDataRecords()
+{ return beamDataRecords; }
 
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    public void marshal(java.nio.ByteBuffer buff) {
-        buff.put((byte) systemDataLength);
-        buff.put((byte) beamDataRecords.size());
-        buff.putShort((short) emissionsPadding2);
-        emitterSystem.marshal(buff);
-        location.marshal(buff);
 
-        for (int idx = 0; idx < beamDataRecords.size(); idx++) {
+public void marshal(DataOutputStream dos)
+{
+    try 
+    {
+       dos.writeByte( (byte)systemDataLength);
+       dos.writeByte( (byte)beamDataRecords.size());
+       dos.writeShort( (short)emissionsPadding2);
+       emitterSystem.marshal(dos);
+       location.marshal(dos);
+
+       for(int idx = 0; idx < beamDataRecords.size(); idx++)
+       {
             ElectronicEmissionBeamData aElectronicEmissionBeamData = beamDataRecords.get(idx);
+            aElectronicEmissionBeamData.marshal(dos);
+       } // end of list marshalling
+
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
+    } // end of marshal method
+
+public void unmarshal(DataInputStream dis)
+{
+    try 
+    {
+       systemDataLength = (short)dis.readUnsignedByte();
+       numberOfBeams = (short)dis.readUnsignedByte();
+       emissionsPadding2 = (int)dis.readUnsignedShort();
+       emitterSystem.unmarshal(dis);
+       location.unmarshal(dis);
+       for(int idx = 0; idx < numberOfBeams; idx++)
+       {
+           ElectronicEmissionBeamData anX = new ElectronicEmissionBeamData();
+           anX.unmarshal(dis);
+           beamDataRecords.add(anX);
+       }
+
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
+    }
+ } // end of unmarshal method 
+
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       buff.put( (byte)systemDataLength);
+       buff.put( (byte)beamDataRecords.size());
+       buff.putShort( (short)emissionsPadding2);
+       emitterSystem.marshal(buff);
+       location.marshal(buff);
+
+       for(int idx = 0; idx < beamDataRecords.size(); idx++)
+       {
+            ElectronicEmissionBeamData aElectronicEmissionBeamData = (ElectronicEmissionBeamData)beamDataRecords.get(idx);
             aElectronicEmissionBeamData.marshal(buff);
-        } // end of list marshalling
+       } // end of list marshalling
 
     } // end of marshal method
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        systemDataLength = (short) (buff.get() & 0xFF);
-        numberOfBeams = (short) (buff.get() & 0xFF);
-        emissionsPadding2 = (buff.getShort() & 0xFFFF);
-        emitterSystem.unmarshal(buff);
-        location.unmarshal(buff);
-        for (int idx = 0; idx < numberOfBeams; idx++) {
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       systemDataLength = (short)(buff.get() & 0xFF);
+       numberOfBeams = (short)(buff.get() & 0xFF);
+       emissionsPadding2 = (int)(buff.getShort() & 0xFFFF);
+       emitterSystem.unmarshal(buff);
+       location.unmarshal(buff);
+       for(int idx = 0; idx < numberOfBeams; idx++)
+       {
             ElectronicEmissionBeamData anX = new ElectronicEmissionBeamData();
             anX.unmarshal(buff);
             beamDataRecords.add(anX);
-        }
+       }
 
-    } // end of unmarshal method
+ } // end of unmarshal method 
 
-    /**
-     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return 
-     */
-    public boolean equals(ElectronicEmissionSystemData rhs) {
-        boolean ivarsEqual = true;
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(ElectronicEmissionSystemData rhs)
+ {
+     boolean ivarsEqual = true;
 
-        if (!(systemDataLength == rhs.systemDataLength)) {
-            ivarsEqual = false;
-        }
-        if (!(numberOfBeams == rhs.numberOfBeams)) {
-            ivarsEqual = false;
-        }
-        if (!(emissionsPadding2 == rhs.emissionsPadding2)) {
-            ivarsEqual = false;
-        }
-        if (!(emitterSystem.equals(rhs.emitterSystem))) {
-            ivarsEqual = false;
-        }
-        if (!(location.equals(rhs.location))) {
-            ivarsEqual = false;
-        }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-        for (int idx = 0; idx < beamDataRecords.size(); idx++) {
-            ElectronicEmissionBeamData x = beamDataRecords.get(idx);
-            if (!(x.equals(rhs.beamDataRecords.get(idx)))) {
-                ivarsEqual = false;
-            }
-        }
+     if( ! (systemDataLength == rhs.systemDataLength)) ivarsEqual = false;
+     if( ! (numberOfBeams == rhs.numberOfBeams)) ivarsEqual = false;
+     if( ! (emissionsPadding2 == rhs.emissionsPadding2)) ivarsEqual = false;
+     if( ! (emitterSystem.equals( rhs.emitterSystem) )) ivarsEqual = false;
+     if( ! (location.equals( rhs.location) )) ivarsEqual = false;
 
-        return ivarsEqual;
-    }
+     for(int idx = 0; idx < beamDataRecords.size(); idx++)
+     {
+        if( ! ( beamDataRecords.get(idx).equals(rhs.beamDataRecords.get(idx)))) ivarsEqual = false;
+     }
+
+
+    return ivarsEqual;
+ }
 } // end of class

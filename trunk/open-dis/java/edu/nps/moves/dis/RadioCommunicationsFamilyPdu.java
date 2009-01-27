@@ -1,5 +1,6 @@
 package edu.nps.moves.dis;
 
+import java.util.*;
 import java.io.*;
 import javax.xml.bind.annotation.*;
 
@@ -10,123 +11,126 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
- * @version $Id:$
  */
-public class RadioCommunicationsFamilyPdu extends Pdu implements Serializable {
+public class RadioCommunicationsFamilyPdu extends Pdu implements Serializable
+{
+   /** ID of the entitythat is the source of the communication */
+   protected EntityID  entityId = new EntityID(); 
 
-    /** ID of the entitythat is the source of the communication */
-    protected EntityID entityId = new EntityID();
-    /** particular radio within an entity */
-    protected int radioId;
+   /** particular radio within an entity */
+   protected int  radioId;
 
-    /** Constructor */
-    public RadioCommunicationsFamilyPdu() {
-        setProtocolFamily((short) 4);
-    }
 
-    @Override
-    public int getMarshalledSize() {
-        int marshalSize = 0;
+/** Constructor */
+ public RadioCommunicationsFamilyPdu()
+ {
+    setProtocolFamily( (short)4 );
+ }
 
-        marshalSize = super.getMarshalledSize();
-        marshalSize = marshalSize + entityId.getMarshalledSize();  // entityId
-        marshalSize = marshalSize + 2;  // radioId
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-        return marshalSize;
-    }
+   marshalSize = super.getMarshalledSize();
+   marshalSize = marshalSize + entityId.getMarshalledSize();  // entityId
+   marshalSize = marshalSize + 2;  // radioId
 
-    public void setEntityId(EntityID pEntityId) {
-        entityId = pEntityId;
-    }
+   return marshalSize;
+}
 
-    @XmlElement
-    public EntityID getEntityId() {
-        return entityId;
-    }
 
-    public void setRadioId(int pRadioId) {
-        radioId = pRadioId;
-    }
+public void setEntityId(EntityID pEntityId)
+{ entityId = pEntityId;
+}
 
-    @XmlAttribute
-    public int getRadioId() {
-        return radioId;
-    }
+@XmlElement
+public EntityID getEntityId()
+{ return entityId; 
+}
 
-    @Override
-    public void marshal(DataOutputStream dos) {
-        super.marshal(dos);
-        try {
-            entityId.marshal(dos);
-            dos.writeShort((short) radioId);
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
+public void setRadioId(int pRadioId)
+{ radioId = pRadioId;
+}
+
+@XmlAttribute
+public int getRadioId()
+{ return radioId; 
+}
+
+
+public void marshal(DataOutputStream dos)
+{
+    super.marshal(dos);
+    try 
+    {
+       entityId.marshal(dos);
+       dos.writeShort( (short)radioId);
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
     } // end of marshal method
 
-    @Override
-    public void unmarshal(DataInputStream dis) {
-        super.unmarshal(dis);
+public void unmarshal(DataInputStream dis)
+{
+     super.unmarshal(dis);
 
-        try {
-            entityId.unmarshal(dis);
-            radioId = dis.readUnsignedShort();
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of unmarshal method
+    try 
+    {
+       entityId.unmarshal(dis);
+       radioId = (int)dis.readUnsignedShort();
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
+    }
+ } // end of unmarshal method 
 
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    @Override
-    public void marshal(java.nio.ByteBuffer buff) {
-        super.marshal(buff);
-        entityId.marshal(buff);
-        buff.putShort((short) radioId);
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       super.marshal(buff);
+       entityId.marshal(buff);
+       buff.putShort( (short)radioId);
     } // end of marshal method
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    @Override
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        super.unmarshal(buff);
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       super.unmarshal(buff);
 
-        entityId.unmarshal(buff);
-        radioId = (buff.getShort() & 0xFFFF);
-    } // end of unmarshal method
+       entityId.unmarshal(buff);
+       radioId = (int)(buff.getShort() & 0xFFFF);
+ } // end of unmarshal method 
 
-    /**
-     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return
-     */
-    public boolean equals(RadioCommunicationsFamilyPdu rhs) {
-        boolean ivarsEqual = true;
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(RadioCommunicationsFamilyPdu rhs)
+ {
+     boolean ivarsEqual = true;
 
-        if (!(entityId.equals(rhs.entityId))) {
-            ivarsEqual = false;
-        }
-        if (!(radioId == rhs.radioId)) {
-            ivarsEqual = false;
-        }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-        return ivarsEqual;
-    }
+     if( ! (entityId.equals( rhs.entityId) )) ivarsEqual = false;
+     if( ! (radioId == rhs.radioId)) ivarsEqual = false;
+
+    return ivarsEqual;
+ }
 } // end of class

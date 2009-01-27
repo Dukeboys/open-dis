@@ -11,154 +11,160 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
- * @version $Id:$
  */
-public class GridAxisRecordRepresentation2 extends GridAxisRecord implements Serializable {
+public class GridAxisRecordRepresentation2 extends GridAxisRecord implements Serializable
+{
+   /** number of values */
+   protected int  numberOfValues;
 
-    /** number of values */
-    protected int numberOfValues;
-    /** variable length list of data parameters @@@this is wrong--need padding as well */
-    protected List<FourByteChunk> dataValues = new ArrayList<FourByteChunk>();
+   /** variable length list of data parameters @@@this is wrong--need padding as well */
+   protected List< FourByteChunk> dataValues = new ArrayList<FourByteChunk>(); 
 
-    /** Constructor */
-    public GridAxisRecordRepresentation2() {
-    }
+/** Constructor */
+ public GridAxisRecordRepresentation2()
+ {
+ }
 
-    @Override
-    public int getMarshalledSize() {
-        int marshalSize = 0;
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-        marshalSize = super.getMarshalledSize();
-        marshalSize = marshalSize + 2;  // numberOfValues
-        for (int idx = 0; idx < dataValues.size(); idx++) {
-            FourByteChunk listElement = dataValues.get(idx);
-            marshalSize = marshalSize + listElement.getMarshalledSize();
-        }
+   marshalSize = super.getMarshalledSize();
+   marshalSize = marshalSize + 2;  // numberOfValues
+   for(int idx=0; idx < dataValues.size(); idx++)
+   {
+        FourByteChunk listElement = dataValues.get(idx);
+        marshalSize = marshalSize + listElement.getMarshalledSize();
+   }
 
-        return marshalSize;
-    }
+   return marshalSize;
+}
 
-    @XmlAttribute
-    public int getNumberOfValues() {
-        return dataValues.size();
-    }
 
-    /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-     * The getnumberOfValues method will also be based on the actual list length rather than this value.
-     * The method is simply here for java bean completeness.
-     * @param pNumberOfValues
-     */
-    public void setNumberOfValues(int pNumberOfValues) {
-        numberOfValues = pNumberOfValues;
-    }
+@XmlAttribute
+public int getNumberOfValues()
+{ return (int)dataValues.size();
+}
 
-    public void setDataValues(List<FourByteChunk> pDataValues) {
-        dataValues = pDataValues;
-    }
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfValues method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfValues(int pNumberOfValues)
+{ numberOfValues = pNumberOfValues;
+}
 
-    @XmlElementWrapper(name = "dataValuesList")
-    public List<FourByteChunk> getDataValues() {
-        return dataValues;
-    }
+public void setDataValues(List pDataValues)
+{ dataValues = pDataValues;
+}
 
-    @Override
-    public void marshal(DataOutputStream dos) {
-        super.marshal(dos);
-        try {
-            dos.writeShort((short) dataValues.size());
+@XmlElementWrapper(name="dataValuesList" )
+public List getDataValues()
+{ return dataValues; }
 
-            for (int idx = 0; idx < dataValues.size(); idx++) {
-                FourByteChunk aFourByteChunk = dataValues.get(idx);
-                aFourByteChunk.marshal(dos);
-            } // end of list marshalling
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of marshal method
+public void marshal(DataOutputStream dos)
+{
+    super.marshal(dos);
+    try 
+    {
+       dos.writeShort( (short)dataValues.size());
 
-    @Override
-    public void unmarshal(DataInputStream dis) {
-        super.unmarshal(dis);
-
-        try {
-            numberOfValues = dis.readUnsignedShort();
-            for (int idx = 0; idx < numberOfValues; idx++) {
-                FourByteChunk anX = new FourByteChunk();
-                anX.unmarshal(dis);
-                dataValues.add(anX);
-            }
-
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of unmarshal method
-
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    @Override
-    public void marshal(java.nio.ByteBuffer buff) {
-        super.marshal(buff);
-        buff.putShort((short) dataValues.size());
-
-        for (int idx = 0; idx < dataValues.size(); idx++) {
+       for(int idx = 0; idx < dataValues.size(); idx++)
+       {
             FourByteChunk aFourByteChunk = dataValues.get(idx);
+            aFourByteChunk.marshal(dos);
+       } // end of list marshalling
+
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
+    } // end of marshal method
+
+public void unmarshal(DataInputStream dis)
+{
+     super.unmarshal(dis);
+
+    try 
+    {
+       numberOfValues = (int)dis.readUnsignedShort();
+       for(int idx = 0; idx < numberOfValues; idx++)
+       {
+           FourByteChunk anX = new FourByteChunk();
+           anX.unmarshal(dis);
+           dataValues.add(anX);
+       }
+
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
+    }
+ } // end of unmarshal method 
+
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       super.marshal(buff);
+       buff.putShort( (short)dataValues.size());
+
+       for(int idx = 0; idx < dataValues.size(); idx++)
+       {
+            FourByteChunk aFourByteChunk = (FourByteChunk)dataValues.get(idx);
             aFourByteChunk.marshal(buff);
-        } // end of list marshalling
+       } // end of list marshalling
 
     } // end of marshal method
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    @Override
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        super.unmarshal(buff);
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       super.unmarshal(buff);
 
-        numberOfValues = (buff.getShort() & 0xFFFF);
-        for (int idx = 0; idx < numberOfValues; idx++) {
+       numberOfValues = (int)(buff.getShort() & 0xFFFF);
+       for(int idx = 0; idx < numberOfValues; idx++)
+       {
             FourByteChunk anX = new FourByteChunk();
             anX.unmarshal(buff);
             dataValues.add(anX);
-        }
+       }
 
-    } // end of unmarshal method
+ } // end of unmarshal method 
 
-    /**
-     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return
-     */
-    public boolean equals(GridAxisRecordRepresentation2 rhs) {
-        boolean ivarsEqual = true;
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(GridAxisRecordRepresentation2 rhs)
+ {
+     boolean ivarsEqual = true;
 
-        if (!(numberOfValues == rhs.numberOfValues)) {
-            ivarsEqual = false;
-        }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-        for (int idx = 0; idx < dataValues.size(); idx++) {
-            FourByteChunk x = dataValues.get(idx);
-            if (!(x.equals(rhs.dataValues.get(idx)))) {
-                ivarsEqual = false;
-            }
-        }
+     if( ! (numberOfValues == rhs.numberOfValues)) ivarsEqual = false;
 
-        return ivarsEqual;
-    }
+     for(int idx = 0; idx < dataValues.size(); idx++)
+     {
+        if( ! ( dataValues.get(idx).equals(rhs.dataValues.get(idx)))) ivarsEqual = false;
+     }
+
+
+    return ivarsEqual;
+ }
 } // end of class

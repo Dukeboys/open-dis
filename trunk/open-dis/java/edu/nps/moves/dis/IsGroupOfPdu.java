@@ -11,250 +11,251 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
- * @version $Id:$
  */
-public class IsGroupOfPdu extends EntityManagementFamilyPdu implements Serializable {
+public class IsGroupOfPdu extends EntityManagementFamilyPdu implements Serializable
+{
+   /** ID of aggregated entities */
+   protected EntityID  groupEntityID = new EntityID(); 
 
-    /** ID of aggregated entities */
-    protected EntityID groupEntityID = new EntityID();
-    /** type of entities constituting the group */
-    protected short groupedEntityCategory;
-    /** Number of individual entities constituting the group */
-    protected short numberOfGroupedEntities;
-    /** padding */
-    protected long pad2;
-    /** latitude */
-    protected double latitude;
-    /** longitude */
-    protected double longitude;
-    /** GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements */
-    protected List<VariableDatum> groupedEntityDescriptions = new ArrayList<VariableDatum>();
+   /** type of entities constituting the group */
+   protected short  groupedEntityCategory;
 
-    /** Constructor */
-    public IsGroupOfPdu() {
-        setPduType((short) 34);
-    }
+   /** Number of individual entities constituting the group */
+   protected short  numberOfGroupedEntities;
 
-    @Override
-    public int getMarshalledSize() {
-        int marshalSize = 0;
+   /** padding */
+   protected long  pad2;
 
-        marshalSize = super.getMarshalledSize();
-        marshalSize = marshalSize + groupEntityID.getMarshalledSize();  // groupEntityID
-        marshalSize = marshalSize + 1;  // groupedEntityCategory
-        marshalSize = marshalSize + 1;  // numberOfGroupedEntities
-        marshalSize = marshalSize + 4;  // pad2
-        marshalSize = marshalSize + 8;  // latitude
-        marshalSize = marshalSize + 8;  // longitude
-        for (int idx = 0; idx < groupedEntityDescriptions.size(); idx++) {
-            VariableDatum listElement = groupedEntityDescriptions.get(idx);
-            marshalSize = marshalSize + listElement.getMarshalledSize();
-        }
+   /** latitude */
+   protected double  latitude;
 
-        return marshalSize;
-    }
+   /** longitude */
+   protected double  longitude;
 
-    public void setGroupEntityID(EntityID pGroupEntityID) {
-        groupEntityID = pGroupEntityID;
-    }
+   /** GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements */
+   protected List< VariableDatum> groupedEntityDescriptions = new ArrayList<VariableDatum>(); 
 
-    @XmlElement
-    public EntityID getGroupEntityID() {
-        return groupEntityID;
-    }
+/** Constructor */
+ public IsGroupOfPdu()
+ {
+    setPduType( (short)34 );
+ }
 
-    public void setGroupedEntityCategory(short pGroupedEntityCategory) {
-        groupedEntityCategory = pGroupedEntityCategory;
-    }
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-    @XmlAttribute
-    public short getGroupedEntityCategory() {
-        return groupedEntityCategory;
-    }
+   marshalSize = super.getMarshalledSize();
+   marshalSize = marshalSize + groupEntityID.getMarshalledSize();  // groupEntityID
+   marshalSize = marshalSize + 1;  // groupedEntityCategory
+   marshalSize = marshalSize + 1;  // numberOfGroupedEntities
+   marshalSize = marshalSize + 4;  // pad2
+   marshalSize = marshalSize + 8;  // latitude
+   marshalSize = marshalSize + 8;  // longitude
+   for(int idx=0; idx < groupedEntityDescriptions.size(); idx++)
+   {
+        VariableDatum listElement = groupedEntityDescriptions.get(idx);
+        marshalSize = marshalSize + listElement.getMarshalledSize();
+   }
 
-    @XmlAttribute
-    public short getNumberOfGroupedEntities() {
-        return (short) groupedEntityDescriptions.size();
-    }
+   return marshalSize;
+}
 
-    /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-     * The getnumberOfGroupedEntities method will also be based on the actual list length rather than this value.
-     * The method is simply here for java bean completeness.
-     * @param pNumberOfGroupedEntities
-     */
-    public void setNumberOfGroupedEntities(short pNumberOfGroupedEntities) {
-        numberOfGroupedEntities = pNumberOfGroupedEntities;
-    }
 
-    public void setPad2(long pPad2) {
-        pad2 = pPad2;
-    }
+public void setGroupEntityID(EntityID pGroupEntityID)
+{ groupEntityID = pGroupEntityID;
+}
 
-    @XmlAttribute
-    public long getPad2() {
-        return pad2;
-    }
+@XmlElement
+public EntityID getGroupEntityID()
+{ return groupEntityID; 
+}
 
-    public void setLatitude(double pLatitude) {
-        latitude = pLatitude;
-    }
+public void setGroupedEntityCategory(short pGroupedEntityCategory)
+{ groupedEntityCategory = pGroupedEntityCategory;
+}
 
-    @XmlAttribute
-    public double getLatitude() {
-        return latitude;
-    }
+@XmlAttribute
+public short getGroupedEntityCategory()
+{ return groupedEntityCategory; 
+}
 
-    public void setLongitude(double pLongitude) {
-        longitude = pLongitude;
-    }
+@XmlAttribute
+public short getNumberOfGroupedEntities()
+{ return (short)groupedEntityDescriptions.size();
+}
 
-    @XmlAttribute
-    public double getLongitude() {
-        return longitude;
-    }
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getnumberOfGroupedEntities method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setNumberOfGroupedEntities(short pNumberOfGroupedEntities)
+{ numberOfGroupedEntities = pNumberOfGroupedEntities;
+}
 
-    public void setGroupedEntityDescriptions(List<VariableDatum> pGroupedEntityDescriptions) {
-        groupedEntityDescriptions = pGroupedEntityDescriptions;
-    }
+public void setPad2(long pPad2)
+{ pad2 = pPad2;
+}
 
-    @XmlElementWrapper(name = "groupedEntityDescriptionsList")
-    public List<VariableDatum> getGroupedEntityDescriptions() {
-        return groupedEntityDescriptions;
-    }
+@XmlAttribute
+public long getPad2()
+{ return pad2; 
+}
 
-    @Override
-    public void marshal(DataOutputStream dos) {
-        super.marshal(dos);
-        try {
-            groupEntityID.marshal(dos);
-            dos.writeByte((byte) groupedEntityCategory);
-            dos.writeByte((byte) groupedEntityDescriptions.size());
-            dos.writeInt((int) pad2);
-            dos.writeDouble(latitude);
-            dos.writeDouble(longitude);
+public void setLatitude(double pLatitude)
+{ latitude = pLatitude;
+}
 
-            for (int idx = 0; idx < groupedEntityDescriptions.size(); idx++) {
-                VariableDatum aVariableDatum = groupedEntityDescriptions.get(idx);
-                aVariableDatum.marshal(dos);
-            } // end of list marshalling
+@XmlAttribute
+public double getLatitude()
+{ return latitude; 
+}
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of marshal method
+public void setLongitude(double pLongitude)
+{ longitude = pLongitude;
+}
 
-    @Override
-    public void unmarshal(DataInputStream dis) {
-        super.unmarshal(dis);
+@XmlAttribute
+public double getLongitude()
+{ return longitude; 
+}
 
-        try {
-            groupEntityID.unmarshal(dis);
-            groupedEntityCategory = (short) dis.readUnsignedByte();
-            numberOfGroupedEntities = (short) dis.readUnsignedByte();
-            pad2 = dis.readInt();
-            latitude = dis.readDouble();
-            longitude = dis.readDouble();
-            for (int idx = 0; idx < numberOfGroupedEntities; idx++) {
-                VariableDatum anX = new VariableDatum();
-                anX.unmarshal(dis);
-                groupedEntityDescriptions.add(anX);
-            }
+public void setGroupedEntityDescriptions(List pGroupedEntityDescriptions)
+{ groupedEntityDescriptions = pGroupedEntityDescriptions;
+}
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of unmarshal method
+@XmlElementWrapper(name="groupedEntityDescriptionsList" )
+public List getGroupedEntityDescriptions()
+{ return groupedEntityDescriptions; }
 
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    @Override
-    public void marshal(java.nio.ByteBuffer buff) {
-        super.marshal(buff);
-        groupEntityID.marshal(buff);
-        buff.put((byte) groupedEntityCategory);
-        buff.put((byte) groupedEntityDescriptions.size());
-        buff.putInt((int) pad2);
-        buff.putDouble(latitude);
-        buff.putDouble(longitude);
 
-        for (int idx = 0; idx < groupedEntityDescriptions.size(); idx++) {
+public void marshal(DataOutputStream dos)
+{
+    super.marshal(dos);
+    try 
+    {
+       groupEntityID.marshal(dos);
+       dos.writeByte( (byte)groupedEntityCategory);
+       dos.writeByte( (byte)groupedEntityDescriptions.size());
+       dos.writeInt( (int)pad2);
+       dos.writeDouble( (double)latitude);
+       dos.writeDouble( (double)longitude);
+
+       for(int idx = 0; idx < groupedEntityDescriptions.size(); idx++)
+       {
             VariableDatum aVariableDatum = groupedEntityDescriptions.get(idx);
+            aVariableDatum.marshal(dos);
+       } // end of list marshalling
+
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
+    } // end of marshal method
+
+public void unmarshal(DataInputStream dis)
+{
+     super.unmarshal(dis);
+
+    try 
+    {
+       groupEntityID.unmarshal(dis);
+       groupedEntityCategory = (short)dis.readUnsignedByte();
+       numberOfGroupedEntities = (short)dis.readUnsignedByte();
+       pad2 = dis.readInt();
+       latitude = dis.readDouble();
+       longitude = dis.readDouble();
+       for(int idx = 0; idx < numberOfGroupedEntities; idx++)
+       {
+           VariableDatum anX = new VariableDatum();
+           anX.unmarshal(dis);
+           groupedEntityDescriptions.add(anX);
+       }
+
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
+    }
+ } // end of unmarshal method 
+
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       super.marshal(buff);
+       groupEntityID.marshal(buff);
+       buff.put( (byte)groupedEntityCategory);
+       buff.put( (byte)groupedEntityDescriptions.size());
+       buff.putInt( (int)pad2);
+       buff.putDouble( (double)latitude);
+       buff.putDouble( (double)longitude);
+
+       for(int idx = 0; idx < groupedEntityDescriptions.size(); idx++)
+       {
+            VariableDatum aVariableDatum = (VariableDatum)groupedEntityDescriptions.get(idx);
             aVariableDatum.marshal(buff);
-        } // end of list marshalling
+       } // end of list marshalling
 
     } // end of marshal method
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    @Override
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        super.unmarshal(buff);
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       super.unmarshal(buff);
 
-        groupEntityID.unmarshal(buff);
-        groupedEntityCategory = (short) (buff.get() & 0xFF);
-        numberOfGroupedEntities = (short) (buff.get() & 0xFF);
-        pad2 = buff.getInt();
-        latitude = buff.getDouble();
-        longitude = buff.getDouble();
-        for (int idx = 0; idx < numberOfGroupedEntities; idx++) {
+       groupEntityID.unmarshal(buff);
+       groupedEntityCategory = (short)(buff.get() & 0xFF);
+       numberOfGroupedEntities = (short)(buff.get() & 0xFF);
+       pad2 = buff.getInt();
+       latitude = buff.getDouble();
+       longitude = buff.getDouble();
+       for(int idx = 0; idx < numberOfGroupedEntities; idx++)
+       {
             VariableDatum anX = new VariableDatum();
             anX.unmarshal(buff);
             groupedEntityDescriptions.add(anX);
-        }
+       }
 
-    } // end of unmarshal method
+ } // end of unmarshal method 
 
-    /**
-     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return
-     */
-    public boolean equals(IsGroupOfPdu rhs) {
-        boolean ivarsEqual = true;
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(IsGroupOfPdu rhs)
+ {
+     boolean ivarsEqual = true;
 
-        if (!(groupEntityID.equals(rhs.groupEntityID))) {
-            ivarsEqual = false;
-        }
-        if (!(groupedEntityCategory == rhs.groupedEntityCategory)) {
-            ivarsEqual = false;
-        }
-        if (!(numberOfGroupedEntities == rhs.numberOfGroupedEntities)) {
-            ivarsEqual = false;
-        }
-        if (!(pad2 == rhs.pad2)) {
-            ivarsEqual = false;
-        }
-        if (!(latitude == rhs.latitude)) {
-            ivarsEqual = false;
-        }
-        if (!(longitude == rhs.longitude)) {
-            ivarsEqual = false;
-        }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-        for (int idx = 0; idx < groupedEntityDescriptions.size(); idx++) {
-            VariableDatum x = groupedEntityDescriptions.get(idx);
-            if (!(x.equals(rhs.groupedEntityDescriptions.get(idx)))) {
-                ivarsEqual = false;
-            }
-        }
+     if( ! (groupEntityID.equals( rhs.groupEntityID) )) ivarsEqual = false;
+     if( ! (groupedEntityCategory == rhs.groupedEntityCategory)) ivarsEqual = false;
+     if( ! (numberOfGroupedEntities == rhs.numberOfGroupedEntities)) ivarsEqual = false;
+     if( ! (pad2 == rhs.pad2)) ivarsEqual = false;
+     if( ! (latitude == rhs.latitude)) ivarsEqual = false;
+     if( ! (longitude == rhs.longitude)) ivarsEqual = false;
 
-        return ivarsEqual;
-    }
+     for(int idx = 0; idx < groupedEntityDescriptions.size(); idx++)
+     {
+        if( ! ( groupedEntityDescriptions.get(idx).equals(rhs.groupedEntityDescriptions.get(idx)))) ivarsEqual = false;
+     }
+
+
+    return ivarsEqual;
+ }
 } // end of class

@@ -109,7 +109,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
 
  /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
   */
  public boolean equals(EightByteChunk rhs)
  {

@@ -101,7 +101,7 @@ public void marshal(DataOutputStream dos)
 
 public void unmarshal(DataInputStream dis)
 {
-    super.unmarshal(dis);
+     super.unmarshal(dis);
 
     try 
     {
@@ -127,7 +127,7 @@ public void unmarshal(DataInputStream dis)
  */
 public void marshal(java.nio.ByteBuffer buff)
 {
-    super.marshal(buff);
+       super.marshal(buff);
        buff.put( (byte)requiredReliabilityService);
        buff.putShort( (short)pad1);
        buff.put( (byte)pad2);
@@ -143,7 +143,7 @@ public void marshal(java.nio.ByteBuffer buff)
  */
 public void unmarshal(java.nio.ByteBuffer buff)
 {
-    super.unmarshal(buff);
+       super.unmarshal(buff);
 
        requiredReliabilityService = (short)(buff.get() & 0xFF);
        pad1 = (int)(buff.getShort() & 0xFFFF);
@@ -153,7 +153,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
 
  /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
   */
  public boolean equals(CreateEntityReliablePdu rhs)
  {

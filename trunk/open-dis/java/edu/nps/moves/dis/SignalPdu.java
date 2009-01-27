@@ -11,231 +11,233 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
- * @version $Id:$
  */
-public class SignalPdu extends RadioCommunicationsFamilyPdu implements Serializable {
+public class SignalPdu extends RadioCommunicationsFamilyPdu implements Serializable
+{
+   /** encoding scheme used, and enumeration */
+   protected int  encodingScheme;
 
-    /** encoding scheme used, and enumeration */
-    protected int encodingScheme;
-    /** tdl type */
-    protected int tdlType;
-    /** sample rate */
-    protected int sampleRate;
-    /** length od data */
-    protected short dataLength;
-    /** number of samples */
-    protected short samples;
-    /** list of eight bit values */
-    protected List<OneByteChunk> data = new ArrayList<OneByteChunk>();
+   /** tdl type */
+   protected int  tdlType;
 
-    /** Constructor */
-    public SignalPdu() {
-        setPduType((short) 26);
-    }
+   /** sample rate */
+   protected int  sampleRate;
 
-    @Override
-    public int getMarshalledSize() {
-        int marshalSize = 0;
+   /** length od data */
+   protected short  dataLength;
 
-        marshalSize = super.getMarshalledSize();
-        marshalSize = marshalSize + 2;  // encodingScheme
-        marshalSize = marshalSize + 2;  // tdlType
-        marshalSize = marshalSize + 4;  // sampleRate
-        marshalSize = marshalSize + 2;  // dataLength
-        marshalSize = marshalSize + 2;  // samples
-        for (int idx = 0; idx < data.size(); idx++) {
-            OneByteChunk listElement = data.get(idx);
-            marshalSize = marshalSize + listElement.getMarshalledSize();
-        }
+   /** number of samples */
+   protected short  samples;
 
-        return marshalSize;
-    }
+   /** list of eight bit values */
+   protected List< OneByteChunk> data = new ArrayList<OneByteChunk>(); 
 
-    public void setEncodingScheme(int pEncodingScheme) {
-        encodingScheme = pEncodingScheme;
-    }
+/** Constructor */
+ public SignalPdu()
+ {
+    setPduType( (short)26 );
+ }
 
-    @XmlAttribute
-    public int getEncodingScheme() {
-        return encodingScheme;
-    }
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-    public void setTdlType(int pTdlType) {
-        tdlType = pTdlType;
-    }
+   marshalSize = super.getMarshalledSize();
+   marshalSize = marshalSize + 2;  // encodingScheme
+   marshalSize = marshalSize + 2;  // tdlType
+   marshalSize = marshalSize + 4;  // sampleRate
+   marshalSize = marshalSize + 2;  // dataLength
+   marshalSize = marshalSize + 2;  // samples
+   for(int idx=0; idx < data.size(); idx++)
+   {
+        OneByteChunk listElement = data.get(idx);
+        marshalSize = marshalSize + listElement.getMarshalledSize();
+   }
 
-    @XmlAttribute
-    public int getTdlType() {
-        return tdlType;
-    }
+   return marshalSize;
+}
 
-    public void setSampleRate(int pSampleRate) {
-        sampleRate = pSampleRate;
-    }
 
-    @XmlAttribute
-    public int getSampleRate() {
-        return sampleRate;
-    }
+public void setEncodingScheme(int pEncodingScheme)
+{ encodingScheme = pEncodingScheme;
+}
 
-    @XmlAttribute
-    public short getDataLength() {
-        return (short) data.size();
-    }
+@XmlAttribute
+public int getEncodingScheme()
+{ return encodingScheme; 
+}
 
-    /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-     * The getdataLength method will also be based on the actual list length rather than this value.
-     * The method is simply here for java bean completeness.
-     * @param pDataLength
-     */
-    public void setDataLength(short pDataLength) {
-        dataLength = pDataLength;
-    }
+public void setTdlType(int pTdlType)
+{ tdlType = pTdlType;
+}
 
-    public void setSamples(short pSamples) {
-        samples = pSamples;
-    }
+@XmlAttribute
+public int getTdlType()
+{ return tdlType; 
+}
 
-    @XmlAttribute
-    public short getSamples() {
-        return samples;
-    }
+public void setSampleRate(int pSampleRate)
+{ sampleRate = pSampleRate;
+}
 
-    public void setData(List<OneByteChunk> pData) {
-        data = pData;
-    }
+@XmlAttribute
+public int getSampleRate()
+{ return sampleRate; 
+}
 
-    @XmlElementWrapper(name = "dataList")
-    public List<OneByteChunk> getData() {
-        return data;
-    }
+@XmlAttribute
+public short getDataLength()
+{ return (short)data.size();
+}
 
-    @Override
-    public void marshal(DataOutputStream dos) {
-        super.marshal(dos);
-        try {
-            dos.writeShort((short) encodingScheme);
-            dos.writeShort((short) tdlType);
-            dos.writeInt(sampleRate);
-            dos.writeShort((short) data.size());
-            dos.writeShort(samples);
+/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+ * The getdataLength method will also be based on the actual list length rather than this value. 
+ * The method is simply here for java bean completeness.
+ */
+public void setDataLength(short pDataLength)
+{ dataLength = pDataLength;
+}
 
-            for (int idx = 0; idx < data.size(); idx++) {
-                OneByteChunk aOneByteChunk = data.get(idx);
-                aOneByteChunk.marshal(dos);
-            } // end of list marshalling
+public void setSamples(short pSamples)
+{ samples = pSamples;
+}
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of marshal method
+@XmlAttribute
+public short getSamples()
+{ return samples; 
+}
 
-    @Override
-    public void unmarshal(DataInputStream dis) {
-        super.unmarshal(dis);
+public void setData(List pData)
+{ data = pData;
+}
 
-        try {
-            encodingScheme = dis.readUnsignedShort();
-            tdlType = dis.readUnsignedShort();
-            sampleRate = dis.readInt();
-            dataLength = dis.readShort();
-            samples = dis.readShort();
-            for (int idx = 0; idx < dataLength; idx++) {
-                OneByteChunk anX = new OneByteChunk();
-                anX.unmarshal(dis);
-                data.add(anX);
-            }
+@XmlElementWrapper(name="dataList" )
+public List getData()
+{ return data; }
 
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of unmarshal method
 
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    @Override
-    public void marshal(java.nio.ByteBuffer buff) {
-        super.marshal(buff);
-        buff.putShort((short) encodingScheme);
-        buff.putShort((short) tdlType);
-        buff.putInt(sampleRate);
-        buff.putShort((short) data.size());
-        buff.putShort(samples);
+public void marshal(DataOutputStream dos)
+{
+    super.marshal(dos);
+    try 
+    {
+       dos.writeShort( (short)encodingScheme);
+       dos.writeShort( (short)tdlType);
+       dos.writeInt( (int)sampleRate);
+       dos.writeShort( (short)data.size());
+       dos.writeShort( (short)samples);
 
-        for (int idx = 0; idx < data.size(); idx++) {
+       for(int idx = 0; idx < data.size(); idx++)
+       {
             OneByteChunk aOneByteChunk = data.get(idx);
+            aOneByteChunk.marshal(dos);
+       } // end of list marshalling
+
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
+    } // end of marshal method
+
+public void unmarshal(DataInputStream dis)
+{
+     super.unmarshal(dis);
+
+    try 
+    {
+       encodingScheme = (int)dis.readUnsignedShort();
+       tdlType = (int)dis.readUnsignedShort();
+       sampleRate = dis.readInt();
+       dataLength = dis.readShort();
+       samples = dis.readShort();
+       for(int idx = 0; idx < dataLength; idx++)
+       {
+           OneByteChunk anX = new OneByteChunk();
+           anX.unmarshal(dis);
+           data.add(anX);
+       }
+
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
+    }
+ } // end of unmarshal method 
+
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       super.marshal(buff);
+       buff.putShort( (short)encodingScheme);
+       buff.putShort( (short)tdlType);
+       buff.putInt( (int)sampleRate);
+       buff.putShort( (short)data.size());
+       buff.putShort( (short)samples);
+
+       for(int idx = 0; idx < data.size(); idx++)
+       {
+            OneByteChunk aOneByteChunk = (OneByteChunk)data.get(idx);
             aOneByteChunk.marshal(buff);
-        } // end of list marshalling
+       } // end of list marshalling
 
     } // end of marshal method
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    @Override
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        super.unmarshal(buff);
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       super.unmarshal(buff);
 
-        encodingScheme = (buff.getShort() & 0xFFFF);
-        tdlType = (buff.getShort() & 0xFFFF);
-        sampleRate = buff.getInt();
-        dataLength = buff.getShort();
-        samples = buff.getShort();
-        for (int idx = 0; idx < dataLength; idx++) {
+       encodingScheme = (int)(buff.getShort() & 0xFFFF);
+       tdlType = (int)(buff.getShort() & 0xFFFF);
+       sampleRate = buff.getInt();
+       dataLength = buff.getShort();
+       samples = buff.getShort();
+       for(int idx = 0; idx < dataLength; idx++)
+       {
             OneByteChunk anX = new OneByteChunk();
             anX.unmarshal(buff);
             data.add(anX);
-        }
+       }
 
-    } // end of unmarshal method
+ } // end of unmarshal method 
 
-    /**
-     * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return
-     */
-    public boolean equals(SignalPdu rhs) {
-        boolean ivarsEqual = true;
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(SignalPdu rhs)
+ {
+     boolean ivarsEqual = true;
 
-        if (!(encodingScheme == rhs.encodingScheme)) {
-            ivarsEqual = false;
-        }
-        if (!(tdlType == rhs.tdlType)) {
-            ivarsEqual = false;
-        }
-        if (!(sampleRate == rhs.sampleRate)) {
-            ivarsEqual = false;
-        }
-        if (!(dataLength == rhs.dataLength)) {
-            ivarsEqual = false;
-        }
-        if (!(samples == rhs.samples)) {
-            ivarsEqual = false;
-        }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-        for (int idx = 0; idx < data.size(); idx++) {
-            OneByteChunk x = data.get(idx);
-            if (!(x.equals(rhs.data.get(idx)))) {
-                ivarsEqual = false;
-            }
-        }
+     if( ! (encodingScheme == rhs.encodingScheme)) ivarsEqual = false;
+     if( ! (tdlType == rhs.tdlType)) ivarsEqual = false;
+     if( ! (sampleRate == rhs.sampleRate)) ivarsEqual = false;
+     if( ! (dataLength == rhs.dataLength)) ivarsEqual = false;
+     if( ! (samples == rhs.samples)) ivarsEqual = false;
 
-        return ivarsEqual;
-    }
+     for(int idx = 0; idx < data.size(); idx++)
+     {
+        if( ! ( data.get(idx).equals(rhs.data.get(idx)))) ivarsEqual = false;
+     }
+
+
+    return ivarsEqual;
+ }
 } // end of class
