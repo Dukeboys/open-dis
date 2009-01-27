@@ -47,6 +47,10 @@ public class PduSender {
                     case ENTITY_STATE:
                         aPdu = new EntityStatePdu();
                         break;
+                        
+                    case COMMENT:
+                        aPdu = new CommentPdu();
+                        break;
 
                     case FIRE:
                         aPdu = new FirePdu();
