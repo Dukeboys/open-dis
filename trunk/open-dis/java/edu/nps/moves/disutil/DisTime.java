@@ -154,6 +154,29 @@ public class DisTime
 
         return diff;
   }
+    
+    /**
+     * Another option for marshalling with the timestamp field set automatically. The UNIX
+     * time is conventionally seconds since January 1, 1970. UTC time is used, and leap seconds
+     * are excluded. This approach is popular in the wild, but the time resolution is not very
+     * good for high frequency updates, such as aircraft. An entity updating at 30 PDUs/second
+     * would see 30 PDUs sent out with the same timestamp, and have 29 of them discarded as
+     * duplicate packets.
+     *
+     * Note that there are other "Unix times", such milliseconds since 1/1/1970, saved in a long.
+     * This cannot be used, since the value is saved in a long. Java's System.getCurrentTimeMillis()
+     * uses this value.
+     *
+     * Unix time (in seconds) rolls over in 2038. 
+     *
+     * See the wikipedia page on Unix time for gory details. 
+     */
+  public long getUnixTimestamp()
+    {
+        long t = System.currentTimeMillis();
+        t = t / 1000l;   // NB: integer division, convert milliseconds to seconds
+        return t;
+    }
 
 
 }
