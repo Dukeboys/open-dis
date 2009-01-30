@@ -45,6 +45,7 @@
 
         <copy todir="${build}">
             <fileset dir="java" includes="**/*.properties"/>
+            <fileset dir="java" includes="**/jaxb.index"/>
         </copy>
     </target>
    
@@ -160,7 +161,7 @@
     <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
         <jar jarfile="${jarfile}" basedir="build"/>
-        <copy file="${jarfile}" tofile="open_dis_${version}.jar"/>
+        <copy file="${jarfile}" tofile="open-dis_${version}.jar"/>
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
