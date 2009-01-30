@@ -1046,7 +1046,7 @@ receiver of the create entity to define the entity identifier number of the new 
         <primitive type="unsigned short"/>
   </attribute>
   
-  <attribute name="dataValues" comment="variable length list of data parameters @@@this is wrong--need padding as well">
+  <attribute name="dataValues" comment="variable length list of data parameters ^^^this is wrong--need padding as well">
    <list type="variable" countFieldName="numberOfBytes">
      <classRef name="OneByteChunk"/>
    </list> 
@@ -1071,7 +1071,7 @@ receiver of the create entity to define the entity identifier number of the new 
   </attribute>
 
   
-  <attribute name="dataValues" comment="variable length list of data parameters @@@this is wrong--need padding as well">
+  <attribute name="dataValues" comment="variable length list of data parameters ^^^this is wrong--need padding as well">
    <list type="variable" countFieldName="numberOfValues">
      <classRef name="TwoByteChunk"/>
    </list> 
@@ -1087,7 +1087,7 @@ receiver of the create entity to define the entity identifier number of the new 
         <primitive type="unsigned short"/>
   </attribute>
   
-   <attribute name="dataValues" comment="variable length list of data parameters @@@this is wrong--need padding as well">
+   <attribute name="dataValues" comment="variable length list of data parameters ^^^this is wrong--need padding as well">
    <list type="variable" countFieldName="numberOfValues">
      <classRef name="FourByteChunk"/>
    </list> 
@@ -1274,11 +1274,11 @@ receiver of the create entity to define the entity identifier number of the new 
     <primitive type= "unsigned short"/>
   </attribute>
   
-   <attribute name="recordValues" comment="@@@This is wrong--variable sized data records">
+   <attribute name="recordValues" comment="^^^This is wrong--variable sized data records">
     <primitive type= "unsigned short"/>
   </attribute>
   
-   <attribute name="pad4" comment="@@@This is wrong--variable sized padding">
+   <attribute name="pad4" comment="^^^This is wrong--variable sized padding">
     <primitive type= "unsigned byte"/>
   </attribute>
   
@@ -1932,7 +1932,7 @@ PduHeader record, section 5.2.29.">
   <primitive type="unsigned short"/>
 </attribute>
 
-<attribute name="padding" comment="padding">
+<attribute name="padding2" comment="padding, number prevents conflict with superclass ivar name">
   <primitive type="short" defaultValue="0"/>
 </attribute>
 
@@ -2494,7 +2494,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <classRef name="BeamData"/>
   </attribute> 
   
-   <attribute name="fundamentalIffParameters" comment="variable length list of fundamental parameters. @@@This is wrong">
+   <attribute name="fundamentalIffParameters" comment="variable length list of fundamental parameters. ^^^This is wrong">
    <list type="variable" countFieldName="pad2">
      <classRef name="FundamentalParameterDataIff"/>
    </list> 
@@ -2803,7 +2803,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "unsigned int"/>
   </attribute>
   
-   <attribute name="intercomParameters" comment="@@@This is wrong--the length of the data field is variable. Using a long for now.">
+   <attribute name="intercomParameters" comment="^^^This is wrong--the length of the data field is variable. Using a long for now.">
      <list type="variable" countFieldName="intercomParametersLength">
        <classRef name="IntercomCommunicationsParameters"/>
     </list> 
@@ -2891,7 +2891,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </list> 
     </attribute>
     
-    <attribute name="pad2" comment="@@@padding to put the start of the next list on a 32 bit boundary. This needs to be fixed">
+    <attribute name="pad2" comment="^^^padding to put the start of the next list on a 32 bit boundary. This needs to be fixed">
     <primitive type= "unsigned byte"/>
   </attribute>
   
@@ -2949,7 +2949,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "double"/>
   </attribute>
   
-   <attribute name="groupedEntityDescriptions" comment="GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements">
+   <attribute name="groupedEntityDescriptions" comment="GED records about each individual entity in the group. ^^^this is wrong--need a database lookup to find the actual size of the list elements">
      <list type="variable" countFieldName="numberOfGroupedEntities">
        <classRef name="VariableDatum"/>
     </list> 
@@ -2991,7 +2991,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "unsigned byte"/>
   </attribute>
 
-   <attribute name="recordSets" comment="@@@This is wrong--the RecordSet class needs more work">
+   <attribute name="recordSets" comment="^^^This is wrong--the RecordSet class needs more work">
      <list type="variable" countFieldName="numberOfRecordSets">
        <classRef name="RecordSet"/>
     </list> 
@@ -3202,7 +3202,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </list> 
     </attribute>
    
-    <attribute name="pad3" comment="Padding to get things 32-bit aligned. @@@this is wrong--dyanmically sized padding needed">
+    <attribute name="pad3" comment="Padding to get things 32-bit aligned. ^^^this is wrong--dyanmically sized padding needed">
      <primitive type= "unsigned byte"/>
    </attribute>
    
@@ -3352,7 +3352,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
      <primitive type= "unsigned byte"/>
    </attribute>
    
-     <attribute name="gridDataList" comment="Grid data @@@This is wrong">
+     <attribute name="gridDataList" comment="Grid data ^^^This is wrong">
      <list type="variable" countFieldName="numberOfGridAxes">
        <classRef name="GridAxisRecord"/>
     </list> 
