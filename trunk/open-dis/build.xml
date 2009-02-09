@@ -7,7 +7,7 @@
     <property name="dist" location="dist"/>
     <property name="version" value="3.0"/>
     
-    <property name="jarfile" location="${dist}/${ant.project.name}.jar"/>
+    <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
     <property name="compile.debug" value="true"/>
     <property name="javac.unchecked" value="-Xlint:unchecked"/>
 
