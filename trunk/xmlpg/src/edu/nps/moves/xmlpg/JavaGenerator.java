@@ -611,14 +611,14 @@ public class JavaGenerator extends Generator
             
              if( (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) )
              {
-                 pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(List" + " p" + this.initialCap(anAttribute.getName()) + ")");
+                 pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(List<" + anAttribute.getType() + ">" + " p" + this.initialCap(anAttribute.getName()) + ")");
                  pw.println("{ " + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
                  pw.println("}");
                  
                  pw.println();
                  
                  pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "List\" )");
-                 pw.println("public List" + " get" + this.initialCap(anAttribute.getName()) + "()");
+                 pw.println("public List<" + anAttribute.getType() + ">"  + " get" + this.initialCap(anAttribute.getName()) + "()");
                  pw.println("{ return " + anAttribute.getName() + "; }");
                  pw.println();
                  
@@ -631,7 +631,7 @@ public class JavaGenerator extends Generator
     {
         List ivars = aClass.getClassAttributes();
         
-         pw.println();
+        pw.println();
         pw.println("public void marshal(DataOutputStream dos)");
         pw.println("{");
          
@@ -1533,7 +1533,7 @@ public class JavaGenerator extends Generator
     {
         pw.println();
         pw.println(" /**");
-        pw.println("  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.");
+        pw.println("  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.");
         pw.println("  */");
         pw.println(" public boolean equals(" + aClass.getName() + " rhs)");
         pw.println(" {");
@@ -1609,34 +1609,14 @@ private void writeXmlRootMarshallMethod(PrintWriter pw,
                                         GeneratedClass aClass)
 {
    pw.println("/**");
-   pw.println("* JAXB is picky about marshalling classes it hasn't heard of before. This solves");
-   pw.println("* the problem by including every single class in the JAXB context. You'll probably want to ");
-   pw.println("* cut and paste this elsewhere to get all the class names ");
+   pw.println("* JAXB marshalls (by default) only classes that are marked with @XmlRootElement.");
+   pw.println("* This is a convienience method for marshalling the top level root element. ");
+   pw.println("* Note that this requires the presence of jaxb.index in the package directory.");
    pw.println("*/");
    pw.println("public void marshallToXml(String filename)");
    pw.println("{");
    pw.println("  try\n   {");
-   pw.println("       JAXBContext context = JAXBContext.newInstance(");
-   
-   String packageName = languageProperties.getProperty("package");
-   
-   // Iterate through all the generated classes
-   Iterator it = classDescriptions.values().iterator();
-        
-   while(it.hasNext())
-   {
-       GeneratedClass oneClass = (GeneratedClass)it.next();
-       String name = aClass.getName();
-   
-       pw.print("        " +   packageName + "." + oneClass.getName() + ".class");
-       if(it.hasNext() == true)
-       {
-           pw.println(",");
-       }
-   }
-   pw.println("    );");
-   pw.println();
-   
+   pw.println("       JAXBContext context = JAXBContext.newInstance();");
    pw.println("      Marshaller marshaller = context.createMarshaller();");
    pw.println("      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);");
    pw.println("      marshaller.marshal(this, new FileOutputStream(filename));"); 
@@ -1646,9 +1626,6 @@ private void writeXmlRootMarshallMethod(PrintWriter pw,
    pw.println();
        
 }
-  
-    
-    
     /** 
      * returns a string with the first letter capitalized. 
      */
