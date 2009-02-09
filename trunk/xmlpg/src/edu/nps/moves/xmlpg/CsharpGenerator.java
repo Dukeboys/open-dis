@@ -23,8 +23,8 @@ public class CsharpGenerator extends Generator
     Properties marshalTypes = new Properties();
 
 	/** Similar to above, but used on unmarshalling. There are some special cases (unsigned
-     * types) to be handled here.
-     */
+  * types) to be handled here.
+  */
 	Properties unmarshalTypes = new Properties();
 
 	/** sizes of various primitive types */
@@ -174,7 +174,7 @@ public class CsharpGenerator extends Generator
 		this.writeUnmarshallMethod(pw, aClass);
 		this.writeReflectionMethod(pw, aClass);
 
-		//For C# - do not belive these are necessary as the MemoryStream used in previous MarshalMethod
+		//For C# - do not believe these are necessary as the MemoryStream used in previous MarshalMethod
 		//should provide the same type features.
 		//this.writeMarshalMethodWithByteBuffer(pw, aClass);
 		//this.writeUnmarshallMethodWithByteBuffer(pw, aClass);
@@ -323,7 +323,7 @@ public class CsharpGenerator extends Generator
 				//
 				String attributeType = types.getProperty(anAttribute.getType());
 				if (anAttribute.getComment() != null)
-				{
+				{			
 					pw.println("   /** " + anAttribute.getComment() + " */");
 				}
 
@@ -388,7 +388,8 @@ public class CsharpGenerator extends Generator
 					pw.println("   /** " + anAttribute.getComment() + " */");
 				}
 
-				pw.println("   protected List<object> _" + anAttribute.getName() + " = new List<object>(); ");
+				//Make the list referenced to the type that will be stored within 01/21/2009 PES
+				pw.println("   protected List<" + anAttribute.getType() + "> _" + anAttribute.getName() + " = new List<" + anAttribute.getType() + ">(); ");
 			}
 		} // End of loop through ivars
 	}
@@ -400,6 +401,13 @@ public class CsharpGenerator extends Generator
 		// Write a constructor
 		pw.println();
 		pw.println("/** Constructor */");
+		if (aClass.getClassComments() != null)
+		{ //PES 01/22/2009  Added for intellisense support
+
+			pw.println("   ///<summary>");
+			pw.println("   ///" + aClass.getClassComments());
+			pw.println("   ///</summary>");
+		}
 		pw.println(" public " + aClass.getName() + "()");
 		pw.println(" {");
 
@@ -573,6 +581,15 @@ public class CsharpGenerator extends Generator
 				if (anAttribute.getIsDynamicListLengthField() == false)
 				{
 					String beanType = types.getProperty(anAttribute.getType());
+					
+					if (anAttribute.getComment() != null)
+					{ //PES 01/22/2009  Added for intellisense support
+
+						pw.println("   ///<summary>");
+						pw.println("   ///" + anAttribute.getComment());
+						pw.println("   ///</summary>");
+					}
+
 					pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + beanType + " p" + this.initialCap(anAttribute.getName()) + ")");
 					pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
 					pw.println("}");
@@ -589,6 +606,37 @@ public class CsharpGenerator extends Generator
 					pw.println("}");
 					pw.println();
 				}
+				else // This is the count field for a dynamic list
+				{//PES 01/21/2009 added back in to account for getting length on dynamic lists
+						String beanType = types.getProperty(anAttribute.getType());
+						ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
+
+						pw.println("/// <summary>");
+						pw.println("/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.");
+						pw.println("/// The get" + anAttribute.getName() + " method will also be based on the actual list length rather than this value. ");
+						pw.println("/// The method is simply here for completeness and should not be used for any computations.");
+						pw.println("/// </summary>");
+						pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + beanType + " p" + this.initialCap(anAttribute.getName()) + ")");
+						pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+						pw.println("}");
+
+						pw.println();
+
+						pw.println("/// <summary>");
+						pw.println("/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.");
+						pw.println("/// The get" + anAttribute.getName() + " method will also be based on the actual list length rather than this value. ");
+						pw.println("/// The method is simply here for completeness and should not be used for any computations.");
+						pw.println("/// </summary>");
+						pw.println("[XmlElement(Type= typeof(" + beanType + "), ElementName=\"" + anAttribute.getName() + "\")]");
+						pw.println("public " + beanType + " " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
+						pw.println("{");
+						pw.println("     get\n     {");
+						pw.println("          return _" + anAttribute.getName() + ";\n     }");
+						pw.println("     set\n     {");
+						pw.println("          _" + anAttribute.getName() + " = value;\n     }");
+						pw.println("}");
+						pw.println();
+				}
 
 			} // End is primitive
 
@@ -596,17 +644,37 @@ public class CsharpGenerator extends Generator
 
 			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
 			{
+				if (anAttribute.getComment() != null)
+				{ //PES 01/22/2009  Added for intellisense support
+
+					pw.println("   ///<summary>");
+					pw.println("   ///" + anAttribute.getComment());
+					pw.println("   ///</summary>");
+				}
 				pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + " p" + this.initialCap(anAttribute.getName()) + ")");
 				pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
 				pw.println("}");
 
 				pw.println();
 
+				if (anAttribute.getComment() != null)
+				{ //PES 01/22/2009  Added for intellisense support
+
+					pw.println("   ///<summary>");
+					pw.println("   ///" + anAttribute.getComment());
+					pw.println("   ///</summary>");
+				}
 				pw.println("public " + anAttribute.getType() + " get" + this.initialCap(anAttribute.getName()) + "()");
 				pw.println("{ return _" + anAttribute.getName() + "; \n}");
 				pw.println();
 
+				if (anAttribute.getComment() != null)
+				{ //PES 01/22/2009  Added for intellisense support
 
+					pw.println("   ///<summary>");
+					pw.println("   ///" + anAttribute.getComment());
+					pw.println("   ///</summary>");
+				}
 				pw.println("[XmlElement(Type= typeof(" + anAttribute.getType() + "), ElementName=\"" + anAttribute.getName() + "\")]");
 				pw.println("public " + anAttribute.getType() + " " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
 				pw.println("{");
@@ -625,19 +693,39 @@ public class CsharpGenerator extends Generator
 			{
 				if (anAttribute.getUnderlyingTypeIsPrimitive())
 				{
+					if (anAttribute.getComment() != null)
+					{ //PES 01/22/2009  Added for intellisense support
+
+						pw.println("   ///<summary>");
+						pw.println("   ///" + anAttribute.getComment());
+						pw.println("   ///</summary>");
+					}
 					pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + types.getProperty(anAttribute.getType()) + "[] p" + this.initialCap(anAttribute.getName()) + ")");
 					pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
 					pw.println("}");
 
 					pw.println();
 
+					if (anAttribute.getComment() != null)
+					{ //PES 01/22/2009  Added for intellisense support
+
+						pw.println("   ///<summary>");
+						pw.println("   ///" + anAttribute.getComment());
+						pw.println("   ///</summary>");
+					}
 					//pw.println("@XmlElement(name=\"" + anAttribute.getName() + "\" )");
 					pw.println("public " + types.getProperty(anAttribute.getType()) + "[] get" + this.initialCap(anAttribute.getName()) + "()");
 					pw.println("{ return _" + anAttribute.getName() + "; }");
 					pw.println();
 
 
+					if (anAttribute.getComment() != null)
+					{ //PES 01/22/2009  Added for intellisense support
 
+						pw.println("   ///<summary>");
+						pw.println("   ///" + anAttribute.getComment());
+						pw.println("   ///</summary>");
+					}
 					pw.println("[XmlArray(ElementName=\"" + anAttribute.getName() + "\")]");
 					pw.println("public " + types.getProperty(anAttribute.getType()) + "[] " + this.initialCap(anAttribute.getName()) + classNameConflictModifier );
 					pw.println("{");
@@ -651,17 +739,38 @@ public class CsharpGenerator extends Generator
 				}
 				else if (anAttribute.listIsClass() == true)
 				{
+					if (anAttribute.getComment() != null)
+					{ //PES 01/22/2009  Added for intellisense support
+
+						pw.println("   ///<summary>");
+						pw.println("   ///" + anAttribute.getComment());
+						pw.println("   ///</summary>");
+					}
 					pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + "[] p" + this.initialCap(anAttribute.getName()) + ")");
 					pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
 					pw.println("}");
 
 					pw.println();
 
+					if (anAttribute.getComment() != null)
+					{ //PES 01/22/2009  Added for intellisense support
+
+						pw.println("   ///<summary>");
+						pw.println("   ///" + anAttribute.getComment());
+						pw.println("   ///</summary>");
+					}
 					//pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "Array\" )");
 					pw.println("public " + anAttribute.getType() + "[] get" + this.initialCap(anAttribute.getName()) + "()");
 					pw.println("{ return _" + anAttribute.getName() + "; }");
 					pw.println();
 
+					if (anAttribute.getComment() != null)
+					{ //PES 01/22/2009  Added for intellisense support
+
+						pw.println("   ///<summary>");
+						pw.println("   ///" + anAttribute.getComment());
+						pw.println("   ///</summary>");
+					}
 					pw.println("[XmlArrayItem(ElementName = \"" + anAttribute.getName() + "Array\",DataType=\"" + anAttribute.getType() + "\"))]");
 					pw.println("public " + anAttribute.getType() + "[] " + this.initialCap(anAttribute.getName()));
 					pw.println("{");
@@ -678,21 +787,43 @@ public class CsharpGenerator extends Generator
 
 
 			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
-			{
-				pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(List<object>" + " p" + this.initialCap(anAttribute.getName()) + ")");
+			{	//Set List to the actual type 01/21/2009 PES
+
+				if (anAttribute.getComment() != null)
+				{ //PES 01/22/2009  Added for intellisense support
+
+					pw.println("   ///<summary>");
+					pw.println("   ///" + anAttribute.getComment());
+					pw.println("   ///</summary>");
+				}
+				pw.println("public void set" + this.initialCap(anAttribute.getName()) + "(List<" + anAttribute.getType() + ">" + " p" + this.initialCap(anAttribute.getName()) + ")");
 				pw.println("{ _" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
 				pw.println("}");
 
 				pw.println();
 
+				//Set List to actual type 01/21/2009 PES
 				//pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "List\" )");
-				pw.println("public List<object>" + " get" + this.initialCap(anAttribute.getName()) + "()");
+				if (anAttribute.getComment() != null)
+				{ //PES 01/22/2009  Added for intellisense support
+
+					pw.println("   ///<summary>");
+					pw.println("   ///" + anAttribute.getComment());
+					pw.println("   ///</summary>");
+				}
+				pw.println("public List<" + anAttribute.getType() + ">" + " get" + this.initialCap(anAttribute.getName()) + "()");
 				pw.println("{ return _" + anAttribute.getName() + "; }");
 				pw.println();
 
+				if (anAttribute.getComment() != null)
+				{ //PES 01/22/2009  Added for intellisense support
 
-				pw.println("[XmlElement(ElementName = \"" + anAttribute.getName() + "List\",Type = typeof(List<object>))]");
-				pw.println("public List<object> " + this.initialCap(anAttribute.getName()));
+					pw.println("   ///<summary>");
+					pw.println("   ///" + anAttribute.getComment());
+					pw.println("   ///</summary>");
+				}
+				pw.println("[XmlElement(ElementName = \"" + anAttribute.getName() + "List\",Type = typeof(List<" + anAttribute.getType() + ">))]");
+				pw.println("public List<" + anAttribute.getType() + "> " + this.initialCap(anAttribute.getName()));
 				pw.println("{");
 				pw.println("     get\n{");
 				pw.println("          return _" + anAttribute.getName() + ";\n}");
@@ -732,6 +863,7 @@ public class CsharpGenerator extends Generator
 		for (int idx = 0; idx < ivars.size(); idx++)
 		{
 			ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
+
 
 			// Write out a method call to serialize a primitive type
 			if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
@@ -774,6 +906,12 @@ public class CsharpGenerator extends Generator
 				// it in our map of primitives to marshal types, we assume it is a class.
 
 				String marshalType = marshalTypes.getProperty(anAttribute.getType());
+
+				//String attributeArrayModifier = "";
+				//if (anAttribute.getUnderlyingTypeIsPrimitive() == true)
+				//{
+				//    attributeArrayModifier = "[]";
+				//}
 
 				if (anAttribute.getUnderlyingTypeIsPrimitive())
 				{
@@ -1213,7 +1351,7 @@ public class CsharpGenerator extends Generator
 			{
 			pw.println();
 			pw.println(" /**");
-			pw.println("  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.");
+			pw.println("  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.");
 			pw.println("  */");
 			pw.println(" public bool equals(" + aClass.getName() + " rhs)");
 			pw.println(" {");
