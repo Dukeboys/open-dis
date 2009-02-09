@@ -10,7 +10,8 @@
 <br>
 <span style="font-weight: bold;">Introduction</span><br>
 <br>
-This directory contains Java, Csharp, and C++ code to implement the Distributed
+This directory contains Java, Csharp, and C++ code to implement the
+Distributed
 Interactive Simulation (DIS) IEEE-1278 standard, which is often used in
 military simulations.<br>
 <br>
@@ -69,38 +70,53 @@ example code that generates Entity State PDUs. Simple unit test code is
 also available in the UnitTestDIS directory.<br>
 <br>
 <span style="font-weight: bold;">Using the Java Version</span><br>
-To use the Java release, you must include the open-dis_<version-number>.jar 
-file in your project, along with the supporting jar files in the lib directory.
+To use the Java release, you must include the open-dis_<version-number>.jar
+file in your project, along with the supporting jar files in the lib
+directory.
 (The xmlpg.jar file is not needed.)
-
+<br>
+<br>
 <span style="font-weight: bold;">Release Notes</span><br>
-The 3.0 release features:
-
+The 3.0 release highlights:
+<br>
+<br>
+* CSharp implementation from Peter Smith. He wrote a new xmlpg class to
+generate CSharp code.<br>
+<br>
 * Automated patch application. The Unix patch utility is used to modify
-the auotmatically generated code. See the patch directory in the open-dis
+the auotmatically generated code. See the patch directory in the
+open-dis
 directory. Patches are applied via the ant task "patch". Windows users
 may need to install cygwin utilities to be able to use patch.
-
 * PES has very kindly contributed a C# implementation.
-
-* Robert Harder has reworked the Java marshal and unmarshal code to use 
+<br>
+<br>
+* Robert Harder has reworked the Java marshal and unmarshal code to use
 much more memory efficient NIO classes, which dramatically reduce the
 amount of memory generated.
-
+<br>
+<br>
 * Sheldon Snyder has contributed dead reckoning algorithms in Java,
 available in the edu.nps.moves.deadreckoning package.
-
+<br>
+<br>
 * Tariq Rashid has contributed an xplane gateway, which reads xplane
-flight simulator UDP packets and converts them to DIS. He's also 
+flight simulator UDP packets and converts them to DIS. He's also
 implemented a KML gateway, which allows low-resolution updates
 to markers on Google Earth.
-
-* xmlpg, which generates the source code, is now included in the open-dis
-lib directory. This allows code to be generated completly withing 
-the open-dis directory, rather than trying to do cross-directory
+This code is a&nbsp; rough right now--it needs to be cleaned up.
+There's no guarantee it works.<br>
+<br>
+* xmlpg, which generates the source code, is now included in the
+open-dis
+lib directory. This allows code to be generated completly withing the
+open-dis directory, rather than trying to do cross-directory
 builds. See the "GenerateDisSourceCode" ant target.
-
-<span style="font-weight: bold;">LICENSE</span><br>
+<br>
+<br>
+<br>
+<span style="font-weight: bold;"><br>
+LICENSE</span><br>
 <br>
 All code is BSD license. See <a href="License.html">License.html</a><br>
 <a href="License.html"><span style="font-weight: bold;"></span></a><span
@@ -108,5 +124,6 @@ All code is BSD license. See <a href="License.html">License.html</a><br>
 <br>
 <br>
 <br>
+</version-number>
 </body>
 </html>
