@@ -207,14 +207,13 @@ public class Pdu implements Serializable {
      * A convenience method for marshalling to a byte array. The method will marshal
      * the PDU as is.
      * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
-     * @return a byte array with the marshalled {@link Pdu}.
+     * @return the ByteBuffer's byte array with the marshalled {@link Pdu}.
      * @since ??
      */
     public byte[] marshal() {
-        byte[] data = new byte[getMarshalledSize()];
-        java.nio.ByteBuffer buff = java.nio.ByteBuffer.wrap(data);
+        java.nio.ByteBuffer buff = java.nio.ByteBuffer.allocate(getMarshalledSize());
         marshal(buff);
-        return data;
+        return buff.array();
     }
 
     /**

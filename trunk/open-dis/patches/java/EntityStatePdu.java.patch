@@ -124,9 +124,8 @@ Index: EntityStatePdu.java
 +        marshalSize += deadReckoningParameters.getMarshalledSize();  // deadReckoningParameters
 +        marshalSize += marking.getMarshalledSize();  // marking
 +        marshalSize += 4;  // capabilities
-+        for (int idx = 0; idx < articulationParameters.size(); idx++) {
-+            ArticulationParameter listElement = articulationParameters.get(idx);
-+            marshalSize += listElement.getMarshalledSize();
++        for (ArticulationParameter ap : articulationParameters) {
++            marshalSize += ap.getMarshalledSize();
 +        }
  
 -   return marshalSize;
@@ -391,9 +390,8 @@ Index: EntityStatePdu.java
 -            ArticulationParameter aArticulationParameter = articulationParameters.get(idx);
 -            aArticulationParameter.marshal(dos);
 -       } // end of list marshalling
-+            for (int idx = 0; idx < articulationParameters.size(); idx++) {
-+                ArticulationParameter aArticulationParameter = articulationParameters.get(idx);
-+                aArticulationParameter.marshal(dos);
++            for (ArticulationParameter ap : articulationParameters) {
++                ap.marshal(dos);
 +            }
  
 -    } // end try 
@@ -514,9 +512,8 @@ Index: EntityStatePdu.java
 +        marking.marshal(buff);
 +        buff.putInt(capabilities);
 +
-+        for (int idx = 0; idx < articulationParameters.size(); idx++) {
-+            ArticulationParameter aArticulationParameter = articulationParameters.get(idx);
-             aArticulationParameter.marshal(buff);
++        for (ArticulationParameter ap : articulationParameters) {
++            ap.marshal(buff);
 -       } // end of list marshalling
 +        }        
 +    }

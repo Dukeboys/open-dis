@@ -225,9 +225,8 @@ public class EntityStatePdu extends EntityInformationFamilyPdu implements Serial
             marking.marshal(dos);
             dos.writeInt(capabilities);
 
-            for (int idx = 0; idx < articulationParameters.size(); idx++) {
-                ArticulationParameter aArticulationParameter = articulationParameters.get(idx);
-                aArticulationParameter.marshal(dos);
+            for (ArticulationParameter ap : articulationParameters) {
+                ap.marshal(dos);
             }
 
         } catch (Exception e) {
@@ -289,9 +288,8 @@ public class EntityStatePdu extends EntityInformationFamilyPdu implements Serial
         marking.marshal(buff);
         buff.putInt(capabilities);
 
-        for (int idx = 0; idx < articulationParameters.size(); idx++) {
-            ArticulationParameter aArticulationParameter = articulationParameters.get(idx);
-            aArticulationParameter.marshal(buff);
+        for (ArticulationParameter ap : articulationParameters) {
+            ap.marshal(buff);
         }        
     }
 
