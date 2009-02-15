@@ -15,176 +15,168 @@ import edu.nps.moves.disenum.PduType;
  *
  * @author DMcG
  */
-public class PduFactory
-{
+public class PduFactory {
+
     private boolean useFastPdu = false;
-    
+
     /** Creates a new instance of PduFactory */
-    public PduFactory()
-    {
+    public PduFactory() {
         this(false);
     }
-    
+
     /** 
      * Create a new PDU factory; if true is passed in, we use "fast PDUs",
      * which minimize the memory garbage generated at the cost of being
      * somewhat less pleasant to work with.
+     * @param useFastPdu
      */
-    public PduFactory(boolean useFastPdu)
-    {
+    public PduFactory(boolean useFastPdu) {
         this.useFastPdu = useFastPdu;
     }
 
-
-    public void setUseFastPdu(boolean use){
+    public void setUseFastPdu(boolean use) {
         this.useFastPdu = use;
     }
 
-    public boolean getUseFastPdu(){
+    public boolean getUseFastPdu() {
         return this.useFastPdu;
     }
-    
+
     /** 
      * PDU factory. Pass in an array of bytes, get the correct type of pdu back,
      * based on the PDU type field contained in the byte array.
+     * @param data
+     * @return
      */
-    public Pdu createPdu(byte data[])
-    {
+    public Pdu createPdu(byte data[]) {
         // Promote a signed byte to an int, then do a bitwise AND to wipe out everthing but the 
         // first eight bits. This effectively lets us read this as an unsigned byte
-        int pduType = 0x000000FF & (int)data[2]; // The pdu type is a one-byte, unsigned byte in the third byte position.
-        
+        int pduType = 0x000000FF & (int) data[2]; // The pdu type is a one-byte, unsigned byte in the third byte position.
+
         // Do a lookup to get the enumeration instance that corresponds to this value. 
         PduType pduTypeEnum = PduType.lookup[pduType];
-        
+
         DataInputStream dis = new DataInputStream(new ByteArrayInputStream(data));
         Pdu aPdu = null;
-        
-        switch(pduTypeEnum)
-        {
-            case ENTITY_STATE: 
+
+        switch (pduTypeEnum) {
+            case ENTITY_STATE:
                 // if the user has created the factory requesting that he get fast espdus back, give him those.
-                if(useFastPdu == true)
-                {
-                   aPdu = new FastEntityStatePdu();
-                }
-                else
-                {
-                   aPdu = new EntityStatePdu();
+                if (useFastPdu == true) {
+                    aPdu = new FastEntityStatePdu();
+                } else {
+                    aPdu = new EntityStatePdu();
                 }
 
                 aPdu.unmarshal(dis);
                 break;
-            
+
             case ACKNOWLEDGE:
                 aPdu = new AcknowledgePdu();
                 aPdu.unmarshal(dis);
                 break;
-                
+
             case ACTION_REQUEST:
                 aPdu = new ActionRequestPdu();
                 aPdu.unmarshal(dis);
                 break;
-                
-                
+
             case COLLISION:
                 aPdu = new CollisionPdu();
                 aPdu.unmarshal(dis);
                 break;
-            
+
             case COMMENT:
                 aPdu = new CommentPdu();
                 aPdu.unmarshal(dis);
-                break;       
-                
+                break;
+
             case CREATE_ENTITY:
                 aPdu = new CreateEntityPdu();
                 aPdu.unmarshal(dis);
-                break;          
-                
+                break;
+
             case DATA:
                 aPdu = new DataPdu();
                 aPdu.unmarshal(dis);
-                break;   
-                
+                break;
+
             case DATA_QUERY:
                 aPdu = new DataQueryPdu();
                 aPdu.unmarshal(dis);
-                break;   
-                
+                break;
+
             case DETONATION:
                 aPdu = new DetonationPdu();
                 aPdu.unmarshal(dis);
                 break;
-                
-            case FIRE: 
+
+            case FIRE:
                 aPdu = new FirePdu();
                 aPdu.unmarshal(dis);
                 break;
-                
+
             case SERVICE_REQUEST:
                 aPdu = new ServiceRequestPdu();
                 aPdu.unmarshal(dis);
                 break;
-             
+
             case REMOVE_ENTITY:
                 aPdu = new RemoveEntityPdu();
                 aPdu.unmarshal(dis);
-                break;              
-                
+                break;
+
             case REPAIR_COMPLETE:
                 aPdu = new RepairCompletePdu();
                 aPdu.unmarshal(dis);
-                break;                
-                
+                break;
+
             case RESUPPLY_CANCEL:
                 aPdu = new ResupplyCancelPdu();
                 aPdu.unmarshal(dis);
                 break;
-                
+
             case RESUPPLY_OFFER:
                 aPdu = new ResupplyOfferPdu();
                 aPdu.unmarshal(dis);
                 break;
-                
+
             case REPAIR_RESPONSE:
                 aPdu = new RepairResponsePdu();
                 aPdu.unmarshal(dis);
                 break;
-                
+
             case START_RESUME:
                 aPdu = new StartResumePdu();
                 aPdu.unmarshal(dis);
                 break;
-                
+
             case STOP_FREEZE:
                 aPdu = new StopFreezePdu();
                 aPdu.unmarshal(dis);
                 break;
-                
-                       
-            default: 
+
+            default:
                 System.out.print("PDU not implemented. Type=" + pduType);
-                if(pduTypeEnum != null)
+                if (pduTypeEnum != null) {
                     System.out.print("  PDU not implemented name is " + pduTypeEnum.getDescription());
+                }
                 System.out.println();
-                
+
         }
-        
+
         return aPdu;
     }
-
-
 
     /**
      * PDU factory. Pass in an array of bytes, get the correct type of pdu back,
      * based on the PDU type field contained in the byte buffer.
+     * @param buff
      * @return null if there was an error creating the Pdu
      */
-    public Pdu createPdu( java.nio.ByteBuffer buff )
-    {
+    public Pdu createPdu(java.nio.ByteBuffer buff) {
         int pos = buff.position();          // Save buffer's position
-        if( pos + 2 > buff.limit() ){       // Make sure there's enough space in buffer
+        if (pos + 2 > buff.limit()) {       // Make sure there's enough space in buffer
             return null;                    // Else return null
         }   // end if: buffer too short
         buff.position(pos + 2);             // Advance to third byte
@@ -196,14 +188,13 @@ public class PduFactory
 
         Pdu aPdu = null;
 
-        switch(pduTypeEnum)
-        {
+        switch (pduTypeEnum) {
             case ENTITY_STATE:
                 // if the user has created the factory requesting that he get fast espdus back, give him those.
-                if(useFastPdu == true) {
-                   aPdu = new FastEntityStatePdu();
+                if (useFastPdu == true) {
+                    aPdu = new FastEntityStatePdu();
                 } else {
-                   aPdu = new EntityStatePdu();
+                    aPdu = new EntityStatePdu();
                 }
                 break;
 
@@ -269,21 +260,20 @@ public class PduFactory
 
             default:
                 System.out.print("PDU not implemented. Type=" + pduType);
-                if(pduTypeEnum != null)
+                if (pduTypeEnum != null) {
                     System.out.print("  PDU not implemented name is " + pduTypeEnum.getDescription());
+                }
                 System.out.println();
 
         }   // end switch
 
-        try{
-            aPdu.unmarshal( buff );
-        } catch( Exception exc ){
+        try {
+            aPdu.unmarshal(buff);
+        } catch (Exception exc) {
             //System.err.println("Could not unmarshal Pdu: " + exc.getMessage());
             aPdu = null;
         }
 
         return aPdu;
     }
-
-    
 }

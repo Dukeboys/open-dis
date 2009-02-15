@@ -44,8 +44,6 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
     private DatagramSocket socket;
     private InetAddress defaultDestinationIP = null;
     private int defaultDestinationPort = -1;
-    /** Thread that runs the read process */
-    private Thread readThread = null;
 
     public BehaviorProducerUDP(DatagramSocket pSocket) {
         behaviorConsumerListeners = new Vector<BehaviorConsumerIF>();
@@ -94,9 +92,7 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
      * @param obj2 second object that describes destination (eg, port number)
      */
     public void setDefaultDestination(Object obj1, Object obj2) {
-        InetAddress addr;
-        int port;
-
+        
         if (!(obj1 instanceof InetAddress) || !(obj2 instanceof Integer)) {
             throw new RuntimeException("The default destination must be an IP adddress and Integer port");
         }
@@ -197,7 +193,7 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
      * This is a performance option. When a PDU arrives we want to distribute
      * it to all listeners. If we use a single copy of the object distributed
      * to all listeners this may cause problems if one listener modifies the
-     * object and undermines the expectations of another listener. to avoid this
+     * object and undermines the expectations of another listener. To avoid this
      * we can create a new copy of the PDU and hand off a new, unique copy of
      * the object to each listener. But this may cause some performance problems,
      * since it takes a while to allocate a new object.<p>
@@ -206,7 +202,8 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
      * listener. this allows the user to override this behavior for better
      * performance.
      *
-     * @param shouldCreateCopy true to create a new copy for each listener, false for a shared copy for each listener
+     * @param shouldCreateCopy true to create a new copy for each listener,
+     * false for a shared copy for each listener
      */
     public void setUseCopies(boolean shouldCreateCopy) {
         useCopies = shouldCreateCopy;
@@ -229,14 +226,13 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
             try {
                 socket.receive(packet);
                 pdu = pduf.createPdu(packet.getData());
-
                 if (pdu != null) {
                     for (int idx = 0; idx < behaviorConsumerListeners.size(); idx++) {
                         BehaviorConsumerIF consumer = behaviorConsumerListeners.elementAt(idx);
 
                         // Use a copy of the received PDU for more safety, or send a single
                         // copy of the object to multiple listeners for better performance.
-                        if (useCopies == true) {
+                        if (useCopies) {
                             Pdu copyPdu = pduf.createPdu(packet.getData());
                             consumer.receivePdu(copyPdu, this);
                         } else {

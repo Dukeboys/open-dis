@@ -16,9 +16,13 @@
 # to create the patch file
 #
 # @author DMcG
+# @version $Id:$
 
-# PDU.java, apply patch file
+# Pdu.java, apply patch file
 patch java/edu/nps/moves/dis/Pdu.java patches/java/Pdu.java.patch
+
+# EntityStatePdu.java, apply patch file
+patch java/edu/nps/moves/dis/EntityStatePdu.java patches/java/EntityStatePdu.java.patch
 
 # Apply patch to VariableDatum.java
 patch java/edu/nps/moves/dis/VariableDatum.java patches/java/VariableDatum.java.patch

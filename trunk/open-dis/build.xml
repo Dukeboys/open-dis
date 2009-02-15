@@ -7,7 +7,7 @@
     <property name="dist" location="dist"/>
     <property name="version" value="3.0"/>
     
-    <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
+    <property name="jarfile" location="${dist}/open-dis.jar"/>
     <property name="compile.debug" value="true"/>
     <property name="javac.unchecked" value="-Xlint:unchecked"/>
 
@@ -138,14 +138,19 @@
             <arg value="cpp/DIS"/>
             <arg value="Csharp/DIS"/>
         </java>
-      <!-- apply the patches, manual changes to the code captured in the patch files -->
-        <exec executable="patches/applyPatches.bash">
-        </exec>
+        <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="patch"/>
     </target>
     
     <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
     <target name="patch" description="patch generated source code">
-        <exec executable="patches/applyPatches.bash">
+        <!--exec executable="patches/applyPatches.bash"-->
+        <property name="bash" value="/cygwin/bin/bash"/>
+        <exec executable="${bash}">
+            <arg value="--login"/>
+            <arg value="-i"/>
+            <arg value="-c"/>
+            <arg value="cd ../OpenDIS/open-dis; patches/applyPatches.bash"/>
         </exec>
     </target>
     
