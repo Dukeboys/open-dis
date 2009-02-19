@@ -21,23 +21,8 @@
 # Pdu.java, apply patch file
 patch java/edu/nps/moves/dis/Pdu.java patches/java/Pdu.java.patch
 
-# Marking.java, apply patch file
+# Marking.java, apply patch file to ensure character fields are exactly 11 bytes long after set operations
 patch java/edu/nps/moves/dis/Marking.java patches/java/Marking.java.patch
-
-# EntityStatePdu.java, apply patch file
-patch java/edu/nps/moves/dis/EntityStatePdu.java patches/java/EntityStatePdu.java.patch
-
-# ArticulationParameter.java, apply patch file
-patch java/edu/nps/moves/dis/ArticulationParameter.java patches/java/ArticulationParameter.java.patch
-
-# DeadReckoningParameter.java, apply patch file
-patch java/edu/nps/moves/dis/DeadReckoningParameter.java patches/java/DeadReckoningParameter.java.patch
-
-# Orientation.java, apply patch file
-patch java/edu/nps/moves/dis/Orientation.java patches/java/Orientation.java.patch
-
-# Vector3Float.java, apply patch file
-patch java/edu/nps/moves/dis/Vector3Float.java patches/java/Vector3Float.java.patch
 
 # Apply patch to VariableDatum.java
 patch java/edu/nps/moves/dis/VariableDatum.java patches/java/VariableDatum.java.patch
