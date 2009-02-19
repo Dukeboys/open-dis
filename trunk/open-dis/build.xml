@@ -145,12 +145,19 @@
     <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
     <target name="patch" description="patch generated source code">
         <!--exec executable="patches/applyPatches.bash"-->
-        <property name="bash" value="/cygwin/bin/bash"/>
+         <!-- use this property for most cygwin-based windows releases -->
+        <!---property name="bash" value="/cygwin/bin/bash"/-->
+        
+        <!-- Use this property for most Unix platforms -->
+        <property name="bash" value="/bin/bash"/>
         <exec executable="${bash}">
-            <arg value="--login"/>
-            <arg value="-i"/>
-            <arg value="-c"/>
-            <arg value="cd ../OpenDIS/open-dis; patches/applyPatches.bash"/>
+            <!-- Add an extra dash in front of the login for cygwin. The other extra arguments seem to help -->
+            <!--arg value="-login"/-->
+            <!--arg value="-i"/-->
+            <!--arg value="-c"/-->
+  
+            <!-- The bash script to run. this applies the patches to the source code -->
+            <arg value="patches/applyPatches.bash"/>
         </exec>
     </target>
     
