@@ -1,5 +1,6 @@
 package edu.nps.moves.dis;
 
+import java.util.*;
 import java.io.*;
 import javax.xml.bind.annotation.*;
 
@@ -11,127 +12,135 @@ import javax.xml.bind.annotation.*;
  *
  * @author DMcG
  */
-public class EntityID extends Object implements Serializable {
+public class EntityID extends Object implements Serializable
+{
+   /** The site ID */
+   protected int  site;
 
-    /** The site ID */
-    protected int site;
-    /** The application ID */
-    protected int application;
-    /** the entity ID */
-    protected int entity;
+   /** The application ID */
+   protected int  application;
 
-    /** Constructor */
-    public EntityID() {
-    }
+   /** the entity ID */
+   protected int  entity;
 
-    public int getMarshalledSize() {
-        int marshalSize = 0;
 
-        marshalSize = marshalSize + 2;  // site
-        marshalSize = marshalSize + 2;  // application
-        marshalSize = marshalSize + 2;  // entity
+/** Constructor */
+ public EntityID()
+ {
+ }
 
-        return marshalSize;
-    }
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-    public void setSite(int pSite) {
-        site = pSite;
-    }
+   marshalSize = marshalSize + 2;  // site
+   marshalSize = marshalSize + 2;  // application
+   marshalSize = marshalSize + 2;  // entity
 
-    @XmlAttribute
-    public int getSite() {
-        return site;
-    }
+   return marshalSize;
+}
 
-    public void setApplication(int pApplication) {
-        application = pApplication;
-    }
 
-    @XmlAttribute
-    public int getApplication() {
-        return application;
-    }
+public void setSite(int pSite)
+{ site = pSite;
+}
 
-    public void setEntity(int pEntity) {
-        entity = pEntity;
-    }
+@XmlAttribute
+public int getSite()
+{ return site; 
+}
 
-    @XmlAttribute
-    public int getEntity() {
-        return entity;
-    }
+public void setApplication(int pApplication)
+{ application = pApplication;
+}
 
-    public void marshal(DataOutputStream dos) {
-        try {
-            dos.writeShort((short) site);
-            dos.writeShort((short) application);
-            dos.writeShort((short) entity);
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
+@XmlAttribute
+public int getApplication()
+{ return application; 
+}
+
+public void setEntity(int pEntity)
+{ entity = pEntity;
+}
+
+@XmlAttribute
+public int getEntity()
+{ return entity; 
+}
+
+
+public void marshal(DataOutputStream dos)
+{
+    try 
+    {
+       dos.writeShort( (short)site);
+       dos.writeShort( (short)application);
+       dos.writeShort( (short)entity);
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
     } // end of marshal method
 
-    public void unmarshal(DataInputStream dis) {
-        try {
-            site = dis.readUnsignedShort();
-            application = dis.readUnsignedShort();
-            entity = dis.readUnsignedShort();
-        } // end try
-        catch (Exception e) {
-            System.out.println(e);
-        }
-    } // end of unmarshal method
+public void unmarshal(DataInputStream dis)
+{
+    try 
+    {
+       site = (int)dis.readUnsignedShort();
+       application = (int)dis.readUnsignedShort();
+       entity = (int)dis.readUnsignedShort();
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
+    }
+ } // end of unmarshal method 
 
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    public void marshal(java.nio.ByteBuffer buff) {
-        buff.putShort((short) site);
-        buff.putShort((short) application);
-        buff.putShort((short) entity);
+
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       buff.putShort( (short)site);
+       buff.putShort( (short)application);
+       buff.putShort( (short)entity);
     } // end of marshal method
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        site = (buff.getShort() & 0xFFFF);
-        application = (buff.getShort() & 0xFFFF);
-        entity = (buff.getShort() & 0xFFFF);
-    } // end of unmarshal method
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       site = (int)(buff.getShort() & 0xFFFF);
+       application = (int)(buff.getShort() & 0xFFFF);
+       entity = (int)(buff.getShort() & 0xFFFF);
+ } // end of unmarshal method 
 
-    /**
-     * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return
-     */
-    public boolean equals(EntityID rhs) {
-        boolean ivarsEqual = true;
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(EntityID rhs)
+ {
+     boolean ivarsEqual = true;
 
-        if (!(site == rhs.site)) {
-            ivarsEqual = false;
-        }
-        if (!(application == rhs.application)) {
-            ivarsEqual = false;
-        }
-        if (!(entity == rhs.entity)) {
-            ivarsEqual = false;
-        }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-        return ivarsEqual;
-    }
+     if( ! (site == rhs.site)) ivarsEqual = false;
+     if( ! (application == rhs.application)) ivarsEqual = false;
+     if( ! (entity == rhs.entity)) ivarsEqual = false;
+
+    return ivarsEqual;
+ }
 } // end of class

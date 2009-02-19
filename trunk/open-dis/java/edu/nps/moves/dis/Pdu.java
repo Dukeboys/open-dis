@@ -207,20 +207,21 @@ public class Pdu implements Serializable {
      * A convenience method for marshalling to a byte array. The method will marshal
      * the PDU as is.
      * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
-     * @return the ByteBuffer's byte array with the marshalled {@link Pdu}.
+     * @return a byte array with the marshalled {@link Pdu}.
      * @since ??
      */
     public byte[] marshal() {
-        java.nio.ByteBuffer buff = java.nio.ByteBuffer.allocate(getMarshalledSize());
+        byte[] data = new byte[getMarshalledSize()];
+        java.nio.ByteBuffer buff = java.nio.ByteBuffer.wrap(data);
         marshal(buff);
-        return buff.array();
+        return data;
     }
 
     /**
      * A convieneince method to marshal to a byte array with the timestamp set to
      * the DIS standard for absolute timestamps (which works only if the host is
      * slaved to NTP). This means the timestamp will roll over every hour.
-     * @return
+     * @return IEEE format byte array, with the timestamp set to the current DIS time
      */
     public byte[] marshalWithDisAbsoluteTimestamp() {
         DisTime disTime = DisTime.getInstance();
@@ -232,7 +233,7 @@ public class Pdu implements Serializable {
      * A convieneince method to marshal to a byte array with the timestamp set to
      * the DIS standard for relative timestamps. The timestamp will roll over every
      * hour
-     * @return
+     * @return IEEE format byte array, with the timestamp set to relative DIS time
      */
     public byte[] marshalWithDisRelativeTimestamp() {
         DisTime disTime = DisTime.getInstance();
@@ -244,7 +245,7 @@ public class Pdu implements Serializable {
      * A convienience method to marshal a PDU using the NPS-specific format for
      * timestamps, which is hundredths of a second since the start of the year.
      * This effectively eliminates the rollover issues from a practical standpoint.
-     * @return
+     * @return IEEE format byte array, with the timestamp set to hundredths of a second since the start of the year
      */
     public byte[] marshalWithNpsTimestamp() {
         DisTime disTime = DisTime.getInstance();
@@ -263,7 +264,7 @@ public class Pdu implements Serializable {
      * Note that there are other "Unix times", such milliseconds since 1/1/1970, saved in a long.
      * This cannot be used, since the value is saved in a long. Java's System.getCurrentTimeMillis()
      * uses this value.
-     * @return
+     * @return IEEE format byte array, with the timetamp set to seconds since 1970
      */
     public byte[] marshalWithUnixTimestamp() {
         DisTime disTime = DisTime.getInstance();
@@ -274,7 +275,7 @@ public class Pdu implements Serializable {
     /**
      * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
      * @param rhs
-     * @return
+     * @return true if the instance variables are equal
      */
     public boolean equals(Pdu rhs) {
         boolean ivarsEqual = true;

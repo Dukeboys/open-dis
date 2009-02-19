@@ -23,8 +23,8 @@ public class RepairCompletePdu extends LogisticsFamilyPdu implements Serializabl
    /** Enumeration for type of repair */
    protected int  repair;
 
-   /** padding */
-   protected short  padding = 0;
+   /** padding, number prevents conflict with superclass ivar name */
+   protected short  padding2 = 0;
 
 
 /** Constructor */
@@ -41,7 +41,7 @@ public int getMarshalledSize()
    marshalSize = marshalSize + receivingEntityID.getMarshalledSize();  // receivingEntityID
    marshalSize = marshalSize + repairingEntityID.getMarshalledSize();  // repairingEntityID
    marshalSize = marshalSize + 2;  // repair
-   marshalSize = marshalSize + 2;  // padding
+   marshalSize = marshalSize + 2;  // padding2
 
    return marshalSize;
 }
@@ -74,13 +74,13 @@ public int getRepair()
 { return repair; 
 }
 
-public void setPadding(short pPadding)
-{ padding = pPadding;
+public void setPadding2(short pPadding2)
+{ padding2 = pPadding2;
 }
 
 @XmlAttribute
-public short getPadding()
-{ return padding; 
+public short getPadding2()
+{ return padding2; 
 }
 
 
@@ -92,7 +92,7 @@ public void marshal(DataOutputStream dos)
        receivingEntityID.marshal(dos);
        repairingEntityID.marshal(dos);
        dos.writeShort( (short)repair);
-       dos.writeShort( (short)padding);
+       dos.writeShort( (short)padding2);
     } // end try 
     catch(Exception e)
     { 
@@ -108,7 +108,7 @@ public void unmarshal(DataInputStream dis)
        receivingEntityID.unmarshal(dis);
        repairingEntityID.unmarshal(dis);
        repair = (int)dis.readUnsignedShort();
-       padding = dis.readShort();
+       padding2 = dis.readShort();
     } // end try 
    catch(Exception e)
     { 
@@ -131,7 +131,7 @@ public void marshal(java.nio.ByteBuffer buff)
        receivingEntityID.marshal(buff);
        repairingEntityID.marshal(buff);
        buff.putShort( (short)repair);
-       buff.putShort( (short)padding);
+       buff.putShort( (short)padding2);
     } // end of marshal method
 
 /**
@@ -148,7 +148,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
        receivingEntityID.unmarshal(buff);
        repairingEntityID.unmarshal(buff);
        repair = (int)(buff.getShort() & 0xFFFF);
-       padding = buff.getShort();
+       padding2 = buff.getShort();
  } // end of unmarshal method 
 
 
@@ -165,7 +165,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
      if( ! (receivingEntityID.equals( rhs.receivingEntityID) )) ivarsEqual = false;
      if( ! (repairingEntityID.equals( rhs.repairingEntityID) )) ivarsEqual = false;
      if( ! (repair == rhs.repair)) ivarsEqual = false;
-     if( ! (padding == rhs.padding)) ivarsEqual = false;
+     if( ! (padding2 == rhs.padding2)) ivarsEqual = false;
 
     return ivarsEqual;
  }

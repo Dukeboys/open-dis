@@ -1,5 +1,6 @@
 package edu.nps.moves.dis;
 
+import java.util.*;
 import java.io.*;
 import javax.xml.bind.annotation.*;
 
@@ -10,140 +11,170 @@ import javax.xml.bind.annotation.*;
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
  *
  * @author DMcG
- * @version $Id:$
  */
-public class Marking implements Serializable {
+public class Marking extends Object implements Serializable
+{
+   /** The character set */
+   protected short  characterSet;
 
-    /** The character set */
-    protected short characterSet;
+   /** The characters */
+   protected byte[]  characters = new byte[11]; 
 
-    /** The characters */
-    protected byte[] characters = new byte[11];
 
-    /** Constructor */
-    public Marking() {}
+/** Constructor */
+ public Marking()
+ {
+ }
 
-    public int getMarshalledSize() {
-        int marshalSize = 0;
+public int getMarshalledSize()
+{
+   int marshalSize = 0; 
 
-        marshalSize += 1;  // characterSet
-        marshalSize += 11; // characters
+   marshalSize = marshalSize + 1;  // characterSet
+   marshalSize = marshalSize + 11 * 1;  // characters
 
-        return marshalSize;
-    }
+   return marshalSize;
+}
 
-    /**
-     * Typically US-ASCII
-     * @param pCharacterSet
-     */
-    public void setCharacterSet(short pCharacterSet) {
-        characterSet = pCharacterSet;
-    }
 
-    @XmlAttribute
-    public short getCharacterSet() {
-        return characterSet;
-    }
+public void setCharacterSet(short pCharacterSet)
+{ characterSet = pCharacterSet;
+}
 
-    /**
-     * Ensure what is set does not go over 11 characters -- post-processing patch
-     * @param pCharacters an array of characters to set
-     */
-    public void setCharacters(byte[] pCharacters) {
-        if (pCharacters.length >= characters.length) {
+@XmlAttribute
+public short getCharacterSet()
+{ return characterSet; 
+}
+
+/**
+ * Ensure what is set does not go over 11 characters -- post-processing patch
+ * @param pCharacters an array of characters to set
+ */
+public void setCharacters(byte[] pCharacters) 
+{
+  if (pCharacters.length >= characters.length) 
+  {
             System.arraycopy(pCharacters, 0, characters, 0, characters.length);
-        } else {
-            int pCharactersLength = pCharacters.length;
-            System.arraycopy(pCharacters, 0, characters, 0, pCharactersLength);
-            for (int ix = pCharactersLength; ix < characters.length; ix++) {
-
-                // Ensure all zeros in unfilled fields
-                characters[ix] = 0;
-            }
-        }
+  } 
+  else 
+  {
+    int pCharactersLength = pCharacters.length;
+    System.arraycopy(pCharacters, 0, characters, 0, pCharactersLength);
+    for (int ix = pCharactersLength; ix < characters.length; ix++) 
+    {
+        // Ensure all zeros in unfilled fields
+        characters[ix] = 0;
     }
+  }
+}
+ 
+/**
+ * An added convieniece method (added by patch): accepts a string, and either
+ * truncates or zero-fills it to fit into the 11-byte character marking field.
+ * @param marking the marking string, converted internally into a character array that
+ * is exactly 11 bytes long
+ */
+public void setCharacters(String marking)
+{
+    byte[] buff = marking.getBytes();
+    this.setCharacters(buff);
+}
+    
 
-    @XmlElement(name = "characters")
-    public byte[] getCharacters() {
-        return characters;
-    }
 
-    public void marshal(DataOutputStream dos) {
-        try {
-            dos.writeByte((byte) characterSet);
+@XmlElement(name="characters" )
+public byte[] getCharacters()
+{ return characters; }
 
-            for (int idx = 0; idx < characters.length; idx++) {
-                dos.writeByte(characters[idx]);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
 
-    public void unmarshal(DataInputStream dis) {
-        try {
-            characterSet = (short) dis.readUnsignedByte();
-            for (int idx = 0; idx < characters.length; idx++) {
+public void marshal(DataOutputStream dos)
+{
+    try 
+    {
+       dos.writeByte( (byte)characterSet);
+
+       for(int idx = 0; idx < characters.length; idx++)
+       {
+           dos.writeByte(characters[idx]);
+       } // end of array marshaling
+
+    } // end try 
+    catch(Exception e)
+    { 
+      System.out.println(e);}
+    } // end of marshal method
+
+public void unmarshal(DataInputStream dis)
+{
+    try 
+    {
+       characterSet = (short)dis.readUnsignedByte();
+       for(int idx = 0; idx < characters.length; idx++)
+       {
                 characters[idx] = dis.readByte();
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+       } // end of array unmarshaling
+    } // end try 
+   catch(Exception e)
+    { 
+      System.out.println(e); 
     }
+ } // end of unmarshal method 
 
-    /**
-     * Packs a Pdu into the ByteBuffer.
-     * @throws java.nio.BufferOverflowException if buff is too small
-     * @throws java.nio.ReadOnlyBufferException if buff is read only
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin writing
-     * @since ??
-     */
-    public void marshal(java.nio.ByteBuffer buff) {
-        buff.put((byte) characterSet);
 
-        for (byte character : characters) {
-            buff.put(character);
-        }
-    }
+/**
+ * Packs a Pdu into the ByteBuffer.
+ * @throws java.nio.BufferOverflowException if buff is too small
+ * @throws java.nio.ReadOnlyBufferException if buff is read only
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin writing
+ * @since ??
+ */
+public void marshal(java.nio.ByteBuffer buff)
+{
+       buff.put( (byte)characterSet);
 
-    /**
-     * Unpacks a Pdu from the underlying data.
-     * @throws java.nio.BufferUnderflowException if buff is too small
-     * @see java.nio.ByteBuffer
-     * @param buff The ByteBuffer at the position to begin reading
-     * @since ??
-     */
-    public void unmarshal(java.nio.ByteBuffer buff) {
-        characterSet = (short) (buff.get() & 0xFF);
-        for (int idx = 0; idx < characters.length; idx++) {
-            characters[idx] = buff.get();
-        }
-    }
+       for(int idx = 0; idx < characters.length; idx++)
+       {
+           buff.put(characters[idx]);
+       } // end of array marshaling
 
-    /**
-     * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
-     * @param rhs
-     * @return
-     */
-    public boolean equals(Marking rhs) {
-        boolean ivarsEqual = true;
+    } // end of marshal method
 
-        if (rhs.getClass() != this.getClass()) {
-            return false;
-        }
+/**
+ * Unpacks a Pdu from the underlying data.
+ * @throws java.nio.BufferUnderflowException if buff is too small
+ * @see java.nio.ByteBuffer
+ * @param buff The ByteBuffer at the position to begin reading
+ * @since ??
+ */
+public void unmarshal(java.nio.ByteBuffer buff)
+{
+       characterSet = (short)(buff.get() & 0xFF);
+       for(int idx = 0; idx < characters.length; idx++)
+       {
+                characters[idx] = buff.get();
+       } // end of array unmarshaling
+ } // end of unmarshal method 
 
-        if (!(characterSet == rhs.characterSet)) {
-            ivarsEqual = false;
-        }
 
-        for (int idx = 0; idx < 11; idx++) {
-            if (!(characters[idx] == rhs.characters[idx])) {
-                ivarsEqual = false;
-            }
-        }
+ /**
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+ public boolean equals(Marking rhs)
+ {
+     boolean ivarsEqual = true;
 
-        return ivarsEqual;
-    }
+    if(rhs.getClass() != this.getClass())
+        return false;
 
-} // end of class file Marking.java
+     if( ! (characterSet == rhs.characterSet)) ivarsEqual = false;
+
+     for(int idx = 0; idx < 11; idx++)
+     {
+          if(!(characters[idx] == rhs.characters[idx])) ivarsEqual = false;
+     }
+
+
+    return ivarsEqual;
+ }
+} // end of class
