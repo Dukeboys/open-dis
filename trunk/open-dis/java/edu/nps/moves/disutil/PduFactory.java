@@ -46,7 +46,7 @@ public class PduFactory {
      * PDU factory. Pass in an array of bytes, get the correct type of pdu back,
      * based on the PDU type field contained in the byte array.
      * @param data
-     * @return
+     * @return A PDU of the appropriate concrete subclass of PDU
      */
     public Pdu createPdu(byte data[]) {
         // Promote a signed byte to an int, then do a bitwise AND to wipe out everthing but the 
