@@ -35,12 +35,16 @@ public class CsharpGenerator extends Generator
      */
     Properties csharpProperties;
 
+	//PES 02/10/2009 Added to save all classes linked to Upper Class (PDU)
+	//Will be used to allow automatic setting of Length when Marshall method called
+	Map<String, String> classesInstantiated = new HashMap<String, String>();
+
 	public CsharpGenerator(HashMap pClassDescriptions, String pDirectory, Properties pCsharpProperties)
     {
         super(pClassDescriptions, pDirectory, pCsharpProperties);
 
-		System.out.println("CsharpProperties : ");
-		pCsharpProperties.list(System.out);
+		//System.out.println("CsharpProperties : ");
+		//pCsharpProperties.list(System.out);
 
         // Set up a mapping between the strings used in the XML file and the strings used
         // in the C# file, specifically the data types. This could be externalized to
@@ -107,7 +111,31 @@ public class CsharpGenerator extends Generator
         this.createDirectory();
         
         Iterator it = classDescriptions.values().iterator();
-        
+
+	System.out.println("Creating C# source code.");
+
+
+
+	//PES 02/10/2009 used to store all classes
+	Iterator it2 = classDescriptions.values().iterator();
+	
+		while (it2.hasNext())
+		{
+			GeneratedClass aClass = (GeneratedClass)it2.next();
+			String name = aClass.getName();
+
+			String parentClass = aClass.getParentClass();
+			
+			if (parentClass.equalsIgnoreCase("root"))
+			{
+				parentClass = "Object";
+			}
+
+			classesInstantiated.put(aClass.getName(), parentClass);
+		}
+
+		//END storing all Classes
+
         while(it.hasNext())
         {
             try
@@ -131,7 +159,7 @@ public class CsharpGenerator extends Generator
              {
                    fullPath = directory + "/" + name + ".cs";
              }
-              System.out.println("Creating Csharp source code file for " + fullPath);
+              //System.out.println("Creating Csharp source code file for " + fullPath);
               
               // Create the new, empty file, and create printwriter object for output to it
               File outputFile = new File(fullPath);
@@ -297,8 +325,7 @@ public class CsharpGenerator extends Generator
 			{
 				pw.println("[XmlInclude(typeof(" + anAttribute.getType() + "))]");
 			}
-		}
-
+		}		
 
 		pw.println("public class " + aClass.getName() + " : " + parentClass);
 
@@ -841,14 +868,91 @@ public class CsharpGenerator extends Generator
 	{
 		List ivars = aClass.getClassAttributes();
 
+		String baseclassName = aClass.getParentClass();
+
+		//PES 02/10/2009 Added to support auto setting of length field
+		if (!baseclassName.equalsIgnoreCase("root"))
+		{
+			boolean exitLoop = false;
+			boolean foundMatch = true;
+			String matchValue = baseclassName;
+			String key = "";
+
+
+
+			if (!matchValue.equalsIgnoreCase("pdu"))
+			{
+				do
+				{
+					key = "";
+					foundMatch = false;
+
+
+					if (classesInstantiated.containsKey(matchValue))
+					{
+						key = classesInstantiated.get(matchValue);
+					}
+					else
+					{
+						//No match to key, get out
+						break;
+					}
+
+
+					//There was a key test if the upper class is PDU.
+					//If so then can add new method to retrieve pdu length
+					if (!key.equals(null))
+					{
+						matchValue = key;
+						foundMatch = true;
+
+						if (key.equalsIgnoreCase("pdu"))
+						{
+							exitLoop = true;
+						}
+					}
+
+
+					//If match not found at this point then get out
+					if (foundMatch == false)
+					{
+						exitLoop = true;
+					}
+
+				} while (exitLoop == false);
+
+			}
+
+			if (foundMatch == true)
+			{
+				//System.out.println("Found PDU writing data");
+
+				pw.println("///<summary>");
+				pw.println("///Automatically sets the length of the marshalled data, then calls the marshal method.");
+				pw.println("///</summary>");
+				pw.println("public void marshalAutoLengthSet(DataOutputStream dos)");
+				pw.println("{");
+				pw.println("       //Set the length prior to marshalling data");
+				pw.println("       this.setLength((ushort)this.getMarshalledSize());");
+				pw.println("       this.marshal(dos);");
+				pw.println("}");
+			}
+
+		}
+
+
+
 		pw.println();
+		pw.println("///<summary>");
+		pw.println("///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method");
+		pw.println("///</summary>");
 		pw.println("public void marshal(DataOutputStream dos)");
 		pw.println("{");
 
 		// If we're a base class of another class, we should first call base
 		// to make sure the base's ivars are marshaled out.
 
-		String baseclassName = aClass.getParentClass();
+		
 		if (!(baseclassName.equalsIgnoreCase("root")))
 		{
 			pw.println("    base.marshal(dos);");
@@ -1225,6 +1329,13 @@ public class CsharpGenerator extends Generator
 		String tab = "\\t ";
 
 		pw.println();
+		pw.println("   ///<summary>");
+		pw.println("   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.");
+		pw.println("   ///This will be modified in the future to provide a better display.  Usage: ");
+		pw.println("   ///pdu.GetType().InvokeMember(\"reflection\", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });");
+		pw.println("   ///where pdu is an object representing a single pdu and sb is a StringBuilder.");
+		pw.println("   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality");
+		pw.println("   ///</summary>");
 		pw.println("public void reflection(StringBuilder sb)");
 		pw.println("{");
 
