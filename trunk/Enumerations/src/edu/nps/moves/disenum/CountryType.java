@@ -301,13 +301,15 @@ public enum CountryType
  * and that slot containing the enumerated object. Use to look up enumerated object when you have the value
  */
 static public CountryType lookup[] = new CountryType[267];
+static private HashMap<Integer, CountryType>enumerations = new HashMap<Integer, CountryType>();
 
-/* initialize the array at class load time */
+/* initialize the array and hash table at class load time */
 static 
 {
     for(CountryType anEnum:CountryType.values())
     {
         lookup[anEnum.value] = anEnum;
+        enumerations.put(new Integer(anEnum.getValue()), anEnum);
     }
 }
 
