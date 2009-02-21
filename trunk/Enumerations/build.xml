@@ -86,6 +86,9 @@
               </fileset>
           </classpath>
         </javadoc>
+        <copy todir="docs" overwrite="true">
+          <fileset dir="dist/docs"/>
+        </copy>
     </target>
     
     <target name="dist" depends="init, generateEbvClasses, run, compile, javadoc, jar" description="do everything">
@@ -96,7 +99,7 @@
         <delete dir="${dist}"/>
         <delete>
           <fileset dir="src/edu/nps/moves/disenum" includes="*.java"/>
+          <fileset dir="src/edu/nps/moves/siso/jaxb" includes="*.java"/>
         </delete>
-        <delete dir="src/edu/nps/moves/siso/jaxb"/>
     </target>
 </project>
