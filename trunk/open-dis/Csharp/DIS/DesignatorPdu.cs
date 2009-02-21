@@ -63,6 +63,9 @@ public class DesignatorPdu : DistributedEmissionsFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.7.2. Handles designating operations. COMPLETE
+   ///</summary>
  public DesignatorPdu()
  {
     PduType = (byte)24;
@@ -90,14 +93,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of the entity designating
+   ///</summary>
 public void setDesignatingEntityID(EntityID pDesignatingEntityID)
 { _designatingEntityID = pDesignatingEntityID;
 }
 
+   ///<summary>
+   ///ID of the entity designating
+   ///</summary>
 public EntityID getDesignatingEntityID()
 { return _designatingEntityID; 
 }
 
+   ///<summary>
+   ///ID of the entity designating
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="designatingEntityID")]
 public EntityID DesignatingEntityID
 {
@@ -111,6 +123,9 @@ public EntityID DesignatingEntityID
 }
 }
 
+   ///<summary>
+   ///This field shall specify a unique emitter database number assigned to  differentiate between otherwise similar or identical emitter beams within an emitter system.
+   ///</summary>
 public void setCodeName(ushort pCodeName)
 { _codeName = pCodeName;
 }
@@ -128,14 +143,23 @@ public ushort CodeName
 }
 }
 
+   ///<summary>
+   ///ID of the entity being designated
+   ///</summary>
 public void setDesignatedEntityID(EntityID pDesignatedEntityID)
 { _designatedEntityID = pDesignatedEntityID;
 }
 
+   ///<summary>
+   ///ID of the entity being designated
+   ///</summary>
 public EntityID getDesignatedEntityID()
 { return _designatedEntityID; 
 }
 
+   ///<summary>
+   ///ID of the entity being designated
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="designatedEntityID")]
 public EntityID DesignatedEntityID
 {
@@ -149,6 +173,9 @@ public EntityID DesignatedEntityID
 }
 }
 
+   ///<summary>
+   ///This field shall identify the designator code being used by the designating entity 
+   ///</summary>
 public void setDesignatorCode(ushort pDesignatorCode)
 { _designatorCode = pDesignatorCode;
 }
@@ -166,6 +193,9 @@ public ushort DesignatorCode
 }
 }
 
+   ///<summary>
+   ///This field shall identify the designator output power in watts
+   ///</summary>
 public void setDesignatorPower(float pDesignatorPower)
 { _designatorPower = pDesignatorPower;
 }
@@ -183,6 +213,9 @@ public float DesignatorPower
 }
 }
 
+   ///<summary>
+   ///This field shall identify the designator wavelength in units of microns
+   ///</summary>
 public void setDesignatorWavelength(float pDesignatorWavelength)
 { _designatorWavelength = pDesignatorWavelength;
 }
@@ -200,14 +233,23 @@ public float DesignatorWavelength
 }
 }
 
+   ///<summary>
+   ///designtor spot wrt the designated entity
+   ///</summary>
 public void setDesignatorSpotWrtDesignated(Vector3Float pDesignatorSpotWrtDesignated)
 { _designatorSpotWrtDesignated = pDesignatorSpotWrtDesignated;
 }
 
+   ///<summary>
+   ///designtor spot wrt the designated entity
+   ///</summary>
 public Vector3Float getDesignatorSpotWrtDesignated()
 { return _designatorSpotWrtDesignated; 
 }
 
+   ///<summary>
+   ///designtor spot wrt the designated entity
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="designatorSpotWrtDesignated")]
 public Vector3Float DesignatorSpotWrtDesignated
 {
@@ -221,14 +263,23 @@ public Vector3Float DesignatorSpotWrtDesignated
 }
 }
 
+   ///<summary>
+   ///designtor spot wrt the designated entity
+   ///</summary>
 public void setDesignatorSpotLocation(Vector3Double pDesignatorSpotLocation)
 { _designatorSpotLocation = pDesignatorSpotLocation;
 }
 
+   ///<summary>
+   ///designtor spot wrt the designated entity
+   ///</summary>
 public Vector3Double getDesignatorSpotLocation()
 { return _designatorSpotLocation; 
 }
 
+   ///<summary>
+   ///designtor spot wrt the designated entity
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="designatorSpotLocation")]
 public Vector3Double DesignatorSpotLocation
 {
@@ -242,6 +293,9 @@ public Vector3Double DesignatorSpotLocation
 }
 }
 
+   ///<summary>
+   ///Dead reckoning algorithm
+   ///</summary>
 public void setDeadReckoningAlgorithm(byte pDeadReckoningAlgorithm)
 { _deadReckoningAlgorithm = pDeadReckoningAlgorithm;
 }
@@ -259,6 +313,9 @@ public byte DeadReckoningAlgorithm
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding1(ushort pPadding1)
 { _padding1 = pPadding1;
 }
@@ -276,6 +333,9 @@ public ushort Padding1
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding2(byte pPadding2)
 { _padding2 = pPadding2;
 }
@@ -293,14 +353,23 @@ public byte Padding2
 }
 }
 
+   ///<summary>
+   ///linear accelleration of entity
+   ///</summary>
 public void setEntityLinearAcceleration(Vector3Float pEntityLinearAcceleration)
 { _entityLinearAcceleration = pEntityLinearAcceleration;
 }
 
+   ///<summary>
+   ///linear accelleration of entity
+   ///</summary>
 public Vector3Float getEntityLinearAcceleration()
 { return _entityLinearAcceleration; 
 }
 
+   ///<summary>
+   ///linear accelleration of entity
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="entityLinearAcceleration")]
 public Vector3Float EntityLinearAcceleration
 {
@@ -314,7 +383,19 @@ public Vector3Float EntityLinearAcceleration
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -367,6 +448,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- DesignatorPdu-----"  + System.Environment.NewLine);
@@ -399,7 +487,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(DesignatorPdu rhs)
  {

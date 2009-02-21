@@ -45,9 +45,12 @@ public class EntityStateUpdatePdu : EntityInformationFamilyPdu
    /** a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc. */
    protected uint  _entityAppearance;
 
-   protected List<object> _articulationParameters = new List<object>(); 
+   protected List<ArticulationParameter> _articulationParameters = new List<ArticulationParameter>(); 
 
 /** Constructor */
+   ///<summary>
+   ///5.3.3.4. Nonstatic information about a particular entity may be communicated by issuing an Entity State Update PDU. COMPLETE
+   ///</summary>
  public EntityStateUpdatePdu()
  {
     PduType = (byte)67;
@@ -75,14 +78,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///This field shall identify the entity issuing the PDU
+   ///</summary>
 public void setEntityID(EntityID pEntityID)
 { _entityID = pEntityID;
 }
 
+   ///<summary>
+   ///This field shall identify the entity issuing the PDU
+   ///</summary>
 public EntityID getEntityID()
 { return _entityID; 
 }
 
+   ///<summary>
+   ///This field shall identify the entity issuing the PDU
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="entityID")]
 public EntityID EntityID
 {
@@ -96,14 +108,50 @@ public EntityID EntityID
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfArticulationParameters(byte pNumberOfArticulationParameters)
+{ _numberOfArticulationParameters = pNumberOfArticulationParameters;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfArticulationParameters")]
+public byte NumberOfArticulationParameters
+{
+     get
+     {
+          return _numberOfArticulationParameters;
+     }
+     set
+     {
+          _numberOfArticulationParameters = value;
+     }
+}
+
+   ///<summary>
+   ///Describes the speed of the entity in the world
+   ///</summary>
 public void setEntityLinearVelocity(Vector3Float pEntityLinearVelocity)
 { _entityLinearVelocity = pEntityLinearVelocity;
 }
 
+   ///<summary>
+   ///Describes the speed of the entity in the world
+   ///</summary>
 public Vector3Float getEntityLinearVelocity()
 { return _entityLinearVelocity; 
 }
 
+   ///<summary>
+   ///Describes the speed of the entity in the world
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="entityLinearVelocity")]
 public Vector3Float EntityLinearVelocity
 {
@@ -117,14 +165,23 @@ public Vector3Float EntityLinearVelocity
 }
 }
 
+   ///<summary>
+   ///describes the location of the entity in the world
+   ///</summary>
 public void setEntityLocation(Vector3Double pEntityLocation)
 { _entityLocation = pEntityLocation;
 }
 
+   ///<summary>
+   ///describes the location of the entity in the world
+   ///</summary>
 public Vector3Double getEntityLocation()
 { return _entityLocation; 
 }
 
+   ///<summary>
+   ///describes the location of the entity in the world
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="entityLocation")]
 public Vector3Double EntityLocation
 {
@@ -138,14 +195,23 @@ public Vector3Double EntityLocation
 }
 }
 
+   ///<summary>
+   ///describes the orientation of the entity, in euler angles
+   ///</summary>
 public void setEntityOrientation(Orientation pEntityOrientation)
 { _entityOrientation = pEntityOrientation;
 }
 
+   ///<summary>
+   ///describes the orientation of the entity, in euler angles
+   ///</summary>
 public Orientation getEntityOrientation()
 { return _entityOrientation; 
 }
 
+   ///<summary>
+   ///describes the orientation of the entity, in euler angles
+   ///</summary>
 [XmlElement(Type= typeof(Orientation), ElementName="entityOrientation")]
 public Orientation EntityOrientation
 {
@@ -159,6 +225,9 @@ public Orientation EntityOrientation
 }
 }
 
+   ///<summary>
+   ///a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc.
+   ///</summary>
 public void setEntityAppearance(uint pEntityAppearance)
 { _entityAppearance = pEntityAppearance;
 }
@@ -176,15 +245,15 @@ public uint EntityAppearance
 }
 }
 
-public void setArticulationParameters(List<object> pArticulationParameters)
+public void setArticulationParameters(List<ArticulationParameter> pArticulationParameters)
 { _articulationParameters = pArticulationParameters;
 }
 
-public List<object> getArticulationParameters()
+public List<ArticulationParameter> getArticulationParameters()
 { return _articulationParameters; }
 
-[XmlElement(ElementName = "articulationParametersList",Type = typeof(List<object>))]
-public List<object> ArticulationParameters
+[XmlElement(ElementName = "articulationParametersList",Type = typeof(List<ArticulationParameter>))]
+public List<ArticulationParameter> ArticulationParameters
 {
      get
 {
@@ -196,7 +265,19 @@ public List<object> ArticulationParameters
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -251,6 +332,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- EntityStateUpdatePdu-----"  + System.Environment.NewLine);
@@ -284,7 +372,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(EntityStateUpdatePdu rhs)
  {

@@ -40,6 +40,9 @@ public class ReceiverPdu : RadioCommunicationsFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.8.3. Communication of a receiver state. COMPLETE
+   ///</summary>
  public ReceiverPdu()
  {
     PduType = (byte)27;
@@ -60,6 +63,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///encoding scheme used, and enumeration
+   ///</summary>
 public void setReceiverState(ushort pReceiverState)
 { _receiverState = pReceiverState;
 }
@@ -77,6 +83,9 @@ public ushort ReceiverState
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding1(ushort pPadding1)
 { _padding1 = pPadding1;
 }
@@ -94,6 +103,9 @@ public ushort Padding1
 }
 }
 
+   ///<summary>
+   ///received power
+   ///</summary>
 public void setReceivedPoser(float pReceivedPoser)
 { _receivedPoser = pReceivedPoser;
 }
@@ -111,14 +123,23 @@ public float ReceivedPoser
 }
 }
 
+   ///<summary>
+   ///ID of transmitter
+   ///</summary>
 public void setTransmitterEntityId(EntityID pTransmitterEntityId)
 { _transmitterEntityId = pTransmitterEntityId;
 }
 
+   ///<summary>
+   ///ID of transmitter
+   ///</summary>
 public EntityID getTransmitterEntityId()
 { return _transmitterEntityId; 
 }
 
+   ///<summary>
+   ///ID of transmitter
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="transmitterEntityId")]
 public EntityID TransmitterEntityId
 {
@@ -132,6 +153,9 @@ public EntityID TransmitterEntityId
 }
 }
 
+   ///<summary>
+   ///ID of transmitting radio
+   ///</summary>
 public void setTransmitterRadioId(ushort pTransmitterRadioId)
 { _transmitterRadioId = pTransmitterRadioId;
 }
@@ -149,7 +173,19 @@ public ushort TransmitterRadioId
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -188,6 +224,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- ReceiverPdu-----"  + System.Environment.NewLine);
@@ -209,7 +252,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(ReceiverPdu rhs)
  {

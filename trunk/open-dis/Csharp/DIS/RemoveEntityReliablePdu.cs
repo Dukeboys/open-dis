@@ -36,6 +36,9 @@ public class RemoveEntityReliablePdu : SimulationManagementWithReliabilityFamily
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.12.2: Removal of an entity , reliable. COMPLETE
+   ///</summary>
  public RemoveEntityReliablePdu()
  {
     PduType = (byte)52;
@@ -55,6 +58,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///level of reliability service used for this transaction
+   ///</summary>
 public void setRequiredReliabilityService(byte pRequiredReliabilityService)
 { _requiredReliabilityService = pRequiredReliabilityService;
 }
@@ -72,6 +78,9 @@ public byte RequiredReliabilityService
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad1(ushort pPad1)
 { _pad1 = pPad1;
 }
@@ -89,6 +98,9 @@ public ushort Pad1
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad2(byte pPad2)
 { _pad2 = pPad2;
 }
@@ -106,6 +118,9 @@ public byte Pad2
 }
 }
 
+   ///<summary>
+   ///Request ID
+   ///</summary>
 public void setRequestID(uint pRequestID)
 { _requestID = pRequestID;
 }
@@ -123,7 +138,19 @@ public uint RequestID
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -160,6 +187,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- RemoveEntityReliablePdu-----"  + System.Environment.NewLine);
@@ -179,7 +213,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(RemoveEntityReliablePdu rhs)
  {

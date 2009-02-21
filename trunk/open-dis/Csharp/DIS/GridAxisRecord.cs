@@ -30,6 +30,9 @@ public class GridAxisRecord : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///5.2.44: Grid data record, a common abstract superclass for several subtypes 
+   ///</summary>
  public GridAxisRecord()
  {
  }
@@ -45,6 +48,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///type of environmental sample
+   ///</summary>
 public void setSampleType(ushort pSampleType)
 { _sampleType = pSampleType;
 }
@@ -62,6 +68,9 @@ public ushort SampleType
 }
 }
 
+   ///<summary>
+   ///value that describes data representation
+   ///</summary>
 public void setDataRepresentation(ushort pDataRepresentation)
 { _dataRepresentation = pDataRepresentation;
 }
@@ -80,6 +89,9 @@ public ushort DataRepresentation
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -109,6 +121,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- GridAxisRecord-----"  + System.Environment.NewLine);
@@ -125,7 +144,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(GridAxisRecord rhs)
  {

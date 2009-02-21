@@ -46,11 +46,14 @@ public class DataQueryReliablePdu : SimulationManagementWithReliabilityFamilyPdu
    protected uint  _numberOfVariableDatumRecords;
 
    /** Fixed datum records */
-   protected List<object> _fixedDatumRecords = new List<object>(); 
+   protected List<FixedDatum> _fixedDatumRecords = new List<FixedDatum>(); 
    /** Variable datum records */
-   protected List<object> _variableDatumRecords = new List<object>(); 
+   protected List<VariableDatum> _variableDatumRecords = new List<VariableDatum>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.12.8: request for data from an entity. COMPLETE
+   ///</summary>
  public DataQueryReliablePdu()
  {
     PduType = (byte)58;
@@ -83,6 +86,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///level of reliability service used for this transaction
+   ///</summary>
 public void setRequiredReliabilityService(byte pRequiredReliabilityService)
 { _requiredReliabilityService = pRequiredReliabilityService;
 }
@@ -100,6 +106,9 @@ public byte RequiredReliabilityService
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad1(ushort pPad1)
 { _pad1 = pPad1;
 }
@@ -117,6 +126,9 @@ public ushort Pad1
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad2(byte pPad2)
 { _pad2 = pPad2;
 }
@@ -134,6 +146,9 @@ public byte Pad2
 }
 }
 
+   ///<summary>
+   ///request ID
+   ///</summary>
 public void setRequestID(uint pRequestID)
 { _requestID = pRequestID;
 }
@@ -151,6 +166,9 @@ public uint RequestID
 }
 }
 
+   ///<summary>
+   ///time interval between issuing data query PDUs
+   ///</summary>
 public void setTimeInterval(uint pTimeInterval)
 { _timeInterval = pTimeInterval;
 }
@@ -168,15 +186,78 @@ public uint TimeInterval
 }
 }
 
-public void setFixedDatumRecords(List<object> pFixedDatumRecords)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfFixedDatumRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfFixedDatumRecords(uint pNumberOfFixedDatumRecords)
+{ _numberOfFixedDatumRecords = pNumberOfFixedDatumRecords;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfFixedDatumRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(uint), ElementName="numberOfFixedDatumRecords")]
+public uint NumberOfFixedDatumRecords
+{
+     get
+     {
+          return _numberOfFixedDatumRecords;
+     }
+     set
+     {
+          _numberOfFixedDatumRecords = value;
+     }
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfVariableDatumRecords(uint pNumberOfVariableDatumRecords)
+{ _numberOfVariableDatumRecords = pNumberOfVariableDatumRecords;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(uint), ElementName="numberOfVariableDatumRecords")]
+public uint NumberOfVariableDatumRecords
+{
+     get
+     {
+          return _numberOfVariableDatumRecords;
+     }
+     set
+     {
+          _numberOfVariableDatumRecords = value;
+     }
+}
+
+   ///<summary>
+   ///Fixed datum records
+   ///</summary>
+public void setFixedDatumRecords(List<FixedDatum> pFixedDatumRecords)
 { _fixedDatumRecords = pFixedDatumRecords;
 }
 
-public List<object> getFixedDatumRecords()
+   ///<summary>
+   ///Fixed datum records
+   ///</summary>
+public List<FixedDatum> getFixedDatumRecords()
 { return _fixedDatumRecords; }
 
-[XmlElement(ElementName = "fixedDatumRecordsList",Type = typeof(List<object>))]
-public List<object> FixedDatumRecords
+   ///<summary>
+   ///Fixed datum records
+   ///</summary>
+[XmlElement(ElementName = "fixedDatumRecordsList",Type = typeof(List<FixedDatum>))]
+public List<FixedDatum> FixedDatumRecords
 {
      get
 {
@@ -188,15 +269,24 @@ public List<object> FixedDatumRecords
 }
 }
 
-public void setVariableDatumRecords(List<object> pVariableDatumRecords)
+   ///<summary>
+   ///Variable datum records
+   ///</summary>
+public void setVariableDatumRecords(List<VariableDatum> pVariableDatumRecords)
 { _variableDatumRecords = pVariableDatumRecords;
 }
 
-public List<object> getVariableDatumRecords()
+   ///<summary>
+   ///Variable datum records
+   ///</summary>
+public List<VariableDatum> getVariableDatumRecords()
 { return _variableDatumRecords; }
 
-[XmlElement(ElementName = "variableDatumRecordsList",Type = typeof(List<object>))]
-public List<object> VariableDatumRecords
+   ///<summary>
+   ///Variable datum records
+   ///</summary>
+[XmlElement(ElementName = "variableDatumRecordsList",Type = typeof(List<VariableDatum>))]
+public List<VariableDatum> VariableDatumRecords
 {
      get
 {
@@ -208,7 +298,19 @@ public List<object> VariableDatumRecords
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -279,6 +381,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- DataQueryReliablePdu-----"  + System.Environment.NewLine);
@@ -317,7 +426,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(DataQueryReliablePdu rhs)
  {

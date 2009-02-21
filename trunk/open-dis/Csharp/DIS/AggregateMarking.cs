@@ -30,6 +30,9 @@ public class AggregateMarking : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.2.37. Specifies the character set used inthe first byte, followed by up to 31 characters of text data.
+   ///</summary>
  public AggregateMarking()
  {
  }
@@ -45,6 +48,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///The character set
+   ///</summary>
 public void setCharacterSet(byte pCharacterSet)
 { _characterSet = pCharacterSet;
 }
@@ -62,13 +68,22 @@ public byte CharacterSet
 }
 }
 
+   ///<summary>
+   ///The characters
+   ///</summary>
 public void setCharacters(byte[] pCharacters)
 { _characters = pCharacters;
 }
 
+   ///<summary>
+   ///The characters
+   ///</summary>
 public byte[] getCharacters()
 { return _characters; }
 
+   ///<summary>
+   ///The characters
+   ///</summary>
 [XmlArray(ElementName="characters")]
 public byte[] Characters
 {
@@ -83,6 +98,9 @@ public byte[] Characters
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -120,6 +138,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- AggregateMarking-----"  + System.Environment.NewLine);
@@ -141,7 +166,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(AggregateMarking rhs)
  {

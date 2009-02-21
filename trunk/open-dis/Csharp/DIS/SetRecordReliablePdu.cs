@@ -39,9 +39,12 @@ public class SetRecordReliablePdu : SimulationManagementWithReliabilityFamilyPdu
    protected uint  _numberOfRecordSets;
 
    /** record sets */
-   protected List<object> _recordSets = new List<object>(); 
+   protected List<RecordSet> _recordSets = new List<RecordSet>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.12.14: Initializing or changing internal parameter info. Needs manual intervention     to fix padding in recrod set PDUs. UNFINISHED
+   ///</summary>
  public SetRecordReliablePdu()
  {
     PduType = (byte)64;
@@ -67,6 +70,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///request ID
+   ///</summary>
 public void setRequestID(uint pRequestID)
 { _requestID = pRequestID;
 }
@@ -84,6 +90,9 @@ public uint RequestID
 }
 }
 
+   ///<summary>
+   ///level of reliability service used for this transaction
+   ///</summary>
 public void setRequiredReliabilityService(byte pRequiredReliabilityService)
 { _requiredReliabilityService = pRequiredReliabilityService;
 }
@@ -101,6 +110,9 @@ public byte RequiredReliabilityService
 }
 }
 
+   ///<summary>
+   ///padding. The spec is unclear and contradictory here.
+   ///</summary>
 public void setPad1(ushort pPad1)
 { _pad1 = pPad1;
 }
@@ -118,6 +130,9 @@ public ushort Pad1
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad2(byte pPad2)
 { _pad2 = pPad2;
 }
@@ -135,15 +150,51 @@ public byte Pad2
 }
 }
 
-public void setRecordSets(List<object> pRecordSets)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfRecordSets method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfRecordSets(uint pNumberOfRecordSets)
+{ _numberOfRecordSets = pNumberOfRecordSets;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfRecordSets method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(uint), ElementName="numberOfRecordSets")]
+public uint NumberOfRecordSets
+{
+     get
+     {
+          return _numberOfRecordSets;
+     }
+     set
+     {
+          _numberOfRecordSets = value;
+     }
+}
+
+   ///<summary>
+   ///record sets
+   ///</summary>
+public void setRecordSets(List<RecordSet> pRecordSets)
 { _recordSets = pRecordSets;
 }
 
-public List<object> getRecordSets()
+   ///<summary>
+   ///record sets
+   ///</summary>
+public List<RecordSet> getRecordSets()
 { return _recordSets; }
 
-[XmlElement(ElementName = "recordSetsList",Type = typeof(List<object>))]
-public List<object> RecordSets
+   ///<summary>
+   ///record sets
+   ///</summary>
+[XmlElement(ElementName = "recordSetsList",Type = typeof(List<RecordSet>))]
+public List<RecordSet> RecordSets
 {
      get
 {
@@ -155,7 +206,19 @@ public List<object> RecordSets
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -208,6 +271,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- SetRecordReliablePdu-----"  + System.Environment.NewLine);
@@ -236,7 +306,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(SetRecordReliablePdu rhs)
  {

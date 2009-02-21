@@ -54,6 +54,9 @@ public class LinearSegmentParameter : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///5.2.48: Linear segment parameters
+   ///</summary>
  public LinearSegmentParameter()
  {
  }
@@ -76,6 +79,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///number of segments
+   ///</summary>
 public void setSegmentNumber(byte pSegmentNumber)
 { _segmentNumber = pSegmentNumber;
 }
@@ -93,14 +99,23 @@ public byte SegmentNumber
 }
 }
 
+   ///<summary>
+   ///segment appearance
+   ///</summary>
 public void setSegmentAppearance(SixByteChunk pSegmentAppearance)
 { _segmentAppearance = pSegmentAppearance;
 }
 
+   ///<summary>
+   ///segment appearance
+   ///</summary>
 public SixByteChunk getSegmentAppearance()
 { return _segmentAppearance; 
 }
 
+   ///<summary>
+   ///segment appearance
+   ///</summary>
 [XmlElement(Type= typeof(SixByteChunk), ElementName="segmentAppearance")]
 public SixByteChunk SegmentAppearance
 {
@@ -114,14 +129,23 @@ public SixByteChunk SegmentAppearance
 }
 }
 
+   ///<summary>
+   ///location
+   ///</summary>
 public void setLocation(Vector3Double pLocation)
 { _location = pLocation;
 }
 
+   ///<summary>
+   ///location
+   ///</summary>
 public Vector3Double getLocation()
 { return _location; 
 }
 
+   ///<summary>
+   ///location
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="location")]
 public Vector3Double Location
 {
@@ -135,14 +159,23 @@ public Vector3Double Location
 }
 }
 
+   ///<summary>
+   ///orientation
+   ///</summary>
 public void setOrientation(Orientation pOrientation)
 { _orientation = pOrientation;
 }
 
+   ///<summary>
+   ///orientation
+   ///</summary>
 public Orientation getOrientation()
 { return _orientation; 
 }
 
+   ///<summary>
+   ///orientation
+   ///</summary>
 [XmlElement(Type= typeof(Orientation), ElementName="orientation")]
 public Orientation Orientation
 {
@@ -156,6 +189,9 @@ public Orientation Orientation
 }
 }
 
+   ///<summary>
+   ///segmentLength
+   ///</summary>
 public void setSegmentLength(ushort pSegmentLength)
 { _segmentLength = pSegmentLength;
 }
@@ -173,6 +209,9 @@ public ushort SegmentLength
 }
 }
 
+   ///<summary>
+   ///segmentWidth
+   ///</summary>
 public void setSegmentWidth(ushort pSegmentWidth)
 { _segmentWidth = pSegmentWidth;
 }
@@ -190,6 +229,9 @@ public ushort SegmentWidth
 }
 }
 
+   ///<summary>
+   ///segmentHeight
+   ///</summary>
 public void setSegmentHeight(ushort pSegmentHeight)
 { _segmentHeight = pSegmentHeight;
 }
@@ -207,6 +249,9 @@ public ushort SegmentHeight
 }
 }
 
+   ///<summary>
+   ///segment Depth
+   ///</summary>
 public void setSegmentDepth(ushort pSegmentDepth)
 { _segmentDepth = pSegmentDepth;
 }
@@ -224,6 +269,9 @@ public ushort SegmentDepth
 }
 }
 
+   ///<summary>
+   ///segment Depth
+   ///</summary>
 public void setPad1(uint pPad1)
 { _pad1 = pPad1;
 }
@@ -242,6 +290,9 @@ public uint Pad1
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -285,6 +336,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- LinearSegmentParameter-----"  + System.Environment.NewLine);
@@ -311,7 +369,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(LinearSegmentParameter rhs)
  {

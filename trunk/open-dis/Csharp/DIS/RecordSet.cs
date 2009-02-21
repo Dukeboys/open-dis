@@ -42,6 +42,9 @@ public class RecordSet : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Record sets, used in transfer control request PDU
+   ///</summary>
  public RecordSet()
  {
  }
@@ -61,6 +64,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///record ID
+   ///</summary>
 public void setRecordID(uint pRecordID)
 { _recordID = pRecordID;
 }
@@ -78,6 +84,9 @@ public uint RecordID
 }
 }
 
+   ///<summary>
+   ///record set serial number
+   ///</summary>
 public void setRecordSetSerialNumber(uint pRecordSetSerialNumber)
 { _recordSetSerialNumber = pRecordSetSerialNumber;
 }
@@ -95,6 +104,9 @@ public uint RecordSetSerialNumber
 }
 }
 
+   ///<summary>
+   ///record length
+   ///</summary>
 public void setRecordLength(ushort pRecordLength)
 { _recordLength = pRecordLength;
 }
@@ -112,6 +124,9 @@ public ushort RecordLength
 }
 }
 
+   ///<summary>
+   ///record count
+   ///</summary>
 public void setRecordCount(ushort pRecordCount)
 { _recordCount = pRecordCount;
 }
@@ -129,6 +144,9 @@ public ushort RecordCount
 }
 }
 
+   ///<summary>
+   ///@@@This is wrong--variable sized data records
+   ///</summary>
 public void setRecordValues(ushort pRecordValues)
 { _recordValues = pRecordValues;
 }
@@ -146,6 +164,9 @@ public ushort RecordValues
 }
 }
 
+   ///<summary>
+   ///@@@This is wrong--variable sized padding
+   ///</summary>
 public void setPad4(byte pPad4)
 { _pad4 = pPad4;
 }
@@ -164,6 +185,9 @@ public byte Pad4
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -201,6 +225,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- RecordSet-----"  + System.Environment.NewLine);
@@ -221,7 +252,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(RecordSet rhs)
  {

@@ -44,6 +44,9 @@ public class AggregateType : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.2.38. Identifies the type of aggregate including kind of entity, domain (surface, subsurface, air, etc) country, category, etc.
+   ///</summary>
  public AggregateType()
  {
  }
@@ -64,6 +67,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Kind of entity
+   ///</summary>
 public void setAggregateKind(byte pAggregateKind)
 { _aggregateKind = pAggregateKind;
 }
@@ -81,6 +87,9 @@ public byte AggregateKind
 }
 }
 
+   ///<summary>
+   ///Domain of entity (air, surface, subsurface, space, etc)
+   ///</summary>
 public void setDomain(byte pDomain)
 { _domain = pDomain;
 }
@@ -98,6 +107,9 @@ public byte Domain
 }
 }
 
+   ///<summary>
+   ///country to which the design of the entity is attributed
+   ///</summary>
 public void setCountry(ushort pCountry)
 { _country = pCountry;
 }
@@ -115,6 +127,9 @@ public ushort Country
 }
 }
 
+   ///<summary>
+   ///category of entity
+   ///</summary>
 public void setCategory(byte pCategory)
 { _category = pCategory;
 }
@@ -132,6 +147,9 @@ public byte Category
 }
 }
 
+   ///<summary>
+   ///subcategory of entity
+   ///</summary>
 public void setSubcategory(byte pSubcategory)
 { _subcategory = pSubcategory;
 }
@@ -149,6 +167,9 @@ public byte Subcategory
 }
 }
 
+   ///<summary>
+   ///specific info based on subcategory field
+   ///</summary>
 public void setSpecific(byte pSpecific)
 { _specific = pSpecific;
 }
@@ -184,6 +205,9 @@ public byte Extra
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -223,6 +247,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- AggregateType-----"  + System.Environment.NewLine);
@@ -244,7 +275,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(AggregateType rhs)
  {

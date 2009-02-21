@@ -32,6 +32,9 @@ public class AntennaLocation : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///5.2.3: location of the radiating portion of the antenna, specified in world coordinates and         entity coordinates.
+   ///</summary>
  public AntennaLocation()
  {
  }
@@ -47,14 +50,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Location of the radiating portion of the antenna in world    coordinates
+   ///</summary>
 public void setAntennaLocation(Vector3Double pAntennaLocation)
 { _antennaLocation = pAntennaLocation;
 }
 
+   ///<summary>
+   ///Location of the radiating portion of the antenna in world    coordinates
+   ///</summary>
 public Vector3Double getAntennaLocation()
 { return _antennaLocation; 
 }
 
+   ///<summary>
+   ///Location of the radiating portion of the antenna in world    coordinates
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="antennaLocation")]
 public Vector3Double AntennaLocation_
 {
@@ -68,14 +80,23 @@ public Vector3Double AntennaLocation_
 }
 }
 
+   ///<summary>
+   ///Location of the radiating portion of the antenna     in entity coordinates
+   ///</summary>
 public void setRelativeAntennaLocation(Vector3Float pRelativeAntennaLocation)
 { _relativeAntennaLocation = pRelativeAntennaLocation;
 }
 
+   ///<summary>
+   ///Location of the radiating portion of the antenna     in entity coordinates
+   ///</summary>
 public Vector3Float getRelativeAntennaLocation()
 { return _relativeAntennaLocation; 
 }
 
+   ///<summary>
+   ///Location of the radiating portion of the antenna     in entity coordinates
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="relativeAntennaLocation")]
 public Vector3Float RelativeAntennaLocation
 {
@@ -90,6 +111,9 @@ public Vector3Float RelativeAntennaLocation
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -119,6 +143,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- AntennaLocation-----"  + System.Environment.NewLine);
@@ -137,7 +168,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(AntennaLocation rhs)
  {

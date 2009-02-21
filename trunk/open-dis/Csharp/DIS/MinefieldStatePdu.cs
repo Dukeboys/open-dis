@@ -59,11 +59,14 @@ public class MinefieldStatePdu : MinefieldFamilyPdu
    protected ushort  _protocolMode;
 
    /** perimeter points for the minefield */
-   protected List<object> _perimeterPoints = new List<object>(); 
+   protected List<Point> _perimeterPoints = new List<Point>(); 
    /** Type of mines */
-   protected List<object> _mineType = new List<object>(); 
+   protected List<EntityType> _mineType = new List<EntityType>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.10.1 Abstract superclass for PDUs relating to minefields. COMPLETE
+   ///</summary>
  public MinefieldStatePdu()
  {
     PduType = (byte)37;
@@ -99,14 +102,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public void setMinefieldID(EntityID pMinefieldID)
 { _minefieldID = pMinefieldID;
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public EntityID getMinefieldID()
 { return _minefieldID; 
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="minefieldID")]
 public EntityID MinefieldID
 {
@@ -120,6 +132,9 @@ public EntityID MinefieldID
 }
 }
 
+   ///<summary>
+   ///Minefield sequence
+   ///</summary>
 public void setMinefieldSequence(ushort pMinefieldSequence)
 { _minefieldSequence = pMinefieldSequence;
 }
@@ -137,6 +152,9 @@ public ushort MinefieldSequence
 }
 }
 
+   ///<summary>
+   ///force ID
+   ///</summary>
 public void setForceID(byte pForceID)
 { _forceID = pForceID;
 }
@@ -154,14 +172,50 @@ public byte ForceID
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPerimeterPoints method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfPerimeterPoints(byte pNumberOfPerimeterPoints)
+{ _numberOfPerimeterPoints = pNumberOfPerimeterPoints;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPerimeterPoints method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfPerimeterPoints")]
+public byte NumberOfPerimeterPoints
+{
+     get
+     {
+          return _numberOfPerimeterPoints;
+     }
+     set
+     {
+          _numberOfPerimeterPoints = value;
+     }
+}
+
+   ///<summary>
+   ///type of minefield
+   ///</summary>
 public void setMinefieldType(EntityType pMinefieldType)
 { _minefieldType = pMinefieldType;
 }
 
+   ///<summary>
+   ///type of minefield
+   ///</summary>
 public EntityType getMinefieldType()
 { return _minefieldType; 
 }
 
+   ///<summary>
+   ///type of minefield
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="minefieldType")]
 public EntityType MinefieldType
 {
@@ -175,14 +229,50 @@ public EntityType MinefieldType
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfMineTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfMineTypes(ushort pNumberOfMineTypes)
+{ _numberOfMineTypes = pNumberOfMineTypes;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfMineTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="numberOfMineTypes")]
+public ushort NumberOfMineTypes
+{
+     get
+     {
+          return _numberOfMineTypes;
+     }
+     set
+     {
+          _numberOfMineTypes = value;
+     }
+}
+
+   ///<summary>
+   ///location of minefield in world coords
+   ///</summary>
 public void setMinefieldLocation(Vector3Double pMinefieldLocation)
 { _minefieldLocation = pMinefieldLocation;
 }
 
+   ///<summary>
+   ///location of minefield in world coords
+   ///</summary>
 public Vector3Double getMinefieldLocation()
 { return _minefieldLocation; 
 }
 
+   ///<summary>
+   ///location of minefield in world coords
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="minefieldLocation")]
 public Vector3Double MinefieldLocation
 {
@@ -196,14 +286,23 @@ public Vector3Double MinefieldLocation
 }
 }
 
+   ///<summary>
+   ///orientation of minefield
+   ///</summary>
 public void setMinefieldOrientation(Orientation pMinefieldOrientation)
 { _minefieldOrientation = pMinefieldOrientation;
 }
 
+   ///<summary>
+   ///orientation of minefield
+   ///</summary>
 public Orientation getMinefieldOrientation()
 { return _minefieldOrientation; 
 }
 
+   ///<summary>
+   ///orientation of minefield
+   ///</summary>
 [XmlElement(Type= typeof(Orientation), ElementName="minefieldOrientation")]
 public Orientation MinefieldOrientation
 {
@@ -217,6 +316,9 @@ public Orientation MinefieldOrientation
 }
 }
 
+   ///<summary>
+   ///appearance bitflags
+   ///</summary>
 public void setAppearance(ushort pAppearance)
 { _appearance = pAppearance;
 }
@@ -234,6 +336,9 @@ public ushort Appearance
 }
 }
 
+   ///<summary>
+   ///protocolMode
+   ///</summary>
 public void setProtocolMode(ushort pProtocolMode)
 { _protocolMode = pProtocolMode;
 }
@@ -251,15 +356,24 @@ public ushort ProtocolMode
 }
 }
 
-public void setPerimeterPoints(List<object> pPerimeterPoints)
+   ///<summary>
+   ///perimeter points for the minefield
+   ///</summary>
+public void setPerimeterPoints(List<Point> pPerimeterPoints)
 { _perimeterPoints = pPerimeterPoints;
 }
 
-public List<object> getPerimeterPoints()
+   ///<summary>
+   ///perimeter points for the minefield
+   ///</summary>
+public List<Point> getPerimeterPoints()
 { return _perimeterPoints; }
 
-[XmlElement(ElementName = "perimeterPointsList",Type = typeof(List<object>))]
-public List<object> PerimeterPoints
+   ///<summary>
+   ///perimeter points for the minefield
+   ///</summary>
+[XmlElement(ElementName = "perimeterPointsList",Type = typeof(List<Point>))]
+public List<Point> PerimeterPoints
 {
      get
 {
@@ -271,15 +385,24 @@ public List<object> PerimeterPoints
 }
 }
 
-public void setMineType(List<object> pMineType)
+   ///<summary>
+   ///Type of mines
+   ///</summary>
+public void setMineType(List<EntityType> pMineType)
 { _mineType = pMineType;
 }
 
-public List<object> getMineType()
+   ///<summary>
+   ///Type of mines
+   ///</summary>
+public List<EntityType> getMineType()
 { return _mineType; }
 
-[XmlElement(ElementName = "mineTypeList",Type = typeof(List<object>))]
-public List<object> MineType
+   ///<summary>
+   ///Type of mines
+   ///</summary>
+[XmlElement(ElementName = "mineTypeList",Type = typeof(List<EntityType>))]
+public List<EntityType> MineType
 {
      get
 {
@@ -291,7 +414,19 @@ public List<object> MineType
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -368,6 +503,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- MinefieldStatePdu-----"  + System.Environment.NewLine);
@@ -413,7 +555,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(MinefieldStatePdu rhs)
  {

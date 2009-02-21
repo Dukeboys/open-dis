@@ -33,6 +33,9 @@ public class AcknowledgeReliablePdu : SimulationManagementWithReliabilityFamilyP
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.12.5: Ack receipt of a start-resume, stop-freeze, create-entity or remove enitty (reliable) pdus. COMPLETE
+   ///</summary>
  public AcknowledgeReliablePdu()
  {
     PduType = (byte)55;
@@ -51,6 +54,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ack flags
+   ///</summary>
 public void setAcknowledgeFlag(ushort pAcknowledgeFlag)
 { _acknowledgeFlag = pAcknowledgeFlag;
 }
@@ -68,6 +74,9 @@ public ushort AcknowledgeFlag
 }
 }
 
+   ///<summary>
+   ///response flags
+   ///</summary>
 public void setResponseFlag(ushort pResponseFlag)
 { _responseFlag = pResponseFlag;
 }
@@ -85,6 +94,9 @@ public ushort ResponseFlag
 }
 }
 
+   ///<summary>
+   ///Request ID
+   ///</summary>
 public void setRequestID(uint pRequestID)
 { _requestID = pRequestID;
 }
@@ -102,7 +114,19 @@ public uint RequestID
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -137,6 +161,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- AcknowledgeReliablePdu-----"  + System.Environment.NewLine);
@@ -155,7 +186,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(AcknowledgeReliablePdu rhs)
  {

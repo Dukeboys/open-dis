@@ -52,9 +52,12 @@ public class ElectronicEmissionBeamData : Object
    protected uint  _jammingModeSequence;
 
    /** variable length list of track/jam targets */
-   protected List<object> _trackJamTargets = new List<object>(); 
+   protected List<TrackJamTarget> _trackJamTargets = new List<TrackJamTarget>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Description of one electronic emission beam
+   ///</summary>
  public ElectronicEmissionBeamData()
  {
  }
@@ -82,6 +85,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///This field shall specify the length of this beams data in 32 bit words
+   ///</summary>
 public void setBeamDataLength(byte pBeamDataLength)
 { _beamDataLength = pBeamDataLength;
 }
@@ -99,6 +105,9 @@ public byte BeamDataLength
 }
 }
 
+   ///<summary>
+   ///This field shall specify a unique emitter database number assigned to differentiate between otherwise similar or identical emitter beams within an emitter system.
+   ///</summary>
 public void setBeamIDNumber(byte pBeamIDNumber)
 { _beamIDNumber = pBeamIDNumber;
 }
@@ -116,6 +125,9 @@ public byte BeamIDNumber
 }
 }
 
+   ///<summary>
+   ///This field shall specify a Beam Parameter Index number that shall be used by receiving entities in conjunction with the Emitter Name field to provide a pointer to the stored database parameters required to regenerate the beam. 
+   ///</summary>
 public void setBeamParameterIndex(ushort pBeamParameterIndex)
 { _beamParameterIndex = pBeamParameterIndex;
 }
@@ -133,14 +145,23 @@ public ushort BeamParameterIndex
 }
 }
 
+   ///<summary>
+   ///Fundamental parameter data such as frequency range, beam sweep, etc.
+   ///</summary>
 public void setFundamentalParameterData(FundamentalParameterData pFundamentalParameterData)
 { _fundamentalParameterData = pFundamentalParameterData;
 }
 
+   ///<summary>
+   ///Fundamental parameter data such as frequency range, beam sweep, etc.
+   ///</summary>
 public FundamentalParameterData getFundamentalParameterData()
 { return _fundamentalParameterData; 
 }
 
+   ///<summary>
+   ///Fundamental parameter data such as frequency range, beam sweep, etc.
+   ///</summary>
 [XmlElement(Type= typeof(FundamentalParameterData), ElementName="fundamentalParameterData")]
 public FundamentalParameterData FundamentalParameterData
 {
@@ -154,6 +175,9 @@ public FundamentalParameterData FundamentalParameterData
 }
 }
 
+   ///<summary>
+   ///beam function of a particular beam
+   ///</summary>
 public void setBeamFunction(byte pBeamFunction)
 { _beamFunction = pBeamFunction;
 }
@@ -171,6 +195,36 @@ public byte BeamFunction
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfTrackJamTargets method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfTrackJamTargets(byte pNumberOfTrackJamTargets)
+{ _numberOfTrackJamTargets = pNumberOfTrackJamTargets;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfTrackJamTargets method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfTrackJamTargets")]
+public byte NumberOfTrackJamTargets
+{
+     get
+     {
+          return _numberOfTrackJamTargets;
+     }
+     set
+     {
+          _numberOfTrackJamTargets = value;
+     }
+}
+
+   ///<summary>
+   ///wheher or not the receiving simulation apps can assume all the targets in the scan pattern are being tracked/jammed
+   ///</summary>
 public void setHighDensityTrackJam(byte pHighDensityTrackJam)
 { _highDensityTrackJam = pHighDensityTrackJam;
 }
@@ -188,6 +242,9 @@ public byte HighDensityTrackJam
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad4(byte pPad4)
 { _pad4 = pPad4;
 }
@@ -205,6 +262,9 @@ public byte Pad4
 }
 }
 
+   ///<summary>
+   ///identify jamming techniques used
+   ///</summary>
 public void setJammingModeSequence(uint pJammingModeSequence)
 { _jammingModeSequence = pJammingModeSequence;
 }
@@ -222,15 +282,24 @@ public uint JammingModeSequence
 }
 }
 
-public void setTrackJamTargets(List<object> pTrackJamTargets)
+   ///<summary>
+   ///variable length list of track/jam targets
+   ///</summary>
+public void setTrackJamTargets(List<TrackJamTarget> pTrackJamTargets)
 { _trackJamTargets = pTrackJamTargets;
 }
 
-public List<object> getTrackJamTargets()
+   ///<summary>
+   ///variable length list of track/jam targets
+   ///</summary>
+public List<TrackJamTarget> getTrackJamTargets()
 { return _trackJamTargets; }
 
-[XmlElement(ElementName = "trackJamTargetsList",Type = typeof(List<object>))]
-public List<object> TrackJamTargets
+   ///<summary>
+   ///variable length list of track/jam targets
+   ///</summary>
+[XmlElement(ElementName = "trackJamTargetsList",Type = typeof(List<TrackJamTarget>))]
+public List<TrackJamTarget> TrackJamTargets
 {
      get
 {
@@ -243,6 +312,9 @@ public List<object> TrackJamTargets
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -300,6 +372,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- ElectronicEmissionBeamData-----"  + System.Environment.NewLine);
@@ -332,7 +411,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(ElectronicEmissionBeamData rhs)
  {

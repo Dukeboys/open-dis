@@ -34,7 +34,7 @@ public class IntercomSignalPdu : RadioCommunicationsFamilyPdu
    protected ushort  _encodingScheme;
 
    /** tactical data link type */
-   protected ushort  _tdlType;
+   protected ushort  _TdlType;
 
    /** sample rate */
    protected uint  _sampleRate;
@@ -46,9 +46,12 @@ public class IntercomSignalPdu : RadioCommunicationsFamilyPdu
    protected ushort  _samples;
 
    /** data bytes */
-   protected List<object> _data = new List<object>(); 
+   protected List<OneByteChunk> _data = new List<OneByteChunk>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.8.4. Actual transmission of intercome voice data. COMPLETE
+   ///</summary>
  public IntercomSignalPdu()
  {
     PduType = (byte)31;
@@ -62,7 +65,7 @@ public int getMarshalledSize()
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
    marshalSize = marshalSize + 2;  // _communicationsDeviceID
    marshalSize = marshalSize + 2;  // _encodingScheme
-   marshalSize = marshalSize + 2;  // _tdlType
+   marshalSize = marshalSize + 2;  // _TdlType
    marshalSize = marshalSize + 4;  // _sampleRate
    marshalSize = marshalSize + 2;  // _dataLength
    marshalSize = marshalSize + 2;  // _samples
@@ -76,14 +79,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///entity ID
+   ///</summary>
 public void setEntityID(EntityID pEntityID)
 { _entityID = pEntityID;
 }
 
+   ///<summary>
+   ///entity ID
+   ///</summary>
 public EntityID getEntityID()
 { return _entityID; 
 }
 
+   ///<summary>
+   ///entity ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="entityID")]
 public EntityID EntityID
 {
@@ -97,6 +109,9 @@ public EntityID EntityID
 }
 }
 
+   ///<summary>
+   ///ID of communications device
+   ///</summary>
 public void setCommunicationsDeviceID(ushort pCommunicationsDeviceID)
 { _communicationsDeviceID = pCommunicationsDeviceID;
 }
@@ -114,6 +129,9 @@ public ushort CommunicationsDeviceID
 }
 }
 
+   ///<summary>
+   ///encoding scheme
+   ///</summary>
 public void setEncodingScheme(ushort pEncodingScheme)
 { _encodingScheme = pEncodingScheme;
 }
@@ -131,23 +149,29 @@ public ushort EncodingScheme
 }
 }
 
+   ///<summary>
+   ///tactical data link type
+   ///</summary>
 public void setTdlType(ushort pTdlType)
-{ _tdlType = pTdlType;
+{ _TdlType = pTdlType;
 }
 
-[XmlElement(Type= typeof(ushort), ElementName="tdlType")]
+[XmlElement(Type= typeof(ushort), ElementName="TdlType")]
 public ushort TdlType
 {
      get
 {
-          return _tdlType;
+          return _TdlType;
 }
      set
 {
-          _tdlType = value;
+          _TdlType = value;
 }
 }
 
+   ///<summary>
+   ///sample rate
+   ///</summary>
 public void setSampleRate(uint pSampleRate)
 { _sampleRate = pSampleRate;
 }
@@ -165,6 +189,36 @@ public uint SampleRate
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getdataLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setDataLength(ushort pDataLength)
+{ _dataLength = pDataLength;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getdataLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="dataLength")]
+public ushort DataLength
+{
+     get
+     {
+          return _dataLength;
+     }
+     set
+     {
+          _dataLength = value;
+     }
+}
+
+   ///<summary>
+   ///samples
+   ///</summary>
 public void setSamples(ushort pSamples)
 { _samples = pSamples;
 }
@@ -182,15 +236,24 @@ public ushort Samples
 }
 }
 
-public void setData(List<object> pData)
+   ///<summary>
+   ///data bytes
+   ///</summary>
+public void setData(List<OneByteChunk> pData)
 { _data = pData;
 }
 
-public List<object> getData()
+   ///<summary>
+   ///data bytes
+   ///</summary>
+public List<OneByteChunk> getData()
 { return _data; }
 
-[XmlElement(ElementName = "dataList",Type = typeof(List<object>))]
-public List<object> Data
+   ///<summary>
+   ///data bytes
+   ///</summary>
+[XmlElement(ElementName = "dataList",Type = typeof(List<OneByteChunk>))]
+public List<OneByteChunk> Data
 {
      get
 {
@@ -202,7 +265,19 @@ public List<object> Data
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -211,7 +286,7 @@ public void marshal(DataOutputStream dos)
        _entityID.marshal(dos);
        dos.writeUshort( (ushort)_communicationsDeviceID);
        dos.writeUshort( (ushort)_encodingScheme);
-       dos.writeUshort( (ushort)_tdlType);
+       dos.writeUshort( (ushort)_TdlType);
        dos.writeUint( (uint)_sampleRate);
        dos.writeUshort( (ushort)_data.Count);
        dos.writeUshort( (ushort)_samples);
@@ -239,7 +314,7 @@ public void unmarshal(DataInputStream dis)
        _entityID.unmarshal(dis);
        _communicationsDeviceID = dis.readUshort();
        _encodingScheme = dis.readUshort();
-       _tdlType = dis.readUshort();
+       _TdlType = dis.readUshort();
        _sampleRate = dis.readUint();
        _dataLength = dis.readUshort();
        _samples = dis.readUshort();
@@ -259,6 +334,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- IntercomSignalPdu-----"  + System.Environment.NewLine);
@@ -269,7 +351,7 @@ public void reflection(StringBuilder sb)
        _entityID.reflection(sb);
            sb.Append("ushort\t _communicationsDeviceID\t " + _communicationsDeviceID.ToString() + System.Environment.NewLine);
            sb.Append("ushort\t _encodingScheme\t " + _encodingScheme.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _tdlType\t " + _tdlType.ToString() + System.Environment.NewLine);
+           sb.Append("ushort\t _TdlType\t " + _TdlType.ToString() + System.Environment.NewLine);
            sb.Append("uint\t _sampleRate\t " + _sampleRate.ToString() + System.Environment.NewLine);
            sb.Append("ushort\t _data\t " + _data.Count.ToString() + System.Environment.NewLine);
            sb.Append("ushort\t _samples\t " + _samples.ToString() + System.Environment.NewLine);
@@ -290,7 +372,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(IntercomSignalPdu rhs)
  {
@@ -302,7 +384,7 @@ public void reflection(StringBuilder sb)
      if( ! (_entityID.Equals( rhs._entityID) )) ivarsEqual = false;
      if( ! (_communicationsDeviceID == rhs._communicationsDeviceID)) ivarsEqual = false;
      if( ! (_encodingScheme == rhs._encodingScheme)) ivarsEqual = false;
-     if( ! (_tdlType == rhs._tdlType)) ivarsEqual = false;
+     if( ! (_TdlType == rhs._TdlType)) ivarsEqual = false;
      if( ! (_sampleRate == rhs._sampleRate)) ivarsEqual = false;
      if( ! (_dataLength == rhs._dataLength)) ivarsEqual = false;
      if( ! (_samples == rhs._samples)) ivarsEqual = false;

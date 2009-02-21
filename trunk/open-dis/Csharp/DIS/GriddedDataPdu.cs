@@ -69,9 +69,12 @@ public class GriddedDataPdu : SyntheticEnvironmentFamilyPdu
    protected byte  _padding2;
 
    /** Grid data @@@This is wrong */
-   protected List<object> _gridDataList = new List<object>(); 
+   protected List<GridAxisRecord> _gridDataList = new List<GridAxisRecord>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.11.2: Information about globat, spatially varying enviornmental effects. This requires manual cleanup; the grid axis        records are variable sized. UNFINISHED
+   ///</summary>
  public GriddedDataPdu()
  {
     PduType = (byte)42;
@@ -106,14 +109,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///environmental simulation application ID
+   ///</summary>
 public void setEnvironmentalSimulationApplicationID(EntityID pEnvironmentalSimulationApplicationID)
 { _environmentalSimulationApplicationID = pEnvironmentalSimulationApplicationID;
 }
 
+   ///<summary>
+   ///environmental simulation application ID
+   ///</summary>
 public EntityID getEnvironmentalSimulationApplicationID()
 { return _environmentalSimulationApplicationID; 
 }
 
+   ///<summary>
+   ///environmental simulation application ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="environmentalSimulationApplicationID")]
 public EntityID EnvironmentalSimulationApplicationID
 {
@@ -127,6 +139,9 @@ public EntityID EnvironmentalSimulationApplicationID
 }
 }
 
+   ///<summary>
+   ///unique identifier for each piece of enviornmental data
+   ///</summary>
 public void setFieldNumber(ushort pFieldNumber)
 { _fieldNumber = pFieldNumber;
 }
@@ -144,6 +159,9 @@ public ushort FieldNumber
 }
 }
 
+   ///<summary>
+   ///sequence number for the total set of PDUS used to transmit the data
+   ///</summary>
 public void setPduNumber(ushort pPduNumber)
 { _pduNumber = pPduNumber;
 }
@@ -161,6 +179,9 @@ public ushort PduNumber
 }
 }
 
+   ///<summary>
+   ///Total number of PDUS used to transmit the data
+   ///</summary>
 public void setPduTotal(ushort pPduTotal)
 { _pduTotal = pPduTotal;
 }
@@ -178,6 +199,9 @@ public ushort PduTotal
 }
 }
 
+   ///<summary>
+   ///coordinate system of the grid
+   ///</summary>
 public void setCoordinateSystem(ushort pCoordinateSystem)
 { _coordinateSystem = pCoordinateSystem;
 }
@@ -195,6 +219,36 @@ public ushort CoordinateSystem
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfGridAxes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfGridAxes(byte pNumberOfGridAxes)
+{ _numberOfGridAxes = pNumberOfGridAxes;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfGridAxes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfGridAxes")]
+public byte NumberOfGridAxes
+{
+     get
+     {
+          return _numberOfGridAxes;
+     }
+     set
+     {
+          _numberOfGridAxes = value;
+     }
+}
+
+   ///<summary>
+   ///are domain grid axes identidal to those of the priveious domain update?
+   ///</summary>
 public void setConstantGrid(byte pConstantGrid)
 { _constantGrid = pConstantGrid;
 }
@@ -212,14 +266,23 @@ public byte ConstantGrid
 }
 }
 
+   ///<summary>
+   ///type of environment
+   ///</summary>
 public void setEnvironmentType(EntityType pEnvironmentType)
 { _environmentType = pEnvironmentType;
 }
 
+   ///<summary>
+   ///type of environment
+   ///</summary>
 public EntityType getEnvironmentType()
 { return _environmentType; 
 }
 
+   ///<summary>
+   ///type of environment
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="environmentType")]
 public EntityType EnvironmentType
 {
@@ -233,14 +296,23 @@ public EntityType EnvironmentType
 }
 }
 
+   ///<summary>
+   ///orientation of the data grid
+   ///</summary>
 public void setOrientation(Orientation pOrientation)
 { _orientation = pOrientation;
 }
 
+   ///<summary>
+   ///orientation of the data grid
+   ///</summary>
 public Orientation getOrientation()
 { return _orientation; 
 }
 
+   ///<summary>
+   ///orientation of the data grid
+   ///</summary>
 [XmlElement(Type= typeof(Orientation), ElementName="orientation")]
 public Orientation Orientation
 {
@@ -254,6 +326,9 @@ public Orientation Orientation
 }
 }
 
+   ///<summary>
+   ///valid time of the enviormental data sample, 64 bit unsigned int
+   ///</summary>
 public void setSampleTime(long pSampleTime)
 { _sampleTime = pSampleTime;
 }
@@ -271,6 +346,9 @@ public long SampleTime
 }
 }
 
+   ///<summary>
+   ///total number of all data values for all pdus for an environmental sample
+   ///</summary>
 public void setTotalValues(uint pTotalValues)
 { _totalValues = pTotalValues;
 }
@@ -288,6 +366,9 @@ public uint TotalValues
 }
 }
 
+   ///<summary>
+   ///total number of data values at each grid point.
+   ///</summary>
 public void setVectorDimension(byte pVectorDimension)
 { _vectorDimension = pVectorDimension;
 }
@@ -305,6 +386,9 @@ public byte VectorDimension
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding1(ushort pPadding1)
 { _padding1 = pPadding1;
 }
@@ -322,6 +406,9 @@ public ushort Padding1
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding2(byte pPadding2)
 { _padding2 = pPadding2;
 }
@@ -339,15 +426,24 @@ public byte Padding2
 }
 }
 
-public void setGridDataList(List<object> pGridDataList)
+   ///<summary>
+   ///Grid data @@@This is wrong
+   ///</summary>
+public void setGridDataList(List<GridAxisRecord> pGridDataList)
 { _gridDataList = pGridDataList;
 }
 
-public List<object> getGridDataList()
+   ///<summary>
+   ///Grid data @@@This is wrong
+   ///</summary>
+public List<GridAxisRecord> getGridDataList()
 { return _gridDataList; }
 
-[XmlElement(ElementName = "gridDataListList",Type = typeof(List<object>))]
-public List<object> GridDataList
+   ///<summary>
+   ///Grid data @@@This is wrong
+   ///</summary>
+[XmlElement(ElementName = "gridDataListList",Type = typeof(List<GridAxisRecord>))]
+public List<GridAxisRecord> GridDataList
 {
      get
 {
@@ -359,7 +455,19 @@ public List<object> GridDataList
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -430,6 +538,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- GriddedDataPdu-----"  + System.Environment.NewLine);
@@ -470,7 +585,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(GriddedDataPdu rhs)
  {

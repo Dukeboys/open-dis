@@ -60,14 +60,17 @@ public class MinefieldDataPdu : MinefieldFamilyPdu
    protected EntityType  _mineType = new EntityType(); 
 
    /** Sensor types, each 16 bits long */
-   protected List<object> _sensorTypes = new List<object>(); 
+   protected List<TwoByteChunk> _sensorTypes = new List<TwoByteChunk>(); 
    /** Padding to get things 32-bit aligned. @@@this is wrong--dyanmically sized padding needed */
    protected byte  _pad3;
 
    /** Mine locations */
-   protected List<object> _mineLocation = new List<object>(); 
+   protected List<Vector3Float> _mineLocation = new List<Vector3Float>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.10.3 Information about individual mines within a minefield. This is very, very wrong. UNFINISHED
+   ///</summary>
  public MinefieldDataPdu()
  {
     PduType = (byte)39;
@@ -105,14 +108,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public void setMinefieldID(EntityID pMinefieldID)
 { _minefieldID = pMinefieldID;
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public EntityID getMinefieldID()
 { return _minefieldID; 
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="minefieldID")]
 public EntityID MinefieldID
 {
@@ -126,14 +138,23 @@ public EntityID MinefieldID
 }
 }
 
+   ///<summary>
+   ///ID of entity making request
+   ///</summary>
 public void setRequestingEntityID(EntityID pRequestingEntityID)
 { _requestingEntityID = pRequestingEntityID;
 }
 
+   ///<summary>
+   ///ID of entity making request
+   ///</summary>
 public EntityID getRequestingEntityID()
 { return _requestingEntityID; 
 }
 
+   ///<summary>
+   ///ID of entity making request
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="requestingEntityID")]
 public EntityID RequestingEntityID
 {
@@ -147,6 +168,9 @@ public EntityID RequestingEntityID
 }
 }
 
+   ///<summary>
+   ///Minefield sequence number
+   ///</summary>
 public void setMinefieldSequenceNumbeer(ushort pMinefieldSequenceNumbeer)
 { _minefieldSequenceNumbeer = pMinefieldSequenceNumbeer;
 }
@@ -164,6 +188,9 @@ public ushort MinefieldSequenceNumbeer
 }
 }
 
+   ///<summary>
+   ///request ID
+   ///</summary>
 public void setRequestID(byte pRequestID)
 { _requestID = pRequestID;
 }
@@ -181,6 +208,9 @@ public byte RequestID
 }
 }
 
+   ///<summary>
+   ///pdu sequence number
+   ///</summary>
 public void setPduSequenceNumber(byte pPduSequenceNumber)
 { _pduSequenceNumber = pPduSequenceNumber;
 }
@@ -198,6 +228,9 @@ public byte PduSequenceNumber
 }
 }
 
+   ///<summary>
+   ///number of pdus in response
+   ///</summary>
 public void setNumberOfPdus(byte pNumberOfPdus)
 { _numberOfPdus = pNumberOfPdus;
 }
@@ -215,6 +248,63 @@ public byte NumberOfPdus
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfMinesInThisPdu method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfMinesInThisPdu(byte pNumberOfMinesInThisPdu)
+{ _numberOfMinesInThisPdu = pNumberOfMinesInThisPdu;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfMinesInThisPdu method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfMinesInThisPdu")]
+public byte NumberOfMinesInThisPdu
+{
+     get
+     {
+          return _numberOfMinesInThisPdu;
+     }
+     set
+     {
+          _numberOfMinesInThisPdu = value;
+     }
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSensorTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfSensorTypes(byte pNumberOfSensorTypes)
+{ _numberOfSensorTypes = pNumberOfSensorTypes;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSensorTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfSensorTypes")]
+public byte NumberOfSensorTypes
+{
+     get
+     {
+          return _numberOfSensorTypes;
+     }
+     set
+     {
+          _numberOfSensorTypes = value;
+     }
+}
+
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad2(byte pPad2)
 { _pad2 = pPad2;
 }
@@ -232,6 +322,9 @@ public byte Pad2
 }
 }
 
+   ///<summary>
+   ///32 boolean fields
+   ///</summary>
 public void setDataFilter(uint pDataFilter)
 { _dataFilter = pDataFilter;
 }
@@ -249,14 +342,23 @@ public uint DataFilter
 }
 }
 
+   ///<summary>
+   ///Mine type
+   ///</summary>
 public void setMineType(EntityType pMineType)
 { _mineType = pMineType;
 }
 
+   ///<summary>
+   ///Mine type
+   ///</summary>
 public EntityType getMineType()
 { return _mineType; 
 }
 
+   ///<summary>
+   ///Mine type
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="mineType")]
 public EntityType MineType
 {
@@ -270,15 +372,24 @@ public EntityType MineType
 }
 }
 
-public void setSensorTypes(List<object> pSensorTypes)
+   ///<summary>
+   ///Sensor types, each 16 bits long
+   ///</summary>
+public void setSensorTypes(List<TwoByteChunk> pSensorTypes)
 { _sensorTypes = pSensorTypes;
 }
 
-public List<object> getSensorTypes()
+   ///<summary>
+   ///Sensor types, each 16 bits long
+   ///</summary>
+public List<TwoByteChunk> getSensorTypes()
 { return _sensorTypes; }
 
-[XmlElement(ElementName = "sensorTypesList",Type = typeof(List<object>))]
-public List<object> SensorTypes
+   ///<summary>
+   ///Sensor types, each 16 bits long
+   ///</summary>
+[XmlElement(ElementName = "sensorTypesList",Type = typeof(List<TwoByteChunk>))]
+public List<TwoByteChunk> SensorTypes
 {
      get
 {
@@ -290,6 +401,9 @@ public List<object> SensorTypes
 }
 }
 
+   ///<summary>
+   ///Padding to get things 32-bit aligned. @@@this is wrong--dyanmically sized padding needed
+   ///</summary>
 public void setPad3(byte pPad3)
 { _pad3 = pPad3;
 }
@@ -307,15 +421,24 @@ public byte Pad3
 }
 }
 
-public void setMineLocation(List<object> pMineLocation)
+   ///<summary>
+   ///Mine locations
+   ///</summary>
+public void setMineLocation(List<Vector3Float> pMineLocation)
 { _mineLocation = pMineLocation;
 }
 
-public List<object> getMineLocation()
+   ///<summary>
+   ///Mine locations
+   ///</summary>
+public List<Vector3Float> getMineLocation()
 { return _mineLocation; }
 
-[XmlElement(ElementName = "mineLocationList",Type = typeof(List<object>))]
-public List<object> MineLocation
+   ///<summary>
+   ///Mine locations
+   ///</summary>
+[XmlElement(ElementName = "mineLocationList",Type = typeof(List<Vector3Float>))]
+public List<Vector3Float> MineLocation
 {
      get
 {
@@ -327,7 +450,19 @@ public List<object> MineLocation
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -408,6 +543,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- MinefieldDataPdu-----"  + System.Environment.NewLine);
@@ -454,7 +596,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(MinefieldDataPdu rhs)
  {

@@ -43,6 +43,9 @@ public class StopFreezeReliablePdu : SimulationManagementWithReliabilityFamilyPd
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.12.4: Stop freeze simulation, relaible. COMPLETE
+   ///</summary>
  public StopFreezeReliablePdu()
  {
     PduType = (byte)54;
@@ -64,14 +67,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///time in real world for this operation to happen
+   ///</summary>
 public void setRealWorldTime(ClockTime pRealWorldTime)
 { _realWorldTime = pRealWorldTime;
 }
 
+   ///<summary>
+   ///time in real world for this operation to happen
+   ///</summary>
 public ClockTime getRealWorldTime()
 { return _realWorldTime; 
 }
 
+   ///<summary>
+   ///time in real world for this operation to happen
+   ///</summary>
 [XmlElement(Type= typeof(ClockTime), ElementName="realWorldTime")]
 public ClockTime RealWorldTime
 {
@@ -85,6 +97,9 @@ public ClockTime RealWorldTime
 }
 }
 
+   ///<summary>
+   ///Reason for stopping/freezing simulation
+   ///</summary>
 public void setReason(byte pReason)
 { _reason = pReason;
 }
@@ -102,6 +117,9 @@ public byte Reason
 }
 }
 
+   ///<summary>
+   ///internal behvior of the simulation while frozen
+   ///</summary>
 public void setFrozenBehavior(byte pFrozenBehavior)
 { _frozenBehavior = pFrozenBehavior;
 }
@@ -119,6 +137,9 @@ public byte FrozenBehavior
 }
 }
 
+   ///<summary>
+   ///reliablity level
+   ///</summary>
 public void setRequiredReliablityService(byte pRequiredReliablityService)
 { _requiredReliablityService = pRequiredReliablityService;
 }
@@ -136,6 +157,9 @@ public byte RequiredReliablityService
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad1(byte pPad1)
 { _pad1 = pPad1;
 }
@@ -153,6 +177,9 @@ public byte Pad1
 }
 }
 
+   ///<summary>
+   ///Request ID
+   ///</summary>
 public void setRequestID(uint pRequestID)
 { _requestID = pRequestID;
 }
@@ -170,7 +197,19 @@ public uint RequestID
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -211,6 +250,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- StopFreezeReliablePdu-----"  + System.Environment.NewLine);
@@ -233,7 +279,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(StopFreezeReliablePdu rhs)
  {

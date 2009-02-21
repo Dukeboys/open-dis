@@ -27,9 +27,12 @@ public class GridAxisRecordRepresentation2 : GridAxisRecord
    protected ushort  _numberOfValues;
 
    /** variable length list of data parameters @@@this is wrong--need padding as well */
-   protected List<object> _dataValues = new List<object>(); 
+   protected List<FourByteChunk> _dataValues = new List<FourByteChunk>(); 
 
 /** Constructor */
+   ///<summary>
+   ///5.2.44: Grid data record, representation 1
+   ///</summary>
  public GridAxisRecordRepresentation2()
  {
  }
@@ -50,15 +53,51 @@ public int getMarshalledSize()
 }
 
 
-public void setDataValues(List<object> pDataValues)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfValues method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfValues(ushort pNumberOfValues)
+{ _numberOfValues = pNumberOfValues;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfValues method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="numberOfValues")]
+public ushort NumberOfValues
+{
+     get
+     {
+          return _numberOfValues;
+     }
+     set
+     {
+          _numberOfValues = value;
+     }
+}
+
+   ///<summary>
+   ///variable length list of data parameters @@@this is wrong--need padding as well
+   ///</summary>
+public void setDataValues(List<FourByteChunk> pDataValues)
 { _dataValues = pDataValues;
 }
 
-public List<object> getDataValues()
+   ///<summary>
+   ///variable length list of data parameters @@@this is wrong--need padding as well
+   ///</summary>
+public List<FourByteChunk> getDataValues()
 { return _dataValues; }
 
-[XmlElement(ElementName = "dataValuesList",Type = typeof(List<object>))]
-public List<object> DataValues
+   ///<summary>
+   ///variable length list of data parameters @@@this is wrong--need padding as well
+   ///</summary>
+[XmlElement(ElementName = "dataValuesList",Type = typeof(List<FourByteChunk>))]
+public List<FourByteChunk> DataValues
 {
      get
 {
@@ -71,6 +110,9 @@ public List<object> DataValues
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -115,6 +157,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- GridAxisRecordRepresentation2-----"  + System.Environment.NewLine);
@@ -139,7 +188,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(GridAxisRecordRepresentation2 rhs)
  {

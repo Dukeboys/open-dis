@@ -39,9 +39,12 @@ public class SignalPdu : RadioCommunicationsFamilyPdu
    protected short  _samples;
 
    /** list of eight bit values */
-   protected List<object> _data = new List<object>(); 
+   protected List<OneByteChunk> _data = new List<OneByteChunk>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.8.2. Detailed information about a radio transmitter. This PDU requires        manually written code to complete. The encodingScheme field can be used in multiple        ways, which requires hand-written code to finish. UNFINISHED
+   ///</summary>
  public SignalPdu()
  {
     PduType = (byte)26;
@@ -67,6 +70,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///encoding scheme used, and enumeration
+   ///</summary>
 public void setEncodingScheme(ushort pEncodingScheme)
 { _encodingScheme = pEncodingScheme;
 }
@@ -84,6 +90,9 @@ public ushort EncodingScheme
 }
 }
 
+   ///<summary>
+   ///tdl type
+   ///</summary>
 public void setTdlType(ushort pTdlType)
 { _tdlType = pTdlType;
 }
@@ -101,6 +110,9 @@ public ushort TdlType
 }
 }
 
+   ///<summary>
+   ///sample rate
+   ///</summary>
 public void setSampleRate(uint pSampleRate)
 { _sampleRate = pSampleRate;
 }
@@ -118,6 +130,36 @@ public uint SampleRate
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getdataLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setDataLength(short pDataLength)
+{ _dataLength = pDataLength;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getdataLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(short), ElementName="dataLength")]
+public short DataLength
+{
+     get
+     {
+          return _dataLength;
+     }
+     set
+     {
+          _dataLength = value;
+     }
+}
+
+   ///<summary>
+   ///number of samples
+   ///</summary>
 public void setSamples(short pSamples)
 { _samples = pSamples;
 }
@@ -135,15 +177,24 @@ public short Samples
 }
 }
 
-public void setData(List<object> pData)
+   ///<summary>
+   ///list of eight bit values
+   ///</summary>
+public void setData(List<OneByteChunk> pData)
 { _data = pData;
 }
 
-public List<object> getData()
+   ///<summary>
+   ///list of eight bit values
+   ///</summary>
+public List<OneByteChunk> getData()
 { return _data; }
 
-[XmlElement(ElementName = "dataList",Type = typeof(List<object>))]
-public List<object> Data
+   ///<summary>
+   ///list of eight bit values
+   ///</summary>
+[XmlElement(ElementName = "dataList",Type = typeof(List<OneByteChunk>))]
+public List<OneByteChunk> Data
 {
      get
 {
@@ -155,7 +206,19 @@ public List<object> Data
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -208,6 +271,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- SignalPdu-----"  + System.Environment.NewLine);
@@ -236,7 +306,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(SignalPdu rhs)
  {

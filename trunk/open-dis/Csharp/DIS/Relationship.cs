@@ -30,6 +30,9 @@ public class Relationship : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///5.2.56. Purpose for joinging two entities
+   ///</summary>
  public Relationship()
  {
  }
@@ -45,6 +48,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Nature of join
+   ///</summary>
 public void setNature(ushort pNature)
 { _nature = pNature;
 }
@@ -62,6 +68,9 @@ public ushort Nature
 }
 }
 
+   ///<summary>
+   ///position of join
+   ///</summary>
 public void setPosition(ushort pPosition)
 { _position = pPosition;
 }
@@ -80,6 +89,9 @@ public ushort Position
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -109,6 +121,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- Relationship-----"  + System.Environment.NewLine);
@@ -125,7 +144,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(Relationship rhs)
  {

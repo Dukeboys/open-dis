@@ -42,6 +42,9 @@ public class Environment : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.2.40. Information about a geometry, a state associated with a geometry, a bounding volume, or an associated entity ID. NOTE: this class requires hand coding.
+   ///</summary>
  public Environment()
  {
  }
@@ -61,6 +64,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Record type
+   ///</summary>
 public void setEnvironmentType(uint pEnvironmentType)
 { _environmentType = pEnvironmentType;
 }
@@ -78,6 +84,9 @@ public uint EnvironmentType
 }
 }
 
+   ///<summary>
+   ///length, in bits
+   ///</summary>
 public void setLength(byte pLength)
 { _length = pLength;
 }
@@ -95,6 +104,9 @@ public byte Length
 }
 }
 
+   ///<summary>
+   ///Identify the sequentially numbered record index
+   ///</summary>
 public void setIndex(byte pIndex)
 { _index = pIndex;
 }
@@ -112,6 +124,9 @@ public byte Index
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding1(byte pPadding1)
 { _padding1 = pPadding1;
 }
@@ -129,6 +144,9 @@ public byte Padding1
 }
 }
 
+   ///<summary>
+   ///Geometry or state record
+   ///</summary>
 public void setGeometry(byte pGeometry)
 { _geometry = pGeometry;
 }
@@ -146,6 +164,9 @@ public byte Geometry
 }
 }
 
+   ///<summary>
+   ///padding to bring the total size up to a 64 bit boundry
+   ///</summary>
 public void setPadding2(byte pPadding2)
 { _padding2 = pPadding2;
 }
@@ -164,6 +185,9 @@ public byte Padding2
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -201,6 +225,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- Environment-----"  + System.Environment.NewLine);
@@ -221,7 +252,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(Environment rhs)
  {

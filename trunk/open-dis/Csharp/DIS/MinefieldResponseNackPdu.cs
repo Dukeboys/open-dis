@@ -37,9 +37,12 @@ public class MinefieldResponseNackPdu : MinefieldFamilyPdu
    protected byte  _numberOfMissingPdus;
 
    /** PDU sequence numbers that were missing */
-   protected List<object> _missingPduSequenceNumbers = new List<object>(); 
+   protected List<EightByteChunk> _missingPduSequenceNumbers = new List<EightByteChunk>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.10.4 proivde the means to request a retransmit of a minefield data pdu. COMPLETE
+   ///</summary>
  public MinefieldResponseNackPdu()
  {
     PduType = (byte)40;
@@ -64,14 +67,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public void setMinefieldID(EntityID pMinefieldID)
 { _minefieldID = pMinefieldID;
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public EntityID getMinefieldID()
 { return _minefieldID; 
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="minefieldID")]
 public EntityID MinefieldID
 {
@@ -85,14 +97,23 @@ public EntityID MinefieldID
 }
 }
 
+   ///<summary>
+   ///entity ID making the request
+   ///</summary>
 public void setRequestingEntityID(EntityID pRequestingEntityID)
 { _requestingEntityID = pRequestingEntityID;
 }
 
+   ///<summary>
+   ///entity ID making the request
+   ///</summary>
 public EntityID getRequestingEntityID()
 { return _requestingEntityID; 
 }
 
+   ///<summary>
+   ///entity ID making the request
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="requestingEntityID")]
 public EntityID RequestingEntityID
 {
@@ -106,6 +127,9 @@ public EntityID RequestingEntityID
 }
 }
 
+   ///<summary>
+   ///request ID
+   ///</summary>
 public void setRequestID(byte pRequestID)
 { _requestID = pRequestID;
 }
@@ -123,15 +147,51 @@ public byte RequestID
 }
 }
 
-public void setMissingPduSequenceNumbers(List<object> pMissingPduSequenceNumbers)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfMissingPdus method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfMissingPdus(byte pNumberOfMissingPdus)
+{ _numberOfMissingPdus = pNumberOfMissingPdus;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfMissingPdus method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfMissingPdus")]
+public byte NumberOfMissingPdus
+{
+     get
+     {
+          return _numberOfMissingPdus;
+     }
+     set
+     {
+          _numberOfMissingPdus = value;
+     }
+}
+
+   ///<summary>
+   ///PDU sequence numbers that were missing
+   ///</summary>
+public void setMissingPduSequenceNumbers(List<EightByteChunk> pMissingPduSequenceNumbers)
 { _missingPduSequenceNumbers = pMissingPduSequenceNumbers;
 }
 
-public List<object> getMissingPduSequenceNumbers()
+   ///<summary>
+   ///PDU sequence numbers that were missing
+   ///</summary>
+public List<EightByteChunk> getMissingPduSequenceNumbers()
 { return _missingPduSequenceNumbers; }
 
-[XmlElement(ElementName = "missingPduSequenceNumbersList",Type = typeof(List<object>))]
-public List<object> MissingPduSequenceNumbers
+   ///<summary>
+   ///PDU sequence numbers that were missing
+   ///</summary>
+[XmlElement(ElementName = "missingPduSequenceNumbersList",Type = typeof(List<EightByteChunk>))]
+public List<EightByteChunk> MissingPduSequenceNumbers
 {
      get
 {
@@ -143,7 +203,19 @@ public List<object> MissingPduSequenceNumbers
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -194,6 +266,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- MinefieldResponseNackPdu-----"  + System.Environment.NewLine);
@@ -223,7 +302,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(MinefieldResponseNackPdu rhs)
  {

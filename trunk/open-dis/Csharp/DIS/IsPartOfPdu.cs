@@ -47,6 +47,9 @@ public class IsPartOfPdu : EntityManagementFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.9.4 The joining of two or more simulation entities is communicated by this PDU. COMPLETE
+   ///</summary>
  public IsPartOfPdu()
  {
     PduType = (byte)36;
@@ -68,14 +71,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of entity originating PDU
+   ///</summary>
 public void setOrginatingEntityID(EntityID pOrginatingEntityID)
 { _orginatingEntityID = pOrginatingEntityID;
 }
 
+   ///<summary>
+   ///ID of entity originating PDU
+   ///</summary>
 public EntityID getOrginatingEntityID()
 { return _orginatingEntityID; 
 }
 
+   ///<summary>
+   ///ID of entity originating PDU
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="orginatingEntityID")]
 public EntityID OrginatingEntityID
 {
@@ -89,14 +101,23 @@ public EntityID OrginatingEntityID
 }
 }
 
+   ///<summary>
+   ///ID of entity receiving PDU
+   ///</summary>
 public void setReceivingEntityID(EntityID pReceivingEntityID)
 { _receivingEntityID = pReceivingEntityID;
 }
 
+   ///<summary>
+   ///ID of entity receiving PDU
+   ///</summary>
 public EntityID getReceivingEntityID()
 { return _receivingEntityID; 
 }
 
+   ///<summary>
+   ///ID of entity receiving PDU
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="receivingEntityID")]
 public EntityID ReceivingEntityID
 {
@@ -110,14 +131,23 @@ public EntityID ReceivingEntityID
 }
 }
 
+   ///<summary>
+   ///relationship of joined parts
+   ///</summary>
 public void setRelationship(Relationship pRelationship)
 { _relationship = pRelationship;
 }
 
+   ///<summary>
+   ///relationship of joined parts
+   ///</summary>
 public Relationship getRelationship()
 { return _relationship; 
 }
 
+   ///<summary>
+   ///relationship of joined parts
+   ///</summary>
 [XmlElement(Type= typeof(Relationship), ElementName="relationship")]
 public Relationship Relationship
 {
@@ -131,14 +161,23 @@ public Relationship Relationship
 }
 }
 
+   ///<summary>
+   ///location of part; centroid of part in host's coordinate system. x=range, y=bearing, z=0
+   ///</summary>
 public void setPartLocation(Vector3Float pPartLocation)
 { _partLocation = pPartLocation;
 }
 
+   ///<summary>
+   ///location of part; centroid of part in host's coordinate system. x=range, y=bearing, z=0
+   ///</summary>
 public Vector3Float getPartLocation()
 { return _partLocation; 
 }
 
+   ///<summary>
+   ///location of part; centroid of part in host's coordinate system. x=range, y=bearing, z=0
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="partLocation")]
 public Vector3Float PartLocation
 {
@@ -152,14 +191,23 @@ public Vector3Float PartLocation
 }
 }
 
+   ///<summary>
+   ///named location
+   ///</summary>
 public void setNamedLocationID(NamedLocation pNamedLocationID)
 { _namedLocationID = pNamedLocationID;
 }
 
+   ///<summary>
+   ///named location
+   ///</summary>
 public NamedLocation getNamedLocationID()
 { return _namedLocationID; 
 }
 
+   ///<summary>
+   ///named location
+   ///</summary>
 [XmlElement(Type= typeof(NamedLocation), ElementName="namedLocationID")]
 public NamedLocation NamedLocationID
 {
@@ -173,14 +221,23 @@ public NamedLocation NamedLocationID
 }
 }
 
+   ///<summary>
+   ///entity type
+   ///</summary>
 public void setPartEntityType(EntityType pPartEntityType)
 { _partEntityType = pPartEntityType;
 }
 
+   ///<summary>
+   ///entity type
+   ///</summary>
 public EntityType getPartEntityType()
 { return _partEntityType; 
 }
 
+   ///<summary>
+   ///entity type
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="partEntityType")]
 public EntityType PartEntityType
 {
@@ -194,7 +251,19 @@ public EntityType PartEntityType
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -235,6 +304,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- IsPartOfPdu-----"  + System.Environment.NewLine);
@@ -262,7 +338,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(IsPartOfPdu rhs)
  {

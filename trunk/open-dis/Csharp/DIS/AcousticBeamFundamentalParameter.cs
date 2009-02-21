@@ -42,6 +42,9 @@ public class AcousticBeamFundamentalParameter : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Used in UaPdu
+   ///</summary>
  public AcousticBeamFundamentalParameter()
  {
  }
@@ -61,6 +64,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///parameter index
+   ///</summary>
 public void setActiveEmissionParameterIndex(ushort pActiveEmissionParameterIndex)
 { _activeEmissionParameterIndex = pActiveEmissionParameterIndex;
 }
@@ -78,6 +84,9 @@ public ushort ActiveEmissionParameterIndex
 }
 }
 
+   ///<summary>
+   ///scan pattern
+   ///</summary>
 public void setScanPattern(ushort pScanPattern)
 { _scanPattern = pScanPattern;
 }
@@ -95,6 +104,9 @@ public ushort ScanPattern
 }
 }
 
+   ///<summary>
+   ///beam center azimuth
+   ///</summary>
 public void setBeamCenterAzimuth(float pBeamCenterAzimuth)
 { _beamCenterAzimuth = pBeamCenterAzimuth;
 }
@@ -112,6 +124,9 @@ public float BeamCenterAzimuth
 }
 }
 
+   ///<summary>
+   ///azimuthal beamwidth
+   ///</summary>
 public void setAzimuthalBeamwidth(float pAzimuthalBeamwidth)
 { _azimuthalBeamwidth = pAzimuthalBeamwidth;
 }
@@ -129,6 +144,9 @@ public float AzimuthalBeamwidth
 }
 }
 
+   ///<summary>
+   ///beam center
+   ///</summary>
 public void setBeamCenterDE(float pBeamCenterDE)
 { _beamCenterDE = pBeamCenterDE;
 }
@@ -146,6 +164,9 @@ public float BeamCenterDE
 }
 }
 
+   ///<summary>
+   ///DE beamwidth (vertical beamwidth)
+   ///</summary>
 public void setDeBeamwidth(float pDeBeamwidth)
 { _deBeamwidth = pDeBeamwidth;
 }
@@ -164,6 +185,9 @@ public float DeBeamwidth
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -201,6 +225,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- AcousticBeamFundamentalParameter-----"  + System.Environment.NewLine);
@@ -221,7 +252,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(AcousticBeamFundamentalParameter rhs)
  {

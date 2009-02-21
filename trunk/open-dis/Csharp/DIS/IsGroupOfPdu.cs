@@ -43,9 +43,12 @@ public class IsGroupOfPdu : EntityManagementFamilyPdu
    protected double  _longitude;
 
    /** GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements */
-   protected List<object> _groupedEntityDescriptions = new List<object>(); 
+   protected List<VariableDatum> _groupedEntityDescriptions = new List<VariableDatum>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.9.2 Information about a particular group of entities grouped together for the purposes of netowrk bandwidth         reduction or aggregation. Needs manual cleanup. The GED size requires a database lookup. UNFINISHED
+   ///</summary>
  public IsGroupOfPdu()
  {
     PduType = (byte)34;
@@ -72,14 +75,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of aggregated entities
+   ///</summary>
 public void setGroupEntityID(EntityID pGroupEntityID)
 { _groupEntityID = pGroupEntityID;
 }
 
+   ///<summary>
+   ///ID of aggregated entities
+   ///</summary>
 public EntityID getGroupEntityID()
 { return _groupEntityID; 
 }
 
+   ///<summary>
+   ///ID of aggregated entities
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="groupEntityID")]
 public EntityID GroupEntityID
 {
@@ -93,6 +105,9 @@ public EntityID GroupEntityID
 }
 }
 
+   ///<summary>
+   ///type of entities constituting the group
+   ///</summary>
 public void setGroupedEntityCategory(byte pGroupedEntityCategory)
 { _groupedEntityCategory = pGroupedEntityCategory;
 }
@@ -110,6 +125,36 @@ public byte GroupedEntityCategory
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfGroupedEntities method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfGroupedEntities(byte pNumberOfGroupedEntities)
+{ _numberOfGroupedEntities = pNumberOfGroupedEntities;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfGroupedEntities method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfGroupedEntities")]
+public byte NumberOfGroupedEntities
+{
+     get
+     {
+          return _numberOfGroupedEntities;
+     }
+     set
+     {
+          _numberOfGroupedEntities = value;
+     }
+}
+
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad2(uint pPad2)
 { _pad2 = pPad2;
 }
@@ -127,6 +172,9 @@ public uint Pad2
 }
 }
 
+   ///<summary>
+   ///latitude
+   ///</summary>
 public void setLatitude(double pLatitude)
 { _latitude = pLatitude;
 }
@@ -144,6 +192,9 @@ public double Latitude
 }
 }
 
+   ///<summary>
+   ///longitude
+   ///</summary>
 public void setLongitude(double pLongitude)
 { _longitude = pLongitude;
 }
@@ -161,15 +212,24 @@ public double Longitude
 }
 }
 
-public void setGroupedEntityDescriptions(List<object> pGroupedEntityDescriptions)
+   ///<summary>
+   ///GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements
+   ///</summary>
+public void setGroupedEntityDescriptions(List<VariableDatum> pGroupedEntityDescriptions)
 { _groupedEntityDescriptions = pGroupedEntityDescriptions;
 }
 
-public List<object> getGroupedEntityDescriptions()
+   ///<summary>
+   ///GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements
+   ///</summary>
+public List<VariableDatum> getGroupedEntityDescriptions()
 { return _groupedEntityDescriptions; }
 
-[XmlElement(ElementName = "groupedEntityDescriptionsList",Type = typeof(List<object>))]
-public List<object> GroupedEntityDescriptions
+   ///<summary>
+   ///GED records about each individual entity in the group. @@@this is wrong--need a database lookup to find the actual size of the list elements
+   ///</summary>
+[XmlElement(ElementName = "groupedEntityDescriptionsList",Type = typeof(List<VariableDatum>))]
+public List<VariableDatum> GroupedEntityDescriptions
 {
      get
 {
@@ -181,7 +241,19 @@ public List<object> GroupedEntityDescriptions
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -236,6 +308,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- IsGroupOfPdu-----"  + System.Environment.NewLine);
@@ -266,7 +345,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(IsGroupOfPdu rhs)
  {

@@ -44,9 +44,12 @@ public class EnvironmentalProcessPdu : SyntheticEnvironmentFamilyPdu
    protected ushort  _sequenceNumber;
 
    /** environemt records */
-   protected List<object> _environmentRecords = new List<object>(); 
+   protected List<Environment> _environmentRecords = new List<Environment>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.11.1: Information about environmental effects and processes. This requires manual cleanup. the environmental        record is variable, as is the padding. UNFINISHED
+   ///</summary>
  public EnvironmentalProcessPdu()
  {
     PduType = (byte)41;
@@ -73,14 +76,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Environmental process ID
+   ///</summary>
 public void setEnvironementalProcessID(EntityID pEnvironementalProcessID)
 { _environementalProcessID = pEnvironementalProcessID;
 }
 
+   ///<summary>
+   ///Environmental process ID
+   ///</summary>
 public EntityID getEnvironementalProcessID()
 { return _environementalProcessID; 
 }
 
+   ///<summary>
+   ///Environmental process ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="environementalProcessID")]
 public EntityID EnvironementalProcessID
 {
@@ -94,14 +106,23 @@ public EntityID EnvironementalProcessID
 }
 }
 
+   ///<summary>
+   ///Environment type
+   ///</summary>
 public void setEnvironmentType(EntityType pEnvironmentType)
 { _environmentType = pEnvironmentType;
 }
 
+   ///<summary>
+   ///Environment type
+   ///</summary>
 public EntityType getEnvironmentType()
 { return _environmentType; 
 }
 
+   ///<summary>
+   ///Environment type
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="environmentType")]
 public EntityType EnvironmentType
 {
@@ -115,6 +136,9 @@ public EntityType EnvironmentType
 }
 }
 
+   ///<summary>
+   ///model type
+   ///</summary>
 public void setModelType(byte pModelType)
 { _modelType = pModelType;
 }
@@ -132,6 +156,9 @@ public byte ModelType
 }
 }
 
+   ///<summary>
+   ///Environment status
+   ///</summary>
 public void setEnvironmentStatus(byte pEnvironmentStatus)
 { _environmentStatus = pEnvironmentStatus;
 }
@@ -149,6 +176,36 @@ public byte EnvironmentStatus
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfEnvironmentRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfEnvironmentRecords(byte pNumberOfEnvironmentRecords)
+{ _numberOfEnvironmentRecords = pNumberOfEnvironmentRecords;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfEnvironmentRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfEnvironmentRecords")]
+public byte NumberOfEnvironmentRecords
+{
+     get
+     {
+          return _numberOfEnvironmentRecords;
+     }
+     set
+     {
+          _numberOfEnvironmentRecords = value;
+     }
+}
+
+   ///<summary>
+   ///PDU sequence number for the environmentla process if pdu sequencing required
+   ///</summary>
 public void setSequenceNumber(ushort pSequenceNumber)
 { _sequenceNumber = pSequenceNumber;
 }
@@ -166,15 +223,24 @@ public ushort SequenceNumber
 }
 }
 
-public void setEnvironmentRecords(List<object> pEnvironmentRecords)
+   ///<summary>
+   ///environemt records
+   ///</summary>
+public void setEnvironmentRecords(List<Environment> pEnvironmentRecords)
 { _environmentRecords = pEnvironmentRecords;
 }
 
-public List<object> getEnvironmentRecords()
+   ///<summary>
+   ///environemt records
+   ///</summary>
+public List<Environment> getEnvironmentRecords()
 { return _environmentRecords; }
 
-[XmlElement(ElementName = "environmentRecordsList",Type = typeof(List<object>))]
-public List<object> EnvironmentRecords
+   ///<summary>
+   ///environemt records
+   ///</summary>
+[XmlElement(ElementName = "environmentRecordsList",Type = typeof(List<Environment>))]
+public List<Environment> EnvironmentRecords
 {
      get
 {
@@ -186,7 +252,19 @@ public List<object> EnvironmentRecords
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -241,6 +319,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- EnvironmentalProcessPdu-----"  + System.Environment.NewLine);
@@ -272,7 +357,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(EnvironmentalProcessPdu rhs)
  {

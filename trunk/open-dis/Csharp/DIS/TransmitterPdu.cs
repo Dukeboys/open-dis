@@ -80,11 +80,14 @@ public class TransmitterPdu : RadioCommunicationsFamilyPdu
    protected byte  _padding3 = 0;
 
    /** variable length list of modulation parameters */
-   protected List<object> _modulationParametersList = new List<object>(); 
+   protected List<Vector3Float> _modulationParametersList = new List<Vector3Float>(); 
    /** variable length list of antenna pattern records */
-   protected List<object> _antennaPatternList = new List<object>(); 
+   protected List<Vector3Float> _antennaPatternList = new List<Vector3Float>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.8.1. Detailed information about a radio transmitter. This PDU requires manually         written code to complete, since the modulation parameters are of variable length. UNFINISHED
+   ///</summary>
  public TransmitterPdu()
  {
     PduType = (byte)25;
@@ -127,14 +130,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///linear accelleration of entity
+   ///</summary>
 public void setRadioEntityType(RadioEntityType pRadioEntityType)
 { _radioEntityType = pRadioEntityType;
 }
 
+   ///<summary>
+   ///linear accelleration of entity
+   ///</summary>
 public RadioEntityType getRadioEntityType()
 { return _radioEntityType; 
 }
 
+   ///<summary>
+   ///linear accelleration of entity
+   ///</summary>
 [XmlElement(Type= typeof(RadioEntityType), ElementName="radioEntityType")]
 public RadioEntityType RadioEntityType
 {
@@ -148,6 +160,9 @@ public RadioEntityType RadioEntityType
 }
 }
 
+   ///<summary>
+   ///transmit state
+   ///</summary>
 public void setTransmitState(byte pTransmitState)
 { _transmitState = pTransmitState;
 }
@@ -165,6 +180,9 @@ public byte TransmitState
 }
 }
 
+   ///<summary>
+   ///input source
+   ///</summary>
 public void setInputSource(byte pInputSource)
 { _inputSource = pInputSource;
 }
@@ -182,6 +200,9 @@ public byte InputSource
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding1(ushort pPadding1)
 { _padding1 = pPadding1;
 }
@@ -199,14 +220,23 @@ public ushort Padding1
 }
 }
 
+   ///<summary>
+   ///Location of antenna
+   ///</summary>
 public void setAntennaLocation(Vector3Double pAntennaLocation)
 { _antennaLocation = pAntennaLocation;
 }
 
+   ///<summary>
+   ///Location of antenna
+   ///</summary>
 public Vector3Double getAntennaLocation()
 { return _antennaLocation; 
 }
 
+   ///<summary>
+   ///Location of antenna
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="antennaLocation")]
 public Vector3Double AntennaLocation
 {
@@ -220,14 +250,23 @@ public Vector3Double AntennaLocation
 }
 }
 
+   ///<summary>
+   ///relative location of antenna
+   ///</summary>
 public void setRelativeAntennaLocation(Vector3Float pRelativeAntennaLocation)
 { _relativeAntennaLocation = pRelativeAntennaLocation;
 }
 
+   ///<summary>
+   ///relative location of antenna
+   ///</summary>
 public Vector3Float getRelativeAntennaLocation()
 { return _relativeAntennaLocation; 
 }
 
+   ///<summary>
+   ///relative location of antenna
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="relativeAntennaLocation")]
 public Vector3Float RelativeAntennaLocation
 {
@@ -241,6 +280,9 @@ public Vector3Float RelativeAntennaLocation
 }
 }
 
+   ///<summary>
+   ///antenna pattern type
+   ///</summary>
 public void setAntennaPatternType(ushort pAntennaPatternType)
 { _antennaPatternType = pAntennaPatternType;
 }
@@ -258,6 +300,36 @@ public ushort AntennaPatternType
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getantennaPatternCount method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setAntennaPatternCount(ushort pAntennaPatternCount)
+{ _antennaPatternCount = pAntennaPatternCount;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getantennaPatternCount method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="antennaPatternCount")]
+public ushort AntennaPatternCount
+{
+     get
+     {
+          return _antennaPatternCount;
+     }
+     set
+     {
+          _antennaPatternCount = value;
+     }
+}
+
+   ///<summary>
+   ///frequency
+   ///</summary>
 public void setFrequency(double pFrequency)
 { _frequency = pFrequency;
 }
@@ -275,6 +347,9 @@ public double Frequency
 }
 }
 
+   ///<summary>
+   ///transmit frequency Bandwidth
+   ///</summary>
 public void setTransmitFrequencyBandwidth(float pTransmitFrequencyBandwidth)
 { _transmitFrequencyBandwidth = pTransmitFrequencyBandwidth;
 }
@@ -292,6 +367,9 @@ public float TransmitFrequencyBandwidth
 }
 }
 
+   ///<summary>
+   ///transmission power
+   ///</summary>
 public void setPower(float pPower)
 { _power = pPower;
 }
@@ -309,14 +387,23 @@ public float Power
 }
 }
 
+   ///<summary>
+   ///modulation
+   ///</summary>
 public void setModulationType(ModulationType pModulationType)
 { _modulationType = pModulationType;
 }
 
+   ///<summary>
+   ///modulation
+   ///</summary>
 public ModulationType getModulationType()
 { return _modulationType; 
 }
 
+   ///<summary>
+   ///modulation
+   ///</summary>
 [XmlElement(Type= typeof(ModulationType), ElementName="modulationType")]
 public ModulationType ModulationType
 {
@@ -330,6 +417,9 @@ public ModulationType ModulationType
 }
 }
 
+   ///<summary>
+   ///crypto system enumeration
+   ///</summary>
 public void setCryptoSystem(ushort pCryptoSystem)
 { _cryptoSystem = pCryptoSystem;
 }
@@ -347,6 +437,9 @@ public ushort CryptoSystem
 }
 }
 
+   ///<summary>
+   ///crypto system key identifer
+   ///</summary>
 public void setCryptoKeyId(ushort pCryptoKeyId)
 { _cryptoKeyId = pCryptoKeyId;
 }
@@ -364,6 +457,36 @@ public ushort CryptoKeyId
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getmodulationParameterCount method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setModulationParameterCount(byte pModulationParameterCount)
+{ _modulationParameterCount = pModulationParameterCount;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getmodulationParameterCount method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="modulationParameterCount")]
+public byte ModulationParameterCount
+{
+     get
+     {
+          return _modulationParameterCount;
+     }
+     set
+     {
+          _modulationParameterCount = value;
+     }
+}
+
+   ///<summary>
+   ///padding2
+   ///</summary>
 public void setPadding2(ushort pPadding2)
 { _padding2 = pPadding2;
 }
@@ -381,6 +504,9 @@ public ushort Padding2
 }
 }
 
+   ///<summary>
+   ///padding3
+   ///</summary>
 public void setPadding3(byte pPadding3)
 { _padding3 = pPadding3;
 }
@@ -398,15 +524,24 @@ public byte Padding3
 }
 }
 
-public void setModulationParametersList(List<object> pModulationParametersList)
+   ///<summary>
+   ///variable length list of modulation parameters
+   ///</summary>
+public void setModulationParametersList(List<Vector3Float> pModulationParametersList)
 { _modulationParametersList = pModulationParametersList;
 }
 
-public List<object> getModulationParametersList()
+   ///<summary>
+   ///variable length list of modulation parameters
+   ///</summary>
+public List<Vector3Float> getModulationParametersList()
 { return _modulationParametersList; }
 
-[XmlElement(ElementName = "modulationParametersListList",Type = typeof(List<object>))]
-public List<object> ModulationParametersList
+   ///<summary>
+   ///variable length list of modulation parameters
+   ///</summary>
+[XmlElement(ElementName = "modulationParametersListList",Type = typeof(List<Vector3Float>))]
+public List<Vector3Float> ModulationParametersList
 {
      get
 {
@@ -418,15 +553,24 @@ public List<object> ModulationParametersList
 }
 }
 
-public void setAntennaPatternList(List<object> pAntennaPatternList)
+   ///<summary>
+   ///variable length list of antenna pattern records
+   ///</summary>
+public void setAntennaPatternList(List<Vector3Float> pAntennaPatternList)
 { _antennaPatternList = pAntennaPatternList;
 }
 
-public List<object> getAntennaPatternList()
+   ///<summary>
+   ///variable length list of antenna pattern records
+   ///</summary>
+public List<Vector3Float> getAntennaPatternList()
 { return _antennaPatternList; }
 
-[XmlElement(ElementName = "antennaPatternListList",Type = typeof(List<object>))]
-public List<object> AntennaPatternList
+   ///<summary>
+   ///variable length list of antenna pattern records
+   ///</summary>
+[XmlElement(ElementName = "antennaPatternListList",Type = typeof(List<Vector3Float>))]
+public List<Vector3Float> AntennaPatternList
 {
      get
 {
@@ -438,7 +582,19 @@ public List<object> AntennaPatternList
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -529,6 +685,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- TransmitterPdu-----"  + System.Environment.NewLine);
@@ -581,7 +744,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(TransmitterPdu rhs)
  {

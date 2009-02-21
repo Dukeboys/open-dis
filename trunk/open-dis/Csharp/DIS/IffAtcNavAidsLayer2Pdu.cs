@@ -35,9 +35,12 @@ public class IffAtcNavAidsLayer2Pdu : IffAtcNavAidsLayer1Pdu
    protected BeamData  _secondaryOperationalData = new BeamData(); 
 
    /** variable length list of fundamental parameters. @@@This is wrong */
-   protected List<object> _fundamentalIffParameters = new List<object>(); 
+   protected List<FundamentalParameterDataIff> _fundamentalIffParameters = new List<FundamentalParameterDataIff>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.7.4.2 When present, layer 2 should follow layer 1 and have the following fields. This requires manual cleanup.        the beamData attribute semantics are used in multiple ways. UNFINSISHED
+   ///</summary>
  public IffAtcNavAidsLayer2Pdu()
  {
  }
@@ -60,14 +63,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///layer header
+   ///</summary>
 public void setLayerHeader(LayerHeader pLayerHeader)
 { _layerHeader = pLayerHeader;
 }
 
+   ///<summary>
+   ///layer header
+   ///</summary>
 public LayerHeader getLayerHeader()
 { return _layerHeader; 
 }
 
+   ///<summary>
+   ///layer header
+   ///</summary>
 [XmlElement(Type= typeof(LayerHeader), ElementName="layerHeader")]
 public LayerHeader LayerHeader
 {
@@ -81,14 +93,23 @@ public LayerHeader LayerHeader
 }
 }
 
+   ///<summary>
+   ///beam data
+   ///</summary>
 public void setBeamData(BeamData pBeamData)
 { _beamData = pBeamData;
 }
 
+   ///<summary>
+   ///beam data
+   ///</summary>
 public BeamData getBeamData()
 { return _beamData; 
 }
 
+   ///<summary>
+   ///beam data
+   ///</summary>
 [XmlElement(Type= typeof(BeamData), ElementName="beamData")]
 public BeamData BeamData
 {
@@ -102,14 +123,23 @@ public BeamData BeamData
 }
 }
 
+   ///<summary>
+   ///Secondary operational data, 5.2.57
+   ///</summary>
 public void setSecondaryOperationalData(BeamData pSecondaryOperationalData)
 { _secondaryOperationalData = pSecondaryOperationalData;
 }
 
+   ///<summary>
+   ///Secondary operational data, 5.2.57
+   ///</summary>
 public BeamData getSecondaryOperationalData()
 { return _secondaryOperationalData; 
 }
 
+   ///<summary>
+   ///Secondary operational data, 5.2.57
+   ///</summary>
 [XmlElement(Type= typeof(BeamData), ElementName="secondaryOperationalData")]
 public BeamData SecondaryOperationalData
 {
@@ -123,15 +153,24 @@ public BeamData SecondaryOperationalData
 }
 }
 
-public void setFundamentalIffParameters(List<object> pFundamentalIffParameters)
+   ///<summary>
+   ///variable length list of fundamental parameters. @@@This is wrong
+   ///</summary>
+public void setFundamentalIffParameters(List<FundamentalParameterDataIff> pFundamentalIffParameters)
 { _fundamentalIffParameters = pFundamentalIffParameters;
 }
 
-public List<object> getFundamentalIffParameters()
+   ///<summary>
+   ///variable length list of fundamental parameters. @@@This is wrong
+   ///</summary>
+public List<FundamentalParameterDataIff> getFundamentalIffParameters()
 { return _fundamentalIffParameters; }
 
-[XmlElement(ElementName = "fundamentalIffParametersList",Type = typeof(List<object>))]
-public List<object> FundamentalIffParameters
+   ///<summary>
+   ///variable length list of fundamental parameters. @@@This is wrong
+   ///</summary>
+[XmlElement(ElementName = "fundamentalIffParametersList",Type = typeof(List<FundamentalParameterDataIff>))]
+public List<FundamentalParameterDataIff> FundamentalIffParameters
 {
      get
 {
@@ -143,7 +182,19 @@ public List<object> FundamentalIffParameters
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -192,6 +243,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- IffAtcNavAidsLayer2Pdu-----"  + System.Environment.NewLine);
@@ -221,7 +279,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(IffAtcNavAidsLayer2Pdu rhs)
  {

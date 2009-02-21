@@ -33,6 +33,9 @@ public class EntityID : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Each entity in a given DIS simulation application shall be given an entity identifier number unique to all  other entities in that application. This identifier number is valid for the duration of the exercise; however,  entity identifier numbers may be reused when all possible numbers have been exhausted. No entity shall  have an entity identifier number of NO_ENTITY, ALL_ENTITIES, or RQST_ASSIGN_ID. The entity iden-  tifier number need not be registered or retained for future exercises. The entity identifier number shall be  specified by a 16-bit unsigned integer.  An entity identifier number equal to zero with valid site and application identification shall address a  simulation application. An entity identifier number equal to ALL_ENTITIES shall mean all entities within  the specified site and application. An entity identifier number equal to RQST_ASSIGN_ID allows the  receiver of the create entity to define the entity identifier number of the new entity.
+   ///</summary>
  public EntityID()
  {
  }
@@ -49,6 +52,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///The site ID
+   ///</summary>
 public void setSite(ushort pSite)
 { _site = pSite;
 }
@@ -66,6 +72,9 @@ public ushort Site
 }
 }
 
+   ///<summary>
+   ///The application ID
+   ///</summary>
 public void setApplication(ushort pApplication)
 { _application = pApplication;
 }
@@ -83,6 +92,9 @@ public ushort Application
 }
 }
 
+   ///<summary>
+   ///the entity ID
+   ///</summary>
 public void setEntity(ushort pEntity)
 { _entity = pEntity;
 }
@@ -101,6 +113,9 @@ public ushort Entity
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -132,6 +147,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- EntityID-----"  + System.Environment.NewLine);
@@ -149,7 +171,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(EntityID rhs)
  {

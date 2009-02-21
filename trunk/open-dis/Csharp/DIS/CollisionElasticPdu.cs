@@ -72,6 +72,9 @@ public class CollisionElasticPdu : EntityInformationFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///5.3.3.3. Information about elastic collisions in a DIS exercise shall be communicated using a Collision-Elastic PDU. COMPLETE
+   ///</summary>
  public CollisionElasticPdu()
  {
     PduType = (byte)66;
@@ -103,14 +106,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of the entity that issued the collision PDU
+   ///</summary>
 public void setIssuingEntityID(EntityID pIssuingEntityID)
 { _issuingEntityID = pIssuingEntityID;
 }
 
+   ///<summary>
+   ///ID of the entity that issued the collision PDU
+   ///</summary>
 public EntityID getIssuingEntityID()
 { return _issuingEntityID; 
 }
 
+   ///<summary>
+   ///ID of the entity that issued the collision PDU
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="issuingEntityID")]
 public EntityID IssuingEntityID
 {
@@ -124,14 +136,23 @@ public EntityID IssuingEntityID
 }
 }
 
+   ///<summary>
+   ///ID of entity that has collided with the issuing entity ID
+   ///</summary>
 public void setCollidingEntityID(EntityID pCollidingEntityID)
 { _collidingEntityID = pCollidingEntityID;
 }
 
+   ///<summary>
+   ///ID of entity that has collided with the issuing entity ID
+   ///</summary>
 public EntityID getCollidingEntityID()
 { return _collidingEntityID; 
 }
 
+   ///<summary>
+   ///ID of entity that has collided with the issuing entity ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="collidingEntityID")]
 public EntityID CollidingEntityID
 {
@@ -145,14 +166,23 @@ public EntityID CollidingEntityID
 }
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public void setCollisionEventID(EventID pCollisionEventID)
 { _collisionEventID = pCollisionEventID;
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public EventID getCollisionEventID()
 { return _collisionEventID; 
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 [XmlElement(Type= typeof(EventID), ElementName="collisionEventID")]
 public EventID CollisionEventID
 {
@@ -166,6 +196,9 @@ public EventID CollisionEventID
 }
 }
 
+   ///<summary>
+   ///some padding
+   ///</summary>
 public void setPad(short pPad)
 { _pad = pPad;
 }
@@ -183,14 +216,23 @@ public short Pad
 }
 }
 
+   ///<summary>
+   ///velocity at collision
+   ///</summary>
 public void setContactVelocity(Vector3Float pContactVelocity)
 { _contactVelocity = pContactVelocity;
 }
 
+   ///<summary>
+   ///velocity at collision
+   ///</summary>
 public Vector3Float getContactVelocity()
 { return _contactVelocity; 
 }
 
+   ///<summary>
+   ///velocity at collision
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="contactVelocity")]
 public Vector3Float ContactVelocity
 {
@@ -204,6 +246,9 @@ public Vector3Float ContactVelocity
 }
 }
 
+   ///<summary>
+   ///mass of issuing entity
+   ///</summary>
 public void setMass(float pMass)
 { _mass = pMass;
 }
@@ -221,14 +266,23 @@ public float Mass
 }
 }
 
+   ///<summary>
+   ///Location with respect to entity the issuing entity collided with
+   ///</summary>
 public void setLocation(Vector3Float pLocation)
 { _location = pLocation;
 }
 
+   ///<summary>
+   ///Location with respect to entity the issuing entity collided with
+   ///</summary>
 public Vector3Float getLocation()
 { return _location; 
 }
 
+   ///<summary>
+   ///Location with respect to entity the issuing entity collided with
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="location")]
 public Vector3Float Location
 {
@@ -242,6 +296,9 @@ public Vector3Float Location
 }
 }
 
+   ///<summary>
+   ///tensor values
+   ///</summary>
 public void setCollisionResultXX(float pCollisionResultXX)
 { _collisionResultXX = pCollisionResultXX;
 }
@@ -259,6 +316,9 @@ public float CollisionResultXX
 }
 }
 
+   ///<summary>
+   ///tensor values
+   ///</summary>
 public void setCollisionResultXY(float pCollisionResultXY)
 { _collisionResultXY = pCollisionResultXY;
 }
@@ -276,6 +336,9 @@ public float CollisionResultXY
 }
 }
 
+   ///<summary>
+   ///tensor values
+   ///</summary>
 public void setCollisionResultXZ(float pCollisionResultXZ)
 { _collisionResultXZ = pCollisionResultXZ;
 }
@@ -293,6 +356,9 @@ public float CollisionResultXZ
 }
 }
 
+   ///<summary>
+   ///tensor values
+   ///</summary>
 public void setCollisionResultYY(float pCollisionResultYY)
 { _collisionResultYY = pCollisionResultYY;
 }
@@ -310,6 +376,9 @@ public float CollisionResultYY
 }
 }
 
+   ///<summary>
+   ///tensor values
+   ///</summary>
 public void setCollisionResultYZ(float pCollisionResultYZ)
 { _collisionResultYZ = pCollisionResultYZ;
 }
@@ -327,6 +396,9 @@ public float CollisionResultYZ
 }
 }
 
+   ///<summary>
+   ///tensor values
+   ///</summary>
 public void setCollisionResultZZ(float pCollisionResultZZ)
 { _collisionResultZZ = pCollisionResultZZ;
 }
@@ -344,14 +416,23 @@ public float CollisionResultZZ
 }
 }
 
+   ///<summary>
+   ///This record shall represent the normal vector to the surface at the point of collision detection. The surface normal shall be represented in world coordinates.
+   ///</summary>
 public void setUnitSurfaceNormal(Vector3Float pUnitSurfaceNormal)
 { _unitSurfaceNormal = pUnitSurfaceNormal;
 }
 
+   ///<summary>
+   ///This record shall represent the normal vector to the surface at the point of collision detection. The surface normal shall be represented in world coordinates.
+   ///</summary>
 public Vector3Float getUnitSurfaceNormal()
 { return _unitSurfaceNormal; 
 }
 
+   ///<summary>
+   ///This record shall represent the normal vector to the surface at the point of collision detection. The surface normal shall be represented in world coordinates.
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="unitSurfaceNormal")]
 public Vector3Float UnitSurfaceNormal
 {
@@ -365,6 +446,9 @@ public Vector3Float UnitSurfaceNormal
 }
 }
 
+   ///<summary>
+   ///This field shall represent the degree to which energy is conserved in a collision
+   ///</summary>
 public void setCoefficientOfRestitution(float pCoefficientOfRestitution)
 { _coefficientOfRestitution = pCoefficientOfRestitution;
 }
@@ -382,7 +466,19 @@ public float CoefficientOfRestitution
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -441,6 +537,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- CollisionElasticPdu-----"  + System.Environment.NewLine);
@@ -477,7 +580,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(CollisionElasticPdu rhs)
  {

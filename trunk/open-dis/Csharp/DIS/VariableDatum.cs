@@ -30,9 +30,12 @@ public class VariableDatum : Object
    protected uint  _variableDatumLength;
 
    /** variable length list of 64-bit datums */
-   protected List<object> _variableDatums = new List<object>(); 
+   protected List<EightByteChunk> _variableDatums = new List<EightByteChunk>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.2.32. Variable Datum Record
+   ///</summary>
  public VariableDatum()
  {
  }
@@ -53,6 +56,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of the variable datum
+   ///</summary>
 public void setVariableDatumID(uint pVariableDatumID)
 { _variableDatumID = pVariableDatumID;
 }
@@ -70,15 +76,51 @@ public uint VariableDatumID
 }
 }
 
-public void setVariableDatums(List<object> pVariableDatums)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getvariableDatumLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setVariableDatumLength(uint pVariableDatumLength)
+{ _variableDatumLength = pVariableDatumLength;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getvariableDatumLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(uint), ElementName="variableDatumLength")]
+public uint VariableDatumLength
+{
+     get
+     {
+          return _variableDatumLength;
+     }
+     set
+     {
+          _variableDatumLength = value;
+     }
+}
+
+   ///<summary>
+   ///variable length list of 64-bit datums
+   ///</summary>
+public void setVariableDatums(List<EightByteChunk> pVariableDatums)
 { _variableDatums = pVariableDatums;
 }
 
-public List<object> getVariableDatums()
+   ///<summary>
+   ///variable length list of 64-bit datums
+   ///</summary>
+public List<EightByteChunk> getVariableDatums()
 { return _variableDatums; }
 
-[XmlElement(ElementName = "variableDatumsList",Type = typeof(List<object>))]
-public List<object> VariableDatums
+   ///<summary>
+   ///variable length list of 64-bit datums
+   ///</summary>
+[XmlElement(ElementName = "variableDatumsList",Type = typeof(List<EightByteChunk>))]
+public List<EightByteChunk> VariableDatums
 {
      get
 {
@@ -91,6 +133,9 @@ public List<object> VariableDatums
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -134,6 +179,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- VariableDatum-----"  + System.Environment.NewLine);
@@ -158,7 +210,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(VariableDatum rhs)
  {

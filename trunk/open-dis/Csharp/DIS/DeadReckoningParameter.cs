@@ -37,6 +37,9 @@ public class DeadReckoningParameter : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///represents values used in dead reckoning algorithms
+   ///</summary>
  public DeadReckoningParameter()
  {
  }
@@ -54,6 +57,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///enumeration of what dead reckoning algorighm to use
+   ///</summary>
 public void setDeadReckoningAlgorithm(byte pDeadReckoningAlgorithm)
 { _deadReckoningAlgorithm = pDeadReckoningAlgorithm;
 }
@@ -71,13 +77,22 @@ public byte DeadReckoningAlgorithm
 }
 }
 
+   ///<summary>
+   ///other parameters to use in the dead reckoning algorithm
+   ///</summary>
 public void setOtherParameters(byte[] pOtherParameters)
 { _otherParameters = pOtherParameters;
 }
 
+   ///<summary>
+   ///other parameters to use in the dead reckoning algorithm
+   ///</summary>
 public byte[] getOtherParameters()
 { return _otherParameters; }
 
+   ///<summary>
+   ///other parameters to use in the dead reckoning algorithm
+   ///</summary>
 [XmlArray(ElementName="otherParameters")]
 public byte[] OtherParameters
 {
@@ -91,14 +106,23 @@ public byte[] OtherParameters
 }
 }
 
+   ///<summary>
+   ///Linear acceleration of the entity
+   ///</summary>
 public void setEntityLinearAcceleration(Vector3Float pEntityLinearAcceleration)
 { _entityLinearAcceleration = pEntityLinearAcceleration;
 }
 
+   ///<summary>
+   ///Linear acceleration of the entity
+   ///</summary>
 public Vector3Float getEntityLinearAcceleration()
 { return _entityLinearAcceleration; 
 }
 
+   ///<summary>
+   ///Linear acceleration of the entity
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="entityLinearAcceleration")]
 public Vector3Float EntityLinearAcceleration
 {
@@ -112,14 +136,23 @@ public Vector3Float EntityLinearAcceleration
 }
 }
 
+   ///<summary>
+   ///angular velocity of the entity
+   ///</summary>
 public void setEntityAngularVelocity(Vector3Float pEntityAngularVelocity)
 { _entityAngularVelocity = pEntityAngularVelocity;
 }
 
+   ///<summary>
+   ///angular velocity of the entity
+   ///</summary>
 public Vector3Float getEntityAngularVelocity()
 { return _entityAngularVelocity; 
 }
 
+   ///<summary>
+   ///angular velocity of the entity
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="entityAngularVelocity")]
 public Vector3Float EntityAngularVelocity
 {
@@ -134,6 +167,9 @@ public Vector3Float EntityAngularVelocity
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -175,6 +211,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- DeadReckoningParameter-----"  + System.Environment.NewLine);
@@ -200,7 +243,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(DeadReckoningParameter rhs)
  {

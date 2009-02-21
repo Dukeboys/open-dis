@@ -41,9 +41,12 @@ public class AcousticEmitterSystemData : Object
    protected Vector3Float  _emitterLocation = new Vector3Float(); 
 
    /** For each beam in numberOfBeams, an emitter system. This is not right--the beam records need to be at the end of the PDU, rather than attached to each system. */
-   protected List<object> _beamRecords = new List<object>(); 
+   protected List<AcousticBeamData> _beamRecords = new List<AcousticBeamData>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Used in the UA pdu; ties together an emmitter and a location. This requires manual cleanup; the beam data should not be attached to each emitter system.
+   ///</summary>
  public AcousticEmitterSystemData()
  {
  }
@@ -67,6 +70,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Length of emitter system data
+   ///</summary>
 public void setEmitterSystemDataLength(byte pEmitterSystemDataLength)
 { _emitterSystemDataLength = pEmitterSystemDataLength;
 }
@@ -84,6 +90,36 @@ public byte EmitterSystemDataLength
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfBeams method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfBeams(byte pNumberOfBeams)
+{ _numberOfBeams = pNumberOfBeams;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfBeams method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfBeams")]
+public byte NumberOfBeams
+{
+     get
+     {
+          return _numberOfBeams;
+     }
+     set
+     {
+          _numberOfBeams = value;
+     }
+}
+
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad2(ushort pPad2)
 { _pad2 = pPad2;
 }
@@ -101,14 +137,23 @@ public ushort Pad2
 }
 }
 
+   ///<summary>
+   ///This field shall specify the system for a particular UA emitter.
+   ///</summary>
 public void setAcousticEmitterSystem(AcousticEmitterSystem pAcousticEmitterSystem)
 { _acousticEmitterSystem = pAcousticEmitterSystem;
 }
 
+   ///<summary>
+   ///This field shall specify the system for a particular UA emitter.
+   ///</summary>
 public AcousticEmitterSystem getAcousticEmitterSystem()
 { return _acousticEmitterSystem; 
 }
 
+   ///<summary>
+   ///This field shall specify the system for a particular UA emitter.
+   ///</summary>
 [XmlElement(Type= typeof(AcousticEmitterSystem), ElementName="acousticEmitterSystem")]
 public AcousticEmitterSystem AcousticEmitterSystem
 {
@@ -122,14 +167,23 @@ public AcousticEmitterSystem AcousticEmitterSystem
 }
 }
 
+   ///<summary>
+   ///Represents the location wrt the entity
+   ///</summary>
 public void setEmitterLocation(Vector3Float pEmitterLocation)
 { _emitterLocation = pEmitterLocation;
 }
 
+   ///<summary>
+   ///Represents the location wrt the entity
+   ///</summary>
 public Vector3Float getEmitterLocation()
 { return _emitterLocation; 
 }
 
+   ///<summary>
+   ///Represents the location wrt the entity
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="emitterLocation")]
 public Vector3Float EmitterLocation
 {
@@ -143,15 +197,24 @@ public Vector3Float EmitterLocation
 }
 }
 
-public void setBeamRecords(List<object> pBeamRecords)
+   ///<summary>
+   ///For each beam in numberOfBeams, an emitter system. This is not right--the beam records need to be at the end of the PDU, rather than attached to each system.
+   ///</summary>
+public void setBeamRecords(List<AcousticBeamData> pBeamRecords)
 { _beamRecords = pBeamRecords;
 }
 
-public List<object> getBeamRecords()
+   ///<summary>
+   ///For each beam in numberOfBeams, an emitter system. This is not right--the beam records need to be at the end of the PDU, rather than attached to each system.
+   ///</summary>
+public List<AcousticBeamData> getBeamRecords()
 { return _beamRecords; }
 
-[XmlElement(ElementName = "beamRecordsList",Type = typeof(List<object>))]
-public List<object> BeamRecords
+   ///<summary>
+   ///For each beam in numberOfBeams, an emitter system. This is not right--the beam records need to be at the end of the PDU, rather than attached to each system.
+   ///</summary>
+[XmlElement(ElementName = "beamRecordsList",Type = typeof(List<AcousticBeamData>))]
+public List<AcousticBeamData> BeamRecords
 {
      get
 {
@@ -164,6 +227,9 @@ public List<object> BeamRecords
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -213,6 +279,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- AcousticEmitterSystemData-----"  + System.Environment.NewLine);
@@ -242,7 +315,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(AcousticEmitterSystemData rhs)
  {

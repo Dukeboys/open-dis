@@ -55,12 +55,15 @@ public class UaPdu : DistributedEmissionsFamilyPdu
    protected byte  _numberOfUAEmitterSystems;
 
    /** shaft RPM values */
-   protected List<object> _shaftRPMs = new List<object>(); 
+   protected List<ShaftRPMs> _shaftRPMs = new List<ShaftRPMs>(); 
    /** apaData */
-   protected List<object> _apaData = new List<object>(); 
-   protected List<object> _emitterSystems = new List<object>(); 
+   protected List<ApaData> _apaData = new List<ApaData>(); 
+   protected List<AcousticEmitterSystemData> _emitterSystems = new List<AcousticEmitterSystemData>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.7.3. Information about underwater acoustic emmissions. This requires manual cleanup.  The beam data records should ALL be a the finish, rather than attached to each emitter system. UNFINISHED
+   ///</summary>
  public UaPdu()
  {
     PduType = (byte)29;
@@ -100,14 +103,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of the entity that is the source of the emission
+   ///</summary>
 public void setEmittingEntityID(EntityID pEmittingEntityID)
 { _emittingEntityID = pEmittingEntityID;
 }
 
+   ///<summary>
+   ///ID of the entity that is the source of the emission
+   ///</summary>
 public EntityID getEmittingEntityID()
 { return _emittingEntityID; 
 }
 
+   ///<summary>
+   ///ID of the entity that is the source of the emission
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="emittingEntityID")]
 public EntityID EmittingEntityID
 {
@@ -121,14 +133,23 @@ public EntityID EmittingEntityID
 }
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public void setEventID(EventID pEventID)
 { _eventID = pEventID;
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public EventID getEventID()
 { return _eventID; 
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 [XmlElement(Type= typeof(EventID), ElementName="eventID")]
 public EventID EventID
 {
@@ -142,6 +163,9 @@ public EventID EventID
 }
 }
 
+   ///<summary>
+   ///This field shall be used to indicate whether the data in the UA PDU represent a state update or data that have changed since issuance of the last UA PDU
+   ///</summary>
 public void setStateChangeIndicator(byte pStateChangeIndicator)
 { _stateChangeIndicator = pStateChangeIndicator;
 }
@@ -159,6 +183,9 @@ public byte StateChangeIndicator
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad(byte pPad)
 { _pad = pPad;
 }
@@ -176,6 +203,9 @@ public byte Pad
 }
 }
 
+   ///<summary>
+   ///This field indicates which database record (or file) shall be used in the definition of passive signature (unintentional) emissions of the entity. The indicated database record (or  file) shall define all noise generated as a function of propulsion plant configurations and associated  auxiliaries.
+   ///</summary>
 public void setPassiveParameterIndex(ushort pPassiveParameterIndex)
 { _passiveParameterIndex = pPassiveParameterIndex;
 }
@@ -193,6 +223,9 @@ public ushort PassiveParameterIndex
 }
 }
 
+   ///<summary>
+   ///This field shall specify the entity propulsion plant configuration. This field is used to determine the passive signature characteristics of an entity.
+   ///</summary>
 public void setPropulsionPlantConfiguration(byte pPropulsionPlantConfiguration)
 { _propulsionPlantConfiguration = pPropulsionPlantConfiguration;
 }
@@ -210,15 +243,105 @@ public byte PropulsionPlantConfiguration
 }
 }
 
-public void setShaftRPMs(List<object> pShaftRPMs)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfShafts method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfShafts(byte pNumberOfShafts)
+{ _numberOfShafts = pNumberOfShafts;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfShafts method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfShafts")]
+public byte NumberOfShafts
+{
+     get
+     {
+          return _numberOfShafts;
+     }
+     set
+     {
+          _numberOfShafts = value;
+     }
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfAPAs method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfAPAs(byte pNumberOfAPAs)
+{ _numberOfAPAs = pNumberOfAPAs;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfAPAs method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfAPAs")]
+public byte NumberOfAPAs
+{
+     get
+     {
+          return _numberOfAPAs;
+     }
+     set
+     {
+          _numberOfAPAs = value;
+     }
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfUAEmitterSystems method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfUAEmitterSystems(byte pNumberOfUAEmitterSystems)
+{ _numberOfUAEmitterSystems = pNumberOfUAEmitterSystems;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfUAEmitterSystems method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfUAEmitterSystems")]
+public byte NumberOfUAEmitterSystems
+{
+     get
+     {
+          return _numberOfUAEmitterSystems;
+     }
+     set
+     {
+          _numberOfUAEmitterSystems = value;
+     }
+}
+
+   ///<summary>
+   ///shaft RPM values
+   ///</summary>
+public void setShaftRPMs(List<ShaftRPMs> pShaftRPMs)
 { _shaftRPMs = pShaftRPMs;
 }
 
-public List<object> getShaftRPMs()
+   ///<summary>
+   ///shaft RPM values
+   ///</summary>
+public List<ShaftRPMs> getShaftRPMs()
 { return _shaftRPMs; }
 
-[XmlElement(ElementName = "shaftRPMsList",Type = typeof(List<object>))]
-public List<object> ShaftRPMs
+   ///<summary>
+   ///shaft RPM values
+   ///</summary>
+[XmlElement(ElementName = "shaftRPMsList",Type = typeof(List<ShaftRPMs>))]
+public List<ShaftRPMs> ShaftRPMs
 {
      get
 {
@@ -230,15 +353,24 @@ public List<object> ShaftRPMs
 }
 }
 
-public void setApaData(List<object> pApaData)
+   ///<summary>
+   ///apaData
+   ///</summary>
+public void setApaData(List<ApaData> pApaData)
 { _apaData = pApaData;
 }
 
-public List<object> getApaData()
+   ///<summary>
+   ///apaData
+   ///</summary>
+public List<ApaData> getApaData()
 { return _apaData; }
 
-[XmlElement(ElementName = "apaDataList",Type = typeof(List<object>))]
-public List<object> ApaData
+   ///<summary>
+   ///apaData
+   ///</summary>
+[XmlElement(ElementName = "apaDataList",Type = typeof(List<ApaData>))]
+public List<ApaData> ApaData
 {
      get
 {
@@ -250,15 +382,15 @@ public List<object> ApaData
 }
 }
 
-public void setEmitterSystems(List<object> pEmitterSystems)
+public void setEmitterSystems(List<AcousticEmitterSystemData> pEmitterSystems)
 { _emitterSystems = pEmitterSystems;
 }
 
-public List<object> getEmitterSystems()
+public List<AcousticEmitterSystemData> getEmitterSystems()
 { return _emitterSystems; }
 
-[XmlElement(ElementName = "emitterSystemsList",Type = typeof(List<object>))]
-public List<object> EmitterSystems
+[XmlElement(ElementName = "emitterSystemsList",Type = typeof(List<AcousticEmitterSystemData>))]
+public List<AcousticEmitterSystemData> EmitterSystems
 {
      get
 {
@@ -270,7 +402,19 @@ public List<object> EmitterSystems
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -359,6 +503,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- UaPdu-----"  + System.Environment.NewLine);
@@ -409,7 +560,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(UaPdu rhs)
  {

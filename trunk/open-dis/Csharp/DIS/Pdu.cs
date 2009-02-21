@@ -45,6 +45,9 @@ public class Pdu : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
+   ///</summary>
  public Pdu()
  {
  }
@@ -65,6 +68,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///The version of the protocol. 5=DIS-1995, 6=DIS-1998.
+   ///</summary>
 public void setProtocolVersion(byte pProtocolVersion)
 { _protocolVersion = pProtocolVersion;
 }
@@ -82,6 +88,9 @@ public byte ProtocolVersion
 }
 }
 
+   ///<summary>
+   ///Exercise ID
+   ///</summary>
 public void setExerciseID(byte pExerciseID)
 { _exerciseID = pExerciseID;
 }
@@ -99,6 +108,9 @@ public byte ExerciseID
 }
 }
 
+   ///<summary>
+   ///Type of pdu, unique for each PDU class
+   ///</summary>
 public void setPduType(byte pPduType)
 { _pduType = pPduType;
 }
@@ -116,6 +128,9 @@ public byte PduType
 }
 }
 
+   ///<summary>
+   ///value that refers to the protocol family, eg SimulationManagement, et
+   ///</summary>
 public void setProtocolFamily(byte pProtocolFamily)
 { _protocolFamily = pProtocolFamily;
 }
@@ -133,6 +148,9 @@ public byte ProtocolFamily
 }
 }
 
+   ///<summary>
+   ///Timestamp value
+   ///</summary>
 public void setTimestamp(uint pTimestamp)
 { _timestamp = pTimestamp;
 }
@@ -150,6 +168,9 @@ public uint Timestamp
 }
 }
 
+   ///<summary>
+   ///Length, in bytes, of the PDU
+   ///</summary>
 public void setLength(ushort pLength)
 { _length = pLength;
 }
@@ -167,6 +188,9 @@ public ushort Length
 }
 }
 
+   ///<summary>
+   ///zero-filled array of padding
+   ///</summary>
 public void setPadding(short pPadding)
 { _padding = pPadding;
 }
@@ -185,6 +209,9 @@ public short Padding
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -224,6 +251,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- Pdu-----"  + System.Environment.NewLine);
@@ -245,7 +279,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(Pdu rhs)
  {

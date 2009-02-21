@@ -51,6 +51,9 @@ public class CollisionPdu : EntityInformationFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.3.2. Information about a collision. COMPLETE
+   ///</summary>
  public CollisionPdu()
  {
     PduType = (byte)4;
@@ -75,14 +78,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of the entity that issued the collision PDU
+   ///</summary>
 public void setIssuingEntityID(EntityID pIssuingEntityID)
 { _issuingEntityID = pIssuingEntityID;
 }
 
+   ///<summary>
+   ///ID of the entity that issued the collision PDU
+   ///</summary>
 public EntityID getIssuingEntityID()
 { return _issuingEntityID; 
 }
 
+   ///<summary>
+   ///ID of the entity that issued the collision PDU
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="issuingEntityID")]
 public EntityID IssuingEntityID
 {
@@ -96,14 +108,23 @@ public EntityID IssuingEntityID
 }
 }
 
+   ///<summary>
+   ///ID of entity that has collided with the issuing entity ID
+   ///</summary>
 public void setCollidingEntityID(EntityID pCollidingEntityID)
 { _collidingEntityID = pCollidingEntityID;
 }
 
+   ///<summary>
+   ///ID of entity that has collided with the issuing entity ID
+   ///</summary>
 public EntityID getCollidingEntityID()
 { return _collidingEntityID; 
 }
 
+   ///<summary>
+   ///ID of entity that has collided with the issuing entity ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="collidingEntityID")]
 public EntityID CollidingEntityID
 {
@@ -117,14 +138,23 @@ public EntityID CollidingEntityID
 }
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public void setEventID(EventID pEventID)
 { _eventID = pEventID;
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public EventID getEventID()
 { return _eventID; 
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 [XmlElement(Type= typeof(EventID), ElementName="eventID")]
 public EventID EventID
 {
@@ -138,6 +168,9 @@ public EventID EventID
 }
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public void setCollisionType(byte pCollisionType)
 { _collisionType = pCollisionType;
 }
@@ -155,6 +188,9 @@ public byte CollisionType
 }
 }
 
+   ///<summary>
+   ///some padding
+   ///</summary>
 public void setPad(byte pPad)
 { _pad = pPad;
 }
@@ -172,14 +208,23 @@ public byte Pad
 }
 }
 
+   ///<summary>
+   ///velocity at collision
+   ///</summary>
 public void setVelocity(Vector3Float pVelocity)
 { _velocity = pVelocity;
 }
 
+   ///<summary>
+   ///velocity at collision
+   ///</summary>
 public Vector3Float getVelocity()
 { return _velocity; 
 }
 
+   ///<summary>
+   ///velocity at collision
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="velocity")]
 public Vector3Float Velocity
 {
@@ -193,6 +238,9 @@ public Vector3Float Velocity
 }
 }
 
+   ///<summary>
+   ///mass of issuing entity
+   ///</summary>
 public void setMass(float pMass)
 { _mass = pMass;
 }
@@ -210,14 +258,23 @@ public float Mass
 }
 }
 
+   ///<summary>
+   ///Location with respect to entity the issuing entity collided with
+   ///</summary>
 public void setLocation(Vector3Float pLocation)
 { _location = pLocation;
 }
 
+   ///<summary>
+   ///Location with respect to entity the issuing entity collided with
+   ///</summary>
 public Vector3Float getLocation()
 { return _location; 
 }
 
+   ///<summary>
+   ///Location with respect to entity the issuing entity collided with
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="location")]
 public Vector3Float Location
 {
@@ -231,7 +288,19 @@ public Vector3Float Location
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -276,6 +345,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- CollisionPdu-----"  + System.Environment.NewLine);
@@ -304,7 +380,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(CollisionPdu rhs)
  {

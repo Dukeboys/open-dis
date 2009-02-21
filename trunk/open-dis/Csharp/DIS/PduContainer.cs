@@ -27,9 +27,12 @@ public class PduContainer : Object
    protected uint  _numberOfPdus;
 
    /** record sets */
-   protected List<object> _pdus = new List<object>(); 
+   protected List<Pdu> _pdus = new List<Pdu>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Used for XML compatability. A container that holds PDUs
+   ///</summary>
  public PduContainer()
  {
  }
@@ -49,15 +52,51 @@ public int getMarshalledSize()
 }
 
 
-public void setPdus(List<object> pPdus)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPdus method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfPdus(uint pNumberOfPdus)
+{ _numberOfPdus = pNumberOfPdus;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPdus method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(uint), ElementName="numberOfPdus")]
+public uint NumberOfPdus
+{
+     get
+     {
+          return _numberOfPdus;
+     }
+     set
+     {
+          _numberOfPdus = value;
+     }
+}
+
+   ///<summary>
+   ///record sets
+   ///</summary>
+public void setPdus(List<Pdu> pPdus)
 { _pdus = pPdus;
 }
 
-public List<object> getPdus()
+   ///<summary>
+   ///record sets
+   ///</summary>
+public List<Pdu> getPdus()
 { return _pdus; }
 
-[XmlElement(ElementName = "pdusList",Type = typeof(List<object>))]
-public List<object> Pdus
+   ///<summary>
+   ///record sets
+   ///</summary>
+[XmlElement(ElementName = "pdusList",Type = typeof(List<Pdu>))]
+public List<Pdu> Pdus
 {
      get
 {
@@ -70,6 +109,9 @@ public List<object> Pdus
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -111,6 +153,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- PduContainer-----"  + System.Environment.NewLine);
@@ -134,7 +183,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(PduContainer rhs)
  {

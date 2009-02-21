@@ -76,23 +76,26 @@ public class AggregateStatePdu : EntityManagementFamilyPdu
    protected ushort  _numberOfSilentEntityTypes;
 
    /** aggregates  list */
-   protected List<object> _aggregateIDList = new List<object>(); 
+   protected List<AggregateID> _aggregateIDList = new List<AggregateID>(); 
    /** entity ID list */
-   protected List<object> _entityIDList = new List<object>(); 
+   protected List<EntityID> _entityIDList = new List<EntityID>(); 
    /** @@@padding to put the start of the next list on a 32 bit boundary. This needs to be fixed */
    protected byte  _pad2;
 
    /** silent entity types */
-   protected List<object> _silentAggregateSystemList = new List<object>(); 
+   protected List<EntityType> _silentAggregateSystemList = new List<EntityType>(); 
    /** silent entity types */
-   protected List<object> _silentEntitySystemList = new List<object>(); 
+   protected List<EntityType> _silentEntitySystemList = new List<EntityType>(); 
    /** number of variable datum records */
    protected uint  _numberOfVariableDatumRecords;
 
    /** variableDatums */
-   protected List<object> _variableDatumList = new List<object>(); 
+   protected List<VariableDatum> _variableDatumList = new List<VariableDatum>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.9.1 informationa bout aggregating entities anc communicating information about the aggregated entities.        requires manual intervention to fix the padding between entityID lists and silent aggregate sysem lists--this padding        is dependent on how many entityIDs there are, and needs to be on a 32 bit word boundary. UNFINISHED
+   ///</summary>
  public AggregateStatePdu()
  {
     PduType = (byte)33;
@@ -149,14 +152,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of aggregated entities
+   ///</summary>
 public void setAggregateID(EntityID pAggregateID)
 { _aggregateID = pAggregateID;
 }
 
+   ///<summary>
+   ///ID of aggregated entities
+   ///</summary>
 public EntityID getAggregateID()
 { return _aggregateID; 
 }
 
+   ///<summary>
+   ///ID of aggregated entities
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="aggregateID")]
 public EntityID AggregateID
 {
@@ -170,6 +182,9 @@ public EntityID AggregateID
 }
 }
 
+   ///<summary>
+   ///force ID
+   ///</summary>
 public void setForceID(byte pForceID)
 { _forceID = pForceID;
 }
@@ -187,6 +202,9 @@ public byte ForceID
 }
 }
 
+   ///<summary>
+   ///state of aggregate
+   ///</summary>
 public void setAggregateState(byte pAggregateState)
 { _aggregateState = pAggregateState;
 }
@@ -204,14 +222,23 @@ public byte AggregateState
 }
 }
 
+   ///<summary>
+   ///entity type of the aggregated entities
+   ///</summary>
 public void setAggregateType(EntityType pAggregateType)
 { _aggregateType = pAggregateType;
 }
 
+   ///<summary>
+   ///entity type of the aggregated entities
+   ///</summary>
 public EntityType getAggregateType()
 { return _aggregateType; 
 }
 
+   ///<summary>
+   ///entity type of the aggregated entities
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="aggregateType")]
 public EntityType AggregateType
 {
@@ -225,6 +252,9 @@ public EntityType AggregateType
 }
 }
 
+   ///<summary>
+   ///formation of aggregated entities
+   ///</summary>
 public void setFormation(uint pFormation)
 { _formation = pFormation;
 }
@@ -242,14 +272,23 @@ public uint Formation
 }
 }
 
+   ///<summary>
+   ///marking for aggregate; first char is charset type, rest is char data
+   ///</summary>
 public void setAggregateMarking(AggregateMarking pAggregateMarking)
 { _aggregateMarking = pAggregateMarking;
 }
 
+   ///<summary>
+   ///marking for aggregate; first char is charset type, rest is char data
+   ///</summary>
 public AggregateMarking getAggregateMarking()
 { return _aggregateMarking; 
 }
 
+   ///<summary>
+   ///marking for aggregate; first char is charset type, rest is char data
+   ///</summary>
 [XmlElement(Type= typeof(AggregateMarking), ElementName="aggregateMarking")]
 public AggregateMarking AggregateMarking
 {
@@ -263,14 +302,23 @@ public AggregateMarking AggregateMarking
 }
 }
 
+   ///<summary>
+   ///dimensions of bounding box for the aggregated entities, origin at the center of mass
+   ///</summary>
 public void setDimensions(Vector3Float pDimensions)
 { _dimensions = pDimensions;
 }
 
+   ///<summary>
+   ///dimensions of bounding box for the aggregated entities, origin at the center of mass
+   ///</summary>
 public Vector3Float getDimensions()
 { return _dimensions; 
 }
 
+   ///<summary>
+   ///dimensions of bounding box for the aggregated entities, origin at the center of mass
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="dimensions")]
 public Vector3Float Dimensions
 {
@@ -284,14 +332,23 @@ public Vector3Float Dimensions
 }
 }
 
+   ///<summary>
+   ///orientation of the bounding box
+   ///</summary>
 public void setOrientation(Orientation pOrientation)
 { _orientation = pOrientation;
 }
 
+   ///<summary>
+   ///orientation of the bounding box
+   ///</summary>
 public Orientation getOrientation()
 { return _orientation; 
 }
 
+   ///<summary>
+   ///orientation of the bounding box
+   ///</summary>
 [XmlElement(Type= typeof(Orientation), ElementName="orientation")]
 public Orientation Orientation
 {
@@ -305,14 +362,23 @@ public Orientation Orientation
 }
 }
 
+   ///<summary>
+   ///center of mass of the aggregation
+   ///</summary>
 public void setCenterOfMass(Vector3Double pCenterOfMass)
 { _centerOfMass = pCenterOfMass;
 }
 
+   ///<summary>
+   ///center of mass of the aggregation
+   ///</summary>
 public Vector3Double getCenterOfMass()
 { return _centerOfMass; 
 }
 
+   ///<summary>
+   ///center of mass of the aggregation
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="centerOfMass")]
 public Vector3Double CenterOfMass
 {
@@ -326,14 +392,23 @@ public Vector3Double CenterOfMass
 }
 }
 
+   ///<summary>
+   ///velocity of aggregation
+   ///</summary>
 public void setVelocity(Vector3Float pVelocity)
 { _velocity = pVelocity;
 }
 
+   ///<summary>
+   ///velocity of aggregation
+   ///</summary>
 public Vector3Float getVelocity()
 { return _velocity; 
 }
 
+   ///<summary>
+   ///velocity of aggregation
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="velocity")]
 public Vector3Float Velocity
 {
@@ -347,15 +422,132 @@ public Vector3Float Velocity
 }
 }
 
-public void setAggregateIDList(List<object> pAggregateIDList)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfDisAggregates method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfDisAggregates(ushort pNumberOfDisAggregates)
+{ _numberOfDisAggregates = pNumberOfDisAggregates;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfDisAggregates method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="numberOfDisAggregates")]
+public ushort NumberOfDisAggregates
+{
+     get
+     {
+          return _numberOfDisAggregates;
+     }
+     set
+     {
+          _numberOfDisAggregates = value;
+     }
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfDisEntities method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfDisEntities(ushort pNumberOfDisEntities)
+{ _numberOfDisEntities = pNumberOfDisEntities;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfDisEntities method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="numberOfDisEntities")]
+public ushort NumberOfDisEntities
+{
+     get
+     {
+          return _numberOfDisEntities;
+     }
+     set
+     {
+          _numberOfDisEntities = value;
+     }
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSilentAggregateTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfSilentAggregateTypes(ushort pNumberOfSilentAggregateTypes)
+{ _numberOfSilentAggregateTypes = pNumberOfSilentAggregateTypes;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSilentAggregateTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="numberOfSilentAggregateTypes")]
+public ushort NumberOfSilentAggregateTypes
+{
+     get
+     {
+          return _numberOfSilentAggregateTypes;
+     }
+     set
+     {
+          _numberOfSilentAggregateTypes = value;
+     }
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSilentEntityTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfSilentEntityTypes(ushort pNumberOfSilentEntityTypes)
+{ _numberOfSilentEntityTypes = pNumberOfSilentEntityTypes;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSilentEntityTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="numberOfSilentEntityTypes")]
+public ushort NumberOfSilentEntityTypes
+{
+     get
+     {
+          return _numberOfSilentEntityTypes;
+     }
+     set
+     {
+          _numberOfSilentEntityTypes = value;
+     }
+}
+
+   ///<summary>
+   ///aggregates  list
+   ///</summary>
+public void setAggregateIDList(List<AggregateID> pAggregateIDList)
 { _aggregateIDList = pAggregateIDList;
 }
 
-public List<object> getAggregateIDList()
+   ///<summary>
+   ///aggregates  list
+   ///</summary>
+public List<AggregateID> getAggregateIDList()
 { return _aggregateIDList; }
 
-[XmlElement(ElementName = "aggregateIDListList",Type = typeof(List<object>))]
-public List<object> AggregateIDList
+   ///<summary>
+   ///aggregates  list
+   ///</summary>
+[XmlElement(ElementName = "aggregateIDListList",Type = typeof(List<AggregateID>))]
+public List<AggregateID> AggregateIDList
 {
      get
 {
@@ -367,15 +559,24 @@ public List<object> AggregateIDList
 }
 }
 
-public void setEntityIDList(List<object> pEntityIDList)
+   ///<summary>
+   ///entity ID list
+   ///</summary>
+public void setEntityIDList(List<EntityID> pEntityIDList)
 { _entityIDList = pEntityIDList;
 }
 
-public List<object> getEntityIDList()
+   ///<summary>
+   ///entity ID list
+   ///</summary>
+public List<EntityID> getEntityIDList()
 { return _entityIDList; }
 
-[XmlElement(ElementName = "entityIDListList",Type = typeof(List<object>))]
-public List<object> EntityIDList
+   ///<summary>
+   ///entity ID list
+   ///</summary>
+[XmlElement(ElementName = "entityIDListList",Type = typeof(List<EntityID>))]
+public List<EntityID> EntityIDList
 {
      get
 {
@@ -387,6 +588,9 @@ public List<object> EntityIDList
 }
 }
 
+   ///<summary>
+   ///@@@padding to put the start of the next list on a 32 bit boundary. This needs to be fixed
+   ///</summary>
 public void setPad2(byte pPad2)
 { _pad2 = pPad2;
 }
@@ -404,15 +608,24 @@ public byte Pad2
 }
 }
 
-public void setSilentAggregateSystemList(List<object> pSilentAggregateSystemList)
+   ///<summary>
+   ///silent entity types
+   ///</summary>
+public void setSilentAggregateSystemList(List<EntityType> pSilentAggregateSystemList)
 { _silentAggregateSystemList = pSilentAggregateSystemList;
 }
 
-public List<object> getSilentAggregateSystemList()
+   ///<summary>
+   ///silent entity types
+   ///</summary>
+public List<EntityType> getSilentAggregateSystemList()
 { return _silentAggregateSystemList; }
 
-[XmlElement(ElementName = "silentAggregateSystemListList",Type = typeof(List<object>))]
-public List<object> SilentAggregateSystemList
+   ///<summary>
+   ///silent entity types
+   ///</summary>
+[XmlElement(ElementName = "silentAggregateSystemListList",Type = typeof(List<EntityType>))]
+public List<EntityType> SilentAggregateSystemList
 {
      get
 {
@@ -424,15 +637,24 @@ public List<object> SilentAggregateSystemList
 }
 }
 
-public void setSilentEntitySystemList(List<object> pSilentEntitySystemList)
+   ///<summary>
+   ///silent entity types
+   ///</summary>
+public void setSilentEntitySystemList(List<EntityType> pSilentEntitySystemList)
 { _silentEntitySystemList = pSilentEntitySystemList;
 }
 
-public List<object> getSilentEntitySystemList()
+   ///<summary>
+   ///silent entity types
+   ///</summary>
+public List<EntityType> getSilentEntitySystemList()
 { return _silentEntitySystemList; }
 
-[XmlElement(ElementName = "silentEntitySystemListList",Type = typeof(List<object>))]
-public List<object> SilentEntitySystemList
+   ///<summary>
+   ///silent entity types
+   ///</summary>
+[XmlElement(ElementName = "silentEntitySystemListList",Type = typeof(List<EntityType>))]
+public List<EntityType> SilentEntitySystemList
 {
      get
 {
@@ -444,15 +666,51 @@ public List<object> SilentEntitySystemList
 }
 }
 
-public void setVariableDatumList(List<object> pVariableDatumList)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfVariableDatumRecords(uint pNumberOfVariableDatumRecords)
+{ _numberOfVariableDatumRecords = pNumberOfVariableDatumRecords;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfVariableDatumRecords method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(uint), ElementName="numberOfVariableDatumRecords")]
+public uint NumberOfVariableDatumRecords
+{
+     get
+     {
+          return _numberOfVariableDatumRecords;
+     }
+     set
+     {
+          _numberOfVariableDatumRecords = value;
+     }
+}
+
+   ///<summary>
+   ///variableDatums
+   ///</summary>
+public void setVariableDatumList(List<VariableDatum> pVariableDatumList)
 { _variableDatumList = pVariableDatumList;
 }
 
-public List<object> getVariableDatumList()
+   ///<summary>
+   ///variableDatums
+   ///</summary>
+public List<VariableDatum> getVariableDatumList()
 { return _variableDatumList; }
 
-[XmlElement(ElementName = "variableDatumListList",Type = typeof(List<object>))]
-public List<object> VariableDatumList
+   ///<summary>
+   ///variableDatums
+   ///</summary>
+[XmlElement(ElementName = "variableDatumListList",Type = typeof(List<VariableDatum>))]
+public List<VariableDatum> VariableDatumList
 {
      get
 {
@@ -464,7 +722,19 @@ public List<object> VariableDatumList
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -595,6 +865,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- AggregateStatePdu-----"  + System.Environment.NewLine);
@@ -673,7 +950,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(AggregateStatePdu rhs)
  {

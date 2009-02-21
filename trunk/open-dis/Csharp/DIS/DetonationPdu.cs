@@ -55,9 +55,12 @@ public class DetonationPdu : WarfareFamilyPdu
    /** padding */
    protected short  _pad = 0;
 
-   protected List<object> _articulationParameters = new List<object>(); 
+   protected List<ArticulationParameter> _articulationParameters = new List<ArticulationParameter>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.4.2. Information about stuff exploding. COMPLETE
+   ///</summary>
  public DetonationPdu()
  {
     PduType = (byte)3;
@@ -87,14 +90,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of muntion that was fired
+   ///</summary>
 public void setMunitionID(EntityID pMunitionID)
 { _munitionID = pMunitionID;
 }
 
+   ///<summary>
+   ///ID of muntion that was fired
+   ///</summary>
 public EntityID getMunitionID()
 { return _munitionID; 
 }
 
+   ///<summary>
+   ///ID of muntion that was fired
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="munitionID")]
 public EntityID MunitionID
 {
@@ -108,14 +120,23 @@ public EntityID MunitionID
 }
 }
 
+   ///<summary>
+   ///ID firing event
+   ///</summary>
 public void setEventID(EventID pEventID)
 { _eventID = pEventID;
 }
 
+   ///<summary>
+   ///ID firing event
+   ///</summary>
 public EventID getEventID()
 { return _eventID; 
 }
 
+   ///<summary>
+   ///ID firing event
+   ///</summary>
 [XmlElement(Type= typeof(EventID), ElementName="eventID")]
 public EventID EventID
 {
@@ -129,14 +150,23 @@ public EventID EventID
 }
 }
 
+   ///<summary>
+   ///ID firing event
+   ///</summary>
 public void setVelocity(Vector3Float pVelocity)
 { _velocity = pVelocity;
 }
 
+   ///<summary>
+   ///ID firing event
+   ///</summary>
 public Vector3Float getVelocity()
 { return _velocity; 
 }
 
+   ///<summary>
+   ///ID firing event
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="velocity")]
 public Vector3Float Velocity
 {
@@ -150,14 +180,23 @@ public Vector3Float Velocity
 }
 }
 
+   ///<summary>
+   ///where the detonation is, in world coordinates
+   ///</summary>
 public void setLocationInWorldCoordinates(Vector3Double pLocationInWorldCoordinates)
 { _locationInWorldCoordinates = pLocationInWorldCoordinates;
 }
 
+   ///<summary>
+   ///where the detonation is, in world coordinates
+   ///</summary>
 public Vector3Double getLocationInWorldCoordinates()
 { return _locationInWorldCoordinates; 
 }
 
+   ///<summary>
+   ///where the detonation is, in world coordinates
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="locationInWorldCoordinates")]
 public Vector3Double LocationInWorldCoordinates
 {
@@ -171,14 +210,23 @@ public Vector3Double LocationInWorldCoordinates
 }
 }
 
+   ///<summary>
+   ///Describes munition used
+   ///</summary>
 public void setBurstDescriptor(BurstDescriptor pBurstDescriptor)
 { _burstDescriptor = pBurstDescriptor;
 }
 
+   ///<summary>
+   ///Describes munition used
+   ///</summary>
 public BurstDescriptor getBurstDescriptor()
 { return _burstDescriptor; 
 }
 
+   ///<summary>
+   ///Describes munition used
+   ///</summary>
 [XmlElement(Type= typeof(BurstDescriptor), ElementName="burstDescriptor")]
 public BurstDescriptor BurstDescriptor
 {
@@ -192,14 +240,23 @@ public BurstDescriptor BurstDescriptor
 }
 }
 
+   ///<summary>
+   ///location of the detonation or impact in the target entity's coordinate system. This information should be used for damage assessment.
+   ///</summary>
 public void setLocationInEntityCoordinates(Vector3Float pLocationInEntityCoordinates)
 { _locationInEntityCoordinates = pLocationInEntityCoordinates;
 }
 
+   ///<summary>
+   ///location of the detonation or impact in the target entity's coordinate system. This information should be used for damage assessment.
+   ///</summary>
 public Vector3Float getLocationInEntityCoordinates()
 { return _locationInEntityCoordinates; 
 }
 
+   ///<summary>
+   ///location of the detonation or impact in the target entity's coordinate system. This information should be used for damage assessment.
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="locationInEntityCoordinates")]
 public Vector3Float LocationInEntityCoordinates
 {
@@ -213,6 +270,9 @@ public Vector3Float LocationInEntityCoordinates
 }
 }
 
+   ///<summary>
+   ///result of the explosion
+   ///</summary>
 public void setDetonationResult(byte pDetonationResult)
 { _detonationResult = pDetonationResult;
 }
@@ -230,6 +290,36 @@ public byte DetonationResult
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfArticulationParameters(byte pNumberOfArticulationParameters)
+{ _numberOfArticulationParameters = pNumberOfArticulationParameters;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfArticulationParameters")]
+public byte NumberOfArticulationParameters
+{
+     get
+     {
+          return _numberOfArticulationParameters;
+     }
+     set
+     {
+          _numberOfArticulationParameters = value;
+     }
+}
+
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad(short pPad)
 { _pad = pPad;
 }
@@ -247,15 +337,15 @@ public short Pad
 }
 }
 
-public void setArticulationParameters(List<object> pArticulationParameters)
+public void setArticulationParameters(List<ArticulationParameter> pArticulationParameters)
 { _articulationParameters = pArticulationParameters;
 }
 
-public List<object> getArticulationParameters()
+public List<ArticulationParameter> getArticulationParameters()
 { return _articulationParameters; }
 
-[XmlElement(ElementName = "articulationParametersList",Type = typeof(List<object>))]
-public List<object> ArticulationParameters
+[XmlElement(ElementName = "articulationParametersList",Type = typeof(List<ArticulationParameter>))]
+public List<ArticulationParameter> ArticulationParameters
 {
      get
 {
@@ -267,7 +357,19 @@ public List<object> ArticulationParameters
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -328,6 +430,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- DetonationPdu-----"  + System.Environment.NewLine);
@@ -366,7 +475,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(DetonationPdu rhs)
  {

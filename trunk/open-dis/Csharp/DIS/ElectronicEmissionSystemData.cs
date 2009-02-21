@@ -41,9 +41,12 @@ public class ElectronicEmissionSystemData : Object
    protected Vector3Float  _location = new Vector3Float(); 
 
    /** variable length list of beam data records */
-   protected List<object> _beamDataRecords = new List<object>(); 
+   protected List<ElectronicEmissionBeamData> _beamDataRecords = new List<ElectronicEmissionBeamData>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Data about one electronic system
+   ///</summary>
  public ElectronicEmissionSystemData()
  {
  }
@@ -67,6 +70,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///This field shall specify the length of this emitter system?s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field. 
+   ///</summary>
 public void setSystemDataLength(byte pSystemDataLength)
 { _systemDataLength = pSystemDataLength;
 }
@@ -84,6 +90,36 @@ public byte SystemDataLength
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfBeams method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfBeams(byte pNumberOfBeams)
+{ _numberOfBeams = pNumberOfBeams;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfBeams method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfBeams")]
+public byte NumberOfBeams
+{
+     get
+     {
+          return _numberOfBeams;
+     }
+     set
+     {
+          _numberOfBeams = value;
+     }
+}
+
+   ///<summary>
+   ///padding.
+   ///</summary>
 public void setEmissionsPadding2(ushort pEmissionsPadding2)
 { _emissionsPadding2 = pEmissionsPadding2;
 }
@@ -101,14 +137,23 @@ public ushort EmissionsPadding2
 }
 }
 
+   ///<summary>
+   ///This field shall specify information about a particular emitter system
+   ///</summary>
 public void setEmitterSystem(EmitterSystem pEmitterSystem)
 { _emitterSystem = pEmitterSystem;
 }
 
+   ///<summary>
+   ///This field shall specify information about a particular emitter system
+   ///</summary>
 public EmitterSystem getEmitterSystem()
 { return _emitterSystem; 
 }
 
+   ///<summary>
+   ///This field shall specify information about a particular emitter system
+   ///</summary>
 [XmlElement(Type= typeof(EmitterSystem), ElementName="emitterSystem")]
 public EmitterSystem EmitterSystem
 {
@@ -122,14 +167,23 @@ public EmitterSystem EmitterSystem
 }
 }
 
+   ///<summary>
+   ///Location with respect to the entity
+   ///</summary>
 public void setLocation(Vector3Float pLocation)
 { _location = pLocation;
 }
 
+   ///<summary>
+   ///Location with respect to the entity
+   ///</summary>
 public Vector3Float getLocation()
 { return _location; 
 }
 
+   ///<summary>
+   ///Location with respect to the entity
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="location")]
 public Vector3Float Location
 {
@@ -143,15 +197,24 @@ public Vector3Float Location
 }
 }
 
-public void setBeamDataRecords(List<object> pBeamDataRecords)
+   ///<summary>
+   ///variable length list of beam data records
+   ///</summary>
+public void setBeamDataRecords(List<ElectronicEmissionBeamData> pBeamDataRecords)
 { _beamDataRecords = pBeamDataRecords;
 }
 
-public List<object> getBeamDataRecords()
+   ///<summary>
+   ///variable length list of beam data records
+   ///</summary>
+public List<ElectronicEmissionBeamData> getBeamDataRecords()
 { return _beamDataRecords; }
 
-[XmlElement(ElementName = "beamDataRecordsList",Type = typeof(List<object>))]
-public List<object> BeamDataRecords
+   ///<summary>
+   ///variable length list of beam data records
+   ///</summary>
+[XmlElement(ElementName = "beamDataRecordsList",Type = typeof(List<ElectronicEmissionBeamData>))]
+public List<ElectronicEmissionBeamData> BeamDataRecords
 {
      get
 {
@@ -164,6 +227,9 @@ public List<object> BeamDataRecords
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -213,6 +279,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- ElectronicEmissionSystemData-----"  + System.Environment.NewLine);
@@ -242,7 +315,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(ElectronicEmissionSystemData rhs)
  {

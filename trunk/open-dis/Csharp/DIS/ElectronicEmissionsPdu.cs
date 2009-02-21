@@ -41,9 +41,12 @@ public class ElectronicEmissionsPdu : DistributedEmissionsFamilyPdu
    protected ushort  _paddingForEmissionsPdu;
 
    /** Electronic emmissions systems */
-   protected List<object> _systems = new List<object>(); 
+   protected List<ElectronicEmissionSystemData> _systems = new List<ElectronicEmissionSystemData>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.7.1. Information about active electronic warfare (EW) emissions and active EW countermeasures shall be communicated using an Electromagnetic Emission PDU. COMPLETE (I think)
+   ///</summary>
  public ElectronicEmissionsPdu()
  {
     PduType = (byte)23;
@@ -70,14 +73,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of the entity emitting
+   ///</summary>
 public void setEmittingEntityID(EntityID pEmittingEntityID)
 { _emittingEntityID = pEmittingEntityID;
 }
 
+   ///<summary>
+   ///ID of the entity emitting
+   ///</summary>
 public EntityID getEmittingEntityID()
 { return _emittingEntityID; 
 }
 
+   ///<summary>
+   ///ID of the entity emitting
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="emittingEntityID")]
 public EntityID EmittingEntityID
 {
@@ -91,14 +103,23 @@ public EntityID EmittingEntityID
 }
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public void setEventID(EventID pEventID)
 { _eventID = pEventID;
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public EventID getEventID()
 { return _eventID; 
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 [XmlElement(Type= typeof(EventID), ElementName="eventID")]
 public EventID EventID
 {
@@ -112,6 +133,9 @@ public EventID EventID
 }
 }
 
+   ///<summary>
+   ///This field shall be used to indicate if the data in the PDU represents a state update or just data that has changed since issuance of the last Electromagnetic Emission PDU [relative to the identified entity and emission system(s)].
+   ///</summary>
 public void setStateUpdateIndicator(byte pStateUpdateIndicator)
 { _stateUpdateIndicator = pStateUpdateIndicator;
 }
@@ -129,6 +153,36 @@ public byte StateUpdateIndicator
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSystems method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfSystems(byte pNumberOfSystems)
+{ _numberOfSystems = pNumberOfSystems;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSystems method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfSystems")]
+public byte NumberOfSystems
+{
+     get
+     {
+          return _numberOfSystems;
+     }
+     set
+     {
+          _numberOfSystems = value;
+     }
+}
+
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPaddingForEmissionsPdu(ushort pPaddingForEmissionsPdu)
 { _paddingForEmissionsPdu = pPaddingForEmissionsPdu;
 }
@@ -146,15 +200,24 @@ public ushort PaddingForEmissionsPdu
 }
 }
 
-public void setSystems(List<object> pSystems)
+   ///<summary>
+   ///Electronic emmissions systems
+   ///</summary>
+public void setSystems(List<ElectronicEmissionSystemData> pSystems)
 { _systems = pSystems;
 }
 
-public List<object> getSystems()
+   ///<summary>
+   ///Electronic emmissions systems
+   ///</summary>
+public List<ElectronicEmissionSystemData> getSystems()
 { return _systems; }
 
-[XmlElement(ElementName = "systemsList",Type = typeof(List<object>))]
-public List<object> Systems
+   ///<summary>
+   ///Electronic emmissions systems
+   ///</summary>
+[XmlElement(ElementName = "systemsList",Type = typeof(List<ElectronicEmissionSystemData>))]
+public List<ElectronicEmissionSystemData> Systems
 {
      get
 {
@@ -166,7 +229,19 @@ public List<object> Systems
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -219,6 +294,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- ElectronicEmissionsPdu-----"  + System.Environment.NewLine);
@@ -249,7 +331,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(ElectronicEmissionsPdu rhs)
  {

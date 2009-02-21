@@ -51,11 +51,14 @@ public class MinefieldQueryPdu : MinefieldFamilyPdu
    protected EntityType  _requestedMineType = new EntityType(); 
 
    /** perimeter points of request */
-   protected List<object> _requestedPerimeterPoints = new List<object>(); 
+   protected List<Point> _requestedPerimeterPoints = new List<Point>(); 
    /** Sensor types, each 16 bits long */
-   protected List<object> _sensorTypes = new List<object>(); 
+   protected List<TwoByteChunk> _sensorTypes = new List<TwoByteChunk>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.10.2 Query a minefield for information about individual mines. Requires manual clean up to get the padding right. UNFINISHED
+   ///</summary>
  public MinefieldQueryPdu()
  {
     PduType = (byte)38;
@@ -89,14 +92,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public void setMinefieldID(EntityID pMinefieldID)
 { _minefieldID = pMinefieldID;
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 public EntityID getMinefieldID()
 { return _minefieldID; 
 }
 
+   ///<summary>
+   ///Minefield ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="minefieldID")]
 public EntityID MinefieldID
 {
@@ -110,14 +122,23 @@ public EntityID MinefieldID
 }
 }
 
+   ///<summary>
+   ///EID of entity making the request
+   ///</summary>
 public void setRequestingEntityID(EntityID pRequestingEntityID)
 { _requestingEntityID = pRequestingEntityID;
 }
 
+   ///<summary>
+   ///EID of entity making the request
+   ///</summary>
 public EntityID getRequestingEntityID()
 { return _requestingEntityID; 
 }
 
+   ///<summary>
+   ///EID of entity making the request
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="requestingEntityID")]
 public EntityID RequestingEntityID
 {
@@ -131,6 +152,9 @@ public EntityID RequestingEntityID
 }
 }
 
+   ///<summary>
+   ///request ID
+   ///</summary>
 public void setRequestID(byte pRequestID)
 { _requestID = pRequestID;
 }
@@ -148,6 +172,36 @@ public byte RequestID
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPerimeterPoints method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfPerimeterPoints(byte pNumberOfPerimeterPoints)
+{ _numberOfPerimeterPoints = pNumberOfPerimeterPoints;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPerimeterPoints method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfPerimeterPoints")]
+public byte NumberOfPerimeterPoints
+{
+     get
+     {
+          return _numberOfPerimeterPoints;
+     }
+     set
+     {
+          _numberOfPerimeterPoints = value;
+     }
+}
+
+   ///<summary>
+   ///Padding
+   ///</summary>
 public void setPad2(byte pPad2)
 { _pad2 = pPad2;
 }
@@ -165,6 +219,36 @@ public byte Pad2
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSensorTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfSensorTypes(byte pNumberOfSensorTypes)
+{ _numberOfSensorTypes = pNumberOfSensorTypes;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfSensorTypes method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfSensorTypes")]
+public byte NumberOfSensorTypes
+{
+     get
+     {
+          return _numberOfSensorTypes;
+     }
+     set
+     {
+          _numberOfSensorTypes = value;
+     }
+}
+
+   ///<summary>
+   ///data filter, 32 boolean fields
+   ///</summary>
 public void setDataFilter(uint pDataFilter)
 { _dataFilter = pDataFilter;
 }
@@ -182,14 +266,23 @@ public uint DataFilter
 }
 }
 
+   ///<summary>
+   ///Entity type of mine being requested
+   ///</summary>
 public void setRequestedMineType(EntityType pRequestedMineType)
 { _requestedMineType = pRequestedMineType;
 }
 
+   ///<summary>
+   ///Entity type of mine being requested
+   ///</summary>
 public EntityType getRequestedMineType()
 { return _requestedMineType; 
 }
 
+   ///<summary>
+   ///Entity type of mine being requested
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="requestedMineType")]
 public EntityType RequestedMineType
 {
@@ -203,15 +296,24 @@ public EntityType RequestedMineType
 }
 }
 
-public void setRequestedPerimeterPoints(List<object> pRequestedPerimeterPoints)
+   ///<summary>
+   ///perimeter points of request
+   ///</summary>
+public void setRequestedPerimeterPoints(List<Point> pRequestedPerimeterPoints)
 { _requestedPerimeterPoints = pRequestedPerimeterPoints;
 }
 
-public List<object> getRequestedPerimeterPoints()
+   ///<summary>
+   ///perimeter points of request
+   ///</summary>
+public List<Point> getRequestedPerimeterPoints()
 { return _requestedPerimeterPoints; }
 
-[XmlElement(ElementName = "requestedPerimeterPointsList",Type = typeof(List<object>))]
-public List<object> RequestedPerimeterPoints
+   ///<summary>
+   ///perimeter points of request
+   ///</summary>
+[XmlElement(ElementName = "requestedPerimeterPointsList",Type = typeof(List<Point>))]
+public List<Point> RequestedPerimeterPoints
 {
      get
 {
@@ -223,15 +325,24 @@ public List<object> RequestedPerimeterPoints
 }
 }
 
-public void setSensorTypes(List<object> pSensorTypes)
+   ///<summary>
+   ///Sensor types, each 16 bits long
+   ///</summary>
+public void setSensorTypes(List<TwoByteChunk> pSensorTypes)
 { _sensorTypes = pSensorTypes;
 }
 
-public List<object> getSensorTypes()
+   ///<summary>
+   ///Sensor types, each 16 bits long
+   ///</summary>
+public List<TwoByteChunk> getSensorTypes()
 { return _sensorTypes; }
 
-[XmlElement(ElementName = "sensorTypesList",Type = typeof(List<object>))]
-public List<object> SensorTypes
+   ///<summary>
+   ///Sensor types, each 16 bits long
+   ///</summary>
+[XmlElement(ElementName = "sensorTypesList",Type = typeof(List<TwoByteChunk>))]
+public List<TwoByteChunk> SensorTypes
 {
      get
 {
@@ -243,7 +354,19 @@ public List<object> SensorTypes
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -316,6 +439,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- MinefieldQueryPdu-----"  + System.Environment.NewLine);
@@ -358,7 +488,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(MinefieldQueryPdu rhs)
  {

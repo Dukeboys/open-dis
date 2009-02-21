@@ -65,6 +65,9 @@ public class PointObjectStatePdu : SyntheticEnvironmentFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.11.3: Inormation abut the addition or modification of a synthecic enviroment object that is anchored      to the terrain with a single point. COMPLETE
+   ///</summary>
  public PointObjectStatePdu()
  {
     PduType = (byte)43;
@@ -92,14 +95,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Object in synthetic environment
+   ///</summary>
 public void setObjectID(EntityID pObjectID)
 { _objectID = pObjectID;
 }
 
+   ///<summary>
+   ///Object in synthetic environment
+   ///</summary>
 public EntityID getObjectID()
 { return _objectID; 
 }
 
+   ///<summary>
+   ///Object in synthetic environment
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="objectID")]
 public EntityID ObjectID
 {
@@ -113,14 +125,23 @@ public EntityID ObjectID
 }
 }
 
+   ///<summary>
+   ///Object with which this point object is associated
+   ///</summary>
 public void setReferencedObjectID(EntityID pReferencedObjectID)
 { _referencedObjectID = pReferencedObjectID;
 }
 
+   ///<summary>
+   ///Object with which this point object is associated
+   ///</summary>
 public EntityID getReferencedObjectID()
 { return _referencedObjectID; 
 }
 
+   ///<summary>
+   ///Object with which this point object is associated
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="referencedObjectID")]
 public EntityID ReferencedObjectID
 {
@@ -134,6 +155,9 @@ public EntityID ReferencedObjectID
 }
 }
 
+   ///<summary>
+   ///unique update number of each state transition of an object
+   ///</summary>
 public void setUpdateNumber(ushort pUpdateNumber)
 { _updateNumber = pUpdateNumber;
 }
@@ -151,6 +175,9 @@ public ushort UpdateNumber
 }
 }
 
+   ///<summary>
+   ///force ID
+   ///</summary>
 public void setForceID(byte pForceID)
 { _forceID = pForceID;
 }
@@ -168,6 +195,9 @@ public byte ForceID
 }
 }
 
+   ///<summary>
+   ///modifications
+   ///</summary>
 public void setModifications(byte pModifications)
 { _modifications = pModifications;
 }
@@ -185,14 +215,23 @@ public byte Modifications
 }
 }
 
+   ///<summary>
+   ///Object type
+   ///</summary>
 public void setObjectType(ObjectType pObjectType)
 { _objectType = pObjectType;
 }
 
+   ///<summary>
+   ///Object type
+   ///</summary>
 public ObjectType getObjectType()
 { return _objectType; 
 }
 
+   ///<summary>
+   ///Object type
+   ///</summary>
 [XmlElement(Type= typeof(ObjectType), ElementName="objectType")]
 public ObjectType ObjectType
 {
@@ -206,14 +245,23 @@ public ObjectType ObjectType
 }
 }
 
+   ///<summary>
+   ///Object location
+   ///</summary>
 public void setObjectLocation(Vector3Double pObjectLocation)
 { _objectLocation = pObjectLocation;
 }
 
+   ///<summary>
+   ///Object location
+   ///</summary>
 public Vector3Double getObjectLocation()
 { return _objectLocation; 
 }
 
+   ///<summary>
+   ///Object location
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="objectLocation")]
 public Vector3Double ObjectLocation
 {
@@ -227,14 +275,23 @@ public Vector3Double ObjectLocation
 }
 }
 
+   ///<summary>
+   ///Object orientation
+   ///</summary>
 public void setObjectOrientation(Orientation pObjectOrientation)
 { _objectOrientation = pObjectOrientation;
 }
 
+   ///<summary>
+   ///Object orientation
+   ///</summary>
 public Orientation getObjectOrientation()
 { return _objectOrientation; 
 }
 
+   ///<summary>
+   ///Object orientation
+   ///</summary>
 [XmlElement(Type= typeof(Orientation), ElementName="objectOrientation")]
 public Orientation ObjectOrientation
 {
@@ -248,6 +305,9 @@ public Orientation ObjectOrientation
 }
 }
 
+   ///<summary>
+   ///Object apperance
+   ///</summary>
 public void setObjectAppearance(double pObjectAppearance)
 { _objectAppearance = pObjectAppearance;
 }
@@ -265,14 +325,23 @@ public double ObjectAppearance
 }
 }
 
+   ///<summary>
+   ///requesterID
+   ///</summary>
 public void setRequesterID(SimulationAddress pRequesterID)
 { _requesterID = pRequesterID;
 }
 
+   ///<summary>
+   ///requesterID
+   ///</summary>
 public SimulationAddress getRequesterID()
 { return _requesterID; 
 }
 
+   ///<summary>
+   ///requesterID
+   ///</summary>
 [XmlElement(Type= typeof(SimulationAddress), ElementName="requesterID")]
 public SimulationAddress RequesterID
 {
@@ -286,14 +355,23 @@ public SimulationAddress RequesterID
 }
 }
 
+   ///<summary>
+   ///receiver ID
+   ///</summary>
 public void setReceivingID(SimulationAddress pReceivingID)
 { _receivingID = pReceivingID;
 }
 
+   ///<summary>
+   ///receiver ID
+   ///</summary>
 public SimulationAddress getReceivingID()
 { return _receivingID; 
 }
 
+   ///<summary>
+   ///receiver ID
+   ///</summary>
 [XmlElement(Type= typeof(SimulationAddress), ElementName="receivingID")]
 public SimulationAddress ReceivingID
 {
@@ -307,6 +385,9 @@ public SimulationAddress ReceivingID
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPad2(uint pPad2)
 { _pad2 = pPad2;
 }
@@ -324,7 +405,19 @@ public uint Pad2
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -377,6 +470,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- PointObjectStatePdu-----"  + System.Environment.NewLine);
@@ -411,7 +511,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(PointObjectStatePdu rhs)
  {

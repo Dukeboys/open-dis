@@ -136,9 +136,12 @@ public class FastEntityStatePdu : EntityInformationFamilyPdu
    protected uint  _capabilities;
 
    /** variable length list of articulation parameters */
-   protected List<object> _articulationParameters = new List<object>(); 
+   protected List<ArticulationParameter> _articulationParameters = new List<ArticulationParameter>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.3.1. Represents the postion and state of one entity in the world. This is identical in function to entity state pdu, but generates less garbage to collect in the Java world. COMPLETE
+   ///</summary>
  public FastEntityStatePdu()
  {
     PduType = (byte)1;
@@ -198,6 +201,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///The site ID
+   ///</summary>
 public void setSite(ushort pSite)
 { _site = pSite;
 }
@@ -215,6 +221,9 @@ public ushort Site
 }
 }
 
+   ///<summary>
+   ///The application ID
+   ///</summary>
 public void setApplication(ushort pApplication)
 { _application = pApplication;
 }
@@ -232,6 +241,9 @@ public ushort Application
 }
 }
 
+   ///<summary>
+   ///the entity ID
+   ///</summary>
 public void setEntity(ushort pEntity)
 { _entity = pEntity;
 }
@@ -249,6 +261,9 @@ public ushort Entity
 }
 }
 
+   ///<summary>
+   ///what force this entity is affiliated with, eg red, blue, neutral, etc
+   ///</summary>
 public void setForceId(byte pForceId)
 { _forceId = pForceId;
 }
@@ -266,6 +281,36 @@ public byte ForceId
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfArticulationParameters(byte pNumberOfArticulationParameters)
+{ _numberOfArticulationParameters = pNumberOfArticulationParameters;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(byte), ElementName="numberOfArticulationParameters")]
+public byte NumberOfArticulationParameters
+{
+     get
+     {
+          return _numberOfArticulationParameters;
+     }
+     set
+     {
+          _numberOfArticulationParameters = value;
+     }
+}
+
+   ///<summary>
+   ///Kind of entity
+   ///</summary>
 public void setEntityKind(byte pEntityKind)
 { _entityKind = pEntityKind;
 }
@@ -283,6 +328,9 @@ public byte EntityKind
 }
 }
 
+   ///<summary>
+   ///Domain of entity (air, surface, subsurface, space, etc)
+   ///</summary>
 public void setDomain(byte pDomain)
 { _domain = pDomain;
 }
@@ -300,6 +348,9 @@ public byte Domain
 }
 }
 
+   ///<summary>
+   ///country to which the design of the entity is attributed
+   ///</summary>
 public void setCountry(ushort pCountry)
 { _country = pCountry;
 }
@@ -317,6 +368,9 @@ public ushort Country
 }
 }
 
+   ///<summary>
+   ///category of entity
+   ///</summary>
 public void setCategory(byte pCategory)
 { _category = pCategory;
 }
@@ -334,6 +388,9 @@ public byte Category
 }
 }
 
+   ///<summary>
+   ///subcategory of entity
+   ///</summary>
 public void setSubcategory(byte pSubcategory)
 { _subcategory = pSubcategory;
 }
@@ -351,6 +408,9 @@ public byte Subcategory
 }
 }
 
+   ///<summary>
+   ///specific info based on subcategory field
+   ///</summary>
 public void setSpecific(byte pSpecific)
 { _specific = pSpecific;
 }
@@ -385,6 +445,9 @@ public byte Extra
 }
 }
 
+   ///<summary>
+   ///Kind of entity
+   ///</summary>
 public void setAltEntityKind(byte pAltEntityKind)
 { _altEntityKind = pAltEntityKind;
 }
@@ -402,6 +465,9 @@ public byte AltEntityKind
 }
 }
 
+   ///<summary>
+   ///Domain of entity (air, surface, subsurface, space, etc)
+   ///</summary>
 public void setAltDomain(byte pAltDomain)
 { _altDomain = pAltDomain;
 }
@@ -419,6 +485,9 @@ public byte AltDomain
 }
 }
 
+   ///<summary>
+   ///country to which the design of the entity is attributed
+   ///</summary>
 public void setAltCountry(ushort pAltCountry)
 { _altCountry = pAltCountry;
 }
@@ -436,6 +505,9 @@ public ushort AltCountry
 }
 }
 
+   ///<summary>
+   ///category of entity
+   ///</summary>
 public void setAltCategory(byte pAltCategory)
 { _altCategory = pAltCategory;
 }
@@ -453,6 +525,9 @@ public byte AltCategory
 }
 }
 
+   ///<summary>
+   ///subcategory of entity
+   ///</summary>
 public void setAltSubcategory(byte pAltSubcategory)
 { _altSubcategory = pAltSubcategory;
 }
@@ -470,6 +545,9 @@ public byte AltSubcategory
 }
 }
 
+   ///<summary>
+   ///specific info based on subcategory field
+   ///</summary>
 public void setAltSpecific(byte pAltSpecific)
 { _altSpecific = pAltSpecific;
 }
@@ -504,6 +582,9 @@ public byte AltExtra
 }
 }
 
+   ///<summary>
+   ///X velo
+   ///</summary>
 public void setXVelocity(float pXVelocity)
 { _xVelocity = pXVelocity;
 }
@@ -521,6 +602,9 @@ public float XVelocity
 }
 }
 
+   ///<summary>
+   ///y Value
+   ///</summary>
 public void setYVelocity(float pYVelocity)
 { _yVelocity = pYVelocity;
 }
@@ -538,6 +622,9 @@ public float YVelocity
 }
 }
 
+   ///<summary>
+   ///Z value
+   ///</summary>
 public void setZVelocity(float pZVelocity)
 { _zVelocity = pZVelocity;
 }
@@ -555,6 +642,9 @@ public float ZVelocity
 }
 }
 
+   ///<summary>
+   ///X value
+   ///</summary>
 public void setXLocation(double pXLocation)
 { _xLocation = pXLocation;
 }
@@ -572,6 +662,9 @@ public double XLocation
 }
 }
 
+   ///<summary>
+   ///y Value
+   ///</summary>
 public void setYLocation(double pYLocation)
 { _yLocation = pYLocation;
 }
@@ -589,6 +682,9 @@ public double YLocation
 }
 }
 
+   ///<summary>
+   ///Z value
+   ///</summary>
 public void setZLocation(double pZLocation)
 { _zLocation = pZLocation;
 }
@@ -657,6 +753,9 @@ public float Phi
 }
 }
 
+   ///<summary>
+   ///a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc.
+   ///</summary>
 public void setEntityAppearance(uint pEntityAppearance)
 { _entityAppearance = pEntityAppearance;
 }
@@ -674,6 +773,9 @@ public uint EntityAppearance
 }
 }
 
+   ///<summary>
+   ///enumeration of what dead reckoning algorighm to use
+   ///</summary>
 public void setDeadReckoningAlgorithm(byte pDeadReckoningAlgorithm)
 { _deadReckoningAlgorithm = pDeadReckoningAlgorithm;
 }
@@ -691,13 +793,22 @@ public byte DeadReckoningAlgorithm
 }
 }
 
+   ///<summary>
+   ///other parameters to use in the dead reckoning algorithm
+   ///</summary>
 public void setOtherParameters(byte[] pOtherParameters)
 { _otherParameters = pOtherParameters;
 }
 
+   ///<summary>
+   ///other parameters to use in the dead reckoning algorithm
+   ///</summary>
 public byte[] getOtherParameters()
 { return _otherParameters; }
 
+   ///<summary>
+   ///other parameters to use in the dead reckoning algorithm
+   ///</summary>
 [XmlArray(ElementName="otherParameters")]
 public byte[] OtherParameters
 {
@@ -711,6 +822,9 @@ public byte[] OtherParameters
 }
 }
 
+   ///<summary>
+   ///X value
+   ///</summary>
 public void setXAcceleration(float pXAcceleration)
 { _xAcceleration = pXAcceleration;
 }
@@ -728,6 +842,9 @@ public float XAcceleration
 }
 }
 
+   ///<summary>
+   ///y Value
+   ///</summary>
 public void setYAcceleration(float pYAcceleration)
 { _yAcceleration = pYAcceleration;
 }
@@ -745,6 +862,9 @@ public float YAcceleration
 }
 }
 
+   ///<summary>
+   ///Z value
+   ///</summary>
 public void setZAcceleration(float pZAcceleration)
 { _zAcceleration = pZAcceleration;
 }
@@ -762,6 +882,9 @@ public float ZAcceleration
 }
 }
 
+   ///<summary>
+   ///X value
+   ///</summary>
 public void setXAngularVelocity(float pXAngularVelocity)
 { _xAngularVelocity = pXAngularVelocity;
 }
@@ -779,6 +902,9 @@ public float XAngularVelocity
 }
 }
 
+   ///<summary>
+   ///y Value
+   ///</summary>
 public void setYAngularVelocity(float pYAngularVelocity)
 { _yAngularVelocity = pYAngularVelocity;
 }
@@ -796,6 +922,9 @@ public float YAngularVelocity
 }
 }
 
+   ///<summary>
+   ///Z value
+   ///</summary>
 public void setZAngularVelocity(float pZAngularVelocity)
 { _zAngularVelocity = pZAngularVelocity;
 }
@@ -813,13 +942,22 @@ public float ZAngularVelocity
 }
 }
 
+   ///<summary>
+   ///characters that can be used for debugging, or to draw unique strings on the side of entities in the world
+   ///</summary>
 public void setMarking(byte[] pMarking)
 { _marking = pMarking;
 }
 
+   ///<summary>
+   ///characters that can be used for debugging, or to draw unique strings on the side of entities in the world
+   ///</summary>
 public byte[] getMarking()
 { return _marking; }
 
+   ///<summary>
+   ///characters that can be used for debugging, or to draw unique strings on the side of entities in the world
+   ///</summary>
 [XmlArray(ElementName="marking")]
 public byte[] Marking
 {
@@ -833,6 +971,9 @@ public byte[] Marking
 }
 }
 
+   ///<summary>
+   ///a series of bit flags
+   ///</summary>
 public void setCapabilities(uint pCapabilities)
 { _capabilities = pCapabilities;
 }
@@ -850,15 +991,24 @@ public uint Capabilities
 }
 }
 
-public void setArticulationParameters(List<object> pArticulationParameters)
+   ///<summary>
+   ///variable length list of articulation parameters
+   ///</summary>
+public void setArticulationParameters(List<ArticulationParameter> pArticulationParameters)
 { _articulationParameters = pArticulationParameters;
 }
 
-public List<object> getArticulationParameters()
+   ///<summary>
+   ///variable length list of articulation parameters
+   ///</summary>
+public List<ArticulationParameter> getArticulationParameters()
 { return _articulationParameters; }
 
-[XmlElement(ElementName = "articulationParametersList",Type = typeof(List<object>))]
-public List<object> ArticulationParameters
+   ///<summary>
+   ///variable length list of articulation parameters
+   ///</summary>
+[XmlElement(ElementName = "articulationParametersList",Type = typeof(List<ArticulationParameter>))]
+public List<ArticulationParameter> ArticulationParameters
 {
      get
 {
@@ -870,7 +1020,19 @@ public List<object> ArticulationParameters
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -1007,6 +1169,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- FastEntityStatePdu-----"  + System.Environment.NewLine);
@@ -1079,7 +1248,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(FastEntityStatePdu rhs)
  {

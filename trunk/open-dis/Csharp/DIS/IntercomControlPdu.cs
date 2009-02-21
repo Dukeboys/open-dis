@@ -58,9 +58,12 @@ public class IntercomControlPdu : RadioCommunicationsFamilyPdu
    protected uint  _intercomParametersLength;
 
    /** @@@This is wrong--the length of the data field is variable. Using a long for now. */
-   protected List<object> _intercomParameters = new List<object>(); 
+   protected List<IntercomCommunicationsParameters> _intercomParameters = new List<IntercomCommunicationsParameters>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.8.5. Detailed inofrmation about the state of an intercom device and the actions it is requestion         of another intercom device, or the response to a requested action. Required manual intervention to fix the intercom parameters,        which can be of varialbe length. UNFINSISHED
+   ///</summary>
  public IntercomControlPdu()
  {
     PduType = (byte)32;
@@ -92,6 +95,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///control type
+   ///</summary>
 public void setControlType(byte pControlType)
 { _controlType = pControlType;
 }
@@ -109,6 +115,9 @@ public byte ControlType
 }
 }
 
+   ///<summary>
+   ///control type
+   ///</summary>
 public void setCommunicationsChannelType(byte pCommunicationsChannelType)
 { _communicationsChannelType = pCommunicationsChannelType;
 }
@@ -126,14 +135,23 @@ public byte CommunicationsChannelType
 }
 }
 
+   ///<summary>
+   ///Source entity ID
+   ///</summary>
 public void setSourceEntityID(EntityID pSourceEntityID)
 { _sourceEntityID = pSourceEntityID;
 }
 
+   ///<summary>
+   ///Source entity ID
+   ///</summary>
 public EntityID getSourceEntityID()
 { return _sourceEntityID; 
 }
 
+   ///<summary>
+   ///Source entity ID
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="sourceEntityID")]
 public EntityID SourceEntityID
 {
@@ -147,6 +165,9 @@ public EntityID SourceEntityID
 }
 }
 
+   ///<summary>
+   ///The specific intercom device being simulated within an entity.
+   ///</summary>
 public void setSourceCommunicationsDeviceID(byte pSourceCommunicationsDeviceID)
 { _sourceCommunicationsDeviceID = pSourceCommunicationsDeviceID;
 }
@@ -164,6 +185,9 @@ public byte SourceCommunicationsDeviceID
 }
 }
 
+   ///<summary>
+   ///Line number to which the intercom control refers
+   ///</summary>
 public void setSourceLineID(byte pSourceLineID)
 { _sourceLineID = pSourceLineID;
 }
@@ -181,6 +205,9 @@ public byte SourceLineID
 }
 }
 
+   ///<summary>
+   ///priority of this message relative to transmissons from other intercom devices
+   ///</summary>
 public void setTransmitPriority(byte pTransmitPriority)
 { _transmitPriority = pTransmitPriority;
 }
@@ -198,6 +225,9 @@ public byte TransmitPriority
 }
 }
 
+   ///<summary>
+   ///current transmit state of the line
+   ///</summary>
 public void setTransmitLineState(byte pTransmitLineState)
 { _transmitLineState = pTransmitLineState;
 }
@@ -215,6 +245,9 @@ public byte TransmitLineState
 }
 }
 
+   ///<summary>
+   ///detailed type requested.
+   ///</summary>
 public void setCommand(byte pCommand)
 { _command = pCommand;
 }
@@ -232,14 +265,23 @@ public byte Command
 }
 }
 
+   ///<summary>
+   ///eid of the entity that has created this intercom channel.
+   ///</summary>
 public void setMasterEntityID(EntityID pMasterEntityID)
 { _masterEntityID = pMasterEntityID;
 }
 
+   ///<summary>
+   ///eid of the entity that has created this intercom channel.
+   ///</summary>
 public EntityID getMasterEntityID()
 { return _masterEntityID; 
 }
 
+   ///<summary>
+   ///eid of the entity that has created this intercom channel.
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="masterEntityID")]
 public EntityID MasterEntityID
 {
@@ -253,6 +295,9 @@ public EntityID MasterEntityID
 }
 }
 
+   ///<summary>
+   ///specific intercom device that has created this intercom channel
+   ///</summary>
 public void setMasterCommunicationsDeviceID(ushort pMasterCommunicationsDeviceID)
 { _masterCommunicationsDeviceID = pMasterCommunicationsDeviceID;
 }
@@ -270,15 +315,51 @@ public ushort MasterCommunicationsDeviceID
 }
 }
 
-public void setIntercomParameters(List<object> pIntercomParameters)
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getintercomParametersLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setIntercomParametersLength(uint pIntercomParametersLength)
+{ _intercomParametersLength = pIntercomParametersLength;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getintercomParametersLength method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(uint), ElementName="intercomParametersLength")]
+public uint IntercomParametersLength
+{
+     get
+     {
+          return _intercomParametersLength;
+     }
+     set
+     {
+          _intercomParametersLength = value;
+     }
+}
+
+   ///<summary>
+   ///@@@This is wrong--the length of the data field is variable. Using a long for now.
+   ///</summary>
+public void setIntercomParameters(List<IntercomCommunicationsParameters> pIntercomParameters)
 { _intercomParameters = pIntercomParameters;
 }
 
-public List<object> getIntercomParameters()
+   ///<summary>
+   ///@@@This is wrong--the length of the data field is variable. Using a long for now.
+   ///</summary>
+public List<IntercomCommunicationsParameters> getIntercomParameters()
 { return _intercomParameters; }
 
-[XmlElement(ElementName = "intercomParametersList",Type = typeof(List<object>))]
-public List<object> IntercomParameters
+   ///<summary>
+   ///@@@This is wrong--the length of the data field is variable. Using a long for now.
+   ///</summary>
+[XmlElement(ElementName = "intercomParametersList",Type = typeof(List<IntercomCommunicationsParameters>))]
+public List<IntercomCommunicationsParameters> IntercomParameters
 {
      get
 {
@@ -290,7 +371,19 @@ public List<object> IntercomParameters
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -355,6 +448,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- IntercomControlPdu-----"  + System.Environment.NewLine);
@@ -391,7 +491,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(IntercomControlPdu rhs)
  {

@@ -49,6 +49,9 @@ public class FirePdu : WarfareFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///Sectioin 5.3.4.1. Information about someone firing something. COMPLETE
+   ///</summary>
  public FirePdu()
  {
     PduType = (byte)2;
@@ -71,14 +74,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///ID of the munition that is being shot
+   ///</summary>
 public void setMunitionID(EntityID pMunitionID)
 { _munitionID = pMunitionID;
 }
 
+   ///<summary>
+   ///ID of the munition that is being shot
+   ///</summary>
 public EntityID getMunitionID()
 { return _munitionID; 
 }
 
+   ///<summary>
+   ///ID of the munition that is being shot
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="munitionID")]
 public EntityID MunitionID
 {
@@ -92,14 +104,23 @@ public EntityID MunitionID
 }
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public void setEventID(EventID pEventID)
 { _eventID = pEventID;
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 public EventID getEventID()
 { return _eventID; 
 }
 
+   ///<summary>
+   ///ID of event
+   ///</summary>
 [XmlElement(Type= typeof(EventID), ElementName="eventID")]
 public EventID EventID
 {
@@ -130,14 +151,23 @@ public uint FireMissionIndex
 }
 }
 
+   ///<summary>
+   ///location of the firing event
+   ///</summary>
 public void setLocationInWorldCoordinates(Vector3Double pLocationInWorldCoordinates)
 { _locationInWorldCoordinates = pLocationInWorldCoordinates;
 }
 
+   ///<summary>
+   ///location of the firing event
+   ///</summary>
 public Vector3Double getLocationInWorldCoordinates()
 { return _locationInWorldCoordinates; 
 }
 
+   ///<summary>
+   ///location of the firing event
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Double), ElementName="locationInWorldCoordinates")]
 public Vector3Double LocationInWorldCoordinates
 {
@@ -151,14 +181,23 @@ public Vector3Double LocationInWorldCoordinates
 }
 }
 
+   ///<summary>
+   ///Describes munitions used in the firing event
+   ///</summary>
 public void setBurstDescriptor(BurstDescriptor pBurstDescriptor)
 { _burstDescriptor = pBurstDescriptor;
 }
 
+   ///<summary>
+   ///Describes munitions used in the firing event
+   ///</summary>
 public BurstDescriptor getBurstDescriptor()
 { return _burstDescriptor; 
 }
 
+   ///<summary>
+   ///Describes munitions used in the firing event
+   ///</summary>
 [XmlElement(Type= typeof(BurstDescriptor), ElementName="burstDescriptor")]
 public BurstDescriptor BurstDescriptor
 {
@@ -172,14 +211,23 @@ public BurstDescriptor BurstDescriptor
 }
 }
 
+   ///<summary>
+   ///Velocity of the ammunition
+   ///</summary>
 public void setVelocity(Vector3Float pVelocity)
 { _velocity = pVelocity;
 }
 
+   ///<summary>
+   ///Velocity of the ammunition
+   ///</summary>
 public Vector3Float getVelocity()
 { return _velocity; 
 }
 
+   ///<summary>
+   ///Velocity of the ammunition
+   ///</summary>
 [XmlElement(Type= typeof(Vector3Float), ElementName="velocity")]
 public Vector3Float Velocity
 {
@@ -193,6 +241,9 @@ public Vector3Float Velocity
 }
 }
 
+   ///<summary>
+   ///range to the target
+   ///</summary>
 public void setRange(float pRange)
 { _range = pRange;
 }
@@ -210,7 +261,19 @@ public float Range
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -253,6 +316,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- FirePdu-----"  + System.Environment.NewLine);
@@ -280,7 +350,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(FirePdu rhs)
  {

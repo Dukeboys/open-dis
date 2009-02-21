@@ -40,6 +40,9 @@ public class RepairResponsePdu : LogisticsFamilyPdu
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.2.5.6. Sent after repair complete PDU. COMPLETE
+   ///</summary>
  public RepairResponsePdu()
  {
     PduType = (byte)10;
@@ -60,14 +63,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Entity that is receiving service
+   ///</summary>
 public void setReceivingEntityID(EntityID pReceivingEntityID)
 { _receivingEntityID = pReceivingEntityID;
 }
 
+   ///<summary>
+   ///Entity that is receiving service
+   ///</summary>
 public EntityID getReceivingEntityID()
 { return _receivingEntityID; 
 }
 
+   ///<summary>
+   ///Entity that is receiving service
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="receivingEntityID")]
 public EntityID ReceivingEntityID
 {
@@ -81,14 +93,23 @@ public EntityID ReceivingEntityID
 }
 }
 
+   ///<summary>
+   ///Entity that is supplying
+   ///</summary>
 public void setRepairingEntityID(EntityID pRepairingEntityID)
 { _repairingEntityID = pRepairingEntityID;
 }
 
+   ///<summary>
+   ///Entity that is supplying
+   ///</summary>
 public EntityID getRepairingEntityID()
 { return _repairingEntityID; 
 }
 
+   ///<summary>
+   ///Entity that is supplying
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="repairingEntityID")]
 public EntityID RepairingEntityID
 {
@@ -102,6 +123,9 @@ public EntityID RepairingEntityID
 }
 }
 
+   ///<summary>
+   ///Result of repair operation
+   ///</summary>
 public void setRepairResult(byte pRepairResult)
 { _repairResult = pRepairResult;
 }
@@ -119,6 +143,9 @@ public byte RepairResult
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding1(short pPadding1)
 { _padding1 = pPadding1;
 }
@@ -136,6 +163,9 @@ public short Padding1
 }
 }
 
+   ///<summary>
+   ///padding
+   ///</summary>
 public void setPadding2(byte pPadding2)
 { _padding2 = pPadding2;
 }
@@ -153,7 +183,19 @@ public byte Padding2
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -192,6 +234,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- RepairResponsePdu-----"  + System.Environment.NewLine);
@@ -214,7 +263,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(RepairResponsePdu rhs)
  {

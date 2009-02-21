@@ -54,6 +54,9 @@ public class FundamentalParameterData : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.2.22. Contains electromagnetic emmision regineratin parameters that are        variable throughout a scenario dependent on the actions of the participants in the simulation. Also provides basic parametric data that may be used to support low-fidelity simulations.
+   ///</summary>
  public FundamentalParameterData()
  {
  }
@@ -77,6 +80,9 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///center frequency of the emission in hertz.
+   ///</summary>
 public void setFrequency(float pFrequency)
 { _frequency = pFrequency;
 }
@@ -94,6 +100,9 @@ public float Frequency
 }
 }
 
+   ///<summary>
+   ///Bandwidth of the frequencies corresponding to the fequency field.
+   ///</summary>
 public void setFrequencyRange(float pFrequencyRange)
 { _frequencyRange = pFrequencyRange;
 }
@@ -111,6 +120,9 @@ public float FrequencyRange
 }
 }
 
+   ///<summary>
+   ///Effective radiated power for the emission in DdBm. For a      radar noise jammer, indicates the peak of the transmitted power.
+   ///</summary>
 public void setEffectiveRadiatedPower(float pEffectiveRadiatedPower)
 { _effectiveRadiatedPower = pEffectiveRadiatedPower;
 }
@@ -128,6 +140,9 @@ public float EffectiveRadiatedPower
 }
 }
 
+   ///<summary>
+   ///Average repetition frequency of the emission in hertz.
+   ///</summary>
 public void setPulseRepetitionFrequency(float pPulseRepetitionFrequency)
 { _pulseRepetitionFrequency = pPulseRepetitionFrequency;
 }
@@ -145,6 +160,9 @@ public float PulseRepetitionFrequency
 }
 }
 
+   ///<summary>
+   ///Average pulse width  of the emission in microseconds.
+   ///</summary>
 public void setPulseWidth(float pPulseWidth)
 { _pulseWidth = pPulseWidth;
 }
@@ -162,6 +180,9 @@ public float PulseWidth
 }
 }
 
+   ///<summary>
+   ///Specifies the beam azimuth an elevation centers and corresponding half-angles     to describe the scan volume
+   ///</summary>
 public void setBeamAzimuthCenter(float pBeamAzimuthCenter)
 { _beamAzimuthCenter = pBeamAzimuthCenter;
 }
@@ -179,6 +200,9 @@ public float BeamAzimuthCenter
 }
 }
 
+   ///<summary>
+   ///Specifies the beam azimuth sweep to determine scan volume
+   ///</summary>
 public void setBeamAzimuthSweep(float pBeamAzimuthSweep)
 { _beamAzimuthSweep = pBeamAzimuthSweep;
 }
@@ -196,6 +220,9 @@ public float BeamAzimuthSweep
 }
 }
 
+   ///<summary>
+   ///Specifies the beam elevation center to determine scan volume
+   ///</summary>
 public void setBeamElevationCenter(float pBeamElevationCenter)
 { _beamElevationCenter = pBeamElevationCenter;
 }
@@ -213,6 +240,9 @@ public float BeamElevationCenter
 }
 }
 
+   ///<summary>
+   ///Specifies the beam elevation sweep to determine scan volume
+   ///</summary>
 public void setBeamElevationSweep(float pBeamElevationSweep)
 { _beamElevationSweep = pBeamElevationSweep;
 }
@@ -230,6 +260,9 @@ public float BeamElevationSweep
 }
 }
 
+   ///<summary>
+   ///allows receiver to synchronize its regenerated scan pattern to     that of the emmitter. Specifies the percentage of time a scan is through its pattern from its origion.
+   ///</summary>
 public void setBeamSweepSync(float pBeamSweepSync)
 { _beamSweepSync = pBeamSweepSync;
 }
@@ -248,6 +281,9 @@ public float BeamSweepSync
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -293,6 +329,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- FundamentalParameterData-----"  + System.Environment.NewLine);
@@ -317,7 +360,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(FundamentalParameterData rhs)
  {

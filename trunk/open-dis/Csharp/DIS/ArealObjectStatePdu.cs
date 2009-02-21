@@ -58,9 +58,12 @@ public class ArealObjectStatePdu : SyntheticEnvironmentFamilyPdu
    protected SimulationAddress  _receivingID = new SimulationAddress(); 
 
    /** location of object */
-   protected List<object> _objectLocation = new List<object>(); 
+   protected List<Vector3Double> _objectLocation = new List<Vector3Double>(); 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.3.11.5: Information about the addition/modification of an oobject that is geometrically      achored to the terrain with a set of three or more points that come to a closure. COMPLETE
+   ///</summary>
  public ArealObjectStatePdu()
  {
     PduType = (byte)45;
@@ -91,14 +94,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///Object in synthetic environment
+   ///</summary>
 public void setObjectID(EntityID pObjectID)
 { _objectID = pObjectID;
 }
 
+   ///<summary>
+   ///Object in synthetic environment
+   ///</summary>
 public EntityID getObjectID()
 { return _objectID; 
 }
 
+   ///<summary>
+   ///Object in synthetic environment
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="objectID")]
 public EntityID ObjectID
 {
@@ -112,14 +124,23 @@ public EntityID ObjectID
 }
 }
 
+   ///<summary>
+   ///Object with which this point object is associated
+   ///</summary>
 public void setReferencedObjectID(EntityID pReferencedObjectID)
 { _referencedObjectID = pReferencedObjectID;
 }
 
+   ///<summary>
+   ///Object with which this point object is associated
+   ///</summary>
 public EntityID getReferencedObjectID()
 { return _referencedObjectID; 
 }
 
+   ///<summary>
+   ///Object with which this point object is associated
+   ///</summary>
 [XmlElement(Type= typeof(EntityID), ElementName="referencedObjectID")]
 public EntityID ReferencedObjectID
 {
@@ -133,6 +154,9 @@ public EntityID ReferencedObjectID
 }
 }
 
+   ///<summary>
+   ///unique update number of each state transition of an object
+   ///</summary>
 public void setUpdateNumber(ushort pUpdateNumber)
 { _updateNumber = pUpdateNumber;
 }
@@ -150,6 +174,9 @@ public ushort UpdateNumber
 }
 }
 
+   ///<summary>
+   ///force ID
+   ///</summary>
 public void setForceID(byte pForceID)
 { _forceID = pForceID;
 }
@@ -167,6 +194,9 @@ public byte ForceID
 }
 }
 
+   ///<summary>
+   ///modifications enumeration
+   ///</summary>
 public void setModifications(byte pModifications)
 { _modifications = pModifications;
 }
@@ -184,14 +214,23 @@ public byte Modifications
 }
 }
 
+   ///<summary>
+   ///Object type
+   ///</summary>
 public void setObjectType(EntityType pObjectType)
 { _objectType = pObjectType;
 }
 
+   ///<summary>
+   ///Object type
+   ///</summary>
 public EntityType getObjectType()
 { return _objectType; 
 }
 
+   ///<summary>
+   ///Object type
+   ///</summary>
 [XmlElement(Type= typeof(EntityType), ElementName="objectType")]
 public EntityType ObjectType
 {
@@ -205,14 +244,23 @@ public EntityType ObjectType
 }
 }
 
+   ///<summary>
+   ///Object appearance
+   ///</summary>
 public void setObjectAppearance(SixByteChunk pObjectAppearance)
 { _objectAppearance = pObjectAppearance;
 }
 
+   ///<summary>
+   ///Object appearance
+   ///</summary>
 public SixByteChunk getObjectAppearance()
 { return _objectAppearance; 
 }
 
+   ///<summary>
+   ///Object appearance
+   ///</summary>
 [XmlElement(Type= typeof(SixByteChunk), ElementName="objectAppearance")]
 public SixByteChunk ObjectAppearance
 {
@@ -226,14 +274,50 @@ public SixByteChunk ObjectAppearance
 }
 }
 
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPoints method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+public void setNumberOfPoints(ushort pNumberOfPoints)
+{ _numberOfPoints = pNumberOfPoints;
+}
+
+/// <summary>
+/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
+/// The getnumberOfPoints method will also be based on the actual list length rather than this value. 
+/// The method is simply here for completeness and should not be used for any computations.
+/// </summary>
+[XmlElement(Type= typeof(ushort), ElementName="numberOfPoints")]
+public ushort NumberOfPoints
+{
+     get
+     {
+          return _numberOfPoints;
+     }
+     set
+     {
+          _numberOfPoints = value;
+     }
+}
+
+   ///<summary>
+   ///requesterID
+   ///</summary>
 public void setRequesterID(SimulationAddress pRequesterID)
 { _requesterID = pRequesterID;
 }
 
+   ///<summary>
+   ///requesterID
+   ///</summary>
 public SimulationAddress getRequesterID()
 { return _requesterID; 
 }
 
+   ///<summary>
+   ///requesterID
+   ///</summary>
 [XmlElement(Type= typeof(SimulationAddress), ElementName="requesterID")]
 public SimulationAddress RequesterID
 {
@@ -247,14 +331,23 @@ public SimulationAddress RequesterID
 }
 }
 
+   ///<summary>
+   ///receiver ID
+   ///</summary>
 public void setReceivingID(SimulationAddress pReceivingID)
 { _receivingID = pReceivingID;
 }
 
+   ///<summary>
+   ///receiver ID
+   ///</summary>
 public SimulationAddress getReceivingID()
 { return _receivingID; 
 }
 
+   ///<summary>
+   ///receiver ID
+   ///</summary>
 [XmlElement(Type= typeof(SimulationAddress), ElementName="receivingID")]
 public SimulationAddress ReceivingID
 {
@@ -268,15 +361,24 @@ public SimulationAddress ReceivingID
 }
 }
 
-public void setObjectLocation(List<object> pObjectLocation)
+   ///<summary>
+   ///location of object
+   ///</summary>
+public void setObjectLocation(List<Vector3Double> pObjectLocation)
 { _objectLocation = pObjectLocation;
 }
 
-public List<object> getObjectLocation()
+   ///<summary>
+   ///location of object
+   ///</summary>
+public List<Vector3Double> getObjectLocation()
 { return _objectLocation; }
 
-[XmlElement(ElementName = "objectLocationList",Type = typeof(List<object>))]
-public List<object> ObjectLocation
+   ///<summary>
+   ///location of object
+   ///</summary>
+[XmlElement(ElementName = "objectLocationList",Type = typeof(List<Vector3Double>))]
+public List<Vector3Double> ObjectLocation
 {
      get
 {
@@ -288,7 +390,19 @@ public List<object> ObjectLocation
 }
 }
 
+///<summary>
+///Automatically sets the length of the marshalled data, then calls the marshal method.
+///</summary>
+public void marshalAutoLengthSet(DataOutputStream dos)
+{
+       //Set the length prior to marshalling data
+       this.setLength((ushort)this.getMarshalledSize());
+       this.marshal(dos);
+}
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
@@ -351,6 +465,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- ArealObjectStatePdu-----"  + System.Environment.NewLine);
@@ -390,7 +511,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(ArealObjectStatePdu rhs)
  {

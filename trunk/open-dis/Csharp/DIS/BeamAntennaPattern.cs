@@ -45,6 +45,9 @@ public class BeamAntennaPattern : Object
 
 
 /** Constructor */
+   ///<summary>
+   ///Section 5.2.4.2. Used when the antenna pattern type field has a value of 1. Specifies           the direction, patter, and polarization of radiation from an antenna.
+   ///</summary>
  public BeamAntennaPattern()
  {
  }
@@ -66,14 +69,23 @@ public int getMarshalledSize()
 }
 
 
+   ///<summary>
+   ///The rotation that transformst he reference coordinate sytem     into the beam coordinate system. Either world coordinates or entity coordinates may be used as the     reference coordinate system, as specified by teh reference system field of the antenna pattern record.
+   ///</summary>
 public void setBeamDirection(Orientation pBeamDirection)
 { _beamDirection = pBeamDirection;
 }
 
+   ///<summary>
+   ///The rotation that transformst he reference coordinate sytem     into the beam coordinate system. Either world coordinates or entity coordinates may be used as the     reference coordinate system, as specified by teh reference system field of the antenna pattern record.
+   ///</summary>
 public Orientation getBeamDirection()
 { return _beamDirection; 
 }
 
+   ///<summary>
+   ///The rotation that transformst he reference coordinate sytem     into the beam coordinate system. Either world coordinates or entity coordinates may be used as the     reference coordinate system, as specified by teh reference system field of the antenna pattern record.
+   ///</summary>
 [XmlElement(Type= typeof(Orientation), ElementName="beamDirection")]
 public Orientation BeamDirection
 {
@@ -155,6 +167,9 @@ public byte Padding2
 }
 }
 
+   ///<summary>
+   ///Magnigute of the z-component in beam coordinates at some arbitrary      single point in the mainbeam      and in the far field of the antenna.
+   ///</summary>
 public void setEz(float pEz)
 { _ez = pEz;
 }
@@ -172,6 +187,9 @@ public float Ez
 }
 }
 
+   ///<summary>
+   ///Magnigute of the x-component in beam coordinates at some arbitrary      single point in the mainbeam      and in the far field of the antenna.
+   ///</summary>
 public void setEx(float pEx)
 { _ex = pEx;
 }
@@ -189,6 +207,9 @@ public float Ex
 }
 }
 
+   ///<summary>
+   ///THe phase angle between Ez and Ex in radians.
+   ///</summary>
 public void setPhase(float pPhase)
 { _phase = pPhase;
 }
@@ -207,6 +228,9 @@ public float Phase
 }
 
 
+///<summary>
+///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+///</summary>
 public void marshal(DataOutputStream dos)
 {
     try 
@@ -248,6 +272,13 @@ public void unmarshal(DataInputStream dis)
  } // end of unmarshal method 
 
 
+   ///<summary>
+   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+   ///This will be modified in the future to provide a better display.  Usage: 
+   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+   ///</summary>
 public void reflection(StringBuilder sb)
 {
     sb.Append("----- BeamAntennaPattern-----"  + System.Environment.NewLine);
@@ -271,7 +302,7 @@ public void reflection(StringBuilder sb)
     } // end of marshal method
 
  /**
-  * The equals method doesn't always work--mostly it works only on on classes that consist only of primitives. Be careful.
+  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
  public bool equals(BeamAntennaPattern rhs)
  {
