@@ -88,12 +88,15 @@
         </javadoc>
     </target>
     
-    <target name="dist" depends="init, generateEbvClasses, compile, run, javadoc, jar" description="do everything">
+    <target name="dist" depends="init, generateEbvClasses, run, compile, javadoc, jar" description="do everything">
     </target>
 
     <target name="clean" description="Remove build and dist directories">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
+        <delete>
+          <fileset dir="src/edu/nps/moves/disenum" includes="*.java"/>
+        </delete>
         <delete dir="src/edu/nps/moves/siso/jaxb"/>
     </target>
 </project>
