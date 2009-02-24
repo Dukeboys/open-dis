@@ -41,16 +41,16 @@ public class EBVReader
              {
                  GenerictableT gen = genericList.get(idx);
 
-                 System.out.println("generic table ID " + gen.getId() + " cname=" + gen.getCname());
+                 //System.out.println("generic table ID " + gen.getId() + " cname=" + gen.getCname());
                  // For each enumeration in the XML that we are interested in, 
                  // generate a Java enumeration class
                  if(gen instanceof EnumT)
                  {
-                     System.out.println("generic table is an EnumT wtih cname " + gen.getCname());
+                     //System.out.println("generic table is an EnumT wtih cname " + gen.getCname());
                      EnumT en = (EnumT)gen;
                      List<EnumrowT> rows = en.getEnumrow();
-                     System.out.println("row ID=" + rows.get(0).getId());
-                     System.out.println("header length is " + en.getHeader().size());
+                     //System.out.println("row ID=" + rows.get(0).getId());
+                     //System.out.println("header length is " + en.getHeader().size());
                      //if(en.getHeader().size() == 0)
                      //    continue;
                      //HeaderT header = en.getHeader().get(0);
@@ -61,7 +61,7 @@ public class EBVReader
                     // Pdu Type
                      if(gen.getCname().equalsIgnoreCase("pduheader.pdutype"))
                      {
-                         System.out.println("PDU Type");
+                         //System.out.println("PDU Type");
                          EBVReader reader = new EBVReader();
                          reader.writeStandardEnumeration("PduType", "src/edu/nps/moves/disenum/PduType", en);
                      }
