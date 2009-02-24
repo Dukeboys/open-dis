@@ -259,9 +259,9 @@ public class PduFactory {
                 break;
 
             default:
-                System.out.print("PDU not implemented. Type=" + pduType);
+                System.out.print("PDU not implemented. Type = " + pduType + "\n");
                 if (pduTypeEnum != null) {
-                    System.out.print("  PDU not implemented name is " + pduTypeEnum.getDescription());
+                    System.out.print("PDU not implemented name is " + pduTypeEnum.getDescription());
                 }
                 System.out.println();
 

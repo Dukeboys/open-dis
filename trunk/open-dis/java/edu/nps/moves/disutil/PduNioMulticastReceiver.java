@@ -2,7 +2,6 @@
 package edu.nps.moves.disutil;
 
 import edu.nps.moves.dis.Pdu;
-import java.net.DatagramPacket;
 import java.nio.ByteBuffer;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -85,6 +84,7 @@ public class PduNioMulticastReceiver extends NioServer {
 
     /**
      * Returns the last parsed PDU.
+     * @return
      */
     public Pdu getPdu(){
         return this.pdu;
@@ -94,6 +94,7 @@ public class PduNioMulticastReceiver extends NioServer {
     /**
      * Returns whether or not the ByteBuffer marshalling
      * technique is being used (default).
+     * @return
      */
     public boolean getUseByteBuffer(){
         return this.unmarshalWithByteBuffer;
@@ -152,6 +153,7 @@ public class PduNioMulticastReceiver extends NioServer {
 
     /**
      * Fires event on calling thread.
+     * @param pdu 
      */
     protected synchronized void firePduReceived( Pdu pdu ) {
         this.pdu = pdu;

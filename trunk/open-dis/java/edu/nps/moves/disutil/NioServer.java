@@ -505,8 +505,8 @@ public class NioServer {
 
     /**
      * Handles accepting new connections.
-     * @param sel The selector with which we'll register
      * @param key The OP_ACCEPT key
+     * @throws IOException
      */
     private void handleAccept( SelectionKey key ) throws IOException{
         assert key.isAcceptable() : key.readyOps();                             // We know it should be acceptable
@@ -538,6 +538,7 @@ public class NioServer {
      * Handles reading incoming data and then firing events.
      * @param key The key associated with the reading
      * @param buff the ByteBuffer to hold the data
+     * @throws IOException
      */
     private void handleRead(SelectionKey key, ByteBuffer buff ) throws IOException {
 
@@ -935,6 +936,7 @@ public class NioServer {
      * setting up listening for UDP on the given port
      * and joining the provided multicast group.
      * @param port the port to listen to
+     * @param group
      * @return <code>this</code> to aid in chaining
      */
     public synchronized NioServer setSingleUdpPort( int port, String group ){
@@ -1523,6 +1525,7 @@ public class NioServer {
          * Resets an event between firings by updating the parameters
          * that change.
          * @param key The SelectionKey for the event
+         * @param buffer 
          * @param remoteUdp the remote UDP source or null for TCP
          */
         protected void reset( SelectionKey key, ByteBuffer buffer, SocketAddress remoteUdp ){

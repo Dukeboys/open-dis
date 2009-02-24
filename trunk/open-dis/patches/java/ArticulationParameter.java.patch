@@ -44,7 +44,7 @@ Index: ArticulationParameter.java
 +        
 +        // Don't allow negative, or more than (2^7) - 1 -- post processing patch
 +        if ((pChangeIndicator < 0) || (pChangeIndicator > Byte.MAX_VALUE)) {
-+            pChangeIndicator = 0;
++            changeIndicator = 0;
 +        } else {
 +            changeIndicator = pChangeIndicator;
 +        }

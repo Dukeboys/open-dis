@@ -52,6 +52,7 @@ public class ConcatenatedDisPdus
      *
      * This depends on the input stream being open and not reset through multiple calls
      * to getNextPdu().
+     * @return
      */
     public Pdu getNextPdu()
     {
@@ -154,8 +155,9 @@ public class ConcatenatedDisPdus
                 pduLength = (short)((ch1 << 8) + (ch2 << 0));
 
                 //System.out.println("PDU length in index is " + pduLength);
-                if(pduLength <= 0)
+                if(pduLength <= 0) {
                     break;
+                }
 
                 currentPos = currentPos + pduLength;
                 indexes.add(new Integer(currentPos));
