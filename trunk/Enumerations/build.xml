@@ -10,7 +10,7 @@
     <property name="release" location="release"/>
     <property name="test" location="test"/>
     
-    <property name="jarfile" location="${dist}/dis-enum_${version}.jar"/>
+    <property name="jarfile" location="${dist}/dis-enums.jar"/>
     <property name="compile.debug" value="true"/>
 
     <fileset id="lib.jars" dir="${lib}">
@@ -28,7 +28,6 @@
       <mkdir dir="build/test"/>
       <mkdir dir="src/edu/nps/moves/siso/jaxb"/>
     </target>
-
 
     <!-- compile the java code-generation code -->
     <target name="compileEbv" depends="generateEbvClasses" description="Compile java code generation code">
@@ -69,7 +68,6 @@
                </classpath>
          </javac>
     </target>
-
     
     <!-- Runs the generation program, which creates the java enumeration classes from the EBV xml file -->
      <target name="run" depends="compileEbv" description="run java enumeration class creation program">
@@ -105,9 +103,8 @@
     <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
         <delete dir="${build}/test"/>
-
-        <jar jarfile="dist/dis-enums_${version}.jar" basedir="build"/>
-        <copy file="dist/dis-enums_${version}.jar" tofile="dis-enums_${version}.jar"/>
+        <jar jarfile="${jarfile}" basedir="build"/>
+        <copy file="${jarfile}" tofile="dis-enums_${version}.jar"/>
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the enumeration code">
