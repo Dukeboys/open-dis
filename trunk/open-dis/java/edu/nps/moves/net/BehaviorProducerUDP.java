@@ -38,6 +38,7 @@ import java.util.*;
 
 import edu.nps.moves.dis.Pdu;
 import edu.nps.moves.disutil.PduFactory;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
@@ -58,9 +59,6 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
                                             BehaviorWriterIF, // IF for writing DIS pdus
                                             Runnable // Threaded object
 {
-
-    /** The (rough) size of an ethernet frame */
-    public static final int MTU_SIZE = 1500;
 
     /** People who listen to us for PDU events. This is a Vector rather than
      * the preferred List to preserve compatability with older VRML browsers
@@ -88,12 +86,6 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
         packet = new DatagramPacket(buffer.array(), MTU_SIZE);
     }
 
-    /**
-     * Add a listener that will be notified when a PDU is
-     * ready.
-     *
-     * @param consumer the object that will be notified of the PDU
-     */
     public void addListener(BehaviorConsumerIF consumer) {
         // Add it only if absent, so we don't get dupe copies.
         if (!(behaviorConsumerListeners.contains(consumer))) {
@@ -101,11 +93,6 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
         }
     }
 
-    /**
-     * Remove a listener/consumer of PDUs from the notification list.
-     *
-     * @param consumer to be removed from the notification list
-     */
     public void removeListener(BehaviorConsumerIF consumer) {
         behaviorConsumerListeners.remove(consumer);
     }
@@ -116,37 +103,20 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
     }
 
     public void write(Pdu pdu) {
+        pdu.marshal(buffer);
         try {
-            pdu.marshal(buffer);
             socket.send(packet);
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
         }
+        buffer.clear();
     }
 
-    /**
-     * This is a performance option. When a PDU arrives we want to distribute
-     * it to all listeners. If we use a single copy of the object distributed
-     * to all listeners this may cause problems if one listener modifies the
-     * object and undermines the expectations of another listener. To avoid this
-     * we can create a new copy of the PDU and hand off a new, unique copy of
-     * the object to each listener. But this may cause some performance problems,
-     * since it takes a while to allocate a new object.<p>
-     *
-     * The default behavior should be to distribute a new, unqiue copy to each
-     * listener. this allows the user to override this behavior for better
-     * performance.
-     *
-     * @param shouldCreateCopy true to create a new copy for each listener,
-     * false for a shared copy for each listener
-     */
     public void setUseCopies(boolean shouldCreateCopy) {
         useCopies = shouldCreateCopy;
     }
 
-    /**
-     * Entry point for thread.
-     */
+    /** Entry point for thread */
     public void run() {
         // Alan: moved these outside loop to lower gc
         Pdu pdu;
@@ -163,17 +133,17 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
                         // copy of the object to multiple listeners for better performance.
                         if (useCopies) {
                             Pdu copyPdu = pduf.createPdu(buffer);
-                            consumer.receivePdu(copyPdu, this);
+                            consumer.receivePdu(copyPdu);
                         } else {
-                            consumer.receivePdu(pdu, this);
+                            consumer.receivePdu(pdu);
                         }
                     }
-                } // if pdu != null
-            } catch (Exception e) {
-                System.out.println(e);
-                e.printStackTrace();
+                }
+                buffer.clear();
+            } catch (IOException ioe) {
+                System.out.println(ioe);
             }
-        } // End while true
-    } // end run()
+        }
+    }
 
 } // end class file BehaviorProducerUDP.java

@@ -44,7 +44,7 @@ package edu.nps.moves.net;
  * no attempt to limit which listeners/consumers receive the PDU.<p>
  *
  * @author DMcG
- * @version $Id;$
+ * @version $Id:$
  */ 
  public interface BehaviorProducerIF {
 
@@ -54,14 +54,14 @@ package edu.nps.moves.net;
     *
     * @param consumer the object that will be notified of the PDU
     */
-   public void addListener(BehaviorConsumerIF consumer);
+   void addListener(BehaviorConsumerIF consumer);
    
    /**
     * Remove a listener/consumer of PDUs from the notification list.
     *
     * @param consumer to be removed from the notification list
     */
-   public void removeListener(BehaviorConsumerIF consumer);
+   void removeListener(BehaviorConsumerIF consumer);
    
    /**
     * This is a performance option. When a PDU arrives we want to distribute
@@ -78,6 +78,6 @@ package edu.nps.moves.net;
     *
     * @param shouldCreateCopy true to create a new copy for each listener, false for a shared copy for each listener
     */
-    public void setUseCopies(boolean shouldCreateCopy);
+    void setUseCopies(boolean shouldCreateCopy);
     
  }

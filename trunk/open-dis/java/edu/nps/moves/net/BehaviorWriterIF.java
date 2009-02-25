@@ -46,23 +46,25 @@ import java.net.InetAddress;
  *
  * @author DMcG
  * @version $Id:$
- */ 
+ */
 public interface BehaviorWriterIF {
 
-  /**
-   * Set the default destination that the plain write(pdu) method
-   * will send data to.
-   *
-   * @param addr first object that describes destination (eg, IP)
-   * @param port second object that describes destination (eg, port number)
-   */
-  public void setDefaultDestination(InetAddress addr, int port);
-  
-  /**
-   * Write a PDU to the default destination
-   *
-   * @param pdu the DIS PDU to be written
-   */
-  public void write(Pdu pdu);
-  
+    /** The (rough) size of an ethernet frame */
+    static final int MTU_SIZE = 1500;
+
+    /**
+     * Set the default destination that the plain write(pdu) method
+     * will send data to.
+     *
+     * @param addr first object that describes destination (eg, IP)
+     * @param port second object that describes destination (eg, port number)
+     */
+    void setDefaultDestination(InetAddress addr, int port);
+
+    /**
+     * Write a PDU to the default destination
+     *
+     * @param pdu the DIS PDU to be written
+     */
+    void write(Pdu pdu);
 } 
