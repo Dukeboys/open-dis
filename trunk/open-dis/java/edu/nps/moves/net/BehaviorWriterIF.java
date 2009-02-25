@@ -1,51 +1,62 @@
+/*
+ Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer
+      in the documentation and/or other materials provided with the
+      distribution.
+    * Neither the names of the Naval Postgraduate School (NPS)
+      Modeling Virtual Environments and Simulation (MOVES) Institute
+      (http://www.nps.edu and http://www.movesinstitute.org)
+      nor the names of its contributors may be used to endorse or
+      promote products derived from this software without specific
+      prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+*/
 package edu.nps.moves.net;
 
-import edu.nps.moves.dis.*;
+import edu.nps.moves.dis.Pdu;
+import java.net.InetAddress;
 
 /**
- * the BehaviorWriter interface is a bit tricky, because we may write to
- * so many possible desinations, including the network, files, and so
- * on. This interface lets you set up some very general defaults, which
+ * This interface lets you set up some very general defaults, which
  * will be handled by the concrete implementations.<p>
  *
  * In general, you write to a destination. That destination is represented
- * by objects, such as objects that represent an IP address and a port.
- * You can also set a "default destination", where things will go unless
- * you specify otherwise.<p>
- *
- * This is very weakly typed in order to gain generality. <p>
+ * by an IP address and a port.  You can also set a "default destination", where
+ * things will go unless you specify otherwise.<p>
  *
  * @author DMcG
- * @version $Id;$
- */
- 
-public interface BehaviorWriterIF
-{
+ * @version $Id:$
+ */ 
+public interface BehaviorWriterIF {
 
   /**
-   * Set a default destination, the destination that the plain
-   * write(Pdu pdu) method will send to.
-   *
-   * @param obj object that describes default destination
-   */
-  public void setDefaultDestination(Object obj);
-  
-  /**
    * Set the default destination that the plain write(pdu) method
    * will send data to.
    *
-   * @param obj1 first object that describes destination (eg, IP)
-   * @param obj2 second object that describes destination (eg, port number)
+   * @param addr first object that describes destination (eg, IP)
+   * @param port second object that describes destination (eg, port number)
    */
-  public void setDefaultDestination(Object obj1, Object obj2);
-  
-  /**
-   * Set the default destination that the plain write(pdu) method
-   * will send data to.
-   *
-   * @param obj array of objects that specifies the destination
-   */
-  public void setDefaultDestination(Object obj[]);
+  public void setDefaultDestination(InetAddress addr, int port);
   
   /**
    * Write a PDU to the default destination
@@ -54,30 +65,4 @@ public interface BehaviorWriterIF
    */
   public void write(Pdu pdu);
   
-  /**
-   * Write a DIS pdu to the destination described by the object
-   *
-   * @param pdu the DIS pdu to write
-   * @param destination Object that describes destination to write to
-   */
-  public void write(Pdu pdu, Object destination);
-  
-  /**
-   * Write a DIS PDU to the destination described by the objects.
-   *
-   * @param pdu the DIS pdu to write
-   * @param destination1 object that describes destination
-   * @param destination2 object that describes destination
-   */
-  public void write(Pdu pdu, Object destination1, Object destination2);
-  
-  /**
-   * write the DIS pdu to the destination described by the array of objects.
-   *
-   * @param pdu the dis pdu to write
-   * @param dest array of objects that describe the destination to write to
-   */
-  public void write(Pdu pdu, Object dest[]);
-}
-  
-  
+} 
