@@ -5,9 +5,10 @@
     <property name="build" location="build"/>
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
+    <property name="test" location="javaTest"/>
     <property name="version" value="3.0"/>
     
-    <property name="jarfile" location="${dist}/open-dis.jar"/>
+    <property name="jarfile" location="${dist}/open-dis${version}.jar"/>
     <property name="compile.debug" value="true"/>
     <property name="javac.unchecked" value="-Xlint:unchecked"/>
 
@@ -22,10 +23,29 @@
     
     <target name="init" description="create initial directories">
         <mkdir dir="cpp/obj"/>
-        <mkdir dir="docs"/>
         <mkdir dir="${dist}"/>
+        <mkdir dir="${dist}/lib"/>
+        <mkdir dir="${dist}/docs"/>
         <mkdir dir="${build}"/>
+        <mkdir dir="${build}/test"/>
     </target>
+    
+    <!-- Generate the Java, C#, and C++ Open-DIS code. This relies on the jar file xmlpg.jar, from 
+         a separate project in the trunk that is included in the lib directory of this project. You
+         must run patch after this to apply known manual fixes to the source code generated.
+    --> 
+    <target name="generateDisSourceCode" depends="init" description = "run program to generate java, c#, and cpp">
+        <java classname="edu.nps.moves.xmlpg.Xmlpg">
+            <classpath refid="lib.path"/>
+            <arg value="DIS1998.xml"/>
+            <arg value="java"/>
+            <arg value="cpp/DIS"/>
+            <arg value="Csharp/DIS"/>
+        </java>
+        <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="patch"/>
+    </target>
+
 
     <!-- compile the java code -->
     <target name="compile" depends="init" description="Compile java code">
@@ -48,6 +68,103 @@
             <fileset dir="java" includes="**/jaxb.index"/>
         </copy>
     </target>
+    
+     <!-- schemagen ant task, which generates a schema from java beans-complaint source code -->
+    <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
+        <classpath refid="lib.path"/>
+    </taskdef>
+    
+    <!-- generate schema from the java source code -->
+    <target name="generateSchema" depends="compile" description="Generate a schema from the Java code">
+        <schemagen srcdir="java/edu/nps/moves/dis" destdir=".">
+            <classpath refid="lib.path"/>
+        </schemagen>
+        <move file="schema1.xsd" tofile="disJaxb.xsd"/>
+    </target>
+    
+    
+    <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
+    <target name="patch" description="patch generated source code">
+        <!--exec executable="patches/applyPatches.bash"-->
+         <!-- use this property for most cygwin-based windows releases -->
+        <!---property name="bash" value="/cygwin/bin/bash"/-->
+        
+        <!-- Use this property for most Unix platforms -->
+        <property name="bash" value="/bin/bash"/>
+        <exec executable="${bash}">
+            <!-- Add an extra dash in front of the login for cygwin. The other extra arguments seem to help -->
+            <!--arg value="-login"/-->
+            <!--arg value="-i"/-->
+            <!--arg value="-c"/-->
+  
+            <!-- The bash script to run. this applies the patches to the source code -->
+            <arg value="patches/applyPatches.bash"/>
+        </exec>
+    </target>
+    
+       <target name="jar" depends="compile" description="Build jar">
+        <mkdir dir="${dist}"/>
+        <jar jarfile="${jarfile}" basedir="build"/>
+        <copy file="${jarfile}" todir="."/>
+    </target>
+    
+    <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
+        <javadoc destdir="${dist}/docs" packagenames="edu.nps.moves.*" sourcepath="java">
+            <classpath refid="lib.path"/>
+        </javadoc>
+    </target>
+
+    <target name="compileTest" depends="compile" description="Compile java test code and place it in the test directory of of build">
+            
+         <javac srcdir="${test}" destdir="${build}/test"
+               source="1.5" target="1.5"
+               includeAntRuntime="no">
+               <classpath>
+                 <fileset dir="${lib}">
+                   <include name="**/*.jar"/>
+                 </fileset>
+                 <pathelement location="${build}"/>
+               </classpath>
+         </javac>
+    </target>
+
+ <!-- There are potentially many gotchas with JUNit 4.4, 4.5, and ant 1.5, 1.6, and 1.7 due to classloader issues. Be careful -->
+    <target name="test" depends="compileTest" description="run junit unit tests on build">
+      <junit>
+      <formatter type="plain" usefile="false"/>
+      <classpath>
+        <pathelement location="${build}"/>
+        <pathelement location="${jarfile}"/>
+        <pathelement location="${build}/test"/>
+        <pathelement location="${lib}/junit-4.4.jar"/>
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+      </classpath>
+      
+      <test name="edu.nps.moves.dis.DisAllTests"/>
+      
+      </junit>
+    </target>
+
+    <!-- Create a distribution. This skips the target of generateDisSourceCode, since that is not typically used
+         in the development cycle. You can run that target separately.
+    -->
+    <target name="dist" depends="clean, init, compile, javadoc, jar, generateSchema, compileTest, test" description="do everything">
+     <copy file="${lib}/activation.jar" todir="${dist}/lib"/>
+     <copy file="${lib}/dis-enums_1.0.jar" todir="${dist}/lib"/>
+     <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
+     <copy file="${lib}/jaxb-impl.jar" todir="${dist}/lib"/>
+     <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
+     <copy file="disJaxb.xsd" todir="${dist}"/>
+    </target>
+
+    <target name="clean" description="Remove build and dist directories">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+        <delete dir="docs"/>
+    </target>
+
    
     <target name="runSender" depends="jar" description="run DIS example program">
         <java classname="edu.nps.moves.examples.EspduSender">
@@ -108,59 +225,7 @@
         </java>
     </target>
     
-    <!-- XJC ant task, which generates source code from schema (not used)-->
-    <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-        <classpath refid="lib.path"/>
-    </taskdef>
-    
-    <!-- schemagen ant task, which generates a schema from java beans-complaint source code -->
-    <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
-        <classpath refid="lib.path"/>
-    </taskdef>
-    
-    <!-- generate schema from the java source code -->
-    <target name="generateSchema" depends="compile" description="Generate a schema from the Java code">
-        <schemagen srcdir="java/edu/nps/moves/dis" destdir=".">
-            <classpath refid="lib.path"/>
-        </schemagen>
-        <move file="schema1.xsd" tofile="disJaxb.xsd"/>
-    </target>
-    
-    <!-- Generate the Java, C#, and C++ Open-DIS code. This relies on the jar file xmlpg.jar, from 
-         a separate project in the trunk that is included in the lib directory of this project. You
-         must run patch after this to apply known manual fixes to the source code generated.
-    --> 
-    <target name="generateDisSourceCode" depends="init" description = "run program to generate java, c#, and cpp">
-        <java classname="edu.nps.moves.xmlpg.Xmlpg">
-            <classpath refid="lib.path"/>
-            <arg value="DIS1998.xml"/>
-            <arg value="java"/>
-            <arg value="cpp/DIS"/>
-            <arg value="Csharp/DIS"/>
-        </java>
-        <!-- apply the patches, manual changes to the code captured in the patch files -->
-        <antcall target="patch"/>
-    </target>
-    
-    <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
-    <target name="patch" description="patch generated source code">
-        <!--exec executable="patches/applyPatches.bash"-->
-         <!-- use this property for most cygwin-based windows releases -->
-        <!---property name="bash" value="/cygwin/bin/bash"/-->
-        
-        <!-- Use this property for most Unix platforms -->
-        <property name="bash" value="/bin/bash"/>
-        <exec executable="${bash}">
-            <!-- Add an extra dash in front of the login for cygwin. The other extra arguments seem to help -->
-            <!--arg value="-login"/-->
-            <!--arg value="-i"/-->
-            <!--arg value="-c"/-->
-  
-            <!-- The bash script to run. this applies the patches to the source code -->
-            <arg value="patches/applyPatches.bash"/>
-        </exec>
-    </target>
-    
+       
     <target name="runXml" depends="jar" description="runs example XML marshal/unmarshal program">
         <java classname="edu.nps.moves.examples.MarshallExample">
             <classpath>
@@ -184,24 +249,5 @@
         </java>
     </target>
 
-    <target name="jar" depends="compile" description="Build jar">
-        <mkdir dir="${dist}"/>
-        <jar jarfile="${jarfile}" basedir="build"/>
-        <copy file="${jarfile}" tofile="open-dis_${version}.jar"/>
-    </target>
     
-    <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
-        <javadoc destdir="docs" packagenames="edu.nps.moves.*" sourcepath="java">
-            <classpath refid="lib.path"/>
-        </javadoc>
-    </target>
-    
-    <target name="dist" depends="init, compile, javadoc, jar, generateSchema" description="do everything"/>
-
-    <target name="clean" description="Remove build and dist directories">
-        <delete dir="${build}"/>
-        <delete dir="${dist}"/>
-        <delete dir="docs"/>
-    </target>
-   
 </project>
