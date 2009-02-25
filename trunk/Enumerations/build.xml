@@ -7,7 +7,6 @@
     <property name="dist" location="dist"/>
     <property name="docs" location="docs"/>
     <property name="version" value="1.0"/>
-    <property name="release" location="release"/>
     <property name="test" location="test"/>
     
     <property name="jarfile" location="${dist}/dis-enums.jar"/>
@@ -115,10 +114,7 @@
               </fileset>
           </classpath>
         </javadoc>
-        <copy todir="docs" overwrite="true">
-          <fileset dir="dist/docs"/>
-        </copy>
-    </target>
+     </target>
     
     <target name="dist" depends="init, generateEbvClasses, run, compile, test, javadoc, jar" description="do everything">
     </target>
@@ -138,20 +134,10 @@
       </junit>
     </target>
     
-    <target name="release" depends="clean, dist" description="make release">
-      <delete dir="${release}"/>
-      <mkdir dir="${release}"/>
-      <mkdir dir="${release}/docs"/>
-       <copy todir="${release}/docs" overwrite="true">
-          <fileset dir="dist/docs"/>
-        </copy>
-      <copy file="dist/dis-enums_${version}.jar" tofile="${release}/dis-enums_${version}.jar"/>
-    </target>
 
     <target name="clean" description="Remove build and dist directories">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
-        <delete dir="${release}"/>
         <delete>
           <fileset dir="src/edu/nps/moves/disenum" includes="*.java"/>
           <fileset dir="src/edu/nps/moves/siso/jaxb" includes="*.java"/>
