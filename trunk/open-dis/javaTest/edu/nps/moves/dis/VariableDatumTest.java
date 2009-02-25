@@ -16,10 +16,12 @@ public class VariableDatumTest
     public VariableDatumTest() {
     }
 
+    /** Stub, fix this */
     @Test
     public void VariableDatumPatchTest()
     {
         VariableDatum vd = new VariableDatum();
+        assertEquals(0, 0);
     }
 
     @Before

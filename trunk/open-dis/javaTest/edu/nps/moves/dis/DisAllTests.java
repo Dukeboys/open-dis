@@ -5,7 +5,7 @@ import org.junit.runners.*;
 import org.junit.*;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({PduTest.class, MarkingTest.class, VariableDatum.class})
+@Suite.SuiteClasses({PduTest.class, MarkingTest.class})
 
 /**
 * Runs all class unit tests. To add a new class's unit tests, add it to the
