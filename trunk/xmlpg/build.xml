@@ -17,10 +17,6 @@
     </path>
 
     <target name="init" description="create initial directories">
-      <mkdir dir="${opendis}/java/edu/nps/moves/dis"/>
-      <mkdir dir="${opendis}/cpp/DIS"/>
-      <mkdir dir="${opendis}/cpp/obj"/>
-      <mkdir dir="${opendis}/docs"/>
       <mkdir dir="${dist}"/>
       <mkdir dir="${build}"/>
     </target>
