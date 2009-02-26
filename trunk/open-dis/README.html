@@ -92,9 +92,9 @@ generate CSharp code.<br>
 * Automated patch application. The Unix patch utility is used to modify
 the auotmatically generated code. See the patch directory in the
 open-dis
-directory. Patches are applied via the ant task "patch". Windows users
-may need to install cygwin utilities to be able to use patch.
-<br>
+directory. Patches are applied via the ant task "patch". Windows
+users&nbsp; need to install cygwin utilities to be able to use patch,
+and make some minor changes to the ant build.xml file.<br>
 <br>
 * Robert Harder has reworked the Java marshal and unmarshal code to use
 much more memory efficient NIO classes, which dramatically reduce the
@@ -125,6 +125,11 @@ enumeration classes. This can be extended as the EBV XML document is
 completed. A C++ enumerations project would be a useful project for
 some developer. The enumerations are used in several places in the
 open-dis code, notably the PduFactory.<br>
+<br>
+* Unit tests. The Java code has added some JUnit 4.4 unit tests,
+primarily to test that post-processing source code patches have been
+applied correctly. These can be extended to provide more complete test
+coverage.<br>
 <br>
 <span style="font-weight: bold;"><br>
 LICENSE</span><br>
