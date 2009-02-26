@@ -22,7 +22,7 @@ to marshal and unmarshal themselves to and from the DIS binary format.
 The Java implementation can also marshal itself to XML and Java
 serialization format. This code was automatically generated via XMLPG,
 a tool that generates
-Java and C++ code automatically from an abstract XML description. The
+Java, CSharp, and C++ code automatically from an XML description. The
 code is in the java and cpp directories.<br>
 <br>
 The second portion of the code is supporting classes that read and
@@ -37,7 +37,7 @@ in DIS1998.xml. This file is used by XML Multi-Language Protocol
 Generator
 (XMLPG), which is available at the sourceforge site for download. <br>
 <br>
-The XML file is processed by XMLPG and writes both the Java and C++
+The XML file is processed by XMLPG and writes the Java, CSharp, and C++
 protocol code. The idea is to use the XMLPG tool to get the final
 product "close", and then manually modify the source code in subversion
 to tweak the last bit.<br>
@@ -69,6 +69,12 @@ for marshaling and unmarshaling, a factory class, and some simple
 example code that generates Entity State PDUs. Simple unit test code is
 also available in the UnitTestDIS directory.<br>
 <br>
+<span style="font-weight: bold;">CSharp</span><br>
+<br>
+The CSharp generator has been provided by Peter Smith. It is very
+similar to the Java and C++ code.<br>
+<br>
+<br>
 <span style="font-weight: bold;">Using the Java Version</span><br>
 To use the Java release, you must include the open-dis_<version-number>.jar
 file in your project, along with the supporting jar files in the lib
@@ -88,12 +94,11 @@ the auotmatically generated code. See the patch directory in the
 open-dis
 directory. Patches are applied via the ant task "patch". Windows users
 may need to install cygwin utilities to be able to use patch.
-* PES has very kindly contributed a C# implementation.
 <br>
 <br>
 * Robert Harder has reworked the Java marshal and unmarshal code to use
 much more memory efficient NIO classes, which dramatically reduce the
-amount of memory generated.
+amount of temporary object memory generated.
 <br>
 <br>
 * Sheldon Snyder has contributed dead reckoning algorithms in Java,
@@ -105,15 +110,21 @@ flight simulator UDP packets and converts them to DIS. He's also
 implemented a KML gateway, which allows low-resolution updates
 to markers on Google Earth.
 This code is a&nbsp; rough right now--it needs to be cleaned up.
-There's no guarantee it works.<br>
+There's no guarantee it works. This is available in the xplane
+directory of open-dis<br>
 <br>
 * xmlpg, which generates the source code, is now included in the
 open-dis
 lib directory. This allows code to be generated completly withing the
 open-dis directory, rather than trying to do cross-directory
-builds. See the "GenerateDisSourceCode" ant target.
+builds. See the "generateDisSourceCode" ant target.
 <br>
 <br>
+* Enumerations. The SISO EBV XML document was used to generate Java
+enumeration classes. This can be extended as the EBV XML document is
+completed. A C++ enumerations project would be a useful project for
+some developer. The enumerations are used in several places in the
+open-dis code, notably the PduFactory.<br>
 <br>
 <span style="font-weight: bold;"><br>
 LICENSE</span><br>
