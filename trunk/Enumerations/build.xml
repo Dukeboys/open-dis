@@ -9,7 +9,7 @@
     <property name="version" value="1.0"/>
     <property name="test" location="test"/>
     
-    <property name="jarfile" location="${dist}/dis-enums.jar"/>
+    <property name="jarfile" location="${dist}/dis-enums_${version}.jar"/>
     <property name="compile.debug" value="true"/>
 
     <fileset id="lib.jars" dir="${lib}">
@@ -117,6 +117,8 @@
      </target>
     
     <target name="dist" depends="init, generateEbvClasses, run, compile, test, javadoc, jar" description="do everything">
+    <copy file="README.html" tofile="${dist}/README.html"/>
+    <copy file="license.txt" tofile="${dist}/license.txt"/>
     </target>
     
     <!-- There are potentially many gotchas with JUNit 4.4, 4.5, and ant 1.5, 1.6, and 1.7 due to classloader issues. Be careful -->
