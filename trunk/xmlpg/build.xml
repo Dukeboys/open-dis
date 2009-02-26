@@ -1,12 +1,12 @@
 <?xml version="1.0"  encoding="UTF-8"?>
-<project name="Xmlpg" default="dist" basedir=".">
+<project name="xmlpg" default="dist" basedir=".">
     <property name="src" location="src"/>
-    <property name="bin" location="bin"/>
+    <property name="build" location="build"/>
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="jarfile" location="${dist}/${ant.project.name}.jar"/>
     <property name="compile.debug" value="true"/>
-    <property name="opendis" location="../open-dis"/>
+    <!--property name="opendis" location="../open-dis"/-->
 
     <fileset id="lib.jars" dir="${lib}">
         <include name="**/*.jar"/>
@@ -21,21 +21,26 @@
       <mkdir dir="${opendis}/cpp/DIS"/>
       <mkdir dir="${opendis}/cpp/obj"/>
       <mkdir dir="${opendis}/docs"/>
-      <mkdir dir="dist"/>
-      <mkdir dir="bin"/>
+      <mkdir dir="${dist}"/>
+      <mkdir dir="${build}"/>
     </target>
 
     <target name="compile" depends="init" description="Compile code">
-        <javac srcdir="${src}" destdir="${bin}"
+        <javac srcdir="${src}" destdir="${build}"
                source="1.5" target="1.5"
                includeAntRuntime="no"
                classpathref="lib.path" debug="${compile.debug}">
         </javac>
     </target>
+
+    <target name="jar" depends="compile" description="make jar file">
+       <jar jarfile="${jarfile}" basedir="build"/>
+    </target>
    
 <!-- Generate the Java and C++ Open-DIS code. This relies on the open-dis directory with
      its DIS1998.xml file being available.
 --> 
+<!--
     <target name="run" depends="compile" description = "run program to generate java and cpp">
       <java classname="edu.nps.moves.xmlpg.Xmlpg">
         <classpath>
@@ -52,7 +57,7 @@
         <arg value="${opendis}/cpp/DIS"/>
       </java>
     </target>
-    
+   --> 
     <!-- Stuff for another project 
      <target name="ccl" description = "run program to generate java and cpp compact control language (ccl) files">
       <java classname="edu.nps.moves.xmlpg.Xmlpg">
@@ -72,15 +77,17 @@
     </target>
     -->
     
-    <target name="dist" depends="clean, init, compile, run" description="compile and run everything">
+    <target name="dist" depends="clean, init, compile, jar" description="compile everything">
     </target>
 
     <target name="clean" description="Remove build and dist directories">
         <delete dir="${bin}"/>
         <delete dir="${dist}"/>
+<!--
         <delete dir="${opendis}/java/edu/nps/moves/dis"/>
         <delete dir="${opendis}/cpp"/>
         <delete dir="${opendis}/docs"/>
         <delete file="${opendis}/open-dis.jar"/>
+-->
     </target>
 </project>
