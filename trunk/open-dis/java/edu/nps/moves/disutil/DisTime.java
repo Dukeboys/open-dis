@@ -45,40 +45,36 @@ import java.util.*;
  * 
  * @author DMcG
  */
-public class DisTime 
-{
+public class DisTime {
+
     public static final int ABSOLUTE_TIMESTAMP_MASK = 0x00000001;
     public static final int RELATIVE_TIMESTAMP_MASK = 0xfffffffe;
-    
     protected GregorianCalendar cal;
-
     public static DisTime disTime = null;
 
     /**
      * Shared instance. This is not thread-safe. If you are working in multiple threads,
      * create a new instance for each thread.
+     * @return
      */
-  public static DisTime getInstance()
-  {
-      if(disTime == null)
-      {
-          disTime = new DisTime();
-      }
+    public static DisTime getInstance() {
+        if (disTime == null) {
+            disTime = new DisTime();
+        }
 
-      return disTime;
-  }
+        return disTime;
+    }
 
-  public DisTime()
-  {
-      cal = new GregorianCalendar();
-  }
-  
- /**
-  * Returns the numbe of DIS time units since the top of the hour. there are 2^31-1 DIS time
-  * units per hour.
-  */
- public int getDisTimeUnitsSinceTopOfHour()
-    {
+    public DisTime() {
+        cal = new GregorianCalendar();
+    }
+
+    /**
+     * Returns the numbe of DIS time units since the top of the hour. there are 2^31-1 DIS time
+     * units per hour.
+     * @return
+     */
+    public int getDisTimeUnitsSinceTopOfHour() {
         // set cal object to current time
         long currentTime = System.currentTimeMillis(); // UTC milliseconds since 1970
         cal.setTimeInMillis(currentTime);
@@ -97,40 +93,40 @@ public class DisTime
         // 2^31-1 DIS time units in an hour. 3600 sec/hr X 1000 msec/sec divided into the number of
         // msec since the start of the hour gives the percentage of DIS time units in the hour, times
         // the number of DIS time units per hour, equals the time value
-        double val = (((double)diff) / (3600.0 * 1000.0)) * Integer.MAX_VALUE;
-        int ts = (int)val;
+        double val = (((double) diff) / (3600.0 * 1000.0)) * Integer.MAX_VALUE;
+        int ts = (int) val;
 
         return ts;
     }
 
- /**
-  * Returns the absolute timestamp, assuminng that this host is sync'd to NTP.
-  */
- public int getDisAbsoluteTimestamp()
- {
-     int val = this.getDisTimeUnitsSinceTopOfHour();
-     val = val | ABSOLUTE_TIMESTAMP_MASK; // always flip the lsb to 1
-     return val;
- }
+    /**
+     * Returns the absolute timestamp, assuminng that this host is sync'd to NTP.
+     * @return
+     */
+    public int getDisAbsoluteTimestamp() {
+        int val = this.getDisTimeUnitsSinceTopOfHour();
+        val = val | ABSOLUTE_TIMESTAMP_MASK; // always flip the lsb to 1
+        return val;
+    }
 
- /**
-  * Returns the DIS standard relative timestamp, which should be used if this host
-  * is not slaved to NTP
-  */
- public int getDisRelativeTimestamp()
- {
-     int val = this.getDisTimeUnitsSinceTopOfHour();
-     val = val & RELATIVE_TIMESTAMP_MASK; // always flip the lsb to 0
-     return val;
- }
+    /**
+     * Returns the DIS standard relative timestamp, which should be used if this host
+     * is not slaved to NTP
+     * @return
+     */
+    public int getDisRelativeTimestamp() {
+        int val = this.getDisTimeUnitsSinceTopOfHour();
+        val = val & RELATIVE_TIMESTAMP_MASK; // always flip the lsb to 0
+        return val;
+    }
 
- /**
-  * Returns a useful timestamp, hundredths of a second since the start of the year.
-  * This effectively eliminates the need for receivers to handle timestamp rollover,
-  * as long as you're not working on New Year's Eve.
-  */
-  public long getNpsTimestamp()
-  {
+    /**
+     * Returns a useful timestamp, hundredths of a second since the start of the year.
+     * This effectively eliminates the need for receivers to handle timestamp rollover,
+     * as long as you're not working on New Year's Eve.
+     * @return a timestamp in hundredths of a second since the start of the year
+     */
+    public long getNpsTimestamp() {
         // set cal object to current time
         long currentTime = System.currentTimeMillis(); // UTC milliseconds since 1970
         cal.setTimeInMillis(currentTime);
@@ -146,11 +142,11 @@ public class DisTime
 
         // Milliseconds since the top of the hour
         long diff = currentTime - startOfYear;
-        diff = diff / 10; // milliseconds to hundredths of a second
+        diff /= 10; // milliseconds to hundredths of a second
 
         return diff;
-  }
-    
+    }
+
     /**
      * Another option for marshalling with the timestamp field set automatically. The UNIX
      * time is conventionally seconds since January 1, 1970. UTC time is used, and leap seconds
@@ -166,13 +162,11 @@ public class DisTime
      * Unix time (in seconds) rolls over in 2038. 
      *
      * See the wikipedia page on Unix time for gory details. 
+     * @return
      */
-  public long getUnixTimestamp()
-    {
+    public long getUnixTimestamp() {
         long t = System.currentTimeMillis();
         t = t / 1000l;   // NB: integer division, convert milliseconds to seconds
         return t;
     }
-
-
 }

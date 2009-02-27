@@ -33,13 +33,15 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 package edu.nps.moves.net;
 
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.nio.ByteBuffer;
+import java.util.Vector;
 
 import edu.nps.moves.dis.Pdu;
 import edu.nps.moves.disutil.PduFactory;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 
 /**
  * This implements an object that can read and write DIS PDUs from a unicast
@@ -77,13 +79,15 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
      */
     private DatagramSocket socket;
     private DatagramPacket packet;
+    
+    /** An allocated receive only buffer */
     private ByteBuffer buffer;
 
     public BehaviorProducerUDP(DatagramSocket pSocket) {
         behaviorConsumerListeners = new Vector<BehaviorConsumerIF>();
         socket = pSocket;
         buffer = ByteBuffer.allocate(MTU_SIZE);
-        packet = new DatagramPacket(buffer.array(), MTU_SIZE);
+        packet = new DatagramPacket(buffer.array(), buffer.capacity());
     }
 
     public void addListener(BehaviorConsumerIF consumer) {
@@ -102,14 +106,13 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
         packet.setPort(port);
     }
 
-    public void write(Pdu pdu) {
-        pdu.marshal(buffer);
+    public void write(ByteBuffer buffer) {
+        packet.setData(buffer.array());
         try {
             socket.send(packet);
         } catch (IOException ioe) {
             System.out.println(ioe);
         }
-        buffer.clear();
     }
 
     public void setUseCopies(boolean shouldCreateCopy) {

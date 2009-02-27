@@ -33,8 +33,8 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 package edu.nps.moves.net;
 
-import edu.nps.moves.dis.Pdu;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 
 /**
  * This interface lets you set up some very general defaults, which
@@ -62,9 +62,10 @@ public interface BehaviorWriterIF {
     void setDefaultDestination(InetAddress addr, int port);
 
     /**
-     * Write a PDU to the default destination
+     * Write PDU information to the default destination.  The user must clear
+     * the buffer if it is desired to be reused.</p>
      *
-     * @param pdu the DIS PDU to be written
+     * @param buffer the DIS PDU infomation to be written
      */
-    void write(Pdu pdu);
+    void write(ByteBuffer buffer);
 } 
