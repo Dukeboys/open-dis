@@ -141,6 +141,8 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
     public void run() {
         // Alan: moved these outside loop to lower gc
         Pdu pdu;
+
+        // Doesn't use FastEntityStatePdu (by default)
         PduFactory pduf = new PduFactory();
         
         while (true) {
