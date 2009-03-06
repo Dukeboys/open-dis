@@ -5,18 +5,21 @@ import java.nio.*;
 import java.util.*;
 
 /**
- * A pool that holds ByteBuffer objects. The rationale for this class results
- * from the fact that ByteBuffers can't expand when writing to them. So, for
- * example, we might have an espdu that has a marshalled length of 200 try
- * to put itself into a 144 byte buffer. But, for memory conservation reasons,
- * we also don't want to allocate a nuew buffer every time we marshal a PDU.
- * Instead we ask the pool for a byte buffer of the appropriate length, and
- * keep it around afterwards for reuse.<p>
+ * A pool that holds ByteBuffer objects. <p>
+ *
+ * We'd like to reuse buffers for sending, but this is tricky because the
+ * Java NIO byte buffers can't expand. So if we try to marshal a PDU that is
+ * 144 bytes long and one that is 800 bytes long, we'd always need a byte
+ * buffer that is 800 bytes long.
  *
  * This has some obvious problems if we generate 2000 byte buffer objects, which
  * will have a big memory footprint that won't be GC'd. If this turns out to be
  * a problem--I suspect not, right now--we can implement some sort of clear()
  * operation to wipe out the pool once some criteria is met.<p>
+ *
+ * Instances of this class are defitnely not thread-safe. If you have two threads,
+ * you should have a ByteBufferPool for each thread to ensure that the same byte buffer
+ * from the pool isn't being used by two threads.
  * 
  * @author DMcG
  */

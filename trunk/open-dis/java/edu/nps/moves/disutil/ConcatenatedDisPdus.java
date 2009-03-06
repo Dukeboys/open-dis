@@ -52,7 +52,6 @@ public class ConcatenatedDisPdus
      *
      * This depends on the input stream being open and not reset through multiple calls
      * to getNextPdu().
-     * @return
      */
     public Pdu getNextPdu()
     {
