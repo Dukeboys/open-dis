@@ -115,6 +115,24 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
         }
     }
 
+    /**
+     * If we have a byte buffer we are marshalling to, it may be bigger than the
+     * actuall size of the marshalled PDU. This writes only the first numberOfBytes
+     * bytes of the ByteBuffer to the network.
+     * 
+     * @param buffer
+     * @param numberOfBytes
+     */
+     public void write(ByteBuffer buffer, int numberOfBytes) {
+        byte[] normalBuffer = buffer.array();
+        packet.setData(normalBuffer, 0, numberOfBytes);
+        try {
+            socket.send(packet);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
+    }
+
     public void setUseCopies(boolean shouldCreateCopy) {
         useCopies = shouldCreateCopy;
     }
