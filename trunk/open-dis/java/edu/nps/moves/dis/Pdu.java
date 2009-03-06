@@ -229,6 +229,13 @@ public class Pdu implements Serializable {
         return this.marshal();
     }
 
+     public void marshalWithDisAbsoluteTimestamp(java.nio.ByteBuffer buff) {
+        DisTime disTime = DisTime.getInstance();
+        this.setTimestamp(disTime.getDisAbsoluteTimestamp());
+        this.marshal(buff);
+    }
+
+
     /**
      * A convieneince method to marshal to a byte array with the timestamp set to
      * the DIS standard for relative timestamps. The timestamp will roll over every
@@ -241,6 +248,12 @@ public class Pdu implements Serializable {
         return this.marshal();
     }
 
+    public void marshalWithDisRelativeTimestamp(java.nio.ByteBuffer buff) {
+        DisTime disTime = DisTime.getInstance();
+        this.setTimestamp(disTime.getDisRelativeTimestamp());
+        this.marshal(buff);
+    }
+
     /**
      * A convienience method to marshal a PDU using the NPS-specific format for
      * timestamps, which is hundredths of a second since the start of the year.
@@ -251,6 +264,12 @@ public class Pdu implements Serializable {
         DisTime disTime = DisTime.getInstance();
         this.setTimestamp(disTime.getNpsTimestamp());
         return this.marshal();
+    }
+
+    public void marshalWithNpsTimestamp(java.nio.ByteBuffer buff) {
+        DisTime disTime = DisTime.getInstance();
+        this.setTimestamp(disTime.getNpsTimestamp());
+        this.marshal(buff);
     }
 
     /**
@@ -270,6 +289,12 @@ public class Pdu implements Serializable {
         DisTime disTime = DisTime.getInstance();
         this.setTimestamp(disTime.getUnixTimestamp());
         return this.marshal();
+    }
+
+     public void marshalWithUnixTimestamp(java.nio.ByteBuffer buff) {
+        DisTime disTime = DisTime.getInstance();
+        this.setTimestamp(disTime.getUnixTimestamp());
+        this.marshal(buff);
     }
 
     /**
