@@ -62,7 +62,7 @@ public class PduFactory {
         switch (pduTypeEnum) {
             case ENTITY_STATE:
                 // if the user has created the factory requesting that he get fast espdus back, give him those.
-                if (useFastPdu == true) {
+                if (useFastPdu) {
                     aPdu = new FastEntityStatePdu();
                 } else {
                     aPdu = new EntityStatePdu();
@@ -191,7 +191,7 @@ public class PduFactory {
         switch (pduTypeEnum) {
             case ENTITY_STATE:
                 // if the user has created the factory requesting that he get fast espdus back, give him those.
-                if (useFastPdu == true) {
+                if (useFastPdu) {
                     aPdu = new FastEntityStatePdu();
                 } else {
                     aPdu = new EntityStatePdu();
