@@ -45,7 +45,8 @@ import java.util.*;
  * 
  * @author DMcG
  */
-public class DisTime {
+public class DisTime
+{
 
     public static final int ABSOLUTE_TIMESTAMP_MASK = 0x00000001;
     public static final int RELATIVE_TIMESTAMP_MASK = 0xfffffffe;
@@ -55,9 +56,10 @@ public class DisTime {
     /**
      * Shared instance. This is not thread-safe. If you are working in multiple threads,
      * create a new instance for each thread.
-     * @return
+     * @return singleton instance of DisTime
      */
-    public static DisTime getInstance() {
+    public static DisTime getInstance()
+    {
         if (disTime == null) {
             disTime = new DisTime();
         }
@@ -65,14 +67,15 @@ public class DisTime {
         return disTime;
     }
 
-    public DisTime() {
+    public DisTime()
+    {
         cal = new GregorianCalendar();
     }
 
     /**
-     * Returns the numbe of DIS time units since the top of the hour. there are 2^31-1 DIS time
+     * Returns the number of DIS time units since the top of the hour. there are 2^31-1 DIS time
      * units per hour.
-     * @return
+     * @return integer DIS time units since the start of the hour.
      */
     public int getDisTimeUnitsSinceTopOfHour() {
         // set cal object to current time
@@ -101,7 +104,7 @@ public class DisTime {
 
     /**
      * Returns the absolute timestamp, assuminng that this host is sync'd to NTP.
-     * @return
+     * @return DIS time units, get absolute timestamp
      */
     public int getDisAbsoluteTimestamp() {
         int val = this.getDisTimeUnitsSinceTopOfHour();
@@ -112,7 +115,7 @@ public class DisTime {
     /**
      * Returns the DIS standard relative timestamp, which should be used if this host
      * is not slaved to NTP
-     * @return
+     * @return DIS time units, relative
      */
     public int getDisRelativeTimestamp() {
         int val = this.getDisTimeUnitsSinceTopOfHour();
@@ -162,7 +165,7 @@ public class DisTime {
      * Unix time (in seconds) rolls over in 2038. 
      *
      * See the wikipedia page on Unix time for gory details. 
-     * @return
+     * @return seconds since 1970
      */
     public long getUnixTimestamp() {
         long t = System.currentTimeMillis();
