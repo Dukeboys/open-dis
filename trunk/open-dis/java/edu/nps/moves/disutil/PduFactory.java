@@ -185,7 +185,6 @@ public class PduFactory {
 
         // Do a lookup to get the enumeration instance that corresponds to this value.
         PduType pduTypeEnum = PduType.lookup[pduType];
-
         Pdu aPdu = null;
 
         switch (pduTypeEnum) {
