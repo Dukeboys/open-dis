@@ -77,7 +77,7 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
     /**
      * Socket (multicast or unicast) that sends and receives data
      */
-    private DatagramSocket socket;
+    private final DatagramSocket socket;
     private DatagramPacket packet;
     
     /** An allocated receive only buffer */
@@ -141,6 +141,7 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
     public void run() {
         // Alan: moved these outside loop to lower gc
         Pdu pdu;
+        Pdu copyPdu;
 
         // Doesn't use FastEntityStatePdu (by default)
         PduFactory pduf = new PduFactory();
@@ -155,7 +156,7 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
                         // Use a copy of the received PDU for more safety, or send a single
                         // copy of the object to multiple listeners for better performance.
                         if (useCopies) {
-                            Pdu copyPdu = pduf.createPdu(buffer);
+                            copyPdu = pduf.createPdu(buffer);
                             consumer.receivePdu(copyPdu);
                         } else {
                             consumer.receivePdu(pdu);
