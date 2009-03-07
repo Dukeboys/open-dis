@@ -42,6 +42,7 @@ import java.util.Vector;
 
 import edu.nps.moves.dis.Pdu;
 import edu.nps.moves.disutil.PduFactory;
+import java.nio.Buffer;
 
 /**
  * This implements an object that can read and write DIS PDUs from a unicast
@@ -79,6 +80,9 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
      */
     private final DatagramSocket socket;
     private DatagramPacket packet;
+    private Pdu pdu;
+    private Pdu copyPdu;
+    private PduFactory pduf;
     
     /** An allocated receive only buffer */
     private ByteBuffer buffer;
@@ -88,6 +92,9 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
         socket = pSocket;
         buffer = ByteBuffer.allocate(MTU_SIZE);
         packet = new DatagramPacket(buffer.array(), buffer.capacity());
+
+        // Doesn't use FastEntityStatePdu (by default)
+        pduf = new PduFactory();
     }
 
     public void addListener(BehaviorConsumerIF consumer) {
@@ -138,32 +145,30 @@ public class BehaviorProducerUDP implements BehaviorProducerIF, // Listener patt
     }
 
     /** Entry point for thread */
-    public void run() {
-        // Alan: moved these outside loop to lower gc
-        Pdu pdu;
-        Pdu copyPdu;
-
-        // Doesn't use FastEntityStatePdu (by default)
-        PduFactory pduf = new PduFactory();
+    public void run() {        
         
         while (true) {
             try {
+                final Buffer buff = buffer.rewind();
                 socket.receive(packet);
-                pdu = pduf.createPdu(buffer);
-                if (pdu != null) {
-                    for (BehaviorConsumerIF consumer : behaviorConsumerListeners) {
 
-                        // Use a copy of the received PDU for more safety, or send a single
-                        // copy of the object to multiple listeners for better performance.
-                        if (useCopies) {
-                            copyPdu = pduf.createPdu(buffer);
-                            consumer.receivePdu(copyPdu);
-                        } else {
-                            consumer.receivePdu(pdu);
+                // ByteBuffers are not thread safe
+                synchronized (buff) {
+                    pdu = pduf.createPdu(buffer);
+                    if (pdu != null) {
+                        for (BehaviorConsumerIF consumer : behaviorConsumerListeners) {
+
+                            // Use a copy of the received PDU for more safety, or send a single
+                            // copy of the object to multiple listeners for better performance.
+                            if (useCopies) {
+                                copyPdu = pduf.createPdu(buffer);
+                                consumer.receivePdu(copyPdu);
+                            } else {
+                                consumer.receivePdu(pdu);
+                            }
                         }
                     }
                 }
-                buffer.clear();
             } catch (IOException ioe) {
                 System.out.println(ioe);
             }
