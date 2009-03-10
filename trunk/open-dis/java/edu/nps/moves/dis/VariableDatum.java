@@ -5,13 +5,13 @@ import java.io.*;
 import javax.xml.bind.annotation.*;
 
 /**
- * Section 5.2.32. Variable Datum Record
+ * Section 5.2.32. Variable Datum Record<p>
  *
  * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
- *
+ *<p>
  * post-generation patches have been applied to this file from the patches directory. See that directory
- * for details.
+ * for details.<p>
  *
  * @author DMcG
  */
@@ -58,7 +58,7 @@ public long getVariableDatumID()
 
 @XmlAttribute
 public long getVariableDatumLength()
-{ return (long)variableDatums.size();
+{ return (long)variableDatums.size() * 64; // patch to fix units; bits rather than bytes
 }
 
 /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
