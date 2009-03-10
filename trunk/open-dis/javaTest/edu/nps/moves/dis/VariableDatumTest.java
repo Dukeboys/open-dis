@@ -7,13 +7,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author mcgredo
+ * This primarily checks to make sure the units are correct on a post-processing patch applied
+ * to variable datums. Variable datums measure size in bits rather than bytes.<p>
+ 
+ * @author DMcG
  */
 public class VariableDatumTest
 {
 
-    public VariableDatumTest() {
+    public VariableDatumTest() 
+	{
     }
 
     /** Stub, fix this */
@@ -21,7 +24,10 @@ public class VariableDatumTest
     public void VariableDatumPatchTest()
     {
         VariableDatum vd = new VariableDatum();
-        assertEquals(0, 0);
+		EightByteChunk ebc = new EightByteChunk();
+		vd.getVariableDatums().add(ebc);
+		
+		assertEquals(64, vd.getVariableDatumLength()); // Check to make sure patch correctly installed
     }
 
     @Before

@@ -3,10 +3,10 @@ package edu.nps.moves.dis;
 import java.io.*;
 import java.util.*;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import static org.junit.Assert.*;
-
-import edu.nps.moves.dis.*;
 
 /**
  * Created by IntelliJ IDEA.
