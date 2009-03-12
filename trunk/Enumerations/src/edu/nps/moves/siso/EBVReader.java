@@ -2,6 +2,7 @@
 package edu.nps.moves.siso;
 
 import java.io.*;
+import java.math.*;
 import java.util.*;
 import javax.xml.bind.*;
 
@@ -41,7 +42,7 @@ public class EBVReader
              {
                  GenerictableT gen = genericList.get(idx);
 
-                 //System.out.println("generic table ID " + gen.getId() + " cname=" + gen.getCname());
+                // System.out.println("generic table ID " + gen.getId() + " Name=" + gen.getName() + " cname=" + gen.getCname());
                  // For each enumeration in the XML that we are interested in, 
                  // generate a Java enumeration class
                  if(gen instanceof EnumT)
@@ -463,6 +464,7 @@ public class EBVReader
                      if(gen.getCname().equalsIgnoreCase("der.emission.name.acoustic"))
                      {
                          EBVReader reader = new EBVReader();
+                         System.out.println("Enumeration row list length = " + en.getEnumrow().size());
                          reader.writeStandardEnumeration("AcousticEmitters", "src/edu/nps/moves/disenum/AcousticEmitters", en); 
                      }
                      
@@ -1045,7 +1047,7 @@ public class EBVReader
     
     private void writeStandardEnumeration(String enumerationName, String enumerationFile, EnumT anEnumeration)
     {
-        System.out.println("Writing standard enumeration " + enumerationName);
+        System.out.println("Writing standard enumeration " + enumerationFile + ".java");
         try
         {
               File outputFile = new File(enumerationFile + ".java");
@@ -1072,8 +1074,15 @@ public class EBVReader
               pw.println(" * @author DMcG, Jason Nelson");
               pw.println(" */");
               pw.println();
+              pw.flush();
               
               pw.println("public enum " + enumerationName + " \n{\n");
+            
+              BigInteger val = anEnumeration.getId();
+            
+            boolean ofInterest = false;
+            if(val.intValue() == 83)
+                ofInterest = true;
               
               // enumeration names we have used so far
               Set enumNamesUsed = new HashSet();
@@ -1084,10 +1093,16 @@ public class EBVReader
               {
                  EnumrowT er = l.get(idx);
                  
+                  // Some entries in the EBV have missing descriptions. If that's the case, we just
+                  // make up a description; we may get something on the wire with that enumerated
+                  // value, and we want a valid enumeration object to match that, even if we don't
+                  // have a good name or description for it.
                  String description = er.getDescription();
+                  if((description == null) || description.equals(""))
+                      description = "Missing Description";
                  String enumName = this.enumifyString(description);
                  int enumValue = (int)er.getId();
-                 
+                                   
                  // If we've seen this enumeration name before, add some exra text
                  // onto the end to make it unique
                  if(enumNamesUsed.contains(enumName))
@@ -1119,6 +1134,7 @@ public class EBVReader
                  
              }
             pw.println();
+            pw.flush();
             
             pw.println("    /** The enumerated value */");
             pw.println("    public final int value;");
@@ -1225,7 +1241,7 @@ public class EBVReader
         }
         catch(Exception e)
         {
-            System.out.println();
+            System.out.println("writeStandard exception:" + e);
         }
         
     }
