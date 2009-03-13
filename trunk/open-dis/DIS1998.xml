@@ -1676,9 +1676,13 @@ PduHeader record, section 5.2.29.">
     <attribute name="entityID" comment="This field shall identify the entity issuing the PDU">
         <classRef name="EntityID"/>
     </attribute>
+
+   <attribute name="padding1" comment="Padding">
+     <primitive type="byte" value="0"/>
+   </attribute> 
     
    <attribute name="numberOfArticulationParameters" comment="How many articulation parameters are in the variable length list">
-      <primitive type="byte"/>
+      <primitive type="unsigned byte"/>
    </attribute>
     
    <attribute name="entityLinearVelocity" comment="Describes the speed of the entity in the world">
