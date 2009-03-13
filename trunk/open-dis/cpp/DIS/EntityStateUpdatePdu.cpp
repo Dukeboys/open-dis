@@ -5,6 +5,7 @@ using namespace DIS;
 
 EntityStateUpdatePdu::EntityStateUpdatePdu() : EntityInformationFamilyPdu(),
    _entityID(), 
+   _padding1(0), 
    _numberOfArticulationParameters(0), 
    _entityLinearVelocity(), 
    _entityLocation(), 
@@ -35,7 +36,17 @@ void EntityStateUpdatePdu::setEntityID(const EntityID &pX)
     _entityID = pX;
 }
 
-char EntityStateUpdatePdu::getNumberOfArticulationParameters() const
+char EntityStateUpdatePdu::getPadding1() const
+{
+    return _padding1;
+}
+
+void EntityStateUpdatePdu::setPadding1(char pX)
+{
+    _padding1 = pX;
+}
+
+unsigned char EntityStateUpdatePdu::getNumberOfArticulationParameters() const
 {
    return _articulationParameters.size();
 }
@@ -114,7 +125,8 @@ void EntityStateUpdatePdu::marshal(DataStream& dataStream) const
 {
     EntityInformationFamilyPdu::marshal(dataStream); // Marshal information in superclass first
     _entityID.marshal(dataStream);
-    dataStream << ( char )_articulationParameters.size();
+    dataStream << _padding1;
+    dataStream << ( unsigned char )_articulationParameters.size();
     _entityLinearVelocity.marshal(dataStream);
     _entityLocation.marshal(dataStream);
     _entityOrientation.marshal(dataStream);
@@ -132,6 +144,7 @@ void EntityStateUpdatePdu::unmarshal(DataStream& dataStream)
 {
     EntityInformationFamilyPdu::unmarshal(dataStream); // unmarshal information in superclass first
     _entityID.unmarshal(dataStream);
+    dataStream >> _padding1;
     dataStream >> _numberOfArticulationParameters;
     _entityLinearVelocity.unmarshal(dataStream);
     _entityLocation.unmarshal(dataStream);
@@ -155,6 +168,7 @@ bool EntityStateUpdatePdu::operator ==(const EntityStateUpdatePdu& rhs) const
      ivarsEqual = EntityInformationFamilyPdu::operator==(rhs);
 
      if( ! (_entityID == rhs._entityID) ) ivarsEqual = false;
+     if( ! (_padding1 == rhs._padding1) ) ivarsEqual = false;
      if( ! (_entityLinearVelocity == rhs._entityLinearVelocity) ) ivarsEqual = false;
      if( ! (_entityLocation == rhs._entityLocation) ) ivarsEqual = false;
      if( ! (_entityOrientation == rhs._entityOrientation) ) ivarsEqual = false;
@@ -175,6 +189,7 @@ int EntityStateUpdatePdu::getMarshalledSize() const
 
    marshalSize = EntityInformationFamilyPdu::getMarshalledSize();
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
+   marshalSize = marshalSize + 1;  // _padding1
    marshalSize = marshalSize + 1;  // _numberOfArticulationParameters
    marshalSize = marshalSize + _entityLinearVelocity.getMarshalledSize();  // _entityLinearVelocity
    marshalSize = marshalSize + _entityLocation.getMarshalledSize();  // _entityLocation

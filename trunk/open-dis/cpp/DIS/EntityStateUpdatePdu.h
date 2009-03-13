@@ -26,8 +26,11 @@ protected:
   /** This field shall identify the entity issuing the PDU */
   EntityID _entityID; 
 
+  /** Padding */
+  char _padding1; 
+
   /** How many articulation parameters are in the variable length list */
-  char _numberOfArticulationParameters; 
+  unsigned char _numberOfArticulationParameters; 
 
   /** Describes the speed of the entity in the world */
   Vector3Float _entityLinearVelocity; 
@@ -55,7 +58,10 @@ protected:
     const EntityID&  getEntityID() const; 
     void setEntityID(const EntityID    &pX);
 
-    char getNumberOfArticulationParameters() const; 
+    char getPadding1() const; 
+    void setPadding1(char pX); 
+
+    unsigned char getNumberOfArticulationParameters() const; 
 
     Vector3Float& getEntityLinearVelocity(); 
     const Vector3Float&  getEntityLinearVelocity() const; 
