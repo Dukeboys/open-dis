@@ -17,8 +17,11 @@ public class EntityStateUpdatePdu extends EntityInformationFamilyPdu implements 
    /** This field shall identify the entity issuing the PDU */
    protected EntityID  entityID = new EntityID(); 
 
+   /** Padding */
+   protected byte  padding1;
+
    /** How many articulation parameters are in the variable length list */
-   protected byte  numberOfArticulationParameters;
+   protected short  numberOfArticulationParameters;
 
    /** Describes the speed of the entity in the world */
    protected Vector3Float  entityLinearVelocity = new Vector3Float(); 
@@ -47,6 +50,7 @@ public int getMarshalledSize()
 
    marshalSize = super.getMarshalledSize();
    marshalSize = marshalSize + entityID.getMarshalledSize();  // entityID
+   marshalSize = marshalSize + 1;  // padding1
    marshalSize = marshalSize + 1;  // numberOfArticulationParameters
    marshalSize = marshalSize + entityLinearVelocity.getMarshalledSize();  // entityLinearVelocity
    marshalSize = marshalSize + entityLocation.getMarshalledSize();  // entityLocation
@@ -71,16 +75,25 @@ public EntityID getEntityID()
 { return entityID; 
 }
 
+public void setPadding1(byte pPadding1)
+{ padding1 = pPadding1;
+}
+
 @XmlAttribute
-public byte getNumberOfArticulationParameters()
-{ return (byte)articulationParameters.size();
+public byte getPadding1()
+{ return padding1; 
+}
+
+@XmlAttribute
+public short getNumberOfArticulationParameters()
+{ return (short)articulationParameters.size();
 }
 
 /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
  * The getnumberOfArticulationParameters method will also be based on the actual list length rather than this value. 
  * The method is simply here for java bean completeness.
  */
-public void setNumberOfArticulationParameters(byte pNumberOfArticulationParameters)
+public void setNumberOfArticulationParameters(short pNumberOfArticulationParameters)
 { numberOfArticulationParameters = pNumberOfArticulationParameters;
 }
 
@@ -135,6 +148,7 @@ public void marshal(DataOutputStream dos)
     try 
     {
        entityID.marshal(dos);
+       dos.writeByte( (byte)padding1);
        dos.writeByte( (byte)articulationParameters.size());
        entityLinearVelocity.marshal(dos);
        entityLocation.marshal(dos);
@@ -160,7 +174,8 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        entityID.unmarshal(dis);
-       numberOfArticulationParameters = dis.readByte();
+       padding1 = dis.readByte();
+       numberOfArticulationParameters = (short)dis.readUnsignedByte();
        entityLinearVelocity.unmarshal(dis);
        entityLocation.unmarshal(dis);
        entityOrientation.unmarshal(dis);
@@ -192,6 +207,7 @@ public void marshal(java.nio.ByteBuffer buff)
 {
        super.marshal(buff);
        entityID.marshal(buff);
+       buff.put( (byte)padding1);
        buff.put( (byte)articulationParameters.size());
        entityLinearVelocity.marshal(buff);
        entityLocation.marshal(buff);
@@ -218,7 +234,8 @@ public void unmarshal(java.nio.ByteBuffer buff)
        super.unmarshal(buff);
 
        entityID.unmarshal(buff);
-       numberOfArticulationParameters = buff.get();
+       padding1 = buff.get();
+       numberOfArticulationParameters = (short)(buff.get() & 0xFF);
        entityLinearVelocity.unmarshal(buff);
        entityLocation.unmarshal(buff);
        entityOrientation.unmarshal(buff);
@@ -244,6 +261,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
         return false;
 
      if( ! (entityID.equals( rhs.entityID) )) ivarsEqual = false;
+     if( ! (padding1 == rhs.padding1)) ivarsEqual = false;
      if( ! (numberOfArticulationParameters == rhs.numberOfArticulationParameters)) ivarsEqual = false;
      if( ! (entityLinearVelocity.equals( rhs.entityLinearVelocity) )) ivarsEqual = false;
      if( ! (entityLocation.equals( rhs.entityLocation) )) ivarsEqual = false;
