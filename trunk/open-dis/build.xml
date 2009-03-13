@@ -157,7 +157,7 @@
      <copy file="${lib}/jaxb-impl.jar" todir="${dist}/lib"/>
      <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
      <copy file="disJaxb.xsd" todir="${dist}"/>
-     <copy file="jsr173_1.0_api.jar" todir="${dist}/lib"/>
+     <copy file="${lib}/jsr173_1.0_api.jar" todir="${dist}/lib"/>
     </target>
 
     <target name="clean" description="Remove build and dist directories">
