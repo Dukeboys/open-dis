@@ -6,7 +6,7 @@
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="docs" location="docs"/>
-    <property name="version" value="1.0"/>
+    <property name="version" value="1.1"/>
     <property name="test" location="test"/>
     
     <property name="jarfile" location="${dist}/dis-enums_${version}.jar"/>
