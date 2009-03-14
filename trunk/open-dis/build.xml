@@ -152,7 +152,7 @@
     -->
     <target name="dist" depends="clean, init, compile, javadoc, jar, generateSchema, compileTest, test" description="do everything">
      <copy file="${lib}/activation.jar" todir="${dist}/lib"/>
-     <copy file="${lib}/dis-enums_1.0.jar" todir="${dist}/lib"/>
+     <copy file="${lib}/dis-enums_1.1.jar" todir="${dist}/lib"/>
      <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
      <copy file="${lib}/jaxb-impl.jar" todir="${dist}/lib"/>
      <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
