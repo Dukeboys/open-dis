@@ -503,12 +503,24 @@ public class CsharpGenerator extends Generator
 
 	}
 
-	public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
+public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
 	{
 		List ivars = aClass.getClassAttributes();
+		
+		String newKeyword = ""; //PES 032209 added to remove warning from C# compiler
+		//PES 032209 added to remove warning from C# compiler
+		if (!aClass.getParentClass().equalsIgnoreCase("root"))
+		{
+			newKeyword = "new ";
+		}
+		else
+		{
+			newKeyword = "";
+		}
+		
 		// Create a getMarshalledSize() method
 		pw.println();
-		pw.println("public int getMarshalledSize()");
+		pw.println(newKeyword + "public int getMarshalledSize()");
 		pw.println("{");
 		pw.println("   int marshalSize = 0; ");
 		pw.println();
@@ -870,15 +882,16 @@ public class CsharpGenerator extends Generator
 
 		String baseclassName = aClass.getParentClass();
 
+		String newKeyword = ""; //PES 032209 added to remove warning from C# compiler
+
+		
 		//PES 02/10/2009 Added to support auto setting of length field
 		if (!baseclassName.equalsIgnoreCase("root"))
-		{
+		{		
 			boolean exitLoop = false;
 			boolean foundMatch = true;
 			String matchValue = baseclassName;
 			String key = "";
-
-
 
 			if (!matchValue.equalsIgnoreCase("pdu"))
 			{
@@ -926,11 +939,23 @@ public class CsharpGenerator extends Generator
 			if (foundMatch == true)
 			{
 				//System.out.println("Found PDU writing data");
+				
+				//PES 032209 added to remove warning from C# compiler
+				if (!baseclassName.equalsIgnoreCase("pdu"))
+				{
+					newKeyword = "new ";
+				}
+				else
+				{
+					newKeyword = "";
+				}
+
+
 
 				pw.println("///<summary>");
 				pw.println("///Automatically sets the length of the marshalled data, then calls the marshal method.");
 				pw.println("///</summary>");
-				pw.println("public void marshalAutoLengthSet(DataOutputStream dos)");
+				pw.println(newKeyword + "public void marshalAutoLengthSet(DataOutputStream dos)");
 				pw.println("{");
 				pw.println("       //Set the length prior to marshalling data");
 				pw.println("       this.setLength((ushort)this.getMarshalledSize());");
@@ -940,13 +965,20 @@ public class CsharpGenerator extends Generator
 
 		}
 
-
+		if (!baseclassName.equalsIgnoreCase("root"))
+		{
+			newKeyword = "new ";
+		}
+		else
+		{
+			newKeyword = "";
+		}
 
 		pw.println();
 		pw.println("///<summary>");
 		pw.println("///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method");
 		pw.println("///</summary>");
-		pw.println("public void marshal(DataOutputStream dos)");
+		pw.println( newKeyword + "public void marshal(DataOutputStream dos)");
 		pw.println("{");
 
 		// If we're a base class of another class, we should first call base
@@ -1080,8 +1112,20 @@ public class CsharpGenerator extends Generator
 		List ivars = aClass.getClassAttributes();
 		String baseclassName;
 
+		String newKeyword = ""; //PES 032209 added to remove warning from C# compiler
+				
+		//PES 032209 added to remove warning from C# compiler
+		if (!aClass.getParentClass().equalsIgnoreCase("root"))
+		{
+			newKeyword = "new ";
+		}
+		else
+		{
+			newKeyword = "";
+		}
+		
 		pw.println();
-		pw.println("public void unmarshal(DataInputStream dis)");
+		pw.println(newKeyword + "public void unmarshal(DataInputStream dis)");
 		pw.println("{");
 
 		baseclassName = aClass.getParentClass();
@@ -1186,140 +1230,6 @@ public class CsharpGenerator extends Generator
 
 	}
 
-	//private void writeMarshalMethodWithByteBuffer(PrintWriter pw, GeneratedClass aClass)
-	//{
-	//    List ivars = aClass.getClassAttributes();
-
-	//    pw.println();
-	//    pw.println("/**");
-	//    pw.println(" * Packs a Pdu into the ByteBuffer.");
-	//    pw.println(" * @throws java.nio.BufferOverflowException if buff is too small");
-	//    pw.println(" * @throws java.nio.ReadOnlyBufferException if buff is read only");
-	//    pw.println(" * @see java.nio.ByteBuffer");
-	//    pw.println(" * @param buff The ByteBuffer at the position to begin writing");
-	//    pw.println(" * @since ??");
-	//    pw.println(" */");
-	//    pw.println("public void marshal(java.nio.ByteBuffer buff)");
-	//    pw.println("{");
-
-	//    // If we're a sublcass of another class, we should first call super
-	//    // to make sure the superclass's ivars are marshaled out.
-
-	//    String baseclassName = aClass.getParentClass();
-	//    if (!(baseclassName.equalsIgnoreCase("root")))
-	//    {
-	//        pw.println("    base.marshal(buff);");
-	//    }
-
-	//    // Loop through the class attributes, generating the output for each.
-
-	//    ivars = aClass.getClassAttributes();
-	//    for (int idx = 0; idx < ivars.size(); idx++)
-	//    {
-	//        ClassAttribute anAttribute = (ClassAttribute)ivars.get(idx);
-
-	//        // Write out a method call to serialize a primitive type
-	//        if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
-	//        {
-	//            String marshalType = marshalTypes.getProperty(anAttribute.getType());
-	//            String capped = this.initialCap(marshalType);
-	//            if (capped.equals("Byte"))
-	//            {
-	//                capped = "";    // ByteBuffer just has put() for bytesf
-	//            }
-
-	//            // If we're a normal primitivetype, marshal out directly; otherwise, marshall out
-	//            // the list length.
-	//            if (anAttribute.getIsDynamicListLengthField() == false)
-	//            {
-	//                pw.println("       buff.put" + capped + "( (" + marshalType + ")_" + anAttribute.getName() + ");");
-	//            }
-	//            else
-	//            {
-	//                ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
-	//                pw.println("       buff.put" + capped + "( (" + marshalType + ")_" + listAttribute.getName() + ".Count);");
-	//            }
-
-	//        }
-
-	//        // Write out a method call to serialize a class.
-	//        if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
-	//        {
-	//            String marshalType = anAttribute.getType();
-
-	//            //pw.println("       _" + anAttribute.getName() + ".marshal(dos);" );
-	//            pw.println("       _" + anAttribute.getName() + ".marshal(buff);");
-	//        }
-
-	//        // Write out the method call to marshal a fixed length list, aka an array.
-	//        if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
-	//        {
-	//            pw.println();
-	//            pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
-	//            pw.println("       {");
-
-	//            // This is some sleaze. We're an array, but an array of what? We could be either a
-	//            // primitive or a class. We need to figure out which. This is done via the expedient
-	//            // but not very reliable way of trying to do a lookup on the type. If we don't find
-	//            // it in our map of primitives to marshal types, we assume it is a class.
-
-	//            String marshalType = marshalTypes.getProperty(anAttribute.getType());
-
-	//            if (anAttribute.getUnderlyingTypeIsPrimitive())
-	//            {
-	//                String capped = this.initialCap(marshalType);
-	//                if (capped.equals("Byte"))
-	//                {
-	//                    capped = "";    // ByteBuffer just has put() for bytesf
-	//                }
-	//                pw.println("           buff.put" + capped + "(_" + anAttribute.getName() + "[idx]);");
-	//            }
-	//            else
-	//            {
-	//                pw.println("           _" + anAttribute.getName() + "[idx].marshal(buff);");
-	//            }
-
-	//            pw.println("       } // end of array marshaling");
-	//            pw.println();
-	//        }
-
-	//        if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST))
-	//        {
-	//            pw.println();
-	//            pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
-	//            pw.println("       {");
-
-	//            // This is some sleaze. We're an array, but an array of what? We could be either a
-	//            // primitive or a class. We need to figure out which. This is done via the expedient
-	//            // but not very reliable way of trying to do a lookup on the type. If we don't find
-	//            // it in our map of primitives to marshal types, we assume it is a class.
-
-	//            String marshalType = marshalTypes.getProperty(anAttribute.getType());
-
-	//            if (anAttribute.getUnderlyingTypeIsPrimitive())
-	//            {
-	//                String capped = this.initialCap(marshalType);
-	//                if (capped.equals("Byte"))
-	//                {
-	//                    capped = "";    // ByteBuffer just uses put() for bytes
-	//                }
-	//                pw.println("           buff.put" + capped + "(_" + anAttribute.getName() + ");");
-	//            }
-	//            else
-	//            {
-	//                pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")_" +
-	//                                                                                 anAttribute.getName() + "[idx];"));
-	//                pw.println("            a" + initialCap(anAttribute.getType()) + ".marshal(buff);");
-	//            }
-
-	//            pw.println("       } // end of list marshalling");
-	//            pw.println();
-	//        }
-	//    } // End of loop through the ivars for a marshal method
-
-	//    pw.println("    } // end of marshal method");
-	//}
-
 	//Generate listing of all parameters using psuedo reflection.  This method needs to be further refined as it is only useful for 
 	//printing out all the data, the format used is not nice.  This method however will display faster than using the XML reflection method provided.
 	//Only used for debugging purposes until a better method could be developed.
@@ -1327,6 +1237,19 @@ public class CsharpGenerator extends Generator
 	{
 		List ivars = aClass.getClassAttributes();
 		String tab = "\\t ";
+
+		String newKeyword = ""; //PES 032209 added to remove warning from C# compiler
+				
+		//PES 032209 added to remove warning from C# compiler
+		if (!aClass.getParentClass().equalsIgnoreCase("root"))
+		{
+			newKeyword = "new ";
+		}
+		else
+		{
+			newKeyword = "";
+		}
+
 
 		pw.println();
 		pw.println("   ///<summary>");
@@ -1336,7 +1259,7 @@ public class CsharpGenerator extends Generator
 		pw.println("   ///where pdu is an object representing a single pdu and sb is a StringBuilder.");
 		pw.println("   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality");
 		pw.println("   ///</summary>");
-		pw.println("public void reflection(StringBuilder sb)");
+		pw.println(newKeyword + "public void reflection(StringBuilder sb)");
 		pw.println("{");
 
 
