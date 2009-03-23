@@ -71,7 +71,7 @@ public class DesignatorPdu : DistributedEmissionsFamilyPdu
     PduType = (byte)24;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -386,7 +386,7 @@ public Vector3Float EntityLinearAcceleration
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -396,7 +396,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -421,7 +421,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -455,29 +455,35 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- DesignatorPdu-----"  + System.Environment.NewLine);
+    sb.Append("<DesignatorPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_designatingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<designatingEntityID>"  + System.Environment.NewLine);
        _designatingEntityID.reflection(sb);
-           sb.Append("ushort\t _codeName\t " + _codeName.ToString() + System.Environment.NewLine);
-       sb.Append("=====_designatedEntityID=====" + System.Environment.NewLine);
+    sb.Append("</designatingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<codeName type=\"ushort\">" + _codeName.ToString() + "</codeName> " + System.Environment.NewLine);
+    sb.Append("<designatedEntityID>"  + System.Environment.NewLine);
        _designatedEntityID.reflection(sb);
-           sb.Append("ushort\t _designatorCode\t " + _designatorCode.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _designatorPower\t " + _designatorPower.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _designatorWavelength\t " + _designatorWavelength.ToString() + System.Environment.NewLine);
-       sb.Append("=====_designatorSpotWrtDesignated=====" + System.Environment.NewLine);
+    sb.Append("</designatedEntityID>"  + System.Environment.NewLine);
+           sb.Append("<designatorCode type=\"ushort\">" + _designatorCode.ToString() + "</designatorCode> " + System.Environment.NewLine);
+           sb.Append("<designatorPower type=\"float\">" + _designatorPower.ToString() + "</designatorPower> " + System.Environment.NewLine);
+           sb.Append("<designatorWavelength type=\"float\">" + _designatorWavelength.ToString() + "</designatorWavelength> " + System.Environment.NewLine);
+    sb.Append("<designatorSpotWrtDesignated>"  + System.Environment.NewLine);
        _designatorSpotWrtDesignated.reflection(sb);
-       sb.Append("=====_designatorSpotLocation=====" + System.Environment.NewLine);
+    sb.Append("</designatorSpotWrtDesignated>"  + System.Environment.NewLine);
+    sb.Append("<designatorSpotLocation>"  + System.Environment.NewLine);
        _designatorSpotLocation.reflection(sb);
-           sb.Append("byte\t _deadReckoningAlgorithm\t " + _deadReckoningAlgorithm.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _padding2\t " + _padding2.ToString() + System.Environment.NewLine);
-       sb.Append("=====_entityLinearAcceleration=====" + System.Environment.NewLine);
+    sb.Append("</designatorSpotLocation>"  + System.Environment.NewLine);
+           sb.Append("<deadReckoningAlgorithm type=\"byte\">" + _deadReckoningAlgorithm.ToString() + "</deadReckoningAlgorithm> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"ushort\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+           sb.Append("<padding2 type=\"byte\">" + _padding2.ToString() + "</padding2> " + System.Environment.NewLine);
+    sb.Append("<entityLinearAcceleration>"  + System.Environment.NewLine);
        _entityLinearAcceleration.reflection(sb);
+    sb.Append("</entityLinearAcceleration>"  + System.Environment.NewLine);
+    sb.Append("</DesignatorPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

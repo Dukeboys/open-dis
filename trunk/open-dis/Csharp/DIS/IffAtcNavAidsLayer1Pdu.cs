@@ -55,7 +55,7 @@ public class IffAtcNavAidsLayer1Pdu : DistributedEmissionsFamilyPdu
     PduType = (byte)28;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -244,7 +244,7 @@ public IffFundamentalData FundamentalParameters
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -254,7 +254,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -273,7 +273,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -301,23 +301,29 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- IffAtcNavAidsLayer1Pdu-----"  + System.Environment.NewLine);
+    sb.Append("<IffAtcNavAidsLayer1Pdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_emittingEntityId=====" + System.Environment.NewLine);
+    sb.Append("<emittingEntityId>"  + System.Environment.NewLine);
        _emittingEntityId.reflection(sb);
-       sb.Append("=====_eventID=====" + System.Environment.NewLine);
+    sb.Append("</emittingEntityId>"  + System.Environment.NewLine);
+    sb.Append("<eventID>"  + System.Environment.NewLine);
        _eventID.reflection(sb);
-       sb.Append("=====_location=====" + System.Environment.NewLine);
+    sb.Append("</eventID>"  + System.Environment.NewLine);
+    sb.Append("<location>"  + System.Environment.NewLine);
        _location.reflection(sb);
-       sb.Append("=====_systemID=====" + System.Environment.NewLine);
+    sb.Append("</location>"  + System.Environment.NewLine);
+    sb.Append("<systemID>"  + System.Environment.NewLine);
        _systemID.reflection(sb);
-           sb.Append("ushort\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
-       sb.Append("=====_fundamentalParameters=====" + System.Environment.NewLine);
+    sb.Append("</systemID>"  + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"ushort\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
+    sb.Append("<fundamentalParameters>"  + System.Environment.NewLine);
        _fundamentalParameters.reflection(sb);
+    sb.Append("</fundamentalParameters>"  + System.Environment.NewLine);
+    sb.Append("</IffAtcNavAidsLayer1Pdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

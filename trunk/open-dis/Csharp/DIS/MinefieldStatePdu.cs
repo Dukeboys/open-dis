@@ -72,7 +72,7 @@ public class MinefieldStatePdu : MinefieldFamilyPdu
     PduType = (byte)37;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -417,7 +417,7 @@ public List<EntityType> MineType
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -427,7 +427,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -464,7 +464,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -510,42 +510,49 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- MinefieldStatePdu-----"  + System.Environment.NewLine);
+    sb.Append("<MinefieldStatePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_minefieldID=====" + System.Environment.NewLine);
+    sb.Append("<minefieldID>"  + System.Environment.NewLine);
        _minefieldID.reflection(sb);
-           sb.Append("ushort\t _minefieldSequence\t " + _minefieldSequence.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _forceID\t " + _forceID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _perimeterPoints\t " + _perimeterPoints.Count.ToString() + System.Environment.NewLine);
-       sb.Append("=====_minefieldType=====" + System.Environment.NewLine);
+    sb.Append("</minefieldID>"  + System.Environment.NewLine);
+           sb.Append("<minefieldSequence type=\"ushort\">" + _minefieldSequence.ToString() + "</minefieldSequence> " + System.Environment.NewLine);
+           sb.Append("<forceID type=\"byte\">" + _forceID.ToString() + "</forceID> " + System.Environment.NewLine);
+           sb.Append("<perimeterPoints type=\"byte\">" + _perimeterPoints.Count.ToString() + "</perimeterPoints> " + System.Environment.NewLine);
+    sb.Append("<minefieldType>"  + System.Environment.NewLine);
        _minefieldType.reflection(sb);
-           sb.Append("ushort\t _mineType\t " + _mineType.Count.ToString() + System.Environment.NewLine);
-       sb.Append("=====_minefieldLocation=====" + System.Environment.NewLine);
+    sb.Append("</minefieldType>"  + System.Environment.NewLine);
+           sb.Append("<mineType type=\"ushort\">" + _mineType.Count.ToString() + "</mineType> " + System.Environment.NewLine);
+    sb.Append("<minefieldLocation>"  + System.Environment.NewLine);
        _minefieldLocation.reflection(sb);
-       sb.Append("=====_minefieldOrientation=====" + System.Environment.NewLine);
+    sb.Append("</minefieldLocation>"  + System.Environment.NewLine);
+    sb.Append("<minefieldOrientation>"  + System.Environment.NewLine);
        _minefieldOrientation.reflection(sb);
-           sb.Append("ushort\t _appearance\t " + _appearance.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _protocolMode\t " + _protocolMode.ToString() + System.Environment.NewLine);
+    sb.Append("</minefieldOrientation>"  + System.Environment.NewLine);
+           sb.Append("<appearance type=\"ushort\">" + _appearance.ToString() + "</appearance> " + System.Environment.NewLine);
+           sb.Append("<protocolMode type=\"ushort\">" + _protocolMode.ToString() + "</protocolMode> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _perimeterPoints.Count; idx++)
        {
-           sb.Append("Point\t " + _perimeterPoints[idx] + System.Environment.NewLine);
+           sb.Append("<perimeterPoints"+ idx.ToString() + " type=\"Point\">" + System.Environment.NewLine);
             Point aPoint = (Point)_perimeterPoints[idx];
             aPoint.reflection(sb);
+           sb.Append("</perimeterPoints"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _mineType.Count; idx++)
        {
-           sb.Append("EntityType\t " + _mineType[idx] + System.Environment.NewLine);
+           sb.Append("<mineType"+ idx.ToString() + " type=\"EntityType\">" + System.Environment.NewLine);
             EntityType aEntityType = (EntityType)_mineType[idx];
             aEntityType.reflection(sb);
+           sb.Append("</mineType"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</MinefieldStatePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -260,16 +260,17 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- Pdu-----"  + System.Environment.NewLine);
+    sb.Append("<Pdu>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _protocolVersion\t " + _protocolVersion.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _exerciseID\t " + _exerciseID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pduType\t " + _pduType.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _protocolFamily\t " + _protocolFamily.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _timestamp\t " + _timestamp.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _length\t " + _length.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _padding\t " + _padding.ToString() + System.Environment.NewLine);
+           sb.Append("<protocolVersion type=\"byte\">" + _protocolVersion.ToString() + "</protocolVersion> " + System.Environment.NewLine);
+           sb.Append("<exerciseID type=\"byte\">" + _exerciseID.ToString() + "</exerciseID> " + System.Environment.NewLine);
+           sb.Append("<pduType type=\"byte\">" + _pduType.ToString() + "</pduType> " + System.Environment.NewLine);
+           sb.Append("<protocolFamily type=\"byte\">" + _protocolFamily.ToString() + "</protocolFamily> " + System.Environment.NewLine);
+           sb.Append("<timestamp type=\"uint\">" + _timestamp.ToString() + "</timestamp> " + System.Environment.NewLine);
+           sb.Append("<length type=\"ushort\">" + _length.ToString() + "</length> " + System.Environment.NewLine);
+           sb.Append("<padding type=\"short\">" + _padding.ToString() + "</padding> " + System.Environment.NewLine);
+    sb.Append("</Pdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

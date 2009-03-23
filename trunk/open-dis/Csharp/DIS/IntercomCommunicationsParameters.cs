@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- IntercomCommunicationsParameters-----"  + System.Environment.NewLine);
+    sb.Append("<IntercomCommunicationsParameters>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _recordType\t " + _recordType.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _recordLength\t " + _recordLength.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _recordSpecificField\t " + _recordSpecificField.ToString() + System.Environment.NewLine);
+           sb.Append("<recordType type=\"ushort\">" + _recordType.ToString() + "</recordType> " + System.Environment.NewLine);
+           sb.Append("<recordLength type=\"ushort\">" + _recordLength.ToString() + "</recordLength> " + System.Environment.NewLine);
+           sb.Append("<recordSpecificField type=\"uint\">" + _recordSpecificField.ToString() + "</recordSpecificField> " + System.Environment.NewLine);
+    sb.Append("</IntercomCommunicationsParameters>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -76,7 +76,7 @@ public class MinefieldDataPdu : MinefieldFamilyPdu
     PduType = (byte)39;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -453,7 +453,7 @@ public List<Vector3Float> MineLocation
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -463,7 +463,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -502,7 +502,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -550,43 +550,49 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- MinefieldDataPdu-----"  + System.Environment.NewLine);
+    sb.Append("<MinefieldDataPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_minefieldID=====" + System.Environment.NewLine);
+    sb.Append("<minefieldID>"  + System.Environment.NewLine);
        _minefieldID.reflection(sb);
-       sb.Append("=====_requestingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</minefieldID>"  + System.Environment.NewLine);
+    sb.Append("<requestingEntityID>"  + System.Environment.NewLine);
        _requestingEntityID.reflection(sb);
-           sb.Append("ushort\t _minefieldSequenceNumbeer\t " + _minefieldSequenceNumbeer.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _requestID\t " + _requestID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pduSequenceNumber\t " + _pduSequenceNumber.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _numberOfPdus\t " + _numberOfPdus.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _mineLocation\t " + _mineLocation.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _sensorTypes\t " + _sensorTypes.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _dataFilter\t " + _dataFilter.ToString() + System.Environment.NewLine);
-       sb.Append("=====_mineType=====" + System.Environment.NewLine);
+    sb.Append("</requestingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<minefieldSequenceNumbeer type=\"ushort\">" + _minefieldSequenceNumbeer.ToString() + "</minefieldSequenceNumbeer> " + System.Environment.NewLine);
+           sb.Append("<requestID type=\"byte\">" + _requestID.ToString() + "</requestID> " + System.Environment.NewLine);
+           sb.Append("<pduSequenceNumber type=\"byte\">" + _pduSequenceNumber.ToString() + "</pduSequenceNumber> " + System.Environment.NewLine);
+           sb.Append("<numberOfPdus type=\"byte\">" + _numberOfPdus.ToString() + "</numberOfPdus> " + System.Environment.NewLine);
+           sb.Append("<mineLocation type=\"byte\">" + _mineLocation.Count.ToString() + "</mineLocation> " + System.Environment.NewLine);
+           sb.Append("<sensorTypes type=\"byte\">" + _sensorTypes.Count.ToString() + "</sensorTypes> " + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"byte\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
+           sb.Append("<dataFilter type=\"uint\">" + _dataFilter.ToString() + "</dataFilter> " + System.Environment.NewLine);
+    sb.Append("<mineType>"  + System.Environment.NewLine);
        _mineType.reflection(sb);
+    sb.Append("</mineType>"  + System.Environment.NewLine);
 
        for(int idx = 0; idx < _sensorTypes.Count; idx++)
        {
-           sb.Append("TwoByteChunk\t " + _sensorTypes[idx] + System.Environment.NewLine);
+           sb.Append("<sensorTypes"+ idx.ToString() + " type=\"TwoByteChunk\">" + System.Environment.NewLine);
             TwoByteChunk aTwoByteChunk = (TwoByteChunk)_sensorTypes[idx];
             aTwoByteChunk.reflection(sb);
+           sb.Append("</sensorTypes"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
-           sb.Append("byte\t _pad3\t " + _pad3.ToString() + System.Environment.NewLine);
+           sb.Append("<pad3 type=\"byte\">" + _pad3.ToString() + "</pad3> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _mineLocation.Count; idx++)
        {
-           sb.Append("Vector3Float\t " + _mineLocation[idx] + System.Environment.NewLine);
+           sb.Append("<mineLocation"+ idx.ToString() + " type=\"Vector3Float\">" + System.Environment.NewLine);
             Vector3Float aVector3Float = (Vector3Float)_mineLocation[idx];
             aVector3Float.reflection(sb);
+           sb.Append("</mineLocation"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</MinefieldDataPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

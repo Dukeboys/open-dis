@@ -50,7 +50,7 @@ public class ServiceRequestPdu : LogisticsFamilyPdu
     PduType = (byte)5;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -220,7 +220,7 @@ public List<SupplyQuantity> Supplies
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -230,7 +230,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -255,7 +255,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -289,27 +289,31 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ServiceRequestPdu-----"  + System.Environment.NewLine);
+    sb.Append("<ServiceRequestPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_requestingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<requestingEntityID>"  + System.Environment.NewLine);
        _requestingEntityID.reflection(sb);
-       sb.Append("=====_servicingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</requestingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<servicingEntityID>"  + System.Environment.NewLine);
        _servicingEntityID.reflection(sb);
-           sb.Append("byte\t _serviceTypeRequested\t " + _serviceTypeRequested.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _supplies\t " + _supplies.Count.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _serviceRequestPadding\t " + _serviceRequestPadding.ToString() + System.Environment.NewLine);
+    sb.Append("</servicingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<serviceTypeRequested type=\"byte\">" + _serviceTypeRequested.ToString() + "</serviceTypeRequested> " + System.Environment.NewLine);
+           sb.Append("<supplies type=\"byte\">" + _supplies.Count.ToString() + "</supplies> " + System.Environment.NewLine);
+           sb.Append("<serviceRequestPadding type=\"short\">" + _serviceRequestPadding.ToString() + "</serviceRequestPadding> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _supplies.Count; idx++)
        {
-           sb.Append("SupplyQuantity\t " + _supplies[idx] + System.Environment.NewLine);
+           sb.Append("<supplies"+ idx.ToString() + " type=\"SupplyQuantity\">" + System.Environment.NewLine);
             SupplyQuantity aSupplyQuantity = (SupplyQuantity)_supplies[idx];
             aSupplyQuantity.reflection(sb);
+           sb.Append("</supplies"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</ServiceRequestPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

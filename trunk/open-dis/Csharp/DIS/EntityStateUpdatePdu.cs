@@ -57,7 +57,7 @@ public class EntityStateUpdatePdu : EntityInformationFamilyPdu
     ProtocolFamily = (byte)1;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -268,7 +268,7 @@ public List<ArticulationParameter> ArticulationParameters
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -278,7 +278,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -304,7 +304,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -339,30 +339,36 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- EntityStateUpdatePdu-----"  + System.Environment.NewLine);
+    sb.Append("<EntityStateUpdatePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_entityID=====" + System.Environment.NewLine);
+    sb.Append("<entityID>"  + System.Environment.NewLine);
        _entityID.reflection(sb);
-           sb.Append("byte\t _articulationParameters\t " + _articulationParameters.Count.ToString() + System.Environment.NewLine);
-       sb.Append("=====_entityLinearVelocity=====" + System.Environment.NewLine);
+    sb.Append("</entityID>"  + System.Environment.NewLine);
+           sb.Append("<articulationParameters type=\"byte\">" + _articulationParameters.Count.ToString() + "</articulationParameters> " + System.Environment.NewLine);
+    sb.Append("<entityLinearVelocity>"  + System.Environment.NewLine);
        _entityLinearVelocity.reflection(sb);
-       sb.Append("=====_entityLocation=====" + System.Environment.NewLine);
+    sb.Append("</entityLinearVelocity>"  + System.Environment.NewLine);
+    sb.Append("<entityLocation>"  + System.Environment.NewLine);
        _entityLocation.reflection(sb);
-       sb.Append("=====_entityOrientation=====" + System.Environment.NewLine);
+    sb.Append("</entityLocation>"  + System.Environment.NewLine);
+    sb.Append("<entityOrientation>"  + System.Environment.NewLine);
        _entityOrientation.reflection(sb);
-           sb.Append("uint\t _entityAppearance\t " + _entityAppearance.ToString() + System.Environment.NewLine);
+    sb.Append("</entityOrientation>"  + System.Environment.NewLine);
+           sb.Append("<entityAppearance type=\"uint\">" + _entityAppearance.ToString() + "</entityAppearance> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _articulationParameters.Count; idx++)
        {
-           sb.Append("ArticulationParameter\t " + _articulationParameters[idx] + System.Environment.NewLine);
+           sb.Append("<articulationParameters"+ idx.ToString() + " type=\"ArticulationParameter\">" + System.Environment.NewLine);
             ArticulationParameter aArticulationParameter = (ArticulationParameter)_articulationParameters[idx];
             aArticulationParameter.reflection(sb);
+           sb.Append("</articulationParameters"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</EntityStateUpdatePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

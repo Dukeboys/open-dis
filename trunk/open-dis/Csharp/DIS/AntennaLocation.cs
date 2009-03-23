@@ -152,13 +152,16 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- AntennaLocation-----"  + System.Environment.NewLine);
+    sb.Append("<AntennaLocation>"  + System.Environment.NewLine);
     try 
     {
-       sb.Append("=====_antennaLocation=====" + System.Environment.NewLine);
+    sb.Append("<antennaLocation>"  + System.Environment.NewLine);
        _antennaLocation.reflection(sb);
-       sb.Append("=====_relativeAntennaLocation=====" + System.Environment.NewLine);
+    sb.Append("</antennaLocation>"  + System.Environment.NewLine);
+    sb.Append("<relativeAntennaLocation>"  + System.Environment.NewLine);
        _relativeAntennaLocation.reflection(sb);
+    sb.Append("</relativeAntennaLocation>"  + System.Environment.NewLine);
+    sb.Append("</AntennaLocation>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

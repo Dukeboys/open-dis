@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- GridAxisRecord-----"  + System.Environment.NewLine);
+    sb.Append("<GridAxisRecord>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _sampleType\t " + _sampleType.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _dataRepresentation\t " + _dataRepresentation.ToString() + System.Environment.NewLine);
+           sb.Append("<sampleType type=\"ushort\">" + _sampleType.ToString() + "</sampleType> " + System.Environment.NewLine);
+           sb.Append("<dataRepresentation type=\"ushort\">" + _dataRepresentation.ToString() + "</dataRepresentation> " + System.Environment.NewLine);
+    sb.Append("</GridAxisRecord>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

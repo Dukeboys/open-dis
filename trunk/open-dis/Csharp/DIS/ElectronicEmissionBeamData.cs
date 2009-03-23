@@ -381,27 +381,30 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ElectronicEmissionBeamData-----"  + System.Environment.NewLine);
+    sb.Append("<ElectronicEmissionBeamData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _beamDataLength\t " + _beamDataLength.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _beamIDNumber\t " + _beamIDNumber.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _beamParameterIndex\t " + _beamParameterIndex.ToString() + System.Environment.NewLine);
-       sb.Append("=====_fundamentalParameterData=====" + System.Environment.NewLine);
+           sb.Append("<beamDataLength type=\"byte\">" + _beamDataLength.ToString() + "</beamDataLength> " + System.Environment.NewLine);
+           sb.Append("<beamIDNumber type=\"byte\">" + _beamIDNumber.ToString() + "</beamIDNumber> " + System.Environment.NewLine);
+           sb.Append("<beamParameterIndex type=\"ushort\">" + _beamParameterIndex.ToString() + "</beamParameterIndex> " + System.Environment.NewLine);
+    sb.Append("<fundamentalParameterData>"  + System.Environment.NewLine);
        _fundamentalParameterData.reflection(sb);
-           sb.Append("byte\t _beamFunction\t " + _beamFunction.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _trackJamTargets\t " + _trackJamTargets.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _highDensityTrackJam\t " + _highDensityTrackJam.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pad4\t " + _pad4.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _jammingModeSequence\t " + _jammingModeSequence.ToString() + System.Environment.NewLine);
+    sb.Append("</fundamentalParameterData>"  + System.Environment.NewLine);
+           sb.Append("<beamFunction type=\"byte\">" + _beamFunction.ToString() + "</beamFunction> " + System.Environment.NewLine);
+           sb.Append("<trackJamTargets type=\"byte\">" + _trackJamTargets.Count.ToString() + "</trackJamTargets> " + System.Environment.NewLine);
+           sb.Append("<highDensityTrackJam type=\"byte\">" + _highDensityTrackJam.ToString() + "</highDensityTrackJam> " + System.Environment.NewLine);
+           sb.Append("<pad4 type=\"byte\">" + _pad4.ToString() + "</pad4> " + System.Environment.NewLine);
+           sb.Append("<jammingModeSequence type=\"uint\">" + _jammingModeSequence.ToString() + "</jammingModeSequence> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _trackJamTargets.Count; idx++)
        {
-           sb.Append("TrackJamTarget\t " + _trackJamTargets[idx] + System.Environment.NewLine);
+           sb.Append("<trackJamTargets"+ idx.ToString() + " type=\"TrackJamTarget\">" + System.Environment.NewLine);
             TrackJamTarget aTrackJamTarget = (TrackJamTarget)_trackJamTargets[idx];
             aTrackJamTarget.reflection(sb);
+           sb.Append("</trackJamTargets"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</ElectronicEmissionBeamData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

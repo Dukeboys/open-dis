@@ -188,14 +188,15 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ArticulationParameter-----"  + System.Environment.NewLine);
+    sb.Append("<ArticulationParameter>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _parameterTypeDesignator\t " + _parameterTypeDesignator.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _changeIndicator\t " + _changeIndicator.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _partAttachedTo\t " + _partAttachedTo.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _parameterType\t " + _parameterType.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _parameterValue\t " + _parameterValue.ToString() + System.Environment.NewLine);
+           sb.Append("<parameterTypeDesignator type=\"byte\">" + _parameterTypeDesignator.ToString() + "</parameterTypeDesignator> " + System.Environment.NewLine);
+           sb.Append("<changeIndicator type=\"byte\">" + _changeIndicator.ToString() + "</changeIndicator> " + System.Environment.NewLine);
+           sb.Append("<partAttachedTo type=\"ushort\">" + _partAttachedTo.ToString() + "</partAttachedTo> " + System.Environment.NewLine);
+           sb.Append("<parameterType type=\"uint\">" + _parameterType.ToString() + "</parameterType> " + System.Environment.NewLine);
+           sb.Append("<parameterValue type=\"double\">" + _parameterValue.ToString() + "</parameterValue> " + System.Environment.NewLine);
+    sb.Append("</ArticulationParameter>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

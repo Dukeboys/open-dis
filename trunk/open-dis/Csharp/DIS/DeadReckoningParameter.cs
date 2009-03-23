@@ -220,20 +220,23 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- DeadReckoningParameter-----"  + System.Environment.NewLine);
+    sb.Append("<DeadReckoningParameter>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _deadReckoningAlgorithm\t " + _deadReckoningAlgorithm.ToString() + System.Environment.NewLine);
+           sb.Append("<deadReckoningAlgorithm type=\"byte\">" + _deadReckoningAlgorithm.ToString() + "</deadReckoningAlgorithm> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _otherParameters.Length; idx++)
        {
-           sb.Append("byte\t " + _otherParameters[idx] + System.Environment.NewLine);
+           sb.Append("<otherParameters"+ idx.ToString() + " type=\"byte\">" + _otherParameters[idx] + "</otherParameters"+ idx.ToString() + "> " + System.Environment.NewLine);
        } // end of array reflection
 
-       sb.Append("=====_entityLinearAcceleration=====" + System.Environment.NewLine);
+    sb.Append("<entityLinearAcceleration>"  + System.Environment.NewLine);
        _entityLinearAcceleration.reflection(sb);
-       sb.Append("=====_entityAngularVelocity=====" + System.Environment.NewLine);
+    sb.Append("</entityLinearAcceleration>"  + System.Environment.NewLine);
+    sb.Append("<entityAngularVelocity>"  + System.Environment.NewLine);
        _entityAngularVelocity.reflection(sb);
+    sb.Append("</entityAngularVelocity>"  + System.Environment.NewLine);
+    sb.Append("</DeadReckoningParameter>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

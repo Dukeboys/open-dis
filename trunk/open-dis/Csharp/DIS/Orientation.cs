@@ -144,12 +144,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- Orientation-----"  + System.Environment.NewLine);
+    sb.Append("<Orientation>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("float\t _psi\t " + _psi.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _theta\t " + _theta.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _phi\t " + _phi.ToString() + System.Environment.NewLine);
+           sb.Append("<psi type=\"float\">" + _psi.ToString() + "</psi> " + System.Environment.NewLine);
+           sb.Append("<theta type=\"float\">" + _theta.ToString() + "</theta> " + System.Environment.NewLine);
+           sb.Append("<phi type=\"float\">" + _phi.ToString() + "</phi> " + System.Environment.NewLine);
+    sb.Append("</Orientation>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

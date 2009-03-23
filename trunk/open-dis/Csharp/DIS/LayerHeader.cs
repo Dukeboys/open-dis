@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- LayerHeader-----"  + System.Environment.NewLine);
+    sb.Append("<LayerHeader>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _layerNumber\t " + _layerNumber.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _layerSpecificInformaiton\t " + _layerSpecificInformaiton.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _length\t " + _length.ToString() + System.Environment.NewLine);
+           sb.Append("<layerNumber type=\"byte\">" + _layerNumber.ToString() + "</layerNumber> " + System.Environment.NewLine);
+           sb.Append("<layerSpecificInformaiton type=\"byte\">" + _layerSpecificInformaiton.ToString() + "</layerSpecificInformaiton> " + System.Environment.NewLine);
+           sb.Append("<length type=\"ushort\">" + _length.ToString() + "</length> " + System.Environment.NewLine);
+    sb.Append("</LayerHeader>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

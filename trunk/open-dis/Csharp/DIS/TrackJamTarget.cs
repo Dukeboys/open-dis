@@ -167,13 +167,15 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- TrackJamTarget-----"  + System.Environment.NewLine);
+    sb.Append("<TrackJamTarget>"  + System.Environment.NewLine);
     try 
     {
-       sb.Append("=====_trackJam=====" + System.Environment.NewLine);
+    sb.Append("<trackJam>"  + System.Environment.NewLine);
        _trackJam.reflection(sb);
-           sb.Append("byte\t _emitterID\t " + _emitterID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _beamID\t " + _beamID.ToString() + System.Environment.NewLine);
+    sb.Append("</trackJam>"  + System.Environment.NewLine);
+           sb.Append("<emitterID type=\"byte\">" + _emitterID.ToString() + "</emitterID> " + System.Environment.NewLine);
+           sb.Append("<beamID type=\"byte\">" + _beamID.ToString() + "</beamID> " + System.Environment.NewLine);
+    sb.Append("</TrackJamTarget>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

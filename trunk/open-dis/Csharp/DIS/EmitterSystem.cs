@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- EmitterSystem-----"  + System.Environment.NewLine);
+    sb.Append("<EmitterSystem>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _emitterName\t " + _emitterName.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _function\t " + _function.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _emitterIdNumber\t " + _emitterIdNumber.ToString() + System.Environment.NewLine);
+           sb.Append("<emitterName type=\"ushort\">" + _emitterName.ToString() + "</emitterName> " + System.Environment.NewLine);
+           sb.Append("<function type=\"byte\">" + _function.ToString() + "</function> " + System.Environment.NewLine);
+           sb.Append("<emitterIdNumber type=\"byte\">" + _emitterIdNumber.ToString() + "</emitterIdNumber> " + System.Environment.NewLine);
+    sb.Append("</EmitterSystem>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

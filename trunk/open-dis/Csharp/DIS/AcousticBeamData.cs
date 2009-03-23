@@ -193,14 +193,16 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- AcousticBeamData-----"  + System.Environment.NewLine);
+    sb.Append("<AcousticBeamData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _beamDataLength\t " + _beamDataLength.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _beamIDNumber\t " + _beamIDNumber.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
-       sb.Append("=====_fundamentalDataParameters=====" + System.Environment.NewLine);
+           sb.Append("<beamDataLength type=\"ushort\">" + _beamDataLength.ToString() + "</beamDataLength> " + System.Environment.NewLine);
+           sb.Append("<beamIDNumber type=\"byte\">" + _beamIDNumber.ToString() + "</beamIDNumber> " + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"ushort\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
+    sb.Append("<fundamentalDataParameters>"  + System.Environment.NewLine);
        _fundamentalDataParameters.reflection(sb);
+    sb.Append("</fundamentalDataParameters>"  + System.Environment.NewLine);
+    sb.Append("</AcousticBeamData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

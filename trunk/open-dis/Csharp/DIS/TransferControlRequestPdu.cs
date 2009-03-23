@@ -57,7 +57,7 @@ public class TransferControlRequestPdu : EntityManagementFamilyPdu
     PduType = (byte)35;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -288,7 +288,7 @@ public List<RecordSet> RecordSets
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -298,7 +298,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -325,7 +325,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -361,30 +361,35 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- TransferControlRequestPdu-----"  + System.Environment.NewLine);
+    sb.Append("<TransferControlRequestPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_orginatingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<orginatingEntityID>"  + System.Environment.NewLine);
        _orginatingEntityID.reflection(sb);
-       sb.Append("=====_recevingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</orginatingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<recevingEntityID>"  + System.Environment.NewLine);
        _recevingEntityID.reflection(sb);
-           sb.Append("uint\t _requestID\t " + _requestID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _requiredReliabilityService\t " + _requiredReliabilityService.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _tranferType\t " + _tranferType.ToString() + System.Environment.NewLine);
-       sb.Append("=====_transferEntityID=====" + System.Environment.NewLine);
+    sb.Append("</recevingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<requestID type=\"uint\">" + _requestID.ToString() + "</requestID> " + System.Environment.NewLine);
+           sb.Append("<requiredReliabilityService type=\"byte\">" + _requiredReliabilityService.ToString() + "</requiredReliabilityService> " + System.Environment.NewLine);
+           sb.Append("<tranferType type=\"byte\">" + _tranferType.ToString() + "</tranferType> " + System.Environment.NewLine);
+    sb.Append("<transferEntityID>"  + System.Environment.NewLine);
        _transferEntityID.reflection(sb);
-           sb.Append("byte\t _recordSets\t " + _recordSets.Count.ToString() + System.Environment.NewLine);
+    sb.Append("</transferEntityID>"  + System.Environment.NewLine);
+           sb.Append("<recordSets type=\"byte\">" + _recordSets.Count.ToString() + "</recordSets> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _recordSets.Count; idx++)
        {
-           sb.Append("RecordSet\t " + _recordSets[idx] + System.Environment.NewLine);
+           sb.Append("<recordSets"+ idx.ToString() + " type=\"RecordSet\">" + System.Environment.NewLine);
             RecordSet aRecordSet = (RecordSet)_recordSets[idx];
             aRecordSet.reflection(sb);
+           sb.Append("</recordSets"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</TransferControlRequestPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -288,24 +288,28 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- AcousticEmitterSystemData-----"  + System.Environment.NewLine);
+    sb.Append("<AcousticEmitterSystemData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _emitterSystemDataLength\t " + _emitterSystemDataLength.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _beamRecords\t " + _beamRecords.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
-       sb.Append("=====_acousticEmitterSystem=====" + System.Environment.NewLine);
+           sb.Append("<emitterSystemDataLength type=\"byte\">" + _emitterSystemDataLength.ToString() + "</emitterSystemDataLength> " + System.Environment.NewLine);
+           sb.Append("<beamRecords type=\"byte\">" + _beamRecords.Count.ToString() + "</beamRecords> " + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"ushort\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
+    sb.Append("<acousticEmitterSystem>"  + System.Environment.NewLine);
        _acousticEmitterSystem.reflection(sb);
-       sb.Append("=====_emitterLocation=====" + System.Environment.NewLine);
+    sb.Append("</acousticEmitterSystem>"  + System.Environment.NewLine);
+    sb.Append("<emitterLocation>"  + System.Environment.NewLine);
        _emitterLocation.reflection(sb);
+    sb.Append("</emitterLocation>"  + System.Environment.NewLine);
 
        for(int idx = 0; idx < _beamRecords.Count; idx++)
        {
-           sb.Append("AcousticBeamData\t " + _beamRecords[idx] + System.Environment.NewLine);
+           sb.Append("<beamRecords"+ idx.ToString() + " type=\"AcousticBeamData\">" + System.Environment.NewLine);
             AcousticBeamData aAcousticBeamData = (AcousticBeamData)_beamRecords[idx];
             aAcousticBeamData.reflection(sb);
+           sb.Append("</beamRecords"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</AcousticEmitterSystemData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

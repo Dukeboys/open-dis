@@ -57,7 +57,7 @@ public class FirePdu : WarfareFamilyPdu
     PduType = (byte)2;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -264,7 +264,7 @@ public float Range
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -274,7 +274,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -294,7 +294,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -323,24 +323,30 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- FirePdu-----"  + System.Environment.NewLine);
+    sb.Append("<FirePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_munitionID=====" + System.Environment.NewLine);
+    sb.Append("<munitionID>"  + System.Environment.NewLine);
        _munitionID.reflection(sb);
-       sb.Append("=====_eventID=====" + System.Environment.NewLine);
+    sb.Append("</munitionID>"  + System.Environment.NewLine);
+    sb.Append("<eventID>"  + System.Environment.NewLine);
        _eventID.reflection(sb);
-           sb.Append("uint\t _fireMissionIndex\t " + _fireMissionIndex.ToString() + System.Environment.NewLine);
-       sb.Append("=====_locationInWorldCoordinates=====" + System.Environment.NewLine);
+    sb.Append("</eventID>"  + System.Environment.NewLine);
+           sb.Append("<fireMissionIndex type=\"uint\">" + _fireMissionIndex.ToString() + "</fireMissionIndex> " + System.Environment.NewLine);
+    sb.Append("<locationInWorldCoordinates>"  + System.Environment.NewLine);
        _locationInWorldCoordinates.reflection(sb);
-       sb.Append("=====_burstDescriptor=====" + System.Environment.NewLine);
+    sb.Append("</locationInWorldCoordinates>"  + System.Environment.NewLine);
+    sb.Append("<burstDescriptor>"  + System.Environment.NewLine);
        _burstDescriptor.reflection(sb);
-       sb.Append("=====_velocity=====" + System.Environment.NewLine);
+    sb.Append("</burstDescriptor>"  + System.Environment.NewLine);
+    sb.Append("<velocity>"  + System.Environment.NewLine);
        _velocity.reflection(sb);
-           sb.Append("float\t _range\t " + _range.ToString() + System.Environment.NewLine);
+    sb.Append("</velocity>"  + System.Environment.NewLine);
+           sb.Append("<range type=\"float\">" + _range.ToString() + "</range> " + System.Environment.NewLine);
+    sb.Append("</FirePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

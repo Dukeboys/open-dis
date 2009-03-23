@@ -234,15 +234,16 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- Environment-----"  + System.Environment.NewLine);
+    sb.Append("<Environment>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("uint\t _environmentType\t " + _environmentType.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _length\t " + _length.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _index\t " + _index.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _geometry\t " + _geometry.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _padding2\t " + _padding2.ToString() + System.Environment.NewLine);
+           sb.Append("<environmentType type=\"uint\">" + _environmentType.ToString() + "</environmentType> " + System.Environment.NewLine);
+           sb.Append("<length type=\"byte\">" + _length.ToString() + "</length> " + System.Environment.NewLine);
+           sb.Append("<index type=\"byte\">" + _index.ToString() + "</index> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"byte\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+           sb.Append("<geometry type=\"byte\">" + _geometry.ToString() + "</geometry> " + System.Environment.NewLine);
+           sb.Append("<padding2 type=\"byte\">" + _padding2.ToString() + "</padding2> " + System.Environment.NewLine);
+    sb.Append("</Environment>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

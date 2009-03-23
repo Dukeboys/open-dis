@@ -48,7 +48,7 @@ public class ReceiverPdu : RadioCommunicationsFamilyPdu
     PduType = (byte)27;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -176,7 +176,7 @@ public ushort TransmitterRadioId
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -186,7 +186,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -204,7 +204,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -231,18 +231,20 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ReceiverPdu-----"  + System.Environment.NewLine);
+    sb.Append("<ReceiverPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("ushort\t _receiverState\t " + _receiverState.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _receivedPoser\t " + _receivedPoser.ToString() + System.Environment.NewLine);
-       sb.Append("=====_transmitterEntityId=====" + System.Environment.NewLine);
+           sb.Append("<receiverState type=\"ushort\">" + _receiverState.ToString() + "</receiverState> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"ushort\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+           sb.Append("<receivedPoser type=\"float\">" + _receivedPoser.ToString() + "</receivedPoser> " + System.Environment.NewLine);
+    sb.Append("<transmitterEntityId>"  + System.Environment.NewLine);
        _transmitterEntityId.reflection(sb);
-           sb.Append("ushort\t _transmitterRadioId\t " + _transmitterRadioId.ToString() + System.Environment.NewLine);
+    sb.Append("</transmitterEntityId>"  + System.Environment.NewLine);
+           sb.Append("<transmitterRadioId type=\"ushort\">" + _transmitterRadioId.ToString() + "</transmitterRadioId> " + System.Environment.NewLine);
+    sb.Append("</ReceiverPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

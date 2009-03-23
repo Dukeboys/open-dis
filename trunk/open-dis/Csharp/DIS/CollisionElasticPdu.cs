@@ -81,7 +81,7 @@ public class CollisionElasticPdu : EntityInformationFamilyPdu
     ProtocolFamily = (byte)1;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -469,7 +469,7 @@ public float CoefficientOfRestitution
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -479,7 +479,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -507,7 +507,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -544,33 +544,40 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- CollisionElasticPdu-----"  + System.Environment.NewLine);
+    sb.Append("<CollisionElasticPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_issuingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<issuingEntityID>"  + System.Environment.NewLine);
        _issuingEntityID.reflection(sb);
-       sb.Append("=====_collidingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</issuingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<collidingEntityID>"  + System.Environment.NewLine);
        _collidingEntityID.reflection(sb);
-       sb.Append("=====_collisionEventID=====" + System.Environment.NewLine);
+    sb.Append("</collidingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<collisionEventID>"  + System.Environment.NewLine);
        _collisionEventID.reflection(sb);
-           sb.Append("short\t _pad\t " + _pad.ToString() + System.Environment.NewLine);
-       sb.Append("=====_contactVelocity=====" + System.Environment.NewLine);
+    sb.Append("</collisionEventID>"  + System.Environment.NewLine);
+           sb.Append("<pad type=\"short\">" + _pad.ToString() + "</pad> " + System.Environment.NewLine);
+    sb.Append("<contactVelocity>"  + System.Environment.NewLine);
        _contactVelocity.reflection(sb);
-           sb.Append("float\t _mass\t " + _mass.ToString() + System.Environment.NewLine);
-       sb.Append("=====_location=====" + System.Environment.NewLine);
+    sb.Append("</contactVelocity>"  + System.Environment.NewLine);
+           sb.Append("<mass type=\"float\">" + _mass.ToString() + "</mass> " + System.Environment.NewLine);
+    sb.Append("<location>"  + System.Environment.NewLine);
        _location.reflection(sb);
-           sb.Append("float\t _collisionResultXX\t " + _collisionResultXX.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _collisionResultXY\t " + _collisionResultXY.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _collisionResultXZ\t " + _collisionResultXZ.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _collisionResultYY\t " + _collisionResultYY.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _collisionResultYZ\t " + _collisionResultYZ.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _collisionResultZZ\t " + _collisionResultZZ.ToString() + System.Environment.NewLine);
-       sb.Append("=====_unitSurfaceNormal=====" + System.Environment.NewLine);
+    sb.Append("</location>"  + System.Environment.NewLine);
+           sb.Append("<collisionResultXX type=\"float\">" + _collisionResultXX.ToString() + "</collisionResultXX> " + System.Environment.NewLine);
+           sb.Append("<collisionResultXY type=\"float\">" + _collisionResultXY.ToString() + "</collisionResultXY> " + System.Environment.NewLine);
+           sb.Append("<collisionResultXZ type=\"float\">" + _collisionResultXZ.ToString() + "</collisionResultXZ> " + System.Environment.NewLine);
+           sb.Append("<collisionResultYY type=\"float\">" + _collisionResultYY.ToString() + "</collisionResultYY> " + System.Environment.NewLine);
+           sb.Append("<collisionResultYZ type=\"float\">" + _collisionResultYZ.ToString() + "</collisionResultYZ> " + System.Environment.NewLine);
+           sb.Append("<collisionResultZZ type=\"float\">" + _collisionResultZZ.ToString() + "</collisionResultZZ> " + System.Environment.NewLine);
+    sb.Append("<unitSurfaceNormal>"  + System.Environment.NewLine);
        _unitSurfaceNormal.reflection(sb);
-           sb.Append("float\t _coefficientOfRestitution\t " + _coefficientOfRestitution.ToString() + System.Environment.NewLine);
+    sb.Append("</unitSurfaceNormal>"  + System.Environment.NewLine);
+           sb.Append("<coefficientOfRestitution type=\"float\">" + _coefficientOfRestitution.ToString() + "</coefficientOfRestitution> " + System.Environment.NewLine);
+    sb.Append("</CollisionElasticPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -281,18 +281,20 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- BeamAntennaPattern-----"  + System.Environment.NewLine);
+    sb.Append("<BeamAntennaPattern>"  + System.Environment.NewLine);
     try 
     {
-       sb.Append("=====_beamDirection=====" + System.Environment.NewLine);
+    sb.Append("<beamDirection>"  + System.Environment.NewLine);
        _beamDirection.reflection(sb);
-           sb.Append("float\t _azimuthBeamwidth\t " + _azimuthBeamwidth.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _referenceSystem\t " + _referenceSystem.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _padding2\t " + _padding2.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _ez\t " + _ez.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _ex\t " + _ex.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _phase\t " + _phase.ToString() + System.Environment.NewLine);
+    sb.Append("</beamDirection>"  + System.Environment.NewLine);
+           sb.Append("<azimuthBeamwidth type=\"float\">" + _azimuthBeamwidth.ToString() + "</azimuthBeamwidth> " + System.Environment.NewLine);
+           sb.Append("<referenceSystem type=\"float\">" + _referenceSystem.ToString() + "</referenceSystem> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"short\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+           sb.Append("<padding2 type=\"byte\">" + _padding2.ToString() + "</padding2> " + System.Environment.NewLine);
+           sb.Append("<ez type=\"float\">" + _ez.ToString() + "</ez> " + System.Environment.NewLine);
+           sb.Append("<ex type=\"float\">" + _ex.ToString() + "</ex> " + System.Environment.NewLine);
+           sb.Append("<phase type=\"float\">" + _phase.ToString() + "</phase> " + System.Environment.NewLine);
+    sb.Append("</BeamAntennaPattern>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

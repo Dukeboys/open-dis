@@ -69,7 +69,7 @@ public class IntercomControlPdu : RadioCommunicationsFamilyPdu
     PduType = (byte)32;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -374,7 +374,7 @@ public List<IntercomCommunicationsParameters> IntercomParameters
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -384,7 +384,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -415,7 +415,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -455,33 +455,37 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- IntercomControlPdu-----"  + System.Environment.NewLine);
+    sb.Append("<IntercomControlPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("byte\t _controlType\t " + _controlType.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _communicationsChannelType\t " + _communicationsChannelType.ToString() + System.Environment.NewLine);
-       sb.Append("=====_sourceEntityID=====" + System.Environment.NewLine);
+           sb.Append("<controlType type=\"byte\">" + _controlType.ToString() + "</controlType> " + System.Environment.NewLine);
+           sb.Append("<communicationsChannelType type=\"byte\">" + _communicationsChannelType.ToString() + "</communicationsChannelType> " + System.Environment.NewLine);
+    sb.Append("<sourceEntityID>"  + System.Environment.NewLine);
        _sourceEntityID.reflection(sb);
-           sb.Append("byte\t _sourceCommunicationsDeviceID\t " + _sourceCommunicationsDeviceID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _sourceLineID\t " + _sourceLineID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _transmitPriority\t " + _transmitPriority.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _transmitLineState\t " + _transmitLineState.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _command\t " + _command.ToString() + System.Environment.NewLine);
-       sb.Append("=====_masterEntityID=====" + System.Environment.NewLine);
+    sb.Append("</sourceEntityID>"  + System.Environment.NewLine);
+           sb.Append("<sourceCommunicationsDeviceID type=\"byte\">" + _sourceCommunicationsDeviceID.ToString() + "</sourceCommunicationsDeviceID> " + System.Environment.NewLine);
+           sb.Append("<sourceLineID type=\"byte\">" + _sourceLineID.ToString() + "</sourceLineID> " + System.Environment.NewLine);
+           sb.Append("<transmitPriority type=\"byte\">" + _transmitPriority.ToString() + "</transmitPriority> " + System.Environment.NewLine);
+           sb.Append("<transmitLineState type=\"byte\">" + _transmitLineState.ToString() + "</transmitLineState> " + System.Environment.NewLine);
+           sb.Append("<command type=\"byte\">" + _command.ToString() + "</command> " + System.Environment.NewLine);
+    sb.Append("<masterEntityID>"  + System.Environment.NewLine);
        _masterEntityID.reflection(sb);
-           sb.Append("ushort\t _masterCommunicationsDeviceID\t " + _masterCommunicationsDeviceID.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _intercomParameters\t " + _intercomParameters.Count.ToString() + System.Environment.NewLine);
+    sb.Append("</masterEntityID>"  + System.Environment.NewLine);
+           sb.Append("<masterCommunicationsDeviceID type=\"ushort\">" + _masterCommunicationsDeviceID.ToString() + "</masterCommunicationsDeviceID> " + System.Environment.NewLine);
+           sb.Append("<intercomParameters type=\"uint\">" + _intercomParameters.Count.ToString() + "</intercomParameters> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _intercomParameters.Count; idx++)
        {
-           sb.Append("IntercomCommunicationsParameters\t " + _intercomParameters[idx] + System.Environment.NewLine);
+           sb.Append("<intercomParameters"+ idx.ToString() + " type=\"IntercomCommunicationsParameters\">" + System.Environment.NewLine);
             IntercomCommunicationsParameters aIntercomCommunicationsParameters = (IntercomCommunicationsParameters)_intercomParameters[idx];
             aIntercomCommunicationsParameters.reflection(sb);
+           sb.Append("</intercomParameters"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</IntercomControlPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

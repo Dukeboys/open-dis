@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- Vector3Double-----"  + System.Environment.NewLine);
+    sb.Append("<Vector3Double>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("double\t _x\t " + _x.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _y\t " + _y.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _z\t " + _z.ToString() + System.Environment.NewLine);
+           sb.Append("<x type=\"double\">" + _x.ToString() + "</x> " + System.Environment.NewLine);
+           sb.Append("<y type=\"double\">" + _y.ToString() + "</y> " + System.Environment.NewLine);
+           sb.Append("<z type=\"double\">" + _z.ToString() + "</z> " + System.Environment.NewLine);
+    sb.Append("</Vector3Double>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

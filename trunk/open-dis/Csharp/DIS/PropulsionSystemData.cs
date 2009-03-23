@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- PropulsionSystemData-----"  + System.Environment.NewLine);
+    sb.Append("<PropulsionSystemData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("float\t _powerSetting\t " + _powerSetting.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _engineRpm\t " + _engineRpm.ToString() + System.Environment.NewLine);
+           sb.Append("<powerSetting type=\"float\">" + _powerSetting.ToString() + "</powerSetting> " + System.Environment.NewLine);
+           sb.Append("<engineRpm type=\"float\">" + _engineRpm.ToString() + "</engineRpm> " + System.Environment.NewLine);
+    sb.Append("</PropulsionSystemData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

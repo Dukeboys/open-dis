@@ -55,7 +55,7 @@ public class IsPartOfPdu : EntityManagementFamilyPdu
     PduType = (byte)36;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -254,7 +254,7 @@ public EntityType PartEntityType
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -264,7 +264,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -283,7 +283,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -311,24 +311,31 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- IsPartOfPdu-----"  + System.Environment.NewLine);
+    sb.Append("<IsPartOfPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_orginatingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<orginatingEntityID>"  + System.Environment.NewLine);
        _orginatingEntityID.reflection(sb);
-       sb.Append("=====_receivingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</orginatingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<receivingEntityID>"  + System.Environment.NewLine);
        _receivingEntityID.reflection(sb);
-       sb.Append("=====_relationship=====" + System.Environment.NewLine);
+    sb.Append("</receivingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<relationship>"  + System.Environment.NewLine);
        _relationship.reflection(sb);
-       sb.Append("=====_partLocation=====" + System.Environment.NewLine);
+    sb.Append("</relationship>"  + System.Environment.NewLine);
+    sb.Append("<partLocation>"  + System.Environment.NewLine);
        _partLocation.reflection(sb);
-       sb.Append("=====_namedLocationID=====" + System.Environment.NewLine);
+    sb.Append("</partLocation>"  + System.Environment.NewLine);
+    sb.Append("<namedLocationID>"  + System.Environment.NewLine);
        _namedLocationID.reflection(sb);
-       sb.Append("=====_partEntityType=====" + System.Environment.NewLine);
+    sb.Append("</namedLocationID>"  + System.Environment.NewLine);
+    sb.Append("<partEntityType>"  + System.Environment.NewLine);
        _partEntityType.reflection(sb);
+    sb.Append("</partEntityType>"  + System.Environment.NewLine);
+    sb.Append("</IsPartOfPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

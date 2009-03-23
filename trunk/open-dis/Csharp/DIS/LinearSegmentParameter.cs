@@ -345,21 +345,25 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- LinearSegmentParameter-----"  + System.Environment.NewLine);
+    sb.Append("<LinearSegmentParameter>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _segmentNumber\t " + _segmentNumber.ToString() + System.Environment.NewLine);
-       sb.Append("=====_segmentAppearance=====" + System.Environment.NewLine);
+           sb.Append("<segmentNumber type=\"byte\">" + _segmentNumber.ToString() + "</segmentNumber> " + System.Environment.NewLine);
+    sb.Append("<segmentAppearance>"  + System.Environment.NewLine);
        _segmentAppearance.reflection(sb);
-       sb.Append("=====_location=====" + System.Environment.NewLine);
+    sb.Append("</segmentAppearance>"  + System.Environment.NewLine);
+    sb.Append("<location>"  + System.Environment.NewLine);
        _location.reflection(sb);
-       sb.Append("=====_orientation=====" + System.Environment.NewLine);
+    sb.Append("</location>"  + System.Environment.NewLine);
+    sb.Append("<orientation>"  + System.Environment.NewLine);
        _orientation.reflection(sb);
-           sb.Append("ushort\t _segmentLength\t " + _segmentLength.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _segmentWidth\t " + _segmentWidth.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _segmentHeight\t " + _segmentHeight.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _segmentDepth\t " + _segmentDepth.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _pad1\t " + _pad1.ToString() + System.Environment.NewLine);
+    sb.Append("</orientation>"  + System.Environment.NewLine);
+           sb.Append("<segmentLength type=\"ushort\">" + _segmentLength.ToString() + "</segmentLength> " + System.Environment.NewLine);
+           sb.Append("<segmentWidth type=\"ushort\">" + _segmentWidth.ToString() + "</segmentWidth> " + System.Environment.NewLine);
+           sb.Append("<segmentHeight type=\"ushort\">" + _segmentHeight.ToString() + "</segmentHeight> " + System.Environment.NewLine);
+           sb.Append("<segmentDepth type=\"ushort\">" + _segmentDepth.ToString() + "</segmentDepth> " + System.Environment.NewLine);
+           sb.Append("<pad1 type=\"uint\">" + _pad1.ToString() + "</pad1> " + System.Environment.NewLine);
+    sb.Append("</LinearSegmentParameter>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

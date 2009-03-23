@@ -44,7 +44,7 @@ public class CommentPdu : SimulationManagementFamilyPdu
     PduType = (byte)22;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -181,7 +181,7 @@ public List<VariableDatum> VariableDatums
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -191,7 +191,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -220,7 +220,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -258,30 +258,33 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- CommentPdu-----"  + System.Environment.NewLine);
+    sb.Append("<CommentPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("uint\t _fixedDatums\t " + _fixedDatums.Count.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _variableDatums\t " + _variableDatums.Count.ToString() + System.Environment.NewLine);
+           sb.Append("<fixedDatums type=\"uint\">" + _fixedDatums.Count.ToString() + "</fixedDatums> " + System.Environment.NewLine);
+           sb.Append("<variableDatums type=\"uint\">" + _variableDatums.Count.ToString() + "</variableDatums> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _fixedDatums.Count; idx++)
        {
-           sb.Append("FixedDatum\t " + _fixedDatums[idx] + System.Environment.NewLine);
+           sb.Append("<fixedDatums"+ idx.ToString() + " type=\"FixedDatum\">" + System.Environment.NewLine);
             FixedDatum aFixedDatum = (FixedDatum)_fixedDatums[idx];
             aFixedDatum.reflection(sb);
+           sb.Append("</fixedDatums"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _variableDatums.Count; idx++)
        {
-           sb.Append("VariableDatum\t " + _variableDatums[idx] + System.Environment.NewLine);
+           sb.Append("<variableDatums"+ idx.ToString() + " type=\"VariableDatum\">" + System.Environment.NewLine);
             VariableDatum aVariableDatum = (VariableDatum)_variableDatums[idx];
             aVariableDatum.reflection(sb);
+           sb.Append("</variableDatums"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</CommentPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

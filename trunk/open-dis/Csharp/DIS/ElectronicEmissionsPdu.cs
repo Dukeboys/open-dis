@@ -53,7 +53,7 @@ public class ElectronicEmissionsPdu : DistributedEmissionsFamilyPdu
     PaddingForEmissionsPdu = (ushort)0;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -232,7 +232,7 @@ public List<ElectronicEmissionSystemData> Systems
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -242,7 +242,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -267,7 +267,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -301,27 +301,31 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ElectronicEmissionsPdu-----"  + System.Environment.NewLine);
+    sb.Append("<ElectronicEmissionsPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_emittingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<emittingEntityID>"  + System.Environment.NewLine);
        _emittingEntityID.reflection(sb);
-       sb.Append("=====_eventID=====" + System.Environment.NewLine);
+    sb.Append("</emittingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<eventID>"  + System.Environment.NewLine);
        _eventID.reflection(sb);
-           sb.Append("byte\t _stateUpdateIndicator\t " + _stateUpdateIndicator.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _systems\t " + _systems.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _paddingForEmissionsPdu\t " + _paddingForEmissionsPdu.ToString() + System.Environment.NewLine);
+    sb.Append("</eventID>"  + System.Environment.NewLine);
+           sb.Append("<stateUpdateIndicator type=\"byte\">" + _stateUpdateIndicator.ToString() + "</stateUpdateIndicator> " + System.Environment.NewLine);
+           sb.Append("<systems type=\"byte\">" + _systems.Count.ToString() + "</systems> " + System.Environment.NewLine);
+           sb.Append("<paddingForEmissionsPdu type=\"ushort\">" + _paddingForEmissionsPdu.ToString() + "</paddingForEmissionsPdu> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _systems.Count; idx++)
        {
-           sb.Append("ElectronicEmissionSystemData\t " + _systems[idx] + System.Environment.NewLine);
+           sb.Append("<systems"+ idx.ToString() + " type=\"ElectronicEmissionSystemData\">" + System.Environment.NewLine);
             ElectronicEmissionSystemData aElectronicEmissionSystemData = (ElectronicEmissionSystemData)_systems[idx];
             aElectronicEmissionSystemData.reflection(sb);
+           sb.Append("</systems"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</ElectronicEmissionsPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

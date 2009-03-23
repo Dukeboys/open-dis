@@ -69,7 +69,7 @@ public class UaPdu : DistributedEmissionsFamilyPdu
     PduType = (byte)29;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -405,7 +405,7 @@ public List<AcousticEmitterSystemData> EmitterSystems
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -415,7 +415,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -458,7 +458,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -510,47 +510,53 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- UaPdu-----"  + System.Environment.NewLine);
+    sb.Append("<UaPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_emittingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<emittingEntityID>"  + System.Environment.NewLine);
        _emittingEntityID.reflection(sb);
-       sb.Append("=====_eventID=====" + System.Environment.NewLine);
+    sb.Append("</emittingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<eventID>"  + System.Environment.NewLine);
        _eventID.reflection(sb);
-           sb.Append("byte\t _stateChangeIndicator\t " + _stateChangeIndicator.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pad\t " + _pad.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _passiveParameterIndex\t " + _passiveParameterIndex.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _propulsionPlantConfiguration\t " + _propulsionPlantConfiguration.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _shaftRPMs\t " + _shaftRPMs.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _apaData\t " + _apaData.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _emitterSystems\t " + _emitterSystems.Count.ToString() + System.Environment.NewLine);
+    sb.Append("</eventID>"  + System.Environment.NewLine);
+           sb.Append("<stateChangeIndicator type=\"byte\">" + _stateChangeIndicator.ToString() + "</stateChangeIndicator> " + System.Environment.NewLine);
+           sb.Append("<pad type=\"byte\">" + _pad.ToString() + "</pad> " + System.Environment.NewLine);
+           sb.Append("<passiveParameterIndex type=\"ushort\">" + _passiveParameterIndex.ToString() + "</passiveParameterIndex> " + System.Environment.NewLine);
+           sb.Append("<propulsionPlantConfiguration type=\"byte\">" + _propulsionPlantConfiguration.ToString() + "</propulsionPlantConfiguration> " + System.Environment.NewLine);
+           sb.Append("<shaftRPMs type=\"byte\">" + _shaftRPMs.Count.ToString() + "</shaftRPMs> " + System.Environment.NewLine);
+           sb.Append("<apaData type=\"byte\">" + _apaData.Count.ToString() + "</apaData> " + System.Environment.NewLine);
+           sb.Append("<emitterSystems type=\"byte\">" + _emitterSystems.Count.ToString() + "</emitterSystems> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _shaftRPMs.Count; idx++)
        {
-           sb.Append("ShaftRPMs\t " + _shaftRPMs[idx] + System.Environment.NewLine);
+           sb.Append("<shaftRPMs"+ idx.ToString() + " type=\"ShaftRPMs\">" + System.Environment.NewLine);
             ShaftRPMs aShaftRPMs = (ShaftRPMs)_shaftRPMs[idx];
             aShaftRPMs.reflection(sb);
+           sb.Append("</shaftRPMs"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _apaData.Count; idx++)
        {
-           sb.Append("ApaData\t " + _apaData[idx] + System.Environment.NewLine);
+           sb.Append("<apaData"+ idx.ToString() + " type=\"ApaData\">" + System.Environment.NewLine);
             ApaData aApaData = (ApaData)_apaData[idx];
             aApaData.reflection(sb);
+           sb.Append("</apaData"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _emitterSystems.Count; idx++)
        {
-           sb.Append("AcousticEmitterSystemData\t " + _emitterSystems[idx] + System.Environment.NewLine);
+           sb.Append("<emitterSystems"+ idx.ToString() + " type=\"AcousticEmitterSystemData\">" + System.Environment.NewLine);
             AcousticEmitterSystemData aAcousticEmitterSystemData = (AcousticEmitterSystemData)_emitterSystems[idx];
             aAcousticEmitterSystemData.reflection(sb);
+           sb.Append("</emitterSystems"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</UaPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

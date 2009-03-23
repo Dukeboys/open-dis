@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- VectoringNozzleSystemData-----"  + System.Environment.NewLine);
+    sb.Append("<VectoringNozzleSystemData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("float\t _horizontalDeflectionAngle\t " + _horizontalDeflectionAngle.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _verticalDeflectionAngle\t " + _verticalDeflectionAngle.ToString() + System.Environment.NewLine);
+           sb.Append("<horizontalDeflectionAngle type=\"float\">" + _horizontalDeflectionAngle.ToString() + "</horizontalDeflectionAngle> " + System.Environment.NewLine);
+           sb.Append("<verticalDeflectionAngle type=\"float\">" + _verticalDeflectionAngle.ToString() + "</verticalDeflectionAngle> " + System.Environment.NewLine);
+    sb.Append("</VectoringNozzleSystemData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

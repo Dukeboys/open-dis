@@ -54,7 +54,7 @@ public class IsGroupOfPdu : EntityManagementFamilyPdu
     PduType = (byte)34;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -244,7 +244,7 @@ public List<VariableDatum> GroupedEntityDescriptions
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -254,7 +254,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -280,7 +280,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -315,27 +315,30 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- IsGroupOfPdu-----"  + System.Environment.NewLine);
+    sb.Append("<IsGroupOfPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_groupEntityID=====" + System.Environment.NewLine);
+    sb.Append("<groupEntityID>"  + System.Environment.NewLine);
        _groupEntityID.reflection(sb);
-           sb.Append("byte\t _groupedEntityCategory\t " + _groupedEntityCategory.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _groupedEntityDescriptions\t " + _groupedEntityDescriptions.Count.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _latitude\t " + _latitude.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _longitude\t " + _longitude.ToString() + System.Environment.NewLine);
+    sb.Append("</groupEntityID>"  + System.Environment.NewLine);
+           sb.Append("<groupedEntityCategory type=\"byte\">" + _groupedEntityCategory.ToString() + "</groupedEntityCategory> " + System.Environment.NewLine);
+           sb.Append("<groupedEntityDescriptions type=\"byte\">" + _groupedEntityDescriptions.Count.ToString() + "</groupedEntityDescriptions> " + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"uint\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
+           sb.Append("<latitude type=\"double\">" + _latitude.ToString() + "</latitude> " + System.Environment.NewLine);
+           sb.Append("<longitude type=\"double\">" + _longitude.ToString() + "</longitude> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _groupedEntityDescriptions.Count; idx++)
        {
-           sb.Append("VariableDatum\t " + _groupedEntityDescriptions[idx] + System.Environment.NewLine);
+           sb.Append("<groupedEntityDescriptions"+ idx.ToString() + " type=\"VariableDatum\">" + System.Environment.NewLine);
             VariableDatum aVariableDatum = (VariableDatum)_groupedEntityDescriptions[idx];
             aVariableDatum.reflection(sb);
+           sb.Append("</groupedEntityDescriptions"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</IsGroupOfPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

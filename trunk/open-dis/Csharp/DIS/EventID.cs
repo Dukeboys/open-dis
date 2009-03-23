@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- EventID-----"  + System.Environment.NewLine);
+    sb.Append("<EventID>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _site\t " + _site.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _application\t " + _application.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _eventNumber\t " + _eventNumber.ToString() + System.Environment.NewLine);
+           sb.Append("<site type=\"ushort\">" + _site.ToString() + "</site> " + System.Environment.NewLine);
+           sb.Append("<application type=\"ushort\">" + _application.ToString() + "</application> " + System.Environment.NewLine);
+           sb.Append("<eventNumber type=\"ushort\">" + _eventNumber.ToString() + "</eventNumber> " + System.Environment.NewLine);
+    sb.Append("</EventID>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

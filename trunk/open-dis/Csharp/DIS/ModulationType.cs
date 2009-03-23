@@ -182,13 +182,14 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ModulationType-----"  + System.Environment.NewLine);
+    sb.Append("<ModulationType>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _spreadSpectrum\t " + _spreadSpectrum.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _major\t " + _major.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _detail\t " + _detail.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _system\t " + _system.ToString() + System.Environment.NewLine);
+           sb.Append("<spreadSpectrum type=\"ushort\">" + _spreadSpectrum.ToString() + "</spreadSpectrum> " + System.Environment.NewLine);
+           sb.Append("<major type=\"ushort\">" + _major.ToString() + "</major> " + System.Environment.NewLine);
+           sb.Append("<detail type=\"ushort\">" + _detail.ToString() + "</detail> " + System.Environment.NewLine);
+           sb.Append("<system type=\"ushort\">" + _system.ToString() + "</system> " + System.Environment.NewLine);
+    sb.Append("</ModulationType>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

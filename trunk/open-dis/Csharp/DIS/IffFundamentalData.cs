@@ -338,19 +338,20 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- IffFundamentalData-----"  + System.Environment.NewLine);
+    sb.Append("<IffFundamentalData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _systemStatus\t " + _systemStatus.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _alternateParameter4\t " + _alternateParameter4.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _informationLayers\t " + _informationLayers.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _modifier\t " + _modifier.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _parameter1\t " + _parameter1.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _parameter2\t " + _parameter2.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _parameter3\t " + _parameter3.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _parameter4\t " + _parameter4.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _parameter5\t " + _parameter5.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _parameter6\t " + _parameter6.ToString() + System.Environment.NewLine);
+           sb.Append("<systemStatus type=\"byte\">" + _systemStatus.ToString() + "</systemStatus> " + System.Environment.NewLine);
+           sb.Append("<alternateParameter4 type=\"byte\">" + _alternateParameter4.ToString() + "</alternateParameter4> " + System.Environment.NewLine);
+           sb.Append("<informationLayers type=\"byte\">" + _informationLayers.ToString() + "</informationLayers> " + System.Environment.NewLine);
+           sb.Append("<modifier type=\"byte\">" + _modifier.ToString() + "</modifier> " + System.Environment.NewLine);
+           sb.Append("<parameter1 type=\"ushort\">" + _parameter1.ToString() + "</parameter1> " + System.Environment.NewLine);
+           sb.Append("<parameter2 type=\"ushort\">" + _parameter2.ToString() + "</parameter2> " + System.Environment.NewLine);
+           sb.Append("<parameter3 type=\"ushort\">" + _parameter3.ToString() + "</parameter3> " + System.Environment.NewLine);
+           sb.Append("<parameter4 type=\"ushort\">" + _parameter4.ToString() + "</parameter4> " + System.Environment.NewLine);
+           sb.Append("<parameter5 type=\"ushort\">" + _parameter5.ToString() + "</parameter5> " + System.Environment.NewLine);
+           sb.Append("<parameter6 type=\"ushort\">" + _parameter6.ToString() + "</parameter6> " + System.Environment.NewLine);
+    sb.Append("</IffFundamentalData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

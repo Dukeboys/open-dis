@@ -219,15 +219,17 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- BurstDescriptor-----"  + System.Environment.NewLine);
+    sb.Append("<BurstDescriptor>"  + System.Environment.NewLine);
     try 
     {
-       sb.Append("=====_munition=====" + System.Environment.NewLine);
+    sb.Append("<munition>"  + System.Environment.NewLine);
        _munition.reflection(sb);
-           sb.Append("ushort\t _warhead\t " + _warhead.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _fuse\t " + _fuse.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _quantity\t " + _quantity.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _rate\t " + _rate.ToString() + System.Environment.NewLine);
+    sb.Append("</munition>"  + System.Environment.NewLine);
+           sb.Append("<warhead type=\"ushort\">" + _warhead.ToString() + "</warhead> " + System.Environment.NewLine);
+           sb.Append("<fuse type=\"ushort\">" + _fuse.ToString() + "</fuse> " + System.Environment.NewLine);
+           sb.Append("<quantity type=\"ushort\">" + _quantity.ToString() + "</quantity> " + System.Environment.NewLine);
+           sb.Append("<rate type=\"ushort\">" + _rate.ToString() + "</rate> " + System.Environment.NewLine);
+    sb.Append("</BurstDescriptor>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -234,15 +234,16 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- RecordSet-----"  + System.Environment.NewLine);
+    sb.Append("<RecordSet>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("uint\t _recordID\t " + _recordID.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _recordSetSerialNumber\t " + _recordSetSerialNumber.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _recordLength\t " + _recordLength.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _recordCount\t " + _recordCount.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _recordValues\t " + _recordValues.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pad4\t " + _pad4.ToString() + System.Environment.NewLine);
+           sb.Append("<recordID type=\"uint\">" + _recordID.ToString() + "</recordID> " + System.Environment.NewLine);
+           sb.Append("<recordSetSerialNumber type=\"uint\">" + _recordSetSerialNumber.ToString() + "</recordSetSerialNumber> " + System.Environment.NewLine);
+           sb.Append("<recordLength type=\"ushort\">" + _recordLength.ToString() + "</recordLength> " + System.Environment.NewLine);
+           sb.Append("<recordCount type=\"ushort\">" + _recordCount.ToString() + "</recordCount> " + System.Environment.NewLine);
+           sb.Append("<recordValues type=\"ushort\">" + _recordValues.ToString() + "</recordValues> " + System.Environment.NewLine);
+           sb.Append("<pad4 type=\"byte\">" + _pad4.ToString() + "</pad4> " + System.Environment.NewLine);
+    sb.Append("</RecordSet>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

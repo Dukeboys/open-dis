@@ -100,10 +100,11 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- SphericalHarmonicAntennaPattern-----"  + System.Environment.NewLine);
+    sb.Append("<SphericalHarmonicAntennaPattern>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _order\t " + _order.ToString() + System.Environment.NewLine);
+           sb.Append("<order type=\"byte\">" + _order.ToString() + "</order> " + System.Environment.NewLine);
+    sb.Append("</SphericalHarmonicAntennaPattern>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

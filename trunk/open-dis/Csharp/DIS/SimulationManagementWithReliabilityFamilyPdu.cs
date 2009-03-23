@@ -39,7 +39,7 @@ public class SimulationManagementWithReliabilityFamilyPdu : Pdu
     ProtocolFamily = (byte)10;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -124,7 +124,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -139,7 +139,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -163,16 +163,19 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- SimulationManagementWithReliabilityFamilyPdu-----"  + System.Environment.NewLine);
+    sb.Append("<SimulationManagementWithReliabilityFamilyPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_originatingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<originatingEntityID>"  + System.Environment.NewLine);
        _originatingEntityID.reflection(sb);
-       sb.Append("=====_receivingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</originatingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<receivingEntityID>"  + System.Environment.NewLine);
        _receivingEntityID.reflection(sb);
+    sb.Append("</receivingEntityID>"  + System.Environment.NewLine);
+    sb.Append("</SimulationManagementWithReliabilityFamilyPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

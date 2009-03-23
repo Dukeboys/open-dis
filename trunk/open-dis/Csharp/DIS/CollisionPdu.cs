@@ -60,7 +60,7 @@ public class CollisionPdu : EntityInformationFamilyPdu
     ProtocolFamily = (byte)1;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -291,7 +291,7 @@ public Vector3Float Location
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -301,7 +301,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -322,7 +322,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -352,25 +352,31 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- CollisionPdu-----"  + System.Environment.NewLine);
+    sb.Append("<CollisionPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_issuingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<issuingEntityID>"  + System.Environment.NewLine);
        _issuingEntityID.reflection(sb);
-       sb.Append("=====_collidingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</issuingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<collidingEntityID>"  + System.Environment.NewLine);
        _collidingEntityID.reflection(sb);
-       sb.Append("=====_eventID=====" + System.Environment.NewLine);
+    sb.Append("</collidingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<eventID>"  + System.Environment.NewLine);
        _eventID.reflection(sb);
-           sb.Append("byte\t _collisionType\t " + _collisionType.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pad\t " + _pad.ToString() + System.Environment.NewLine);
-       sb.Append("=====_velocity=====" + System.Environment.NewLine);
+    sb.Append("</eventID>"  + System.Environment.NewLine);
+           sb.Append("<collisionType type=\"byte\">" + _collisionType.ToString() + "</collisionType> " + System.Environment.NewLine);
+           sb.Append("<pad type=\"byte\">" + _pad.ToString() + "</pad> " + System.Environment.NewLine);
+    sb.Append("<velocity>"  + System.Environment.NewLine);
        _velocity.reflection(sb);
-           sb.Append("float\t _mass\t " + _mass.ToString() + System.Environment.NewLine);
-       sb.Append("=====_location=====" + System.Environment.NewLine);
+    sb.Append("</velocity>"  + System.Environment.NewLine);
+           sb.Append("<mass type=\"float\">" + _mass.ToString() + "</mass> " + System.Environment.NewLine);
+    sb.Append("<location>"  + System.Environment.NewLine);
        _location.reflection(sb);
+    sb.Append("</location>"  + System.Environment.NewLine);
+    sb.Append("</CollisionPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -338,19 +338,20 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- FundamentalParameterData-----"  + System.Environment.NewLine);
+    sb.Append("<FundamentalParameterData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("float\t _frequency\t " + _frequency.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _frequencyRange\t " + _frequencyRange.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _effectiveRadiatedPower\t " + _effectiveRadiatedPower.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _pulseRepetitionFrequency\t " + _pulseRepetitionFrequency.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _pulseWidth\t " + _pulseWidth.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _beamAzimuthCenter\t " + _beamAzimuthCenter.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _beamAzimuthSweep\t " + _beamAzimuthSweep.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _beamElevationCenter\t " + _beamElevationCenter.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _beamElevationSweep\t " + _beamElevationSweep.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _beamSweepSync\t " + _beamSweepSync.ToString() + System.Environment.NewLine);
+           sb.Append("<frequency type=\"float\">" + _frequency.ToString() + "</frequency> " + System.Environment.NewLine);
+           sb.Append("<frequencyRange type=\"float\">" + _frequencyRange.ToString() + "</frequencyRange> " + System.Environment.NewLine);
+           sb.Append("<effectiveRadiatedPower type=\"float\">" + _effectiveRadiatedPower.ToString() + "</effectiveRadiatedPower> " + System.Environment.NewLine);
+           sb.Append("<pulseRepetitionFrequency type=\"float\">" + _pulseRepetitionFrequency.ToString() + "</pulseRepetitionFrequency> " + System.Environment.NewLine);
+           sb.Append("<pulseWidth type=\"float\">" + _pulseWidth.ToString() + "</pulseWidth> " + System.Environment.NewLine);
+           sb.Append("<beamAzimuthCenter type=\"float\">" + _beamAzimuthCenter.ToString() + "</beamAzimuthCenter> " + System.Environment.NewLine);
+           sb.Append("<beamAzimuthSweep type=\"float\">" + _beamAzimuthSweep.ToString() + "</beamAzimuthSweep> " + System.Environment.NewLine);
+           sb.Append("<beamElevationCenter type=\"float\">" + _beamElevationCenter.ToString() + "</beamElevationCenter> " + System.Environment.NewLine);
+           sb.Append("<beamElevationSweep type=\"float\">" + _beamElevationSweep.ToString() + "</beamElevationSweep> " + System.Environment.NewLine);
+           sb.Append("<beamSweepSync type=\"float\">" + _beamSweepSync.ToString() + "</beamSweepSync> " + System.Environment.NewLine);
+    sb.Append("</FundamentalParameterData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

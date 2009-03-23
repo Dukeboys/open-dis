@@ -182,13 +182,14 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- SystemID-----"  + System.Environment.NewLine);
+    sb.Append("<SystemID>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _systemType\t " + _systemType.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _systemName\t " + _systemName.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _systemMode\t " + _systemMode.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _changeOptions\t " + _changeOptions.ToString() + System.Environment.NewLine);
+           sb.Append("<systemType type=\"ushort\">" + _systemType.ToString() + "</systemType> " + System.Environment.NewLine);
+           sb.Append("<systemName type=\"ushort\">" + _systemName.ToString() + "</systemName> " + System.Environment.NewLine);
+           sb.Append("<systemMode type=\"byte\">" + _systemMode.ToString() + "</systemMode> " + System.Environment.NewLine);
+           sb.Append("<changeOptions type=\"byte\">" + _changeOptions.ToString() + "</changeOptions> " + System.Environment.NewLine);
+    sb.Append("</SystemID>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

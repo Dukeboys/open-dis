@@ -48,7 +48,7 @@ public class RepairResponsePdu : LogisticsFamilyPdu
     PduType = (byte)10;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -186,7 +186,7 @@ public byte Padding2
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -196,7 +196,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -214,7 +214,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -241,19 +241,22 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- RepairResponsePdu-----"  + System.Environment.NewLine);
+    sb.Append("<RepairResponsePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_receivingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<receivingEntityID>"  + System.Environment.NewLine);
        _receivingEntityID.reflection(sb);
-       sb.Append("=====_repairingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</receivingEntityID>"  + System.Environment.NewLine);
+    sb.Append("<repairingEntityID>"  + System.Environment.NewLine);
        _repairingEntityID.reflection(sb);
-           sb.Append("byte\t _repairResult\t " + _repairResult.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _padding2\t " + _padding2.ToString() + System.Environment.NewLine);
+    sb.Append("</repairingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<repairResult type=\"byte\">" + _repairResult.ToString() + "</repairResult> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"short\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+           sb.Append("<padding2 type=\"byte\">" + _padding2.ToString() + "</padding2> " + System.Environment.NewLine);
+    sb.Append("</RepairResponsePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

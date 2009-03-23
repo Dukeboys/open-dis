@@ -55,7 +55,7 @@ public class EnvironmentalProcessPdu : SyntheticEnvironmentFamilyPdu
     PduType = (byte)41;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -255,7 +255,7 @@ public List<Environment> EnvironmentRecords
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -265,7 +265,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -291,7 +291,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -326,28 +326,32 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- EnvironmentalProcessPdu-----"  + System.Environment.NewLine);
+    sb.Append("<EnvironmentalProcessPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_environementalProcessID=====" + System.Environment.NewLine);
+    sb.Append("<environementalProcessID>"  + System.Environment.NewLine);
        _environementalProcessID.reflection(sb);
-       sb.Append("=====_environmentType=====" + System.Environment.NewLine);
+    sb.Append("</environementalProcessID>"  + System.Environment.NewLine);
+    sb.Append("<environmentType>"  + System.Environment.NewLine);
        _environmentType.reflection(sb);
-           sb.Append("byte\t _modelType\t " + _modelType.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _environmentStatus\t " + _environmentStatus.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _environmentRecords\t " + _environmentRecords.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _sequenceNumber\t " + _sequenceNumber.ToString() + System.Environment.NewLine);
+    sb.Append("</environmentType>"  + System.Environment.NewLine);
+           sb.Append("<modelType type=\"byte\">" + _modelType.ToString() + "</modelType> " + System.Environment.NewLine);
+           sb.Append("<environmentStatus type=\"byte\">" + _environmentStatus.ToString() + "</environmentStatus> " + System.Environment.NewLine);
+           sb.Append("<environmentRecords type=\"byte\">" + _environmentRecords.Count.ToString() + "</environmentRecords> " + System.Environment.NewLine);
+           sb.Append("<sequenceNumber type=\"ushort\">" + _sequenceNumber.ToString() + "</sequenceNumber> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _environmentRecords.Count; idx++)
        {
-           sb.Append("Environment\t " + _environmentRecords[idx] + System.Environment.NewLine);
+           sb.Append("<environmentRecords"+ idx.ToString() + " type=\"Environment\">" + System.Environment.NewLine);
             Environment aEnvironment = (Environment)_environmentRecords[idx];
             aEnvironment.reflection(sb);
+           sb.Append("</environmentRecords"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</EnvironmentalProcessPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

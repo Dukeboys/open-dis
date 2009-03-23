@@ -48,7 +48,7 @@ public class StopFreezePdu : SimulationManagementFamilyPdu
     PduType = (byte)14;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -176,7 +176,7 @@ public uint RequestID
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -186,7 +186,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -204,7 +204,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -231,18 +231,20 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- StopFreezePdu-----"  + System.Environment.NewLine);
+    sb.Append("<StopFreezePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_realWorldTime=====" + System.Environment.NewLine);
+    sb.Append("<realWorldTime>"  + System.Environment.NewLine);
        _realWorldTime.reflection(sb);
-           sb.Append("byte\t _reason\t " + _reason.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _frozenBehavior\t " + _frozenBehavior.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _requestID\t " + _requestID.ToString() + System.Environment.NewLine);
+    sb.Append("</realWorldTime>"  + System.Environment.NewLine);
+           sb.Append("<reason type=\"byte\">" + _reason.ToString() + "</reason> " + System.Environment.NewLine);
+           sb.Append("<frozenBehavior type=\"byte\">" + _frozenBehavior.ToString() + "</frozenBehavior> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"short\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+           sb.Append("<requestID type=\"uint\">" + _requestID.ToString() + "</requestID> " + System.Environment.NewLine);
+    sb.Append("</StopFreezePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -43,7 +43,7 @@ public class GridAxisRecordRepresentation1 : GridAxisRecord
  {
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -161,7 +161,7 @@ public List<TwoByteChunk> DataValues
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -184,7 +184,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -216,23 +216,25 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- GridAxisRecordRepresentation1-----"  + System.Environment.NewLine);
+    sb.Append("<GridAxisRecordRepresentation1>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("float\t _fieldScale\t " + _fieldScale.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _fieldOffset\t " + _fieldOffset.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _dataValues\t " + _dataValues.Count.ToString() + System.Environment.NewLine);
+           sb.Append("<fieldScale type=\"float\">" + _fieldScale.ToString() + "</fieldScale> " + System.Environment.NewLine);
+           sb.Append("<fieldOffset type=\"float\">" + _fieldOffset.ToString() + "</fieldOffset> " + System.Environment.NewLine);
+           sb.Append("<dataValues type=\"ushort\">" + _dataValues.Count.ToString() + "</dataValues> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _dataValues.Count; idx++)
        {
-           sb.Append("TwoByteChunk\t " + _dataValues[idx] + System.Environment.NewLine);
+           sb.Append("<dataValues"+ idx.ToString() + " type=\"TwoByteChunk\">" + System.Environment.NewLine);
             TwoByteChunk aTwoByteChunk = (TwoByteChunk)_dataValues[idx];
             aTwoByteChunk.reflection(sb);
+           sb.Append("</dataValues"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</GridAxisRecordRepresentation1>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

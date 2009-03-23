@@ -288,24 +288,28 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ElectronicEmissionSystemData-----"  + System.Environment.NewLine);
+    sb.Append("<ElectronicEmissionSystemData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _systemDataLength\t " + _systemDataLength.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _beamDataRecords\t " + _beamDataRecords.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _emissionsPadding2\t " + _emissionsPadding2.ToString() + System.Environment.NewLine);
-       sb.Append("=====_emitterSystem=====" + System.Environment.NewLine);
+           sb.Append("<systemDataLength type=\"byte\">" + _systemDataLength.ToString() + "</systemDataLength> " + System.Environment.NewLine);
+           sb.Append("<beamDataRecords type=\"byte\">" + _beamDataRecords.Count.ToString() + "</beamDataRecords> " + System.Environment.NewLine);
+           sb.Append("<emissionsPadding2 type=\"ushort\">" + _emissionsPadding2.ToString() + "</emissionsPadding2> " + System.Environment.NewLine);
+    sb.Append("<emitterSystem>"  + System.Environment.NewLine);
        _emitterSystem.reflection(sb);
-       sb.Append("=====_location=====" + System.Environment.NewLine);
+    sb.Append("</emitterSystem>"  + System.Environment.NewLine);
+    sb.Append("<location>"  + System.Environment.NewLine);
        _location.reflection(sb);
+    sb.Append("</location>"  + System.Environment.NewLine);
 
        for(int idx = 0; idx < _beamDataRecords.Count; idx++)
        {
-           sb.Append("ElectronicEmissionBeamData\t " + _beamDataRecords[idx] + System.Environment.NewLine);
+           sb.Append("<beamDataRecords"+ idx.ToString() + " type=\"ElectronicEmissionBeamData\">" + System.Environment.NewLine);
             ElectronicEmissionBeamData aElectronicEmissionBeamData = (ElectronicEmissionBeamData)_beamDataRecords[idx];
             aElectronicEmissionBeamData.reflection(sb);
+           sb.Append("</beamDataRecords"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</ElectronicEmissionSystemData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

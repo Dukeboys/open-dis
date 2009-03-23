@@ -39,7 +39,7 @@ public class RadioCommunicationsFamilyPdu : Pdu
     ProtocolFamily = (byte)4;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -114,7 +114,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -129,7 +129,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -153,15 +153,17 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- RadioCommunicationsFamilyPdu-----"  + System.Environment.NewLine);
+    sb.Append("<RadioCommunicationsFamilyPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_entityId=====" + System.Environment.NewLine);
+    sb.Append("<entityId>"  + System.Environment.NewLine);
        _entityId.reflection(sb);
-           sb.Append("ushort\t _radioId\t " + _radioId.ToString() + System.Environment.NewLine);
+    sb.Append("</entityId>"  + System.Environment.NewLine);
+           sb.Append("<radioId type=\"ushort\">" + _radioId.ToString() + "</radioId> " + System.Environment.NewLine);
+    sb.Append("</RadioCommunicationsFamilyPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

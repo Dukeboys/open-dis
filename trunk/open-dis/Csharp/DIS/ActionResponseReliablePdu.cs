@@ -50,7 +50,7 @@ public class ActionResponseReliablePdu : SimulationManagementWithReliabilityFami
     PduType = (byte)57;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -229,7 +229,7 @@ public List<VariableDatum> VariableDatumRecords
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -239,7 +239,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -270,7 +270,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -310,32 +310,35 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ActionResponseReliablePdu-----"  + System.Environment.NewLine);
+    sb.Append("<ActionResponseReliablePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("uint\t _requestID\t " + _requestID.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _responseStatus\t " + _responseStatus.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _fixedDatumRecords\t " + _fixedDatumRecords.Count.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _variableDatumRecords\t " + _variableDatumRecords.Count.ToString() + System.Environment.NewLine);
+           sb.Append("<requestID type=\"uint\">" + _requestID.ToString() + "</requestID> " + System.Environment.NewLine);
+           sb.Append("<responseStatus type=\"uint\">" + _responseStatus.ToString() + "</responseStatus> " + System.Environment.NewLine);
+           sb.Append("<fixedDatumRecords type=\"uint\">" + _fixedDatumRecords.Count.ToString() + "</fixedDatumRecords> " + System.Environment.NewLine);
+           sb.Append("<variableDatumRecords type=\"uint\">" + _variableDatumRecords.Count.ToString() + "</variableDatumRecords> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _fixedDatumRecords.Count; idx++)
        {
-           sb.Append("FixedDatum\t " + _fixedDatumRecords[idx] + System.Environment.NewLine);
+           sb.Append("<fixedDatumRecords"+ idx.ToString() + " type=\"FixedDatum\">" + System.Environment.NewLine);
             FixedDatum aFixedDatum = (FixedDatum)_fixedDatumRecords[idx];
             aFixedDatum.reflection(sb);
+           sb.Append("</fixedDatumRecords"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _variableDatumRecords.Count; idx++)
        {
-           sb.Append("VariableDatum\t " + _variableDatumRecords[idx] + System.Environment.NewLine);
+           sb.Append("<variableDatumRecords"+ idx.ToString() + " type=\"VariableDatum\">" + System.Environment.NewLine);
             VariableDatum aVariableDatum = (VariableDatum)_variableDatumRecords[idx];
             aVariableDatum.reflection(sb);
+           sb.Append("</variableDatumRecords"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</ActionResponseReliablePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

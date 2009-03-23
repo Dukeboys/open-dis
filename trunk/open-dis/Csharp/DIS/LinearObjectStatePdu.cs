@@ -62,7 +62,7 @@ public class LinearObjectStatePdu : SyntheticEnvironmentFamilyPdu
     PduType = (byte)44;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -334,7 +334,7 @@ public List<LinearSegmentParameter> LinearSegmentParameters
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -344,7 +344,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -372,7 +372,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -409,33 +409,40 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- LinearObjectStatePdu-----"  + System.Environment.NewLine);
+    sb.Append("<LinearObjectStatePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_objectID=====" + System.Environment.NewLine);
+    sb.Append("<objectID>"  + System.Environment.NewLine);
        _objectID.reflection(sb);
-       sb.Append("=====_referencedObjectID=====" + System.Environment.NewLine);
+    sb.Append("</objectID>"  + System.Environment.NewLine);
+    sb.Append("<referencedObjectID>"  + System.Environment.NewLine);
        _referencedObjectID.reflection(sb);
-           sb.Append("ushort\t _updateNumber\t " + _updateNumber.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _forceID\t " + _forceID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _linearSegmentParameters\t " + _linearSegmentParameters.Count.ToString() + System.Environment.NewLine);
-       sb.Append("=====_requesterID=====" + System.Environment.NewLine);
+    sb.Append("</referencedObjectID>"  + System.Environment.NewLine);
+           sb.Append("<updateNumber type=\"ushort\">" + _updateNumber.ToString() + "</updateNumber> " + System.Environment.NewLine);
+           sb.Append("<forceID type=\"byte\">" + _forceID.ToString() + "</forceID> " + System.Environment.NewLine);
+           sb.Append("<linearSegmentParameters type=\"byte\">" + _linearSegmentParameters.Count.ToString() + "</linearSegmentParameters> " + System.Environment.NewLine);
+    sb.Append("<requesterID>"  + System.Environment.NewLine);
        _requesterID.reflection(sb);
-       sb.Append("=====_receivingID=====" + System.Environment.NewLine);
+    sb.Append("</requesterID>"  + System.Environment.NewLine);
+    sb.Append("<receivingID>"  + System.Environment.NewLine);
        _receivingID.reflection(sb);
-       sb.Append("=====_objectType=====" + System.Environment.NewLine);
+    sb.Append("</receivingID>"  + System.Environment.NewLine);
+    sb.Append("<objectType>"  + System.Environment.NewLine);
        _objectType.reflection(sb);
+    sb.Append("</objectType>"  + System.Environment.NewLine);
 
        for(int idx = 0; idx < _linearSegmentParameters.Count; idx++)
        {
-           sb.Append("LinearSegmentParameter\t " + _linearSegmentParameters[idx] + System.Environment.NewLine);
+           sb.Append("<linearSegmentParameters"+ idx.ToString() + " type=\"LinearSegmentParameter\">" + System.Environment.NewLine);
             LinearSegmentParameter aLinearSegmentParameter = (LinearSegmentParameter)_linearSegmentParameters[idx];
             aLinearSegmentParameter.reflection(sb);
+           sb.Append("</linearSegmentParameters"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</LinearObjectStatePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

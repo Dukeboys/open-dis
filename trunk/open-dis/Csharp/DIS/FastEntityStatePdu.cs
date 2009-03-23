@@ -147,7 +147,7 @@ public class FastEntityStatePdu : EntityInformationFamilyPdu
     PduType = (byte)1;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -1023,7 +1023,7 @@ public List<ArticulationParameter> ArticulationParameters
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -1033,7 +1033,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -1102,7 +1102,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -1176,69 +1176,71 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- FastEntityStatePdu-----"  + System.Environment.NewLine);
+    sb.Append("<FastEntityStatePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("ushort\t _site\t " + _site.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _application\t " + _application.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _entity\t " + _entity.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _forceId\t " + _forceId.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _articulationParameters\t " + _articulationParameters.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _entityKind\t " + _entityKind.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _domain\t " + _domain.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _country\t " + _country.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _category\t " + _category.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _subcategory\t " + _subcategory.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _specific\t " + _specific.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _extra\t " + _extra.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _altEntityKind\t " + _altEntityKind.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _altDomain\t " + _altDomain.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _altCountry\t " + _altCountry.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _altCategory\t " + _altCategory.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _altSubcategory\t " + _altSubcategory.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _altSpecific\t " + _altSpecific.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _altExtra\t " + _altExtra.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _xVelocity\t " + _xVelocity.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _yVelocity\t " + _yVelocity.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _zVelocity\t " + _zVelocity.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _xLocation\t " + _xLocation.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _yLocation\t " + _yLocation.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _zLocation\t " + _zLocation.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _psi\t " + _psi.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _theta\t " + _theta.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _phi\t " + _phi.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _entityAppearance\t " + _entityAppearance.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _deadReckoningAlgorithm\t " + _deadReckoningAlgorithm.ToString() + System.Environment.NewLine);
+           sb.Append("<site type=\"ushort\">" + _site.ToString() + "</site> " + System.Environment.NewLine);
+           sb.Append("<application type=\"ushort\">" + _application.ToString() + "</application> " + System.Environment.NewLine);
+           sb.Append("<entity type=\"ushort\">" + _entity.ToString() + "</entity> " + System.Environment.NewLine);
+           sb.Append("<forceId type=\"byte\">" + _forceId.ToString() + "</forceId> " + System.Environment.NewLine);
+           sb.Append("<articulationParameters type=\"byte\">" + _articulationParameters.Count.ToString() + "</articulationParameters> " + System.Environment.NewLine);
+           sb.Append("<entityKind type=\"byte\">" + _entityKind.ToString() + "</entityKind> " + System.Environment.NewLine);
+           sb.Append("<domain type=\"byte\">" + _domain.ToString() + "</domain> " + System.Environment.NewLine);
+           sb.Append("<country type=\"ushort\">" + _country.ToString() + "</country> " + System.Environment.NewLine);
+           sb.Append("<category type=\"byte\">" + _category.ToString() + "</category> " + System.Environment.NewLine);
+           sb.Append("<subcategory type=\"byte\">" + _subcategory.ToString() + "</subcategory> " + System.Environment.NewLine);
+           sb.Append("<specific type=\"byte\">" + _specific.ToString() + "</specific> " + System.Environment.NewLine);
+           sb.Append("<extra type=\"byte\">" + _extra.ToString() + "</extra> " + System.Environment.NewLine);
+           sb.Append("<altEntityKind type=\"byte\">" + _altEntityKind.ToString() + "</altEntityKind> " + System.Environment.NewLine);
+           sb.Append("<altDomain type=\"byte\">" + _altDomain.ToString() + "</altDomain> " + System.Environment.NewLine);
+           sb.Append("<altCountry type=\"ushort\">" + _altCountry.ToString() + "</altCountry> " + System.Environment.NewLine);
+           sb.Append("<altCategory type=\"byte\">" + _altCategory.ToString() + "</altCategory> " + System.Environment.NewLine);
+           sb.Append("<altSubcategory type=\"byte\">" + _altSubcategory.ToString() + "</altSubcategory> " + System.Environment.NewLine);
+           sb.Append("<altSpecific type=\"byte\">" + _altSpecific.ToString() + "</altSpecific> " + System.Environment.NewLine);
+           sb.Append("<altExtra type=\"byte\">" + _altExtra.ToString() + "</altExtra> " + System.Environment.NewLine);
+           sb.Append("<xVelocity type=\"float\">" + _xVelocity.ToString() + "</xVelocity> " + System.Environment.NewLine);
+           sb.Append("<yVelocity type=\"float\">" + _yVelocity.ToString() + "</yVelocity> " + System.Environment.NewLine);
+           sb.Append("<zVelocity type=\"float\">" + _zVelocity.ToString() + "</zVelocity> " + System.Environment.NewLine);
+           sb.Append("<xLocation type=\"double\">" + _xLocation.ToString() + "</xLocation> " + System.Environment.NewLine);
+           sb.Append("<yLocation type=\"double\">" + _yLocation.ToString() + "</yLocation> " + System.Environment.NewLine);
+           sb.Append("<zLocation type=\"double\">" + _zLocation.ToString() + "</zLocation> " + System.Environment.NewLine);
+           sb.Append("<psi type=\"float\">" + _psi.ToString() + "</psi> " + System.Environment.NewLine);
+           sb.Append("<theta type=\"float\">" + _theta.ToString() + "</theta> " + System.Environment.NewLine);
+           sb.Append("<phi type=\"float\">" + _phi.ToString() + "</phi> " + System.Environment.NewLine);
+           sb.Append("<entityAppearance type=\"uint\">" + _entityAppearance.ToString() + "</entityAppearance> " + System.Environment.NewLine);
+           sb.Append("<deadReckoningAlgorithm type=\"byte\">" + _deadReckoningAlgorithm.ToString() + "</deadReckoningAlgorithm> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _otherParameters.Length; idx++)
        {
-           sb.Append("byte\t " + _otherParameters[idx] + System.Environment.NewLine);
+           sb.Append("<otherParameters"+ idx.ToString() + " type=\"byte\">" + _otherParameters[idx] + "</otherParameters"+ idx.ToString() + "> " + System.Environment.NewLine);
        } // end of array reflection
 
-           sb.Append("float\t _xAcceleration\t " + _xAcceleration.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _yAcceleration\t " + _yAcceleration.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _zAcceleration\t " + _zAcceleration.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _xAngularVelocity\t " + _xAngularVelocity.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _yAngularVelocity\t " + _yAngularVelocity.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _zAngularVelocity\t " + _zAngularVelocity.ToString() + System.Environment.NewLine);
+           sb.Append("<xAcceleration type=\"float\">" + _xAcceleration.ToString() + "</xAcceleration> " + System.Environment.NewLine);
+           sb.Append("<yAcceleration type=\"float\">" + _yAcceleration.ToString() + "</yAcceleration> " + System.Environment.NewLine);
+           sb.Append("<zAcceleration type=\"float\">" + _zAcceleration.ToString() + "</zAcceleration> " + System.Environment.NewLine);
+           sb.Append("<xAngularVelocity type=\"float\">" + _xAngularVelocity.ToString() + "</xAngularVelocity> " + System.Environment.NewLine);
+           sb.Append("<yAngularVelocity type=\"float\">" + _yAngularVelocity.ToString() + "</yAngularVelocity> " + System.Environment.NewLine);
+           sb.Append("<zAngularVelocity type=\"float\">" + _zAngularVelocity.ToString() + "</zAngularVelocity> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _marking.Length; idx++)
        {
-           sb.Append("byte\t " + _marking[idx] + System.Environment.NewLine);
+           sb.Append("<marking"+ idx.ToString() + " type=\"byte\">" + _marking[idx] + "</marking"+ idx.ToString() + "> " + System.Environment.NewLine);
        } // end of array reflection
 
-           sb.Append("uint\t _capabilities\t " + _capabilities.ToString() + System.Environment.NewLine);
+           sb.Append("<capabilities type=\"uint\">" + _capabilities.ToString() + "</capabilities> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _articulationParameters.Count; idx++)
        {
-           sb.Append("ArticulationParameter\t " + _articulationParameters[idx] + System.Environment.NewLine);
+           sb.Append("<articulationParameters"+ idx.ToString() + " type=\"ArticulationParameter\">" + System.Environment.NewLine);
             ArticulationParameter aArticulationParameter = (ArticulationParameter)_articulationParameters[idx];
             aArticulationParameter.reflection(sb);
+           sb.Append("</articulationParameters"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</FastEntityStatePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

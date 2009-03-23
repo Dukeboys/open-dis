@@ -80,7 +80,7 @@ public class GriddedDataPdu : SyntheticEnvironmentFamilyPdu
     PduType = (byte)42;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -458,7 +458,7 @@ public List<GridAxisRecord> GridDataList
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -468,7 +468,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -502,7 +502,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -545,37 +545,42 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- GriddedDataPdu-----"  + System.Environment.NewLine);
+    sb.Append("<GriddedDataPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_environmentalSimulationApplicationID=====" + System.Environment.NewLine);
+    sb.Append("<environmentalSimulationApplicationID>"  + System.Environment.NewLine);
        _environmentalSimulationApplicationID.reflection(sb);
-           sb.Append("ushort\t _fieldNumber\t " + _fieldNumber.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _pduNumber\t " + _pduNumber.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _pduTotal\t " + _pduTotal.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _coordinateSystem\t " + _coordinateSystem.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _gridDataList\t " + _gridDataList.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _constantGrid\t " + _constantGrid.ToString() + System.Environment.NewLine);
-       sb.Append("=====_environmentType=====" + System.Environment.NewLine);
+    sb.Append("</environmentalSimulationApplicationID>"  + System.Environment.NewLine);
+           sb.Append("<fieldNumber type=\"ushort\">" + _fieldNumber.ToString() + "</fieldNumber> " + System.Environment.NewLine);
+           sb.Append("<pduNumber type=\"ushort\">" + _pduNumber.ToString() + "</pduNumber> " + System.Environment.NewLine);
+           sb.Append("<pduTotal type=\"ushort\">" + _pduTotal.ToString() + "</pduTotal> " + System.Environment.NewLine);
+           sb.Append("<coordinateSystem type=\"ushort\">" + _coordinateSystem.ToString() + "</coordinateSystem> " + System.Environment.NewLine);
+           sb.Append("<gridDataList type=\"byte\">" + _gridDataList.Count.ToString() + "</gridDataList> " + System.Environment.NewLine);
+           sb.Append("<constantGrid type=\"byte\">" + _constantGrid.ToString() + "</constantGrid> " + System.Environment.NewLine);
+    sb.Append("<environmentType>"  + System.Environment.NewLine);
        _environmentType.reflection(sb);
-       sb.Append("=====_orientation=====" + System.Environment.NewLine);
+    sb.Append("</environmentType>"  + System.Environment.NewLine);
+    sb.Append("<orientation>"  + System.Environment.NewLine);
        _orientation.reflection(sb);
-           sb.Append("long\t _sampleTime\t " + _sampleTime.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _totalValues\t " + _totalValues.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _vectorDimension\t " + _vectorDimension.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _padding2\t " + _padding2.ToString() + System.Environment.NewLine);
+    sb.Append("</orientation>"  + System.Environment.NewLine);
+           sb.Append("<sampleTime type=\"long\">" + _sampleTime.ToString() + "</sampleTime> " + System.Environment.NewLine);
+           sb.Append("<totalValues type=\"uint\">" + _totalValues.ToString() + "</totalValues> " + System.Environment.NewLine);
+           sb.Append("<vectorDimension type=\"byte\">" + _vectorDimension.ToString() + "</vectorDimension> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"ushort\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+           sb.Append("<padding2 type=\"byte\">" + _padding2.ToString() + "</padding2> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _gridDataList.Count; idx++)
        {
-           sb.Append("GridAxisRecord\t " + _gridDataList[idx] + System.Environment.NewLine);
+           sb.Append("<gridDataList"+ idx.ToString() + " type=\"GridAxisRecord\">" + System.Environment.NewLine);
             GridAxisRecord aGridAxisRecord = (GridAxisRecord)_gridDataList[idx];
             aGridAxisRecord.reflection(sb);
+           sb.Append("</gridDataList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</GriddedDataPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

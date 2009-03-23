@@ -50,7 +50,7 @@ public class SignalPdu : RadioCommunicationsFamilyPdu
     PduType = (byte)26;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -209,7 +209,7 @@ public List<OneByteChunk> Data
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -219,7 +219,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -244,7 +244,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -278,25 +278,27 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- SignalPdu-----"  + System.Environment.NewLine);
+    sb.Append("<SignalPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("ushort\t _encodingScheme\t " + _encodingScheme.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _tdlType\t " + _tdlType.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _sampleRate\t " + _sampleRate.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _data\t " + _data.Count.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _samples\t " + _samples.ToString() + System.Environment.NewLine);
+           sb.Append("<encodingScheme type=\"ushort\">" + _encodingScheme.ToString() + "</encodingScheme> " + System.Environment.NewLine);
+           sb.Append("<tdlType type=\"ushort\">" + _tdlType.ToString() + "</tdlType> " + System.Environment.NewLine);
+           sb.Append("<sampleRate type=\"uint\">" + _sampleRate.ToString() + "</sampleRate> " + System.Environment.NewLine);
+           sb.Append("<data type=\"short\">" + _data.Count.ToString() + "</data> " + System.Environment.NewLine);
+           sb.Append("<samples type=\"short\">" + _samples.ToString() + "</samples> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _data.Count; idx++)
        {
-           sb.Append("OneByteChunk\t " + _data[idx] + System.Environment.NewLine);
+           sb.Append("<data"+ idx.ToString() + " type=\"OneByteChunk\">" + System.Environment.NewLine);
             OneByteChunk aOneByteChunk = (OneByteChunk)_data[idx];
             aOneByteChunk.reflection(sb);
+           sb.Append("</data"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</SignalPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

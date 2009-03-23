@@ -69,7 +69,7 @@ public class ArealObjectStatePdu : SyntheticEnvironmentFamilyPdu
     PduType = (byte)45;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -393,7 +393,7 @@ public List<Vector3Double> ObjectLocation
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -403,7 +403,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -433,7 +433,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -472,36 +472,44 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ArealObjectStatePdu-----"  + System.Environment.NewLine);
+    sb.Append("<ArealObjectStatePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_objectID=====" + System.Environment.NewLine);
+    sb.Append("<objectID>"  + System.Environment.NewLine);
        _objectID.reflection(sb);
-       sb.Append("=====_referencedObjectID=====" + System.Environment.NewLine);
+    sb.Append("</objectID>"  + System.Environment.NewLine);
+    sb.Append("<referencedObjectID>"  + System.Environment.NewLine);
        _referencedObjectID.reflection(sb);
-           sb.Append("ushort\t _updateNumber\t " + _updateNumber.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _forceID\t " + _forceID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _modifications\t " + _modifications.ToString() + System.Environment.NewLine);
-       sb.Append("=====_objectType=====" + System.Environment.NewLine);
+    sb.Append("</referencedObjectID>"  + System.Environment.NewLine);
+           sb.Append("<updateNumber type=\"ushort\">" + _updateNumber.ToString() + "</updateNumber> " + System.Environment.NewLine);
+           sb.Append("<forceID type=\"byte\">" + _forceID.ToString() + "</forceID> " + System.Environment.NewLine);
+           sb.Append("<modifications type=\"byte\">" + _modifications.ToString() + "</modifications> " + System.Environment.NewLine);
+    sb.Append("<objectType>"  + System.Environment.NewLine);
        _objectType.reflection(sb);
-       sb.Append("=====_objectAppearance=====" + System.Environment.NewLine);
+    sb.Append("</objectType>"  + System.Environment.NewLine);
+    sb.Append("<objectAppearance>"  + System.Environment.NewLine);
        _objectAppearance.reflection(sb);
-           sb.Append("ushort\t _objectLocation\t " + _objectLocation.Count.ToString() + System.Environment.NewLine);
-       sb.Append("=====_requesterID=====" + System.Environment.NewLine);
+    sb.Append("</objectAppearance>"  + System.Environment.NewLine);
+           sb.Append("<objectLocation type=\"ushort\">" + _objectLocation.Count.ToString() + "</objectLocation> " + System.Environment.NewLine);
+    sb.Append("<requesterID>"  + System.Environment.NewLine);
        _requesterID.reflection(sb);
-       sb.Append("=====_receivingID=====" + System.Environment.NewLine);
+    sb.Append("</requesterID>"  + System.Environment.NewLine);
+    sb.Append("<receivingID>"  + System.Environment.NewLine);
        _receivingID.reflection(sb);
+    sb.Append("</receivingID>"  + System.Environment.NewLine);
 
        for(int idx = 0; idx < _objectLocation.Count; idx++)
        {
-           sb.Append("Vector3Double\t " + _objectLocation[idx] + System.Environment.NewLine);
+           sb.Append("<objectLocation"+ idx.ToString() + " type=\"Vector3Double\">" + System.Environment.NewLine);
             Vector3Double aVector3Double = (Vector3Double)_objectLocation[idx];
             aVector3Double.reflection(sb);
+           sb.Append("</objectLocation"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</ArealObjectStatePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

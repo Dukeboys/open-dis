@@ -48,7 +48,7 @@ public class MinefieldResponseNackPdu : MinefieldFamilyPdu
     PduType = (byte)40;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -206,7 +206,7 @@ public List<EightByteChunk> MissingPduSequenceNumbers
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -216,7 +216,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -240,7 +240,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -273,26 +273,30 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- MinefieldResponseNackPdu-----"  + System.Environment.NewLine);
+    sb.Append("<MinefieldResponseNackPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_minefieldID=====" + System.Environment.NewLine);
+    sb.Append("<minefieldID>"  + System.Environment.NewLine);
        _minefieldID.reflection(sb);
-       sb.Append("=====_requestingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</minefieldID>"  + System.Environment.NewLine);
+    sb.Append("<requestingEntityID>"  + System.Environment.NewLine);
        _requestingEntityID.reflection(sb);
-           sb.Append("byte\t _requestID\t " + _requestID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _missingPduSequenceNumbers\t " + _missingPduSequenceNumbers.Count.ToString() + System.Environment.NewLine);
+    sb.Append("</requestingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<requestID type=\"byte\">" + _requestID.ToString() + "</requestID> " + System.Environment.NewLine);
+           sb.Append("<missingPduSequenceNumbers type=\"byte\">" + _missingPduSequenceNumbers.Count.ToString() + "</missingPduSequenceNumbers> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _missingPduSequenceNumbers.Count; idx++)
        {
-           sb.Append("EightByteChunk\t " + _missingPduSequenceNumbers[idx] + System.Environment.NewLine);
+           sb.Append("<missingPduSequenceNumbers"+ idx.ToString() + " type=\"EightByteChunk\">" + System.Environment.NewLine);
             EightByteChunk aEightByteChunk = (EightByteChunk)_missingPduSequenceNumbers[idx];
             aEightByteChunk.reflection(sb);
+           sb.Append("</missingPduSequenceNumbers"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</MinefieldResponseNackPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

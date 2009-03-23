@@ -208,14 +208,15 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ObjectType-----"  + System.Environment.NewLine);
+    sb.Append("<ObjectType>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _entityKind\t " + _entityKind.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _domain\t " + _domain.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _country\t " + _country.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _category\t " + _category.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _subcategory\t " + _subcategory.ToString() + System.Environment.NewLine);
+           sb.Append("<entityKind type=\"byte\">" + _entityKind.ToString() + "</entityKind> " + System.Environment.NewLine);
+           sb.Append("<domain type=\"byte\">" + _domain.ToString() + "</domain> " + System.Environment.NewLine);
+           sb.Append("<country type=\"ushort\">" + _country.ToString() + "</country> " + System.Environment.NewLine);
+           sb.Append("<category type=\"byte\">" + _category.ToString() + "</category> " + System.Environment.NewLine);
+           sb.Append("<subcategory type=\"byte\">" + _subcategory.ToString() + "</subcategory> " + System.Environment.NewLine);
+    sb.Append("</ObjectType>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

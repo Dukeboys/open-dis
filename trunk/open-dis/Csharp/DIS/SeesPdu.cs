@@ -57,7 +57,7 @@ public class SeesPdu : DistributedEmissionsFamilyPdu
     PduType = (byte)30;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -288,7 +288,7 @@ public List<VectoringNozzleSystemData> VectoringSystemData
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -298,7 +298,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -331,7 +331,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -373,35 +373,39 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- SeesPdu-----"  + System.Environment.NewLine);
+    sb.Append("<SeesPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_orginatingEntityID=====" + System.Environment.NewLine);
+    sb.Append("<orginatingEntityID>"  + System.Environment.NewLine);
        _orginatingEntityID.reflection(sb);
-           sb.Append("ushort\t _infraredSignatureRepresentationIndex\t " + _infraredSignatureRepresentationIndex.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _acousticSignatureRepresentationIndex\t " + _acousticSignatureRepresentationIndex.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _radarCrossSectionSignatureRepresentationIndex\t " + _radarCrossSectionSignatureRepresentationIndex.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _propulsionSystemData\t " + _propulsionSystemData.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _vectoringSystemData\t " + _vectoringSystemData.Count.ToString() + System.Environment.NewLine);
+    sb.Append("</orginatingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<infraredSignatureRepresentationIndex type=\"ushort\">" + _infraredSignatureRepresentationIndex.ToString() + "</infraredSignatureRepresentationIndex> " + System.Environment.NewLine);
+           sb.Append("<acousticSignatureRepresentationIndex type=\"ushort\">" + _acousticSignatureRepresentationIndex.ToString() + "</acousticSignatureRepresentationIndex> " + System.Environment.NewLine);
+           sb.Append("<radarCrossSectionSignatureRepresentationIndex type=\"ushort\">" + _radarCrossSectionSignatureRepresentationIndex.ToString() + "</radarCrossSectionSignatureRepresentationIndex> " + System.Environment.NewLine);
+           sb.Append("<propulsionSystemData type=\"ushort\">" + _propulsionSystemData.Count.ToString() + "</propulsionSystemData> " + System.Environment.NewLine);
+           sb.Append("<vectoringSystemData type=\"ushort\">" + _vectoringSystemData.Count.ToString() + "</vectoringSystemData> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _propulsionSystemData.Count; idx++)
        {
-           sb.Append("PropulsionSystemData\t " + _propulsionSystemData[idx] + System.Environment.NewLine);
+           sb.Append("<propulsionSystemData"+ idx.ToString() + " type=\"PropulsionSystemData\">" + System.Environment.NewLine);
             PropulsionSystemData aPropulsionSystemData = (PropulsionSystemData)_propulsionSystemData[idx];
             aPropulsionSystemData.reflection(sb);
+           sb.Append("</propulsionSystemData"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _vectoringSystemData.Count; idx++)
        {
-           sb.Append("VectoringNozzleSystemData\t " + _vectoringSystemData[idx] + System.Environment.NewLine);
+           sb.Append("<vectoringSystemData"+ idx.ToString() + " type=\"VectoringNozzleSystemData\">" + System.Environment.NewLine);
             VectoringNozzleSystemData aVectoringNozzleSystemData = (VectoringNozzleSystemData)_vectoringSystemData[idx];
             aVectoringNozzleSystemData.reflection(sb);
+           sb.Append("</vectoringSystemData"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</SeesPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

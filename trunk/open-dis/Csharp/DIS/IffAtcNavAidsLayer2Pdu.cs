@@ -45,7 +45,7 @@ public class IffAtcNavAidsLayer2Pdu : IffAtcNavAidsLayer1Pdu
  {
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -185,7 +185,7 @@ public List<FundamentalParameterDataIff> FundamentalIffParameters
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -195,7 +195,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -218,7 +218,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -250,26 +250,31 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- IffAtcNavAidsLayer2Pdu-----"  + System.Environment.NewLine);
+    sb.Append("<IffAtcNavAidsLayer2Pdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_layerHeader=====" + System.Environment.NewLine);
+    sb.Append("<layerHeader>"  + System.Environment.NewLine);
        _layerHeader.reflection(sb);
-       sb.Append("=====_beamData=====" + System.Environment.NewLine);
+    sb.Append("</layerHeader>"  + System.Environment.NewLine);
+    sb.Append("<beamData>"  + System.Environment.NewLine);
        _beamData.reflection(sb);
-       sb.Append("=====_secondaryOperationalData=====" + System.Environment.NewLine);
+    sb.Append("</beamData>"  + System.Environment.NewLine);
+    sb.Append("<secondaryOperationalData>"  + System.Environment.NewLine);
        _secondaryOperationalData.reflection(sb);
+    sb.Append("</secondaryOperationalData>"  + System.Environment.NewLine);
 
        for(int idx = 0; idx < _fundamentalIffParameters.Count; idx++)
        {
-           sb.Append("FundamentalParameterDataIff\t " + _fundamentalIffParameters[idx] + System.Environment.NewLine);
+           sb.Append("<fundamentalIffParameters"+ idx.ToString() + " type=\"FundamentalParameterDataIff\">" + System.Environment.NewLine);
             FundamentalParameterDataIff aFundamentalParameterDataIff = (FundamentalParameterDataIff)_fundamentalIffParameters[idx];
             aFundamentalParameterDataIff.reflection(sb);
+           sb.Append("</fundamentalIffParameters"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</IffAtcNavAidsLayer2Pdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

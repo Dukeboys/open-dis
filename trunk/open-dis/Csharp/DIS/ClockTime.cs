@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ClockTime-----"  + System.Environment.NewLine);
+    sb.Append("<ClockTime>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("uint\t _hour\t " + _hour.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _timePastHour\t " + _timePastHour.ToString() + System.Environment.NewLine);
+           sb.Append("<hour type=\"uint\">" + _hour.ToString() + "</hour> " + System.Environment.NewLine);
+           sb.Append("<timePastHour type=\"uint\">" + _timePastHour.ToString() + "</timePastHour> " + System.Environment.NewLine);
+    sb.Append("</ClockTime>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

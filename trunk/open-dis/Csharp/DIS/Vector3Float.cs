@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- Vector3Float-----"  + System.Environment.NewLine);
+    sb.Append("<Vector3Float>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("float\t _x\t " + _x.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _y\t " + _y.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _z\t " + _z.ToString() + System.Environment.NewLine);
+           sb.Append("<x type=\"float\">" + _x.ToString() + "</x> " + System.Environment.NewLine);
+           sb.Append("<y type=\"float\">" + _y.ToString() + "</y> " + System.Environment.NewLine);
+           sb.Append("<z type=\"float\">" + _z.ToString() + "</z> " + System.Environment.NewLine);
+    sb.Append("</Vector3Float>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

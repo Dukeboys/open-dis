@@ -162,18 +162,20 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- PduContainer-----"  + System.Environment.NewLine);
+    sb.Append("<PduContainer>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("uint\t _pdus\t " + _pdus.Count.ToString() + System.Environment.NewLine);
+           sb.Append("<pdus type=\"uint\">" + _pdus.Count.ToString() + "</pdus> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _pdus.Count; idx++)
        {
-           sb.Append("Pdu\t " + _pdus[idx] + System.Environment.NewLine);
+           sb.Append("<pdus"+ idx.ToString() + " type=\"Pdu\">" + System.Environment.NewLine);
             Pdu aPdu = (Pdu)_pdus[idx];
             aPdu.reflection(sb);
+           sb.Append("</pdus"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</PduContainer>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

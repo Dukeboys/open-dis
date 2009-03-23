@@ -286,17 +286,18 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- FundamentalParameterDataIff-----"  + System.Environment.NewLine);
+    sb.Append("<FundamentalParameterDataIff>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("float\t _erp\t " + _erp.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _frequency\t " + _frequency.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _pgrf\t " + _pgrf.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _pulseWidth\t " + _pulseWidth.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _burstLength\t " + _burstLength.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _applicableModes\t " + _applicableModes.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pad3\t " + _pad3.ToString() + System.Environment.NewLine);
+           sb.Append("<erp type=\"float\">" + _erp.ToString() + "</erp> " + System.Environment.NewLine);
+           sb.Append("<frequency type=\"float\">" + _frequency.ToString() + "</frequency> " + System.Environment.NewLine);
+           sb.Append("<pgrf type=\"float\">" + _pgrf.ToString() + "</pgrf> " + System.Environment.NewLine);
+           sb.Append("<pulseWidth type=\"float\">" + _pulseWidth.ToString() + "</pulseWidth> " + System.Environment.NewLine);
+           sb.Append("<burstLength type=\"uint\">" + _burstLength.ToString() + "</burstLength> " + System.Environment.NewLine);
+           sb.Append("<applicableModes type=\"byte\">" + _applicableModes.ToString() + "</applicableModes> " + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"ushort\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
+           sb.Append("<pad3 type=\"byte\">" + _pad3.ToString() + "</pad3> " + System.Environment.NewLine);
+    sb.Append("</FundamentalParameterDataIff>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

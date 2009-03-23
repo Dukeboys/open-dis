@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- AcousticEmitter-----"  + System.Environment.NewLine);
+    sb.Append("<AcousticEmitter>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _acousticName\t " + _acousticName.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _function\t " + _function.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _acousticIdNumber\t " + _acousticIdNumber.ToString() + System.Environment.NewLine);
+           sb.Append("<acousticName type=\"ushort\">" + _acousticName.ToString() + "</acousticName> " + System.Environment.NewLine);
+           sb.Append("<function type=\"byte\">" + _function.ToString() + "</function> " + System.Environment.NewLine);
+           sb.Append("<acousticIdNumber type=\"byte\">" + _acousticIdNumber.ToString() + "</acousticIdNumber> " + System.Environment.NewLine);
+    sb.Append("</AcousticEmitter>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

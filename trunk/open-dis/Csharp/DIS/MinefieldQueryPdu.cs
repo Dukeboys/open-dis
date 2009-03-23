@@ -64,7 +64,7 @@ public class MinefieldQueryPdu : MinefieldFamilyPdu
     PduType = (byte)38;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -357,7 +357,7 @@ public List<TwoByteChunk> SensorTypes
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -367,7 +367,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -402,7 +402,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -446,39 +446,45 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- MinefieldQueryPdu-----"  + System.Environment.NewLine);
+    sb.Append("<MinefieldQueryPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_minefieldID=====" + System.Environment.NewLine);
+    sb.Append("<minefieldID>"  + System.Environment.NewLine);
        _minefieldID.reflection(sb);
-       sb.Append("=====_requestingEntityID=====" + System.Environment.NewLine);
+    sb.Append("</minefieldID>"  + System.Environment.NewLine);
+    sb.Append("<requestingEntityID>"  + System.Environment.NewLine);
        _requestingEntityID.reflection(sb);
-           sb.Append("byte\t _requestID\t " + _requestID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _requestedPerimeterPoints\t " + _requestedPerimeterPoints.Count.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _sensorTypes\t " + _sensorTypes.Count.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _dataFilter\t " + _dataFilter.ToString() + System.Environment.NewLine);
-       sb.Append("=====_requestedMineType=====" + System.Environment.NewLine);
+    sb.Append("</requestingEntityID>"  + System.Environment.NewLine);
+           sb.Append("<requestID type=\"byte\">" + _requestID.ToString() + "</requestID> " + System.Environment.NewLine);
+           sb.Append("<requestedPerimeterPoints type=\"byte\">" + _requestedPerimeterPoints.Count.ToString() + "</requestedPerimeterPoints> " + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"byte\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
+           sb.Append("<sensorTypes type=\"byte\">" + _sensorTypes.Count.ToString() + "</sensorTypes> " + System.Environment.NewLine);
+           sb.Append("<dataFilter type=\"uint\">" + _dataFilter.ToString() + "</dataFilter> " + System.Environment.NewLine);
+    sb.Append("<requestedMineType>"  + System.Environment.NewLine);
        _requestedMineType.reflection(sb);
+    sb.Append("</requestedMineType>"  + System.Environment.NewLine);
 
        for(int idx = 0; idx < _requestedPerimeterPoints.Count; idx++)
        {
-           sb.Append("Point\t " + _requestedPerimeterPoints[idx] + System.Environment.NewLine);
+           sb.Append("<requestedPerimeterPoints"+ idx.ToString() + " type=\"Point\">" + System.Environment.NewLine);
             Point aPoint = (Point)_requestedPerimeterPoints[idx];
             aPoint.reflection(sb);
+           sb.Append("</requestedPerimeterPoints"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _sensorTypes.Count; idx++)
        {
-           sb.Append("TwoByteChunk\t " + _sensorTypes[idx] + System.Environment.NewLine);
+           sb.Append("<sensorTypes"+ idx.ToString() + " type=\"TwoByteChunk\">" + System.Environment.NewLine);
             TwoByteChunk aTwoByteChunk = (TwoByteChunk)_sensorTypes[idx];
             aTwoByteChunk.reflection(sb);
+           sb.Append("</sensorTypes"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</MinefieldQueryPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

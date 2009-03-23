@@ -188,19 +188,21 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- VariableDatum-----"  + System.Environment.NewLine);
+    sb.Append("<VariableDatum>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("uint\t _variableDatumID\t " + _variableDatumID.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _variableDatums\t " + _variableDatums.Count.ToString() + System.Environment.NewLine);
+           sb.Append("<variableDatumID type=\"uint\">" + _variableDatumID.ToString() + "</variableDatumID> " + System.Environment.NewLine);
+           sb.Append("<variableDatums type=\"uint\">" + _variableDatums.Count.ToString() + "</variableDatums> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _variableDatums.Count; idx++)
        {
-           sb.Append("EightByteChunk\t " + _variableDatums[idx] + System.Environment.NewLine);
+           sb.Append("<variableDatums"+ idx.ToString() + " type=\"EightByteChunk\">" + System.Environment.NewLine);
             EightByteChunk aEightByteChunk = (EightByteChunk)_variableDatums[idx];
             aEightByteChunk.reflection(sb);
+           sb.Append("</variableDatums"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</VariableDatum>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

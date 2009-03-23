@@ -101,7 +101,7 @@ public class AggregateStatePdu : EntityManagementFamilyPdu
     PduType = (byte)33;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -725,7 +725,7 @@ public List<VariableDatum> VariableDatumList
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -735,7 +735,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -799,7 +799,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -872,75 +872,88 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- AggregateStatePdu-----"  + System.Environment.NewLine);
+    sb.Append("<AggregateStatePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_aggregateID=====" + System.Environment.NewLine);
+    sb.Append("<aggregateID>"  + System.Environment.NewLine);
        _aggregateID.reflection(sb);
-           sb.Append("byte\t _forceID\t " + _forceID.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _aggregateState\t " + _aggregateState.ToString() + System.Environment.NewLine);
-       sb.Append("=====_aggregateType=====" + System.Environment.NewLine);
+    sb.Append("</aggregateID>"  + System.Environment.NewLine);
+           sb.Append("<forceID type=\"byte\">" + _forceID.ToString() + "</forceID> " + System.Environment.NewLine);
+           sb.Append("<aggregateState type=\"byte\">" + _aggregateState.ToString() + "</aggregateState> " + System.Environment.NewLine);
+    sb.Append("<aggregateType>"  + System.Environment.NewLine);
        _aggregateType.reflection(sb);
-           sb.Append("uint\t _formation\t " + _formation.ToString() + System.Environment.NewLine);
-       sb.Append("=====_aggregateMarking=====" + System.Environment.NewLine);
+    sb.Append("</aggregateType>"  + System.Environment.NewLine);
+           sb.Append("<formation type=\"uint\">" + _formation.ToString() + "</formation> " + System.Environment.NewLine);
+    sb.Append("<aggregateMarking>"  + System.Environment.NewLine);
        _aggregateMarking.reflection(sb);
-       sb.Append("=====_dimensions=====" + System.Environment.NewLine);
+    sb.Append("</aggregateMarking>"  + System.Environment.NewLine);
+    sb.Append("<dimensions>"  + System.Environment.NewLine);
        _dimensions.reflection(sb);
-       sb.Append("=====_orientation=====" + System.Environment.NewLine);
+    sb.Append("</dimensions>"  + System.Environment.NewLine);
+    sb.Append("<orientation>"  + System.Environment.NewLine);
        _orientation.reflection(sb);
-       sb.Append("=====_centerOfMass=====" + System.Environment.NewLine);
+    sb.Append("</orientation>"  + System.Environment.NewLine);
+    sb.Append("<centerOfMass>"  + System.Environment.NewLine);
        _centerOfMass.reflection(sb);
-       sb.Append("=====_velocity=====" + System.Environment.NewLine);
+    sb.Append("</centerOfMass>"  + System.Environment.NewLine);
+    sb.Append("<velocity>"  + System.Environment.NewLine);
        _velocity.reflection(sb);
-           sb.Append("ushort\t _aggregateIDList\t " + _aggregateIDList.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _entityIDList\t " + _entityIDList.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _silentAggregateSystemList\t " + _silentAggregateSystemList.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _silentEntitySystemList\t " + _silentEntitySystemList.Count.ToString() + System.Environment.NewLine);
+    sb.Append("</velocity>"  + System.Environment.NewLine);
+           sb.Append("<aggregateIDList type=\"ushort\">" + _aggregateIDList.Count.ToString() + "</aggregateIDList> " + System.Environment.NewLine);
+           sb.Append("<entityIDList type=\"ushort\">" + _entityIDList.Count.ToString() + "</entityIDList> " + System.Environment.NewLine);
+           sb.Append("<silentAggregateSystemList type=\"ushort\">" + _silentAggregateSystemList.Count.ToString() + "</silentAggregateSystemList> " + System.Environment.NewLine);
+           sb.Append("<silentEntitySystemList type=\"ushort\">" + _silentEntitySystemList.Count.ToString() + "</silentEntitySystemList> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _aggregateIDList.Count; idx++)
        {
-           sb.Append("AggregateID\t " + _aggregateIDList[idx] + System.Environment.NewLine);
+           sb.Append("<aggregateIDList"+ idx.ToString() + " type=\"AggregateID\">" + System.Environment.NewLine);
             AggregateID aAggregateID = (AggregateID)_aggregateIDList[idx];
             aAggregateID.reflection(sb);
+           sb.Append("</aggregateIDList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _entityIDList.Count; idx++)
        {
-           sb.Append("EntityID\t " + _entityIDList[idx] + System.Environment.NewLine);
+           sb.Append("<entityIDList"+ idx.ToString() + " type=\"EntityID\">" + System.Environment.NewLine);
             EntityID aEntityID = (EntityID)_entityIDList[idx];
             aEntityID.reflection(sb);
+           sb.Append("</entityIDList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
-           sb.Append("byte\t _pad2\t " + _pad2.ToString() + System.Environment.NewLine);
+           sb.Append("<pad2 type=\"byte\">" + _pad2.ToString() + "</pad2> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _silentAggregateSystemList.Count; idx++)
        {
-           sb.Append("EntityType\t " + _silentAggregateSystemList[idx] + System.Environment.NewLine);
+           sb.Append("<silentAggregateSystemList"+ idx.ToString() + " type=\"EntityType\">" + System.Environment.NewLine);
             EntityType aEntityType = (EntityType)_silentAggregateSystemList[idx];
             aEntityType.reflection(sb);
+           sb.Append("</silentAggregateSystemList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _silentEntitySystemList.Count; idx++)
        {
-           sb.Append("EntityType\t " + _silentEntitySystemList[idx] + System.Environment.NewLine);
+           sb.Append("<silentEntitySystemList"+ idx.ToString() + " type=\"EntityType\">" + System.Environment.NewLine);
             EntityType aEntityType = (EntityType)_silentEntitySystemList[idx];
             aEntityType.reflection(sb);
+           sb.Append("</silentEntitySystemList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
-           sb.Append("uint\t _variableDatumList\t " + _variableDatumList.Count.ToString() + System.Environment.NewLine);
+           sb.Append("<variableDatumList type=\"uint\">" + _variableDatumList.Count.ToString() + "</variableDatumList> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _variableDatumList.Count; idx++)
        {
-           sb.Append("VariableDatum\t " + _variableDatumList[idx] + System.Environment.NewLine);
+           sb.Append("<variableDatumList"+ idx.ToString() + " type=\"VariableDatum\">" + System.Environment.NewLine);
             VariableDatum aVariableDatum = (VariableDatum)_variableDatumList[idx];
             aVariableDatum.reflection(sb);
+           sb.Append("</variableDatumList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</AggregateStatePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- FixedDatum-----"  + System.Environment.NewLine);
+    sb.Append("<FixedDatum>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("uint\t _fixedDatumID\t " + _fixedDatumID.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _fixedDatumValue\t " + _fixedDatumValue.ToString() + System.Environment.NewLine);
+           sb.Append("<fixedDatumID type=\"uint\">" + _fixedDatumID.ToString() + "</fixedDatumID> " + System.Environment.NewLine);
+           sb.Append("<fixedDatumValue type=\"uint\">" + _fixedDatumValue.ToString() + "</fixedDatumValue> " + System.Environment.NewLine);
+    sb.Append("</FixedDatum>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -156,12 +156,13 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ShaftRPMs-----"  + System.Environment.NewLine);
+    sb.Append("<ShaftRPMs>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("short\t _currentShaftRPMs\t " + _currentShaftRPMs.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _orderedShaftRPMs\t " + _orderedShaftRPMs.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _shaftRPMRateOfChange\t " + _shaftRPMRateOfChange.ToString() + System.Environment.NewLine);
+           sb.Append("<currentShaftRPMs type=\"short\">" + _currentShaftRPMs.ToString() + "</currentShaftRPMs> " + System.Environment.NewLine);
+           sb.Append("<orderedShaftRPMs type=\"short\">" + _orderedShaftRPMs.ToString() + "</orderedShaftRPMs> " + System.Environment.NewLine);
+           sb.Append("<shaftRPMRateOfChange type=\"float\">" + _shaftRPMRateOfChange.ToString() + "</shaftRPMRateOfChange> " + System.Environment.NewLine);
+    sb.Append("</ShaftRPMs>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

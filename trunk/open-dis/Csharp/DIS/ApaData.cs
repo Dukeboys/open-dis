@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- ApaData-----"  + System.Environment.NewLine);
+    sb.Append("<ApaData>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _parameterIndex\t " + _parameterIndex.ToString() + System.Environment.NewLine);
-           sb.Append("short\t _parameterValue\t " + _parameterValue.ToString() + System.Environment.NewLine);
+           sb.Append("<parameterIndex type=\"ushort\">" + _parameterIndex.ToString() + "</parameterIndex> " + System.Environment.NewLine);
+           sb.Append("<parameterValue type=\"short\">" + _parameterValue.ToString() + "</parameterValue> " + System.Environment.NewLine);
+    sb.Append("</ApaData>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

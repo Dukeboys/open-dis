@@ -93,7 +93,7 @@ public class TransmitterPdu : RadioCommunicationsFamilyPdu
     PduType = (byte)25;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -585,7 +585,7 @@ public List<Vector3Float> AntennaPatternList
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -595,7 +595,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -639,7 +639,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -692,49 +692,56 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- TransmitterPdu-----"  + System.Environment.NewLine);
+    sb.Append("<TransmitterPdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-       sb.Append("=====_radioEntityType=====" + System.Environment.NewLine);
+    sb.Append("<radioEntityType>"  + System.Environment.NewLine);
        _radioEntityType.reflection(sb);
-           sb.Append("byte\t _transmitState\t " + _transmitState.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _inputSource\t " + _inputSource.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _padding1\t " + _padding1.ToString() + System.Environment.NewLine);
-       sb.Append("=====_antennaLocation=====" + System.Environment.NewLine);
+    sb.Append("</radioEntityType>"  + System.Environment.NewLine);
+           sb.Append("<transmitState type=\"byte\">" + _transmitState.ToString() + "</transmitState> " + System.Environment.NewLine);
+           sb.Append("<inputSource type=\"byte\">" + _inputSource.ToString() + "</inputSource> " + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"ushort\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
+    sb.Append("<antennaLocation>"  + System.Environment.NewLine);
        _antennaLocation.reflection(sb);
-       sb.Append("=====_relativeAntennaLocation=====" + System.Environment.NewLine);
+    sb.Append("</antennaLocation>"  + System.Environment.NewLine);
+    sb.Append("<relativeAntennaLocation>"  + System.Environment.NewLine);
        _relativeAntennaLocation.reflection(sb);
-           sb.Append("ushort\t _antennaPatternType\t " + _antennaPatternType.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _antennaPatternList\t " + _antennaPatternList.Count.ToString() + System.Environment.NewLine);
-           sb.Append("double\t _frequency\t " + _frequency.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _transmitFrequencyBandwidth\t " + _transmitFrequencyBandwidth.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _power\t " + _power.ToString() + System.Environment.NewLine);
-       sb.Append("=====_modulationType=====" + System.Environment.NewLine);
+    sb.Append("</relativeAntennaLocation>"  + System.Environment.NewLine);
+           sb.Append("<antennaPatternType type=\"ushort\">" + _antennaPatternType.ToString() + "</antennaPatternType> " + System.Environment.NewLine);
+           sb.Append("<antennaPatternList type=\"ushort\">" + _antennaPatternList.Count.ToString() + "</antennaPatternList> " + System.Environment.NewLine);
+           sb.Append("<frequency type=\"double\">" + _frequency.ToString() + "</frequency> " + System.Environment.NewLine);
+           sb.Append("<transmitFrequencyBandwidth type=\"float\">" + _transmitFrequencyBandwidth.ToString() + "</transmitFrequencyBandwidth> " + System.Environment.NewLine);
+           sb.Append("<power type=\"float\">" + _power.ToString() + "</power> " + System.Environment.NewLine);
+    sb.Append("<modulationType>"  + System.Environment.NewLine);
        _modulationType.reflection(sb);
-           sb.Append("ushort\t _cryptoSystem\t " + _cryptoSystem.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _cryptoKeyId\t " + _cryptoKeyId.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _modulationParametersList\t " + _modulationParametersList.Count.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _padding2\t " + _padding2.ToString() + System.Environment.NewLine);
-           sb.Append("byte\t _padding3\t " + _padding3.ToString() + System.Environment.NewLine);
+    sb.Append("</modulationType>"  + System.Environment.NewLine);
+           sb.Append("<cryptoSystem type=\"ushort\">" + _cryptoSystem.ToString() + "</cryptoSystem> " + System.Environment.NewLine);
+           sb.Append("<cryptoKeyId type=\"ushort\">" + _cryptoKeyId.ToString() + "</cryptoKeyId> " + System.Environment.NewLine);
+           sb.Append("<modulationParametersList type=\"byte\">" + _modulationParametersList.Count.ToString() + "</modulationParametersList> " + System.Environment.NewLine);
+           sb.Append("<padding2 type=\"ushort\">" + _padding2.ToString() + "</padding2> " + System.Environment.NewLine);
+           sb.Append("<padding3 type=\"byte\">" + _padding3.ToString() + "</padding3> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _modulationParametersList.Count; idx++)
        {
-           sb.Append("Vector3Float\t " + _modulationParametersList[idx] + System.Environment.NewLine);
+           sb.Append("<modulationParametersList"+ idx.ToString() + " type=\"Vector3Float\">" + System.Environment.NewLine);
             Vector3Float aVector3Float = (Vector3Float)_modulationParametersList[idx];
             aVector3Float.reflection(sb);
+           sb.Append("</modulationParametersList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
 
        for(int idx = 0; idx < _antennaPatternList.Count; idx++)
        {
-           sb.Append("Vector3Float\t " + _antennaPatternList[idx] + System.Environment.NewLine);
+           sb.Append("<antennaPatternList"+ idx.ToString() + " type=\"Vector3Float\">" + System.Environment.NewLine);
             Vector3Float aVector3Float = (Vector3Float)_antennaPatternList[idx];
             aVector3Float.reflection(sb);
+           sb.Append("</antennaPatternList"+ idx.ToString() + ">" + System.Environment.NewLine);
        } // end of list marshalling
 
+    sb.Append("</TransmitterPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- Relationship-----"  + System.Environment.NewLine);
+    sb.Append("<Relationship>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _nature\t " + _nature.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _position\t " + _position.ToString() + System.Environment.NewLine);
+           sb.Append("<nature type=\"ushort\">" + _nature.ToString() + "</nature> " + System.Environment.NewLine);
+           sb.Append("<position type=\"ushort\">" + _position.ToString() + "</position> " + System.Environment.NewLine);
+    sb.Append("</Relationship>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

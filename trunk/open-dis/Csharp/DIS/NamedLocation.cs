@@ -130,11 +130,12 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- NamedLocation-----"  + System.Environment.NewLine);
+    sb.Append("<NamedLocation>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _stationName\t " + _stationName.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _stationNumber\t " + _stationNumber.ToString() + System.Environment.NewLine);
+           sb.Append("<stationName type=\"ushort\">" + _stationName.ToString() + "</stationName> " + System.Environment.NewLine);
+           sb.Append("<stationNumber type=\"ushort\">" + _stationNumber.ToString() + "</stationNumber> " + System.Environment.NewLine);
+    sb.Append("</NamedLocation>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

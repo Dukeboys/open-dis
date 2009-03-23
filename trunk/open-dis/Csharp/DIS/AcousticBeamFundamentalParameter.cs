@@ -234,15 +234,16 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- AcousticBeamFundamentalParameter-----"  + System.Environment.NewLine);
+    sb.Append("<AcousticBeamFundamentalParameter>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("ushort\t _activeEmissionParameterIndex\t " + _activeEmissionParameterIndex.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _scanPattern\t " + _scanPattern.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _beamCenterAzimuth\t " + _beamCenterAzimuth.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _azimuthalBeamwidth\t " + _azimuthalBeamwidth.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _beamCenterDE\t " + _beamCenterDE.ToString() + System.Environment.NewLine);
-           sb.Append("float\t _deBeamwidth\t " + _deBeamwidth.ToString() + System.Environment.NewLine);
+           sb.Append("<activeEmissionParameterIndex type=\"ushort\">" + _activeEmissionParameterIndex.ToString() + "</activeEmissionParameterIndex> " + System.Environment.NewLine);
+           sb.Append("<scanPattern type=\"ushort\">" + _scanPattern.ToString() + "</scanPattern> " + System.Environment.NewLine);
+           sb.Append("<beamCenterAzimuth type=\"float\">" + _beamCenterAzimuth.ToString() + "</beamCenterAzimuth> " + System.Environment.NewLine);
+           sb.Append("<azimuthalBeamwidth type=\"float\">" + _azimuthalBeamwidth.ToString() + "</azimuthalBeamwidth> " + System.Environment.NewLine);
+           sb.Append("<beamCenterDE type=\"float\">" + _beamCenterDE.ToString() + "</beamCenterDE> " + System.Environment.NewLine);
+           sb.Append("<deBeamwidth type=\"float\">" + _deBeamwidth.ToString() + "</deBeamwidth> " + System.Environment.NewLine);
+    sb.Append("</AcousticBeamFundamentalParameter>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -121,15 +121,16 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- EightByteChunk-----"  + System.Environment.NewLine);
+    sb.Append("<EightByteChunk>"  + System.Environment.NewLine);
     try 
     {
 
        for(int idx = 0; idx < _otherParameters.Length; idx++)
        {
-           sb.Append("byte\t " + _otherParameters[idx] + System.Environment.NewLine);
+           sb.Append("<otherParameters"+ idx.ToString() + " type=\"byte\">" + _otherParameters[idx] + "</otherParameters"+ idx.ToString() + "> " + System.Environment.NewLine);
        } // end of array reflection
 
+    sb.Append("</EightByteChunk>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

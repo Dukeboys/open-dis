@@ -141,12 +141,14 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- SupplyQuantity-----"  + System.Environment.NewLine);
+    sb.Append("<SupplyQuantity>"  + System.Environment.NewLine);
     try 
     {
-       sb.Append("=====_supplyType=====" + System.Environment.NewLine);
+    sb.Append("<supplyType>"  + System.Environment.NewLine);
        _supplyType.reflection(sb);
-           sb.Append("byte\t _quantity\t " + _quantity.ToString() + System.Environment.NewLine);
+    sb.Append("</supplyType>"  + System.Environment.NewLine);
+           sb.Append("<quantity type=\"byte\">" + _quantity.ToString() + "</quantity> " + System.Environment.NewLine);
+    sb.Append("</SupplyQuantity>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

@@ -41,7 +41,7 @@ public class AcknowledgeReliablePdu : SimulationManagementWithReliabilityFamilyP
     PduType = (byte)55;
  }
 
-public int getMarshalledSize()
+new public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
@@ -117,7 +117,7 @@ public uint RequestID
 ///<summary>
 ///Automatically sets the length of the marshalled data, then calls the marshal method.
 ///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
+new public void marshalAutoLengthSet(DataOutputStream dos)
 {
        //Set the length prior to marshalling data
        this.setLength((ushort)this.getMarshalledSize());
@@ -127,7 +127,7 @@ public void marshalAutoLengthSet(DataOutputStream dos)
 ///<summary>
 ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
 ///</summary>
-public void marshal(DataOutputStream dos)
+new public void marshal(DataOutputStream dos)
 {
     base.marshal(dos);
     try 
@@ -143,7 +143,7 @@ public void marshal(DataOutputStream dos)
     }
 } // end of marshal method
 
-public void unmarshal(DataInputStream dis)
+new public void unmarshal(DataInputStream dis)
 {
     base.unmarshal(dis);
 
@@ -168,15 +168,16 @@ public void unmarshal(DataInputStream dis)
    ///where pdu is an object representing a single pdu and sb is a StringBuilder.
    ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
    ///</summary>
-public void reflection(StringBuilder sb)
+new public void reflection(StringBuilder sb)
 {
-    sb.Append("----- AcknowledgeReliablePdu-----"  + System.Environment.NewLine);
+    sb.Append("<AcknowledgeReliablePdu>"  + System.Environment.NewLine);
     base.reflection(sb);
     try 
     {
-           sb.Append("ushort\t _acknowledgeFlag\t " + _acknowledgeFlag.ToString() + System.Environment.NewLine);
-           sb.Append("ushort\t _responseFlag\t " + _responseFlag.ToString() + System.Environment.NewLine);
-           sb.Append("uint\t _requestID\t " + _requestID.ToString() + System.Environment.NewLine);
+           sb.Append("<acknowledgeFlag type=\"ushort\">" + _acknowledgeFlag.ToString() + "</acknowledgeFlag> " + System.Environment.NewLine);
+           sb.Append("<responseFlag type=\"ushort\">" + _responseFlag.ToString() + "</responseFlag> " + System.Environment.NewLine);
+           sb.Append("<requestID type=\"uint\">" + _requestID.ToString() + "</requestID> " + System.Environment.NewLine);
+    sb.Append("</AcknowledgeReliablePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 

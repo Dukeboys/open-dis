@@ -147,16 +147,17 @@ public void unmarshal(DataInputStream dis)
    ///</summary>
 public void reflection(StringBuilder sb)
 {
-    sb.Append("----- Marking-----"  + System.Environment.NewLine);
+    sb.Append("<Marking>"  + System.Environment.NewLine);
     try 
     {
-           sb.Append("byte\t _characterSet\t " + _characterSet.ToString() + System.Environment.NewLine);
+           sb.Append("<characterSet type=\"byte\">" + _characterSet.ToString() + "</characterSet> " + System.Environment.NewLine);
 
        for(int idx = 0; idx < _characters.Length; idx++)
        {
-           sb.Append("byte\t " + _characters[idx] + System.Environment.NewLine);
+           sb.Append("<characters"+ idx.ToString() + " type=\"byte\">" + _characters[idx] + "</characters"+ idx.ToString() + "> " + System.Environment.NewLine);
        } // end of array reflection
 
+    sb.Append("</Marking>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
     { 
