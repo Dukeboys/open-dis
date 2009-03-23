@@ -1263,7 +1263,7 @@ public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
 		pw.println("{");
 
 
-		pw.println("    sb.Append(\"----- " + aClass.getName() + "-----\"  + System.Environment.NewLine);");
+		pw.println("    sb.Append(\"<" + aClass.getName() + ">\"  + System.Environment.NewLine);");
 
 		// If we're a base class of another class, we should first call base
 		// to make sure the base's ivars are reflected out.
@@ -1294,12 +1294,16 @@ public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
 				// the list length.
 				if (anAttribute.getIsDynamicListLengthField() == false)
 				{
-					pw.println("           sb.Append(\"" + marshalType + tab + "_" + anAttribute.getName() + tab + "\" + _" + anAttribute.getName() + ".ToString() + System.Environment.NewLine);");
+					//pw.println("           sb.Append(\"" + marshalType + tab + "_" + anAttribute.getName() + tab + "\" + _" + anAttribute.getName() + ".ToString() + System.Environment.NewLine);");
+					pw.println("           sb.Append(\"<" + anAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + _" + anAttribute.getName() + ".ToString() + \"</" + anAttribute.getName() + "> \" + System.Environment.NewLine);");
+				
 				}
 				else
 				{
 					ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
-					pw.println("           sb.Append(\"" + marshalType + tab + "_" + listAttribute.getName() + tab + "\" + _" + listAttribute.getName() + ".Count.ToString() + System.Environment.NewLine);");
+					
+					pw.println("           sb.Append(\"<" + listAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + _" + listAttribute.getName() + ".Count.ToString() + \"</" + listAttribute.getName() + "> \" + System.Environment.NewLine);");
+
 				}
 
 			}
@@ -1309,14 +1313,21 @@ public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
 			{
 				String marshalType = anAttribute.getType();
 
-				pw.println("       sb.Append(\"=====_" + anAttribute.getName() + "=====\" + System.Environment.NewLine);");
+				pw.println("    sb.Append(\"<" + anAttribute.getName() + ">\"  + System.Environment.NewLine);");
+
 				pw.println("       _" + anAttribute.getName() + ".reflection(sb);");
+				
+				pw.println("    sb.Append(\"</" + anAttribute.getName() + ">\"  + System.Environment.NewLine);");
+
 			}
 
 			// Write out the method call to marshal a fixed length list, aka an array.
 			if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
 			{
+				//pw.println("    sb.Append(\"</" + anAttribute.getName() + ">\"  + System.Environment.NewLine);");
+
 				pw.println();
+				
 				pw.println("       for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
 				pw.println("       {");
 
@@ -1330,12 +1341,18 @@ public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
 				if (anAttribute.getUnderlyingTypeIsPrimitive())
 				{
 					String capped = this.initialCap(marshalType);
-					pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "[idx] + System.Environment.NewLine);");
+					pw.println("           sb.Append(\"<" + anAttribute.getName()+ "\"+ idx.ToString() + \" type=\\\"" + marshalType + "\\\">\" + _" + anAttribute.getName()+ "[idx] + \"</" + anAttribute.getName()+ "\"+ idx.ToString() + \"> \" + System.Environment.NewLine);");
+												
+					//pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "[idx] + System.Environment.NewLine);");
 				}
 				else
 				{
-					
+					pw.println("           sb.Append(\"<" + anAttribute.getName() + "\"+ idx.ToString() + \" type=\\\"" + anAttribute.getType() + "\\\">\" + _" + anAttribute.getName() + "[ \"+ idx.ToString() + \"] + System.Environment.NewLine);");
+	
 					pw.println("           _" + anAttribute.getName() + "[idx].reflection(sb);");
+					
+					pw.println("           sb.Append(\"</" + anAttribute.getName() + "\"+ idx.ToString() + \">\" + System.Environment.NewLine);");
+				
 				}
 
 				pw.println("       } // end of array reflection");
@@ -1358,21 +1375,34 @@ public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
 				if (anAttribute.getUnderlyingTypeIsPrimitive())
 				{
 					String capped = this.initialCap(marshalType);
-					pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "  + System.Environment.NewLine);");
+				
+					pw.println("           sb.Append(\"<" + anAttribute.getName() + "\"+ idx.ToString() + \" type=\\\"" + anAttribute.getType() + "\\\">\" + _" + anAttribute.getName() + "[idx].ToString() + System.Environment.NewLine);");
+				
+					pw.println("           sb.Append(\"</" + anAttribute.getName() + "\"+ idx.ToString() + \">\" + System.Environment.NewLine);");
+
+					//pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "  + System.Environment.NewLine);");
 				}
 				else
 				{
-					pw.println("           sb.Append(\"" + anAttribute.getType() + tab + "\" + _" + anAttribute.getName() + "[idx] + System.Environment.NewLine);");
+				
+					pw.println("           sb.Append(\"<" + anAttribute.getName() + "\"+ idx.ToString() + \" type=\\\"" + anAttribute.getType() + "\\\">\" + System.Environment.NewLine);");
+
 
 					pw.println("            " + anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];"));
 					pw.println("            a" + initialCap(anAttribute.getType()) + ".reflection(sb);");
+				
+					pw.println("           sb.Append(\"</" + anAttribute.getName() + "\"+ idx.ToString() + \">\" + System.Environment.NewLine);");
+				
 				}
 
 				pw.println("       } // end of list marshalling");
 				pw.println();
+				
 			}
 		} // End of loop through the ivars for a marshal method
 
+		pw.println("    sb.Append(\"</" + aClass.getName() + ">\"  + System.Environment.NewLine);");
+		
 		pw.println("    } // end try \n    catch(Exception e)");
 		pw.println("    { \n      Trace.WriteLine(e);\n      Trace.Flush();\n}");
 
