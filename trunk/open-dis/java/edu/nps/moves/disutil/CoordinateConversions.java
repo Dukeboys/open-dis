@@ -76,4 +76,30 @@ public class CoordinateConversions
 
         return answer;
     }
+	
+	/**
+     * Converts lat long and geodetic height (elevation) into DIS XYZ
+     * This algorithm also uses the WGS84 ellipsoid, though you can change the values
+     * of a and b for a different ellipsoid. Adapted from Military Handbook 600008
+     * @param latitude The latitude, IN RADIANS
+     * @param longitude The longitude, in RADIANS
+     * @param height The elevation, in meters
+     * @return a double array with the calculated X, Y, and Z values, in that order
+     */
+    public static double[] getXYZfromLatLong(double latitude, double longitude, double height)
+    {
+        double a = 6378137.0; //semi major axis
+        double b = 6356752.3142; //semi minor axis
+        double cosLat = Math.cos(latitude);
+        double sinLat = Math.sin(latitude);
+		
+		
+        double rSubN = (a*a) / Math.sqrt(((a*a) * (cosLat*cosLat) + ((b*b) * (sinLat*sinLat))));
+		
+        double X = (rSubN + height) * cosLat * Math.cos(longitude);
+        double Y = (rSubN + height) * cosLat * Math.sin(longitude);
+        double Z = ((((b*b) / (a*a)) * rSubN) + height) * sinLat;
+		
+        return new double[] {X, Y, Z};
+    }
 }
