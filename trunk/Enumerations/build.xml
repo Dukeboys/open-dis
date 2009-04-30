@@ -1,5 +1,11 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 
+<!-- to upload to the sourceforge project web site, "sftp myUserName,open-dis@web.sourceforge.net",
+     ie your sourceforge login name, a comma, and the group name. To transfer files you can do 
+     something like scp -r aLocalDirectory myUserName,open-dis@web.sourceforge.net:/home/groups/o/op/open-dis/htdocs
+     though the location of the directory on the sourceforge side may change over time.
+-->
+
 <project name="Enumerations" default="dist" basedir=".">
     <property name="src" location="src"/>
     <property name="build" location="build"/>
