@@ -53,6 +53,7 @@ public class CsharpGenerator extends Generator
         types.setProperty("unsigned short", "ushort"); //int
         types.setProperty("unsigned byte", "byte"); //short
         types.setProperty("unsigned int", "uint"); //long
+		types.setProperty("unsigned long", "ulong");
         
         types.setProperty("byte", "byte");
         types.setProperty("short", "short"); //short
@@ -67,6 +68,7 @@ public class CsharpGenerator extends Generator
         marshalTypes.setProperty("unsigned short", "ushort"); //short
         marshalTypes.setProperty("unsigned byte", "byte");
         marshalTypes.setProperty("unsigned int", "uint"); //int
+		marshalTypes.setProperty("unsigned long", "ulong");
         
         marshalTypes.setProperty("byte", "byte");
         marshalTypes.setProperty("short", "short");
@@ -80,6 +82,7 @@ public class CsharpGenerator extends Generator
 		unmarshalTypes.setProperty("unsigned short", "ushort");
 		unmarshalTypes.setProperty("unsigned byte", "byte");
 		unmarshalTypes.setProperty("unsigned int", "uint");
+		unmarshalTypes.setProperty("unsigned long", "ulong");
 
 		unmarshalTypes.setProperty("byte", "byte");
 		unmarshalTypes.setProperty("short", "short");
@@ -93,6 +96,7 @@ public class CsharpGenerator extends Generator
 		primitiveSizes.setProperty("unsigned short", "2");
 		primitiveSizes.setProperty("unsigned byte", "1");
 		primitiveSizes.setProperty("unsigned int", "4");
+		primitiveSizes.setProperty("unsigned int", "8");
 
 		primitiveSizes.setProperty("byte", "1");
 		primitiveSizes.setProperty("short", "2");

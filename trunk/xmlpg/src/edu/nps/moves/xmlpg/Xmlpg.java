@@ -160,6 +160,7 @@ public class Xmlpg
         primitiveTypes.add("unsigned byte");
         primitiveTypes.add("unsigned short");
         primitiveTypes.add("unsigned int");
+		primitiveTypes.add("unsigned long");
         primitiveTypes.add("float");
         primitiveTypes.add("double");
         

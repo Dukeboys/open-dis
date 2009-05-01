@@ -50,6 +50,7 @@ public class CppGenerator extends Generator
         types.setProperty("unsigned short", "unsigned short");
         types.setProperty("unsigned byte", "unsigned char");
         types.setProperty("unsigned int", "unsigned int");
+		types.setProperty("unsigned long", "long");
         
         types.setProperty("byte", "char");
         types.setProperty("short", "short");
@@ -64,6 +65,7 @@ public class CppGenerator extends Generator
         marshalTypes.setProperty("unsigned short", "unsigned short");
         marshalTypes.setProperty("unsigned byte", "unsigned char");
         marshalTypes.setProperty("unsigned int", "unsigned int");
+		marshalTypes.setProperty("unsigned long", "long");
         
         marshalTypes.setProperty("byte", "char");
         marshalTypes.setProperty("short", "short");
@@ -77,6 +79,7 @@ public class CppGenerator extends Generator
         primitiveSizes.setProperty("unsigned short", "2");
         primitiveSizes.setProperty("unsigned byte", "1");
         primitiveSizes.setProperty("unsigned int", "4");
+		primitiveSizes.setProperty("unsigned long", "8");
         
         primitiveSizes.setProperty("byte", "1");
         primitiveSizes.setProperty("short", "2");
@@ -105,6 +108,7 @@ public class CppGenerator extends Generator
             try
            {
               GeneratedClass aClass = (GeneratedClass)it.next();
+			  // System.out.println("Generating class " + aClass.getName());
               this.writeHeaderFile(aClass);
               this.writeCppFile(aClass);
            }
@@ -792,9 +796,7 @@ private void writeCtor(PrintWriter pw, GeneratedClass aClass)
     
         for(int idx = 0; idx < aClass.getClassAttributes().size(); idx++)
         {
-            ClassAttribute anAttribute = (ClassAttribute)aClass.getClassAttributes().get(idx);
-            
-            
+            ClassAttribute anAttribute = (ClassAttribute)aClass.getClassAttributes().get(idx);   
             
             // This is a primitive type; initialize it to either the default value specified in 
             // the XML file or to zero. Tends to minimize the possiblity
@@ -858,7 +860,7 @@ private void writeCtor(PrintWriter pw, GeneratedClass aClass)
               String indexName = "length" + attribute.getName();
               pw.println("     for(int " + indexName + "= 0; " + indexName + " < " + arrayLength + "; " + indexName + "++)");
               pw.println("     {");
-              pw.println("         _" + attribute.getName() + "[" + indexName + "] = 0");
+              pw.println("         _" + attribute.getName() + "[" + indexName + "] = 0;");
               pw.println("     }");
               pw.println();
           }

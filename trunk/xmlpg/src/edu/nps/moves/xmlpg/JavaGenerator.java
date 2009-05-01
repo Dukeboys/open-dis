@@ -45,6 +45,7 @@ public class JavaGenerator extends Generator
         types.setProperty("unsigned short", "int");
         types.setProperty("unsigned byte", "short");
         types.setProperty("unsigned int", "long");
+		types.setProperty("unsigned long", "long"); // This is wrong; java doesn't have an unsigned long. Placeholder for a later BigInt or similar type
         
         types.setProperty("byte", "byte");
         types.setProperty("short", "short");
@@ -59,6 +60,7 @@ public class JavaGenerator extends Generator
         marshalTypes.setProperty("unsigned short", "short");
         marshalTypes.setProperty("unsigned byte", "byte");
         marshalTypes.setProperty("unsigned int", "int");
+		marshalTypes.setProperty("unsigned long", "long"); // This is wrong; no unsigned long type in java. Fix with a BigInt or similar
         
         marshalTypes.setProperty("byte", "byte");
         marshalTypes.setProperty("short", "short");
@@ -72,6 +74,7 @@ public class JavaGenerator extends Generator
         unmarshalTypes.setProperty("unsigned short", "UnsignedShort");
         unmarshalTypes.setProperty("unsigned byte", "UnsignedByte");
         unmarshalTypes.setProperty("unsigned int", "int");
+		unmarshalTypes.setProperty("unsigned long", "long"); // ^^^ This is wrong--should be unsigned
         
         unmarshalTypes.setProperty("byte", "byte");
         unmarshalTypes.setProperty("short", "short");
@@ -85,6 +88,7 @@ public class JavaGenerator extends Generator
         primitiveSizes.setProperty("unsigned short", "2");
         primitiveSizes.setProperty("unsigned byte", "1");
         primitiveSizes.setProperty("unsigned int", "4");
+		primitiveSizes.setProperty("unsigned long", "8");
         
         primitiveSizes.setProperty("byte", "1");
         primitiveSizes.setProperty("short", "2");
@@ -128,7 +132,7 @@ public class JavaGenerator extends Generator
              {
                    fullPath = directory + "/" + name + ".java";
              }
-              //System.out.println("Creating Java source code file for " + fullPath);
+			 //System.out.println("Creating Java source code file for " + fullPath);
               
               // Create the new, empty file, and create printwriter object for output to it
               File outputFile = new File(fullPath);
@@ -155,18 +159,31 @@ public class JavaGenerator extends Generator
     private void writeClass(PrintWriter pw, GeneratedClass aClass)
     {
         this.writeImports(pw, aClass);
+		pw.flush();
         this.writeClassComments(pw, aClass);
+		pw.flush();
         this.writeClassDeclaration(pw, aClass);
+		pw.flush();
         this.writeIvars(pw, aClass);
+		pw.flush();
         this.writeConstructor(pw, aClass);
+		pw.flush();
         this.writeGetMarshalledSizeMethod(pw, aClass);
+		pw.flush();
         this.writeGettersAndSetters(pw, aClass);
+		pw.flush();
         this.writeMarshalMethod(pw, aClass);
+		pw.flush();
         this.writeUnmarshallMethod(pw, aClass);
+		pw.flush();
         this.writeMarshalMethodWithByteBuffer(pw, aClass);
+		pw.flush();
         this.writeUnmarshallMethodWithByteBuffer(pw, aClass);
-        if( aClass.getName().equals("Pdu") ){
+		pw.flush();
+        if( aClass.getName().equals("Pdu") )
+		{
             this.writeMarshalMethodToByteArray(pw, aClass);
+			pw.flush();
         }
         
         if(aClass.isXmlRootElement())
@@ -758,9 +775,10 @@ public class JavaGenerator extends Generator
         List ivars = aClass.getClassAttributes();
         String superclassName;
         
-         pw.println();
+		pw.println();
         pw.println("public void unmarshal(DataInputStream dis)");
         pw.println("{");
+		pw.flush();
         
         superclassName = aClass.getParentClass();
         if(!(superclassName.equalsIgnoreCase("root")))
@@ -787,9 +805,11 @@ public class JavaGenerator extends Generator
                     pw.println("       " + anAttribute.getName() + " = (short)dis.read" + capped + "();");
                 else if (marshalType.equalsIgnoreCase("UnsignedShort"))
                     pw.println("       " + anAttribute.getName() + " = (int)dis.read" + capped + "();");
+				else if(marshalType.equalsIgnoreCase("UnsignedLong"))
+					pw.println("       " + anAttribute.getName() + " = (int)dis.readLong" + "();"); // ^^^This is wrong; need to read unsigned here
                 else
                     pw.println("       " + anAttribute.getName() + " = dis.read" + capped + "();");
-                
+                pw.flush();
             }
             
             // Write out a method call to deserialize a class.
