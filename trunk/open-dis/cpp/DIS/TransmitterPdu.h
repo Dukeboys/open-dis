@@ -5,8 +5,8 @@
 #include <DIS/Vector3Double.h>
 #include <DIS/Vector3Float.h>
 #include <DIS/ModulationType.h>
-#include <DIS/EightByteChunk.h>
-#include <DIS/EightByteChunk.h>
+#include <DIS/Vector3Float.h>
+#include <DIS/Vector3Float.h>
 #include <vector>
 #include <DIS/RadioCommunicationsFamilyPdu.h>
 #include <DIS/DataStream.h>
@@ -49,7 +49,7 @@ protected:
   unsigned short _antennaPatternCount; 
 
   /** frequency */
-  double _frequency; 
+  long _frequency; 
 
   /** transmit frequency Bandwidth */
   float _transmitFrequencyBandwidth; 
@@ -76,10 +76,10 @@ protected:
   unsigned char _padding3; 
 
   /** variable length list of modulation parameters */
-  std::vector<EightByteChunk> _modulationParametersList; 
+  std::vector<Vector3Float> _modulationParametersList; 
 
   /** variable length list of antenna pattern records */
-  std::vector<EightByteChunk> _antennaPatternList; 
+  std::vector<Vector3Float> _antennaPatternList; 
 
 
  public:
@@ -115,8 +115,8 @@ protected:
 
     unsigned short getAntennaPatternCount() const; 
 
-    double getFrequency() const; 
-    void setFrequency(double pX); 
+    long getFrequency() const; 
+    void setFrequency(long pX); 
 
     float getTransmitFrequencyBandwidth() const; 
     void setTransmitFrequencyBandwidth(float pX); 
@@ -142,13 +142,13 @@ protected:
     unsigned char getPadding3() const; 
     void setPadding3(unsigned char pX); 
 
-    std::vector<EightByteChunk>& getModulationParametersList(); 
-    const std::vector<EightByteChunk>& getModulationParametersList() const; 
-    void setModulationParametersList(const std::vector<EightByteChunk>&    pX);
+    std::vector<Vector3Float>& getModulationParametersList(); 
+    const std::vector<Vector3Float>& getModulationParametersList() const; 
+    void setModulationParametersList(const std::vector<Vector3Float>&    pX);
 
-    std::vector<EightByteChunk>& getAntennaPatternList(); 
-    const std::vector<EightByteChunk>& getAntennaPatternList() const; 
-    void setAntennaPatternList(const std::vector<EightByteChunk>&    pX);
+    std::vector<Vector3Float>& getAntennaPatternList(); 
+    const std::vector<Vector3Float>& getAntennaPatternList() const; 
+    void setAntennaPatternList(const std::vector<Vector3Float>&    pX);
 
 
 virtual int getMarshalledSize() const;
