@@ -2644,7 +2644,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   </attribute>
   
   <attribute name="frequency" comment="frequency">
-    <primitive type= "double"/>
+    <primitive type= "unsigned long"/>
   </attribute>
   
   <attribute name="transmitFrequencyBandwidth" comment="transmit frequency Bandwidth">
