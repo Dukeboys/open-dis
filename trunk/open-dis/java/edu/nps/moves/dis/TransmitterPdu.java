@@ -39,7 +39,7 @@ public class TransmitterPdu extends RadioCommunicationsFamilyPdu implements Seri
    protected int  antennaPatternCount;
 
    /** frequency */
-   protected double  frequency;
+   protected long  frequency;
 
    /** transmit frequency Bandwidth */
    protected float  transmitFrequencyBandwidth;
@@ -189,12 +189,12 @@ public void setAntennaPatternCount(int pAntennaPatternCount)
 { antennaPatternCount = pAntennaPatternCount;
 }
 
-public void setFrequency(double pFrequency)
+public void setFrequency(long pFrequency)
 { frequency = pFrequency;
 }
 
 @XmlAttribute
-public double getFrequency()
+public long getFrequency()
 { return frequency; 
 }
 
@@ -304,7 +304,7 @@ public void marshal(DataOutputStream dos)
        relativeAntennaLocation.marshal(dos);
        dos.writeShort( (short)antennaPatternType);
        dos.writeShort( (short)antennaPatternList.size());
-       dos.writeDouble( (double)frequency);
+       dos.writeLong( (long)frequency);
        dos.writeFloat( (float)transmitFrequencyBandwidth);
        dos.writeFloat( (float)power);
        modulationType.marshal(dos);
@@ -347,7 +347,7 @@ public void unmarshal(DataInputStream dis)
        relativeAntennaLocation.unmarshal(dis);
        antennaPatternType = (int)dis.readUnsignedShort();
        antennaPatternCount = (int)dis.readUnsignedShort();
-       frequency = dis.readDouble();
+       frequency = dis.readLong();
        transmitFrequencyBandwidth = dis.readFloat();
        power = dis.readFloat();
        modulationType.unmarshal(dis);
@@ -397,7 +397,7 @@ public void marshal(java.nio.ByteBuffer buff)
        relativeAntennaLocation.marshal(buff);
        buff.putShort( (short)antennaPatternType);
        buff.putShort( (short)antennaPatternList.size());
-       buff.putDouble( (double)frequency);
+       buff.putLong( (long)frequency);
        buff.putFloat( (float)transmitFrequencyBandwidth);
        buff.putFloat( (float)power);
        modulationType.marshal(buff);
@@ -441,7 +441,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
        relativeAntennaLocation.unmarshal(buff);
        antennaPatternType = (int)(buff.getShort() & 0xFFFF);
        antennaPatternCount = (int)(buff.getShort() & 0xFFFF);
-       frequency = buff.getDouble();
+       frequency = buff.getLong();
        transmitFrequencyBandwidth = buff.getFloat();
        power = buff.getFloat();
        modulationType.unmarshal(buff);
