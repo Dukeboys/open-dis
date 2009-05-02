@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,8 +57,8 @@ public class GridAxisRecordRepresentation0 : GridAxisRecord
    /** number of bytes of environmental state data */
    protected ushort  _numberOfBytes;
 
-   /** variable length list of data parameters @@@this is wrong--need padding as well */
-   protected List<OneByteChunk> _dataValues = new List<OneByteChunk>(); 
+   /** variable length list of data parameters ^^^this is wrong--need padding as well */
+   protected byte[] _dataValues; 
 
 /** Constructor */
    ///<summary>
@@ -43,11 +74,7 @@ new public int getMarshalledSize()
 
    marshalSize = base.getMarshalledSize();
    marshalSize = marshalSize + 2;  // _numberOfBytes
-   for(int idx=0; idx < _dataValues.Count; idx++)
-   {
-        OneByteChunk listElement = (OneByteChunk)_dataValues[idx];
-        marshalSize = marshalSize + listElement.getMarshalledSize();
-   }
+   marshalSize = marshalSize + _dataValues.Length;
 
    return marshalSize;
 }
@@ -81,23 +108,23 @@ public ushort NumberOfBytes
 }
 
    ///<summary>
-   ///variable length list of data parameters @@@this is wrong--need padding as well
+   ///variable length list of data parameters ^^^this is wrong--need padding as well
    ///</summary>
-public void setDataValues(List<OneByteChunk> pDataValues)
+public void setDataValues(byte[] pDataValues)
 { _dataValues = pDataValues;
 }
 
    ///<summary>
-   ///variable length list of data parameters @@@this is wrong--need padding as well
+   ///variable length list of data parameters ^^^this is wrong--need padding as well
    ///</summary>
-public List<OneByteChunk> getDataValues()
+public byte[] getDataValues()
 { return _dataValues; }
 
    ///<summary>
-   ///variable length list of data parameters @@@this is wrong--need padding as well
+   ///variable length list of data parameters ^^^this is wrong--need padding as well
    ///</summary>
-[XmlElement(ElementName = "dataValuesList",Type = typeof(List<OneByteChunk>))]
-public List<OneByteChunk> DataValues
+[XmlElement(ElementName = "dataValuesList", DataType = "hexBinary")]
+public byte[] DataValues
 {
      get
 {
@@ -118,14 +145,8 @@ new public void marshal(DataOutputStream dos)
     base.marshal(dos);
     try 
     {
-       dos.writeUshort( (ushort)_dataValues.Count);
-
-       for(int idx = 0; idx < _dataValues.Count; idx++)
-       {
-            OneByteChunk aOneByteChunk = (OneByteChunk)_dataValues[idx];
-            aOneByteChunk.marshal(dos);
-       } // end of list marshalling
-
+       dos.writeUshort((ushort)_dataValues.Length);
+       dos.writeByte (_dataValues);
     } // end try 
     catch(Exception e)
     { 
@@ -141,13 +162,7 @@ new public void unmarshal(DataInputStream dis)
     try 
     {
        _numberOfBytes = dis.readUshort();
-        for(int idx = 0; idx < _numberOfBytes; idx++)
-        {
-           OneByteChunk anX = new OneByteChunk();
-            anX.unmarshal(dis);
-            _dataValues.Add(anX);
-        };
-
+       _dataValues = dis.readByteArray(_numberOfBytes);
     } // end try 
    catch(Exception e)
     { 
@@ -170,16 +185,11 @@ new public void reflection(StringBuilder sb)
     base.reflection(sb);
     try 
     {
-           sb.Append("<dataValues type=\"ushort\">" + _dataValues.Count.ToString() + "</dataValues> " + System.Environment.NewLine);
+           sb.Append("<dataValues type=\"ushort\">" + _dataValues.Length.ToString() + "</dataValues> " + System.Environment.NewLine);
 
-       for(int idx = 0; idx < _dataValues.Count; idx++)
-       {
-           sb.Append("<dataValues"+ idx.ToString() + " type=\"OneByteChunk\">" + System.Environment.NewLine);
-            OneByteChunk aOneByteChunk = (OneByteChunk)_dataValues[idx];
-            aOneByteChunk.reflection(sb);
-           sb.Append("</dataValues"+ idx.ToString() + ">" + System.Environment.NewLine);
-       } // end of list marshalling
-
+           sb.Append("<dataValues type=\"byte[]\">" + System.Environment.NewLine);
+           foreach (byte b in _dataValues) sb.Append(b.ToString("X2"));
+                sb.Append("</dataValues>" + System.Environment.NewLine);
     sb.Append("</GridAxisRecordRepresentation0>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
@@ -200,13 +210,7 @@ new public void reflection(StringBuilder sb)
         return false;
 
      if( ! (_numberOfBytes == rhs._numberOfBytes)) ivarsEqual = false;
-
-     for(int idx = 0; idx < _dataValues.Count; idx++)
-     {
-        OneByteChunk x = (OneByteChunk)_dataValues[idx];
-        if( ! ( _dataValues[idx].Equals(rhs._dataValues[idx]))) ivarsEqual = false;
-     }
-
+        if( ! ( _dataValues.Equals(rhs._dataValues))) ivarsEqual = false;
 
     return ivarsEqual;
  }

@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -79,7 +110,7 @@ public class AggregateStatePdu : EntityManagementFamilyPdu
    protected List<AggregateID> _aggregateIDList = new List<AggregateID>(); 
    /** entity ID list */
    protected List<EntityID> _entityIDList = new List<EntityID>(); 
-   /** @@@padding to put the start of the next list on a 32 bit boundary. This needs to be fixed */
+   /** ^^^padding to put the start of the next list on a 32 bit boundary. This needs to be fixed */
    protected byte  _pad2;
 
    /** silent entity types */
@@ -589,7 +620,7 @@ public List<EntityID> EntityIDList
 }
 
    ///<summary>
-   ///@@@padding to put the start of the next list on a 32 bit boundary. This needs to be fixed
+   ///^^^padding to put the start of the next list on a 32 bit boundary. This needs to be fixed
    ///</summary>
 public void setPad2(byte pPad2)
 { _pad2 = pPad2;
@@ -741,19 +772,19 @@ new public void marshal(DataOutputStream dos)
     try 
     {
        _aggregateID.marshal(dos);
-       dos.writeByte( (byte)_forceID);
-       dos.writeByte( (byte)_aggregateState);
+       dos.writeByte((byte)_forceID);
+       dos.writeByte((byte)_aggregateState);
        _aggregateType.marshal(dos);
-       dos.writeUint( (uint)_formation);
+       dos.writeUint((uint)_formation);
        _aggregateMarking.marshal(dos);
        _dimensions.marshal(dos);
        _orientation.marshal(dos);
        _centerOfMass.marshal(dos);
        _velocity.marshal(dos);
-       dos.writeUshort( (ushort)_aggregateIDList.Count);
-       dos.writeUshort( (ushort)_entityIDList.Count);
-       dos.writeUshort( (ushort)_silentAggregateSystemList.Count);
-       dos.writeUshort( (ushort)_silentEntitySystemList.Count);
+       dos.writeUshort((ushort)_aggregateIDList.Count);
+       dos.writeUshort((ushort)_entityIDList.Count);
+       dos.writeUshort((ushort)_silentAggregateSystemList.Count);
+       dos.writeUshort((ushort)_silentEntitySystemList.Count);
 
        for(int idx = 0; idx < _aggregateIDList.Count; idx++)
        {
@@ -768,7 +799,7 @@ new public void marshal(DataOutputStream dos)
             aEntityID.marshal(dos);
        } // end of list marshalling
 
-       dos.writeByte( (byte)_pad2);
+       dos.writeByte((byte)_pad2);
 
        for(int idx = 0; idx < _silentAggregateSystemList.Count; idx++)
        {
@@ -783,7 +814,7 @@ new public void marshal(DataOutputStream dos)
             aEntityType.marshal(dos);
        } // end of list marshalling
 
-       dos.writeUint( (uint)_variableDatumList.Count);
+       dos.writeUint((uint)_variableDatumList.Count);
 
        for(int idx = 0; idx < _variableDatumList.Count; idx++)
        {

@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -53,7 +84,7 @@ public class TransmitterPdu : RadioCommunicationsFamilyPdu
    protected ushort  _antennaPatternCount;
 
    /** frequency */
-   protected double  _frequency;
+   protected ulong  _frequency;
 
    /** transmit frequency Bandwidth */
    protected float  _transmitFrequencyBandwidth;
@@ -330,12 +361,12 @@ public ushort AntennaPatternCount
    ///<summary>
    ///frequency
    ///</summary>
-public void setFrequency(double pFrequency)
+public void setFrequency(ulong pFrequency)
 { _frequency = pFrequency;
 }
 
-[XmlElement(Type= typeof(double), ElementName="frequency")]
-public double Frequency
+[XmlElement(Type= typeof(ulong), ElementName="frequency")]
+public ulong Frequency
 {
      get
 {
@@ -601,22 +632,22 @@ new public void marshal(DataOutputStream dos)
     try 
     {
        _radioEntityType.marshal(dos);
-       dos.writeByte( (byte)_transmitState);
-       dos.writeByte( (byte)_inputSource);
-       dos.writeUshort( (ushort)_padding1);
+       dos.writeByte((byte)_transmitState);
+       dos.writeByte((byte)_inputSource);
+       dos.writeUshort((ushort)_padding1);
        _antennaLocation.marshal(dos);
        _relativeAntennaLocation.marshal(dos);
-       dos.writeUshort( (ushort)_antennaPatternType);
-       dos.writeUshort( (ushort)_antennaPatternList.Count);
-       dos.writeDouble( (double)_frequency);
-       dos.writeFloat( (float)_transmitFrequencyBandwidth);
-       dos.writeFloat( (float)_power);
+       dos.writeUshort((ushort)_antennaPatternType);
+       dos.writeUshort((ushort)_antennaPatternList.Count);
+       dos.writeUlong((ulong)_frequency);
+       dos.writeFloat((float)_transmitFrequencyBandwidth);
+       dos.writeFloat((float)_power);
        _modulationType.marshal(dos);
-       dos.writeUshort( (ushort)_cryptoSystem);
-       dos.writeUshort( (ushort)_cryptoKeyId);
-       dos.writeByte( (byte)_modulationParametersList.Count);
-       dos.writeUshort( (ushort)_padding2);
-       dos.writeByte( (byte)_padding3);
+       dos.writeUshort((ushort)_cryptoSystem);
+       dos.writeUshort((ushort)_cryptoKeyId);
+       dos.writeByte((byte)_modulationParametersList.Count);
+       dos.writeUshort((ushort)_padding2);
+       dos.writeByte((byte)_padding3);
 
        for(int idx = 0; idx < _modulationParametersList.Count; idx++)
        {
@@ -653,7 +684,7 @@ new public void unmarshal(DataInputStream dis)
        _relativeAntennaLocation.unmarshal(dis);
        _antennaPatternType = dis.readUshort();
        _antennaPatternCount = dis.readUshort();
-       _frequency = dis.readDouble();
+       _frequency = dis.readUlong();
        _transmitFrequencyBandwidth = dis.readFloat();
        _power = dis.readFloat();
        _modulationType.unmarshal(dis);
@@ -712,7 +743,7 @@ new public void reflection(StringBuilder sb)
     sb.Append("</relativeAntennaLocation>"  + System.Environment.NewLine);
            sb.Append("<antennaPatternType type=\"ushort\">" + _antennaPatternType.ToString() + "</antennaPatternType> " + System.Environment.NewLine);
            sb.Append("<antennaPatternList type=\"ushort\">" + _antennaPatternList.Count.ToString() + "</antennaPatternList> " + System.Environment.NewLine);
-           sb.Append("<frequency type=\"double\">" + _frequency.ToString() + "</frequency> " + System.Environment.NewLine);
+           sb.Append("<frequency type=\"ulong\">" + _frequency.ToString() + "</frequency> " + System.Environment.NewLine);
            sb.Append("<transmitFrequencyBandwidth type=\"float\">" + _transmitFrequencyBandwidth.ToString() + "</transmitFrequencyBandwidth> " + System.Environment.NewLine);
            sb.Append("<power type=\"float\">" + _power.ToString() + "</power> " + System.Environment.NewLine);
     sb.Append("<modulationType>"  + System.Environment.NewLine);

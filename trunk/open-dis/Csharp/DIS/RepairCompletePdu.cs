@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,8 +63,8 @@ public class RepairCompletePdu : LogisticsFamilyPdu
    /** Enumeration for type of repair */
    protected ushort  _repair;
 
-   /** padding */
-   protected short  _padding = 0;
+   /** padding, number prevents conflict with superclass ivar name */
+   protected short  _padding2 = 0;
 
 
 /** Constructor */
@@ -53,7 +84,7 @@ new public int getMarshalledSize()
    marshalSize = marshalSize + _receivingEntityID.getMarshalledSize();  // _receivingEntityID
    marshalSize = marshalSize + _repairingEntityID.getMarshalledSize();  // _repairingEntityID
    marshalSize = marshalSize + 2;  // _repair
-   marshalSize = marshalSize + 2;  // _padding
+   marshalSize = marshalSize + 2;  // _padding2
 
    return marshalSize;
 }
@@ -140,22 +171,22 @@ public ushort Repair
 }
 
    ///<summary>
-   ///padding
+   ///padding, number prevents conflict with superclass ivar name
    ///</summary>
-public void setPadding(short pPadding)
-{ _padding = pPadding;
+public void setPadding2(short pPadding2)
+{ _padding2 = pPadding2;
 }
 
-[XmlElement(Type= typeof(short), ElementName="padding")]
-public short Padding
+[XmlElement(Type= typeof(short), ElementName="padding2")]
+public short Padding2
 {
      get
 {
-          return _padding;
+          return _padding2;
 }
      set
 {
-          _padding = value;
+          _padding2 = value;
 }
 }
 
@@ -179,8 +210,8 @@ new public void marshal(DataOutputStream dos)
     {
        _receivingEntityID.marshal(dos);
        _repairingEntityID.marshal(dos);
-       dos.writeUshort( (ushort)_repair);
-       dos.writeShort( (short)_padding);
+       dos.writeUshort((ushort)_repair);
+       dos.writeShort((short)_padding2);
     } // end try 
     catch(Exception e)
     { 
@@ -198,7 +229,7 @@ new public void unmarshal(DataInputStream dis)
        _receivingEntityID.unmarshal(dis);
        _repairingEntityID.unmarshal(dis);
        _repair = dis.readUshort();
-       _padding = dis.readShort();
+       _padding2 = dis.readShort();
     } // end try 
    catch(Exception e)
     { 
@@ -228,7 +259,7 @@ new public void reflection(StringBuilder sb)
        _repairingEntityID.reflection(sb);
     sb.Append("</repairingEntityID>"  + System.Environment.NewLine);
            sb.Append("<repair type=\"ushort\">" + _repair.ToString() + "</repair> " + System.Environment.NewLine);
-           sb.Append("<padding type=\"short\">" + _padding.ToString() + "</padding> " + System.Environment.NewLine);
+           sb.Append("<padding2 type=\"short\">" + _padding2.ToString() + "</padding2> " + System.Environment.NewLine);
     sb.Append("</RepairCompletePdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
@@ -251,7 +282,7 @@ new public void reflection(StringBuilder sb)
      if( ! (_receivingEntityID.Equals( rhs._receivingEntityID) )) ivarsEqual = false;
      if( ! (_repairingEntityID.Equals( rhs._repairingEntityID) )) ivarsEqual = false;
      if( ! (_repair == rhs._repair)) ivarsEqual = false;
-     if( ! (_padding == rhs._padding)) ivarsEqual = false;
+     if( ! (_padding2 == rhs._padding2)) ivarsEqual = false;
 
     return ivarsEqual;
  }

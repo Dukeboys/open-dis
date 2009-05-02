@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,7 +65,7 @@ public class IntercomSignalPdu : RadioCommunicationsFamilyPdu
    protected ushort  _encodingScheme;
 
    /** tactical data link type */
-   protected ushort  _TdlType;
+   protected ushort  _tdlType;
 
    /** sample rate */
    protected uint  _sampleRate;
@@ -46,7 +77,7 @@ public class IntercomSignalPdu : RadioCommunicationsFamilyPdu
    protected ushort  _samples;
 
    /** data bytes */
-   protected List<OneByteChunk> _data = new List<OneByteChunk>(); 
+   protected byte[] _data; 
 
 /** Constructor */
    ///<summary>
@@ -65,15 +96,11 @@ new public int getMarshalledSize()
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
    marshalSize = marshalSize + 2;  // _communicationsDeviceID
    marshalSize = marshalSize + 2;  // _encodingScheme
-   marshalSize = marshalSize + 2;  // _TdlType
+   marshalSize = marshalSize + 2;  // _tdlType
    marshalSize = marshalSize + 4;  // _sampleRate
    marshalSize = marshalSize + 2;  // _dataLength
    marshalSize = marshalSize + 2;  // _samples
-   for(int idx=0; idx < _data.Count; idx++)
-   {
-        OneByteChunk listElement = (OneByteChunk)_data[idx];
-        marshalSize = marshalSize + listElement.getMarshalledSize();
-   }
+   marshalSize = marshalSize + _data.Length;
 
    return marshalSize;
 }
@@ -153,19 +180,19 @@ public ushort EncodingScheme
    ///tactical data link type
    ///</summary>
 public void setTdlType(ushort pTdlType)
-{ _TdlType = pTdlType;
+{ _tdlType = pTdlType;
 }
 
-[XmlElement(Type= typeof(ushort), ElementName="TdlType")]
+[XmlElement(Type= typeof(ushort), ElementName="tdlType")]
 public ushort TdlType
 {
      get
 {
-          return _TdlType;
+          return _tdlType;
 }
      set
 {
-          _TdlType = value;
+          _tdlType = value;
 }
 }
 
@@ -239,21 +266,21 @@ public ushort Samples
    ///<summary>
    ///data bytes
    ///</summary>
-public void setData(List<OneByteChunk> pData)
+public void setData(byte[] pData)
 { _data = pData;
 }
 
    ///<summary>
    ///data bytes
    ///</summary>
-public List<OneByteChunk> getData()
+public byte[] getData()
 { return _data; }
 
    ///<summary>
    ///data bytes
    ///</summary>
-[XmlElement(ElementName = "dataList",Type = typeof(List<OneByteChunk>))]
-public List<OneByteChunk> Data
+[XmlElement(ElementName = "dataList", DataType = "hexBinary")]
+public byte[] Data
 {
      get
 {
@@ -284,19 +311,13 @@ new public void marshal(DataOutputStream dos)
     try 
     {
        _entityID.marshal(dos);
-       dos.writeUshort( (ushort)_communicationsDeviceID);
-       dos.writeUshort( (ushort)_encodingScheme);
-       dos.writeUshort( (ushort)_TdlType);
-       dos.writeUint( (uint)_sampleRate);
-       dos.writeUshort( (ushort)_data.Count);
-       dos.writeUshort( (ushort)_samples);
-
-       for(int idx = 0; idx < _data.Count; idx++)
-       {
-            OneByteChunk aOneByteChunk = (OneByteChunk)_data[idx];
-            aOneByteChunk.marshal(dos);
-       } // end of list marshalling
-
+       dos.writeUshort((ushort)_communicationsDeviceID);
+       dos.writeUshort((ushort)_encodingScheme);
+       dos.writeUshort((ushort)_tdlType);
+       dos.writeUint((uint)_sampleRate);
+       dos.writeUshort((ushort)_data.Length);
+       dos.writeUshort((ushort)_samples);
+       dos.writeByte (_data);
     } // end try 
     catch(Exception e)
     { 
@@ -314,17 +335,11 @@ new public void unmarshal(DataInputStream dis)
        _entityID.unmarshal(dis);
        _communicationsDeviceID = dis.readUshort();
        _encodingScheme = dis.readUshort();
-       _TdlType = dis.readUshort();
+       _tdlType = dis.readUshort();
        _sampleRate = dis.readUint();
        _dataLength = dis.readUshort();
        _samples = dis.readUshort();
-        for(int idx = 0; idx < _dataLength; idx++)
-        {
-           OneByteChunk anX = new OneByteChunk();
-            anX.unmarshal(dis);
-            _data.Add(anX);
-        };
-
+       _data = dis.readByteArray(_dataLength);
     } // end try 
    catch(Exception e)
     { 
@@ -352,19 +367,14 @@ new public void reflection(StringBuilder sb)
     sb.Append("</entityID>"  + System.Environment.NewLine);
            sb.Append("<communicationsDeviceID type=\"ushort\">" + _communicationsDeviceID.ToString() + "</communicationsDeviceID> " + System.Environment.NewLine);
            sb.Append("<encodingScheme type=\"ushort\">" + _encodingScheme.ToString() + "</encodingScheme> " + System.Environment.NewLine);
-           sb.Append("<TdlType type=\"ushort\">" + _TdlType.ToString() + "</TdlType> " + System.Environment.NewLine);
+           sb.Append("<tdlType type=\"ushort\">" + _tdlType.ToString() + "</tdlType> " + System.Environment.NewLine);
            sb.Append("<sampleRate type=\"uint\">" + _sampleRate.ToString() + "</sampleRate> " + System.Environment.NewLine);
-           sb.Append("<data type=\"ushort\">" + _data.Count.ToString() + "</data> " + System.Environment.NewLine);
+           sb.Append("<data type=\"ushort\">" + _data.Length.ToString() + "</data> " + System.Environment.NewLine);
            sb.Append("<samples type=\"ushort\">" + _samples.ToString() + "</samples> " + System.Environment.NewLine);
 
-       for(int idx = 0; idx < _data.Count; idx++)
-       {
-           sb.Append("<data"+ idx.ToString() + " type=\"OneByteChunk\">" + System.Environment.NewLine);
-            OneByteChunk aOneByteChunk = (OneByteChunk)_data[idx];
-            aOneByteChunk.reflection(sb);
-           sb.Append("</data"+ idx.ToString() + ">" + System.Environment.NewLine);
-       } // end of list marshalling
-
+           sb.Append("<data type=\"byte[]\">" + System.Environment.NewLine);
+           foreach (byte b in _data) sb.Append(b.ToString("X2"));
+                sb.Append("</data>" + System.Environment.NewLine);
     sb.Append("</IntercomSignalPdu>"  + System.Environment.NewLine);
     } // end try 
     catch(Exception e)
@@ -387,17 +397,11 @@ new public void reflection(StringBuilder sb)
      if( ! (_entityID.Equals( rhs._entityID) )) ivarsEqual = false;
      if( ! (_communicationsDeviceID == rhs._communicationsDeviceID)) ivarsEqual = false;
      if( ! (_encodingScheme == rhs._encodingScheme)) ivarsEqual = false;
-     if( ! (_TdlType == rhs._TdlType)) ivarsEqual = false;
+     if( ! (_tdlType == rhs._tdlType)) ivarsEqual = false;
      if( ! (_sampleRate == rhs._sampleRate)) ivarsEqual = false;
      if( ! (_dataLength == rhs._dataLength)) ivarsEqual = false;
      if( ! (_samples == rhs._samples)) ivarsEqual = false;
-
-     for(int idx = 0; idx < _data.Count; idx++)
-     {
-        OneByteChunk x = (OneByteChunk)_data[idx];
-        if( ! ( _data[idx].Equals(rhs._data[idx]))) ivarsEqual = false;
-     }
-
+        if( ! ( _data.Equals(rhs._data))) ivarsEqual = false;
 
     return ivarsEqual;
  }

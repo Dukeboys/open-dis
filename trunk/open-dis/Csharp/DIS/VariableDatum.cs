@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -77,18 +108,16 @@ public uint VariableDatumID
 }
 
 /// <summary>
-/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-/// The getvariableDatumLength method will also be based on the actual list length rather than this value. 
-/// The method is simply here for completeness and should not be used for any computations.
+/// This value must be set for any PDU using it to work!
+/// This value should be the number of bits used.
 /// </summary>
 public void setVariableDatumLength(uint pVariableDatumLength)
 { _variableDatumLength = pVariableDatumLength;
 }
 
 /// <summary>
-/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-/// The getvariableDatumLength method will also be based on the actual list length rather than this value. 
-/// The method is simply here for completeness and should not be used for any computations.
+/// This value must be set for any PDU using it to work!
+/// This value should be the number of bits used.
 /// </summary>
 [XmlElement(Type= typeof(uint), ElementName="variableDatumLength")]
 public uint VariableDatumLength
@@ -140,8 +169,8 @@ public void marshal(DataOutputStream dos)
 {
     try 
     {
-       dos.writeUint( (uint)_variableDatumID);
-       dos.writeUint( (uint)_variableDatums.Count);
+       dos.writeUint((uint)_variableDatumID);
+       dos.writeUint((uint)_variableDatumLength); //Post processed
 
        for(int idx = 0; idx < _variableDatums.Count; idx++)
        {
@@ -162,8 +191,9 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        _variableDatumID = dis.readUint();
-       _variableDatumLength = dis.readUint();
-        for(int idx = 0; idx < _variableDatumLength; idx++)
+       _variableDatumLength = dis.readUint();
+        int variableCount = (int)(_variableDatumLength / 64) + (_variableDatumLength % 64 > 0 ? 1 : 0);  //Post processed
+        for(int idx = 0; idx < variableCount; idx++)
         {
            EightByteChunk anX = new EightByteChunk();
             anX.unmarshal(dis);

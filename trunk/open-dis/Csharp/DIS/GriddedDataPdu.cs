@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -68,7 +99,7 @@ public class GriddedDataPdu : SyntheticEnvironmentFamilyPdu
    /** padding */
    protected byte  _padding2;
 
-   /** Grid data @@@This is wrong */
+   /** Grid data ^^^This is wrong */
    protected List<GridAxisRecord> _gridDataList = new List<GridAxisRecord>(); 
 
 /** Constructor */
@@ -427,20 +458,20 @@ public byte Padding2
 }
 
    ///<summary>
-   ///Grid data @@@This is wrong
+   ///Grid data ^^^This is wrong
    ///</summary>
 public void setGridDataList(List<GridAxisRecord> pGridDataList)
 { _gridDataList = pGridDataList;
 }
 
    ///<summary>
-   ///Grid data @@@This is wrong
+   ///Grid data ^^^This is wrong
    ///</summary>
 public List<GridAxisRecord> getGridDataList()
 { return _gridDataList; }
 
    ///<summary>
-   ///Grid data @@@This is wrong
+   ///Grid data ^^^This is wrong
    ///</summary>
 [XmlElement(ElementName = "gridDataListList",Type = typeof(List<GridAxisRecord>))]
 public List<GridAxisRecord> GridDataList
@@ -474,19 +505,19 @@ new public void marshal(DataOutputStream dos)
     try 
     {
        _environmentalSimulationApplicationID.marshal(dos);
-       dos.writeUshort( (ushort)_fieldNumber);
-       dos.writeUshort( (ushort)_pduNumber);
-       dos.writeUshort( (ushort)_pduTotal);
-       dos.writeUshort( (ushort)_coordinateSystem);
-       dos.writeByte( (byte)_gridDataList.Count);
-       dos.writeByte( (byte)_constantGrid);
+       dos.writeUshort((ushort)_fieldNumber);
+       dos.writeUshort((ushort)_pduNumber);
+       dos.writeUshort((ushort)_pduTotal);
+       dos.writeUshort((ushort)_coordinateSystem);
+       dos.writeByte((byte)_gridDataList.Count);
+       dos.writeByte((byte)_constantGrid);
        _environmentType.marshal(dos);
        _orientation.marshal(dos);
-       dos.writeLong( (long)_sampleTime);
-       dos.writeUint( (uint)_totalValues);
-       dos.writeByte( (byte)_vectorDimension);
-       dos.writeUshort( (ushort)_padding1);
-       dos.writeByte( (byte)_padding2);
+       dos.writeLong((long)_sampleTime);
+       dos.writeUint((uint)_totalValues);
+       dos.writeByte((byte)_vectorDimension);
+       dos.writeUshort((ushort)_padding1);
+       dos.writeByte((byte)_padding2);
 
        for(int idx = 0; idx < _gridDataList.Count; idx++)
        {

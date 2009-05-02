@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -1038,55 +1069,55 @@ new public void marshal(DataOutputStream dos)
     base.marshal(dos);
     try 
     {
-       dos.writeUshort( (ushort)_site);
-       dos.writeUshort( (ushort)_application);
-       dos.writeUshort( (ushort)_entity);
-       dos.writeByte( (byte)_forceId);
-       dos.writeByte( (byte)_articulationParameters.Count);
-       dos.writeByte( (byte)_entityKind);
-       dos.writeByte( (byte)_domain);
-       dos.writeUshort( (ushort)_country);
-       dos.writeByte( (byte)_category);
-       dos.writeByte( (byte)_subcategory);
-       dos.writeByte( (byte)_specific);
-       dos.writeByte( (byte)_extra);
-       dos.writeByte( (byte)_altEntityKind);
-       dos.writeByte( (byte)_altDomain);
-       dos.writeUshort( (ushort)_altCountry);
-       dos.writeByte( (byte)_altCategory);
-       dos.writeByte( (byte)_altSubcategory);
-       dos.writeByte( (byte)_altSpecific);
-       dos.writeByte( (byte)_altExtra);
-       dos.writeFloat( (float)_xVelocity);
-       dos.writeFloat( (float)_yVelocity);
-       dos.writeFloat( (float)_zVelocity);
-       dos.writeDouble( (double)_xLocation);
-       dos.writeDouble( (double)_yLocation);
-       dos.writeDouble( (double)_zLocation);
-       dos.writeFloat( (float)_psi);
-       dos.writeFloat( (float)_theta);
-       dos.writeFloat( (float)_phi);
-       dos.writeUint( (uint)_entityAppearance);
-       dos.writeByte( (byte)_deadReckoningAlgorithm);
+       dos.writeUshort((ushort)_site);
+       dos.writeUshort((ushort)_application);
+       dos.writeUshort((ushort)_entity);
+       dos.writeByte((byte)_forceId);
+       dos.writeByte((byte)_articulationParameters.Count);
+       dos.writeByte((byte)_entityKind);
+       dos.writeByte((byte)_domain);
+       dos.writeUshort((ushort)_country);
+       dos.writeByte((byte)_category);
+       dos.writeByte((byte)_subcategory);
+       dos.writeByte((byte)_specific);
+       dos.writeByte((byte)_extra);
+       dos.writeByte((byte)_altEntityKind);
+       dos.writeByte((byte)_altDomain);
+       dos.writeUshort((ushort)_altCountry);
+       dos.writeByte((byte)_altCategory);
+       dos.writeByte((byte)_altSubcategory);
+       dos.writeByte((byte)_altSpecific);
+       dos.writeByte((byte)_altExtra);
+       dos.writeFloat((float)_xVelocity);
+       dos.writeFloat((float)_yVelocity);
+       dos.writeFloat((float)_zVelocity);
+       dos.writeDouble((double)_xLocation);
+       dos.writeDouble((double)_yLocation);
+       dos.writeDouble((double)_zLocation);
+       dos.writeFloat((float)_psi);
+       dos.writeFloat((float)_theta);
+       dos.writeFloat((float)_phi);
+       dos.writeUint((uint)_entityAppearance);
+       dos.writeByte((byte)_deadReckoningAlgorithm);
 
        for(int idx = 0; idx < _otherParameters.Length; idx++)
        {
            dos.writeByte(_otherParameters[idx]);
        } // end of array marshaling
 
-       dos.writeFloat( (float)_xAcceleration);
-       dos.writeFloat( (float)_yAcceleration);
-       dos.writeFloat( (float)_zAcceleration);
-       dos.writeFloat( (float)_xAngularVelocity);
-       dos.writeFloat( (float)_yAngularVelocity);
-       dos.writeFloat( (float)_zAngularVelocity);
+       dos.writeFloat((float)_xAcceleration);
+       dos.writeFloat((float)_yAcceleration);
+       dos.writeFloat((float)_zAcceleration);
+       dos.writeFloat((float)_xAngularVelocity);
+       dos.writeFloat((float)_yAngularVelocity);
+       dos.writeFloat((float)_zAngularVelocity);
 
        for(int idx = 0; idx < _marking.Length; idx++)
        {
            dos.writeByte(_marking[idx]);
        } // end of array marshaling
 
-       dos.writeUint( (uint)_capabilities);
+       dos.writeUint((uint)_capabilities);
 
        for(int idx = 0; idx < _articulationParameters.Count; idx++)
        {

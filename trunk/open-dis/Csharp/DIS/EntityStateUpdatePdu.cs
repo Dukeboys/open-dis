@@ -1,3 +1,34 @@
+// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+//  are met:
+// 
+//  * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+// * Neither the names of the Naval Postgraduate School (NPS)
+//  Modeling Virtual Environments and Simulation (MOVES) Institute
+// (http://www.nps.edu and http://www.MovesInstitute.org)
+// nor the names of its contributors may be used to endorse or
+//  promote products derived from this software without specific
+// prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+// FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+// COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+// INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+// BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,6 +60,9 @@ public class EntityStateUpdatePdu : EntityInformationFamilyPdu
 {
    /** This field shall identify the entity issuing the PDU */
    protected EntityID  _entityID = new EntityID(); 
+
+   /** Padding */
+   protected byte  _padding1;
 
    /** How many articulation parameters are in the variable length list */
    protected byte  _numberOfArticulationParameters;
@@ -63,6 +97,7 @@ new public int getMarshalledSize()
 
    marshalSize = base.getMarshalledSize();
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
+   marshalSize = marshalSize + 1;  // _padding1
    marshalSize = marshalSize + 1;  // _numberOfArticulationParameters
    marshalSize = marshalSize + _entityLinearVelocity.getMarshalledSize();  // _entityLinearVelocity
    marshalSize = marshalSize + _entityLocation.getMarshalledSize();  // _entityLocation
@@ -105,6 +140,26 @@ public EntityID EntityID
      set
 {
           _entityID = value;
+}
+}
+
+   ///<summary>
+   ///Padding
+   ///</summary>
+public void setPadding1(byte pPadding1)
+{ _padding1 = pPadding1;
+}
+
+[XmlElement(Type= typeof(byte), ElementName="padding1")]
+public byte Padding1
+{
+     get
+{
+          return _padding1;
+}
+     set
+{
+          _padding1 = value;
 }
 }
 
@@ -284,11 +339,12 @@ new public void marshal(DataOutputStream dos)
     try 
     {
        _entityID.marshal(dos);
-       dos.writeByte( (byte)_articulationParameters.Count);
+       dos.writeByte((byte)_padding1);
+       dos.writeByte((byte)_articulationParameters.Count);
        _entityLinearVelocity.marshal(dos);
        _entityLocation.marshal(dos);
        _entityOrientation.marshal(dos);
-       dos.writeUint( (uint)_entityAppearance);
+       dos.writeUint((uint)_entityAppearance);
 
        for(int idx = 0; idx < _articulationParameters.Count; idx++)
        {
@@ -311,6 +367,7 @@ new public void unmarshal(DataInputStream dis)
     try 
     {
        _entityID.unmarshal(dis);
+       _padding1 = dis.readByte();
        _numberOfArticulationParameters = dis.readByte();
        _entityLinearVelocity.unmarshal(dis);
        _entityLocation.unmarshal(dis);
@@ -348,6 +405,7 @@ new public void reflection(StringBuilder sb)
     sb.Append("<entityID>"  + System.Environment.NewLine);
        _entityID.reflection(sb);
     sb.Append("</entityID>"  + System.Environment.NewLine);
+           sb.Append("<padding1 type=\"byte\">" + _padding1.ToString() + "</padding1> " + System.Environment.NewLine);
            sb.Append("<articulationParameters type=\"byte\">" + _articulationParameters.Count.ToString() + "</articulationParameters> " + System.Environment.NewLine);
     sb.Append("<entityLinearVelocity>"  + System.Environment.NewLine);
        _entityLinearVelocity.reflection(sb);
@@ -388,6 +446,7 @@ new public void reflection(StringBuilder sb)
         return false;
 
      if( ! (_entityID.Equals( rhs._entityID) )) ivarsEqual = false;
+     if( ! (_padding1 == rhs._padding1)) ivarsEqual = false;
      if( ! (_numberOfArticulationParameters == rhs._numberOfArticulationParameters)) ivarsEqual = false;
      if( ! (_entityLinearVelocity.Equals( rhs._entityLinearVelocity) )) ivarsEqual = false;
      if( ! (_entityLocation.Equals( rhs._entityLocation) )) ivarsEqual = false;
