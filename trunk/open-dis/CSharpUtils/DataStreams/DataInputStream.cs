@@ -195,6 +195,20 @@ namespace DISnet.DataStreamUtilities
         }
 
         /// <summary>
+        /// Reads from DataStream's byte array a byte
+        /// </summary>
+        /// <returns>byte</returns>
+        public byte[] readByteArray(int length)
+        {
+            byte[] returnedData;
+
+            this.dsPDU.ReturnByteArray(dsPDU.byteStream, dsPDU.streamCounter, length, out returnedData);
+
+            dsPDU.streamCounter+=length;
+            return returnedData;
+        }
+
+        /// <summary>
         /// Reads from DataStream's byte array a double value
         /// </summary>
         /// <returns>double</returns>
@@ -235,5 +249,27 @@ namespace DISnet.DataStreamUtilities
             dsPDU.streamCounter += size;
             return returnedData;
         }
+
+        /// <summary>
+        /// Reads from DataStream's byte array a unsigned long
+        /// </summary>
+        /// <returns>ulong</returns>
+        public ulong readUlong()
+        {
+            byte[] temp;
+            int size = sizeof(ulong);
+
+            this.dsPDU.ReturnByteArray(dsPDU.byteStream, dsPDU.streamCounter, size, out temp);
+
+            if (this.Endian == DISnet.DataStreamUtilities.EndianTypes.Endian.BIG)
+            {
+                Array.Reverse(temp);
+            }
+
+            ulong returnedData = System.BitConverter.ToUInt64(temp, 0);
+            dsPDU.streamCounter += size;
+            return returnedData;
+        }
+        
     }
 }

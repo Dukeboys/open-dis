@@ -36,6 +36,75 @@ namespace DISnet.Utilities
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <param name="endian"></param>
+        /// <param name="length">The standard size of a PDU header.  The size of the pdu will be read from the header. 
+        /// Note: This value could have been a const but wanted to be more flexible</param>
+        /// <returns></returns>
+        public object ProcessPDU(Stream stream, DISnet.DataStreamUtilities.EndianTypes.Endian endian)
+        {
+            Endian = endian;
+            return ProcessPDU(stream);
+        }
+
+        private object ProcessPDU(Stream stream)
+        {
+            
+            int upToPDULength = (int)PDU_LENGTH_POSITION + sizeof(UInt16);
+            int pduLength = 0;
+            byte pdu_type;
+            byte pdu_version;
+            object PDU = null;
+
+            long startingPosition = stream.Position;
+
+            byte[] buf = new byte[upToPDULength];
+            
+            //Read in part of the stream up to the pdu length
+            stream.Read(buf, 0, upToPDULength);
+
+            try
+            {
+                if (this.edian == DISnet.DataStreamUtilities.EndianTypes.Endian.BIG)
+                {
+                    byte[] temp = new byte[sizeof(UInt16)];
+
+                    Array.Copy(buf, (int)PDU_LENGTH_POSITION, temp, 0, temp.Length);
+                    Array.Reverse(temp);
+                    pduLength = System.BitConverter.ToUInt16(temp, 0);
+                }
+                else
+                {
+                    pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION);
+                }
+
+                //Allocate space for the whole PDU
+                byte[] PDUBufferStorage = new byte[pduLength];
+
+                //Reset back to beginning
+                stream.Position = startingPosition;
+
+                //read in the whole PDU
+                stream.Read(PDUBufferStorage, 0, pduLength);
+
+                pdu_type = PDUBufferStorage[PDU_TYPE_POSITION];
+
+                pdu_version = PDUBufferStorage[PDU_VERSION_POSITION];
+
+                PDU = SwitchOnType(pdu_version, pdu_type, PDUBufferStorage);
+
+            }
+            catch (Exception ex)//Wow something bad just happened, could be bad/misalgined PDU
+            {
+                PDU = null;   
+            }
+
+            return PDU;
+        }
+
+        /// <summary>
         /// Process a received PDU.  Note that a datastream can contain multiple PDUs.  Therefore a
         /// List is used to hold one or more after decoding.
         /// </summary>

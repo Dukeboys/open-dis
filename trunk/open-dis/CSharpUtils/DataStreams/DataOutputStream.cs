@@ -147,6 +147,15 @@ namespace DISnet.DataStreamUtilities
         }
 
         /// <summary>
+        /// Write a byte array value to the DataStream
+        /// </summary>
+        /// <param name="data">byte</param>
+        public void writeByte(byte[] data)
+        {
+            WriteData(data);
+        }
+
+        /// <summary>
         /// Write a double value to the DataStream
         /// </summary>
         /// <param name="data">double</param>
@@ -167,6 +176,23 @@ namespace DISnet.DataStreamUtilities
         /// </summary>
         /// <param name="data">long</param>
         public void writeLong(long data)
+        {
+            byte[] serializedData = System.BitConverter.GetBytes(data);
+
+            if (this.Endian == DISnet.DataStreamUtilities.EndianTypes.Endian.BIG)
+            {
+                Array.Reverse(serializedData);
+            }
+
+            WriteData(serializedData);
+        }
+
+
+        /// <summary>
+        /// Write a unsigned long value to the DataStream
+        /// </summary>
+        /// <param name="data">long</param>
+        public void writeUlong(ulong data)
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
