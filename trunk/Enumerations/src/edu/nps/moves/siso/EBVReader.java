@@ -3,8 +3,12 @@ package edu.nps.moves.siso;
 
 import java.io.*;
 import java.math.*;
+import java.nio.channels.FileChannel;
+import java.text.BreakIterator;
 import java.util.*;
+
 import javax.xml.bind.*;
+
 
 import edu.nps.moves.siso.jaxb.*;
 
@@ -36,8 +40,11 @@ public class EBVReader
              Unmarshaller unmarshaller = context.createUnmarshaller();
              Ebv data = (Ebv)unmarshaller.unmarshal(new FileInputStream("data/siso-std-010.xml"));
              
-             // Retrieve the enumerations
-             List<GenerictableT> genericList = data.getEnumOrBitmaskOrCet();
+             // write the common header
+             writeCppEnumerationCommon();
+             
+             // Retrieve the enumerations             
+             List<GenerictableT> genericList = data.getEnumOrBitmaskOrCet();       
              for(int idx = 0; idx < genericList.size(); idx++)
              {
                  GenerictableT gen = genericList.get(idx);
@@ -64,7 +71,7 @@ public class EBVReader
                      {
                          //System.out.println("PDU Type");
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PduType", "src/edu/nps/moves/disenum/PduType", en);
+                         reader.writeStandardEnumeration("PduType",  en);
                      }
                      
                      // Country. this uses a special writer so that we can also pick up the internet code for
@@ -72,985 +79,1207 @@ public class EBVReader
                      if(gen.getCname().equalsIgnoreCase("es.type.country"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeCountryEnumeration("CountryType", "src/edu/nps/moves/disenum/CountryType", en); 
+                         reader.writeCountryEnumeration("CountryType", en); 
                      }
                      
                      // Protocol family (entity interaction, logistics, etc
                      if(gen.getCname().equalsIgnoreCase("pduheader.protocolfamily"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ProtocolFamily", "src/edu/nps/moves/disenum/ProtocolFamily", en); 
+                         reader.writeStandardEnumeration("ProtocolFamily",  en); 
                      }
                      
                      // Force ID (friendly, enemy, neutral, etc.)
                      if(gen.getCname().equalsIgnoreCase("es.forceid"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ForceID", "src/edu/nps/moves/disenum/ForceID", en); 
+                         reader.writeStandardEnumeration("ForceID",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("EntityKind", "src/edu/nps/moves/disenum/EntityKind", en); 
+                         reader.writeStandardEnumeration("EntityKind",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.1.domain.1.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PlatformLand", "src/edu/nps/moves/disenum/PlatformLand", en); 
+                         reader.writeStandardEnumeration("PlatformLand",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.1.domain.2.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PlatformAir", "src/edu/nps/moves/disenum/PlatformAir", en); 
+                         reader.writeStandardEnumeration("PlatformAir",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.1.domain.3.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PlatformSurface", "src/edu/nps/moves/disenum/PlatformSurface", en); 
+                         reader.writeStandardEnumeration("PlatformSurface",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.1.domain.4.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PlatformSubSurface", "src/edu/nps/moves/disenum/PlatformSubSurface", en); 
+                         reader.writeStandardEnumeration("PlatformSubSurface",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.1.domain.5.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PlatformSpace", "src/edu/nps/moves/disenum/PlatformSpace", en); 
+                         reader.writeStandardEnumeration("PlatformSpace",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.2.domain"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("MunitionDomain", "src/edu/nps/moves/disenum/MunitionDomain", en); 
+                         reader.writeStandardEnumeration("MunitionDomain",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.2.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("MunitionCategory", "src/edu/nps/moves/disenum/MunitionCategory", en); 
+                         reader.writeStandardEnumeration("MunitionCategory",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.225.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("USWeaponsForLifeForms", "src/edu/nps/moves/disenum/USWeaponsForLifeForms", en); 
+                         reader.writeStandardEnumeration("USWeaponsForLifeForms",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.222.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("CISWeaponsForLifeForms", "src/edu/nps/moves/disenum/CISWeaponsForLifeForms", en); 
+                         reader.writeStandardEnumeration("CISWeaponsForLifeForms",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.224.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("UKWeaponsForLifeForms", "src/edu/nps/moves/disenum/UKWeaponsForLifeForms", en); 
+                         reader.writeStandardEnumeration("UKWeaponsForLifeForms", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.71.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("FrenchWeaponsForLifeForms", "src/edu/nps/moves/disenum/FrenchWeaponsForLifeForms", en); 
+                         reader.writeStandardEnumeration("FrenchWeaponsForLifeForms", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.78.kind.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("GermanWeaponsForLifeForms", "src/edu/nps/moves/disenum/GermanWeaponsForLifeForms", en); 
+                         reader.writeStandardEnumeration("GermanWeaponsForLifeForms",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("pduheader.protocolversion"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ProtocolVersion", "src/edu/nps/moves/disenum/ProtocolVersion", en); 
+                         reader.writeStandardEnumeration("ProtocolVersion",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.1.domain"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("EntityDomain", "src/edu/nps/moves/disenum/EntityDomain", en); 
+                         reader.writeStandardEnumeration("EntityDomain",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.4.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("EnvironmentalKind", "src/edu/nps/moves/disenum/EnvironmentalKind", en); 
+                         reader.writeStandardEnumeration("EnvironmentalKind",  en); 
                      }
                     
                     if(gen.getCname().equalsIgnoreCase("es.type.kind.7.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RadioCategory", "src/edu/nps/moves/disenum/RadioCategory", en); 
+                         reader.writeStandardEnumeration("RadioCategory",  en); 
                      }
                     
                     if(gen.getCname().equalsIgnoreCase("es.type.kind.7.version"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RadioNomenclatureVersion", "src/edu/nps/moves/disenum/RadioNomenclatureVersion", en); 
+                         reader.writeStandardEnumeration("RadioNomenclatureVersion",  en); 
                      }
                     
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.7.nomenclature"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RadioNomenclature", "src/edu/nps/moves/disenum/RadioNomenclature", en); 
+                         reader.writeStandardEnumeration("RadioNomenclature",  en); 
                      }
                     
                     if(gen.getCname().equalsIgnoreCase("es.type.kind.8.domain.2.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ExpendableAirCategory", "src/edu/nps/moves/disenum/ExpendableAirCategory", en); 
+                         reader.writeStandardEnumeration("ExpendableAirCategory",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.8.domain.3.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ExpendableSurfaceCategory", "src/edu/nps/moves/disenum/ExpendableSurfaceCategory", en); 
+                         reader.writeStandardEnumeration("ExpendableSurfaceCategory",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.8.domain.4.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ExpendableSubsurfaceCategory", "src/edu/nps/moves/disenum/ExpendableSubsurfaceCategory", en); 
+                         reader.writeStandardEnumeration("ExpendableSubsurfaceCategory",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.type.kind.9.cat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SensorEmitterCategory", "src/edu/nps/moves/disenum/SensorEmitterCategory", en); 
+                         reader.writeStandardEnumeration("SensorEmitterCategory",  en); 
                      }
                                           
                      if(gen.getCname().equalsIgnoreCase("es.dra"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DeadReckoningAlgorithm", "src/edu/nps/moves/disenum/DeadReckoningAlgorithm", en); 
+                         reader.writeStandardEnumeration("DeadReckoningAlgorithm",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.markingtext"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("EntityMarking", "src/edu/nps/moves/disenum/EntityMarking", en); 
+                         reader.writeStandardEnumeration("EntityMarking",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.div"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DivisionCorpsDesignation", "src/edu/nps/moves/disenum/DivisionCorpsDesignation", en); 
+                         reader.writeStandardEnumeration("DivisionCorpsDesignation",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.1cavunit"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("FirstCavHighLevelUnit", "src/edu/nps/moves/disenum/FirstCavHighLevelUnit", en); 
+                         reader.writeStandardEnumeration("FirstCavHighLevelUnit",  en); 
                      }
                     
                     if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.1infunit"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("FirstInfHighLevelUnit", "src/edu/nps/moves/disenum/FirstInfHighLevelUnit", en); 
+                         reader.writeStandardEnumeration("FirstInfHighLevelUnit",  en); 
                      }
                     
                     if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.company"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("CompanyBatteryTroop", "src/edu/nps/moves/disenum/CompanyBatteryTroop", en); 
+                         reader.writeStandardEnumeration("CompanyBatteryTroop",  en); 
                      }
                     
                      if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.platoon"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PlatoonSection", "src/edu/nps/moves/disenum/PlatoonSection", en); 
+                         reader.writeStandardEnumeration("PlatoonSection", en); 
                      }
                     
                     if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.vehicle"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Vehicle", "src/edu/nps/moves/disenum/Vehicle", en); 
+                         reader.writeStandardEnumeration("Vehicle",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.symbol1"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Bytes8_9_10_12", "src/edu/nps/moves/disenum/Bytes8_9_10_12", en); 
+                         reader.writeStandardEnumeration("Bytes8_9_10_12",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.markingtext.cctt.symbol2"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Byte11", "src/edu/nps/moves/disenum/Byte11", en); 
+                         reader.writeStandardEnumeration("Byte11",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.markingtext.chevron.symbol"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DigitChevronCode", "src/edu/nps/moves/disenum/DigitChevronCode", en); 
+                         reader.writeStandardEnumeration("DigitChevronCode",  en); 
                      }
                     
                     if(gen.getCname().equalsIgnoreCase("es.vp.type"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ParameterTypeDesignator", "src/edu/nps/moves/disenum/ParameterTypeDesignator", en); 
+                         reader.writeStandardEnumeration("ParameterTypeDesignator",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.vp.type.1.attached"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AttachedParts", "src/edu/nps/moves/disenum/AttachedParts", en); 
+                         reader.writeStandardEnumeration("AttachedParts",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.vp.type.0.articulated.offset"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ArticulatedPartsOffsetNumber", "src/edu/nps/moves/disenum/ArticulatedPartsOffsetNumber", en); 
+                         reader.writeStandardEnumeration("ArticulatedPartsOffsetNumber",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("es.vp.type.0.articulated.index"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ArticulatedPartsIndexNumber", "src/edu/nps/moves/disenum/ArticulatedPartsIndexNumber", en); 
+                         reader.writeStandardEnumeration("ArticulatedPartsIndexNumber",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("warfare.burstdescriptor.warhead"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Warhead", "src/edu/nps/moves/disenum/Warhead", en); 
+                         reader.writeStandardEnumeration("Warhead", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("warfare.burstdescriptor.fuse"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Fuse", "src/edu/nps/moves/disenum/Fuse", en); 
+                         reader.writeStandardEnumeration("Fuse",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("warfare.detonationresult"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetonationResult", "src/edu/nps/moves/disenum/DetonationResult", en); 
+                         reader.writeStandardEnumeration("DetonationResult",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.servicerequest"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ServiceRequestPDU", "src/edu/nps/moves/disenum/ServiceRequestPDU", en); 
+                         reader.writeStandardEnumeration("ServiceRequestPDU",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.general"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("GeneralRepairCode", "src/edu/nps/moves/disenum/GeneralRepairCode", en); 
+                         reader.writeStandardEnumeration("GeneralRepairCode",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.drivetrain"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DriveTrain", "src/edu/nps/moves/disenum/DriveTrain", en); 
+                         reader.writeStandardEnumeration("DriveTrain",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.hull"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("HullAirframeBody", "src/edu/nps/moves/disenum/HullAirframeBody", en); 
+                         reader.writeStandardEnumeration("HullAirframeBody",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.environment"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("InterfacesWithEnvironment", "src/edu/nps/moves/disenum/InterfacesWithEnvironment", en); 
+                         reader.writeStandardEnumeration("InterfacesWithEnvironment",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.weapons"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Weapons", "src/edu/nps/moves/disenum/Weapons", en); 
+                         reader.writeStandardEnumeration("Weapons",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.fuelsystem"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("FuelSystems", "src/edu/nps/moves/disenum/FuelSystems", en); 
+                         reader.writeStandardEnumeration("FuelSystems",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.electronics"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Electronics", "src/edu/nps/moves/disenum/Electronics", en); 
+                         reader.writeStandardEnumeration("Electronics",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.lifesupport"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("LifeSupportSystems", "src/edu/nps/moves/disenum/LifeSupportSystems", en); 
+                         reader.writeStandardEnumeration("LifeSupportSystems",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.hydraulic"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("HydraulicSystemsAndActuators", "src/edu/nps/moves/disenum/HydraulicSystemsAndActuators", en); 
+                         reader.writeStandardEnumeration("HydraulicSystemsAndActuators", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repaircomplete.auxilary"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AuxiliaryCraft", "src/edu/nps/moves/disenum/AuxiliaryCraft", en); 
+                         reader.writeStandardEnumeration("AuxiliaryCraft",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("log.repairresponse"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RepairResponsePDU", "src/edu/nps/moves/disenum/RepairResponsePDU", en); 
+                         reader.writeStandardEnumeration("RepairResponsePDU",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.datumid"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DatumSpecificationRecord", "src/edu/nps/moves/disenum/DatumSpecificationRecord", en); 
+                         reader.writeStandardEnumeration("DatumSpecificationRecord",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.stop.reason"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Reason", "src/edu/nps/moves/disenum/Reason", en); 
+                         reader.writeStandardEnumeration("Reason",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.ack.ackflag"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AcknowledgeFlag", "src/edu/nps/moves/disenum/AcknowledgeFlag", en); 
+                         reader.writeStandardEnumeration("AcknowledgeFlag",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.ack.responseflag"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ResponseFlag", "src/edu/nps/moves/disenum/ResponseFlag", en); 
+                         reader.writeStandardEnumeration("ResponseFlag",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.actionrequest.actionid"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ActionID", "src/edu/nps/moves/disenum/ActionID", en); 
+                         reader.writeStandardEnumeration("ActionID",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.actionresponse.status"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RequestStatus", "src/edu/nps/moves/disenum/RequestStatus", en); 
+                         reader.writeStandardEnumeration("RequestStatus",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.eventreport.eventtype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("EventType", "src/edu/nps/moves/disenum/EventType", en); 
+                         reader.writeStandardEnumeration("EventType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("simman.reliability.service"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RequiredReliabilityService", "src/edu/nps/moves/disenum/RequiredReliabilityService", en); 
+                         reader.writeStandardEnumeration("RequiredReliabilityService",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.emission.name.electro"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ElectromagneticEmitters", "src/edu/nps/moves/disenum/ElectromagneticEmitters", en); 
+                         reader.writeStandardEnumeration("ElectromagneticEmitters",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.emission.name.acoustic"))
                      {
                          EBVReader reader = new EBVReader();
                          System.out.println("Enumeration row list length = " + en.getEnumrow().size());
-                         reader.writeStandardEnumeration("AcousticEmitters", "src/edu/nps/moves/disenum/AcousticEmitters", en); 
+                         reader.writeStandardEnumeration("AcousticEmitters",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.emission.name.other"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("OtherAcousticEmitters", "src/edu/nps/moves/disenum/OtherAcousticEmitters", en); 
+                         reader.writeStandardEnumeration("OtherAcousticEmitters",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.emission.function"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Function", "src/edu/nps/moves/disenum/Function", en); 
+                         reader.writeStandardEnumeration("Function",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.emission.stateupdate"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("StateUpdateIndicator", "src/edu/nps/moves/disenum/StateUpdateIndicator", en); 
+                         reader.writeStandardEnumeration("StateUpdateIndicator",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.emission.beamfunction"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("BeamFunction", "src/edu/nps/moves/disenum/BeamFunction", en); 
+                         reader.writeStandardEnumeration("BeamFunction",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.emission.hdtj"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("HighDensityTrackJam", "src/edu/nps/moves/disenum/HighDensityTrackJam", en); 
+                         reader.writeStandardEnumeration("HighDensityTrackJam",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.designator.codename"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("CodeName", "src/edu/nps/moves/disenum/CodeName", en); 
+                         reader.writeStandardEnumeration("CodeName",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.designator.code"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DesignatorCode", "src/edu/nps/moves/disenum/DesignatorCode", en); 
+                         reader.writeStandardEnumeration("DesignatorCode",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SystemType", "src/edu/nps/moves/disenum/SystemType", en); 
+                         reader.writeStandardEnumeration("SystemType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.name"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SystemName", "src/edu/nps/moves/disenum/SystemName", en); 
+                         reader.writeStandardEnumeration("SystemName",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.mode"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SystemMode", "src/edu/nps/moves/disenum/SystemMode", en); 
+                         reader.writeStandardEnumeration("SystemMode",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.layerspecific"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("LayerSpecificInformation", "src/edu/nps/moves/disenum/LayerSpecificInformation", en); 
+                         reader.writeStandardEnumeration("LayerSpecificInformation",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.1.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type1AltParameter4", "src/edu/nps/moves/disenum/Type1AltParameter4", en); 
+                         reader.writeStandardEnumeration("Type1AltParameter4",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.1.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type1OperationalParameter1", "src/edu/nps/moves/disenum/Type1OperationalParameter1", en); 
+                         reader.writeStandardEnumeration("Type1OperationalParameter1",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.1.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type1OperationalParameter2", "src/edu/nps/moves/disenum/Type1OperationalParameter2", en); 
+                         reader.writeStandardEnumeration("Type1OperationalParameter2",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.2.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type2AltParameter4", "src/edu/nps/moves/disenum/Type2AltParameter4", en); 
+                         reader.writeStandardEnumeration("Type2AltParameter4",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.2.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type2OperationalParameter1", "src/edu/nps/moves/disenum/Type2OperationalParameter1", en); 
+                         reader.writeStandardEnumeration("Type2OperationalParameter1",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.2.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type2OperationalParameter2", "src/edu/nps/moves/disenum/Type2OperationalParameter2", en); 
+                         reader.writeStandardEnumeration("Type2OperationalParameter2",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.3.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type3AltParameter4", "src/edu/nps/moves/disenum/Type3AltParameter4", en); 
+                         reader.writeStandardEnumeration("Type3AltParameter4",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.3.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type3OperationalParameter1", "src/edu/nps/moves/disenum/Type3OperationalParameter1", en); 
+                         reader.writeStandardEnumeration("Type3OperationalParameter1",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.3.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type3OperationalParameter2", "src/edu/nps/moves/disenum/Type3OperationalParameter2", en); 
+                         reader.writeStandardEnumeration("Type3OperationalParameter2",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.4.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type4AltParameter4", "src/edu/nps/moves/disenum/Type4AltParameter4", en); 
+                         reader.writeStandardEnumeration("Type4AltParameter4",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.4.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type4OperationalParameter1", "src/edu/nps/moves/disenum/Type4OperationalParameter1", en); 
+                         reader.writeStandardEnumeration("Type4OperationalParameter1",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.4.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type4OperationalParameter2", "src/edu/nps/moves/disenum/Type4OperationalParameter2", en); 
+                         reader.writeStandardEnumeration("Type4OperationalParameter2",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.5.fop.altp4"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type5AltParameter4", "src/edu/nps/moves/disenum/Type5AltParameter4", en); 
+                         reader.writeStandardEnumeration("Type5AltParameter4",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.5.sop.param1"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type5OperationalParameter1", "src/edu/nps/moves/disenum/Type5OperationalParameter1", en); 
+                         reader.writeStandardEnumeration("Type5OperationalParameter1",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.iff.type.5.sop.param2"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Type5OperationalParameter2", "src/edu/nps/moves/disenum/Type5OperationalParameter2", en); 
+                         reader.writeStandardEnumeration("Type5OperationalParameter2",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.ua.statechangeupdate"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("StateChangeUpdateIndicator", "src/edu/nps/moves/disenum/StateChangeUpdateIndicator", en); 
+                         reader.writeStandardEnumeration("StateChangeUpdateIndicator",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.ua.systemname"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AcousticSystemName", "src/edu/nps/moves/disenum/AcousticSystemName", en); 
+                         reader.writeStandardEnumeration("AcousticSystemName",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.ua.function"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Function", "src/edu/nps/moves/disenum/Function", en); 
+                         reader.writeStandardEnumeration("Function",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.ua.activeparameterindex"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ActiveEmissionParameterIndex", "src/edu/nps/moves/disenum/ActiveEmissionParameterIndex", en); 
+                         reader.writeStandardEnumeration("ActiveEmissionParameterIndex",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.ua.scanpattern"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ScanPattern", "src/edu/nps/moves/disenum/ScanPattern", en); 
+                         reader.writeStandardEnumeration("ScanPattern",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.ua.passiveparameterindex"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("PassiveParameterIndex", "src/edu/nps/moves/disenum/PassiveParameterIndex", en); 
+                         reader.writeStandardEnumeration("PassiveParameterIndex",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.ua.apaparameterindex"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AdditionalPassiveActivity", "src/edu/nps/moves/disenum/AdditionalPassiveActivity", en); 
+                         reader.writeStandardEnumeration("AdditionalPassiveActivity",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.sees.power.aircraft"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Aircraft", "src/edu/nps/moves/disenum/Aircraft", en); 
+                         reader.writeStandardEnumeration("Aircraft",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.sees.power.helicopters"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Helicopters", "src/edu/nps/moves/disenum/Helicopters", en); 
+                         reader.writeStandardEnumeration("Helicopters", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("der.sees.power.tanks"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Tanks", "src/edu/nps/moves/disenum/Tanks", en); 
+                         reader.writeStandardEnumeration("Tanks",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("MajorModulation", "src/edu/nps/moves/disenum/MajorModulation", en); 
+                         reader.writeStandardEnumeration("MajorModulation",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major.1.detail"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetailedModAmpMod", "src/edu/nps/moves/disenum/DetailedModAmpMod", en); 
+                         reader.writeStandardEnumeration("DetailedModAmpMod",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major.2.detail"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetailedModAmpAndAngle", "src/edu/nps/moves/disenum/DetailedModAmpAndAngle", en); 
+                         reader.writeStandardEnumeration("DetailedModAmpAndAngle",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major.3.detail"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetailedModAngleMod", "src/edu/nps/moves/disenum/DetailedModAngleMod", en); 
+                         reader.writeStandardEnumeration("DetailedModAngleMod",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major.4.detail"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetailedModCombinationMod", "src/edu/nps/moves/disenum/DetailedModCombinationMod", en); 
+                         reader.writeStandardEnumeration("DetailedModCombinationMod",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major.5.detail"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetailedModPulseMod", "src/edu/nps/moves/disenum/DetailedModPulseMod", en); 
+                         reader.writeStandardEnumeration("DetailedModPulseMod",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major.6.detail"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetailedModUnmodulatedMod", "src/edu/nps/moves/disenum/DetailedModUnmodulatedMod", en); 
+                         reader.writeStandardEnumeration("DetailedModUnmodulatedMod",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.major.7.detail"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DetailedModCarrierPhaseShift", "src/edu/nps/moves/disenum/DetailedModCarrierPhaseShift", en); 
+                         reader.writeStandardEnumeration("DetailedModCarrierPhaseShift",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.mod.system"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RadioSystem", "src/edu/nps/moves/disenum/RadioSystem", en); 
+                         reader.writeStandardEnumeration("RadioSystem",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.state"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("TransmitState", "src/edu/nps/moves/disenum/TransmitState", en); 
+                         reader.writeStandardEnumeration("TransmitState",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.inputsource"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("InputSource", "src/edu/nps/moves/disenum/InputSource", en); 
+                         reader.writeStandardEnumeration("InputSource",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.cryptosystem"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("CryptoSystem", "src/edu/nps/moves/disenum/CryptoSystem", en); 
+                         reader.writeStandardEnumeration("CryptoSystem",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.antennapatterntype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AntennaPatternType", "src/edu/nps/moves/disenum/AntennaPatternType", en); 
+                         reader.writeStandardEnumeration("AntennaPatternType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.referencesystem"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ReferenceSystem", "src/edu/nps/moves/disenum/ReferenceSystem", en); 
+                         reader.writeStandardEnumeration("ReferenceSystem",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.param.cctt.start"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("MessageStart", "src/edu/nps/moves/disenum/MessageStart", en); 
+                         reader.writeStandardEnumeration("MessageStart",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.param.cctt.clear"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ClearChannel", "src/edu/nps/moves/disenum/ClearChannel", en); 
+                         reader.writeStandardEnumeration("ClearChannel",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.param.jtids.mode1"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("XmitTermPriMode", "src/edu/nps/moves/disenum/XmitTermPriMode", en); 
+                         reader.writeStandardEnumeration("XmitTermPriMode",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.param.jtids.mode2"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("XmitTermSecMode", "src/edu/nps/moves/disenum/XmitTermSecMode", en); 
+                         reader.writeStandardEnumeration("XmitTermSecMode",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.param.jtids.sync"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SynchronizationState", "src/edu/nps/moves/disenum/SynchronizationState", en); 
+                         reader.writeStandardEnumeration("SynchronizationState",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.protocolid"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("UserProtocolIDNum", "src/edu/nps/moves/disenum/UserProtocolIDNum", en); 
+                         reader.writeStandardEnumeration("UserProtocolIDNum",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.tx.tdltype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("TDLType", "src/edu/nps/moves/disenum/TDLType", en); 
+                         reader.writeStandardEnumeration("TDLType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.rx.state"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ReceiverState", "src/edu/nps/moves/disenum/ReceiverState", en); 
+                         reader.writeStandardEnumeration("ReceiverState", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.ic.controltype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ControlType", "src/edu/nps/moves/disenum/ControlType", en); 
+                         reader.writeStandardEnumeration("ControlType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.ic.commtype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("CommunicationType", "src/edu/nps/moves/disenum/CommunicationType", en); 
+                         reader.writeStandardEnumeration("CommunicationType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.ic.command"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Command", "src/edu/nps/moves/disenum/Command", en); 
+                         reader.writeStandardEnumeration("Command", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.ic.transmitstate"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("XmitLineState", "src/edu/nps/moves/disenum/XmitLineState", en); 
+                         reader.writeStandardEnumeration("XmitLineState",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.ic.deststate"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DestLineState", "src/edu/nps/moves/disenum/DestLineState", en); 
+                         reader.writeStandardEnumeration("DestLineState",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("radio.ic.param.type"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RecordType", "src/edu/nps/moves/disenum/RecordType", en); 
+                         reader.writeStandardEnumeration("RecordType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.collision.type"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("CollisionType", "src/edu/nps/moves/disenum/CollisionType", en); 
+                         reader.writeStandardEnumeration("CollisionType", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SensorTypes", "src/edu/nps/moves/disenum/SensorTypes", en); 
+                         reader.writeStandardEnumeration("SensorTypes",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.1.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Optical", "src/edu/nps/moves/disenum/Optical", en); 
+                         reader.writeStandardEnumeration("Optical",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.2.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("FLIR", "src/edu/nps/moves/disenum/FLIR", en); 
+                         reader.writeStandardEnumeration("FLIR", en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.3.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RADAR", "src/edu/nps/moves/disenum/RADAR", en); 
+                         reader.writeStandardEnumeration("RADAR",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.4.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Magnetic", "src/edu/nps/moves/disenum/Magnetic", en); 
+                         reader.writeStandardEnumeration("Magnetic",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.5.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Laser", "src/edu/nps/moves/disenum/Laser", en); 
+                         reader.writeStandardEnumeration("Laser",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.6.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SONAR", "src/edu/nps/moves/disenum/SONAR", en); 
+                         reader.writeStandardEnumeration("SONAR",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.7.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Physical", "src/edu/nps/moves/disenum/Physical", en); 
+                         reader.writeStandardEnumeration("Physical",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("entity.mine.sensortype.8.subcat"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Multispectral", "src/edu/nps/moves/disenum/Multispectral", en); 
+                         reader.writeStandardEnumeration("Multispectral",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.aggregate.state"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AggregateState", "src/edu/nps/moves/disenum/AggregateState", en); 
+                         reader.writeStandardEnumeration("AggregateState",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.aggregate.formation"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Formation", "src/edu/nps/moves/disenum/Formation", en); 
+                         reader.writeStandardEnumeration("Formation",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.aggregate.type.kind"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("AggregateKind", "src/edu/nps/moves/disenum/AggregateKind", en); 
+                         reader.writeStandardEnumeration("AggregateKind",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.aggregate.type.subcategory"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Subcategory", "src/edu/nps/moves/disenum/Subcategory", en); 
+                         reader.writeStandardEnumeration("Subcategory",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.aggregate.type.specific"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Specific", "src/edu/nps/moves/disenum/Specific", en); 
+                         reader.writeStandardEnumeration("Specific",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.ispartof.nature"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Nature", "src/edu/nps/moves/disenum/Nature", en); 
+                         reader.writeStandardEnumeration("Nature",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.ispartof.position"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("Position", "src/edu/nps/moves/disenum/Position", en); 
+                         reader.writeStandardEnumeration("Position",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.ispartof.stationname"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("StationName", "src/edu/nps/moves/disenum/StationName", en); 
+                         reader.writeStandardEnumeration("StationName",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.isgroupof.category"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("GroupedEntityCategory", "src/edu/nps/moves/disenum/GroupedEntityCategory", en); 
+                         reader.writeStandardEnumeration("GroupedEntityCategory",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.isgroupof.reststatus"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("RestStatus", "src/edu/nps/moves/disenum/RestStatus", en); 
+                         reader.writeStandardEnumeration("RestStatus",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("eman.tc.transfertype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("TransferType", "src/edu/nps/moves/disenum/TransferType", en); 
+                         reader.writeStandardEnumeration("TransferType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.obj.objecttype.kind"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ObjectKind", "src/edu/nps/moves/disenum/ObjectKind", en); 
+                         reader.writeStandardEnumeration("ObjectKind",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.gridded.fieldnumber"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("FieldNumber", "src/edu/nps/moves/disenum/FieldNumber", en); 
+                         reader.writeStandardEnumeration("FieldNumber",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.gridded.coordinatesystem"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("CoordinateSystem", "src/edu/nps/moves/disenum/CoordinateSystem", en); 
+                         reader.writeStandardEnumeration("CoordinateSystem",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.gridded.constantgrid"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ConstantGrid", "src/edu/nps/moves/disenum/ConstantGrid", en); 
+                         reader.writeStandardEnumeration("ConstantGrid",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.gridded.sampletype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("SampleType", "src/edu/nps/moves/disenum/SampleType", en); 
+                         reader.writeStandardEnumeration("SampleType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.gridded.datarepresentation"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("DataRepresentation", "src/edu/nps/moves/disenum/DataRepresentation", en); 
+                         reader.writeStandardEnumeration("DataRepresentation",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.process.modeltype"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("ModelType", "src/edu/nps/moves/disenum/ModelType", en); 
+                         reader.writeStandardEnumeration("ModelType",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.process.type.geometryrecord"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("GeometryRecordTypeField", "src/edu/nps/moves/disenum/GeometryRecordTypeField", en); 
+                         reader.writeStandardEnumeration("GeometryRecordTypeField",  en); 
                      }
                      
                      if(gen.getCname().equalsIgnoreCase("env.process.type.staterecord"))
                      {
                          EBVReader reader = new EBVReader();
-                         reader.writeStandardEnumeration("StateRecordTypeField", "src/edu/nps/moves/disenum/StateRecordTypeField", en); 
+                         reader.writeStandardEnumeration("StateRecordTypeField",  en); 
                      }
                      
                      
                  }
-                 
-             }
-                 
+                 else if (gen instanceof BitmaskT) {
+                   BitmaskT en = (BitmaskT)gen;
+                   //List<BitmaskrowT> rows = en.getBitmaskrow();                   
+                   //System.out.println("Bitmak: " + gen.getCname());
+                   EBVReader reader = new EBVReader();
+                   reader.writeBitmask(gen.getCname(),  en);
+                 }
+             }   
         }
         catch(Exception e)
         {
             System.out.println("oops, problem creating files");
         }
         
+    }  
+    
+    private static String titleCase(String str){
+      BreakIterator wordBreaker = BreakIterator.getWordInstance();      
+      wordBreaker.setText(str);
+      int end = 0;
+      System.out.println("full str: " + str);
+      for(int start = wordBreaker.first();
+      (end= wordBreaker.next()) != BreakIterator.DONE; start=end){
+        String word = str.substring(start, end);
+        System.out.println("word: ["+ word + "]");
+      }
+      return str;
+
     }
     
-    private void writeStandardEnumeration(String enumerationName, String enumerationFile, EnumT anEnumeration)
+    
+    //http://snippets.dzone.com/posts/show/1335
+    private static String readFileAsString(String filePath)
+    throws java.io.IOException{
+        StringBuilder fileData = new StringBuilder(2000);       
+        BufferedReader reader = new BufferedReader(
+                new FileReader(filePath));
+   
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            fileData.append(buf, 0, numRead);
+        }
+        reader.close();
+        return fileData.toString();
+    }    
+    
+    //http://www.exampledepot.com/egs/java.nio/File2File.html
+    private static void copyFile(String srcFilename, String dstFilename){
+      try {
+        // Create channel on the source
+        FileChannel srcChannel = new FileInputStream(srcFilename).getChannel();
+    
+        // Create channel on the destination
+        FileChannel dstChannel = new FileOutputStream(dstFilename).getChannel();
+    
+        // Copy file contents from source to destination
+        dstChannel.transferFrom(srcChannel, 0, srcChannel.size());
+    
+        // Close the channels
+        srcChannel.close();
+        dstChannel.close();
+    } catch (IOException e) {
+      System.out.println("Error copying file " + srcFilename + " to " + dstFilename + ": " + e);
+    }
+
+    }
+    
+    
+    private static void writeCppEnumerationCommon(){
+      try {
+        String enumerationFile = "Enumeration.h";
+        System.out.println("Writing common enumeration header" + enumerationFile);
+        copyFile("templates/"+ enumerationFile, "src/cpp/disenum/"+ enumerationFile);  
+        enumerationFile = "enumcfg.h";
+        System.out.println("Writing common enumeration header" + enumerationFile);
+        copyFile("templates/"+ enumerationFile, "src/cpp/disenum/"+ enumerationFile);
+        
+      }
+      catch(Exception e) {
+        System.out.println("writeEnumerationCommon exception:" + e);
+      }
+    }
+    
+    private void writeCppEnumeration(String enumerationName, EnumT anEnumeration, boolean isCountry) {
+      try
+      {        
+        // enumeration names we have used so far
+        // (creating a list just to keep the insertion order)
+        List<String> enumNamesUsed = new ArrayList<String>(); 
+        HashMap<String, Integer> enumValues = new HashMap<String, Integer>();
+        HashMap<String, String>  enumDescriptions = new HashMap<String, String>();
+        // Especial case for countries
+        // Properties file containing the key (two character internet domain name for
+        // the country) and the value (text description of the country). 
+        HashMap<String, String>  enumInternetCodes = new HashMap<String, String>();
+        Properties internetCountries = new Properties();
+        FileInputStream fis = new FileInputStream(new File("data/countryCodes.properties"));        
+        if (isCountry) {         
+          internetCountries.load(fis);                  
+        }              
+        
+        int maxValue = 0; 
+        int usedCount = 1;        
+        List<EnumrowT> l = anEnumeration.getEnumrow();
+        for(int idx = 0; idx < l.size(); idx++)
+        {
+          EnumrowT er = l.get(idx);
+          // Some entries in the EBV have missing descriptions. If that's the case, we just
+          // make up a description; we may get something on the wire with that enumerated
+          // value, and we want a valid enumeration object to match that, even if we don't
+          // have a good name or description for it.
+          String description = er.getDescription();
+          if((description == null) || description.equals(""))
+              description = "Missing Description";
+          String enumName = this.enumifyString(description, true);
+          int enumValue = (int)er.getId();
+                         
+          // If we've seen this enumeration name before, add some extra text
+          // onto the end to make it unique
+          if(enumNamesUsed.contains(enumName))
+          {
+             enumName = enumName + "_" + usedCount; // eg M1_RIFLE to M1_RIFLE_1
+             usedCount++;
+          }
+          enumNamesUsed.add(enumName);
+          enumValues.put(enumName, enumValue);        
+          
+          // Remove embedded quotes from the description, screws up generated code
+          description = description.replace("\"", "");
+          enumDescriptions.put(enumName, description);
+
+          String internetDomainCode = "Unknown"; 
+          if (isCountry)
+          {                    
+            Set entrySet = internetCountries.entrySet();
+            Iterator it = entrySet.iterator();
+            while(it.hasNext())
+            {
+                Map.Entry<String, String> anEntry = (Map.Entry<String, String>)it.next();
+                if(anEntry.getValue().equalsIgnoreCase(description))
+                {
+                    internetDomainCode = anEntry.getKey();
+                    break;
+                }
+            }            
+            enumInternetCodes.put(enumName, internetDomainCode);            
+          }
+                                      
+          if(maxValue < enumValue)
+          {
+             maxValue = enumValue;
+          }           
+        }        
+        maxValue++;
+        // ----------- Write .h file -----------------    
+        File outputFile = new File("src/cpp/disenum/" + enumerationName + ".h");
+        outputFile.createNewFile();
+        System.out.println("Writing enumeration " + outputFile.getPath());        
+        PrintWriter pw = new PrintWriter(outputFile);
+        String template = new String();
+        StringBuilder allEnums = new StringBuilder();
+        Iterator<String> enumsIter = enumNamesUsed.iterator();
+        
+        if (isCountry){
+          template = readFileAsString("templates/countryEnumTemplate.h");
+        }
+        else {
+          template = readFileAsString("templates/enumTemplate.h");        
+        }
+
+        for(int idx = 0; idx < enumNamesUsed.size(); idx++)
+        {
+          String enumName = enumsIter.next();
+          allEnums.append("static " + enumerationName + " " + enumName  + ";\n    ");          
+        }
+
+        
+        template = template.replaceAll("@ENUMERATIONNAME", enumerationName);
+        template = template.replaceAll("@ENUMUPPERCASE", enumerationName.toUpperCase());
+        template = template.replaceAll("@ENUMS", allEnums.toString());        
+        pw.print(template);
+        pw.flush();
+        pw.close();
+        
+        // ----------- Write .cpp file -----------------    
+        outputFile = new File("src/cpp/disenum/" + enumerationName + ".cpp");
+        outputFile.createNewFile();
+        System.out.println("Writing enumeration " + outputFile.getPath());
+        pw = new PrintWriter(outputFile);
+        template = new String();
+        allEnums = new StringBuilder();
+        enumsIter = enumNamesUsed.iterator();
+        
+        if (isCountry){
+          template = readFileAsString("templates/countryEnumTemplate.cpp");
+          for(int idx = 0; idx < enumNamesUsed.size(); idx++)
+          {
+            String enumName = enumsIter.next();
+            String enumInternetCode = enumInternetCodes.get(enumName);
+            int enumValue = enumValues.get(enumName);
+            String enumDescription = enumDescriptions.get(enumName);
+            allEnums.append(enumerationName + " " + enumerationName + "::"+ enumName + "(" + enumValue + ", " + "\"" + enumDescription + "\",\"" + enumInternetCode + "\");\n");          
+          }
+        }
+        else {
+          template = readFileAsString("templates/enumTemplate.cpp");   
+          for(int idx = 0; idx < enumNamesUsed.size(); idx++)
+          {
+            String enumName = enumsIter.next();            
+            int enumValue = enumValues.get(enumName);
+            String enumDescription = enumDescriptions.get(enumName);
+            allEnums.append(enumerationName + " " + enumerationName + "::"+ enumName + "(" + enumValue + ", " + "\"" + enumDescription + "\");\n");          
+          }          
+        }
+        
+        template = template.replaceAll("@ENUMERATIONNAME", enumerationName);
+        template = template.replaceAll("@MAXVALUE", Integer.toString(maxValue));
+        template = template.replaceAll("@ENUMSINIT", allEnums.toString());        
+        pw.print(template);
+        pw.flush();
+        pw.close();      
+        
+      }
+      catch(Exception e)
+      {
+          System.out.println("writeStandard exception:" + e);
+      }
+        
+    }
+    
+    
+    private void writeJavaStandardEnumeration(String enumerationName, EnumT anEnumeration)
     {
-        System.out.println("Writing standard enumeration " + enumerationFile + ".java");
+        String enumerationFile = "src/edu/nps/moves/disenum/" + enumerationName + ".java";
+        System.out.println("Writing standard enumeration " + enumerationFile );
         try
         {
-              File outputFile = new File(enumerationFile + ".java");
+              File outputFile = new File(enumerationFile);
               outputFile.createNewFile();
               PrintWriter pw = new PrintWriter(outputFile);
               int maxValue = 0;
@@ -1100,7 +1329,7 @@ public class EBVReader
                  String description = er.getDescription();
                   if((description == null) || description.equals(""))
                       description = "Missing Description";
-                 String enumName = this.enumifyString(description);
+                 String enumName = this.enumifyString(description, true);
                  int enumValue = (int)er.getId();
                                    
                  // If we've seen this enumeration name before, add some exra text
@@ -1245,6 +1474,15 @@ public class EBVReader
         }
         
     }
+
+    private void writeStandardEnumeration(String enumerationName, EnumT anEnumeration)
+    {
+
+      writeJavaStandardEnumeration(enumerationName, anEnumeration);      
+      writeCppEnumeration(enumerationName,  anEnumeration, false);      
+    }
+
+        
     
     /** Special case of country enumeration--we also want the two character internet code
      * for the country, eg "US", "UK", "FR", etc. The lookup algorithm for finding the
@@ -1254,11 +1492,18 @@ public class EBVReader
      * @param enumerationFile
      * @param anEnumeration
      */
-    private void writeCountryEnumeration(String enumerationName, String enumerationFile, EnumT anEnumeration)
+    private void writeCountryEnumeration(String enumerationName, EnumT anEnumeration)
+    {
+      writeJavaCountryEnumeration(enumerationName, anEnumeration);
+      writeCppEnumeration(enumerationName, anEnumeration, true);
+    }
+    
+    private void writeJavaCountryEnumeration(String enumerationName, EnumT anEnumeration)
     {
         try
         {
-              File outputFile = new File(enumerationFile + ".java");
+              String enumerationFile = "src/edu/nps/moves/disenum/" + enumerationName + ".java";
+              File outputFile = new File(enumerationFile);
               outputFile.createNewFile();
               PrintWriter pw = new PrintWriter(outputFile);
               int maxValue = 0;
@@ -1298,7 +1543,7 @@ public class EBVReader
                  EnumrowT er = l.get(idx);
                  
                  String description = er.getDescription();
-                 String enumName = this.enumifyString(description);
+                 String enumName = this.enumifyString(description, true);
                  int enumValue = (int)er.getId();
                  String internetDomainCode = "Unknown";
                  
@@ -1454,10 +1699,10 @@ public class EBVReader
      * @param text
      * @return
      */
-    public String enumifyString(String text)
+    public String enumifyString(String text, boolean uppercase)
     {
         String enumValue = text.trim();
-        enumValue = enumValue.toUpperCase();
+        if (uppercase) enumValue = enumValue.toUpperCase();
         enumValue = enumValue.replace(" ", "_");
         enumValue = enumValue.replace("-", "_");
         enumValue = enumValue.replace("/", "_");
@@ -1473,9 +1718,20 @@ public class EBVReader
         enumValue = enumValue.replace("{", "_");
         enumValue = enumValue.replace("}", "_");
         enumValue = enumValue.replace("#", "_");
-        enumValue = enumValue.replace("^", "_CARET_");
-        enumValue = enumValue.replace("<", "_LT_");
-        enumValue = enumValue.replace(">", "_GT_");
+        if (uppercase) {
+          enumValue = enumValue.replace("^", "_CARET_");
+          enumValue = enumValue.replace("<", "_LT_");
+          enumValue = enumValue.replace(">", "_GT_");
+          enumValue = enumValue.replace("=", "_EQ_");
+          enumValue = enumValue.replace("%", "_PCT_");
+        }
+        else {
+          enumValue = enumValue.replace("^", "_caret_");
+          enumValue = enumValue.replace("<", "_lt_");
+          enumValue = enumValue.replace(">", "_gt_");
+          enumValue = enumValue.replace("=", "_eq_");
+          enumValue = enumValue.replace("%", "_pct_");          
+        }
         
         
         // If it starts with a number, that's not a valid identifier. 
@@ -1501,5 +1757,218 @@ public class EBVReader
     }
     
     
+    /** Bitmasks **/
+    private void writeBitmask(String cname, BitmaskT aBitmask)
+    {       
+      cname = cname.replace(".", "_");      
+      cname = enumifyString(cname, false);    
+      cname = cname.toLowerCase();
+      writeCppBitmask(cname,  aBitmask);       
+    }
 
+    private void writeCppBitmask(String bitmaskName, BitmaskT bitmask) {
+      try
+      { 
+        System.out.println("Bitmask: " + bitmaskName);
+        List<BitmaskrowT> subfieldsL = bitmask.getBitmaskrow();
+        StringBuilder bitfieldsHeader = new StringBuilder();
+        StringBuilder subfieldsHeader = new StringBuilder();
+        StringBuilder subfieldsImpl   = new StringBuilder();  
+        int maxidlength = 0;
+        
+        int length = bitmask.getLength().intValue();
+        // round up to the nearest power of two
+        //http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2Float
+        length--;
+        length |= length >> 1;
+        length |= length >> 2;
+        length |= length >> 4;
+        length |= length >> 8;
+        length |= length >> 16;
+        length++;        
+        
+        String valueType;
+        switch(length){
+        case(2):
+        case(8): valueType = "unsigned char"; break;
+        case(16): valueType = "unsigned short"; break;
+        case(32): valueType = "unsigned int"; break;
+        case(64): valueType = "unsigned long"; break;
+        default: throw new Exception("unknown length ("+ length + "), bitmask: " + bitmaskName);
+        }
+
+        int unusedRows = 0;
+        for (int j = 0; j < subfieldsL.size(); j++) {
+          BitmaskrowT subField = subfieldsL.get(j);
+          boolean unused;           
+          if ( subField.isUnused() == null) unused=false;
+          else unused = subField.isUnused();          
+          
+          BigInteger startBit = subField.getId();
+          BigInteger endBit = subField.getId2();
+          if (endBit == null) endBit = startBit;
+          int fieldWidth = endBit.subtract(startBit).intValue() + 1;
+          
+          String enumerationName;
+          if (unused) {
+            enumerationName = "unused";
+            unusedRows++;
+            if (unusedRows>1) 
+              enumerationName = enumerationName + "_" + unusedRows;
+          }
+          else {
+            enumerationName = subField.getName(); 
+            enumerationName = enumerationName.replace(" ", "");            
+            enumerationName = enumifyString(enumerationName, false);            
+          }          
+          
+          bitfieldsHeader.append("    unsigned int " + enumerationName + ":" + fieldWidth+";\n"); 
+          //System.out.println("  subfield: " + enumerationName);
+          
+          // enumeration names we have used so far
+          // (creating a list just to keep the insertion order)
+          List<String> enumNamesUsed = new ArrayList<String>(); 
+          HashMap<String, Integer> enumValues = new HashMap<String, Integer>();
+          HashMap<String, String>  enumDescriptions = new HashMap<String, String>();
+          
+          int maxValue = 0; 
+          int usedCount = 1;        
+          List<EnumrowT> l = subField.getEnumrow();
+          int lsize;
+          if (l == null) lsize = 0;
+          else lsize = l.size();
+          for(int idx = 0; idx < lsize; idx++)
+          {            
+            EnumrowT er = l.get(idx);           
+            
+            StringBuilder u = new StringBuilder();
+            u.append(er.isUnused());
+            boolean enumUnused = Boolean.parseBoolean(u.toString());
+            if  (enumUnused) continue;
+            
+            // Some entries in the EBV have missing descriptions. If that's the case, we just
+            // make up a description; we may get something on the wire with that enumerated
+            // value, and we want a valid enumeration object to match that, even if we don't
+            // have a good name or description for it.
+            String description = er.getDescription();
+            if((description == null) || description.equals(""))
+                description = "Missing Description";
+            String enumName = this.enumifyString(description, true);
+            maxidlength = Math.max(maxidlength, enumName.length());
+            int enumValue = (int)er.getId();
+                           
+            // If we've seen this enumeration name before, add some extra text
+            // onto the end to make it unique
+            if(enumNamesUsed.contains(enumName))
+            {
+               enumName = enumName + "_" + usedCount; // eg M1_RIFLE to M1_RIFLE_1
+               usedCount++;
+            }
+            enumNamesUsed.add(enumName);
+            enumValues.put(enumName, enumValue);        
+            
+            // Remove embedded quotes from the description, screws up generated code
+            description = description.replace("\"", "");
+            enumDescriptions.put(enumName, description);
+                                       
+            if(maxValue < enumValue)
+            {
+               maxValue = enumValue;
+            }
+            
+            //System.out.println("    enum: " + enumName);
+          }
+          
+          maxValue++;
+          if (!unused) 
+          {
+            // ----------- Write header portion of this enumeration -----------------
+            //System.out.println("  writing header for " + enumerationName);
+            
+            String template = new String();
+            StringBuilder allEnums = new StringBuilder();
+            Iterator<String> enumsIter = enumNamesUsed.iterator();
+            
+            template = readFileAsString("templates/subfieldEnumTemplate.h"); 
+    
+            for(int idx = 0; idx < enumNamesUsed.size(); idx++)
+            {
+              String enumName = enumsIter.next();
+              allEnums.append("    static " + enumerationName + " " + enumName  + ";\n");          
+            }
+              
+            template = template.replaceAll("@SUBFIELDNAME", enumerationName);
+            template = template.replaceAll("@ENUMS", allEnums.toString());
+            subfieldsHeader.append(template);
+            
+             
+            // ----------- Write implementation portion of this enumeration -----------------   
+            //System.out.println("  writing implementation for " + enumerationName);
+            template = new String();
+            allEnums = new StringBuilder();
+            enumsIter = enumNamesUsed.iterator();          
+            
+            template = readFileAsString("templates/subfieldEnumTemplate.cpp");   
+            for(int idx = 0; idx < enumNamesUsed.size(); idx++)
+            {
+              String enumName = enumsIter.next();            
+              int enumValue = enumValues.get(enumName);
+              String enumDescription = enumDescriptions.get(enumName);
+              allEnums.append(" "+ enumerationName + " " + enumerationName + "::"+ enumName + "(" + enumValue + ", " + "\"" + enumDescription + "\");\n");          
+            }          
+                    
+            template = template.replaceAll("@SUBFIELDNAME", enumerationName);
+            template = template.replaceAll("@STARTBIT", startBit.toString());
+            template = template.replaceAll("@ENDBIT", endBit.toString());
+            template = template.replaceAll("@ENUMSINIT", allEnums.toString());   
+            subfieldsImpl.append(template);
+          }
+        }
+        
+        
+        // ----------- Write <bitmask>.h -----------------
+        File outputFile = new File("src/cpp/disenum/" + bitmaskName + ".h");
+        outputFile.createNewFile();
+        System.out.println("  Writing bitmask " + outputFile.getPath());        
+        PrintWriter pw = new PrintWriter(outputFile);
+        String template = new String();
+        template = readFileAsString("templates/bitmaskTemplate.h");
+        
+        template = template.replaceAll("@BITMASKUPPERCASE", bitmaskName.toUpperCase());
+        template = template.replaceAll("@BITMASK", bitmaskName);  
+        template = template.replaceAll("@BITFIELDS", bitfieldsHeader.toString());
+        template = template.replaceAll("@TYPE", valueType);
+        template = template.replaceAll("@ENUMSHEADER", subfieldsHeader.toString());
+        
+        pw.print(template);
+        pw.flush();
+        pw.close();      
+
+        
+        
+        // ----------- Write <bitmask>.cpp -----------------
+        outputFile = new File("src/cpp/disenum/" + bitmaskName + ".cpp");
+        outputFile.createNewFile();
+        System.out.println("  Writing bitmask " + outputFile.getPath());
+        pw = new PrintWriter(outputFile);
+        template = new String();
+        template = readFileAsString("templates/bitmaskTemplate.cpp");
+        
+        template = template.replaceAll("@BITMASK", bitmaskName);
+        template = template.replaceAll("@TYPE", valueType);
+        template = template.replaceAll("@ENUMSIMPL", subfieldsImpl.toString());
+        
+        pw.print(template);
+        pw.flush();
+        pw.close();
+        
+        //System.out.println("  max id length:" + maxidlength);
+      }
+      catch(Exception e)
+      {
+          System.out.println("writeBitmask exception:" + e);
+      }      
+      
+    }  
+    
 }

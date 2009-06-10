@@ -27,11 +27,13 @@
     </path>
     
     <target name="init" description="create initial directories">
-      <mkdir dir="dist"/>
+    	<mkdir dir="dist"/>
       <mkdir dir="dist/docs"/>
       <mkdir dir="build"/>
       <mkdir dir="build/test"/>
       <mkdir dir="src/edu/nps/moves/siso/jaxb"/>
+      <mkdir dir="src/edu/nps/moves/disenum"/>
+      <mkdir dir="src/cpp/disenum"/>
     </target>
 
     <!-- compile the java code-generation code -->
@@ -149,6 +151,10 @@
         <delete>
           <fileset dir="src/edu/nps/moves/disenum" includes="*.java"/>
           <fileset dir="src/edu/nps/moves/siso/jaxb" includes="*.java"/>
+        </delete>
+        <delete>
+          <fileset dir="src/cpp/disenum" includes="*.h"/>
+          <fileset dir="src/cpp/disenum" includes="*.cpp"/>
         </delete>
     </target>
 </project>
