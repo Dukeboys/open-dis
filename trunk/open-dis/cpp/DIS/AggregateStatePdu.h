@@ -78,7 +78,7 @@ protected:
   /** entity ID list */
   std::vector<EntityID> _entityIDList; 
 
-  /** @@@padding to put the start of the next list on a 32 bit boundary. This needs to be fixed */
+  /** ^^^padding to put the start of the next list on a 32 bit boundary. This needs to be fixed */
   unsigned char _pad2; 
 
   /** silent entity types */
