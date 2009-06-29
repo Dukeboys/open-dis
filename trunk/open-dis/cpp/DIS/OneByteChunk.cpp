@@ -8,7 +8,7 @@ OneByteChunk::OneByteChunk()
      // Initialize fixed length array
      for(int lengthotherParameters= 0; lengthotherParameters < 1; lengthotherParameters++)
      {
-         _otherParameters[lengthotherParameters] = 0
+         _otherParameters[lengthotherParameters] = 0;
      }
 
 }

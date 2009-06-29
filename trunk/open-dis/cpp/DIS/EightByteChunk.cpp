@@ -8,7 +8,7 @@ EightByteChunk::EightByteChunk()
      // Initialize fixed length array
      for(int lengthotherParameters= 0; lengthotherParameters < 8; lengthotherParameters++)
      {
-         _otherParameters[lengthotherParameters] = 0
+         _otherParameters[lengthotherParameters] = 0;
      }
 
 }

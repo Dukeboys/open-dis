@@ -8,7 +8,7 @@ SixByteChunk::SixByteChunk()
      // Initialize fixed length array
      for(int lengthotherParameters= 0; lengthotherParameters < 6; lengthotherParameters++)
      {
-         _otherParameters[lengthotherParameters] = 0
+         _otherParameters[lengthotherParameters] = 0;
      }
 
 }
