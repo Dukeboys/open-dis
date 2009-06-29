@@ -28,8 +28,8 @@ protected:
   /** Enumeration for type of repair */
   unsigned short _repair; 
 
-  /** padding */
-  short _padding; 
+  /** padding, number prevents conflict with superclass ivar name */
+  short _padding2; 
 
 
  public:
@@ -50,8 +50,8 @@ protected:
     unsigned short getRepair() const; 
     void setRepair(unsigned short pX); 
 
-    short getPadding() const; 
-    void setPadding(short pX); 
+    short getPadding2() const; 
+    void setPadding2(short pX); 
 
 
 virtual int getMarshalledSize() const;
