@@ -28,10 +28,10 @@ protected:
   /** record count */
   unsigned short _recordCount; 
 
-  /** @@@This is wrong--variable sized data records */
+  /** ^^^This is wrong--variable sized data records */
   unsigned short _recordValues; 
 
-  /** @@@This is wrong--variable sized padding */
+  /** ^^^This is wrong--variable sized padding */
   unsigned char _pad4; 
 
 
