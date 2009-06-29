@@ -30,7 +30,7 @@ protected:
   unsigned short _encodingScheme; 
 
   /** tactical data link type */
-  unsigned short _TdlType; 
+  unsigned short _tdlType; 
 
   /** sample rate */
   unsigned int _sampleRate; 

@@ -7,7 +7,7 @@ IntercomSignalPdu::IntercomSignalPdu() : RadioCommunicationsFamilyPdu(),
    _entityID(), 
    _communicationsDeviceID(0), 
    _encodingScheme(0), 
-   _TdlType(0), 
+   _tdlType(0), 
    _sampleRate(0), 
    _dataLength(0), 
    _samples(0)
@@ -57,12 +57,12 @@ void IntercomSignalPdu::setEncodingScheme(unsigned short pX)
 
 unsigned short IntercomSignalPdu::getTdlType() const
 {
-    return _TdlType;
+    return _tdlType;
 }
 
 void IntercomSignalPdu::setTdlType(unsigned short pX)
 {
-    _TdlType = pX;
+    _tdlType = pX;
 }
 
 unsigned int IntercomSignalPdu::getSampleRate() const
@@ -111,7 +111,7 @@ void IntercomSignalPdu::marshal(DataStream& dataStream) const
     _entityID.marshal(dataStream);
     dataStream << _communicationsDeviceID;
     dataStream << _encodingScheme;
-    dataStream << _TdlType;
+    dataStream << _tdlType;
     dataStream << _sampleRate;
     dataStream << ( unsigned short )_data.size();
     dataStream << _samples;
@@ -130,7 +130,7 @@ void IntercomSignalPdu::unmarshal(DataStream& dataStream)
     _entityID.unmarshal(dataStream);
     dataStream >> _communicationsDeviceID;
     dataStream >> _encodingScheme;
-    dataStream >> _TdlType;
+    dataStream >> _tdlType;
     dataStream >> _sampleRate;
     dataStream >> _dataLength;
     dataStream >> _samples;
@@ -154,7 +154,7 @@ bool IntercomSignalPdu::operator ==(const IntercomSignalPdu& rhs) const
      if( ! (_entityID == rhs._entityID) ) ivarsEqual = false;
      if( ! (_communicationsDeviceID == rhs._communicationsDeviceID) ) ivarsEqual = false;
      if( ! (_encodingScheme == rhs._encodingScheme) ) ivarsEqual = false;
-     if( ! (_TdlType == rhs._TdlType) ) ivarsEqual = false;
+     if( ! (_tdlType == rhs._tdlType) ) ivarsEqual = false;
      if( ! (_sampleRate == rhs._sampleRate) ) ivarsEqual = false;
      if( ! (_samples == rhs._samples) ) ivarsEqual = false;
 
@@ -175,7 +175,7 @@ int IntercomSignalPdu::getMarshalledSize() const
    marshalSize = marshalSize + _entityID.getMarshalledSize();  // _entityID
    marshalSize = marshalSize + 2;  // _communicationsDeviceID
    marshalSize = marshalSize + 2;  // _encodingScheme
-   marshalSize = marshalSize + 2;  // _TdlType
+   marshalSize = marshalSize + 2;  // _tdlType
    marshalSize = marshalSize + 4;  // _sampleRate
    marshalSize = marshalSize + 2;  // _dataLength
    marshalSize = marshalSize + 2;  // _samples
