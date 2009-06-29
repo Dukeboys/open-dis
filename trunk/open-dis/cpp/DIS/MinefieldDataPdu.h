@@ -59,7 +59,7 @@ protected:
   /** Sensor types, each 16 bits long */
   std::vector<TwoByteChunk> _sensorTypes; 
 
-  /** Padding to get things 32-bit aligned. @@@this is wrong--dyanmically sized padding needed */
+  /** Padding to get things 32-bit aligned. ^^^this is wrong--dyanmically sized padding needed */
   unsigned char _pad3; 
 
   /** Mine locations */
