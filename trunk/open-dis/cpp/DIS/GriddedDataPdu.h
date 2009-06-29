@@ -64,7 +64,7 @@ protected:
   /** padding */
   unsigned char _padding2; 
 
-  /** Grid data @@@This is wrong */
+  /** Grid data ^^^This is wrong */
   std::vector<GridAxisRecord> _gridDataList; 
 
 
