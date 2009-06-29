@@ -7,7 +7,7 @@ RepairCompletePdu::RepairCompletePdu() : LogisticsFamilyPdu(),
    _receivingEntityID(), 
    _repairingEntityID(), 
    _repair(0), 
-   _padding(0)
+   _padding2(0)
 {
     setPduType( 9 );
 }
@@ -56,14 +56,14 @@ void RepairCompletePdu::setRepair(unsigned short pX)
     _repair = pX;
 }
 
-short RepairCompletePdu::getPadding() const
+short RepairCompletePdu::getPadding2() const
 {
-    return _padding;
+    return _padding2;
 }
 
-void RepairCompletePdu::setPadding(short pX)
+void RepairCompletePdu::setPadding2(short pX)
 {
-    _padding = pX;
+    _padding2 = pX;
 }
 
 void RepairCompletePdu::marshal(DataStream& dataStream) const
@@ -72,7 +72,7 @@ void RepairCompletePdu::marshal(DataStream& dataStream) const
     _receivingEntityID.marshal(dataStream);
     _repairingEntityID.marshal(dataStream);
     dataStream << _repair;
-    dataStream << _padding;
+    dataStream << _padding2;
 }
 
 void RepairCompletePdu::unmarshal(DataStream& dataStream)
@@ -81,7 +81,7 @@ void RepairCompletePdu::unmarshal(DataStream& dataStream)
     _receivingEntityID.unmarshal(dataStream);
     _repairingEntityID.unmarshal(dataStream);
     dataStream >> _repair;
-    dataStream >> _padding;
+    dataStream >> _padding2;
 }
 
 
@@ -94,7 +94,7 @@ bool RepairCompletePdu::operator ==(const RepairCompletePdu& rhs) const
      if( ! (_receivingEntityID == rhs._receivingEntityID) ) ivarsEqual = false;
      if( ! (_repairingEntityID == rhs._repairingEntityID) ) ivarsEqual = false;
      if( ! (_repair == rhs._repair) ) ivarsEqual = false;
-     if( ! (_padding == rhs._padding) ) ivarsEqual = false;
+     if( ! (_padding2 == rhs._padding2) ) ivarsEqual = false;
 
     return ivarsEqual;
  }
@@ -107,7 +107,7 @@ int RepairCompletePdu::getMarshalledSize() const
    marshalSize = marshalSize + _receivingEntityID.getMarshalledSize();  // _receivingEntityID
    marshalSize = marshalSize + _repairingEntityID.getMarshalledSize();  // _repairingEntityID
    marshalSize = marshalSize + 2;  // _repair
-   marshalSize = marshalSize + 2;  // _padding
+   marshalSize = marshalSize + 2;  // _padding2
     return marshalSize;
 }
 
