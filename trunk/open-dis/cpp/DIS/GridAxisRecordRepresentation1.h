@@ -28,7 +28,7 @@ protected:
   /** Number of data values */
   unsigned short _numberOfValues; 
 
-  /** variable length list of data parameters @@@this is wrong--need padding as well */
+  /** variable length list of data parameters ^^^this is wrong--need padding as well */
   std::vector<TwoByteChunk> _dataValues; 
 
 
