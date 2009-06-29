@@ -22,7 +22,7 @@ protected:
   /** number of bytes of environmental state data */
   unsigned short _numberOfBytes; 
 
-  /** variable length list of data parameters @@@this is wrong--need padding as well */
+  /** variable length list of data parameters ^^^this is wrong--need padding as well */
   std::vector<OneByteChunk> _dataValues; 
 
 
