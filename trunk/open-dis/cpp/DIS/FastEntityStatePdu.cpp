@@ -46,13 +46,13 @@ FastEntityStatePdu::FastEntityStatePdu() : EntityInformationFamilyPdu(),
      // Initialize fixed length array
      for(int lengthotherParameters= 0; lengthotherParameters < 15; lengthotherParameters++)
      {
-         _otherParameters[lengthotherParameters] = 0
+         _otherParameters[lengthotherParameters] = 0;
      }
 
      // Initialize fixed length array
      for(int lengthmarking= 0; lengthmarking < 12; lengthmarking++)
      {
-         _marking[lengthmarking] = 0
+         _marking[lengthmarking] = 0;
      }
 
 }
@@ -277,32 +277,32 @@ void FastEntityStatePdu::setZVelocity(float pX)
     _zVelocity = pX;
 }
 
-float FastEntityStatePdu::getXLocation() const
+double FastEntityStatePdu::getXLocation() const
 {
     return _xLocation;
 }
 
-void FastEntityStatePdu::setXLocation(float pX)
+void FastEntityStatePdu::setXLocation(double pX)
 {
     _xLocation = pX;
 }
 
-float FastEntityStatePdu::getYLocation() const
+double FastEntityStatePdu::getYLocation() const
 {
     return _yLocation;
 }
 
-void FastEntityStatePdu::setYLocation(float pX)
+void FastEntityStatePdu::setYLocation(double pX)
 {
     _yLocation = pX;
 }
 
-float FastEntityStatePdu::getZLocation() const
+double FastEntityStatePdu::getZLocation() const
 {
     return _zLocation;
 }
 
-void FastEntityStatePdu::setZLocation(float pX)
+void FastEntityStatePdu::setZLocation(double pX)
 {
     _zLocation = pX;
 }
@@ -700,9 +700,9 @@ int FastEntityStatePdu::getMarshalledSize() const
    marshalSize = marshalSize + 4;  // _xVelocity
    marshalSize = marshalSize + 4;  // _yVelocity
    marshalSize = marshalSize + 4;  // _zVelocity
-   marshalSize = marshalSize + 4;  // _xLocation
-   marshalSize = marshalSize + 4;  // _yLocation
-   marshalSize = marshalSize + 4;  // _zLocation
+   marshalSize = marshalSize + 8;  // _xLocation
+   marshalSize = marshalSize + 8;  // _yLocation
+   marshalSize = marshalSize + 8;  // _zLocation
    marshalSize = marshalSize + 4;  // _psi
    marshalSize = marshalSize + 4;  // _theta
    marshalSize = marshalSize + 4;  // _phi

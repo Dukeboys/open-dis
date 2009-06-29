@@ -84,13 +84,13 @@ protected:
   float _zVelocity; 
 
   /** X value */
-  float _xLocation; 
+  double _xLocation; 
 
   /** y Value */
-  float _yLocation; 
+  double _yLocation; 
 
   /** Z value */
-  float _zLocation; 
+  double _zLocation; 
 
   float _psi; 
 
@@ -207,14 +207,14 @@ protected:
     float getZVelocity() const; 
     void setZVelocity(float pX); 
 
-    float getXLocation() const; 
-    void setXLocation(float pX); 
+    double getXLocation() const; 
+    void setXLocation(double pX); 
 
-    float getYLocation() const; 
-    void setYLocation(float pX); 
+    double getYLocation() const; 
+    void setYLocation(double pX); 
 
-    float getZLocation() const; 
-    void setZLocation(float pX); 
+    double getZLocation() const; 
+    void setZLocation(double pX); 
 
     float getPsi() const; 
     void setPsi(float pX); 
