@@ -9,7 +9,7 @@ Marking::Marking():
      // Initialize fixed length array
      for(int lengthcharacters= 0; lengthcharacters < 11; lengthcharacters++)
      {
-         _characters[lengthcharacters] = 0
+         _characters[lengthcharacters] = 0;
      }
 
 }
