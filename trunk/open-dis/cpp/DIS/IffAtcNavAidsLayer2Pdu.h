@@ -31,7 +31,7 @@ protected:
   /** Secondary operational data, 5.2.57 */
   BeamData _secondaryOperationalData; 
 
-  /** variable length list of fundamental parameters. @@@This is wrong */
+  /** variable length list of fundamental parameters. ^^^This is wrong */
   std::vector<FundamentalParameterDataIff> _fundamentalIffParameters; 
 
 
