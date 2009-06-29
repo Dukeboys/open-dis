@@ -29,3 +29,5 @@ patch java/edu/nps/moves/dis/VariableDatum.java patches/java/VariableDatum.java.
 
 # Apply patches to c++ code....
 
+# Variable datum
+patch Cpp/DIS/VariableDatum.cpp patches/cpp/VariableDatum.cpp.patch
