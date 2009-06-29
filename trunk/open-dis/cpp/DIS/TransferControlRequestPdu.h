@@ -43,7 +43,7 @@ protected:
   /** number of record sets to transfer */
   unsigned char _numberOfRecordSets; 
 
-  /** @@@This is wrong--the RecordSet class needs more work */
+  /** ^^^This is wrong--the RecordSet class needs more work */
   std::vector<RecordSet> _recordSets; 
 
 
