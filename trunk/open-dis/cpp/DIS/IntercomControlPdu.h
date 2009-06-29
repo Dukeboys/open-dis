@@ -54,7 +54,7 @@ protected:
   /** number of intercom parameters */
   unsigned int _intercomParametersLength; 
 
-  /** @@@This is wrong--the length of the data field is variable. Using a long for now. */
+  /** ^^^This is wrong--the length of the data field is variable. Using a long for now. */
   std::vector<IntercomCommunicationsParameters> _intercomParameters; 
 
 
