@@ -11,11 +11,12 @@
 
 namespace DIS
 {
-// Section 5.3.12.6: request from a simulation manager to a managed entity to perform a specified action. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.12.6: request from a simulation manager to a managed entity to perform a specified action. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO ActionRequestReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {

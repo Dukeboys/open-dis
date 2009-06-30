@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Section 5.2.25. Identifies the type of radio
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.25. Identifies the type of radio
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO RadioEntityType
 {

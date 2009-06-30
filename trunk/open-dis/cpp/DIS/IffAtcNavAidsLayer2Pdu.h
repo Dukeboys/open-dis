@@ -13,11 +13,12 @@
 
 namespace DIS
 {
-// Section 5.3.7.4.2 When present, layer 2 should follow layer 1 and have the following fields. This requires manual cleanup.        the beamData attribute semantics are used in multiple ways. UNFINSISHED
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.7.4.2 When present, layer 2 should follow layer 1 and have the following fields. This requires manual cleanup.        the beamData attribute semantics are used in multiple ways. UNFINSISHED
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO IffAtcNavAidsLayer2Pdu : public IffAtcNavAidsLayer1Pdu
 {

@@ -8,11 +8,12 @@
 
 namespace DIS
 {
-// Section 5.2.4.2. Used when the antenna pattern type field has a value of 1. Specifies           the direction, patter, and polarization of radiation from an antenna.
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.4.2. Used when the antenna pattern type field has a value of 1. Specifies           the direction, patter, and polarization of radiation from an antenna.
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO BeamAntennaPattern
 {

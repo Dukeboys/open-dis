@@ -9,11 +9,12 @@
 
 namespace DIS
 {
-// represents values used in dead reckoning algorithms
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** represents values used in dead reckoning algorithms
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO DeadReckoningParameter
 {

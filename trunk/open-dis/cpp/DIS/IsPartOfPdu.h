@@ -14,11 +14,12 @@
 
 namespace DIS
 {
-// Section 5.3.9.4 The joining of two or more simulation entities is communicated by this PDU. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.9.4 The joining of two or more simulation entities is communicated by this PDU. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO IsPartOfPdu : public EntityManagementFamilyPdu
 {

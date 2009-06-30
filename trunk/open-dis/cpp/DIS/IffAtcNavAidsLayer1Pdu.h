@@ -13,11 +13,12 @@
 
 namespace DIS
 {
-// 5.3.7.4.1: Navigational and IFF PDU. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** 5.3.7.4.1: Navigational and IFF PDU. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO IffAtcNavAidsLayer1Pdu : public DistributedEmissionsFamilyPdu
 {

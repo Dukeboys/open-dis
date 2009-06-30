@@ -11,11 +11,12 @@
 
 namespace DIS
 {
-// Section 5.3.8.4. Actual transmission of intercome voice data. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.8.4. Actual transmission of intercome voice data. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO IntercomSignalPdu : public RadioCommunicationsFamilyPdu
 {

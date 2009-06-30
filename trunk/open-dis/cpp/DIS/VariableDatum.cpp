@@ -60,6 +60,7 @@ void VariableDatum::marshal(DataStream& dataStream) const
 void VariableDatum::unmarshal(DataStream& dataStream)
 {
     dataStream >> _variableDatumID;
+    dataStream >> _variableDatumLength;
     _variableDatumLength = (_variableDatumLength / 64) + ((_variableDatumLength % 64) > 0);
 
      _variableDatums.clear();

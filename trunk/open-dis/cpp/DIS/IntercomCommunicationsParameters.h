@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// 5.2.46.  Intercom communcations parameters
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** 5.2.46.  Intercom communcations parameters
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO IntercomCommunicationsParameters
 {

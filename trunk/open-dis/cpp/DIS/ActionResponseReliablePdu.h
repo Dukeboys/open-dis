@@ -11,11 +11,12 @@
 
 namespace DIS
 {
-// Section 5.3.12.7: Response from an entity to an action request PDU. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.12.7: Response from an entity to an action request PDU. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO ActionResponseReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {

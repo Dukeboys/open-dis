@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// 5.2.44: Grid data record, a common abstract superclass for several subtypes 
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** 5.2.44: Grid data record, a common abstract superclass for several subtypes 
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO GridAxisRecord
 {

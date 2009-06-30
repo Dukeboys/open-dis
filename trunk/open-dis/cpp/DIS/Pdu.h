@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** The superclass for all PDUs. This incorporates the PduHeader record, section 5.2.29.
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO Pdu
 {

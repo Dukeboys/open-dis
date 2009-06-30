@@ -10,11 +10,12 @@
 
 namespace DIS
 {
-// Section 5.2.5.4. Cancel of resupply by either the receiving or supplying entity. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.5.4. Cancel of resupply by either the receiving or supplying entity. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO ResupplyCancelPdu : public LogisticsFamilyPdu
 {

@@ -12,11 +12,12 @@
 
 namespace DIS
 {
-// Section 5.3.10.4 proivde the means to request a retransmit of a minefield data pdu. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.10.4 proivde the means to request a retransmit of a minefield data pdu. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO MinefieldResponseNackPdu : public MinefieldFamilyPdu
 {

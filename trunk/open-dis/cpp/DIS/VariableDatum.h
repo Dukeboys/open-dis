@@ -9,11 +9,12 @@
 
 namespace DIS
 {
-// Section 5.2.32. Variable Datum Record
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.32. Variable Datum Record
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO VariableDatum
 {

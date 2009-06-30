@@ -9,11 +9,12 @@
 
 namespace DIS
 {
-// Section 5.2.3.4. Stop or freeze an exercise. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.3.4. Stop or freeze an exercise. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO StopFreezePdu : public SimulationManagementFamilyPdu
 {

@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// discrete ostional relationsihip 
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** discrete ostional relationsihip 
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO NamedLocation
 {

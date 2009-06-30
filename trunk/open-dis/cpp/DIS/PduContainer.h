@@ -9,11 +9,12 @@
 
 namespace DIS
 {
-// Used for XML compatability. A container that holds PDUs
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Used for XML compatability. A container that holds PDUs
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO PduContainer
 {

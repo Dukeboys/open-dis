@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Section 5.2.17. Three floating point values representing an orientation, psi, theta, and phi, aka the euler angles, in radians
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.17. Three floating point values representing an orientation, psi, theta, and phi, aka the euler angles, in radians
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO Orientation
 {

@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Section 5.2.11. This field shall specify information about a particular emitter system
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.11. This field shall specify information about a particular emitter system
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO EmitterSystem
 {

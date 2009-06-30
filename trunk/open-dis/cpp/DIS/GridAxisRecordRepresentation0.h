@@ -10,11 +10,12 @@
 
 namespace DIS
 {
-// 5.2.44: Grid data record, representation 0
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** 5.2.44: Grid data record, representation 0
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO GridAxisRecordRepresentation0 : public GridAxisRecord
 {

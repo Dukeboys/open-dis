@@ -9,11 +9,12 @@
 
 namespace DIS
 {
-// Section 5.3.8.3. Communication of a receiver state. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.8.3. Communication of a receiver state. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO ReceiverPdu : public RadioCommunicationsFamilyPdu
 {

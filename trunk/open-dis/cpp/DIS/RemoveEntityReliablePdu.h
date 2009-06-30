@@ -8,11 +8,12 @@
 
 namespace DIS
 {
-// Section 5.3.12.2: Removal of an entity , reliable. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.12.2: Removal of an entity , reliable. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO RemoveEntityReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {

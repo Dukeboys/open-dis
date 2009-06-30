@@ -10,11 +10,12 @@
 
 namespace DIS
 {
-// Section 5.2.5.6. Sent after repair complete PDU. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.5.6. Sent after repair complete PDU. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO RepairResponsePdu : public LogisticsFamilyPdu
 {

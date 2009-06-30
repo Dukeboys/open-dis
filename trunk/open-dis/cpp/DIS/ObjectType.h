@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Identifies type of object. This is a shorter version of EntityType that omits the specific and extra fields.
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Identifies type of object. This is a shorter version of EntityType that omits the specific and extra fields.
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO ObjectType
 {

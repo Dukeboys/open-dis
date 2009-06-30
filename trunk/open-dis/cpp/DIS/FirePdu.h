@@ -13,11 +13,12 @@
 
 namespace DIS
 {
-// Sectioin 5.3.4.1. Information about someone firing something. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Sectioin 5.3.4.1. Information about someone firing something. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO FirePdu : public WarfareFamilyPdu
 {

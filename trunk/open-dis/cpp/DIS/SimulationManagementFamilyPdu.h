@@ -10,11 +10,12 @@
 
 namespace DIS
 {
-// Section 5.3.6. Abstract superclass for PDUs relating to the simulation itself. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.6. Abstract superclass for PDUs relating to the simulation itself. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO SimulationManagementFamilyPdu : public Pdu
 {

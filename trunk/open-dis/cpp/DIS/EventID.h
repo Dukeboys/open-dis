@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Section 5.2.18. Identifies a unique event in a simulation via the combination of three values
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.18. Identifies a unique event in a simulation via the combination of three values
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO EventID
 {

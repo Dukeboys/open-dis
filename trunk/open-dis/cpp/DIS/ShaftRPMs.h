@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Shaft RPMs, used in underwater acoustic clacluations.
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Shaft RPMs, used in underwater acoustic clacluations.
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO ShaftRPMs
 {

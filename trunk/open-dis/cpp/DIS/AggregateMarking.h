@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Section 5.2.37. Specifies the character set used inthe first byte, followed by up to 31 characters of text data.
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.2.37. Specifies the character set used inthe first byte, followed by up to 31 characters of text data.
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO AggregateMarking
 {

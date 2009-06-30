@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Section 5.3.34. Three double precision floating point values, x, y, and z
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.34. Three double precision floating point values, x, y, and z
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO Vector3Double
 {

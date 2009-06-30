@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// 5.2.2: angular velocity measured in radians per second out each of the entity's own coordinate axes.
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** 5.2.2: angular velocity measured in radians per second out each of the entity's own coordinate axes.
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO AngularVelocityVector
 {

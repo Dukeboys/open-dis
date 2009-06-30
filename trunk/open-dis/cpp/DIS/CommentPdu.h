@@ -11,11 +11,12 @@
 
 namespace DIS
 {
-// Section 5.3.6.12. Arbitrary messages can be entered into the data stream via use of this PDU. COMPLETE
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Section 5.3.6.12. Arbitrary messages can be entered into the data stream via use of this PDU. COMPLETE
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO CommentPdu : public SimulationManagementFamilyPdu
 {

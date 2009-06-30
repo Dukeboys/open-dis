@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// Record sets, used in transfer control request PDU
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** Record sets, used in transfer control request PDU
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO RecordSet
 {

@@ -7,11 +7,12 @@
 
 namespace DIS
 {
-// 5.2.56. Purpose for joinging two entities
-
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-//
-// @author DMcG, jkg
+/** 5.2.56. Purpose for joinging two entities
+ *
+ * Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+ *
+ * @author DMcG, jkg
+ */
 
 class EXPORT_MACRO Relationship
 {
