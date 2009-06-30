@@ -128,7 +128,8 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
 
  /**
-  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  * This equals method actually does work. Go ahead and use it. It's useful
+  * for hash table keys when looking up entities.
   */
  public boolean equals(EntityID rhs)
  {
@@ -143,4 +144,21 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
     return ivarsEqual;
  }
+
+/**
+ * Override of base class hashcode. This is convienent to use when looking up entities in
+ * a hash table. It uses the application and entity IDs to fill out the 32 bits. The idea
+ * is to get a "pretty close" to unique hashcode for each entity ID in 32 bits, and the
+ * best way to do that is leave out the site ID while keeping the rest, which tends to
+ * be more unique.
+ */
+public int hashcode()
+{
+	int hashcode = site;
+	hashcode = hashcode << 16;
+	hashcode = hashcode + entity;
+	return hashcode;
+}
+	
+	
 } // end of class
