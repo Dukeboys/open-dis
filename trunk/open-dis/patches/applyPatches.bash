@@ -27,6 +27,9 @@ patch java/edu/nps/moves/dis/Marking.java patches/java/Marking.java.patch
 # Apply patch to VariableDatum.java
 patch java/edu/nps/moves/dis/VariableDatum.java patches/java/VariableDatum.java.patch
 
+# Apply patch to EntityID to get equality, hashcode
+patch java/edu/nps/moves/dis/EntityID.java patches/java/EntityID.java.patch
+
 # Apply patches to c++ code....
 
 # Variable datum
