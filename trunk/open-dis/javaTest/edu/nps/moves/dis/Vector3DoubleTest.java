@@ -40,17 +40,18 @@ public class Vector3DoubleTest
     public void getLatLonMeridianTest()
     {
        Vector3Double vec = new Vector3Double();
-       Vector3Double result;
 
        // Diameter of the earth is about 12,742 KM. DIS has X out the prime
        // merdian at the equator, y out the equator at 90 deg east, and
        // z out the north pole.
+       vec.setY(0.0);
+       vec.setZ(0.0);
        vec.setX(6371000.0); // half diameter of earth; on x-axis this should put
                             // us at (0,0,0) in lat, lon, altitude, or close to it
-       result = vec.getLatitudeLongitudeAltitudeFromDisCoordinates();
-       System.out.println("latitude should =0; is" + result.getX());
-       System.out.println("longitude should =0; is" + result.getY());
-       System.out.println("altitude should =0; is" + result.getZ());
+       vec.convertDisToLatitudeLongitudeAltitude();
+       System.out.println("latitude should =0; is" + vec.getX());
+       System.out.println("longitude should =0; is" + vec.getY());
+       System.out.println("altitude should =0; is" + vec.getZ());
 
        return;
     }
@@ -63,17 +64,18 @@ public class Vector3DoubleTest
     public void getLatLon90EastTest()
     {
        Vector3Double vec = new Vector3Double();
-       Vector3Double result;
 
        // Diameter of the earth is about 12,742 KM. DIS has X out the prime
        // merdian at the equator, y out the equator at 90 deg east, and
        // z out the north pole.
+       vec.setX(0.0);
+       vec.setZ(0.0);
        vec.setY(6371000.0); // half diameter of earth; on y-axis this should put
                             // us at (0,90,0) in lat, lon, altitude, or close to it
-       result = vec.getLatitudeLongitudeAltitudeFromDisCoordinates();
-       System.out.println("latitude should =0; is" + result.getX());
-       System.out.println("longitude should =90; is" + result.getY());
-       System.out.println("altitude should =0; is" + result.getZ());
+       vec.convertDisToLatitudeLongitudeAltitude();  
+       System.out.println("latitude should =0; is" + vec.getX());
+       System.out.println("longitude should =90; is" + vec.getY());
+       System.out.println("altitude should =0; is" + vec.getZ());
 
        return;
     }
@@ -91,13 +93,14 @@ public class Vector3DoubleTest
        // Diameter of the earth is about 12,742 KM. DIS has X out the prime
        // merdian at the equator, y out the equator at 90 deg east, and
        // z out the north pole.
+       vec.setY(0.0);
        vec.setX(6371000.0 * Math.cos( (45.0 * Math.PI)/180.0)); // half diameter of earth; on x-axis this should put
                                                                 // us at 45 deg north at the prime meridian
        vec.setZ(6371000.0 * Math.cos( (45.0 * Math.PI)/180.0) );
-       result = vec.getLatitudeLongitudeAltitudeFromDisCoordinates();
-       System.out.println("latitude should =45; is" + result.getX());
-       System.out.println("longitude should =0; is" + result.getY());
-       System.out.println("altitude should =0; is" + result.getZ());
+       vec.convertDisToLatitudeLongitudeAltitude();   
+       System.out.println("latitude should =45; is" + vec.getX());
+       System.out.println("longitude should =0; is" + vec.getY());
+       System.out.println("altitude should =0; is" + vec.getZ());
 
        return;
     }
@@ -109,8 +112,11 @@ public class Vector3DoubleTest
     public void getXYZforEquatorPrimeMeridian()
     {
         Vector3Double vec = new Vector3Double();
+        vec.setX(0.0); // lat
+        vec.setY(0.0); // lon
+        vec.setZ(0.0); // altitude (m)
 
-        vec.setEntityLocationLatitudeLongitudeAltitude(0.0, 0.0, 0.0);
+        vec.convertLatitudeLongitudeAltitudeToDis();
         System.out.println("x should =radius of earth, about 6371000m; is" + vec.getX());
         System.out.println("y should =0; is" + vec.getY());
         System.out.println("altitude should =0; is" + vec.getZ());
@@ -123,8 +129,11 @@ public class Vector3DoubleTest
     public void getXYZfor45NorthPrimeMeridian()
     {
         Vector3Double vec = new Vector3Double();
+        vec.setX(45.0); // lat
+        vec.setY(0.0);  // lon
+        vec.setZ(0.0);  // altitude (m)
 
-        vec.setEntityLocationLatitudeLongitudeAltitude(45, 0.0, 0.0);
+        vec.convertLatitudeLongitudeAltitudeToDis();
         System.out.println("x should about equal y; is" + vec.getX());
         System.out.println("z should about equal x; is" + vec.getZ());
         System.out.println("y should =0; is" + vec.getY());
