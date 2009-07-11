@@ -30,6 +30,11 @@ patch java/edu/nps/moves/dis/VariableDatum.java patches/java/VariableDatum.java.
 # Apply patch to EntityID to get equality, hashcode
 patch java/edu/nps/moves/dis/EntityID.java patches/java/EntityID.java.patch
 
+# Apply patch to Vector3Double to get some convienience methods for 
+# converting back and forth to DIS coordinates from lat/lon/alt.
+patch java/edu/nps/moves/dis/Vector3Double.java patches/java/Vector3Double.java.patch
+
+
 # Apply patches to c++ code....
 
 # Variable datum
