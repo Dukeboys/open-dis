@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import javax.xml.bind.annotation.*;
 
+import edu.nps.moves.disutil.CoordinateConversions; // For converting to DIS coordinates
 /**
  * Section 5.3.34. Three double precision floating point values, x, y, and z
  *
@@ -143,4 +144,83 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
     return ivarsEqual;
  }
+
+
+/**
+ * Set the entity orientation, USING LATITUDE, LONGITUDE, and ALTITUDE and doing an
+ * internal conversion to the DIS coordinate system. <p>
+ *
+ * Vector3Double is very often ued for setting the entity position. This is a
+ * convienience method that allows the programmer to input a latitude, longitude,
+ * and altitude, and have it automatically converted to the DIS coordiinate system<p>
+ *
+ * The DIS standard uses an earth-centered, rectilinear coordinate system with
+ * the Z axis pointing through the north pole, the X axis pointing out at the
+ * intersection of the equator and prime meridian, and the Y axis pointing out
+ * at the equator and 90 deg east. Since pretty much no one else uses this,
+ * it can make finding the "DIS standard" x,y,z difficult if you have only
+ * latitude, longitude, and altitude. This method does the converstion from those
+ * three values to the DIS coordinate system.<p>
+ *
+ * The conversion is always somewhat problematic, depending on what model of the
+ * earth's surface you use. This uses the WGS84 elipsoid model, and may not be
+ * accurate around the poles.<p>
+ *
+ * @param double lat latitude, in degrees
+ * @param double lon longitude, in degrees
+ * @param double altitude altitude, in meters
+ *
+ * @return
+ */
+
+public void setEntityLocationLatitudeLongitudeAltitude(double lat, double lon, double altitude)
+{
+    double radiansLat;
+    double radiansLon;
+    double xyz[] = new double[3];
+
+    radiansLat = (Math.PI * lat) / 180.0;
+    radiansLon = (Math.PI * lon) / 180.0;
+
+    // Do the conversion
+    xyz = CoordinateConversions.getXYZfromLatLong(radiansLat, radiansLon, altitude);
+
+    // Set the values
+    this.setX(xyz[0]);
+    this.setY(xyz[1]);
+    this.setZ(xyz[2]);
+}
+
+/**
+ * Converts xyz world coordinates to latitude and longitude (IN DEGREES) and
+ * altitude (IN METERS). This algorithm may not be 100% accurate
+ * near the poles. Uses WGS84. uses the existing values for xyz in this
+ * object as inputs.
+ *
+ * @return Vector3Double, with x=latitude, y=longitude, and z=altitude in meters
+ */
+public Vector3Double getLatitudeLongitudeAltitudeFromDisCoordinates()
+{
+    Vector3Double location = new Vector3Double();
+    double[] xyz = new double[3];
+    double[] result;
+
+    xyz[0] = x;
+    xyz[1] = y;
+    xyz[2] = z;
+
+    result = CoordinateConversions.xyzToLatLong(xyz);
+
+    // Convert radians in the result to degrees
+    result[0] = (result[0] * 180.0)/Math.PI;
+    result[1] = (result[1] * 180.0)/Math.PI;
+
+    location.setX(result[0]);
+    location.setY(result[1]);
+    location.setZ(result[2]);
+
+
+    return location;
+}
+
 } // end of class
