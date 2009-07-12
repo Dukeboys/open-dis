@@ -17,7 +17,7 @@ ifeq ($(CONFIG),Debug)
   LDDEPS :=
   RESFLAGS := -D "_DEBUG" -I "../../cpp" -I "../../CppUtils"
   TARGET := libDIS_debug.so
-  BLDCMD = $(CC) -o $(OUTDIR)/$(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
+  BLDCMD = $(CC) -shared -Wl -o $(OUTDIR)/$(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(TARGET_ARCH)
 endif
 
 ifeq ($(CONFIG),Release)
