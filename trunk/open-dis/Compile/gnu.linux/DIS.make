@@ -11,9 +11,9 @@ ifeq ($(CONFIG),Debug)
   OBJDIR := obj_gnu_DIS_debug
   OUTDIR := ../../bin
   CPPFLAGS := -MMD -D "_DEBUG" -I "../../cpp" -I "../../CppUtils"
-  CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -fPIC -g
+  CFLAGS += $(CPPFLAGS) $(TARGET_ARCH) -fPIC -g 
   CXXFLAGS := $(CFLAGS)
-  LDFLAGS += -L$(BINDIR) -L$(LIBDIR)
+  LDFLAGS += -L$(BINDIR) -L$(LIBDIR) -lstdc++
   LDDEPS :=
   RESFLAGS := -D "_DEBUG" -I "../../cpp" -I "../../CppUtils"
   TARGET := libDIS_debug.so
