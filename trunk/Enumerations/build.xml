@@ -6,7 +6,7 @@
      though the location of the directory on the sourceforge side may change over time.
 -->
 
-<project name="Enumerations" default="dist" basedir=".">
+<project name="open-dis enumerations" default="dist" basedir=".">
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="lib" location="lib"/>
