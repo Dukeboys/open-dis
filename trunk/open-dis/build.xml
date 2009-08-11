@@ -6,7 +6,7 @@
      though the location of the directory on the sourceforge side may change over time.
 -->
 
-<project name="open-dis" default="dist" basedir=".">
+<project name="open-dis codebase" default="dist" basedir=".">
     <property name="src" location="java"/>
     <property name="build" location="build"/>
     <property name="lib" location="lib"/>
