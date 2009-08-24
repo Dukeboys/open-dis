@@ -29,7 +29,7 @@ public class Xmlpg
     protected HashMap generatedClassNames = new HashMap();
     
     /** The language types we generate */
-    public enum LanguageType {C, JAVA, CSHARP }
+    public enum LanguageType {C, JAVA, CSHARP, OBJECTIVEC }
     
     /** As we parse the XML document, this is the class we are currently working on */
     private GeneratedClass currentGeneratedClass = null;
@@ -46,6 +46,9 @@ public class Xmlpg
     //PES
 	/** C# properties--using, namespace, etc. */
 	Properties csharpProperties = new Properties();
+
+    /** Objective-C properties */
+    Properties objcProperties = new Properties();
     
     /** Hash table of all the primitive types we can use (short, long, byte, etc.)*/
     private HashSet primitiveTypes = new HashSet();
@@ -59,13 +62,20 @@ public class Xmlpg
     //PES
 	/** Directory in which the C# classes are created */
 	private String csharpDirectory = null;
+
+    /** Director in which the objc classes are created */
+    private String objcDirectory = null;
    
     /**
      * Create a new collection of Java objects by reading an XML file; these
      * java objects can be used to generate code templates of any language,
      * once you write the translator.
      */
-    public Xmlpg(String xmlDescriptionFileName, String pJavaDirectory, String pCppDirectory, String pCsharpDirectory)
+    public Xmlpg(String xmlDescriptionFileName, 
+                 String pJavaDirectory,
+                 String pCppDirectory,
+                 String pCsharpDirectory,
+                 String objcDirectory)
     {
         try
         {
@@ -114,6 +124,10 @@ public class Xmlpg
 		// Create a new generator object to write out the source code for all the classes in csharp
 		CsharpGenerator csharpGenerator = new CsharpGenerator(generatedClassNames, csharpDirectory, csharpProperties);
 		csharpGenerator.writeClasses();
+
+        // create a new generator object for objc
+        ObjcGenerator objcGenerator = new ObjcGenerator(generatedClassNames, objcDirectory, objcProperties);
+        objcGenerator.writeClasses();
     }
     
     /**
@@ -126,12 +140,12 @@ public class Xmlpg
         
         if(args.length < 4) //PES changed to accomodate additional arg for C#
         {
-			System.out.println("Usage: Xmlpg xmlFile javaDirectoryName cppDirectoryName csharpDirectoryName"); //PES modified to print out correct help
+			System.out.println("Usage: Xmlpg xmlFile javaDirectoryName cppDirectoryName csharpDirectoryName objcDirectoryName"); //PES modified to print out correct help
             System.exit(0);
         }
         
         // Should preflight the args here
-		Xmlpg gen = new Xmlpg(args[0], args[1], args[2], args[3]); //PES added one more arg for C#
+		Xmlpg gen = new Xmlpg(args[0], args[1], args[2], args[3], args[4]); //PES added one more arg for C#
         
         
                 
@@ -268,6 +282,15 @@ public class Xmlpg
                 for(int idx = 0; idx < attributes.getLength(); idx++)
                 {
                     cppProperties.setProperty(attributes.getQName(idx), attributes.getValue(idx));
+                }
+            }
+
+            // objc element--place all the attributes and values into a property list
+            if(qName.compareToIgnoreCase("objc") == 0)
+            {
+                for(int idx = 0; idx < attributes.getLength(); idx++)
+                {
+                    objcProperties.setProperty(attributes.getQName(idx), attributes.getValue(idx));
                 }
             }
             
