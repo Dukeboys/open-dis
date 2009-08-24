@@ -20,7 +20,7 @@ public class PduContainer extends Object implements Serializable
    protected int  numberOfPdus;
 
    /** record sets */
-   protected List< Pdu> pdus = new ArrayList<Pdu>(); 
+   protected List< Pdu> pdus = new ArrayList<Pdu>();
 
 /** Constructor */
  public PduContainer()
@@ -150,7 +150,7 @@ public void marshallToXml(String filename)
 {
   try
    {
-       JAXBContext context = JAXBContext.newInstance();
+       JAXBContext context = JAXBContext.newInstance("edu.nps.moves.dis");
       Marshaller marshaller = context.createMarshaller();
       marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       marshaller.marshal(this, new FileOutputStream(filename));
