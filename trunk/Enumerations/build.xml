@@ -34,6 +34,7 @@
       <mkdir dir="src/edu/nps/moves/siso/jaxb"/>
       <mkdir dir="src/edu/nps/moves/disenum"/>
       <mkdir dir="src/cpp/disenum"/>
+      <mkdir dir="src/Csharp/disenum"/> <!--08/26/2009 PES added for C# support-->
     </target>
 
     <!-- compile the java code-generation code -->
@@ -88,6 +89,19 @@
     </java>
     </target>
 
+	<!--PES 08/26/2009 Added for C# support -->
+	    <!-- Runs the generation program, which creates the C# enumeration classes from the EBV xml file -->
+	     <target name="runCSharp" depends="compileEbv" description="run java enumeration class creation program">
+	      <java classname="edu.nps.moves.siso.EBVReaderCsharp">
+	        <classpath>
+	          <fileset dir="lib">
+	            <include name="**/*.jar"/>
+	          </fileset>
+	          <pathelement location="build"/>
+	        </classpath>
+	    </java>
+	    </target>
+	
     <!-- XJC ant task -->
     <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
       <classpath>
@@ -124,7 +138,7 @@
         </javadoc>
      </target>
     
-    <target name="dist" depends="init, generateEbvClasses, run, compile, test, javadoc, jar" description="do everything">
+    <target name="dist" depends="init, generateEbvClasses, run, runCSharp, compile, test, javadoc, jar" description="do everything">
     <copy file="README.html" tofile="${dist}/README.html"/>
     <copy file="license.txt" tofile="${dist}/license.txt"/>
     </target>
@@ -156,5 +170,8 @@
           <fileset dir="src/cpp/disenum" includes="*.h"/>
           <fileset dir="src/cpp/disenum" includes="*.cpp"/>
         </delete>
+    	<delete>
+    		<fileset dir="src/Csharp/disenum" includes="*.cs"/>  <!--08/26/2009 PES added for C# support-->
+    	</delete>
     </target>
 </project>
