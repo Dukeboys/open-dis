@@ -50,6 +50,33 @@
     return marshalSize;
 }
 
+/** Apparently even on iPHones the hash values are unsigned longs, so
+ * we can fit all three 16 bit fields into one hash value.
+ */
+-(NSUInteger)hashFunction
+{
+    long hashValue = 0;
+    hasValue = site;
+    hashValue = hashValue << 16;
+    hasValue = hashValue & application;
+    hashValue = hashValue << 16;
+    hashValue = hashValue & entity;
+}
+
+- (BOOL)isEqual:(id)anObject
+{
+    if([anObject isMemberOfClass:[EntityID class]])
+    {
+        EntityID* other = (EntityID*)anObject;
+        if((site == [other site]) && (application == [other application]) && (entity == [other entity]))
+        {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 @end
 
 

@@ -32,6 +32,7 @@
 -(void)unmarshalUsingStream:(DataInput*) dataStream;
 
 -(int)getMarshalledSize;
+-(NSUInteger)hash;
 
 @end
 
