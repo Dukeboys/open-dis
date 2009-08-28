@@ -147,26 +147,27 @@ public void writeHeaderFile(GeneratedClass aClass)
             // If this attribute is a class, we need to do an import on that class
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
             {
-                pw.println("#include \"" + anAttribute.getType() + ".h\"");
+                pw.println("#import \"" + anAttribute.getType() + ".h\"");
             }
 
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
             {
                 hasVariableLengthList = true;
+                pw.println("#import \"" + anAttribute.getType() + ".h\"");
             }
         }
 
-        pw.println("#include <Foundation/Foundation.h>");
+        pw.println("#import <Foundation/Foundation.h>");
         
 
         // if we inherit from another class we need to do an include on it
         if(!(aClass.getParentClass().equalsIgnoreCase("root")))
         {
-             pw.println("#include \"" + aClass.getParentClass() + ".h\"");
+             pw.println("#import \"" + aClass.getParentClass() + ".h\"");
         }
 
-         pw.println("#include \"DataOutput.h\"");
-        //pw.println("#include <iostream>");
+         pw.println("#import \"DataInput.h\"");
+         pw.println("#import \"DataOutput.h\"");
 
         pw.println();
         pw.println();
@@ -222,6 +223,10 @@ public void writeHeaderFile(GeneratedClass aClass)
                     pw.println("  " + "/** " + anAttribute.getComment() + " */");
 
                 pw.println("  " + types.get(anAttribute.getType()) + " " + anAttribute.getName() + "[" + anAttribute.getListLength() + "]; ");
+                pw.println("  // Length of the above array");
+                pw.println("  int " + anAttribute.getName() + "Length;");
+                pw.println("  // Ptr to the array (fixes a syntax types problem with properties)");
+                pw.println("   " + types.get(anAttribute.getType()) + " * " + anAttribute.getName() + "Ptr; ");
                 pw.println();
             }
 
@@ -251,13 +256,18 @@ public void writeHeaderFile(GeneratedClass aClass)
 
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
             {
-               pw.println("@property(readwrite, retain) *" + anAttribute.getType() + " "  + anAttribute.getName() + "; ");
+               pw.println("@property(readwrite, retain) " + anAttribute.getType() + "* "  + anAttribute.getName() + "; ");
             }
 
-            if((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) ||
-               (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+            if((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
             {
-               pw.println("@property(readwrite, retain) " + "*NSMutableArray " + anAttribute.getName() + "; ");
+                pw.println("@property(readwrite) " + types.get(anAttribute.getType()) + "* " + anAttribute.getName() + "Ptr;");
+                pw.println("@property(readonly) int " + anAttribute.getName() + "Length;");
+            }
+
+            if((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) )
+            {
+               pw.println("@property(readwrite, retain) " + "NSMutableArray*" + anAttribute.getName() + "; ");
             }
 
          } // end of properties      
@@ -268,12 +278,14 @@ public void writeHeaderFile(GeneratedClass aClass)
         pw.println("-(void)dealloc;");
 
         // Marshal and unmarshal methods
-        pw.println("-(void)marshalUsingStream:(DataStream*) dataStream;");
-        pw.println("-(void)unmarshalUsingStream:(DataStream*) dataStream;");
+        pw.println("-(void)marshalUsingStream:(DataOutput*) dataStream;");
+        pw.println("-(void)unmarshalUsingStream:(DataInput*) dataStream;");
 
         // Generate a getMarshalledSize() method header
         pw.println();
         pw.println("-(int)getMarshalledSize;");
+        pw.println();
+        pw.println("@end");
         pw.println();
         
         this.writeLicenseNotice(pw);
@@ -299,7 +311,7 @@ public void writeObjcFile(GeneratedClass aClass)
         outputFile.createNewFile();
         PrintWriter pw = new PrintWriter(outputFile);
 
-        pw.println("#include \"" + aClass.getName() + ".h\" ");
+        pw.println("#import \"" + aClass.getName() + ".h\" ");
         pw.println();
 
         pw.println();
@@ -311,9 +323,20 @@ public void writeObjcFile(GeneratedClass aClass)
         for(int idx = 0; idx < aClass.getClassAttributes().size(); idx++)
         {
             ClassAttribute anAttribute = (ClassAttribute)aClass.getClassAttributes().get(idx);
-            pw.println("@synthesize " + anAttribute.getName() + ";");
+            if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
+            {
+                pw.println("@synthesize " + anAttribute.getName() + "Ptr;");
+                pw.println("@synthesize " + anAttribute.getName() + "Length;");
+            }
+            else
+            {
+                pw.println("@synthesize " + anAttribute.getName() + ";");
+            }
         }
         pw.println();
+
+        // Write fixed array access methods. Irritatingly, it doesn't seem to be
+        // possible to do this via properties.
 
         // Write initalizer
         this.writeInitializer(pw, aClass);
@@ -330,6 +353,8 @@ public void writeObjcFile(GeneratedClass aClass)
 
         // Method to determine the marshalled length of the PDU
         this.writeGetMarshalledSizeMethod(pw, aClass);
+        pw.println("@end\n");
+        pw.println("\n");
 
         // License notice
         this.writeLicenseNotice(pw);
@@ -434,7 +459,7 @@ public void writeMarshalMethod(PrintWriter pw, GeneratedClass aClass)
 {
     try
     {
-        pw.println("-(void) " + "marshalToStream:(DataStream*) dataStream);");
+        pw.println("-(void) " + "marshalUsingStream:(DataOutput*) dataStream");
         pw.println("{");
 
         // If this inherits from one of our classes, we should call the superclasses'
@@ -444,7 +469,7 @@ public void writeMarshalMethod(PrintWriter pw, GeneratedClass aClass)
         if(!(aClass.getParentClass().equalsIgnoreCase("root")))
         {
             String superclassName = aClass.getParentClass();
-            pw.println("    [super marshalToStream:dataStream]; // Marshal information in superclass first");
+            pw.println("    [super marshalUsingStream:dataStream]; // Marshal information in superclass first");
         }
 
 
@@ -475,7 +500,7 @@ public void writeMarshalMethod(PrintWriter pw, GeneratedClass aClass)
 
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
             {
-                pw.println("    ["  + anAttribute.getName() + " marshalToStream:dataStream];");
+                pw.println("    ["  + anAttribute.getName() + " marshalUsingStream:dataStream];");
             }
 
             if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
@@ -493,11 +518,12 @@ public void writeMarshalMethod(PrintWriter pw, GeneratedClass aClass)
 
                 if(marshalType == null) // It's a class
                 {
-                    pw.println("     " +  anAttribute.getName() + "[idx].marshal(dataStream);");
+                    pw.println("     [dataStream " +  anAttribute.getName() + "[idx].marshal(dataStream);");
                 }
                 else
                 {
-                    pw.println("        dataStream << " +  anAttribute.getName() + "[idx];");
+                    String capped = this.initialCap(marshalType);
+                    pw.println("    [dataStream write" + capped + ":" + anAttribute.getName() + "[idx]];");
                 }
 
                 pw.println("     }");
@@ -514,8 +540,8 @@ public void writeMarshalMethod(PrintWriter pw, GeneratedClass aClass)
 
                 if(marshalType == null) // It's a class
                 {
-                    pw.println("        " + anAttribute.getType() + " x = [" + anAttribute.getName() + " objectAtIndex:idx];");
-                    pw.println("        [x marshalToStream:dataStream]);");
+                    pw.println("        " + anAttribute.getType() + "* x = [" + anAttribute.getName() + " objectAtIndex:idx];");
+                    pw.println("        [x marshalUsingStream:dataStream];");
                 }
                 else // it's a primitive
                 {
@@ -571,10 +597,12 @@ public void writeUnmarshalMethod(PrintWriter pw, GeneratedClass aClass)
 
         if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
         {
+            String t = marshalTypes.getProperty(anAttribute.getType());
+            t = this.initialCap(t);
             pw.println();
             pw.println("     for(int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
             pw.println("     {");
-            pw.println("        dataStream >> " + anAttribute.getName() + "[idx];");
+            pw.println("          " + anAttribute.getName() + "[idx] = [dataStream read" + t + "];");
             pw.println("     }");
             pw.println();
         }
@@ -582,7 +610,7 @@ public void writeUnmarshalMethod(PrintWriter pw, GeneratedClass aClass)
         if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
         {
             pw.println();
-            pw.println("     " + anAttribute.getName() + ".clear();"); // Clear out any existing objects in the list
+            pw.println("     [" + anAttribute.getName() + " removeAllObjects];"); // Clear out any existing objects in the list
             pw.println("     for(int idx = 0; idx < " + anAttribute.getCountFieldName() + "; idx++)");
             pw.println("     {");
 
@@ -595,13 +623,13 @@ public void writeUnmarshalMethod(PrintWriter pw, GeneratedClass aClass)
 
             if(marshalType == null) // It's a class
             {
-                pw.println("        " + anAttribute.getType() + " x;");
-                pw.println("        x.unmarshal(dataStream);" );
-                pw.println("        "  + anAttribute.getName() + ".push_back(x);");
+                pw.println("        " + anAttribute.getType() + "* x;");
+                pw.println("        [x unmarshalUsingStream:dataStream];" );
+                pw.println("        ["  + anAttribute.getName() + " addObject:x];");
             }
-            else // It's a primitive
+            else // It's a primitive; not supported
             {
-                pw.println("       "  + anAttribute.getName() + "[idx] << dataStream");
+                // pw.println("       "  + anAttribute.getName() + "[idx] << dataStream");
             }
 
             pw.println("     }");
@@ -686,6 +714,7 @@ private void writeInitializer(PrintWriter pw, GeneratedClass aClass)
               pw.println("     {");
               pw.println("         " + attribute.getName() + "[" + indexName + "] = 0;");
               pw.println("     }");
+              pw.println("     " + attribute.getName() + "Ptr = &" + attribute.getName() + "[0];");
               pw.println();
           }
           if(attribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
@@ -696,6 +725,8 @@ private void writeInitializer(PrintWriter pw, GeneratedClass aClass)
        }
        pw.println("  } // end if(self)");
 
+       pw.println("  return self;");
+
     pw.println("}\n");
 }
 
@@ -705,7 +736,7 @@ public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
 
     // Generate a getMarshalledLength() method header
     pw.println();
-    pw.println("-(int)getMarshalledSize()");
+    pw.println("-(int)getMarshalledSize");
     pw.println("{");
     pw.println("   int marshalSize = 0;");
     pw.println();
@@ -757,11 +788,11 @@ public void writeGetMarshalledSizeMethod(PrintWriter pw, GeneratedClass aClass)
             else
             {
                 pw.println();
-                pw.println("   for(int idx=0; idx < "  + anAttribute.getName() + ".size(); idx++)");
+                pw.println("   for(int idx=0; idx < ["  + anAttribute.getName() + " count]; idx++)");
                 pw.println("   {");
                 //pw.println( anAttribute.getName() + ".size() " + " * " +  " new " + anAttribute.getType() + "().getMarshalledSize()"  + ";  // " + anAttribute.getName());
-                pw.println("        " + anAttribute.getType() + " listElement = " + anAttribute.getName() + "[idx];");
-                pw.println("        marshalSize = marshalSize + listElement.getMarshalledSize();");
+                pw.println("        " + anAttribute.getType() + "* listElement = [" + anAttribute.getName() + " objectAtIndex:idx];");
+                pw.println("        marshalSize = marshalSize + [listElement getMarshalledSize];");
                 pw.println("    }");
                 pw.println();
             }
@@ -785,8 +816,7 @@ public void writeDeallocMethod(PrintWriter pw, GeneratedClass aClass)
         ClassAttribute.ClassAttributeType kind = anAttribute.getAttributeKind();
 
         if( (kind == anAttribute.attributeKind.CLASSREF) ||
-            (kind == anAttribute.attributeKind.VARIABLE_LIST) ||
-            (kind == anAttribute.attributeKind.FIXED_LIST))
+            (kind == anAttribute.attributeKind.VARIABLE_LIST))
         {
              pw.println("  [" + anAttribute.getName() + " release];" );
         }
