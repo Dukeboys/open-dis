@@ -34,6 +34,8 @@
 -(int)getMarshalledSize;
 -(NSUInteger)hash;
 
+- (BOOL)isEqual:(id)anObject;
+
 @end
 
 // Copyright (c) 1995-2009 held by the author(s).  All rights reserved.

@@ -53,14 +53,16 @@
 /** Apparently even on iPHones the hash values are unsigned longs, so
  * we can fit all three 16 bit fields into one hash value.
  */
--(NSUInteger)hashFunction
+-(NSUInteger)hash
 {
-    long hashValue = 0;
-    hasValue = site;
+    NSUInteger hashValue = 0;
+    hashValue = site;
     hashValue = hashValue << 16;
-    hasValue = hashValue & application;
+    hashValue = hashValue & application;
     hashValue = hashValue << 16;
     hashValue = hashValue & entity;
+    
+    return hashValue;
 }
 
 - (BOOL)isEqual:(id)anObject
