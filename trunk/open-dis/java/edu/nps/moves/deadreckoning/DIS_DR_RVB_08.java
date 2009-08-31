@@ -164,7 +164,10 @@ public class DIS_DR_RVB_08 extends DIS_DeadReckoning
         // matrix scalars
         double wwScale = (wDelta-Math.sin(wDelta)) / (wSq * wMag); 
         double identScalar = Math.sin(wDelta) / wMag;
-        double skewScale = 1 - (Math.cos(wDelta) / wSq);
+        // NOTE: corrected from the SISO std, which contained an error. See
+        // http://discussions.sisostds.org/default.asp?action=9&read=44981&fid=32
+        // Thanks to Ian Gilles for the correction.
+        double skewScale = (1 - Math.cos(wDelta)) / wSq;
                 
         // scaled matrixes
         Matrix wwTmp = ww.mult(wwScale);
