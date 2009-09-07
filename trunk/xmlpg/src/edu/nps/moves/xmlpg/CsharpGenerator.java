@@ -1691,12 +1691,37 @@ public void writeGetMarshalledSizeMethod(PrintStringBuffer pw, GeneratedClass aC
 		String newString;
 
 		findString = "_data = dis.readByteArray(_dataLength);";
-		newString = "_data = dis.readByteArray(_dataLength / 8);  //Post processed. Needed to convert from bits to bytes";
+		newString = "_data = dis.readByteArray((_dataLength / 8) + _dataLength % 8 > 0 ? 1 : 0);  //09062009 Post processed. Needed to convert from bits to bytes";  //PES changed to reflex that the datalength should hold bits
 
 		startfind = pw.sb.indexOf(findString);
 		pw.sb.replace(startfind, startfind + findString.length(), newString);
 
+
+
+
+
+		findString = "dos.writeShort((short)_data.Length);";
+		newString = "dos.writeShort((short)((_dataLength == 0 && _data.Length > 0) ? _data.Length * 8 : _dataLength)); //09062009 Post processed.  If value is zero then default to every byte will use all 8 bits";  //09062009 PES changed to reflex that the datalength should be set by user and not automatically as this value is the number of bits in the data field that should be used
+
+		startfind = pw.sb.indexOf(findString);
+		pw.sb.replace(startfind, startfind + findString.length(), newString);
+
+
+findString = "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.";
+
+newString = "/// This value must be set to the number of bits that will be used from the Data field.  Normally this value would be in increments of 8.  If this is the case then multiply the number of bytes used in the Data field by 8 and store that number here.";
+
+		startfind = pw.sb.indexOf(findString);
+		pw.sb.replace(startfind, startfind + 326, newString);
+
+		///Do this twice as there are two occurences
+		startfind = pw.sb.indexOf(findString);
+		pw.sb.replace(startfind, startfind + 326, newString);
+
+
+
 	}
+
 	public void postProcessVariableDatum(PrintStringBuffer pw)
 	{
 		///String findString1 = "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
