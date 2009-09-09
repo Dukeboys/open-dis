@@ -1,4 +1,4 @@
-This directory holds some what is, at this point, some experimental code for
+This directory holds what is, at this point, some experimental code for
 using DIS on an iPhone. It uses the MapKit API of the 3.1 OS.
 
 This directory includes source code for DIS, but the cannonical location for
