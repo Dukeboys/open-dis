@@ -83,7 +83,11 @@ namespace DISnet.DataStreamUtilities
         /// <returns>byte array</returns>
         public byte[] ConvertToBytes()
         {
-            return msPDU.GetBuffer();
+            byte[] returnBytes;
+
+            ReturnByteArray(msPDU.GetBuffer(), 0, (int)msPDU.Length, out returnBytes);  //PES 09092009
+
+            return returnBytes;
         }
 
         /// <summary>
