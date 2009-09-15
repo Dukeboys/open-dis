@@ -313,6 +313,17 @@ new public void reflection(StringBuilder sb)
 }
     } // end of marshal method
 
+        public static bool operator !=(SignalPdu a, SignalPdu b)
+        {
+                return !a.equals(b);
+        }
+
+        public static bool operator ==(SignalPdu a, SignalPdu b)
+        {
+                return a.equals(b);
+        }
+
+
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */

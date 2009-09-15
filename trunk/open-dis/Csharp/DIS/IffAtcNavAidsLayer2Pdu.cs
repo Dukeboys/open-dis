@@ -314,6 +314,17 @@ new public void reflection(StringBuilder sb)
 }
     } // end of marshal method
 
+        public static bool operator !=(IffAtcNavAidsLayer2Pdu a, IffAtcNavAidsLayer2Pdu b)
+        {
+                return !a.equals(b);
+        }
+
+        public static bool operator ==(IffAtcNavAidsLayer2Pdu a, IffAtcNavAidsLayer2Pdu b)
+        {
+                return a.equals(b);
+        }
+
+
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
