@@ -1577,8 +1577,24 @@ public void writeGetMarshalledSizeMethod(PrintStringBuffer pw, GeneratedClass aC
 
 	public void writeEqualityMethod(PrintStringBuffer pw, GeneratedClass aClass)
 		{
-				try
+			try
 			{
+
+			/**Added override method for != and == for C#   09142009 **/
+
+			pw.println();
+			pw.println("        public static bool operator !=(" + aClass.getName() + " a, " + aClass.getName() + " b)");
+			pw.println("        {");
+			pw.println("                return !a.equals(b);");
+			pw.println("        }");
+
+			pw.println();
+			pw.println("        public static bool operator ==(" + aClass.getName() + " a, " + aClass.getName() + " b)");
+			pw.println("        {");
+			pw.println("                return a.equals(b);");
+			pw.println("        }");
+			pw.println();
+
 			pw.println();
 			pw.println(" /**");
 			pw.println("  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.");
@@ -1592,10 +1608,6 @@ public void writeGetMarshalledSizeMethod(PrintStringBuffer pw, GeneratedClass aC
 			pw.println("        return false;");
 			pw.println();
 
-			//pw.println("      ivarsEqual = this.super().equals(rhs.super());");
-			//pw.println("      if(ivarsEqual == false)");
-			// pw.println("           return false;");
-			//pw.println();
 
 			for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++)
 			{
