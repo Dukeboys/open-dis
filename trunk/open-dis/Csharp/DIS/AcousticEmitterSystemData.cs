@@ -351,12 +351,22 @@ public void reflection(StringBuilder sb)
 
         public static bool operator !=(AcousticEmitterSystemData a, AcousticEmitterSystemData b)
         {
-                return !a.equals(b);
+                return !(a == b);
         }
 
         public static bool operator ==(AcousticEmitterSystemData a, AcousticEmitterSystemData b)
         {
-                return a.equals(b);
+                if (System.Object.ReferenceEquals(a, b))
+                {
+                      return true;
+                }
+
+                if (((object)a == null) || ((object)b == null))
+                {
+                     return false;
+                }
+
+                     return a.equals(b);
         }
 
 

@@ -272,7 +272,7 @@ new public void unmarshal(DataInputStream dis)
        _sampleRate = dis.readUint();
        _dataLength = dis.readShort();
        _samples = dis.readShort();
-       _data = dis.readByteArray((_dataLength / 8) + _dataLength % 8 > 0 ? 1 : 0);  //09062009 Post processed. Needed to convert from bits to bytes
+       _data = dis.readByteArray((_dataLength / 8) + (_dataLength % 8 > 0 ? 1 : 0));  //09062009 Post processed. Needed to convert from bits to bytes
     } // end try 
    catch(Exception e)
     { 
@@ -315,12 +315,22 @@ new public void reflection(StringBuilder sb)
 
         public static bool operator !=(SignalPdu a, SignalPdu b)
         {
-                return !a.equals(b);
+                return !(a == b);
         }
 
         public static bool operator ==(SignalPdu a, SignalPdu b)
         {
-                return a.equals(b);
+                if (System.Object.ReferenceEquals(a, b))
+                {
+                      return true;
+                }
+
+                if (((object)a == null) || ((object)b == null))
+                {
+                     return false;
+                }
+
+                     return a.equals(b);
         }
 
 
