@@ -158,18 +158,14 @@ public uint SampleRate
 }
 
 /// <summary>
-/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-/// The getdataLength method will also be based on the actual list length rather than this value. 
-/// The method is simply here for completeness and should not be used for any computations.
+/// This value must be set to the number of bits that will be used from the Data field.  Normally this value would be in increments of 8.  If this is the case then multiply the number of bytes used in the Data field by 8 and store that number here.
 /// </summary>
 public void setDataLength(short pDataLength)
 { _dataLength = pDataLength;
 }
 
 /// <summary>
-/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-/// The getdataLength method will also be based on the actual list length rather than this value. 
-/// The method is simply here for completeness and should not be used for any computations.
+/// This value must be set to the number of bits that will be used from the Data field.  Normally this value would be in increments of 8.  If this is the case then multiply the number of bytes used in the Data field by 8 and store that number here.
 /// </summary>
 [XmlElement(Type= typeof(short), ElementName="dataLength")]
 public short DataLength
@@ -254,7 +250,7 @@ new public void marshal(DataOutputStream dos)
        dos.writeUshort((ushort)_encodingScheme);
        dos.writeUshort((ushort)_tdlType);
        dos.writeUint((uint)_sampleRate);
-       dos.writeShort((short)_data.Length);
+       dos.writeShort((short)((_dataLength == 0 && _data.Length > 0) ? _data.Length * 8 : _dataLength)); //09062009 Post processed.  If value is zero then default to every byte will use all 8 bits
        dos.writeShort((short)_samples);
        dos.writeByte (_data);
     } // end try 
@@ -276,7 +272,7 @@ new public void unmarshal(DataInputStream dis)
        _sampleRate = dis.readUint();
        _dataLength = dis.readShort();
        _samples = dis.readShort();
-       _data = dis.readByteArray(_dataLength / 8);  //Post processed. Needed to convert from bits to bytes
+       _data = dis.readByteArray((_dataLength / 8) + (_dataLength % 8 > 0 ? 1 : 0));  //09062009 Post processed. Needed to convert from bits to bytes
     } // end try 
    catch(Exception e)
     { 
@@ -316,6 +312,27 @@ new public void reflection(StringBuilder sb)
       Trace.Flush();
 }
     } // end of marshal method
+
+        public static bool operator !=(SignalPdu a, SignalPdu b)
+        {
+                return !(a == b);
+        }
+
+        public static bool operator ==(SignalPdu a, SignalPdu b)
+        {
+                if (System.Object.ReferenceEquals(a, b))
+                {
+                      return true;
+                }
+
+                if (((object)a == null) || ((object)b == null))
+                {
+                     return false;
+                }
+
+                     return a.equals(b);
+        }
+
 
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.

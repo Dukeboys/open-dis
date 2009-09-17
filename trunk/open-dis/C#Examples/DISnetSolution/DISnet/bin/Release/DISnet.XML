@@ -3776,9 +3776,7 @@
         </member>
         <member name="M:DIS1998net.SignalPdu.setDataLength(System.Int16)">
             <summary>
-            Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-            The getdataLength method will also be based on the actual list length rather than this value. 
-            The method is simply here for completeness and should not be used for any computations.
+            This value must be set to the number of bits that will be used from the Data field.  Normally this value would be in increments of 8.  If this is the case then multiply the number of bytes used in the Data field by 8 and store that number here.
             </summary>
         </member>
         <member name="M:DIS1998net.SignalPdu.setSamples(System.Int16)">
@@ -3820,9 +3818,7 @@
         </member>
         <member name="P:DIS1998net.SignalPdu.DataLength">
             <summary>
-            Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-            The getdataLength method will also be based on the actual list length rather than this value. 
-            The method is simply here for completeness and should not be used for any computations.
+            This value must be set to the number of bits that will be used from the Data field.  Normally this value would be in increments of 8.  If this is the case then multiply the number of bytes used in the Data field by 8 and store that number here.
             </summary>
         </member>
         <member name="P:DIS1998net.SignalPdu.Data">
@@ -12110,6 +12106,21 @@
         <member name="M:DIS1998net.CreateEntityPdu.equals(DIS1998net.CreateEntityPdu)">
             The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
         </member>
+        <member name="M:DISnet.Utilities.PDUProcessor.ConvertByteArrayToPDU1998(System.UInt32,System.Byte[],DISnet.DataStreamUtilities.EndianTypes.Endian)">
+            <summary>
+            Converts a byte array into a DIS1998 PDU
+            </summary>
+            <param name="rawPDU">Byte array that hold raw 1998 PDU</param>
+            <param name="pdu_type">Type of pdu</param>
+            <returns>PDU object</returns>
+        </member>
+        <member name="M:DISnet.Utilities.PDUProcessor.DecodePDU(System.Object)">
+            <summary>
+            Provided as a means to return a string representation of the underlining PDU data.  Note format is not yet optimized.
+            </summary>
+            <param name="pdu">PDU to parse</param>
+            <returns>StringBuilder that represents the state of the PDU</returns>
+        </member>
         <member name="M:DISnet.Utilities.PDUProcessor.ProcessPDU(System.Byte[],DISnet.DataStreamUtilities.EndianTypes.Endian)">
             <summary>
             Provides a means of processing PDU data 
@@ -12128,6 +12139,28 @@
             Note: This value could have been a const but wanted to be more flexible</param>
             <returns></returns>
         </member>
+        <member name="M:DISnet.Utilities.PDUProcessor.ProcessRawPDU(System.Byte[],DISnet.DataStreamUtilities.EndianTypes.Endian)">
+            <summary>
+            Provides a means of processing PDU data 
+            </summary>
+            <param name="buf">byte array containing the pdu data to process</param>
+            <param name="endian">format of value types</param>
+            <returns>Collection of Raw byte[] PDUs</returns>
+        </member>
+        <member name="M:DISnet.Utilities.PDUProcessor.XmlDecodePDU(System.Object)">
+            <summary>
+            Returns an XML version of the reflected PDU
+            </summary>
+            <param name="pdu">PDU to reflect into XML</param>
+            <returns>StringBuilder</returns>
+        </member>
+        <member name="M:DISnet.Utilities.PDUProcessor.ReturnUnmarshalledPDU(System.Object,DISnet.DataStreamUtilities.DataInputStream)">
+            <summary>
+            Unmarshal all data into the pdu object.  This method calls the all the base unmarshals.
+            </summary>
+            <param name="pdu">object where the unmarshalled data will be stored</param>
+            <param name="dStream">location of where the unmarshalled data is located</param>
+        </member>
         <member name="M:DISnet.Utilities.PDUProcessor.ProcessPDU(System.Byte[])">
             <summary>
             Process a received PDU.  Note that a datastream can contain multiple PDUs.  Therefore a
@@ -12135,6 +12168,14 @@
             </summary>
             <param name="buf">byte array of PDU(s)</param>
             <returns>Collection of all PDU(s) decoded</returns>
+        </member>
+        <member name="M:DISnet.Utilities.PDUProcessor.ProcessRawPDU(System.Byte[])">
+            <summary>
+            Process a received PDU.  Note that a datastream can contain multiple PDUs.  Therefore a
+            List is used to hold one or more after decoding.
+            </summary>
+            <param name="buf">byte array of PDU(s)</param>
+            <returns>Collection of all PDU(s) in raw byte format</returns>
         </member>
         <member name="M:DISnet.Utilities.PDUProcessor.SwitchOnType(System.Byte,System.UInt32,System.Byte[])">
             <summary>
@@ -12144,27 +12185,6 @@
             <param name="pdu_type">Type of PDU</param>
             <param name="ds">PDU byte array containing the data</param>
             <returns></returns>         
-        </member>
-        <member name="M:DISnet.Utilities.PDUProcessor.ReturnUnmarshalledPDU(System.Object,DISnet.DataStreamUtilities.DataInputStream)">
-            <summary>
-            Unmarshal all data into the pdu object.  This method calls the all the base unmarshals.
-            </summary>
-            <param name="pdu">object where the unmarshalled data will be stored</param>
-            <param name="dStream">location of where the unmarshalled data is located</param>
-        </member>
-        <member name="M:DISnet.Utilities.PDUProcessor.DecodePDU(System.Object)">
-            <summary>
-            Provided as a means to return a string representation of the underlining PDU data.  Note format is not yet optimized.
-            </summary>
-            <param name="pdu">PDU to parse</param>
-            <returns>StringBuilder that represents the state of the PDU</returns>
-        </member>
-        <member name="M:DISnet.Utilities.PDUProcessor.XmlDecodePDU(System.Object)">
-            <summary>
-            Returns an XML version of the reflected PDU
-            </summary>
-            <param name="pdu">PDU to reflect into XML</param>
-            <returns>StringBuilder</returns>
         </member>
         <member name="P:DISnet.Utilities.PDUProcessor.Endian">
             <summary>

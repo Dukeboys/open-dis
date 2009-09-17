@@ -338,6 +338,27 @@ new public void reflection(StringBuilder sb)
 }
     } // end of marshal method
 
+        public static bool operator !=(SetRecordReliablePdu a, SetRecordReliablePdu b)
+        {
+                return !(a == b);
+        }
+
+        public static bool operator ==(SetRecordReliablePdu a, SetRecordReliablePdu b)
+        {
+                if (System.Object.ReferenceEquals(a, b))
+                {
+                      return true;
+                }
+
+                if (((object)a == null) || ((object)b == null))
+                {
+                     return false;
+                }
+
+                     return a.equals(b);
+        }
+
+
  /**
   * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
   */
