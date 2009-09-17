@@ -1585,15 +1585,28 @@ public void writeGetMarshalledSizeMethod(PrintStringBuffer pw, GeneratedClass aC
 			pw.println();
 			pw.println("        public static bool operator !=(" + aClass.getName() + " a, " + aClass.getName() + " b)");
 			pw.println("        {");
-			pw.println("                return !a.equals(b);");
+			pw.println("                return !(a == b);");
 			pw.println("        }");
 
 			pw.println();
 			pw.println("        public static bool operator ==(" + aClass.getName() + " a, " + aClass.getName() + " b)");
 			pw.println("        {");
-			pw.println("                return a.equals(b);");
+			pw.println("                if (System.Object.ReferenceEquals(a, b))");
+			pw.println("                {");
+			pw.println("                      return true;");
+			pw.println("                }");
+			pw.println();
+			pw.println("                if (((object)a == null) || ((object)b == null))");
+			pw.println("                {");
+			pw.println("                     return false;");
+ 			pw.println("                }");
+			pw.println();
+			pw.println("                     return a.equals(b);");
 			pw.println("        }");
 			pw.println();
+
+
+
 
 			pw.println();
 			pw.println(" /**");
@@ -1703,7 +1716,7 @@ public void writeGetMarshalledSizeMethod(PrintStringBuffer pw, GeneratedClass aC
 		String newString;
 
 		findString = "_data = dis.readByteArray(_dataLength);";
-		newString = "_data = dis.readByteArray((_dataLength / 8) + _dataLength % 8 > 0 ? 1 : 0);  //09062009 Post processed. Needed to convert from bits to bytes";  //PES changed to reflex that the datalength should hold bits
+		newString = "_data = dis.readByteArray((_dataLength / 8) + (_dataLength % 8 > 0 ? 1 : 0));  //09062009 Post processed. Needed to convert from bits to bytes";  //PES changed to reflex that the datalength should hold bits
 
 		startfind = pw.sb.indexOf(findString);
 		pw.sb.replace(startfind, startfind + findString.length(), newString);
