@@ -89,12 +89,14 @@ namespace DISnet.Utilities
         /// <param name="rawPDU">Byte array that hold raw 1998 PDU</param>
         /// <param name="pdu_type">Type of pdu</param>
         /// <returns>PDU object</returns>
-        public DIS1998net.Pdu ConvertByteArrayToPDU1998(uint pdu_type, byte[] rawPDU, EndianTypes.Endian endian)
+        public DIS1998net.Pdu ConvertByteArrayToPDU1998(byte pdu_type, byte[] rawPDU, EndianTypes.Endian endian)
         {
             DIS1998net.Pdu pdu = DISnet.Utilities.PDUBank.GetPDU(pdu_type);
             DataInputStream ds = new DataInputStream(rawPDU, endian);
-            ReturnUnmarshalledPDU(pdu, ds);
-            return pdu;
+            
+            //ReturnUnmarshalledPDU(pdu, ds);  //Removed this method to get rid of using Reflection
+            return UnMarshalRawPDU(pdu_type, rawPDU, endian);
+            //return pdu;
         }
 
         /// <summary>
@@ -155,6 +157,23 @@ namespace DISnet.Utilities
             return ProcessRawPDU(buf);
         }
 
+        //PES 09115009 Added to support passing back just the byte array into a Queue
+        /// <summary>
+        /// Provides a means of processing PDU data 
+        /// </summary>
+        /// <param name="buf">byte array containing the pdu data to process</param>
+        /// <param name="endian">format of value types</param>
+        /// <param name="dataQueue">Returns raw packets to a referenced Queue</param>
+        public void ProcessRawPDU(byte[] buf, DISnet.DataStreamUtilities.EndianTypes.Endian endian, ref Queue<byte[]> dataQueue)
+        {
+            Endian = endian;
+
+            foreach (byte[] pduRawByteArray in ProcessRawPDU(buf)) //Calling the method to get PDUs, increment through each in case more than one pdu in packet
+            {
+                dataQueue.Enqueue(pduRawByteArray);
+            }
+        }
+
         /// <summary>
         /// Returns an XML version of the reflected PDU
         /// </summary>
@@ -184,8 +203,10 @@ namespace DISnet.Utilities
             return sb;
         }
 
+        //PES 09192009 This method used Reflection which is slow, new method 'UnMarshalRawPDU' should be used instead
         /// <summary>
         /// Unmarshal all data into the pdu object.  This method calls the all the base unmarshals.
+        /// Deprecated:  This method used Reflection, use UnMarshalRawPDU method instead
         /// </summary>
         /// <param name="pdu">object where the unmarshalled data will be stored</param>
         /// <param name="dStream">location of where the unmarshalled data is located</param>
@@ -417,7 +438,9 @@ namespace DISnet.Utilities
 
                     Array.Copy(buf, countBytes, PDUBufferStorage, 0, (long)pduLength);
 
-                    pduCollection.Add(PDUBufferStorage);
+                    //Only care about Transmit or Signal PDU
+                    if (pdu_type == 25 || pdu_type == 26)
+                        pduCollection.Add(PDUBufferStorage);
 
                     countBytes += (int)pduLength;
 
@@ -449,16 +472,189 @@ namespace DISnet.Utilities
                 case 5: //1995
                     break;
                 case 6: //1998
-                    pdu = DISnet.Utilities.PDUBank.GetPDU(pdu_type);
+                    //pdu = DISnet.Utilities.PDUBank.GetPDU(pdu_type);
+                    pdu = UnMarshalRawPDU(pdu_version, dStream);
                     break;
                 default:
                     break;
             }
 
-            if (pdu != null)
+            //if (pdu != null)
+            //{
+            //    //Call the method of the underlining Type vice the Upper class method.
+            //    ReturnUnmarshalledPDU(pdu, dStream);
+            //}
+
+            return pdu;
+        }
+
+        //PES 09182009  Added to work with Mobile 
+        /// <summary>
+        /// Used to unmarshal data back into the correct PDU type.
+        /// </summary>
+        /// <param name="pdu_type">PDU type</param>
+        /// <param name="rawPDU">byte array containing the raw packets</param>
+        /// <param name="endian">Endian type</param>
+        /// <returns></returns>
+        public static DIS1998net.Pdu UnMarshalRawPDU(byte pdu_type, byte[] rawPDU, DISnet.DataStreamUtilities.EndianTypes.Endian endian)
+        {
+            DataInputStream ds = new DataInputStream(rawPDU, endian);
+            return UnMarshalRawPDU((PDUTypes.PDUType1998)pdu_type, ds);
+        }
+        //PES 09182009  Added to work with Mobile
+        /// <summary>
+        /// Used to unmarshal data back into the correct PDU type.
+        /// </summary>
+        /// <param name="pdu_type">PDU type</param>
+        /// <param name="ds">Datastream which contains the raw packet and Endian Type</param>
+        /// <returns></returns>
+        public static DIS1998net.Pdu UnMarshalRawPDU(byte pdu_type, DataInputStream ds)
+        {
+            return UnMarshalRawPDU((PDUTypes.PDUType1998)pdu_type, ds);
+        }
+
+        //PES 09182009  Added to work with Mobile 
+        /// <summary>
+        /// Used to unmarshal data back into the correct PDU type.
+        /// </summary>
+        /// <param name="pdu_type">PDU type</param>
+        /// <param name="rawPDU">byte array containing the raw packets</param>
+        /// <param name="endian">Endian type</param>
+        /// <returns></returns>
+        public static DIS1998net.Pdu UnMarshalRawPDU(DISnet.Utilities.PDUTypes.PDUType1998 pdu_type, byte[] rawPDU, DISnet.DataStreamUtilities.EndianTypes.Endian endian)
+        {
+            DataInputStream ds = new DataInputStream(rawPDU, endian);
+            return UnMarshalRawPDU(pdu_type, ds);
+        }
+
+        //PES 09182009  Added to work with Mobile
+        /// <summary>
+        /// Used to unmarshal data back into the correct PDU type.
+        /// </summary>
+        /// <param name="pdu_type">PDU type</param>
+        /// <param name="ds">Datastream which contains the raw packet and Endian Type</param>
+        /// <returns></returns>
+        public static DIS1998net.Pdu UnMarshalRawPDU(DISnet.Utilities.PDUTypes.PDUType1998 pdu_type, DataInputStream ds)
+        {
+            DIS1998net.Pdu pdu = new DIS1998net.Pdu();
+
+            switch (pdu_type)
             {
-                //Call the method of the underlining Type vice the Upper class method.
-                ReturnUnmarshalledPDU(pdu, dStream);
+                case PDUTypes.PDUType1998.PDU_ENTITY_STATE:
+                    DIS1998net.EntityStatePdu EntityStatePdu = new DIS1998net.EntityStatePdu();
+                    EntityStatePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)EntityStatePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_FIRE:
+                    DIS1998net.FirePdu FirePdu = new DIS1998net.FirePdu();
+                    FirePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)FirePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_DETONATION:
+                    DIS1998net.DetonationPdu DetonationPdu = new DIS1998net.DetonationPdu();
+                    DetonationPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)DetonationPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_COLLISION:
+                    DIS1998net.CollisionPdu CollisionPdu = new DIS1998net.CollisionPdu();
+                    CollisionPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)CollisionPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_SERVICE_REQUEST:
+                    DIS1998net.ServiceRequestPdu ServiceRequestPdu = new DIS1998net.ServiceRequestPdu();
+                    ServiceRequestPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)ServiceRequestPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_RESUPPLY_OFFER:
+                    DIS1998net.ResupplyOfferPdu ResupplyOfferPdu = new DIS1998net.ResupplyOfferPdu();
+                    ResupplyOfferPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)ResupplyOfferPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_RESUPPLY_RECEIVED:
+                    DIS1998net.ResupplyReceivedPdu ResupplyReceivedPdu = new DIS1998net.ResupplyReceivedPdu();
+                    ResupplyReceivedPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)ResupplyReceivedPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_RESUPPLY_CANCEL:
+                    DIS1998net.ResupplyCancelPdu ResupplyCancelPdu = new DIS1998net.ResupplyCancelPdu();
+                    ResupplyCancelPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)ResupplyCancelPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_REPAIR_COMPLETE:
+                    DIS1998net.RepairCompletePdu RepairCompletePdu = new DIS1998net.RepairCompletePdu();
+                    RepairCompletePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)RepairCompletePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_REPAIR_RESPONSE:
+                    DIS1998net.RepairResponsePdu RepairResponsePdu = new DIS1998net.RepairResponsePdu();
+                    RepairResponsePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)RepairResponsePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_CREATE_ENTITY:
+                    DIS1998net.CreateEntityPdu CreateEntityPdu = new DIS1998net.CreateEntityPdu();
+                    CreateEntityPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)CreateEntityPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_REMOVE_ENTITY:
+                    DIS1998net.RemoveEntityPdu RemoveEntityPdu = new DIS1998net.RemoveEntityPdu();
+                    RemoveEntityPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)RemoveEntityPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_START_RESUME:
+                    DIS1998net.StartResumePdu StartResumePdu = new DIS1998net.StartResumePdu();
+                    StartResumePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)StartResumePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_ACKNOWLEDGE:
+                    DIS1998net.AcknowledgePdu AcknowledgePdu = new DIS1998net.AcknowledgePdu();
+                    AcknowledgePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)AcknowledgePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_ACTION_REQUEST:
+                    DIS1998net.ActionRequestPdu ActionRequestPdu = new DIS1998net.ActionRequestPdu();
+                    ActionRequestPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)ActionRequestPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_ACTION_RESPONSE:
+                    DIS1998net.ActionResponsePdu ActionResponsePdu = new DIS1998net.ActionResponsePdu();
+                    ActionResponsePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)ActionResponsePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_DATA_QUERY:
+                    DIS1998net.DataQueryPdu DataQueryPdu = new DIS1998net.DataQueryPdu();
+                    DataQueryPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)DataQueryPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_SET_DATA:
+                    DIS1998net.SetDataPdu SetDataPdu = new DIS1998net.SetDataPdu();
+                    SetDataPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)SetDataPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_EVENT_REPORT:
+                    DIS1998net.EventReportPdu EventReportPdu = new DIS1998net.EventReportPdu();
+                    EventReportPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)EventReportPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_COMMENT:
+                    DIS1998net.CommentPdu CommentPdu = new DIS1998net.CommentPdu();
+                    CommentPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)CommentPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_STOP_FREEZE:
+                    DIS1998net.StopFreezePdu StopFreezePdu = new DIS1998net.StopFreezePdu();
+                    StopFreezePdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)StopFreezePdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_SIGNAL:
+                    DIS1998net.SignalPdu SignalPdu = new DIS1998net.SignalPdu();
+                    SignalPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)SignalPdu;
+                    break;
+                case PDUTypes.PDUType1998.PDU_TRANSMITTER:
+                    DIS1998net.TransmitterPdu transmitterPdu = new DIS1998net.TransmitterPdu();
+                    transmitterPdu.unmarshal(ds);
+                    pdu = (DIS1998net.Pdu)transmitterPdu;
+                    break;
             }
 
             return pdu;
