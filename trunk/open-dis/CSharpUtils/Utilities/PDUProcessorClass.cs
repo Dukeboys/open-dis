@@ -369,7 +369,9 @@ namespace DISnet.Utilities
 
                     byte[] PDUBufferStorage = new byte[pduLength];
 
-                    Array.Copy(buf, countBytes, PDUBufferStorage, 0, (long)pduLength);
+                    //Could potentially be a problem since pduLength is an unsigned int,
+                    //changed due to windows mobile does not accept a long for 4th parameter
+                    Array.Copy(buf, countBytes, PDUBufferStorage, 0, (int)pduLength);
 
                     pduCollection.Add(SwitchOnType(pdu_version, pdu_type, PDUBufferStorage));
 
@@ -436,7 +438,9 @@ namespace DISnet.Utilities
 
                     byte[] PDUBufferStorage = new byte[pduLength];
 
-                    Array.Copy(buf, countBytes, PDUBufferStorage, 0, (long)pduLength);
+                    //Could potentially be a problem since pduLength is an unsigned int,
+                    //changed due to windows mobile does not accept a long for 4th parameter
+                    Array.Copy(buf, countBytes, PDUBufferStorage, 0, (int)pduLength); 
 
                     //Only care about Transmit or Signal PDU
                     if (pdu_type == 25 || pdu_type == 26)
