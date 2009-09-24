@@ -34,23 +34,75 @@
         <mkdir dir="${dist}/docs"/>
         <mkdir dir="${build}"/>
         <mkdir dir="${build}/test"/>
+        <mkdir dir="${src}/edu"/>
+        <mkdir dir="${src}/edu/nps"/>
+        <mkdir dir="${src}/edu/nps/moves"/>
+        <mkdir dir="${src}/edu/nps/moves/dis2009"/>
     </target>
     
     <!-- Generate the Java, C#, and C++ Open-DIS code. This relies on the jar file xmlpg.jar, from 
          a separate project in the trunk that is included in the lib directory of this project. You
          must run patch after this to apply known manual fixes to the source code generated.
     --> 
-    <target name="generateDisSourceCode" depends="init" description = "run program to generate java, c#, and cpp">
+    <target name="generateJavaDisSourceCode" depends="init" description = "run program to generate java">
         <java classname="edu.nps.moves.xmlpg.Xmlpg">
             <classpath refid="lib.path"/>
+            <arg value="-l"/>
+            <arg value="java"/>
             <arg value="DIS1998.xml"/>
             <arg value="${src}"/>
-            <arg value="cpp/DIS"/>
-            <arg value="Csharp/DIS"/>
         </java>
+
+    </target>
+
+     <target name="generateJavaDis2009SourceCode" depends="init" description = "run program to generate java">
+        <java classname="edu.nps.moves.xmlpg.Xmlpg">
+            <classpath refid="lib.path"/>
+            <arg value="-l"/>
+            <arg value="java"/>
+            <arg value="DIS2009.xml"/>
+            <arg value="${src}"/>
+        </java>
+    </target>
+
+    <target name="generateCppDisSourceCode" depends="init" description = "run program to generate cpp">
+        <java classname="edu.nps.moves.xmlpg.Xmlpg">
+            <classpath refid="lib.path"/>
+            <arg value="-l"/>
+            <arg value="cpp"/>
+            <arg value="DIS1998.xml"/>
+            <arg value="Cpp"/>
+        </java>
+
         <!-- apply the patches, manual changes to the code captured in the patch files -->
         <antcall target="patch"/>
     </target>
+
+     <target name="generateCsharpDisSourceCode" depends="init" description = "run program to generate csharp">
+        <java classname="edu.nps.moves.xmlpg.Xmlpg">
+            <classpath refid="lib.path"/>
+            <arg value="-l"/>
+            <arg value="csharp"/>
+            <arg value="DIS1998.xml"/>
+            <arg value="CSharp"/>
+        </java>
+          <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="patch"/>
+    </target>
+
+     <target name="generateObjcDisSourceCode" depends="init" description = "run program to generate Objc">
+        <java classname="edu.nps.moves.xmlpg.Xmlpg">
+            <classpath refid="lib.path"/>
+            <arg value="-l"/>
+            <arg value="objc"/>
+            <arg value="DIS1998.xml"/>
+            <arg value="Objc"/>
+        </java>
+          <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="patch"/>
+    </target>
+
+
 
 
     <!-- compile the java code -->
@@ -87,7 +139,6 @@
         </schemagen>
         <move file="schema1.xsd" tofile="disJaxb.xsd"/>
     </target>
-    
     
     <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
     <target name="patch" description="patch generated source code">
