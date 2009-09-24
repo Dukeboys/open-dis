@@ -22,12 +22,18 @@ import edu.nps.moves.dis.Vector3Float;
 public abstract class CoordinateTransformer
 {
     /** Changes the coordinate system of the input coordinates to the target. The
-     * return value is the destructively modified input object, ie the values of
-     * the input object are changed and the object returned.
+     * values of the input variable are changed by this method.
      * 
      * @param source
      * @return the destuctively modified object coordinates
      */
-   public abstract Vector3Double transformCoordinate(Vector3Double source);
+   public abstract void transformLocation(Vector3Double source);
+
+   /**
+    * Transforms the euler angles from the source to the destination coordinate
+    * system.
+    * @param source
+    */
+   public abstract void transformOrientation(Vector3Float source);
 
 }
