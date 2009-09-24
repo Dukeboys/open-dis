@@ -7,11 +7,11 @@
 -->
 
 <project name="open-dis codebase" default="dist" basedir=".">
-    <property name="src" location="java"/>
+    <property name="src" location="java/main"/>
     <property name="build" location="build"/>
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
-    <property name="test" location="javaTest"/>
+    <property name="test" location="java/test"/>
     <property name="version" value="3.1.1"/>
     
     <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
@@ -44,7 +44,7 @@
         <java classname="edu.nps.moves.xmlpg.Xmlpg">
             <classpath refid="lib.path"/>
             <arg value="DIS1998.xml"/>
-            <arg value="java"/>
+            <arg value="${src}"/>
             <arg value="cpp/DIS"/>
             <arg value="Csharp/DIS"/>
         </java>
@@ -82,7 +82,7 @@
     
     <!-- generate schema from the java source code -->
     <target name="generateSchema" depends="compile" description="Generate a schema from the Java code">
-        <schemagen srcdir="java/edu/nps/moves/dis" destdir=".">
+        <schemagen srcdir="${src}/edu/nps/moves/dis" destdir=".">
             <classpath refid="lib.path"/>
         </schemagen>
         <move file="schema1.xsd" tofile="disJaxb.xsd"/>
@@ -116,7 +116,7 @@
     </target>
     
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
-        <javadoc destdir="${dist}/docs" packagenames="edu.nps.moves.*" sourcepath="java">
+        <javadoc destdir="${dist}/docs" packagenames="edu.nps.moves.*" sourcepath="${src}">
             <classpath refid="lib.path"/>
         </javadoc>
     </target>
