@@ -477,7 +477,7 @@ namespace DISnet.Utilities
                     break;
                 case 6: //1998
                     //pdu = DISnet.Utilities.PDUBank.GetPDU(pdu_type);
-                    pdu = UnMarshalRawPDU(pdu_version, dStream);
+                    pdu = UnMarshalRawPDU((PDUTypes.PDUType1998)pdu_type, dStream);
                     break;
                 default:
                     break;
