@@ -232,16 +232,11 @@ namespace DISnet.Utilities
             {
                 if (this.edian == DISnet.DataStreamUtilities.EndianTypes.Endian.BIG)
                 {
-                    byte[] temp = new byte[sizeof(UInt16)];
+                    Array.Reverse(buf, (int)PDU_LENGTH_POSITION, 2);
+                }
 
-                    Array.Copy(buf, (int)PDU_LENGTH_POSITION, temp, 0, temp.Length);
-                    Array.Reverse(temp);
-                    pduLength = System.BitConverter.ToUInt16(temp, 0);
-                }
-                else
-                {
-                    pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION);
-                }
+                pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION);
+
 
                 //Allocate space for the whole PDU
                 rawData = new byte[pduLength];
@@ -251,13 +246,6 @@ namespace DISnet.Utilities
 
                 //read in the whole PDU
                 stream.Read(rawData, 0, pduLength);
-
-                //pdu_type = PDUBufferStorage[PDU_TYPE_POSITION];
-
-                //pdu_version = PDUBufferStorage[PDU_VERSION_POSITION];
-
-                //PDU = SwitchOnType(pdu_version, pdu_type, PDUBufferStorage);
-
             }
             catch (Exception ex)//Wow something bad just happened, could be bad/misalgined PDU
             {
@@ -284,16 +272,10 @@ namespace DISnet.Utilities
             {
                 if (this.edian == DISnet.DataStreamUtilities.EndianTypes.Endian.BIG)
                 {
-                    byte[] temp = new byte[sizeof(UInt16)];
+                    Array.Reverse(buf, (int)PDU_LENGTH_POSITION, 2);
+                }
 
-                    Array.Copy(buf, (int)PDU_LENGTH_POSITION, temp, 0, temp.Length);
-                    Array.Reverse(temp);
-                    pduLength = System.BitConverter.ToUInt16(temp, 0);
-                }
-                else
-                {
-                    pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION);
-                }
+                pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION);
 
                 //Allocate space for the whole PDU
                 byte[] PDUBufferStorage = new byte[pduLength];
@@ -345,19 +327,12 @@ namespace DISnet.Utilities
             {
                 try
                 {
-
                     if (this.edian == DISnet.DataStreamUtilities.EndianTypes.Endian.BIG)
                     {
-                        byte[] temp = new byte[sizeof(UInt16)];
+                        Array.Reverse(buf, (int)PDU_LENGTH_POSITION, 2);
+                    }
 
-                        Array.Copy(buf, (int)PDU_LENGTH_POSITION + countBytes, temp, 0, temp.Length);
-                        Array.Reverse(temp);
-                        pduLength = System.BitConverter.ToUInt16(temp, 0);
-                    }
-                    else
-                    {
-                        pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION + countBytes);
-                    }
+                    pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION);
 
                     //Must be at end of datastream
                     if (pduLength == 0)
@@ -414,19 +389,12 @@ namespace DISnet.Utilities
             {
                 try
                 {
-
                     if (this.edian == DISnet.DataStreamUtilities.EndianTypes.Endian.BIG)
                     {
-                        byte[] temp = new byte[sizeof(UInt16)];
+                        Array.Reverse(buf, (int)PDU_LENGTH_POSITION + countBytes, 2);
+                    }
 
-                        Array.Copy(buf, (int)PDU_LENGTH_POSITION + countBytes, temp, 0, temp.Length);
-                        Array.Reverse(temp);
-                        pduLength = System.BitConverter.ToUInt16(temp, 0);
-                    }
-                    else
-                    {
-                        pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION + countBytes);
-                    }
+                    pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION + countBytes);
 
                     //Must be at end of datastream
                     if (pduLength == 0)
@@ -442,9 +410,7 @@ namespace DISnet.Utilities
                     //changed due to windows mobile does not accept a long for 4th parameter
                     Array.Copy(buf, countBytes, PDUBufferStorage, 0, (int)pduLength); 
 
-                    //Only care about Transmit or Signal PDU
-                    if (pdu_type == 25 || pdu_type == 26)
-                        pduCollection.Add(PDUBufferStorage);
+                    pduCollection.Add(PDUBufferStorage);
 
                     countBytes += (int)pduLength;
 
