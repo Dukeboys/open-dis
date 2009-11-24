@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.io.*;
 
 import edu.nps.moves.disutil.PduFactory;
 
@@ -54,10 +55,23 @@ public class PduTest
     public void pduTimestampTest()
     {
         EntityStatePdu espdu = new EntityStatePdu();
-        byte[] buffer = espdu.marshal();
+
+        espdu.setTimestamp(0xffffffffL);
+        assertEquals(espdu.getTimestamp(), 0xffffffffL);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream dos = new DataOutputStream(baos);
+        espdu.marshal(dos);
+        byte[] buffer = baos.toByteArray();
+
         PduFactory factory = new PduFactory();
         Pdu aPdu = factory.createPdu(buffer);
-        assertEquals(aPdu.getTimestamp(),  0);
+        assertEquals(aPdu.getTimestamp(),  0xFFFFFFFFL);
+    
+        buffer = aPdu.marshal();
+        aPdu = factory.createPdu(buffer);
+        assertEquals(aPdu.getTimestamp(), (long)0xffffffffL); // make sure no rollover
+
     }
 
     /**
