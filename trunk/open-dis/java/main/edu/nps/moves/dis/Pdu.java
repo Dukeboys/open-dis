@@ -160,13 +160,63 @@ public class Pdu implements Serializable {
             exerciseID = (short) dis.readUnsignedByte();
             pduType = (short) dis.readUnsignedByte();
             protocolFamily = (short) dis.readUnsignedByte();
-            timestamp = dis.readInt();
+            timestamp = this.readUnsignedInt(dis);
             length = dis.readUnsignedShort();
             padding = dis.readShort();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+
+    private long shiftBytes(int[] fourBytes)
+    {
+        long value = 0;
+        value  = ((long) (fourBytes[0] << 24
+                | fourBytes[1] << 16
+                | fourBytes[2] << 8
+                | fourBytes[3]))
+               & 0xFFFFFFFFL;
+        
+         return value;
+    }
+
+   public long readUnsignedInt(DataInputStream dis)
+   {
+        int fourBytes[] = new int[4];
+   
+        try
+        {
+            fourBytes[0] = dis.readUnsignedByte();
+            fourBytes[1] = dis.readUnsignedByte();
+            fourBytes[2] = dis.readUnsignedByte();
+            fourBytes[3] = dis.readUnsignedByte();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return this.shiftBytes(fourBytes);
+   }
+
+   public long readUnsignedInt(java.nio.ByteBuffer buff)
+   {
+        int fourBytes[] = new int[4];
+
+        try
+        {
+            fourBytes[0] = ((int)buff.get()) & 0xff;
+            fourBytes[1] = ((int)buff.get()) & 0xff;
+            fourBytes[2] = ((int)buff.get()) & 0xff;
+            fourBytes[3] = ((int)buff.get()) & 0xff;
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return this.shiftBytes(fourBytes);
+   }
 
     /**
      * Packs a Pdu into the ByteBuffer.
@@ -198,7 +248,7 @@ public class Pdu implements Serializable {
         exerciseID = (short) (buff.get() & 0xFF);
         pduType = (short) (buff.get() & 0xFF);
         protocolFamily = (short) (buff.get() & 0xFF);
-        timestamp = buff.getInt();
+        timestamp = this.readUnsignedInt(buff);
         length = (buff.getShort() & 0xFFFF);
         padding = buff.getShort();
     }
