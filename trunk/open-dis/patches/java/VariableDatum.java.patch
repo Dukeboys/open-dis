@@ -1,45 +1,20 @@
---- VariableDatum.java	2009-03-10 11:03:39.000000000 -0700
-+++ VariableDatum.java.new	2009-03-10 11:02:31.000000000 -0700
-@@ -5,10 +5,13 @@
- import javax.xml.bind.annotation.*;
- 
- /**
-- * Section 5.2.32. Variable Datum Record
-+ * Section 5.2.32. Variable Datum Record<p>
-  *
-  * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
-  * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
-+ *<p>
-+ * post-generation patches have been applied to this file from the patches directory. See that directory
-+ * for details.<p>
-  *
-  * @author DMcG
-  */
-@@ -55,7 +58,7 @@
- 
- @XmlAttribute
- public long getVariableDatumLength()
--{ return (long)variableDatums.size();
-+{ return (long)variableDatums.size() * 64; // patch to fix units; bits rather than bytes
- }
- 
- /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-@@ -80,7 +83,7 @@
-     try 
-     {
-        dos.writeInt( (int)variableDatumID);
--       dos.writeInt( (int)variableDatums.size());
-+       dos.writeInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
- 
-        for(int idx = 0; idx < variableDatums.size(); idx++)
-        {
-@@ -100,6 +103,9 @@
-     {
-        variableDatumID = dis.readInt();
-        variableDatumLength = dis.readInt();
-+       int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
-+       variableDatumLength = (variableDatumLength / 64) + over;
-+            
-        for(int idx = 0; idx < variableDatumLength; idx++)
-        {
-            EightByteChunk anX = new EightByteChunk();
+8c8
+<  * Section 5.2.32. Variable Datum Record
+---
+>  * Section 5.2.32. Variable Datum Record<p>
+11a12,14
+>  *<p>
+>  * post-generation patches have been applied to this file from the patches directory. See that directory
+>  * for details.<p>
+58c61
+< { return (long)variableDatums.size();
+---
+> { return (long)variableDatums.size() * 64; // patch to fix units; bits rather than bytes
+83c86
+<        dos.writeInt( (int)variableDatums.size());
+---
+>        dos.writeInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
+102a106,108
+>        int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
+>        variableDatumLength = (variableDatumLength / 64) + over;
+>             

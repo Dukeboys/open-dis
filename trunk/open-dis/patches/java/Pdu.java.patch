@@ -7,7 +7,7 @@
 >  * This has been patched from the generated source code to handle unmarhsalling an unsigned long.
 13a16
 >  * @version $Id:$
-15,155c18,62
+15,143c18,171
 < public class Pdu extends Object implements Serializable
 < {
 <    /** The version of the protocol. 5=DIS-1995, 6=DIS-1998. */
@@ -137,18 +137,6 @@
 < public void unmarshal(DataInputStream dis)
 < {
 <     try 
-<     {
-<        protocolVersion = (short)dis.readUnsignedByte();
-<        exerciseID = (short)dis.readUnsignedByte();
-<        pduType = (short)dis.readUnsignedByte();
-<        protocolFamily = (short)dis.readUnsignedByte();
-<        timestamp = dis.readInt();
-<        length = (int)dis.readUnsignedShort();
-<        padding = dis.readShort();
-<     } // end try 
-<    catch(Exception e)
-<     { 
-<       System.out.println(e); 
 ---
 > public class Pdu implements Serializable {
 > 
@@ -195,100 +183,26 @@
 >         marshalSize = marshalSize + 2;  // padding
 > 
 >         return marshalSize;
-157d63
-<  } // end of unmarshal method 
-158a65,67
+>     }
+> 
 >     public void setProtocolVersion(short pProtocolVersion) {
 >         protocolVersion = pProtocolVersion;
 >     }
-160,177c69,72
-< /**
-<  * Packs a Pdu into the ByteBuffer.
-<  * @throws java.nio.BufferOverflowException if buff is too small
-<  * @throws java.nio.ReadOnlyBufferException if buff is read only
-<  * @see java.nio.ByteBuffer
-<  * @param buff The ByteBuffer at the position to begin writing
-<  * @since ??
-<  */
-< public void marshal(java.nio.ByteBuffer buff)
-< {
-<        buff.put( (byte)protocolVersion);
-<        buff.put( (byte)exerciseID);
-<        buff.put( (byte)pduType);
-<        buff.put( (byte)protocolFamily);
-<        buff.putInt( (int)timestamp);
-<        buff.putShort( (short)length);
-<        buff.putShort( (short)padding);
-<     } // end of marshal method
----
+> 
 >     @XmlAttribute
 >     public short getProtocolVersion() {
 >         return protocolVersion;
 >     }
-179,195c74,76
-< /**
-<  * Unpacks a Pdu from the underlying data.
-<  * @throws java.nio.BufferUnderflowException if buff is too small
-<  * @see java.nio.ByteBuffer
-<  * @param buff The ByteBuffer at the position to begin reading
-<  * @since ??
-<  */
-< public void unmarshal(java.nio.ByteBuffer buff)
-< {
-<        protocolVersion = (short)(buff.get() & 0xFF);
-<        exerciseID = (short)(buff.get() & 0xFF);
-<        pduType = (short)(buff.get() & 0xFF);
-<        protocolFamily = (short)(buff.get() & 0xFF);
-<        timestamp = buff.getInt();
-<        length = (int)(buff.getShort() & 0xFFFF);
-<        padding = buff.getShort();
-<  } // end of unmarshal method 
----
+> 
 >     public void setExerciseID(short pExerciseID) {
 >         exerciseID = pExerciseID;
 >     }
-196a78,81
+> 
 >     @XmlAttribute
 >     public short getExerciseID() {
 >         return exerciseID;
 >     }
-198,232c83,336
-< /**
-<  * A convenience method for marshalling to a byte array.
-<  * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
-<  * @return a byte array with the marshalled {@link Pdu}
-<  * @since ??
-<  */
-< public byte[] marshal()
-< {
-<     byte[] data = new byte[getMarshalledSize()];
-<     java.nio.ByteBuffer buff = java.nio.ByteBuffer.wrap(data);
-<     marshal(buff);
-<     return data;
-< }
-< 
-<  /**
-<   * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
-<   */
-<  public boolean equals(Pdu rhs)
-<  {
-<      boolean ivarsEqual = true;
-< 
-<     if(rhs.getClass() != this.getClass())
-<         return false;
-< 
-<      if( ! (protocolVersion == rhs.protocolVersion)) ivarsEqual = false;
-<      if( ! (exerciseID == rhs.exerciseID)) ivarsEqual = false;
-<      if( ! (pduType == rhs.pduType)) ivarsEqual = false;
-<      if( ! (protocolFamily == rhs.protocolFamily)) ivarsEqual = false;
-<      if( ! (timestamp == rhs.timestamp)) ivarsEqual = false;
-<      if( ! (length == rhs.length)) ivarsEqual = false;
-<      if( ! (padding == rhs.padding)) ivarsEqual = false;
-< 
-<     return ivarsEqual;
-<  }
-< } // end of class
----
+> 
 >     public void setPduType(short pPduType) {
 >         pduType = pPduType;
 >     }
@@ -369,13 +283,76 @@
 >             exerciseID = (short) dis.readUnsignedByte();
 >             pduType = (short) dis.readUnsignedByte();
 >             protocolFamily = (short) dis.readUnsignedByte();
->             timestamp = dis.readInt();
+>             timestamp = this.readUnsignedInt(dis);
 >             length = dis.readUnsignedShort();
 >             padding = dis.readShort();
 >         } catch (Exception e) {
 >             System.out.println(e);
 >         }
 >     }
+> 
+>     private long shiftBytes(int[] fourBytes)
+145,155c173,180
+<        protocolVersion = (short)dis.readUnsignedByte();
+<        exerciseID = (short)dis.readUnsignedByte();
+<        pduType = (short)dis.readUnsignedByte();
+<        protocolFamily = (short)dis.readUnsignedByte();
+<        timestamp = dis.readInt();
+<        length = (int)dis.readUnsignedShort();
+<        padding = dis.readShort();
+<     } // end try 
+<    catch(Exception e)
+<     { 
+<       System.out.println(e); 
+---
+>         long value = 0;
+>         value  = ((long) (fourBytes[0] << 24
+>                 | fourBytes[1] << 16
+>                 | fourBytes[2] << 8
+>                 | fourBytes[3]))
+>                & 0xFFFFFFFFL;
+>         
+>          return value;
+157d181
+<  } // end of unmarshal method 
+158a183,237
+>    public long readUnsignedInt(DataInputStream dis)
+>    {
+>         int fourBytes[] = new int[4];
+>    
+>         try
+>         {
+>             fourBytes[0] = dis.readUnsignedByte();
+>             fourBytes[1] = dis.readUnsignedByte();
+>             fourBytes[2] = dis.readUnsignedByte();
+>             fourBytes[3] = dis.readUnsignedByte();
+>         }
+>         catch(Exception e)
+>         {
+>             System.out.println(e);
+>         }
+> 
+>         return this.shiftBytes(fourBytes);
+>    }
+> 
+>    public long readUnsignedInt(java.nio.ByteBuffer buff)
+>    {
+>         int fourBytes[] = new int[4];
+> 
+>         try
+>         {
+>             fourBytes[0] = ((int)buff.get()) & 0xff;
+>             fourBytes[1] = ((int)buff.get()) & 0xff;
+>             fourBytes[2] = ((int)buff.get()) & 0xff;
+>             fourBytes[3] = ((int)buff.get()) & 0xff;
+>         }
+>         catch(Exception e)
+>         {
+>             System.out.println(e);
+>         }
+> 
+>         return this.shiftBytes(fourBytes);
+>    }
 > 
 >     /**
 >      * Packs a Pdu into the ByteBuffer.
@@ -394,7 +371,26 @@
 >         buff.putShort((short) getLength()); // post-processing patch
 >         buff.putShort(padding);
 >     }
-> 
+160,177c239,254
+< /**
+<  * Packs a Pdu into the ByteBuffer.
+<  * @throws java.nio.BufferOverflowException if buff is too small
+<  * @throws java.nio.ReadOnlyBufferException if buff is read only
+<  * @see java.nio.ByteBuffer
+<  * @param buff The ByteBuffer at the position to begin writing
+<  * @since ??
+<  */
+< public void marshal(java.nio.ByteBuffer buff)
+< {
+<        buff.put( (byte)protocolVersion);
+<        buff.put( (byte)exerciseID);
+<        buff.put( (byte)pduType);
+<        buff.put( (byte)protocolFamily);
+<        buff.putInt( (int)timestamp);
+<        buff.putShort( (short)length);
+<        buff.putShort( (short)padding);
+<     } // end of marshal method
+---
 >     /**
 >      * Unpacks a Pdu from the underlying data.
 >      * @throws java.nio.BufferUnderflowException if buff is too small
@@ -407,11 +403,29 @@
 >         exerciseID = (short) (buff.get() & 0xFF);
 >         pduType = (short) (buff.get() & 0xFF);
 >         protocolFamily = (short) (buff.get() & 0xFF);
->         timestamp = buff.getInt();
+>         timestamp = this.readUnsignedInt(buff);
 >         length = (buff.getShort() & 0xFFFF);
 >         padding = buff.getShort();
 >     }
-> 
+179,195c256,280
+< /**
+<  * Unpacks a Pdu from the underlying data.
+<  * @throws java.nio.BufferUnderflowException if buff is too small
+<  * @see java.nio.ByteBuffer
+<  * @param buff The ByteBuffer at the position to begin reading
+<  * @since ??
+<  */
+< public void unmarshal(java.nio.ByteBuffer buff)
+< {
+<        protocolVersion = (short)(buff.get() & 0xFF);
+<        exerciseID = (short)(buff.get() & 0xFF);
+<        pduType = (short)(buff.get() & 0xFF);
+<        protocolFamily = (short)(buff.get() & 0xFF);
+<        timestamp = buff.getInt();
+<        length = (int)(buff.getShort() & 0xFFFF);
+<        padding = buff.getShort();
+<  } // end of unmarshal method 
+---
 >     /**
 >      * A convenience method for marshalling to a byte array. The method will marshal
 >      * the PDU as is.
@@ -437,13 +451,49 @@
 >         this.setTimestamp(disTime.getDisAbsoluteTimestamp());
 >         return this.marshal();
 >     }
-> 
+196a282,286
 >      public void marshalWithDisAbsoluteTimestamp(java.nio.ByteBuffer buff) {
 >         DisTime disTime = DisTime.getInstance();
 >         this.setTimestamp(disTime.getDisAbsoluteTimestamp());
 >         this.marshal(buff);
 >     }
-> 
+198,232c288,386
+< /**
+<  * A convenience method for marshalling to a byte array.
+<  * This is not as efficient as reusing a ByteBuffer, but it <em>is</em> easy.
+<  * @return a byte array with the marshalled {@link Pdu}
+<  * @since ??
+<  */
+< public byte[] marshal()
+< {
+<     byte[] data = new byte[getMarshalledSize()];
+<     java.nio.ByteBuffer buff = java.nio.ByteBuffer.wrap(data);
+<     marshal(buff);
+<     return data;
+< }
+< 
+<  /**
+<   * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+<   */
+<  public boolean equals(Pdu rhs)
+<  {
+<      boolean ivarsEqual = true;
+< 
+<     if(rhs.getClass() != this.getClass())
+<         return false;
+< 
+<      if( ! (protocolVersion == rhs.protocolVersion)) ivarsEqual = false;
+<      if( ! (exerciseID == rhs.exerciseID)) ivarsEqual = false;
+<      if( ! (pduType == rhs.pduType)) ivarsEqual = false;
+<      if( ! (protocolFamily == rhs.protocolFamily)) ivarsEqual = false;
+<      if( ! (timestamp == rhs.timestamp)) ivarsEqual = false;
+<      if( ! (length == rhs.length)) ivarsEqual = false;
+<      if( ! (padding == rhs.padding)) ivarsEqual = false;
+< 
+<     return ivarsEqual;
+<  }
+< } // end of class
+---
 > 
 >     /**
 >      * A convieneince method to marshal to a byte array with the timestamp set to
