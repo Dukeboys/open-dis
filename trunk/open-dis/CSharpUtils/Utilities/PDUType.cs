@@ -64,11 +64,13 @@ namespace DISnet.Utilities
             PDU_ACTION_RESPONSE = 17,
             PDU_DATA_QUERY = 18,
             PDU_SET_DATA = 19,
-            // PDU_WTF = 20
+            PDU_DATA = 20,
             PDU_EVENT_REPORT = 21,
             PDU_COMMENT = 22,
-            PDU_SIGNAL = 26,
+            PDU_ELECTROMAGNETICEMISSION = 23,
+            PDU_DESIGNATOR = 24,
             PDU_TRANSMITTER = 25,
+            PDU_SIGNAL = 26,
         };
     }
 }
