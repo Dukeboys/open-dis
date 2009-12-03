@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class FourByteChunk : Object
+public partial class FourByteChunk : Object
 {
    /** four bytes of arbitrary data */
    protected byte[]  _otherParameters = new byte[4]; 

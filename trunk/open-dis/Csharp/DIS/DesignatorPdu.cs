@@ -54,7 +54,7 @@ namespace DIS1998net
 [XmlInclude(typeof(EntityID))]
 [XmlInclude(typeof(Vector3Float))]
 [XmlInclude(typeof(Vector3Double))]
-public class DesignatorPdu : DistributedEmissionsFamilyPdu
+public partial class DesignatorPdu : DistributedEmissionsFamilyPdu
 {
    /** ID of the entity designating */
    protected EntityID  _designatingEntityID = new EntityID(); 

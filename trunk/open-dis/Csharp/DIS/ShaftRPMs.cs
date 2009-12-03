@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class ShaftRPMs : Object
+public partial class ShaftRPMs : Object
 {
    /** Current shaft RPMs */
    protected short  _currentShaftRPMs;

@@ -53,7 +53,7 @@ namespace DIS1998net
 [XmlRoot]
 [XmlInclude(typeof(FixedDatum))]
 [XmlInclude(typeof(VariableDatum))]
-public class EventReportPdu : SimulationManagementFamilyPdu
+public partial class EventReportPdu : SimulationManagementFamilyPdu
 {
    /** Type of event */
    protected uint  _eventType;

@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class ArticulationParameter : Object
+public partial class ArticulationParameter : Object
 {
    protected byte  _parameterTypeDesignator;
 

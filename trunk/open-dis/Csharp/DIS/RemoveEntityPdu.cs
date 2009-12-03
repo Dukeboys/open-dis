@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class RemoveEntityPdu : SimulationManagementFamilyPdu
+public partial class RemoveEntityPdu : SimulationManagementFamilyPdu
 {
    /** Identifier for the request */
    protected uint  _requestID;

@@ -54,7 +54,7 @@ namespace DIS1998net
 [XmlInclude(typeof(SixByteChunk))]
 [XmlInclude(typeof(Vector3Double))]
 [XmlInclude(typeof(Orientation))]
-public class LinearSegmentParameter : Object
+public partial class LinearSegmentParameter : Object
 {
    /** number of segments */
    protected byte  _segmentNumber;

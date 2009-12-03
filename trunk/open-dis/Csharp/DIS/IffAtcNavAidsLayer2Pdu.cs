@@ -54,7 +54,7 @@ namespace DIS1998net
 [XmlInclude(typeof(LayerHeader))]
 [XmlInclude(typeof(BeamData))]
 [XmlInclude(typeof(FundamentalParameterDataIff))]
-public class IffAtcNavAidsLayer2Pdu : IffAtcNavAidsLayer1Pdu
+public partial class IffAtcNavAidsLayer2Pdu : IffAtcNavAidsLayer1Pdu
 {
    /** layer header */
    protected LayerHeader  _layerHeader = new LayerHeader(); 

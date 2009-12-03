@@ -53,7 +53,7 @@ namespace DIS1998net
 [XmlRoot]
 [XmlInclude(typeof(FixedDatum))]
 [XmlInclude(typeof(VariableDatum))]
-public class CommentPdu : SimulationManagementFamilyPdu
+public partial class CommentPdu : SimulationManagementFamilyPdu
 {
    /** Number of fixed datum records */
    protected uint  _numberOfFixedDatumRecords;

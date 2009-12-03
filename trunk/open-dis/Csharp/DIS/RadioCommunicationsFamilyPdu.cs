@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(EntityID))]
-public class RadioCommunicationsFamilyPdu : Pdu
+public partial class RadioCommunicationsFamilyPdu : Pdu
 {
    /** ID of the entitythat is the source of the communication */
    protected EntityID  _entityId = new EntityID(); 

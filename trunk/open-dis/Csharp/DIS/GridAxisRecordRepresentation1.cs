@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(TwoByteChunk))]
-public class GridAxisRecordRepresentation1 : GridAxisRecord
+public partial class GridAxisRecordRepresentation1 : GridAxisRecord
 {
    /** constant scale factor */
    protected float  _fieldScale;

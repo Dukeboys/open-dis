@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class VectoringNozzleSystemData : Object
+public partial class VectoringNozzleSystemData : Object
 {
    /** horizontal deflection angle */
    protected float  _horizontalDeflectionAngle;

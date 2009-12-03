@@ -53,7 +53,7 @@ namespace DIS1998net
 [XmlRoot]
 [XmlInclude(typeof(EntityID))]
 [XmlInclude(typeof(SupplyQuantity))]
-public class ResupplyOfferPdu : LogisticsFamilyPdu
+public partial class ResupplyOfferPdu : LogisticsFamilyPdu
 {
    /** Entity that is receiving service */
    protected EntityID  _receivingEntityID = new EntityID(); 

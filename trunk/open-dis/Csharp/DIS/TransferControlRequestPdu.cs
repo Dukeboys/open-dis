@@ -53,7 +53,7 @@ namespace DIS1998net
 [XmlRoot]
 [XmlInclude(typeof(EntityID))]
 [XmlInclude(typeof(RecordSet))]
-public class TransferControlRequestPdu : EntityManagementFamilyPdu
+public partial class TransferControlRequestPdu : EntityManagementFamilyPdu
 {
    /** ID of entity originating request */
    protected EntityID  _orginatingEntityID = new EntityID(); 

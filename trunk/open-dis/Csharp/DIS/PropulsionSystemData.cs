@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class PropulsionSystemData : Object
+public partial class PropulsionSystemData : Object
 {
    /** powerSetting */
    protected float  _powerSetting;

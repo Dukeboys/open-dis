@@ -53,7 +53,7 @@ namespace DIS1998net
 [XmlRoot]
 [XmlInclude(typeof(EntityID))]
 [XmlInclude(typeof(IntercomCommunicationsParameters))]
-public class IntercomControlPdu : RadioCommunicationsFamilyPdu
+public partial class IntercomControlPdu : RadioCommunicationsFamilyPdu
 {
    /** control type */
    protected byte  _controlType;

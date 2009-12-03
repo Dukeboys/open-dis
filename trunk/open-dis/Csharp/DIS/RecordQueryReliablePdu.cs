@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(FourByteChunk))]
-public class RecordQueryReliablePdu : SimulationManagementWithReliabilityFamilyPdu
+public partial class RecordQueryReliablePdu : SimulationManagementWithReliabilityFamilyPdu
 {
    /** request ID */
    protected uint  _requestID;

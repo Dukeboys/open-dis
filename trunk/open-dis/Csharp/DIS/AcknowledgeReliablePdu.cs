@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class AcknowledgeReliablePdu : SimulationManagementWithReliabilityFamilyPdu
+public partial class AcknowledgeReliablePdu : SimulationManagementWithReliabilityFamilyPdu
 {
    /** ack flags */
    protected ushort  _acknowledgeFlag;

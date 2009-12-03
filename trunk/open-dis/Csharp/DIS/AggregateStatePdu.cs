@@ -62,7 +62,7 @@ namespace DIS1998net
 [XmlInclude(typeof(EntityType))]
 [XmlInclude(typeof(EntityType))]
 [XmlInclude(typeof(VariableDatum))]
-public class AggregateStatePdu : EntityManagementFamilyPdu
+public partial class AggregateStatePdu : EntityManagementFamilyPdu
 {
    /** ID of aggregated entities */
    protected EntityID  _aggregateID = new EntityID(); 

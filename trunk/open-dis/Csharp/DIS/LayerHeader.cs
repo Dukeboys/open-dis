@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class LayerHeader : Object
+public partial class LayerHeader : Object
 {
    /** Layer number */
    protected byte  _layerNumber;

@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class RadioEntityType : Object
+public partial class RadioEntityType : Object
 {
    /** Kind of entity */
    protected byte  _entityKind;

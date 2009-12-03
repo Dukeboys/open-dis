@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class EventID : Object
+public partial class EventID : Object
 {
    /** The site ID */
    protected ushort  _site;

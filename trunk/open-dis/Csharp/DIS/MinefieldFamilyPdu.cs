@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class MinefieldFamilyPdu : Pdu
+public partial class MinefieldFamilyPdu : Pdu
 {
 
 /** Constructor */

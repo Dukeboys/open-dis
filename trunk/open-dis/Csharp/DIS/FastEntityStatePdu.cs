@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(ArticulationParameter))]
-public class FastEntityStatePdu : EntityInformationFamilyPdu
+public partial class FastEntityStatePdu : EntityInformationFamilyPdu
 {
    /** The site ID */
    protected ushort  _site;

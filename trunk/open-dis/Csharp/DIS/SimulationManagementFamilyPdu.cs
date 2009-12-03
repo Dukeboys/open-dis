@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(EntityID))]
-public class SimulationManagementFamilyPdu : Pdu
+public partial class SimulationManagementFamilyPdu : Pdu
 {
    /** Entity that is sending message */
    protected EntityID  _originatingEntityID = new EntityID(); 

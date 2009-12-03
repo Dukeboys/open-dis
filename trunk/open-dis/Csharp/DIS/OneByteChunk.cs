@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class OneByteChunk : Object
+public partial class OneByteChunk : Object
 {
    /** one byte of arbitrary data */
    protected byte[]  _otherParameters = new byte[1]; 

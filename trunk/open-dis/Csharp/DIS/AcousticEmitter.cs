@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class AcousticEmitter : Object
+public partial class AcousticEmitter : Object
 {
    /** the system for a particular UA emitter, and an enumeration */
    protected ushort  _acousticName;

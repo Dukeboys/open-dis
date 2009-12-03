@@ -56,7 +56,7 @@ namespace DIS1998net
 [XmlInclude(typeof(ShaftRPMs))]
 [XmlInclude(typeof(ApaData))]
 [XmlInclude(typeof(AcousticEmitterSystemData))]
-public class UaPdu : DistributedEmissionsFamilyPdu
+public partial class UaPdu : DistributedEmissionsFamilyPdu
 {
    /** ID of the entity that is the source of the emission */
    protected EntityID  _emittingEntityID = new EntityID(); 

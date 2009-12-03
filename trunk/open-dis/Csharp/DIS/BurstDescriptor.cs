@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(EntityType))]
-public class BurstDescriptor : Object
+public partial class BurstDescriptor : Object
 {
    /** What munition was used in the burst */
    protected EntityType  _munition = new EntityType(); 

@@ -53,7 +53,7 @@ namespace DIS1998net
 [XmlRoot]
 [XmlInclude(typeof(EntityID))]
 [XmlInclude(typeof(EightByteChunk))]
-public class MinefieldResponseNackPdu : MinefieldFamilyPdu
+public partial class MinefieldResponseNackPdu : MinefieldFamilyPdu
 {
    /** Minefield ID */
    protected EntityID  _minefieldID = new EntityID(); 

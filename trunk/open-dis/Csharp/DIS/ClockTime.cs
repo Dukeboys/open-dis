@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class ClockTime : Object
+public partial class ClockTime : Object
 {
    /** Hours in UTC */
    protected uint  _hour;

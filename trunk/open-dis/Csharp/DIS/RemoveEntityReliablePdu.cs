@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class RemoveEntityReliablePdu : SimulationManagementWithReliabilityFamilyPdu
+public partial class RemoveEntityReliablePdu : SimulationManagementWithReliabilityFamilyPdu
 {
    /** level of reliability service used for this transaction */
    protected byte  _requiredReliabilityService;

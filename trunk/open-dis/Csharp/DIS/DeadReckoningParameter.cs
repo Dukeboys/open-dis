@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(Vector3Float))]
-public class DeadReckoningParameter : Object
+public partial class DeadReckoningParameter : Object
 {
    /** enumeration of what dead reckoning algorighm to use */
    protected byte  _deadReckoningAlgorithm;

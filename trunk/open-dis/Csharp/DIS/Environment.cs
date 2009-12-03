@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class Environment : Object
+public partial class Environment : Object
 {
    /** Record type */
    protected uint  _environmentType;

@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class SimulationAddress : Object
+public partial class SimulationAddress : Object
 {
    /** The site ID */
    protected ushort  _site;

@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class RecordSet : Object
+public partial class RecordSet : Object
 {
    /** record ID */
    protected uint  _recordID;

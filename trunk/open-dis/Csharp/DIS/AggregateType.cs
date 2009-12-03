@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class AggregateType : Object
+public partial class AggregateType : Object
 {
    /** Kind of entity */
    protected byte  _aggregateKind;

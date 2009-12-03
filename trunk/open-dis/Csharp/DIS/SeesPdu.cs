@@ -54,7 +54,7 @@ namespace DIS1998net
 [XmlInclude(typeof(EntityID))]
 [XmlInclude(typeof(PropulsionSystemData))]
 [XmlInclude(typeof(VectoringNozzleSystemData))]
-public class SeesPdu : DistributedEmissionsFamilyPdu
+public partial class SeesPdu : DistributedEmissionsFamilyPdu
 {
    /** Originating entity ID */
    protected EntityID  _orginatingEntityID = new EntityID(); 

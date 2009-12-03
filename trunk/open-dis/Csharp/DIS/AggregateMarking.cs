@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class AggregateMarking : Object
+public partial class AggregateMarking : Object
 {
    /** The character set */
    protected byte  _characterSet;

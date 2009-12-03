@@ -53,7 +53,7 @@ namespace DIS1998net
 [XmlRoot]
 [XmlInclude(typeof(EntityID))]
 [XmlInclude(typeof(OneByteChunk))]
-public class IntercomSignalPdu : RadioCommunicationsFamilyPdu
+public partial class IntercomSignalPdu : RadioCommunicationsFamilyPdu
 {
    /** entity ID */
    protected EntityID  _entityID = new EntityID(); 

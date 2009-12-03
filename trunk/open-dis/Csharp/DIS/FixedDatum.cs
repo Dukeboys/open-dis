@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class FixedDatum : Object
+public partial class FixedDatum : Object
 {
    /** ID of the fixed datum */
    protected uint  _fixedDatumID;

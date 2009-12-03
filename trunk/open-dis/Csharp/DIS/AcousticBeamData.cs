@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(AcousticBeamFundamentalParameter))]
-public class AcousticBeamData : Object
+public partial class AcousticBeamData : Object
 {
    /** beam data length */
    protected ushort  _beamDataLength;

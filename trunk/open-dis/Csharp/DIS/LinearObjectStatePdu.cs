@@ -55,7 +55,7 @@ namespace DIS1998net
 [XmlInclude(typeof(SimulationAddress))]
 [XmlInclude(typeof(ObjectType))]
 [XmlInclude(typeof(LinearSegmentParameter))]
-public class LinearObjectStatePdu : SyntheticEnvironmentFamilyPdu
+public partial class LinearObjectStatePdu : SyntheticEnvironmentFamilyPdu
 {
    /** Object in synthetic environment */
    protected EntityID  _objectID = new EntityID(); 

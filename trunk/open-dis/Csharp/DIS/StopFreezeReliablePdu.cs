@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(ClockTime))]
-public class StopFreezeReliablePdu : SimulationManagementWithReliabilityFamilyPdu
+public partial class StopFreezeReliablePdu : SimulationManagementWithReliabilityFamilyPdu
 {
    /** time in real world for this operation to happen */
    protected ClockTime  _realWorldTime = new ClockTime(); 

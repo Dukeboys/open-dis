@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class NamedLocation : Object
+public partial class NamedLocation : Object
 {
    /** station name enumeration */
    protected ushort  _stationName;

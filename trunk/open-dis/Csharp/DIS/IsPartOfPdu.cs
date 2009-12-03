@@ -56,7 +56,7 @@ namespace DIS1998net
 [XmlInclude(typeof(Vector3Float))]
 [XmlInclude(typeof(NamedLocation))]
 [XmlInclude(typeof(EntityType))]
-public class IsPartOfPdu : EntityManagementFamilyPdu
+public partial class IsPartOfPdu : EntityManagementFamilyPdu
 {
    /** ID of entity originating PDU */
    protected EntityID  _orginatingEntityID = new EntityID(); 

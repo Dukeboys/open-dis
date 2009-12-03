@@ -51,7 +51,7 @@ namespace DIS1998net
  */
 [Serializable]
 [XmlRoot]
-public class Vector3Double : Object
+public partial class Vector3Double : Object
 {
    /** X value */
    protected double  _x;

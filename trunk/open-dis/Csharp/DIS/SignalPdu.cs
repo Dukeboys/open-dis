@@ -52,7 +52,7 @@ namespace DIS1998net
 [Serializable]
 [XmlRoot]
 [XmlInclude(typeof(OneByteChunk))]
-public class SignalPdu : RadioCommunicationsFamilyPdu
+public partial class SignalPdu : RadioCommunicationsFamilyPdu
 {
    /** encoding scheme used, and enumeration */
    protected ushort  _encodingScheme;

@@ -54,7 +54,7 @@ namespace DIS1998net
 [XmlInclude(typeof(AcousticEmitterSystem))]
 [XmlInclude(typeof(Vector3Float))]
 [XmlInclude(typeof(AcousticBeamData))]
-public class AcousticEmitterSystemData : Object
+public partial class AcousticEmitterSystemData : Object
 {
    /** Length of emitter system data */
    protected byte  _emitterSystemDataLength;

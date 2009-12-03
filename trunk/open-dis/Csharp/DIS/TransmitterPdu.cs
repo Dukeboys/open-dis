@@ -57,7 +57,7 @@ namespace DIS1998net
 [XmlInclude(typeof(ModulationType))]
 [XmlInclude(typeof(Vector3Float))]
 [XmlInclude(typeof(Vector3Float))]
-public class TransmitterPdu : RadioCommunicationsFamilyPdu
+public partial class TransmitterPdu : RadioCommunicationsFamilyPdu
 {
    /** linear accelleration of entity */
    protected RadioEntityType  _radioEntityType = new RadioEntityType(); 
