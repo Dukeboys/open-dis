@@ -191,7 +191,7 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        _variableDatumID = dis.readUint();
-       _variableDatumLength = dis.readUint();
+       _variableDatumLength = dis.readUint();
         int variableCount = (int)(_variableDatumLength / 64) + (_variableDatumLength % 64 > 0 ? 1 : 0);  //Post processed
         for(int idx = 0; idx < variableCount; idx++)
         {
