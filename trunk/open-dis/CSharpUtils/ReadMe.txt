@@ -1,0 +1,1 @@
+The DataStream and Utilities files are now located in the open-dis/Csharp directory along with the DIS PDU files.
