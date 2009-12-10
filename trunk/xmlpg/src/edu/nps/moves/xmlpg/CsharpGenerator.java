@@ -1369,7 +1369,7 @@ public class CsharpGenerator extends Generator {
 
             pw.println();
             pw.println(indent, "/**");
-            pw.println(indent, " * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.");
+            pw.println(indent, " * Compares for reference equality and value equality.");
             pw.println(indent, " */");
             pw.println(indent, "public bool equals(" + aClass.getName() + " rhs)");
             pw.println(indent, "{");
@@ -1380,6 +1380,13 @@ public class CsharpGenerator extends Generator {
             pw.println(indent + 2, "return false;");
             pw.println();
 
+	    //If the class is PDU then do not use the base.Equals as it defaults to the base API version which will return a false
+           String parentClass = aClass.getParentClass();
+           if (!parentClass.equalsIgnoreCase("root")) {
+	    	pw.println(indent + 1, "ivarsEqual = base.Equals(rhs);");
+	    }
+
+	    pw.println();
 
             for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++) {
                 ClassAttribute anAttribute = (ClassAttribute) aClass.getClassAttributes().get(idx);
@@ -1434,7 +1441,8 @@ public class CsharpGenerator extends Generator {
 
                         pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
                         pw.println(indent + 2, "{");
-                        pw.println(indent + 3, anAttribute.getType() + " x = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
+			//PES 12102009 Do not believe this line is needed so commented out
+                        //pw.println(indent + 3, anAttribute.getType() + " x = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
                         pw.println(indent + 3, "if( ! ( _" + anAttribute.getName() + "[idx].Equals(rhs._" + anAttribute.getName() + "[idx]))) ivarsEqual = false;");
                         pw.println(indent + 2, "}");
 
@@ -1446,6 +1454,112 @@ public class CsharpGenerator extends Generator {
             pw.println();
             pw.println(indent + 1, "return ivarsEqual;");
             pw.println(indent, "}");
+
+
+
+	    pw.println();
+            pw.println(indent, "/**");
+            pw.println(indent, " * HashCode Helper");
+            pw.println(indent, " */");
+            pw.println(indent, "private int GenerateHash(int hash)");
+            pw.println(indent, "{");
+            pw.println(indent + 1, "hash = hash << 5 + hash;");
+            pw.println(indent + 1, "return(hash);");
+	    pw.println(indent, "}");
+            pw.println();
+
+
+
+
+	    pw.println();
+            pw.println(indent, "/**");
+            pw.println(indent, " * Return Hash");
+            pw.println(indent, " */");
+            pw.println(indent, "public override int GetHashCode()");
+            pw.println(indent, "{");
+            pw.println(indent + 1, "int result = 0;");
+	    pw.println();
+
+	    //PES 12102009 needed to ensure that the base GetHashCode was not executed on a root class otherwise it returns random results
+	    if (!parentClass.equalsIgnoreCase("root")) {
+	      pw.println(indent + 1, "result = GenerateHash(result) ^ base.GetHashCode();");
+	      pw.println();
+	    }
+
+            
+            for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++) {
+                ClassAttribute anAttribute = (ClassAttribute) aClass.getClassAttributes().get(idx);
+
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
+                    pw.println(indent + 1, "result = GenerateHash(result) ^ _" + anAttribute.getName() + ".GetHashCode();");
+                }
+
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
+                    pw.println(indent + 1, "result = GenerateHash(result) ^ _" + anAttribute.getName() + ".GetHashCode();");
+                }
+
+
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST) {
+     
+                   pw.println();
+                   
+                   pw.println(indent + 1, "if(" + anAttribute.getListLength() + " > 0)");
+		   pw.println(indent + 1, "{");
+
+                    pw.println();
+                    pw.println(indent + 2, "for(int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
+                    pw.println(indent + 2, "{");
+                    pw.println(indent + 3, "result = GenerateHash(result) ^ _" + anAttribute.getName() + "[idx].GetHashCode();");
+                    pw.println(indent + 2, "}");
+
+	            pw.println(indent + 1, "}");
+                    pw.println();
+                }
+
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) {
+
+                    if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
+			//PES need to modify as onebytechunks are represented as byte[] therefore need to change code slightly
+                        pw.println();
+	
+	                pw.println(indent + 1, "if(_" + anAttribute.getName() + ".Length > 0)");
+			pw.println(indent + 1, "{");
+
+                        pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+                        pw.println(indent + 2, "{");
+                        
+                        pw.println(indent + 3, "result = GenerateHash(result) ^ _" + anAttribute.getName() + "[idx].GetHashCode();");
+                        pw.println(indent + 2, "}");
+
+ 			pw.println(indent + 1, "}");
+                        pw.println();
+
+                    } else {
+                        pw.println();
+	
+	                pw.println(indent + 1, "if(_" + anAttribute.getName() + ".Count > 0)");
+			pw.println(indent + 1, "{");
+
+                        pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+                        pw.println(indent + 2, "{");
+                        //PES 12102009 Do not believe this line is needed so commented out
+			//pw.println(indent + 3, anAttribute.getType() + " x = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
+                        pw.println(indent + 3, "result = GenerateHash(result) ^ _" + anAttribute.getName() + "[idx].GetHashCode();");
+                        pw.println(indent + 2, "}");
+
+ 			pw.println(indent + 1, "}");
+                        pw.println();
+		    }
+                    
+                }
+            }
+            pw.println();
+            pw.println(indent + 1, "return result;");
+            pw.println(indent, "}");
+
+
+
+
         } catch (Exception e) {
             System.out.println(e);
         }
