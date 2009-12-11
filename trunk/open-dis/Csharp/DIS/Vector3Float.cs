@@ -39,205 +39,238 @@ using DISnet.DataStreamUtilities;
 namespace DIS1998net
 {
 
-/**
- * Section 5.2.33. Three floating point values, x, y, and z
- *
- * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
- * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
- *
- * @author DMcG
- * Modified for use with C#:
- * Peter Smith (Naval Air Warfare Center - Training Systems Division)
- */
-[Serializable]
-[XmlRoot]
-public partial class Vector3Float : Object
-{
-   /** X value */
-   protected float  _x;
-
-   /** y Value */
-   protected float  _y;
-
-   /** Z value */
-   protected float  _z;
-
-
-/** Constructor */
-   ///<summary>
-   ///Section 5.2.33. Three floating point values, x, y, and z
-   ///</summary>
- public Vector3Float()
- {
- }
-
-public int getMarshalledSize()
-{
-   int marshalSize = 0; 
-
-   marshalSize = marshalSize + 4;  // _x
-   marshalSize = marshalSize + 4;  // _y
-   marshalSize = marshalSize + 4;  // _z
-
-   return marshalSize;
-}
-
-
-   ///<summary>
-   ///X value
-   ///</summary>
-public void setX(float pX)
-{ _x = pX;
-}
-
-[XmlElement(Type= typeof(float), ElementName="x")]
-public float X
-{
-     get
-{
-          return _x;
-}
-     set
-{
-          _x = value;
-}
-}
-
-   ///<summary>
-   ///y Value
-   ///</summary>
-public void setY(float pY)
-{ _y = pY;
-}
-
-[XmlElement(Type= typeof(float), ElementName="y")]
-public float Y
-{
-     get
-{
-          return _y;
-}
-     set
-{
-          _y = value;
-}
-}
-
-   ///<summary>
-   ///Z value
-   ///</summary>
-public void setZ(float pZ)
-{ _z = pZ;
-}
-
-[XmlElement(Type= typeof(float), ElementName="z")]
-public float Z
-{
-     get
-{
-          return _z;
-}
-     set
-{
-          _z = value;
-}
-}
-
-
-///<summary>
-///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
-///</summary>
-public void marshal(DataOutputStream dos)
-{
-    try 
+    /**
+     * Section 5.2.33. Three floating point values, x, y, and z
+     *
+     * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
+     * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
+     *
+     * @author DMcG
+     * Modified for use with C#:
+     * Peter Smith (Naval Air Warfare Center - Training Systems Division)
+     */
+    [Serializable]
+    [XmlRoot]
+    public class Vector3Float : Object
     {
-       dos.writeFloat((float)_x);
-       dos.writeFloat((float)_y);
-       dos.writeFloat((float)_z);
-    } // end try 
-    catch(Exception e)
-    { 
-      Trace.WriteLine(e);
-      Trace.Flush();
-    }
-} // end of marshal method
+        /** X value */
+        protected float  _x;
 
-public void unmarshal(DataInputStream dis)
-{
-    try 
-    {
-       _x = dis.readFloat();
-       _y = dis.readFloat();
-       _z = dis.readFloat();
-    } // end try 
-   catch(Exception e)
-    { 
-      Trace.WriteLine(e); 
-      Trace.Flush();
-    }
- } // end of unmarshal method 
+        /** y Value */
+        protected float  _y;
+
+        /** Z value */
+        protected float  _z;
 
 
-   ///<summary>
-   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
-   ///This will be modified in the future to provide a better display.  Usage: 
-   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
-   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
-   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
-   ///</summary>
-public void reflection(StringBuilder sb)
-{
-    sb.Append("<Vector3Float>"  + System.Environment.NewLine);
-    try 
-    {
-           sb.Append("<x type=\"float\">" + _x.ToString() + "</x> " + System.Environment.NewLine);
-           sb.Append("<y type=\"float\">" + _y.ToString() + "</y> " + System.Environment.NewLine);
-           sb.Append("<z type=\"float\">" + _z.ToString() + "</z> " + System.Environment.NewLine);
-    sb.Append("</Vector3Float>"  + System.Environment.NewLine);
-    } // end try 
-    catch(Exception e)
-    { 
-      Trace.WriteLine(e);
-      Trace.Flush();
-}
-    } // end of marshal method
+        /** Constructor */
+        ///<summary>
+        ///Section 5.2.33. Three floating point values, x, y, and z
+        ///</summary>
+        public Vector3Float()
+        {
+        }
+
+        public int getMarshalledSize()
+        {
+            int marshalSize = 0; 
+
+            marshalSize = marshalSize + 4;  // _x
+            marshalSize = marshalSize + 4;  // _y
+            marshalSize = marshalSize + 4;  // _z
+
+            return marshalSize;
+        }
+
+
+        ///<summary>
+        ///X value
+        ///</summary>
+        public void setX(float pX)
+        { 
+            _x = pX;
+        }
+
+        [XmlElement(Type= typeof(float), ElementName="x")]
+        public float X
+        {
+            get
+            {
+                return _x;
+            }
+            set
+            {
+                _x = value;
+            }
+        }
+
+        ///<summary>
+        ///y Value
+        ///</summary>
+        public void setY(float pY)
+        { 
+            _y = pY;
+        }
+
+        [XmlElement(Type= typeof(float), ElementName="y")]
+        public float Y
+        {
+            get
+            {
+                return _y;
+            }
+            set
+            {
+                _y = value;
+            }
+        }
+
+        ///<summary>
+        ///Z value
+        ///</summary>
+        public void setZ(float pZ)
+        { 
+            _z = pZ;
+        }
+
+        [XmlElement(Type= typeof(float), ElementName="z")]
+        public float Z
+        {
+            get
+            {
+                return _z;
+            }
+            set
+            {
+                _z = value;
+            }
+        }
+
+
+        ///<summary>
+        ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+        ///</summary>
+        public void marshal(DataOutputStream dos)
+        {
+            try
+            {
+                dos.writeFloat((float)_x);
+                dos.writeFloat((float)_y);
+                dos.writeFloat((float)_z);
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of marshal method
+
+        public void unmarshal(DataInputStream dis)
+        {
+            try
+            {
+                _x = dis.readFloat();
+                _y = dis.readFloat();
+                _z = dis.readFloat();
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of unmarshal method
+
+        ///<summary>
+        ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+        ///This will be modified in the future to provide a better display.  Usage: 
+        ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+        ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+        ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+        ///</summary>
+        public void reflection(StringBuilder sb)
+        {
+            sb.Append("<Vector3Float>"  + System.Environment.NewLine);
+            try
+            {
+                sb.Append("<x type=\"float\">" + _x.ToString() + "</x> " + System.Environment.NewLine);
+                sb.Append("<y type=\"float\">" + _y.ToString() + "</y> " + System.Environment.NewLine);
+                sb.Append("<z type=\"float\">" + _z.ToString() + "</z> " + System.Environment.NewLine);
+                sb.Append("</Vector3Float>"  + System.Environment.NewLine);
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of reflection method
 
         public static bool operator !=(Vector3Float a, Vector3Float b)
         {
-                return !(a == b);
+            return !(a == b);
         }
 
         public static bool operator ==(Vector3Float a, Vector3Float b)
         {
-                if (System.Object.ReferenceEquals(a, b))
-                {
-                      return true;
-                }
+            if (System.Object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
 
-                if (((object)a == null) || ((object)b == null))
-                {
-                     return false;
-                }
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
 
-                     return a.equals(b);
+            return a.equals(b);
         }
 
 
- /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-  */
- public bool equals(Vector3Float rhs)
- {
-     bool ivarsEqual = true;
+        public override bool Equals(object obj)
+        {
+            return this == obj as Vector3Float;
+        }
 
-    if(rhs.GetType() != this.GetType())
-        return false;
 
-     if( ! (_x == rhs._x)) ivarsEqual = false;
-     if( ! (_y == rhs._y)) ivarsEqual = false;
-     if( ! (_z == rhs._z)) ivarsEqual = false;
+        /**
+         * Compares for reference equality and value equality.
+         */
+        public bool equals(Vector3Float rhs)
+        {
+            bool ivarsEqual = true;
 
-    return ivarsEqual;
- }
-} // end of class
+            if(rhs.GetType() != this.GetType())
+                return false;
+
+
+            if( ! (_x == rhs._x)) ivarsEqual = false;
+            if( ! (_y == rhs._y)) ivarsEqual = false;
+            if( ! (_z == rhs._z)) ivarsEqual = false;
+
+            return ivarsEqual;
+        }
+
+        /**
+         * HashCode Helper
+         */
+        private int GenerateHash(int hash)
+        {
+            hash = hash << 5 + hash;
+            return(hash);
+        }
+
+
+        /**
+         * Return Hash
+         */
+        public override int GetHashCode()
+        {
+            int result = 0;
+
+            result = GenerateHash(result) ^ _x.GetHashCode();
+            result = GenerateHash(result) ^ _y.GetHashCode();
+            result = GenerateHash(result) ^ _z.GetHashCode();
+
+            return result;
+        }
+    } // end of class
 } // end of namespace

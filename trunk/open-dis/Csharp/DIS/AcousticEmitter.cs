@@ -39,205 +39,238 @@ using DISnet.DataStreamUtilities;
 namespace DIS1998net
 {
 
-/**
- * Section 5.2.35. information about a specific UA emmtter
- *
- * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
- * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
- *
- * @author DMcG
- * Modified for use with C#:
- * Peter Smith (Naval Air Warfare Center - Training Systems Division)
- */
-[Serializable]
-[XmlRoot]
-public partial class AcousticEmitter : Object
-{
-   /** the system for a particular UA emitter, and an enumeration */
-   protected ushort  _acousticName;
-
-   /** The function of the acoustic system */
-   protected byte  _function;
-
-   /** The UA emitter identification number relative to a specific system */
-   protected byte  _acousticIdNumber;
-
-
-/** Constructor */
-   ///<summary>
-   ///Section 5.2.35. information about a specific UA emmtter
-   ///</summary>
- public AcousticEmitter()
- {
- }
-
-public int getMarshalledSize()
-{
-   int marshalSize = 0; 
-
-   marshalSize = marshalSize + 2;  // _acousticName
-   marshalSize = marshalSize + 1;  // _function
-   marshalSize = marshalSize + 1;  // _acousticIdNumber
-
-   return marshalSize;
-}
-
-
-   ///<summary>
-   ///the system for a particular UA emitter, and an enumeration
-   ///</summary>
-public void setAcousticName(ushort pAcousticName)
-{ _acousticName = pAcousticName;
-}
-
-[XmlElement(Type= typeof(ushort), ElementName="acousticName")]
-public ushort AcousticName
-{
-     get
-{
-          return _acousticName;
-}
-     set
-{
-          _acousticName = value;
-}
-}
-
-   ///<summary>
-   ///The function of the acoustic system
-   ///</summary>
-public void setFunction(byte pFunction)
-{ _function = pFunction;
-}
-
-[XmlElement(Type= typeof(byte), ElementName="function")]
-public byte Function
-{
-     get
-{
-          return _function;
-}
-     set
-{
-          _function = value;
-}
-}
-
-   ///<summary>
-   ///The UA emitter identification number relative to a specific system
-   ///</summary>
-public void setAcousticIdNumber(byte pAcousticIdNumber)
-{ _acousticIdNumber = pAcousticIdNumber;
-}
-
-[XmlElement(Type= typeof(byte), ElementName="acousticIdNumber")]
-public byte AcousticIdNumber
-{
-     get
-{
-          return _acousticIdNumber;
-}
-     set
-{
-          _acousticIdNumber = value;
-}
-}
-
-
-///<summary>
-///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
-///</summary>
-public void marshal(DataOutputStream dos)
-{
-    try 
+    /**
+     * Section 5.2.35. information about a specific UA emmtter
+     *
+     * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
+     * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
+     *
+     * @author DMcG
+     * Modified for use with C#:
+     * Peter Smith (Naval Air Warfare Center - Training Systems Division)
+     */
+    [Serializable]
+    [XmlRoot]
+    public class AcousticEmitter : Object
     {
-       dos.writeUshort((ushort)_acousticName);
-       dos.writeByte((byte)_function);
-       dos.writeByte((byte)_acousticIdNumber);
-    } // end try 
-    catch(Exception e)
-    { 
-      Trace.WriteLine(e);
-      Trace.Flush();
-    }
-} // end of marshal method
+        /** the system for a particular UA emitter, and an enumeration */
+        protected ushort  _acousticName;
 
-public void unmarshal(DataInputStream dis)
-{
-    try 
-    {
-       _acousticName = dis.readUshort();
-       _function = dis.readByte();
-       _acousticIdNumber = dis.readByte();
-    } // end try 
-   catch(Exception e)
-    { 
-      Trace.WriteLine(e); 
-      Trace.Flush();
-    }
- } // end of unmarshal method 
+        /** The function of the acoustic system */
+        protected byte  _function;
+
+        /** The UA emitter identification number relative to a specific system */
+        protected byte  _acousticIdNumber;
 
 
-   ///<summary>
-   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
-   ///This will be modified in the future to provide a better display.  Usage: 
-   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
-   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
-   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
-   ///</summary>
-public void reflection(StringBuilder sb)
-{
-    sb.Append("<AcousticEmitter>"  + System.Environment.NewLine);
-    try 
-    {
-           sb.Append("<acousticName type=\"ushort\">" + _acousticName.ToString() + "</acousticName> " + System.Environment.NewLine);
-           sb.Append("<function type=\"byte\">" + _function.ToString() + "</function> " + System.Environment.NewLine);
-           sb.Append("<acousticIdNumber type=\"byte\">" + _acousticIdNumber.ToString() + "</acousticIdNumber> " + System.Environment.NewLine);
-    sb.Append("</AcousticEmitter>"  + System.Environment.NewLine);
-    } // end try 
-    catch(Exception e)
-    { 
-      Trace.WriteLine(e);
-      Trace.Flush();
-}
-    } // end of marshal method
+        /** Constructor */
+        ///<summary>
+        ///Section 5.2.35. information about a specific UA emmtter
+        ///</summary>
+        public AcousticEmitter()
+        {
+        }
+
+        public int getMarshalledSize()
+        {
+            int marshalSize = 0; 
+
+            marshalSize = marshalSize + 2;  // _acousticName
+            marshalSize = marshalSize + 1;  // _function
+            marshalSize = marshalSize + 1;  // _acousticIdNumber
+
+            return marshalSize;
+        }
+
+
+        ///<summary>
+        ///the system for a particular UA emitter, and an enumeration
+        ///</summary>
+        public void setAcousticName(ushort pAcousticName)
+        { 
+            _acousticName = pAcousticName;
+        }
+
+        [XmlElement(Type= typeof(ushort), ElementName="acousticName")]
+        public ushort AcousticName
+        {
+            get
+            {
+                return _acousticName;
+            }
+            set
+            {
+                _acousticName = value;
+            }
+        }
+
+        ///<summary>
+        ///The function of the acoustic system
+        ///</summary>
+        public void setFunction(byte pFunction)
+        { 
+            _function = pFunction;
+        }
+
+        [XmlElement(Type= typeof(byte), ElementName="function")]
+        public byte Function
+        {
+            get
+            {
+                return _function;
+            }
+            set
+            {
+                _function = value;
+            }
+        }
+
+        ///<summary>
+        ///The UA emitter identification number relative to a specific system
+        ///</summary>
+        public void setAcousticIdNumber(byte pAcousticIdNumber)
+        { 
+            _acousticIdNumber = pAcousticIdNumber;
+        }
+
+        [XmlElement(Type= typeof(byte), ElementName="acousticIdNumber")]
+        public byte AcousticIdNumber
+        {
+            get
+            {
+                return _acousticIdNumber;
+            }
+            set
+            {
+                _acousticIdNumber = value;
+            }
+        }
+
+
+        ///<summary>
+        ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+        ///</summary>
+        public void marshal(DataOutputStream dos)
+        {
+            try
+            {
+                dos.writeUshort((ushort)_acousticName);
+                dos.writeByte((byte)_function);
+                dos.writeByte((byte)_acousticIdNumber);
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of marshal method
+
+        public void unmarshal(DataInputStream dis)
+        {
+            try
+            {
+                _acousticName = dis.readUshort();
+                _function = dis.readByte();
+                _acousticIdNumber = dis.readByte();
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of unmarshal method
+
+        ///<summary>
+        ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+        ///This will be modified in the future to provide a better display.  Usage: 
+        ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+        ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+        ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+        ///</summary>
+        public void reflection(StringBuilder sb)
+        {
+            sb.Append("<AcousticEmitter>"  + System.Environment.NewLine);
+            try
+            {
+                sb.Append("<acousticName type=\"ushort\">" + _acousticName.ToString() + "</acousticName> " + System.Environment.NewLine);
+                sb.Append("<function type=\"byte\">" + _function.ToString() + "</function> " + System.Environment.NewLine);
+                sb.Append("<acousticIdNumber type=\"byte\">" + _acousticIdNumber.ToString() + "</acousticIdNumber> " + System.Environment.NewLine);
+                sb.Append("</AcousticEmitter>"  + System.Environment.NewLine);
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of reflection method
 
         public static bool operator !=(AcousticEmitter a, AcousticEmitter b)
         {
-                return !(a == b);
+            return !(a == b);
         }
 
         public static bool operator ==(AcousticEmitter a, AcousticEmitter b)
         {
-                if (System.Object.ReferenceEquals(a, b))
-                {
-                      return true;
-                }
+            if (System.Object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
 
-                if (((object)a == null) || ((object)b == null))
-                {
-                     return false;
-                }
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
 
-                     return a.equals(b);
+            return a.equals(b);
         }
 
 
- /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-  */
- public bool equals(AcousticEmitter rhs)
- {
-     bool ivarsEqual = true;
+        public override bool Equals(object obj)
+        {
+            return this == obj as AcousticEmitter;
+        }
 
-    if(rhs.GetType() != this.GetType())
-        return false;
 
-     if( ! (_acousticName == rhs._acousticName)) ivarsEqual = false;
-     if( ! (_function == rhs._function)) ivarsEqual = false;
-     if( ! (_acousticIdNumber == rhs._acousticIdNumber)) ivarsEqual = false;
+        /**
+         * Compares for reference equality and value equality.
+         */
+        public bool equals(AcousticEmitter rhs)
+        {
+            bool ivarsEqual = true;
 
-    return ivarsEqual;
- }
-} // end of class
+            if(rhs.GetType() != this.GetType())
+                return false;
+
+
+            if( ! (_acousticName == rhs._acousticName)) ivarsEqual = false;
+            if( ! (_function == rhs._function)) ivarsEqual = false;
+            if( ! (_acousticIdNumber == rhs._acousticIdNumber)) ivarsEqual = false;
+
+            return ivarsEqual;
+        }
+
+        /**
+         * HashCode Helper
+         */
+        private int GenerateHash(int hash)
+        {
+            hash = hash << 5 + hash;
+            return(hash);
+        }
+
+
+        /**
+         * Return Hash
+         */
+        public override int GetHashCode()
+        {
+            int result = 0;
+
+            result = GenerateHash(result) ^ _acousticName.GetHashCode();
+            result = GenerateHash(result) ^ _function.GetHashCode();
+            result = GenerateHash(result) ^ _acousticIdNumber.GetHashCode();
+
+            return result;
+        }
+    } // end of class
 } // end of namespace

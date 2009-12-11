@@ -39,136 +39,166 @@ using DISnet.DataStreamUtilities;
 namespace DIS1998net
 {
 
-/**
- * Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU
- *
- * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
- * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
- *
- * @author DMcG
- * Modified for use with C#:
- * Peter Smith (Naval Air Warfare Center - Training Systems Division)
- */
-[Serializable]
-[XmlRoot]
-public partial class DistributedEmissionsFamilyPdu : Pdu
-{
-
-/** Constructor */
-   ///<summary>
-   ///Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU
-   ///</summary>
- public DistributedEmissionsFamilyPdu()
- {
-    ProtocolFamily = (byte)6;
- }
-
-new public int getMarshalledSize()
-{
-   int marshalSize = 0; 
-
-   marshalSize = base.getMarshalledSize();
-
-   return marshalSize;
-}
-
-
-///<summary>
-///Automatically sets the length of the marshalled data, then calls the marshal method.
-///</summary>
-public void marshalAutoLengthSet(DataOutputStream dos)
-{
-       //Set the length prior to marshalling data
-       this.setLength((ushort)this.getMarshalledSize());
-       this.marshal(dos);
-}
-
-///<summary>
-///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
-///</summary>
-new public void marshal(DataOutputStream dos)
-{
-    base.marshal(dos);
-    try 
+    /**
+     * Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU
+     *
+     * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.
+     * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html
+     *
+     * @author DMcG
+     * Modified for use with C#:
+     * Peter Smith (Naval Air Warfare Center - Training Systems Division)
+     */
+    [Serializable]
+    [XmlRoot]
+    public class DistributedEmissionsFamilyPdu : Pdu
     {
-    } // end try 
-    catch(Exception e)
-    { 
-      Trace.WriteLine(e);
-      Trace.Flush();
-    }
-} // end of marshal method
 
-new public void unmarshal(DataInputStream dis)
-{
-    base.unmarshal(dis);
+        /** Constructor */
+        ///<summary>
+        ///Section 5.3.7. Electronic Emissions. Abstract superclass for distirubted emissions PDU
+        ///</summary>
+        public DistributedEmissionsFamilyPdu()
+        {
+            ProtocolFamily = (byte)6;
+        }
 
-    try 
-    {
-    } // end try 
-   catch(Exception e)
-    { 
-      Trace.WriteLine(e); 
-      Trace.Flush();
-    }
- } // end of unmarshal method 
+        new public int getMarshalledSize()
+        {
+            int marshalSize = 0; 
+
+            marshalSize = base.getMarshalledSize();
+
+            return marshalSize;
+        }
 
 
-   ///<summary>
-   ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
-   ///This will be modified in the future to provide a better display.  Usage: 
-   ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
-   ///where pdu is an object representing a single pdu and sb is a StringBuilder.
-   ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
-   ///</summary>
-new public void reflection(StringBuilder sb)
-{
-    sb.Append("<DistributedEmissionsFamilyPdu>"  + System.Environment.NewLine);
-    base.reflection(sb);
-    try 
-    {
-    sb.Append("</DistributedEmissionsFamilyPdu>"  + System.Environment.NewLine);
-    } // end try 
-    catch(Exception e)
-    { 
-      Trace.WriteLine(e);
-      Trace.Flush();
-}
-    } // end of marshal method
+        ///<summary>
+        ///Automatically sets the length of the marshalled data, then calls the marshal method.
+        ///</summary>
+        public void marshalAutoLengthSet(DataOutputStream dos)
+        {
+            //Set the length prior to marshalling data
+            this.setLength((ushort)this.getMarshalledSize());
+            this.marshal(dos);
+        }
+
+        ///<summary>
+        ///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method
+        ///</summary>
+        new public void marshal(DataOutputStream dos)
+        {
+            base.marshal(dos);
+            try
+            {
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of marshal method
+
+        new public void unmarshal(DataInputStream dis)
+        {
+            base.unmarshal(dis);
+
+            try
+            {
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of unmarshal method
+
+        ///<summary>
+        ///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.
+        ///This will be modified in the future to provide a better display.  Usage: 
+        ///pdu.GetType().InvokeMember("reflection", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });
+        ///where pdu is an object representing a single pdu and sb is a StringBuilder.
+        ///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality
+        ///</summary>
+        new public void reflection(StringBuilder sb)
+        {
+            sb.Append("<DistributedEmissionsFamilyPdu>"  + System.Environment.NewLine);
+            base.reflection(sb);
+            try
+            {
+                sb.Append("</DistributedEmissionsFamilyPdu>"  + System.Environment.NewLine);
+            } // end try
+            catch(Exception e)
+            {
+                Trace.WriteLine(e);
+                Trace.Flush();
+            }
+        } // end of reflection method
 
         public static bool operator !=(DistributedEmissionsFamilyPdu a, DistributedEmissionsFamilyPdu b)
         {
-                return !(a == b);
+            return !(a == b);
         }
 
         public static bool operator ==(DistributedEmissionsFamilyPdu a, DistributedEmissionsFamilyPdu b)
         {
-                if (System.Object.ReferenceEquals(a, b))
-                {
-                      return true;
-                }
+            if (System.Object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
 
-                if (((object)a == null) || ((object)b == null))
-                {
-                     return false;
-                }
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
 
-                     return a.equals(b);
+            return a.equals(b);
         }
 
 
- /**
-  * The equals method doesn't always work--mostly on on classes that consist only of primitives. Be careful.
-  */
- public bool equals(DistributedEmissionsFamilyPdu rhs)
- {
-     bool ivarsEqual = true;
-
-    if(rhs.GetType() != this.GetType())
-        return false;
+        public override bool Equals(object obj)
+        {
+            return this == obj as DistributedEmissionsFamilyPdu;
+        }
 
 
-    return ivarsEqual;
- }
-} // end of class
+        /**
+         * Compares for reference equality and value equality.
+         */
+        public bool equals(DistributedEmissionsFamilyPdu rhs)
+        {
+            bool ivarsEqual = true;
+
+            if(rhs.GetType() != this.GetType())
+                return false;
+
+            ivarsEqual = base.Equals(rhs);
+
+
+            return ivarsEqual;
+        }
+
+        /**
+         * HashCode Helper
+         */
+        private int GenerateHash(int hash)
+        {
+            hash = hash << 5 + hash;
+            return(hash);
+        }
+
+
+        /**
+         * Return Hash
+         */
+        public override int GetHashCode()
+        {
+            int result = 0;
+
+            result = GenerateHash(result) ^ base.GetHashCode();
+
+
+            return result;
+        }
+    } // end of class
 } // end of namespace
