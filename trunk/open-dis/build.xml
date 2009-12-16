@@ -45,49 +45,45 @@
          must run patch after this to apply known manual fixes to the source code generated.
     --> 
     <target name="generateJavaDisSourceCode" depends="init" description = "run program to generate java">
-        <java classname="edu.nps.moves.xmlpg.Xmlpg">
-            <classpath refid="lib.path"/>
-            <arg value="-l"/>
-            <arg value="java"/>
-            <arg value="DIS1998.xml"/>
-            <arg value="${src}"/>
-        </java>
-
+        <property name="disxml" value="DIS1998.xml"/>
+        <property name="javadir" value="${src}"/>
+        <property name="cppdir" value="-1"/>
+        <property name="csharpdir" value="-1"/>
+        <property name="objcdir" value="-1"/>
+        <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="generateDisSourceCode"/>
     </target>
 
      <target name="generateJavaDis2009SourceCode" depends="init" description = "run program to generate java">
-        <java classname="edu.nps.moves.xmlpg.Xmlpg">
-            <classpath refid="lib.path"/>
-            <arg value="-l"/>
-            <arg value="java"/>
-            <arg value="DIS2009.xml"/>
-            <arg value="${src}"/>
-        </java>
+        <property name="disxml" value="DIS2009.xml"/>
+        <property name="javadir" value="${src}"/>
+        <property name="cppdir" value="-1"/>
+        <property name="csharpdir" value="-1"/>
+        <property name="objcdir" value="-1"/>
+        <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="generateDisSourceCode"/>
     </target>
 
     <target name="generateCppDisSourceCode" depends="init" description = "run program to generate cpp">
-        <java classname="edu.nps.moves.xmlpg.Xmlpg">
-            <classpath refid="lib.path"/>
-            <arg value="-l"/>
-            <arg value="cpp"/>
-            <arg value="DIS1998.xml"/>
-            <arg value="Cpp"/>
-        </java>
-
+        <property name="disxml" value="DIS1998.xml"/>
+        <property name="javadir" value="-1"/>
+        <property name="cppdir" value="cpp"/>
+        <property name="csharpdir" value="-1"/>
+        <property name="objcdir" value="-1"/>
         <!-- apply the patches, manual changes to the code captured in the patch files -->
-        <antcall target="patch"/>
+        <antcall target="generateDisSourceCode"/>
     </target>
 
-     <target name="generateCsharpDisSourceCode" depends="init" description = "run program to generate csharp">
-        <java classname="edu.nps.moves.xmlpg.Xmlpg">
-            <classpath refid="lib.path"/>
-            <arg value="-l"/>
-            <arg value="csharp"/>
-            <arg value="DIS1998.xml"/>
-            <arg value="CSharp"/>
-        </java>
+     <target name="generateCsharpDisSourceCode1998" depends="init" description = "run program to generate csharp">
+        <property name="disxml" value="DIS1998.xml"/>
+        <property name="javadir" value="-1"/>
+        <property name="cppdir" value="-1"/>
+        <property name="csharpdir" value="CSharp/DIS"/>
+        <property name="objcdir" value="-1"/>
           <!-- apply the patches, manual changes to the code captured in the patch files -->
-        <antcall target="patch"/>
+        <antcall target="generateDisSourceCode"/>
+        <!-- fix eol for generated source depending on host platform -->
+        <fixcrlf srcdir="${csharpdir}" includes="**/*.cs"/>
     </target>
 
      <target name="generateObjcDisSourceCode" depends="init" description = "run program to generate Objc">
@@ -102,8 +98,39 @@
         <antcall target="patch"/>
     </target>
 
+    <target name="generateSourceCodeUsingProperties" depends="init" description = "run program to generate Objc">
+        <!-- load all location and release properties -->
+        <property file="generatesourcesoptions.properties" />
+        <antcall target="generateDisSourceCode"/>
+    </target>
 
+    <target name="check-prerequisites-generate">
+        <condition property="properties-set">
+            <and>
+                <isset property="disxml"/>
+                <isset property="javadir"/>
+                <isset property="cppdir"/>
+                <isset property="csharpdir"/>
+                <isset property="objcdir"/>
+            </and>
+        </condition>
+        <fail message="Not all prerequisite properties are defined properly!" unless="properties-set"/>
+    </target>
 
+    <target name="generateDisSourceCode" depends="init, check-prerequisites-generate" description = "run program to generate DIS source code">
+        <echo message="Generating DIS source code for java, cpp, csharp, objc."/>
+        <java classname="edu.nps.moves.xmlpg.Xmlpg">
+            <classpath refid="lib.path"/>
+            <arg value="${disxml}"/>
+            <arg value="${javadir}"/>
+            <arg value="${cppdir}"/>
+            <arg value="${csharpdir}"/>
+            <arg value="${objcdir}"/>
+        </java>
+        <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="patch"/>
+
+    </target>
 
     <!-- compile the java code -->
     <target name="compile" depends="init" description="Compile java code">
@@ -139,7 +166,7 @@
         </schemagen>
         <move file="schema1.xsd" tofile="disJaxb.xsd"/>
     </target>
-    
+
     <!-- Run patch scripts on the generated code to fix various problems. This is run by the generateDisSourceCode task -->
     <target name="patch" description="patch generated source code">
         <!--exec executable="patches/applyPatches.bash"-->
@@ -148,7 +175,7 @@
         
         <!-- Use this property for most Unix platforms -->
         <property name="bash" value="/bin/bash"/>
-        <exec executable="${bash}">
+        <exec executable="${bash}" osfamily="unix">
             <!-- Add an extra dash in front of the login for cygwin. The other extra arguments seem to help -->
             <!--arg value="-login"/-->
             <!--arg value="-i"/-->
@@ -159,7 +186,7 @@
         </exec>
     </target>
     
-       <target name="jar" depends="compile" description="Build jar">
+    <target name="jar" depends="compile" description="Build jar">
         <mkdir dir="${dist}"/>
         <!-- Exclude test classes from distribution -->
         <jar jarfile="${jarfile}" basedir="build" excludes="test"/>
