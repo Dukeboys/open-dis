@@ -325,7 +325,8 @@ public class CsharpGenerator extends Generator {
             }
         }
 
-        pw.println(indent, "public class " + aClass.getName() + " : " + parentClass);
+        pw.println(indent, "public partial class " + aClass.getName() + " : " + parentClass); //PES 12-02-2009 added based upon user "Rogier" request
+
 
         pw.println(indent, "{");
     }
