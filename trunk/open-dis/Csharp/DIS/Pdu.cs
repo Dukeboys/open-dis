@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class Pdu : Object
+    public partial class Pdu : Object
     {
         /** The version of the protocol. 5=DIS-1995, 6=DIS-1998. */
         protected byte  _protocolVersion = 6;

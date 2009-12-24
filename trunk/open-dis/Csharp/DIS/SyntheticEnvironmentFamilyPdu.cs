@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class SyntheticEnvironmentFamilyPdu : Pdu
+    public partial class SyntheticEnvironmentFamilyPdu : Pdu
     {
 
         /** Constructor */

@@ -54,7 +54,7 @@ namespace DIS1998net
     [XmlInclude(typeof(EntityID))]
     [XmlInclude(typeof(EntityType))]
     [XmlInclude(typeof(Environment))]
-    public class EnvironmentalProcessPdu : SyntheticEnvironmentFamilyPdu
+    public partial class EnvironmentalProcessPdu : SyntheticEnvironmentFamilyPdu
     {
         /** Environmental process ID */
         protected EntityID  _environementalProcessID = new EntityID(); 

@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(EntityType))]
-    public class SupplyQuantity : Object
+    public partial class SupplyQuantity : Object
     {
         /** Type of supply */
         protected EntityType  _supplyType = new EntityType(); 

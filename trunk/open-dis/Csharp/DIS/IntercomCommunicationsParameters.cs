@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class IntercomCommunicationsParameters : Object
+    public partial class IntercomCommunicationsParameters : Object
     {
         /** Type of intercom parameters record */
         protected ushort  _recordType;

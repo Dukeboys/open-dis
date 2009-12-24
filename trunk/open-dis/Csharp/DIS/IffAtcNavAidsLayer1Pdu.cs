@@ -56,7 +56,7 @@ namespace DIS1998net
     [XmlInclude(typeof(Vector3Float))]
     [XmlInclude(typeof(SystemID))]
     [XmlInclude(typeof(IffFundamentalData))]
-    public class IffAtcNavAidsLayer1Pdu : DistributedEmissionsFamilyPdu
+    public partial class IffAtcNavAidsLayer1Pdu : DistributedEmissionsFamilyPdu
     {
         /** ID of the entity that is the source of the emissions */
         protected EntityID  _emittingEntityId = new EntityID(); 

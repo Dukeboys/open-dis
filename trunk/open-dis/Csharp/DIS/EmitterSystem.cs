@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class EmitterSystem : Object
+    public partial class EmitterSystem : Object
     {
         /** Name of the emitter, 16 bit enumeration */
         protected ushort  _emitterName;

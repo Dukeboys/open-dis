@@ -56,7 +56,7 @@ namespace DIS1998net
     [XmlInclude(typeof(Vector3Double))]
     [XmlInclude(typeof(Orientation))]
     [XmlInclude(typeof(SimulationAddress))]
-    public class PointObjectStatePdu : SyntheticEnvironmentFamilyPdu
+    public partial class PointObjectStatePdu : SyntheticEnvironmentFamilyPdu
     {
         /** Object in synthetic environment */
         protected EntityID  _objectID = new EntityID(); 

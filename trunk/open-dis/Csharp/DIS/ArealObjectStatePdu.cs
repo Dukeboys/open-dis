@@ -56,7 +56,7 @@ namespace DIS1998net
     [XmlInclude(typeof(SixByteChunk))]
     [XmlInclude(typeof(SimulationAddress))]
     [XmlInclude(typeof(Vector3Double))]
-    public class ArealObjectStatePdu : SyntheticEnvironmentFamilyPdu
+    public partial class ArealObjectStatePdu : SyntheticEnvironmentFamilyPdu
     {
         /** Object in synthetic environment */
         protected EntityID  _objectID = new EntityID(); 

@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(EntityID))]
-    public class ReceiverPdu : RadioCommunicationsFamilyPdu
+    public partial class ReceiverPdu : RadioCommunicationsFamilyPdu
     {
         /** encoding scheme used, and enumeration */
         protected ushort  _receiverState;

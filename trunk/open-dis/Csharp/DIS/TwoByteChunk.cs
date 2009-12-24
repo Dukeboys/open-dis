@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class TwoByteChunk : Object
+    public partial class TwoByteChunk : Object
     {
         /** two bytes of arbitrary data */
         protected byte[]  _otherParameters = new byte[2]; 

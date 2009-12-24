@@ -53,7 +53,7 @@ namespace DIS1998net
     [XmlRoot]
     [XmlInclude(typeof(FixedDatum))]
     [XmlInclude(typeof(VariableDatum))]
-    public class DataQueryReliablePdu : SimulationManagementWithReliabilityFamilyPdu
+    public partial class DataQueryReliablePdu : SimulationManagementWithReliabilityFamilyPdu
     {
         /** level of reliability service used for this transaction */
         protected byte  _requiredReliabilityService;

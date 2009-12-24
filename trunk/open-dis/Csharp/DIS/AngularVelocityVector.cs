@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class AngularVelocityVector : Object
+    public partial class AngularVelocityVector : Object
     {
         /** velocity about the x axis */
         protected float  _x = 0;

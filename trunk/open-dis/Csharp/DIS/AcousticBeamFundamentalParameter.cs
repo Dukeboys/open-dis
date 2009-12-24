@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class AcousticBeamFundamentalParameter : Object
+    public partial class AcousticBeamFundamentalParameter : Object
     {
         /** parameter index */
         protected ushort  _activeEmissionParameterIndex;

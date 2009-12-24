@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class IffFundamentalData : Object
+    public partial class IffFundamentalData : Object
     {
         /** system status */
         protected byte  _systemStatus;

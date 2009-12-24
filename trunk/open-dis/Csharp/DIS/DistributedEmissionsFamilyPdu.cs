@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class DistributedEmissionsFamilyPdu : Pdu
+    public partial class DistributedEmissionsFamilyPdu : Pdu
     {
 
         /** Constructor */

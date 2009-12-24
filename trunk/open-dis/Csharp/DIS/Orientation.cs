@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class Orientation : Object
+    public partial class Orientation : Object
     {
         protected float  _psi;
 

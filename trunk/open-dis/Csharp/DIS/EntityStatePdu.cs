@@ -59,7 +59,7 @@ namespace DIS1998net
     [XmlInclude(typeof(DeadReckoningParameter))]
     [XmlInclude(typeof(Marking))]
     [XmlInclude(typeof(ArticulationParameter))]
-    public class EntityStatePdu : EntityInformationFamilyPdu
+    public partial class EntityStatePdu : EntityInformationFamilyPdu
     {
         /** Unique ID for an entity that is tied to this state information */
         protected EntityID  _entityID = new EntityID(); 

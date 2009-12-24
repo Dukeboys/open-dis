@@ -53,7 +53,7 @@ namespace DIS1998net
     [XmlRoot]
     [XmlInclude(typeof(FixedDatum))]
     [XmlInclude(typeof(VariableDatum))]
-    public class ActionResponseReliablePdu : SimulationManagementWithReliabilityFamilyPdu
+    public partial class ActionResponseReliablePdu : SimulationManagementWithReliabilityFamilyPdu
     {
         /** request ID */
         protected uint  _requestID;

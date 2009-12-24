@@ -54,7 +54,7 @@ namespace DIS1998net
     [XmlInclude(typeof(EmitterSystem))]
     [XmlInclude(typeof(Vector3Float))]
     [XmlInclude(typeof(ElectronicEmissionBeamData))]
-    public class ElectronicEmissionSystemData : Object
+    public partial class ElectronicEmissionSystemData : Object
     {
         /** This field shall specify the length of this emitter system?s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
         protected byte  _systemDataLength;

@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class EntityManagementFamilyPdu : Pdu
+    public partial class EntityManagementFamilyPdu : Pdu
     {
 
         /** Constructor */

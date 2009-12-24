@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class BeamData : Object
+    public partial class BeamData : Object
     {
         /** Specifies the beam azimuth an elevation centers and corresponding half-angles     to describe the scan volume */
         protected float  _beamAzimuthCenter;

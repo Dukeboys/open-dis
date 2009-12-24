@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(EntityID))]
-    public class WarfareFamilyPdu : Pdu
+    public partial class WarfareFamilyPdu : Pdu
     {
         /** ID of the entity that shot */
         protected EntityID  _firingEntityID = new EntityID(); 

@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class FundamentalParameterDataIff : Object
+    public partial class FundamentalParameterDataIff : Object
     {
         /** ERP */
         protected float  _erp;

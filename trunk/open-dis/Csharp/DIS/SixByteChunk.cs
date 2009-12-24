@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class SixByteChunk : Object
+    public partial class SixByteChunk : Object
     {
         /** six bytes of arbitrary data */
         protected byte[]  _otherParameters = new byte[6]; 

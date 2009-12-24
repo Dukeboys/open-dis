@@ -54,7 +54,7 @@ namespace DIS1998net
     [XmlInclude(typeof(EntityID))]
     [XmlInclude(typeof(EventID))]
     [XmlInclude(typeof(Vector3Float))]
-    public class CollisionElasticPdu : EntityInformationFamilyPdu
+    public partial class CollisionElasticPdu : EntityInformationFamilyPdu
     {
         /** ID of the entity that issued the collision PDU */
         protected EntityID  _issuingEntityID = new EntityID(); 

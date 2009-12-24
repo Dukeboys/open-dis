@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class ApaData : Object
+    public partial class ApaData : Object
     {
         /** Index of APA parameter */
         protected ushort  _parameterIndex;

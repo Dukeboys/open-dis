@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(EightByteChunk))]
-    public class VariableDatum : Object
+    public partial class VariableDatum : Object
     {
         /** ID of the variable datum */
         protected uint  _variableDatumID;

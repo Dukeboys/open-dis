@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(OneByteChunk))]
-    public class GridAxisRecordRepresentation0 : GridAxisRecord
+    public partial class GridAxisRecordRepresentation0 : GridAxisRecord
     {
         /** number of bytes of environmental state data */
         protected ushort  _numberOfBytes;

@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class FundamentalParameterData : Object
+    public partial class FundamentalParameterData : Object
     {
         /** center frequency of the emission in hertz. */
         protected float  _frequency;

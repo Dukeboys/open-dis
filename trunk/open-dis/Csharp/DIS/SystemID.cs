@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class SystemID : Object
+    public partial class SystemID : Object
     {
         /** System Type */
         protected ushort  _systemType;

@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(EntityID))]
-    public class TrackJamTarget : Object
+    public partial class TrackJamTarget : Object
     {
         /** track/jam target */
         protected EntityID  _trackJam = new EntityID(); 

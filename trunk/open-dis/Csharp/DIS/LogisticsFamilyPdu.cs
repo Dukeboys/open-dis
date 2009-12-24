@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class LogisticsFamilyPdu : Pdu
+    public partial class LogisticsFamilyPdu : Pdu
     {
 
         /** Constructor */

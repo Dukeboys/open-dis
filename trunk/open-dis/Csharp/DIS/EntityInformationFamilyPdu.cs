@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class EntityInformationFamilyPdu : Pdu
+    public partial class EntityInformationFamilyPdu : Pdu
     {
 
         /** Constructor */

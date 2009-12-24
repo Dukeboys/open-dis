@@ -53,7 +53,7 @@ namespace DIS1998net
     [XmlRoot]
     [XmlInclude(typeof(FundamentalParameterData))]
     [XmlInclude(typeof(TrackJamTarget))]
-    public class ElectronicEmissionBeamData : Object
+    public partial class ElectronicEmissionBeamData : Object
     {
         /** This field shall specify the length of this beams data in 32 bit words */
         protected byte  _beamDataLength;

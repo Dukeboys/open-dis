@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class CreateEntityPdu : SimulationManagementFamilyPdu
+    public partial class CreateEntityPdu : SimulationManagementFamilyPdu
     {
         /** Identifier for the request */
         protected uint  _requestID;

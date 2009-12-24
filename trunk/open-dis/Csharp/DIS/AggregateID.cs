@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class AggregateID : Object
+    public partial class AggregateID : Object
     {
         /** The site ID */
         protected ushort  _site;

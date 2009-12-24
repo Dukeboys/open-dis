@@ -53,7 +53,7 @@ namespace DIS1998net
     [XmlRoot]
     [XmlInclude(typeof(Vector3Double))]
     [XmlInclude(typeof(Vector3Float))]
-    public class AntennaLocation : Object
+    public partial class AntennaLocation : Object
     {
         /** Location of the radiating portion of the antenna in world    coordinates */
         protected Vector3Double  _antennaLocation = new Vector3Double(); 

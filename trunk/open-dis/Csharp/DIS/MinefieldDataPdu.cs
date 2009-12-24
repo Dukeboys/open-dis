@@ -55,7 +55,7 @@ namespace DIS1998net
     [XmlInclude(typeof(EntityType))]
     [XmlInclude(typeof(TwoByteChunk))]
     [XmlInclude(typeof(Vector3Float))]
-    public class MinefieldDataPdu : MinefieldFamilyPdu
+    public partial class MinefieldDataPdu : MinefieldFamilyPdu
     {
         /** Minefield ID */
         protected EntityID  _minefieldID = new EntityID(); 

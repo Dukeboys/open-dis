@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class AcknowledgePdu : SimulationManagementFamilyPdu
+    public partial class AcknowledgePdu : SimulationManagementFamilyPdu
     {
         /** type of message being acknowledged */
         protected ushort  _acknowledgeFlag;

@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class GridAxisRecord : Object
+    public partial class GridAxisRecord : Object
     {
         /** type of environmental sample */
         protected ushort  _sampleType;

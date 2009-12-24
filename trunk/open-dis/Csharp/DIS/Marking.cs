@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class Marking : Object
+    public partial class Marking : Object
     {
         /** The character set */
         protected byte  _characterSet;

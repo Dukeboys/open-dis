@@ -56,7 +56,7 @@ namespace DIS1998net
     [XmlInclude(typeof(Vector3Double))]
     [XmlInclude(typeof(BurstDescriptor))]
     [XmlInclude(typeof(Vector3Float))]
-    public class FirePdu : WarfareFamilyPdu
+    public partial class FirePdu : WarfareFamilyPdu
     {
         /** ID of the munition that is being shot */
         protected EntityID  _munitionID = new EntityID(); 

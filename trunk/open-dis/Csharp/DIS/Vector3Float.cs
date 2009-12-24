@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class Vector3Float : Object
+    public partial class Vector3Float : Object
     {
         /** X value */
         protected float  _x;

@@ -53,7 +53,7 @@ namespace DIS1998net
     [XmlRoot]
     [XmlInclude(typeof(EntityID))]
     [XmlInclude(typeof(VariableDatum))]
-    public class IsGroupOfPdu : EntityManagementFamilyPdu
+    public partial class IsGroupOfPdu : EntityManagementFamilyPdu
     {
         /** ID of aggregated entities */
         protected EntityID  _groupEntityID = new EntityID(); 

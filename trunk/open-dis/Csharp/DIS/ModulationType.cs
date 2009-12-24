@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class ModulationType : Object
+    public partial class ModulationType : Object
     {
         /** spread spectrum, 16 bit boolean array */
         protected ushort  _spreadSpectrum;

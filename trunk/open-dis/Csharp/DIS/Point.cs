@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class Point : Object
+    public partial class Point : Object
     {
         /** x */
         protected float  _x;

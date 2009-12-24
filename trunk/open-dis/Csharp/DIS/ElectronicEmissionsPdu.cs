@@ -54,7 +54,7 @@ namespace DIS1998net
     [XmlInclude(typeof(EntityID))]
     [XmlInclude(typeof(EventID))]
     [XmlInclude(typeof(ElectronicEmissionSystemData))]
-    public class ElectronicEmissionsPdu : DistributedEmissionsFamilyPdu
+    public partial class ElectronicEmissionsPdu : DistributedEmissionsFamilyPdu
     {
         /** ID of the entity emitting */
         protected EntityID  _emittingEntityID = new EntityID(); 

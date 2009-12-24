@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class EntityType : Object
+    public partial class EntityType : Object
     {
         /** Kind of entity */
         protected byte  _entityKind;

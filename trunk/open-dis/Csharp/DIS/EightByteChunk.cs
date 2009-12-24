@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class EightByteChunk : Object
+    public partial class EightByteChunk : Object
     {
         /** Eight bytes of arbitrary data */
         protected byte[]  _otherParameters = new byte[8]; 

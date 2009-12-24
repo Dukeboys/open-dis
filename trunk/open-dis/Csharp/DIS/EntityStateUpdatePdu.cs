@@ -56,7 +56,7 @@ namespace DIS1998net
     [XmlInclude(typeof(Vector3Double))]
     [XmlInclude(typeof(Orientation))]
     [XmlInclude(typeof(ArticulationParameter))]
-    public class EntityStateUpdatePdu : EntityInformationFamilyPdu
+    public partial class EntityStateUpdatePdu : EntityInformationFamilyPdu
     {
         /** This field shall identify the entity issuing the PDU */
         protected EntityID  _entityID = new EntityID(); 

@@ -53,7 +53,7 @@ namespace DIS1998net
     [XmlRoot]
     [XmlInclude(typeof(FixedDatum))]
     [XmlInclude(typeof(VariableDatum))]
-    public class SetDataPdu : SimulationManagementFamilyPdu
+    public partial class SetDataPdu : SimulationManagementFamilyPdu
     {
         /** ID of request */
         protected uint  _requestID;

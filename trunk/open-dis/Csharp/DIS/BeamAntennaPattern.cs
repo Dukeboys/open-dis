@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(Orientation))]
-    public class BeamAntennaPattern : Object
+    public partial class BeamAntennaPattern : Object
     {
         /** The rotation that transformst he reference coordinate sytem     into the beam coordinate system. Either world coordinates or entity coordinates may be used as the     reference coordinate system, as specified by teh reference system field of the antenna pattern record. */
         protected Orientation  _beamDirection = new Orientation(); 

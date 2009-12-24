@@ -55,7 +55,7 @@ namespace DIS1998net
     [XmlInclude(typeof(EntityType))]
     [XmlInclude(typeof(Orientation))]
     [XmlInclude(typeof(GridAxisRecord))]
-    public class GriddedDataPdu : SyntheticEnvironmentFamilyPdu
+    public partial class GriddedDataPdu : SyntheticEnvironmentFamilyPdu
     {
         /** environmental simulation application ID */
         protected EntityID  _environmentalSimulationApplicationID = new EntityID(); 

@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(Pdu))]
-    public class PduContainer : Object
+    public partial class PduContainer : Object
     {
         /** Number of PDUs in the container list */
         protected uint  _numberOfPdus;

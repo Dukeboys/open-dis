@@ -52,7 +52,7 @@ namespace DIS1998net
     [Serializable]
     [XmlRoot]
     [XmlInclude(typeof(FourByteChunk))]
-    public class GridAxisRecordRepresentation2 : GridAxisRecord
+    public partial class GridAxisRecordRepresentation2 : GridAxisRecord
     {
         /** number of values */
         protected ushort  _numberOfValues;

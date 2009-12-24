@@ -51,7 +51,7 @@ namespace DIS1998net
      */
     [Serializable]
     [XmlRoot]
-    public class SphericalHarmonicAntennaPattern : Object
+    public partial class SphericalHarmonicAntennaPattern : Object
     {
         protected byte  _order;
 
