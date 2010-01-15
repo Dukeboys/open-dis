@@ -52,12 +52,12 @@ namespace DISnet.Utilities
     {
         #region Fields
 
-        private const uint PDU_LENGTH_POSITION = 8;
-        private const uint PDU_TYPE_POSITION = 2;
-        private const uint PDU_VERSION_POSITION = 0;
+        protected const uint PDU_LENGTH_POSITION = 8;
+        protected const uint PDU_TYPE_POSITION = 2;
+        protected const uint PDU_VERSION_POSITION = 0;
 
-        private DISnet.DataStreamUtilities.EndianTypes.Endian edian = (BitConverter.IsLittleEndian ? DISnet.DataStreamUtilities.EndianTypes.Endian.LITTLE : DISnet.DataStreamUtilities.EndianTypes.Endian.BIG);
-        private System.Xml.Serialization.XmlSerializer xmlSerializedData;
+        protected DISnet.DataStreamUtilities.EndianTypes.Endian edian = (BitConverter.IsLittleEndian ? DISnet.DataStreamUtilities.EndianTypes.Endian.LITTLE : DISnet.DataStreamUtilities.EndianTypes.Endian.BIG);
+        protected System.Xml.Serialization.XmlSerializer xmlSerializedData;
 
         #endregion Fields
 
@@ -216,7 +216,7 @@ namespace DISnet.Utilities
             pdu.GetType().InvokeMember("unmarshal", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { dStream });
         }
 
-        private void ProcessPDU(Stream stream, out byte[] rawData)
+        virtual protected void ProcessPDU(Stream stream, out byte[] rawData)
         {
             int upToPDULength = (int)PDU_LENGTH_POSITION + sizeof(UInt16);
             int pduLength = 0;
@@ -253,7 +253,7 @@ namespace DISnet.Utilities
             }
         }
 
-        private object ProcessPDU(Stream stream)
+        virtual protected object ProcessPDU(Stream stream)
         {
             int upToPDULength = (int)PDU_LENGTH_POSITION + sizeof(UInt16);
             int pduLength = 0;
@@ -307,7 +307,7 @@ namespace DISnet.Utilities
         /// </summary>
         /// <param name="buf">byte array of PDU(s)</param>
         /// <returns>Collection of all PDU(s) decoded</returns>
-        private List<object> ProcessPDU(byte[] buf)
+        virtual protected List<object> ProcessPDU(byte[] buf)
         {
             List<object> pduCollection = new List<object>();
 
@@ -332,7 +332,7 @@ namespace DISnet.Utilities
                         Array.Reverse(buf, (int)PDU_LENGTH_POSITION, 2);
                     }
 
-                    pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION);
+                    pduLength = System.BitConverter.ToUInt16(buf, (int)PDU_LENGTH_POSITION + countBytes);
 
                     //Must be at end of datastream
                     if (pduLength == 0)
@@ -369,7 +369,7 @@ namespace DISnet.Utilities
         /// </summary>
         /// <param name="buf">byte array of PDU(s)</param>
         /// <returns>Collection of all PDU(s) in raw byte format</returns>
-        private List<byte[]> ProcessRawPDU(byte[] buf)
+        virtual protected List<byte[]> ProcessRawPDU(byte[] buf)
         {
             List<byte[]> pduCollection = new List<byte[]>();
 
@@ -431,7 +431,7 @@ namespace DISnet.Utilities
         ///<param name="pdu_type">Type of PDU</param>
         ///<param name="ds">PDU byte array containing the data</param>
         ///<returns></returns>         
-        private object SwitchOnType(byte pdu_version, uint pdu_type, byte[] ds)
+        virtual protected object SwitchOnType(byte pdu_version, uint pdu_type, byte[] ds)
         {
             object pdu = null;
 
