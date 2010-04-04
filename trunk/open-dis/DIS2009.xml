@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 
-<!-- XML description file for the DIS-2009 (draft 14 Delta) protocol. A few classes require manual clean up and intevention. -->
-<!-- Classes that need hand-modification include SignalPdu, TransmitterPdu, ElectromagneticEmissionPdu, etc -->
+<!-- XML description file for the DIS-200X (draft 14 Delta) protocol. Some classes require manual clean up and intevention. -->
 
 <classes>
 
@@ -9,7 +8,7 @@
 <java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*, javax.xml.bind.annotation.*" 
 -->
 <java imports="java.util.*, java.io.*, javax.xml.bind.annotation.*"
-      package="edu.nps.moves.dis2009"/>
+      package="edu.nps.moves.dis200x"/>
 
 <!--PES added for C# support-->
 <csharp using="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"/>
@@ -1333,7 +1332,444 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
+<class name="JammingTechnique" inheritsFrom="root" comment="Jamming technique. Section 6.2.50">
+
+    <attribute name="kind">
+        <primitive type="unsigned byte"/>
+     </attribute>
+     
+      <attribute name="category">
+        <primitive type="unsigned byte"/>
+     </attribute>
+     
+      <attribute name="subcategory">
+        <primitive type="unsigned byte"/>
+     </attribute>
+     
+      <attribute name="specific">
+        <primitive type="unsigned byte"/>
+     </attribute>
+
+</class>
+
+<class name="LaunchedMunitionRecord" inheritsFrom="root" comment="Identity of a communications node. Section 6.2.51">
+
+      <attribute name="fireEventID">
+        <classRef name="EventIdentifier"/>
+     </attribute>
+     
+     <attribute name="padding">
+        <primitive type="unsigned short"/>
+     </attribute>
+     
+      <attribute name="firingEntityID">
+        <classRef name="EventIdentifier"/>
+     </attribute>
+     
+      <attribute name="padding2">
+        <primitive type="unsigned short"/>
+     </attribute>
+     
+       <attribute name="targetEntityID">
+        <classRef name="EventIdentifier"/>
+     </attribute>
+     
+      <attribute name="padding3">
+        <primitive type="unsigned short"/>
+     </attribute>
+     
+       <attribute name="targetLocation">
+        <classRef name="Vector3Double"/>
+     </attribute>
+
+</class>
+
+<class name="LayerHeaderRecord" inheritsFrom="root" comment="The identification of the additional information layer number, layer-specific information, and the length of the layer. Section 6.2.52">
+
+      <attribute name="layerNumber">
+         <primitive type="unsigned byte"/>
+     </attribute>
+
+      <attribute name="layerSpecificInformation" comment="field shall specify layer-specific information that varies by System Type (see 6.2.86) and Layer Number.">
+         <primitive type="unsigned byte"/>
+     </attribute>
+
+      <attribute name="length" comment="This field shall specify the length in octets of the layer, including the Layer Header record">
+         <primitive type="unsgined short"/>
+     </attribute>
+
+</class>
+
+<class name="LinearSegmentParameterRecord" inheritsFrom="root" comment="The specification of an individual segment of a linear segment synthetic environment object in a Linear Object State PDU Section 6.2.53">
+
+     <attribute name="segmentNumber" comment="the individual segment of the linear segment "  >
+         <primitive type="unsigned byte"/>
+     </attribute>
+     
+     <attribute name="segmentModification" comment=" whether a modification has been made to the point object’s location or orientation">
+         <primitive type="unsigned byte"/>
+     </attribute>
+
+     <attribute name="generalSegmentAppearance" comment="general dynamic appearance attributes of the segment. This record shall be defined as a 16-bit record of enumerations. The values defined for this record are included in Section 12 of SISO-REF-010.">
+         <primitive type="unsigned short"/>
+     </attribute>
+
+     <attribute name="specificSegmentAppearance" comment="This field shall specify specific dynamic appearance attributes of the segment. This record shall be defined as a 32-bit record of enumerations.">
+         <primitive type="unsigned short"/>
+     </attribute>
+
+      <attribute name="segmentLocation" comment="This field shall specify the location of the linear segment in the simulated world and shall be represented by a World Coordinates record ">
+         <classRef name="Vector3Double"/>
+     </attribute>
+
+     <attribute name="segmentOrientation" comment="orientation of the linear segment about the segment location and shall be represented by a Euler Angles record ">
+         <classRef name="Orientation"/>
+     </attribute>
+
+      <attribute name="segmentLength" comment="length of the linear segment, in meters, extending in the positive X direction">
+         <primitive type="unsigned short"/>
+     </attribute>
+
+      <attribute name="segmentWidth" comment="The total width of the linear segment, in meters, shall be specified by a 16-bit unsigned integer. One-half of the width shall extend in the positive Y direction, and one-half of the width shall extend in the negative Y direction.">
+         <primitive type="unsigned short"/>
+     </attribute>
+
+      <attribute name="segmentHeight" comment="The height of the linear segment, in meters, above ground shall be specified by a 16-bit unsigned integer.">
+         <primitive type="unsigned short"/>
+     </attribute>
+
+      <attribute name="segmentDepth" comment="The depth of the linear segment, in meters, below ground level ">
+         <primitive type="unsigned short"/>
+     </attribute>
+
+</class>
+
+<class name="LiveEntityIdentifier" inheritsFrom="root"
+       comment="The unique designation of each entity in an event or exercise that is contained in a Live Entity PDU. Section 6.2.54 ">
+
+    <attribute name="liveSimulationAddress" comment="Live Simulation Address record (see 6.2.55) ">
+        <classRef name="LiveSimulationAddress"/>
+    </attribute>
+
+     <attribute name="entityNumber" comment="Live entity number ">
+         <primitive type="unsigned short"/>
+     </attribute>
     
+</class>
+
+<class name="LiveSimulationAddress" inheritsFrom="root"
+       comment="A simulation's designation associated with all Live Entity IDs contained in Live Entity PDUs. Section 6.2.55 ">
+
+    <attribute name="liveSiteNumber" comment="facility, installation, organizational unit or geographic location may have multiple sites associated with it. The Site Number is the first component of the Live Simulation Address, which defines a live simulation.">
+         <primitive type="unsigned byte"/>
+     </attribute>
+
+     <attribute name="liveApplicationNumber" comment="An application associated with a live site is termed a live application. Each live application participating in an event ">
+         <primitive type="unsigned short"/>
+     </attribute>
+
+</class>
+
+<class name="MineEntityIdentifierRecord" inheritsFrom="root"
+       comment="The unique designation of a mine contained in the Minefield Data PDU. No espdus are issued for mine entities.  Section 6.2.56 ">
+
+ <attribute name="simulationAddress" comment="">
+         <classRef name="SimulationAddress"/>
+ </attribute>
+
+  <attribute name="mineEntityNumber" comment="">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+</class>
+
+
+<class name="MinefieldIdentifierRecord" inheritsFrom="root"
+       comment="The unique designation of a minefield Section 6.2.57 ">
+
+ <attribute name="simulationAddress" comment="">
+         <classRef name="SimulationAddress"/>
+ </attribute>
+
+  <attribute name="minefieldNumber" comment="">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+</class>
+
+<class name="ModulationParametersRecord" inheritsFrom="root"
+       comment="Modulation parameters associated with a specific radio system. INCOMPLETE. 6.2.58 ">
+
+</class>
+
+<class name="ModulationTypeRecord" inheritsFrom="root"
+       comment="Information about the type of modulation used for radio transmission. 6.2.59 ">
+
+ <attribute name="spreadSpectrum" comment="This field shall indicate the spread spectrum technique or combination of spread spectrum techniques in use. Bt field.">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+  <attribute name="majorModulation" comment="the major classification of the modulation type. ">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+  <attribute name="detail" comment="provide certain detailed information depending upon the major modulation type">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+  <attribute name="radioSystem" comment="the radio system associated with this Transmitter PDU and shall be used as the basis to interpret other fields whose values depend on a specific radio system.">
+         <primitive type="unsigned short"/>
+ </attribute>
+ 
+</class>
+
+<class name="MunitionRecord" inheritsFrom="root"
+       comment="An entity's munition (e.g., bomb, missile) information shall be represented by one or more Munition records. For each type or location of munition, this record shall specify the type, location, quantity and status of munitions that an entity contains. Section 6.2.60 ">
+
+ <attribute name="munitionType" comment=" This field shall identify the entity type of the munition. See section 6.2.30.">
+         <classRef name="EntityType"/>
+ </attribute>
+
+  <attribute name="station" comment="the station or launcher to which the munition is assigned. See Annex I">
+         <primitive type="unsigned int"/>
+ </attribute>
+
+  <attribute name="quantity" comment="the quantity remaining of this munition.">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+  <attribute name="munitionStatus" comment=" the status of the munition. It shall be represented by an 8-bit enumeration. ">
+         <primitive type="unsigned byte"/>
+ </attribute>
+
+   <attribute name="padding" comment="padding ">
+         <primitive type="unsigned byte" defaultValue="0"/>
+ </attribute>
+
+</class>
+
+<class name="MunitionReloadRecord" inheritsFrom="root"
+       comment="indicate weapons (munitions) previously communicated via the Munition record. Section 6.2.61 ">
+
+<attribute name="munitionType" comment=" This field shall identify the entity type of the munition. See section 6.2.30.">
+         <classRef name="EntityType"/>
+ </attribute>
+
+  <attribute name="station" comment="the station or launcher to which the munition is assigned. See Annex I">
+         <primitive type="unsigned int"/>
+ </attribute>
+
+  <attribute name="standardQuantity" comment="the standard quantity of this munition type normally loaded at this station/launcher if a station/launcher is specified.">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+  <attribute name="maximumQuantity" comment="the maximum quantity of this munition type that this station/launcher is capable of holding when a station/launcher is specified ">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+  <attribute name="stationName" comment="the station name within the host at which the part entity is located.">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+  <attribute name="stationNumber" comment="the number of the particular wing station, cargo hold etc., at which the part is attached.">
+         <primitive type="unsigned short"/>
+ </attribute>
+ 
+</class>
+
+<class name="ObjectIdentifierRecord" inheritsFrom="root"
+       comment="The unique designation of an environmental object. Section 6.2.63">
+
+ <attribute name="simulationAddress" comment=" Simulation Address">
+         <classRef name="SimulationAddress"/>
+ </attribute>
+
+  <attribute name="objectNumber" comment="">
+         <primitive name="unsigned short"/>
+ </attribute>
+
+</class>
+
+
+<class name="ObjectTypeRecord" inheritsFrom="root"
+       comment="The unique designation of an environmental object. Section 6.2.64">
+
+    <attribute name="domain" comment="Domain of entity (air, surface, subsurface, space, etc)">
+        <primitive type="unsigned byte"/>
+    </attribute>
+
+    <attribute name="objectKind" comment="country to which the design of the entity is attributed" >
+        <primitive type="unsigned byte"/>
+    </attribute>
+
+    <attribute name="category" comment = "category of entity">
+        <primitive type="unsigned byte"/>
+    </attribute>
+
+    <attribute name="subcategory" comment="subcategory of entity">
+        <primitive type="unsigned byte"/>
+    </attribute>
+
+ </class>
+
+ <class name="OwnershipStatusRecord" inheritsFrom="root"
+       comment="used to convey entity and conflict status information associated with transferring ownership of an entity. Section 6.2.65">
+
+ <attribute name="entityId" comment="EntityID">
+        <classRef name="EntityID"/>
+    </attribute>
+
+     <attribute name="ownershipStatus" comment="The ownership and/or ownership conflict status of the entity represented by the Entity ID field.">
+        <primitive type="unsigned byte"/>
+    </attribute>
+
+     <attribute name="padding" comment="padding">
+        <primitive type="unsigned byte" defaultValue="0"/>
+    </attribute>
+ </class>
+
+<class name="PduHeaderRecord" inheritsFrom="root"
+       comment="Not used. The PDU Header Record is directly incoroporated into the PDU class. Here for completness only. Section 6.2.66"/>
+ 
+ <attribute name="protocolVersion" comment="The version of the protocol. 5=DIS-1995, 6=DIS-1998, 7=DIS-2009.">
+    <primitive type= "unsigned byte" defaultValue="7"/>
+  </attribute>
+  
+  <attribute name="exerciseID" comment="Exercise ID">
+    <primitive type= "unsigned byte" defaultValue="0"/>
+  </attribute>
+  
+  <attribute name="pduType" comment="Type of pdu, unique for each PDU class">
+    <primitive type="unsigned byte"/>
+  </attribute>
+  
+   <attribute name="protocolFamily" comment="value that refers to the protocol family, eg SimulationManagement, et">
+    <primitive type="unsigned byte"/>
+  </attribute>
+  
+  <attribute name="timestamp" comment="Timestamp value">
+    <primitive type="unsigned int"/>
+  </attribute>
+  
+  <attribute name="length" comment="Length, in bytes, of the PDU">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+   <attribute name="pduStatus" comment="PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions ">
+    <primitive type="unsigned short"/>
+  </attribute>
+  
+  <attribute name="padding" comment="zero-filled array of padding">
+     <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+<class name="PduStatusRecord" inheritsFrom="root"
+       comment="PDU Status. These are a series of bit fields. Represented here as just a byte. Section 6.2.67">
+
+   <attribute name="pduStatus" comment="Bit fields">
+     <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+<class name="PropulsionSystemDataRecord" inheritsFrom="root"
+       comment="contains information describing the propulsion systems of the entity. This information shall be provided for each active propulsion system defined. Section 6.2.68">
+
+ <attribute name="powerSetting" comment="powerSetting">
+    <primitive type="float"/>
+  </attribute>
+
+ <attribute name="engineRpm" comment="engine RPMs">
+    <primitive type="float"/>
+  </attribute>
+
+</class>
+
+<class name="PropulsionSystemDataRecord" inheritsFrom="root"
+       comment="The unique designation of an attached or unattached radio in an event or exercise Section 6.2.69">
+
+ <attribute name="siteNumber" comment=" site">
+    <primitive tpe="unsigned short"/>
+  </attribute>
+
+  <attribute name="applicationNumber" comment="application number">
+    <primitive tpe="unsigned short"/>
+  </attribute>
+
+  <attribute name="referenceNumber" comment=" reference number">
+    <primitive tpe="unsigned short"/>
+  </attribute>
+  
+ <attribute name="radioNumber" comment=" Radio number">
+    <primitive tpe="unsigned short"/>
+  </attribute>
+  
+<class>
+
+<class name="NamedLocationIdentificationRecord" inheritsFrom="root"
+       comment="Information about the discrete positional relationship of the part entity with respect to the its host entity Section 6.2.62 ">
+ <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
+         <primitive type="unsigned short"/>
+ </attribute>
+ 
+  <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+ </class>
+
+
+<class name="RadioTypeRecord" inheritsFrom="root" comment="Identifies the type of radio. Section 6.2.70">
+
+<attribute name="entityKind" comment="Kind of entity">
+ <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="domain" comment="Domain of entity (air, surface, subsurface, space, etc)">
+  <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="country" comment="country to which the design of the entity is attributed" >
+ <primitive type="unsigned short"/>
+</attribute>
+
+<attribute name="category" comment = "category of entity">
+  <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="subcategory" comment="specific info based on subcategory field">
+  <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="specific">
+  <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="extra">
+  <primitive type="unsigned byte"/>
+</attribute>
+
+</class>
+
+<class name="RecordQuerySpecificationRecord" inheritsFrom="root"
+       comment="The identification of the records being queried 6.2.71">
+
+<attribute name="numberOfRecords">
+  <primitive type="unsigned int"/>
+</attribute>
+
+<attribute name="records" comment="variable length list of 32 bit records">
+   <list type="variable" countFieldName="numberOfRecords">
+     <classRef name="FourByteChunk"/>
+   </list> 
+</attribute>
+
+</class>
+
+
+
 <class name="SphericalHarmonicAntennaPattern" inheritsFrom="root" 
        comment="Section 5.2.4.3. Used when the antenna pattern type in the transmitter pdu is of value 2. 
        Specified the direction and radiation pattern from a radio transmitter's antenna.
