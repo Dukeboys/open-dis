@@ -1768,7 +1768,205 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
+<class name="RecordSpecificationElement" inheritsFrom="root"
+       comment="Synthetic record, made up from section 6.2.72. This is used to acheive a repeating variable list element.">
 
+<attribute name="recordID" comment="the data structure used to convey the parameter values of the record for each record. 32 bit enumeration.">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="recordSetSerialNumber" comment="the serial number of the first record in the block of records">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="recordLength" comment=" the length, in bits, of the record. Note, bits, not bytes.">
+    <primitive type= "unsigned short"/>
+  </attribute>
+
+  <attribute name="recordCount" comment=" the number of records included in the record set ">
+    <primitive type= "unsigned short"/>
+  </attribute>
+
+   <attribute name="recordValues" comment="the concatenated records of the format specified by the Record ID field. The length of this field is the Record Length multiplied by the Record Count, in units of bits. ^^^This is wrong--variable sized data records, bit values. THis MUST be patched after generation.">
+    <primitive type= "unsigned short"/>
+  </attribute>
+
+   <attribute name="pad4" comment="Padding of 0 to 31 unused bits as required for 32-bit alignment of the Record Set field. ^^^This is wrong--variable sized padding. MUST be patched post-code generation">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+</class>
+
+<class name="RecordSpecificationRecord" inheritsFrom="root" comment="This record shall specify the number of record sets contained in the Record Specification record and the record details. Section 6.2.72.">
+
+  <attribute name="numerOfRecordSets" comment="The number of record sets">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="recordSets" comment="variable length list record specifications.">
+     <list type="variable" countFieldName="numberOfRecordSets">
+       <classRef name="RecordSpecificationElement"/>
+    </list>
+  </attribute>
+
+</class>
+
+<class name="RelationshipRecord" inheritsFrom="root" comment="The relationship of the part entity to its host entity. Section 6.2.73.">
+
+<attribute name="nature" comment="the nature or purpose for joining of the part entity to the host entity and shall be represented by a 16-bit enumeration">
+    <primitive type="unsigned short"/>
+</attribute>
+
+<attribute name="position" comment="the position of the part entity with respect to the host entity and shall be represented by a 16-bit enumeration">
+    <primitive type="unsigned short"/>
+</attribute>
+
+</class>
+
+<class name="SecondaryOperationalDataRecord" inheritsFrom="root" comment="Additional operational data for an IFF emitting system and the number of IFF Fundamental Parameter Data records Section 6.2.76.">
+
+<attribute name="operationalData1" comment="additional operational characteristics of the IFF emitting system. Each 8-bit field will vary depending on the system type.">
+    <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="operationalData2" comment="additional operational characteristics of the IFF emitting system. Each 8-bit field will vary depending on the system type.">
+    <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="numberOfIFFFundamentalParameterRecords" comment="the number of IFF Fundamental Parameter Data records that follow">
+    <primitive type="unsigned short"/>
+</attribute>
+
+</class>
+
+<class name="SensorRecord" inheritsFrom="root" comment="An entity's sensor information.  Section 6.2.77.">
+
+<attribute name="sensorTypeSource" comment=" the source of the Sensor Type field ">
+    <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="sensorOnOffStatus" comment="the on/off status of the sensor">
+    <primitive type="unsigned byte"/>
+</attribute>
+
+<attribute name="sensorType" comment="the sensor type and shall be represented by a 16-bit enumeration. ">
+    <primitive type="unsigned short"/>
+</attribute>
+
+<attribute name="station" comment=" the station to which the sensor is assigned. A zero value shall indi- cate that this Sensor record is not associated with any particular station and represents the total quan- tity of this sensor for this entity. If this field is non-zero, it shall either reference an attached part or an articulated part">
+    <primitive type="unsigned int"/>
+</attribute>
+
+<attribute name="quantity" comment="quantity of the sensor ">
+    <primitive type="unsigned short"/>
+</attribute>
+
+<attribute name="padding" comment="padding">
+    <primitive type="unsigned short" defaultValue="0"/>
+</attribute>
+
+</class>
+
+<class name="SimulationAddressRecord" inheritsFrom="root" comment="A Simulation Address record shall consist of the Site Identification number and the Application Identification number. Section 6.2.79 ">
+
+ <attribute name="site" comment="A site is defined as a facility, installation, organizational unit or a geographic location that has one or more simulation applications capable of participating in a distributed event. ">
+   <primitive type="unsigned short"/>
+ </attribute>
+
+ <attribute name="application" comment="An application is defined as a software program that is used to generate and process distributed simulation data including live, virtual and constructive data.">
+  <primitive type="unsigned short"/>
+ </attribute>
+
+</class>
+
+
+<class name="SimulationIdentifierRecord" inheritsFrom="root" comment="The unique designation of a simulation when using the 48-bit identifier format shall be specified by the Sim- ulation Identifier record. The reason that the 48-bit format is required in addition to the 32-bit simulation address format that actually identifies a specific simulation is because some 48-bit identifier fields in PDUs may contain either an Object Identifier, such as an Entity ID, or a Simulation Identifier. Section 6.2.80">
+
+ <attribute name="simulationAddress" comment="Simulation address ">
+   <classRef name="SimulationAddressRecord"/>
+ </attribute>
+
+ <attribute name="referenceNumber" comment="This field shall be set to zero as there is no reference number associated with a Simulation Identifier.">
+  <primitive type="unsigned short" defaultValue="0"/>
+ </attribute>
+
+</class>
+
+ <class name="StorageFuelRecord"
+        inheritsFrom="root"
+        comment="Information about an entity's engine fuel. Section 6.2.82.">
+
+  <attribute name="fuelQuantity" comment="Fuel quantity, units specified by next field">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="fuelMeasurementUnits" comment="Units in which the fuel is measured">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+  <attribute name="fuelType" comment="Type of fuel">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="fuelLocation" comment="Location of fuel as related to entity. See section 14 of EBV document">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="padding" comment="padding">
+    <primitive type= "unsigned byte" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+ <class name="StorageFuelReloadRecord"
+        inheritsFrom="root"
+        comment="For each type or location of Storage Fuel, this record shall specify the type, location, fuel measure- ment units, reload quantity and maximum quantity for storage fuel either for the whole entity or a specific storage fuel location (tank). Section 6.2.84.">
+
+  <attribute name="standardQuantity" comment=" the standard quantity of this fuel type normally loaded at this station/launcher if a station/launcher is specified. If the Station/Launcher field is set to zero, then this is the total quantity of this fuel type that would be present in a standard reload of all appli- cable stations/launchers associated with this entity.">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="maximumQuantity" comment="the maximum quantity of this fuel type that this sta- tion/launcher is capable of holding when a station/launcher is specified. This would be the value used when a maximum reload was desired to be set for this station/launcher. If the Station/launcher field is set to zero, then this is the maximum quantity of this fuel type that would be present on this entity at all stations/launchers that can accept this fuel type.">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this fuel type at this specific station/launcher. When the Station/Launcher field is set to zero, this shall be the time it takes to perform a standard quantity reload of this fuel type at all applicable stations/launchers for this entity.">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="maximumQuantityReloadTime" comment="the seconds normally required to reload the maximum possible quantity of this fuel type at this station/launcher. When the Station/Launcher field is set to zero, this shall be the time it takes to perform a maximum quantity load/reload of this fuel type at all applicable stations/launchers for this entity.">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+  <attribute name="fuelMeasurementUnits" comment="the fuel measurement units. Enumeration">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+  <attribute name="fuelType" comment="Fuel type. Enumeration">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="fuelLocation" comment="Location of fuel as related to entity. See section 14 of EBV document">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="padding" comment="padding">
+    <primitive type= "unsigned byte" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+ <class name="SupplyQuantity" inheritsFrom="root" comment="Section 5.2.30. A supply, and the amount of that supply. Similar to an entity kind but with the addition of a quantity. Section 6.2.85">
+
+    <attribute name="supplyType" comment="Type of supply">
+    <classRef name="EntityType"/>
+  </attribute>
+
+   <attribute name="quantity" comment="the number of units of a supply type. ">
+      <primitive type="float"/>
+   </attribute>
+
+  </class>
 
 <class name="SphericalHarmonicAntennaPattern" inheritsFrom="root" 
        comment="Section 5.2.4.3. Used when the antenna pattern type in the transmitter pdu is of value 2. 
@@ -1951,17 +2149,7 @@ Also provides basic parametric data that may be used to support low-fidelity sim
 
 </class>
 
- <class name="SupplyQuantity" inheritsFrom="root" comment="Section 5.2.30. A supply, and the amount of that supply. Similar to an entity kind but with the addition of a quantity.">
-  
-    <attribute name="supplyType" comment="Type of supply">
-    <classRef name="EntityType"/>
-  </attribute>
-   
-   <attribute name="quantity" comment="quantity to be supplied">
-      <primitive type="unsigned byte"/>
-   </attribute>
-  
-  </class>
+
 
  <class name="VariableDatum" inheritsFrom="root" comment="Section 5.2.32. Variable Datum Record">
    
