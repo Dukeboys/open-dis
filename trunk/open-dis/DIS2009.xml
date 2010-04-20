@@ -1956,7 +1956,68 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
- <class name="SupplyQuantity" inheritsFrom="root" comment="Section 5.2.30. A supply, and the amount of that supply. Similar to an entity kind but with the addition of a quantity. Section 6.2.85">
+ 
+
+   <class name="StorageFuelRecord"
+        inheritsFrom="root"
+        comment="Information about an entity's storage fuel. Section 6.2.83.">
+
+  <attribute name="fuelQuantity" comment="Fuel quantity, units specified by next field">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="fuelMeasurementUnits" comment="Units in which the fuel is measured">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+  <attribute name="fuelType" comment="Type of fuel">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="fuelLocation" comment="Location of fuel as related to entity. See section 14 of EBV document">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="padding" comment="padding">
+    <primitive type= "unsigned byte" defaultValue="0"/>
+  </attribute>
+  </class>
+
+  <class name="StorageFuelReloadRecord"
+        inheritsFrom="root"
+        comment="For each type or location of engine fuell, this record specifies the type, location, fuel measurement units, and reload quantity and maximum quantity. Section 6.2.84.">
+
+  <attribute name="standardQuantity" comment="standard quantity of fuel loaded">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+   <attribute name="maximumQuantity" comment="maximum quantity of fuel loaded">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+   <attribute name="standardQuantityReloadTime" comment="seconds normally required to to reload standard qty">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+   <attribute name="maximumQuantityReloadTime" comment="seconds normally required to to reload maximum qty">
+    <primitive type= "unsigned int"/>
+  </attribute>
+
+  <attribute name="fuelMeasurmentUnits" comment="Units of measure">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+ <attribute name="fuelLocation" comment="fuel  location as related to the entity">
+    <primitive type= "unsigned byte"/>
+  </attribute>
+
+   <attribute name="padding" comment="padding">
+    <primitive type= "unsigned byte" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+<class name="SupplyQuantity" inheritsFrom="root" comment=" A supply, and the amount of that supply. Section 6.2.85">
 
     <attribute name="supplyType" comment="Type of supply">
     <classRef name="EntityType"/>
@@ -1967,6 +2028,8 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
    </attribute>
 
   </class>
+
+
 
 <class name="SphericalHarmonicAntennaPattern" inheritsFrom="root" 
        comment="Section 5.2.4.3. Used when the antenna pattern type in the transmitter pdu is of value 2. 
