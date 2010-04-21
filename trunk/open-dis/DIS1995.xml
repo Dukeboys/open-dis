@@ -1483,7 +1483,7 @@ system.">
   </attribute>
   
    <attribute name="sampleRate" comment="sample rate">
-    <primitive type= "int"/>
+    <primitive type= "unsigned int"/>
   </attribute>
   
   <attribute name="dataLength" comment="length od data">
