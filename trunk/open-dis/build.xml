@@ -37,7 +37,7 @@
         <mkdir dir="${src}/edu"/>
         <mkdir dir="${src}/edu/nps"/>
         <mkdir dir="${src}/edu/nps/moves"/>
-        <mkdir dir="${src}/edu/nps/moves/dis2009"/>
+        <mkdir dir="${src}/edu/nps/moves/dis"/>
     </target>
     
     <!-- Generate the Java, C#, and C++ Open-DIS code. This relies on the jar file xmlpg.jar, from 
@@ -149,8 +149,8 @@
         </javac>
 
         <copy todir="${build}">
-            <fileset dir="java" includes="**/*.properties"/>
-            <fileset dir="java" includes="**/jaxb.index"/>
+            <fileset dir="${src}" includes="**/*.properties"/>
+            <fileset dir="${src}" includes="**/jaxb.index"/>
         </copy>
     </target>
     
