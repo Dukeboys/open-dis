@@ -1,6 +1,7 @@
 package edu.nps.moves.spatial;
 
 import org.sedris.*;
+import edu.nps.moves.dis.*;
 
 /**
  * Represents a local, flat area, which is convienient for somewhat small
@@ -21,10 +22,27 @@ import org.sedris.*;
  */
 public class LocalFlat
 {
+    /** A reference frame for the earth's surface, ie an ellipsoid with coordinates
+     * of the form (lat, lon, altitude).
+     */
     SRF_Celestiodetic curvedSurfaceRef;
+
+    /** A DIS reference frame, with a euclidian coordinate system with origin
+     * at the center of of the earth. Coordinates, in (x, y, z), in meters. This
+     * is the reference frame used by many DIS fields on the wire.
+     */
     SRF_Celestiocentric disCoordinateFrame;
-    SRF_LocalTangentSpaceEuclidean localEuclidianPlane;
-    Coord3D origin;
+
+    /** A local, flat, euclidian reference frame. This is tangent to a (lat, lon, height)
+     * on an earth that is supplied by the user in the constructor.
+     * This allows users to set up a local, relatively small area
+     * for moving things around without in the nuisance of worrying about curved
+     * earth.
+     */
+    SRF_LocalTangentSpaceEuclidean localEuclidianFrame;
+
+    /** The origin of the local euclidian reference frame */
+    Coord3D localEuclidianOrigin;
 
     /**
      * Constructor for a local flat coordinate system. Takes the latitude and
@@ -48,14 +66,12 @@ public class LocalFlat
             disCoordinateFrame = new SRF_Celestiocentric(SRM_ORM_Code.ORM_WGS_1984,
                                             SRM_RT_Code.RT_WGS_1984_IDENTITY);
 
-
-
             double latInRadians = Math.toRadians(originLat);
             double lonInRadians = Math.toRadians(originLon);
 
             // Reference system for a local euclidian space plane, tangent to the lat/lon
             // at a give altitude.
-            localEuclidianPlane =
+            localEuclidianFrame =
                     new SRF_LocalTangentSpaceEuclidean(SRM_ORM_Code.ORM_WGS_1984,
                     SRM_RT_Code.RT_WGS_1984_IDENTITY,
                     lonInRadians, latInRadians,  // Origin (note: lon, lat)
@@ -63,11 +79,8 @@ public class LocalFlat
                     0.0, 0.0,       // False x,y origin (can offset origin to avoid negative coordinates)
                     heightOffset);  // Height offset
 
-
-            origin = localEuclidianPlane.createCoordinate3D(0.0, 0.0, 0.0);
-            
-
-
+            // It's handy to have this pre-created in some calculations
+            localEuclidianOrigin = localEuclidianFrame.createCoordinate3D(0.0, 0.0, 0.0);
         }
         catch(Exception e)
         {
@@ -83,47 +96,68 @@ public class LocalFlat
      * @param y y coordinate in meters in local, flat coordinate system
      * @param z z coordinate, altitude, in meters in local flat coordinate system
      */
-    public void DISCoordFromLocalFlat(double x, double y, double z)
+    public Vector3Double DISCoordFromLocalFlat(double x, double y, double z)
     {
+        Vector3Double disCoordinates = new Vector3Double();
         try
         {
-            Coord3D localCoordinates = localEuclidianPlane.createCoordinate3D(x, y, z);
+            Coord3D localCoordinates = localEuclidianFrame.createCoordinate3D(x, y, z);
             Coord3D disCoord = disCoordinateFrame.createCoordinate3D(0.0, 0.0, 0.0);
 
             SRM_Coordinate_Valid_Region_Code region = disCoordinateFrame.changeCoordinateSRF(localCoordinates, disCoord);
 
-            System.out.println(region);
+            //System.out.println(region);
 
             double values[] = disCoordinateFrame.getCoordinate3DValues(disCoord);
             System.out.println("DIS x:" + values[0] + " y:" + values[1] + " z:" + values[2] );
-            this.localCoordFromDis(values[0], values[1], values[2]);
-            
+
+            disCoordinates.setX(values[0]);
+            disCoordinates.setY(values[1]);
+            disCoordinates.setZ(values[2]);
         }
         catch(Exception e)
         {
+            //Should throw exception here
             System.out.println("can't change to DIS coord " + e);
+            return null;
         }
+
+        return disCoordinates;
     }
 
-    public void localCoordFromDis(double x, double y, double z)
+    /**
+     * Given DIS coordinates, convert to the local euclidian plane coordinates.
+     * 
+     * @param x
+     * @param y
+     * @param z
+     */
+    public Vector3Double localCoordFromDis(double x, double y, double z)
     {
+        Vector3Double local = new Vector3Double();
+        
         try
         {
-            Coord3D localCoordinates = localEuclidianPlane.createCoordinate3D(0.0, 0.0, 0.0);
+            Coord3D localCoordinates = localEuclidianFrame.createCoordinate3D(0.0, 0.0, 0.0);
             Coord3D disCoord = disCoordinateFrame.createCoordinate3D(x, y, z);
 
-            SRM_Coordinate_Valid_Region_Code region = localEuclidianPlane.changeCoordinateSRF( disCoord, localCoordinates);
+            SRM_Coordinate_Valid_Region_Code region = localEuclidianFrame.changeCoordinateSRF(disCoord, localCoordinates);
 
-            System.out.println(region);
+            //System.out.println("Region:" + region);
 
-            double values[] = localEuclidianPlane.getCoordinate3DValues(localCoordinates);
-            System.out.println("-->Local x:" + values[0] + " y:" + values[1] + " z:" + values[2] );
-
+            double values[] = localEuclidianFrame.getCoordinate3DValues(localCoordinates);
+            //System.out.println("-->Local x:" + values[0] + " y:" + values[1] + " z:" + values[2] );
+            local.setX(values[0]);
+            local.setY(values[1]);
+            local.setZ(values[2]);
         }
         catch(Exception e)
         {
             System.out.println("can't change from DIS coord to Local" + e);
+            return null;
         }
+
+        return local;
     }
 
     public static void main(String args[])
@@ -146,9 +180,3 @@ public class LocalFlat
         westALittle.DISCoordFromLocalFlat(0.0, 0.0, 0.0);
     }
 }
-
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
