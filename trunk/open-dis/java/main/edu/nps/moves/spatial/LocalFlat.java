@@ -164,7 +164,7 @@ public class LocalFlat
     {
 
         // x-axis intercept: prime meridian, equator, and zero altitude.
-        LocalFlat primeMeridian = new LocalFlat(0.0, 0.0, 0.0); 
+        LocalFlat primeMeridian = new LocalFlat(0.0, 0.0, 0.0);
         primeMeridian.DISCoordFromLocalFlat(0.0, 0.0, 0.0);
 
         // North pole: z-axis intercept with earth surface
