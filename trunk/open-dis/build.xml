@@ -98,6 +98,12 @@
         <antcall target="patch"/>
     </target>
 
+   <target name="spatial" depends="compile" description = "Run coordinate system santity check">
+        <java classname="edu.nps.moves.spatial.LocalFlat">
+            <classpath refid="lib.path"/>
+        </java>
+   </target>
+
     <target name="generateSourceCodeUsingProperties" depends="init" description = "run program to generate Objc">
         <!-- load all location and release properties -->
         <property file="generatesourcesoptions.properties" />
@@ -202,7 +208,7 @@
     <target name="compileTest" depends="compile" description="Compile java test code and place it in the test directory of of build">
             
          <javac srcdir="${test}" destdir="${build}/test"
-               source="1.5" target="1.5"
+               source="1.6" target="1.6"
                includeAntRuntime="no">
                <classpath>
                  <fileset dir="${lib}">
@@ -228,6 +234,7 @@
       </classpath>
       
       <test name="edu.nps.moves.dis.DisAllTests"/>
+      <test name="edu.nps.moves.spatial.SpatialTestSuite"/>
       
       </junit>
     </target>
