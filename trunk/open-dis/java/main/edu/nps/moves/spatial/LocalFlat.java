@@ -1,6 +1,6 @@
 package edu.nps.moves.spatial;
 
-import org.sedris.*;
+import SRM.*;  // Sedris spatial reference model version 4.4
 import edu.nps.moves.dis.*;
 
 /**
@@ -16,7 +16,8 @@ import edu.nps.moves.dis.*;
  * plane tangent to the ellipsoid at that point. <p>
  *
  * See User’s Manual for SRM Orientation, Velocity, & Acceleration
- * Transformations Version 1.7, 13 December 2007, from the Sedris web site.
+ * Transformations Version 2.0, 18 Nov 2009, available with the
+ * sedris Java SDK download.
  * 
  * @author DMcG
  */
@@ -58,13 +59,13 @@ public class LocalFlat
         {
             // Create a Celestiodetic SRF with WGS 1984, ie a curved coordinate
             // system (lat/lon)
-             curvedSurfaceRef = new SRF_Celestiodetic(SRM_ORM_Code.ORM_WGS_1984,
-                                           SRM_RT_Code.RT_WGS_1984_IDENTITY);
+             curvedSurfaceRef = new SRF_Celestiodetic(SRM_ORM_Code.ORMCOD_WGS_1984,
+                                           SRM_RT_Code.RTCOD_WGS_1984_IDENTITY);
 
             // Create a Celesticentric SRF with WGS 1984, ie a rectilinear,
             // earth-centered coordinate system as used in DIS
-            disCoordinateFrame = new SRF_Celestiocentric(SRM_ORM_Code.ORM_WGS_1984,
-                                            SRM_RT_Code.RT_WGS_1984_IDENTITY);
+            disCoordinateFrame = new SRF_Celestiocentric(SRM_ORM_Code.ORMCOD_WGS_1984,
+                                            SRM_RT_Code.RTCOD_WGS_1984_IDENTITY);
 
             double latInRadians = Math.toRadians(originLat);
             double lonInRadians = Math.toRadians(originLon);
@@ -72,8 +73,8 @@ public class LocalFlat
             // Reference system for a local euclidian space plane, tangent to the lat/lon
             // at a give altitude.
             localEuclidianFrame =
-                    new SRF_LocalTangentSpaceEuclidean(SRM_ORM_Code.ORM_WGS_1984,
-                    SRM_RT_Code.RT_WGS_1984_IDENTITY,
+                    new SRF_LocalTangentSpaceEuclidean(SRM_ORM_Code.ORMCOD_WGS_1984,
+                    SRM_RT_Code.RTCOD_WGS_1984_IDENTITY,
                     lonInRadians, latInRadians,  // Origin (note: lon, lat)
                     0.0,            // Azimuth; can rotate axis, but don't.
                     0.0, 0.0,       // False x,y origin (can offset origin to avoid negative coordinates)
