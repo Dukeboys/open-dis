@@ -17,32 +17,48 @@ import java.util.StringTokenizer;
  *
  * @author DMcG
  * modified by Peter Smith (Naval Air Warfare Center - Training Systems Division
+ * modified by Zvonko Bostjancic (Blubit d.o.o.)
  */
 public class CsharpGenerator extends Generator {
 
     /** Maps the primitive types listed in the XML file to the C# types */
     Properties types = new Properties();
+
+    /**
+     * Provides the default values for primitive types.
+     */
+    Properties typeDefaultValue = new Properties();
+
     /** What primitive types should be marshalled as. This may be different from
      * the C# get/set methods, ie an unsigned short might have ints as the getter/setter,
      * but is marshalled as a short.
      */
     Properties marshalTypes = new Properties();
+
     /** Similar to above, but used on unmarshalling. There are some special cases (unsigned
      * types) to be handled here.
      */
     Properties unmarshalTypes = new Properties();
+
     /** sizes of various primitive types */
     Properties primitiveSizes = new Properties();
+
     /** A property list that contains c#-specific code generation information, such
      * as namespace which correlates to package names, using which correlates to imports, etc.
      */
     Properties csharpProperties;
-    //PES 02/10/2009 Added to save all classes linked to Upper Class (PDU)
-    //Will be used to allow automatic setting of Length when Marshall method called
+
+    String disVersion;
+
+    /** PES 02/10/2009 Added to save all classes linked to Upper Class (PDU)
+     * Will be used to allow automatic setting of Length when Marshall method called
+     */
     Map<String, String> classesInstantiated = new HashMap<String, String>();
 
-    public CsharpGenerator(HashMap pClassDescriptions, String pDirectory, Properties pCsharpProperties) {
+    public CsharpGenerator(HashMap pClassDescriptions, String pDirectory, Properties pCsharpProperties, String disVersion) {
         super(pClassDescriptions, pDirectory, pCsharpProperties);
+
+        this.disVersion = disVersion;
 
         //System.out.println("CsharpProperties : ");
         //pCsharpProperties.list(System.out);
@@ -58,11 +74,22 @@ public class CsharpGenerator extends Generator {
 
         types.setProperty("byte", "byte");
         types.setProperty("short", "short"); //short
-        types.setProperty("int", "uint");
+        types.setProperty("int", "int");
         types.setProperty("long", "long");
 
         types.setProperty("double", "double");
         types.setProperty("float", "float");
+
+        typeDefaultValue.setProperty("unsigned short", "0"); //int
+        typeDefaultValue.setProperty("unsigned byte", "0"); //short
+        typeDefaultValue.setProperty("unsigned int", "0"); //long
+        typeDefaultValue.setProperty("unsigned long", "0"); //unsigned long 
+        typeDefaultValue.setProperty("byte", "0");
+        typeDefaultValue.setProperty("short", "0"); //short
+        typeDefaultValue.setProperty("int", "0");
+        typeDefaultValue.setProperty("long", "0");
+        typeDefaultValue.setProperty("double", "0");
+        typeDefaultValue.setProperty("float", "0");
 
         // Set up the mapping between primitive types and marshal types.
 
@@ -73,7 +100,7 @@ public class CsharpGenerator extends Generator {
 
         marshalTypes.setProperty("byte", "byte");
         marshalTypes.setProperty("short", "short");
-        marshalTypes.setProperty("int", "uint");
+        marshalTypes.setProperty("int", "int");
         marshalTypes.setProperty("long", "long");
 
         marshalTypes.setProperty("double", "double");
@@ -87,7 +114,7 @@ public class CsharpGenerator extends Generator {
 
         unmarshalTypes.setProperty("byte", "byte");
         unmarshalTypes.setProperty("short", "short");
-        unmarshalTypes.setProperty("int", "uint");
+        unmarshalTypes.setProperty("int", "int");
         unmarshalTypes.setProperty("long", "long");
 
 
@@ -119,15 +146,11 @@ public class CsharpGenerator extends Generator {
 
         System.out.println("Creating C# source code.");
 
-
-
-        //PES 02/10/2009 used to store all classes
+        // PES 02/10/2009 used to store all classes
         Iterator it2 = classDescriptions.values().iterator();
 
         while (it2.hasNext()) {
             GeneratedClass aClass = (GeneratedClass) it2.next();
-            String name = aClass.getName();
-
             String parentClass = aClass.getParentClass();
 
             if (parentClass.equalsIgnoreCase("root")) {
@@ -150,21 +173,23 @@ public class CsharpGenerator extends Generator {
 
                 // If we have a namespace specified, replace the dots in the namespace name
                 // with slashes and create that directory
-                if (namespace != null) {
+                if (namespace != null)
+                {
                     namespace = namespace.replace(".", "/");
                     fullPath = directory + "/" + name + ".cs";
                     //System.out.println("full path is " + fullPath);
-                } else {
+                } 
+                else
+                {
                     fullPath = directory + "/" + name + ".cs";
                 }
                 //System.out.println("Creating Csharp source code file for " + fullPath);
 
                 // Create the new, empty file, and create printwriter object for output to it
                 File outputFile = new File(fullPath);
-                //outputFile.getParentFile().mkdirs(); //NEW
                 outputFile.createNewFile();
-                PrintWriter pw = new PrintWriter(outputFile);
 
+                PrintWriter pw = new PrintWriter(outputFile);
                 PrintStringBuffer psw = new PrintStringBuffer(); //PES 05/01/2009
 
                 //PES 05/01/2009 modified to print data to a stringbuilder prior to output to a file
@@ -179,7 +204,10 @@ public class CsharpGenerator extends Generator {
                 pw.flush();
                 pw.close();
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
                 System.out.println("error creating source code " + e);
             }
 
@@ -192,41 +220,52 @@ public class CsharpGenerator extends Generator {
      * methods for one class.
      */
     public void writeClass(PrintStringBuffer pw, GeneratedClass aClass) {
-        // Write the namespace
-        //Note inside of the DIS XML1998 or XML1995 file the following needs to be inserted
-        //<csharp namespace="DIS1998net" />  DIS1998net can be renamed to whatever the namespace is needed.
-
-        String namespace = languageProperties.getProperty("namespace");
+        // Note inside of the DIS XML1998 or XML1995 file the following needs to be inserted
+        // <csharp namespace="DIS1998net" />  DIS1998net can be renamed to whatever the namespace is needed.
 
         this.writeLicenseNotice(pw);
+        this.writeCopyrightNotice(pw);
         this.writeImports(pw, aClass);
+        this.writeNamespace(pw);
         this.writeClassComments(pw, aClass, 1);
         this.writeClassDeclaration(pw, aClass, 1);
         this.writeIvars(pw, aClass, 2);
         this.writeConstructor(pw, aClass, 2);
+        this.writeOperators(pw, aClass, 2);
         this.writeGetMarshalledSizeMethod(pw, aClass, 2);
         this.writeGettersAndSetters(pw, aClass, 2);
+        this.writeExceptionHandler(pw, aClass, 2);
         this.writeMarshalMethod(pw, aClass, 2);
         this.writeUnmarshallMethod(pw, aClass, 2);
         this.writeReflectionMethod(pw, aClass, 2);
-
-        //For C# - do not believe these are necessary as the MemoryStream used in previous MarshalMethod
-        //should provide the same type features.
-        //this.writeMarshalMethodWithByteBuffer(pw, aClass);
-        //this.writeUnmarshallMethodWithByteBuffer(pw, aClass);
-        //if (aClass.getName().equals("Pdu"))
-        //{
-        //    this.writeMarshalMethodToByteArray(pw, aClass);
-        //}
-
         this.writeEqualityMethod(pw, aClass, 2);
 
+        pw.println(1, "}");
+        pw.println("}");
+    }
 
-        pw.println(1, "} // end of class");
-        pw.println("} // end of namespace");
-        //pw.flush(); //PES 05/01/2009 moved to within While statement above
-        //pw.close();
-
+    private void writeExceptionHandler(PrintStringBuffer pw, GeneratedClass aClass, int indent)
+    {
+        if (aClass.getParentClass().equalsIgnoreCase("root"))
+        {
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// Occurs when exception when processing PDU is caught.");
+            pw.println(indent, "/// </summary>");
+            pw.println(indent, "public event Action<Exception> Exception;");
+            pw.println();
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// Called when exception occurs (raises the <see cref=\"Exception\"/> event).");
+            pw.println(indent, "/// </summary>");
+            pw.println(indent, "/// <param name=\"e\">The exception.</param>");
+            pw.println(indent, "protected void OnException(Exception e)");
+            pw.println(indent, "{");
+            pw.println(indent + 1, "if (this.Exception != null)");
+            pw.println(indent + 1, "{");
+            pw.println(indent + 2, "this.Exception(e);");
+            pw.println(indent + 1, "}");
+            pw.println(indent, "}");
+            pw.println();
+        }
     }
 
     /**
@@ -241,10 +280,15 @@ public class CsharpGenerator extends Generator {
         String using = languageProperties.getProperty("using");
         StringTokenizer tokenizer = new StringTokenizer(using, ", ");
         while (tokenizer.hasMoreTokens()) {
-            String aPackage = (String) tokenizer.nextToken();
+            String aPackage = tokenizer.nextToken();
             pw.println("using " + aPackage + ";");
         }
 
+        pw.println();
+    }
+
+    private void writeNamespace(PrintStringBuffer pw)
+    {
         String namespace = languageProperties.getProperty("namespace");
 
         //if missing create default name
@@ -252,9 +296,8 @@ public class CsharpGenerator extends Generator {
             namespace = "DISnet";
         }
 
-        pw.println();
-        pw.println("namespace " + namespace + "\n{");
-        pw.println();
+        pw.println("namespace " + namespace);
+        pw.println("{");
     }
 
     /**
@@ -263,19 +306,11 @@ public class CsharpGenerator extends Generator {
      * @param aClass
      */
     private void writeClassComments(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
-        // Print class comments header
-        pw.println(indent, "/**");
         if (aClass.getClassComments() != null) {
-            pw.println(indent, " * " + aClass.getClassComments());
-            pw.println(indent, " *");
-            pw.println(indent, " * Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All rights reserved.");
-            pw.println(indent, " * This work is licensed under the BSD open source license, available at https://www.movesinstitute.org/licenses/bsd.html");
-            pw.println(indent, " *");
-            pw.println(indent, " * @author DMcG");
-            pw.println(indent, " * Modified for use with C#:");
-            pw.println(indent, " * Peter Smith (Naval Air Warfare Center - Training Systems Division)");
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// " + aClass.getClassComments());
+            pw.println(indent, "/// </summary>");
         }
-        pw.println(indent, " */");
     }
 
     /**
@@ -284,18 +319,15 @@ public class CsharpGenerator extends Generator {
      * @param pw
      * @param aClass
      */
-    private void writeClassDeclaration(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
+    private void writeClassDeclaration(PrintStringBuffer pw, GeneratedClass aClass, int indent)
+    {
         // Class declaration
         String parentClass = aClass.getParentClass();
-        if (parentClass.equalsIgnoreCase("root")) {
-            parentClass = "Object";
-        }
 
-
-        //Added serializable attribute, additional tags will be needed for non-serializable and
-        //if XML serialization will be used
+        // Added serializable attribute, additional tags will be needed for non-serializable and
+        // if XML serialization will be used
         pw.println(indent, "[Serializable]");
-        pw.println(indent, "[XmlRoot]");	//PES added for XML compatiblity
+        pw.println(indent, "[XmlRoot]");	// PES added for XML compatiblity
 
         //Following will find the classes that are referenced within the current class being processed
         //These will then be added to the Xmlinclude attribute to allow the reflection of those classes
@@ -305,7 +337,7 @@ public class CsharpGenerator extends Generator {
         for (int idx = 0; idx < ivars.size(); idx++) {
             ClassAttribute anAttribute = (ClassAttribute) ivars.get(idx);
 
-            String attributeType = types.getProperty(anAttribute.getType());
+            //String attributeType = types.getProperty(anAttribute.getType());
 
             //if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
             //{
@@ -325,8 +357,23 @@ public class CsharpGenerator extends Generator {
             }
         }
 
-        pw.println(indent, "public partial class " + aClass.getName() + " : " + parentClass); //PES 12-02-2009 added based upon user "Rogier" request
-
+        // PES 12-02-2009 added based upon user "Rogier" request
+        // ZB modified
+        if (parentClass.equalsIgnoreCase("root"))
+        {
+            if (aClass.getName().equals("Pdu"))
+            {
+                pw.println(indent, "public partial class " + aClass.getName() + " : PduBase, IPdu");
+            }
+            else
+            {
+                pw.println(indent, "public partial class " + aClass.getName());
+            }
+        }
+        else
+        {
+            pw.println(indent, "public partial class " + aClass.getName() + " : " + parentClass + ", IEquatable<" + aClass.getName() + ">");
+        } 
 
         pw.println(indent, "{");
     }
@@ -345,17 +392,24 @@ public class CsharpGenerator extends Generator {
                 // protected int foo;
                 //
                 String attributeType = types.getProperty(anAttribute.getType());
-                if (anAttribute.getComment() != null) {
-                    pw.println(indent, "/** " + anAttribute.getComment() + " */");
+                
+                if (anAttribute.getComment() != null)
+                {
+                    pw.println(indent, "/// <summary>");
+                    pw.println(indent, "/// " + anAttribute.getComment());
+                    pw.println(indent, "/// </summary>");
                 }
 
                 String defaultValue = anAttribute.getDefaultValue();
 
-                pw.print(indent, "protected " + attributeType + "  _" + anAttribute.getName()); //Create standard type using underscore
-                if (defaultValue != null) {
+                pw.print(indent, "private " + attributeType + " _" + anAttribute.getName()); //Create standard type using underscore
+                
+                if (defaultValue != null && !typeDefaultValue.getProperty(anAttribute.getType()).equals(defaultValue))
+                {
                     pw.print(" = " + defaultValue);
                 }
-                pw.println(";\n");
+
+                pw.println(";");
             } // end of primitive attribute type
 
             // this attribute is a reference to another class defined in the XML document, The output should look like
@@ -363,68 +417,80 @@ public class CsharpGenerator extends Generator {
             // /** This is a comment */
             // protected AClass foo = new AClass();
             //
-            if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
+            if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+            {
                 String attributeType = anAttribute.getType();
-                if (anAttribute.getComment() != null) {
-                    pw.println(indent, "/** " + anAttribute.getComment() + " */");
+                if (anAttribute.getComment() != null)
+                {
+                    pw.println(indent, "/// <summary>");
+                    pw.println(indent, "/// " + anAttribute.getComment());
+                    pw.println(indent, "/// </summary>");
                 }
 
-                pw.println(indent, "protected " + attributeType + "  _" + anAttribute.getName() + " = new " + attributeType + "(); \n");
+                pw.println(indent, "private " + attributeType + " _" + anAttribute.getName() + " = new " + attributeType + "();");
             }
 
             // The attribute is a fixed list, ie an array of some type--maybe primitve, maybe a class.
 
-            if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)) {
+            if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST))
+            {
                 String attributeType = anAttribute.getType();
                 int listLength = anAttribute.getListLength();
                 String listLengthString = (new Integer(listLength)).toString();
 
-                if (anAttribute.getComment() != null) {
-                    pw.println(indent, "/** " + anAttribute.getComment() + " */");
+                if (anAttribute.getComment() != null)
+                {
+                    pw.println(indent, "/// <summary>");
+                    pw.println(indent, "/// " + anAttribute.getComment());
+                    pw.println(indent, "/// </summary>");
                 }
 
-                if (anAttribute.getUnderlyingTypeIsPrimitive() == true) {
-                    pw.println(indent, "protected " + types.getProperty(attributeType) + "[]  _" + anAttribute.getName() + " = new " +
-                            types.getProperty(attributeType) + "[" + listLengthString + "]" + "; \n");
-                } else if (anAttribute.listIsClass() == true) {
-                    pw.println(indent, "protected " + attributeType + "[]  _" + anAttribute.getName() + " = new " +
-                            attributeType + "[" + listLengthString + "]" + "; \n");
+                if (anAttribute.getUnderlyingTypeIsPrimitive() == true)
+                {
+                    pw.println(indent, "private " + types.getProperty(attributeType) + "[] _" + anAttribute.getName() + " = new "
+                            + types.getProperty(attributeType) + "[" + listLengthString + "]" + ";");
+                } 
+                else if (anAttribute.listIsClass() == true)
+                {
+                    pw.println(indent, "private " + attributeType + "[] _" + anAttribute.getName() + " = new "
+                            + attributeType + "[" + listLengthString + "]" + ";");
                 }
             }
 
             // The attribute is a variable list of some kind.
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)) {
-                String attributeType = anAttribute.getType();
-                int listLength = anAttribute.getListLength();
-                String listLengthString = (new Integer(listLength)).toString();
-
                 if (anAttribute.getComment() != null) {
-                    pw.println(indent, "/** " + anAttribute.getComment() + " */");
+                    pw.println(indent, "/// <summary>");
+                    pw.println(indent, "/// " + anAttribute.getComment());
+                    pw.println(indent, "/// </summary>");
                 }
 
                 //PES 04/29/2009  Added to speed up unboxing of data
                 if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
-                    pw.println(indent, "protected byte[] _" + anAttribute.getName() + "; ");
-                } else {
+                    pw.println(indent, "private byte[] _" + anAttribute.getName() + "; ");
+                } 
+                else
+                {
                     //Make the list referenced to the type that will be stored within 01/21/2009 PES
-                    pw.println(indent, "protected List<" + anAttribute.getType() + "> _" + anAttribute.getName() + " = new List<" + anAttribute.getType() + ">(); ");
+                    pw.println(indent, "private List<" + anAttribute.getType() + "> _" + anAttribute.getName() + " = new List<" + anAttribute.getType() + ">();");
                 }
             }
+
+            pw.println();
         } // End of loop through ivars
     }
 
     private void writeConstructor(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
         List ivars = aClass.getClassAttributes();
 
-        // Write a constructor
-        pw.println();
-        pw.println(indent, "/** Constructor */");
-        if (aClass.getClassComments() != null) { //PES 01/22/2009  Added for intellisense support
-
-            pw.println(indent, "///<summary>");
-            pw.println(indent, "///" + aClass.getClassComments());
-            pw.println(indent, "///</summary>");
+         // PES 01/22/2009  Added for intellisense support
+        if (aClass.getClassComments() != null)
+        {
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// Initializes a new instance of the <see cref=\"" + aClass.getName() + "\"/> class.");
+            pw.println(indent, "/// </summary>");
         }
+        
         pw.println(indent, "public " + aClass.getName() + "()");
         pw.println(indent, "{");
 
@@ -459,7 +525,10 @@ public class CsharpGenerator extends Generator {
                 System.out.println("Could not find initial value matching attribute name for " + anInit.getVariable() + " in class " + aClass.getName());
             } else {
                 //PES modified the InitalValue.java class to provide a method name that would work with the changes made in this file
-                pw.println(indent + 1, anInit.getSetterMethodNameCSharp() + " = (" + types.getProperty(aType) + ")" + anInit.getVariableValue() + ";");
+                // ZB: only initialize if the value is not the same as the default type value
+                if (!anInit.getVariableValue().equals(typeDefaultValue.getProperty(aType))) {
+                    pw.println(indent + 1, anInit.getSetterMethodNameCSharp() + " = (" + types.getProperty(aType) + ")" + anInit.getVariableValue() + ";");
+                }
             }
         } // End initialize initial values
 
@@ -472,7 +541,7 @@ public class CsharpGenerator extends Generator {
                 //System.out.println("Generating constructor fixed list for " + anAttribute.getName() + " listIsClass:" + anAttribute.listIsClass());
                 if (anAttribute.listIsClass() == true) {
                     pw.println(indent + 1, "");
-                    pw.println(indent + 1, "for(int idx = 0; idx < " + anAttribute.getName() + ".Length; idx++)");
+                    pw.println(indent + 1, "for (int idx = 0; idx < " + anAttribute.getName() + ".Length; idx++)");
                     pw.println(indent + 1, "{");
                     pw.println(indent + 2, anAttribute.getName() + "[idx] = new " + anAttribute.getType() + "();");
                     pw.println(indent + 1, "}");
@@ -488,48 +557,48 @@ public class CsharpGenerator extends Generator {
         String newKeyword = ""; //PES 032209 added to remove warning from C# compiler
         //PES 032209 added to remove warning from C# compiler
         if (!aClass.getParentClass().equalsIgnoreCase("root")) {
-            newKeyword = "new ";
+            newKeyword = "override ";
         } else {
-            newKeyword = "";
+            newKeyword = "virtual ";
         }
 
         // Create a getMarshalledSize() method
         pw.println();
-        pw.println(indent, newKeyword + "public int getMarshalledSize()");
+        pw.println(indent, "public " + newKeyword + "int GetMarshalledSize()");
         pw.println(indent, "{");
         pw.println(indent + 1, "int marshalSize = 0; ");
         pw.println();
 
         // Size of superclass is the starting point
         if (!aClass.getParentClass().equalsIgnoreCase("root")) {
-            pw.println(indent + 1, "marshalSize = base.getMarshalledSize();");
+            pw.println(indent + 1, "marshalSize = base.GetMarshalledSize();");
         }
 
         for (int idx = 0; idx < ivars.size(); idx++) {
             ClassAttribute anAttribute = (ClassAttribute) ivars.get(idx);
 
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
-                pw.print(indent + 1, "marshalSize = marshalSize + ");
-                pw.println(primitiveSizes.get(anAttribute.getType()) + ";  // _" + anAttribute.getName());
+                pw.print(indent + 1, "marshalSize += ");
+                pw.println(primitiveSizes.get(anAttribute.getType()) + ";  // this._" + anAttribute.getName());
             }
 
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
-                pw.print(indent + 1, "marshalSize = marshalSize + ");
-                pw.println("_" + anAttribute.getName() + ".getMarshalledSize();  // _" + anAttribute.getName());
+                pw.print(indent + 1, "marshalSize += ");
+                pw.println("this._" + anAttribute.getName() + ".GetMarshalledSize();  // this._" + anAttribute.getName());
             }
 
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST) {
                 //System.out.println("Generating fixed list for " + anAttribute.getName() + " listIsClass:" + anAttribute.listIsClass());
                 // If this is a fixed list of primitives, it's the list size times the size of the primitive.
                 if (anAttribute.getUnderlyingTypeIsPrimitive() == true) {
-                    pw.println(indent + 1, "marshalSize = marshalSize + " + anAttribute.getListLength() + " * " + primitiveSizes.get(anAttribute.getType()) + ";  // _" + anAttribute.getName());
+                    pw.println(indent + 1, "marshalSize += " + anAttribute.getListLength() + " * " + primitiveSizes.get(anAttribute.getType()) + ";  // _" + anAttribute.getName());
                 } else if (anAttribute.listIsClass() == true) {
                     pw.println("");
-                    pw.println(indent + 1, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+                    pw.println(indent + 1, "for (int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "marshalSize = marshalSize + _" + anAttribute.getName() + "[idx].getMarshalledSize();");
+                    pw.println(indent + 2, "marshalSize += this._" + anAttribute.getName() + "[idx].GetMarshalledSize();");
                     pw.println(indent + 1, "}");
-                    pw.println(indent + 1, "");
+                    pw.println();
                 } else {
                     //pw.println( anAttribute.getListLength() + " * " +  " new " + anAttribute.getType() + "().getMarshalledSize()"  + ";  // _" + anAttribute.getName());
                     pw.println(indent + 1, "THIS IS A CONDITION NOT HANDLED BY XMLPG: a fixed list array of lists. That's  why you got the compile error.");
@@ -539,39 +608,76 @@ public class CsharpGenerator extends Generator {
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) {
                 // If this is a dynamic list of primitives, it's the list size times the size of the primitive.
                 if (anAttribute.getUnderlyingTypeIsPrimitive() == true) {
-                    pw.println(indent + 1, "_" + anAttribute.getName() + ".Count " + " * " + primitiveSizes.get(anAttribute.getType()) + ";  // " + anAttribute.getName());
+                    pw.println(indent + 1, "this._" + anAttribute.getName() + ".Count " + " * " + primitiveSizes.get(anAttribute.getType()) + ";  // " + anAttribute.getName());
                 } else {
                     //PES 04/29/2009  Added to speed up unboxing of data, using byte[] vice unboxing of a Class ie. OneByteChunk
                     if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
-                        pw.println(indent + 1, "marshalSize = marshalSize + _" + anAttribute.getName() + ".Length;");
+                        pw.println(indent + 1, "marshalSize += this._" + anAttribute.getName() + ".Length;");
                     } else {
-                        pw.println(indent + 1, "for(int idx=0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+                        pw.println(indent + 1, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Count; idx++)");
                         pw.println(indent + 1, "{");
-                        pw.println(indent + 2, anAttribute.getType() + " listElement = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
-                        pw.println(indent + 2, "marshalSize = marshalSize + listElement.getMarshalledSize();");
+                        pw.println(indent + 2, anAttribute.getType() + " listElement = (" + anAttribute.getType() + ")this._" + anAttribute.getName() + "[idx];");
+                        pw.println(indent + 2, "marshalSize += listElement.GetMarshalledSize();");
                         pw.println(indent + 1, "}");
+                        pw.println();
                     }
                 }
             }
         }
-        pw.println();
         pw.println(indent + 1, "return marshalSize;");
         pw.println(indent, "}");
         pw.println();
     }
 
-    private void writeClassAttributeSummary(PrintStringBuffer pw, ClassAttribute anAttribute, int indent) {
-        if (anAttribute.getComment() != null) { //PES 01/22/2009  Added for intellisense support
-            pw.println(indent, "///<summary>");
-            pw.println(indent, "///" + anAttribute.getComment());
-            pw.println(indent, "///</summary>");
-        }
+    private void writeOperators(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
+        pw.println();
+        pw.println(indent, "/// <summary>");
+        pw.println(indent, "/// Implements the operator !=.");
+        pw.println(indent, "/// </summary>");
+        pw.println(indent, "/// <param name=\"left\">The left operand.</param>");
+        pw.println(indent, "/// <param name=\"right\">The right operand.</param>");
+        pw.println(indent, "/// <returns>");
+        pw.println(indent, "/// 	<c>true</c> if operands are not equal; otherwise, <c>false</c>.");
+        pw.println(indent, "/// </returns>");
+        pw.println(indent, "public static bool operator !=(" + aClass.getName() + " left, " + aClass.getName() + " right)");
+        pw.println(indent, "{");
+        pw.println(indent + 1, "return !(left == right);");
+        pw.println(indent, "}");
+        pw.println();
+        pw.println(indent, "/// <summary>");
+        pw.println(indent, "/// Implements the operator ==.");
+        pw.println(indent, "/// </summary>");
+        pw.println(indent, "/// <param name=\"left\">The left operand.</param>");
+        pw.println(indent, "/// <param name=\"right\">The right operand.</param>");
+        pw.println(indent, "/// <returns>");
+        pw.println(indent, "/// 	<c>true</c> if both operands are equal; otherwise, <c>false</c>.");
+        pw.println(indent, "/// </returns>");
+        pw.println(indent, "public static bool operator ==(" + aClass.getName() + " left, " + aClass.getName() + " right)");
+        pw.println(indent, "{");
+        pw.println(indent + 1, "if (object.ReferenceEquals(left, right))");
+        pw.println(indent + 1, "{");
+        pw.println(indent + 2, "return true;");
+        pw.println(indent + 1, "}");
+        pw.println();
+        pw.println(indent + 1, "if (((object)left == null) || ((object)right == null))");
+        pw.println(indent + 1, "{");
+        pw.println(indent + 2, "return false;");
+        pw.println(indent + 1, "}");
+        pw.println();
+        pw.println(indent + 1, "return left.Equals(right);");
+        pw.println(indent, "}");
     }
 
+    private void writePropertySummary(PrintStringBuffer pw, ClassAttribute anAttribute, int indent) {
+        if (anAttribute.getComment() != null) { //PES 01/22/2009  Added for intellisense support
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// Gets or sets the " + anAttribute.getComment());
+            pw.println(indent, "/// </summary>");
+        }
+    }
     private void writeGettersAndSetters(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
         List ivars = aClass.getClassAttributes();
 
-        pw.println();
         String classNameConflictModifier;
 
         for (int idx = 0; idx < ivars.size(); idx++) {
@@ -589,25 +695,26 @@ public class CsharpGenerator extends Generator {
                 if (anAttribute.getIsDynamicListLengthField() == false) {
                     String beanType = types.getProperty(anAttribute.getType());
 
+//                    writePropertySummary(pw, anAttribute, indent);
+//                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + beanType + " p" + this.initialCap(anAttribute.getName()) + ")");
+//                    pw.println(indent, "{ ");
+//                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+//                    pw.println(indent, "}");
+//
+//                    pw.println();
 
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + beanType + " p" + this.initialCap(anAttribute.getName()) + ")");
-                    pw.println(indent, "{ ");
-                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
-                    pw.println(indent, "}");
-
-                    pw.println();
-
-                    pw.println(indent, "[XmlElement(Type= typeof(" + beanType + "), ElementName=\"" + anAttribute.getName() + "\")]");
+                    writePropertySummary(pw, anAttribute, indent);
+                    pw.println(indent, "[XmlElement(Type = typeof(" + beanType + "), ElementName = \"" + anAttribute.getName() + "\")]");
                     pw.println(indent, "public " + beanType + " " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
                     pw.println(indent, "{");
                     pw.println(indent + 1, "get");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "return _" + anAttribute.getName() + ";");
+                    pw.println(indent + 2, "return this._" + anAttribute.getName() + ";");
                     pw.println(indent + 1, "}");
+                    pw.println();
                     pw.println(indent + 1, "set");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = value;");
+                    pw.println(indent + 2, "this._" + anAttribute.getName() + " = value;");
                     pw.println(indent + 1, "}");
                     pw.println(indent, "}");
                     pw.println();
@@ -616,33 +723,34 @@ public class CsharpGenerator extends Generator {
                     String beanType = types.getProperty(anAttribute.getType());
                     ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
 
+//                    pw.println(indent, "/// <summary>");
+//                    pw.println(indent, "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.");
+//                    pw.println(indent, "/// The get" + anAttribute.getName() + " method will also be based on the actual list length rather than this value. ");
+//                    pw.println(indent, "/// The method is simply here for completeness and should not be used for any computations.");
+//                    pw.println(indent, "/// </summary>");
+//                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + beanType + " p" + this.initialCap(anAttribute.getName()) + ")");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+//                    pw.println(indent, "}");
+//
+//                    pw.println();
+
                     pw.println(indent, "/// <summary>");
                     pw.println(indent, "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.");
                     pw.println(indent, "/// The get" + anAttribute.getName() + " method will also be based on the actual list length rather than this value. ");
                     pw.println(indent, "/// The method is simply here for completeness and should not be used for any computations.");
                     pw.println(indent, "/// </summary>");
-                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + beanType + " p" + this.initialCap(anAttribute.getName()) + ")");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
-                    pw.println(indent, "}");
-
-                    pw.println();
-
-                    pw.println(indent, "/// <summary>");
-                    pw.println(indent, "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.");
-                    pw.println(indent, "/// The get" + anAttribute.getName() + " method will also be based on the actual list length rather than this value. ");
-                    pw.println(indent, "/// The method is simply here for completeness and should not be used for any computations.");
-                    pw.println(indent, "/// </summary>");
-                    pw.println(indent, "[XmlElement(Type= typeof(" + beanType + "), ElementName=\"" + anAttribute.getName() + "\")]");
+                    pw.println(indent, "[XmlElement(Type = typeof(" + beanType + "), ElementName = \"" + anAttribute.getName() + "\")]");
                     pw.println(indent, "public " + beanType + " " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
                     pw.println(indent, "{");
                     pw.println(indent + 1, "get");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "return _" + anAttribute.getName() + ";");
+                    pw.println(indent + 2, "return this._" + anAttribute.getName() + ";");
                     pw.println(indent + 1, "}");
+                    pw.println();
                     pw.println(indent + 1, "set");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = value;");
+                    pw.println(indent + 2, "this._" + anAttribute.getName() + " = value;");
                     pw.println(indent + 1, "}");
                     pw.println(indent, "}");
                     pw.println();
@@ -653,31 +761,32 @@ public class CsharpGenerator extends Generator {
             // The attribute is a class of some sort. Generate getters and setters.
 
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
-                writeClassAttributeSummary(pw, anAttribute, indent);
-                pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + " p" + this.initialCap(anAttribute.getName()) + ")");
-                pw.println(indent, "{ ");
-                pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
-                pw.println(indent, "}");
-                pw.println();
+//                writePropertySummary(pw, anAttribute, indent);
+//                pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + " p" + this.initialCap(anAttribute.getName()) + ")");
+//                pw.println(indent, "{ ");
+//                pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+//                pw.println(indent, "}");
+//                pw.println();
+//
+//                writePropertySummary(pw, anAttribute, indent);
+//                pw.println(indent, "public " + anAttribute.getType() + " get" + this.initialCap(anAttribute.getName()) + "()");
+//                pw.println(indent, "{");
+//                pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
+//                pw.println(indent, "}");
+//                pw.println();
 
-                writeClassAttributeSummary(pw, anAttribute, indent);
-                pw.println(indent, "public " + anAttribute.getType() + " get" + this.initialCap(anAttribute.getName()) + "()");
-                pw.println(indent, "{");
-                pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
-                pw.println(indent, "}");
-                pw.println();
-
-                writeClassAttributeSummary(pw, anAttribute, indent);
-                pw.println(indent, "[XmlElement(Type= typeof(" + anAttribute.getType() + "), ElementName=\"" + anAttribute.getName() + "\")]");
+                writePropertySummary(pw, anAttribute, indent);
+                pw.println(indent, "[XmlElement(Type = typeof(" + anAttribute.getType() + "), ElementName = \"" + anAttribute.getName() + "\")]");
                 pw.println(indent, "public " + anAttribute.getType() + " " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
                 pw.println(indent, "{");
                 pw.println(indent + 1, "get");
                 pw.println(indent + 1, "{");
-                pw.println(indent + 2, "return _" + anAttribute.getName() + ";");
+                pw.println(indent + 2, "return this._" + anAttribute.getName() + ";");
                 pw.println(indent + 1, "}");
+                pw.println();
                 pw.println(indent + 1, "set");
                 pw.println(indent + 1, "{");
-                pw.println(indent + 2, "_" + anAttribute.getName() + " = value;");
+                pw.println(indent + 2, "this._" + anAttribute.getName() + " = value;");
                 pw.println(indent + 1, "}");
                 pw.println(indent, "}");
                 pw.println();
@@ -686,63 +795,65 @@ public class CsharpGenerator extends Generator {
             // The attribute is an array of some sort. Generate getters and setters.
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)) {
                 if (anAttribute.getUnderlyingTypeIsPrimitive()) {
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + types.getProperty(anAttribute.getType()) + "[] p" + this.initialCap(anAttribute.getName()) + ")");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
-                    pw.println(indent, "}");
-                    pw.println();
+//                    writePropertySummary(pw, anAttribute, indent);
+//                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + types.getProperty(anAttribute.getType()) + "[] p" + this.initialCap(anAttribute.getName()) + ")");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
+//
+//                    writePropertySummary(pw, anAttribute, indent);
+//                    //pw.println("@XmlElement(name=\"" + anAttribute.getName() + "\" )");
+//                    pw.println(indent, "public " + types.getProperty(anAttribute.getType()) + "[] get" + this.initialCap(anAttribute.getName()) + "()");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
 
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    //pw.println("@XmlElement(name=\"" + anAttribute.getName() + "\" )");
-                    pw.println(indent, "public " + types.getProperty(anAttribute.getType()) + "[] get" + this.initialCap(anAttribute.getName()) + "()");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
-                    pw.println(indent, "}");
-                    pw.println();
-
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "[XmlArray(ElementName=\"" + anAttribute.getName() + "\")]");
+                    writePropertySummary(pw, anAttribute, indent);
+                    pw.println(indent, "[XmlArray(ElementName = \"" + anAttribute.getName() + "\")]");
                     pw.println(indent, "public " + types.getProperty(anAttribute.getType()) + "[] " + this.initialCap(anAttribute.getName()) + classNameConflictModifier);
                     pw.println(indent, "{");
-                    pw.println(indent+1, "get");
-                    pw.println(indent+1, "{");
-                    pw.println(indent+2, "return _" + anAttribute.getName() + ";");
-                    pw.println(indent+1, "}");
-                    pw.println(indent+1, "set");
-                    pw.println(indent+1, "{");
-                    pw.println(indent+2, "_" + anAttribute.getName() + " = value;");
-                    pw.println(indent+1, "}");
+                    pw.println(indent + 1, "get");
+                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "return this._" + anAttribute.getName() + ";");
+                    pw.println(indent + 1, "}");
+                    pw.println();
+                    pw.println(indent + 1, "set");
+                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "this._" + anAttribute.getName() + " = value;");
+                    pw.println(indent + 1, "}");
                     pw.println("}");
                     pw.println();
 
                 } else if (anAttribute.listIsClass() == true) {
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + "[] p" + this.initialCap(anAttribute.getName()) + ")");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
-                    pw.println(indent, "}");
-                    pw.println();
+//                    writePropertySummary(pw, anAttribute, indent);
+//                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(" + anAttribute.getType() + "[] p" + this.initialCap(anAttribute.getName()) + ")");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
+//
+//                    writePropertySummary(pw, anAttribute, indent);
+//                    //pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "Array\" )");
+//                    pw.println(indent, "public " + anAttribute.getType() + "[] get" + this.initialCap(anAttribute.getName()) + "()");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
 
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    //pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "Array\" )");
-                    pw.println(indent, "public " + anAttribute.getType() + "[] get" + this.initialCap(anAttribute.getName()) + "()");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
-                    pw.println(indent, "}");
-                    pw.println();
-
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "[XmlArrayItem(ElementName = \"" + anAttribute.getName() + "Array\",DataType=\"" + anAttribute.getType() + "\"))]");
+                    writePropertySummary(pw, anAttribute, indent);
+                    pw.println(indent, "[XmlArrayItem(ElementName = \"" + anAttribute.getName() + "Array\", DataType = \"" + anAttribute.getType() + "\"))]");
                     pw.println(indent, "public " + anAttribute.getType() + "[] " + this.initialCap(anAttribute.getName()));
                     pw.println(indent, "{");
                     pw.println(indent + 1, "get");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "          return _" + anAttribute.getName() + ";");
+                    pw.println(indent + 2, "return this. _" + anAttribute.getName() + ";");
                     pw.println(indent + 1, "}");
+                    pw.println();
                     pw.println(indent + 1, "set");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = value;");
+                    pw.println(indent + 2, "this._" + anAttribute.getName() + " = value;");
                     pw.println(indent + 1, "}");
                     pw.println(indent, "}");
                     pw.println();
@@ -751,67 +862,67 @@ public class CsharpGenerator extends Generator {
 
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)) {	//Set List to the actual type 01/21/2009 PES
 
-                writeClassAttributeSummary(pw, anAttribute, indent);
                 //PES 04/29/2009  Added to speed up unboxing of data, using byte[] vice unboxing of a Class ie. OneByteChunk
                 if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
-                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(byte[] p" + this.initialCap(anAttribute.getName()) + ")");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
-                    pw.println(indent, "}");
-                    pw.println();
+//                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(byte[] p" + this.initialCap(anAttribute.getName()) + ")");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
+//
+//                    //Set List to actual type 01/21/2009 PES
+//                    //pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "List\" )");
+//                    writeClassAttributeSummary(pw, anAttribute, indent);
+//                    pw.println(indent, "public byte[] get" + this.initialCap(anAttribute.getName()) + "()");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
 
-                    //Set List to actual type 01/21/2009 PES
-                    //pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "List\" )");
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "public byte[] get" + this.initialCap(anAttribute.getName()) + "()");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
-                    pw.println(indent, "}");
-                    pw.println();
-
-                    writeClassAttributeSummary(pw, anAttribute, indent);
+                    writePropertySummary(pw, anAttribute, indent);
                     pw.println(indent, "[XmlElement(ElementName = \"" + anAttribute.getName() + "List\", DataType = \"hexBinary\")]");
                     pw.println(indent, "public byte[] " + this.initialCap(anAttribute.getName()));
                     pw.println(indent, "{");
                     pw.println(indent + 1, "get");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "return _" + anAttribute.getName() + ";");
+                    pw.println(indent + 2, "return this._" + anAttribute.getName() + ";");
                     pw.println(indent + 1, "}");
+                    pw.println();
                     pw.println(indent + 1, "set");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = value;");
+                    pw.println(indent + 2, "this._" + anAttribute.getName() + " = value;");
                     pw.println(indent + 1, "}");
                     pw.println(indent, "}");
                     pw.println();
 
                 } else {
-                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(List<" + anAttribute.getType() + ">" + " p" + this.initialCap(anAttribute.getName()) + ")");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
-                    pw.println(indent, "}");
-                    pw.println();
+//                    pw.println(indent, "public void set" + this.initialCap(anAttribute.getName()) + "(List<" + anAttribute.getType() + ">" + " p" + this.initialCap(anAttribute.getName()) + ")");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "_" + anAttribute.getName() + " = p" + this.initialCap(anAttribute.getName()) + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
+//
+//                    //Set List to actual type 01/21/2009 PES
+//                    //pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "List\" )");
+//                    writeClassAttributeSummary(pw, anAttribute, indent);
+//                    pw.println(indent, "public List<" + anAttribute.getType() + ">" + " get" + this.initialCap(anAttribute.getName()) + "()");
+//                    pw.println(indent, "{");
+//                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
+//                    pw.println(indent, "}");
+//                    pw.println();
 
-                    //Set List to actual type 01/21/2009 PES
-                    //pw.println("@XmlElementWrapper(name=\"" + anAttribute.getName() + "List\" )");
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "public List<" + anAttribute.getType() + ">" + " get" + this.initialCap(anAttribute.getName()) + "()");
-                    pw.println(indent, "{");
-                    pw.println(indent + 1, "return _" + anAttribute.getName() + ";");
-                    pw.println(indent, "}");
-                    pw.println();
-
-                    writeClassAttributeSummary(pw, anAttribute, indent);
-                    pw.println(indent, "[XmlElement(ElementName = \"" + anAttribute.getName() + "List\",Type = typeof(List<" + anAttribute.getType() + ">))]");
+                    writePropertySummary(pw, anAttribute, indent);
+                    pw.println(indent, "[XmlElement(ElementName = \"" + anAttribute.getName() + "List\", Type = typeof(List<" + anAttribute.getType() + ">))]");
                     pw.println(indent, "public List<" + anAttribute.getType() + "> " + this.initialCap(anAttribute.getName()));
                     pw.println(indent, "{");
                     pw.println(indent + 1, "get");
                     pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "return _" + anAttribute.getName() + ";");
+                    pw.println(indent + 2, "return this._" + anAttribute.getName() + ";");
                     pw.println(indent + 1, "}");
-                    pw.println(indent + 1, "set");
-                    pw.println(indent + 1, "{");
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = value;");
-                    pw.println(indent + 1, "}");
+//                    pw.println(indent + 1, "set");
+//                    pw.println(indent + 1, "{");
+//                    pw.println(indent + 2, "this._" + anAttribute.getName() + " = value;");
+//                    pw.println(indent + 1, "}");
                     pw.println(indent, "}");
                     pw.println();
                 }
@@ -869,44 +980,52 @@ public class CsharpGenerator extends Generator {
 
                 //PES 032209 added to remove warning from C# compiler
                 if (!baseclassName.equalsIgnoreCase("pdu")) {
-                    newKeyword = "new ";
+                    newKeyword = "override ";
                 } else {
-                    newKeyword = "";
+                    newKeyword = "virtual ";
                 }
 
-                pw.println(indent, "///<summary>");
-                pw.println(indent, "///Automatically sets the length of the marshalled data, then calls the marshal method.");
-                pw.println(indent, "///</summary>");
-                pw.println(indent, newKeyword + "public void marshalAutoLengthSet(DataOutputStream dos)");
+                pw.println(indent, "/// <summary>");
+                pw.println(indent, "/// Automatically sets the length of the marshalled data, then calls the marshal method.");
+                pw.println(indent, "/// </summary>");
+                pw.println(indent, "/// <param name=\"dos\">The DataOutputStream instance to which the PDU is marshaled.</param>");
+                pw.println(indent, "public " + newKeyword + "void MarshalAutoLengthSet(DataOutputStream dos)");
                 pw.println(indent, "{");
-                pw.println(indent + 1, "//Set the length prior to marshalling data");
-                pw.println(indent + 1, "this.setLength((ushort)this.getMarshalledSize());");
-                pw.println(indent + 1, "this.marshal(dos);");
+                pw.println(indent + 1, "// Set the length prior to marshalling data");
+                pw.println(indent + 1, "this.Length = (ushort)this.GetMarshalledSize();");
+                pw.println(indent + 1, "this.Marshal(dos);");
                 pw.println(indent, "}");
+                pw.println();
             }
 
         }
 
         if (!baseclassName.equalsIgnoreCase("root")) {
-            newKeyword = "new ";
+            newKeyword = "override ";
         } else {
-            newKeyword = "";
+            newKeyword = "virtual ";
         }
 
-        pw.println();
-        pw.println(indent, "///<summary>");
-        pw.println(indent, "///Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method");
-        pw.println(indent, "///</summary>");
-        pw.println(indent, newKeyword + "public void marshal(DataOutputStream dos)");
+        pw.println(indent, "/// <summary>");
+        pw.println(indent, "/// Marshal the data to the DataOutputStream.  Note: Length needs to be set before calling this method");
+        pw.println(indent, "/// </summary>");
+        pw.println(indent, "/// <param name=\"dos\">The DataOutputStream instance to which the PDU is marshaled.</param>");
+        pw.println(indent, "[SuppressMessage(\"Microsoft.Design\", \"CA1031:DoNotCatchGeneralExceptionTypes\", Justification = \"Due to ignoring errors.\")]");
+        pw.println(indent, "public " + newKeyword + "void Marshal(DataOutputStream dos)");
         pw.println(indent, "{");
 
         // If we're a base class of another class, we should first call base
         // to make sure the base's ivars are marshaled out.
-        if (!(baseclassName.equalsIgnoreCase("root"))) {
-            pw.println(indent + 1, "base.marshal(dos);");
+        if (!baseclassName.equalsIgnoreCase("root")) {
+            pw.println(indent + 1, "base.Marshal(dos);");
         }
-        pw.println(indent + 1, "try");
+
+        pw.println(indent + 1, "if (dos != null)");
         pw.println(indent + 1, "{");
+
+        pw.println(indent + 2, "try");
+        pw.println(indent + 2, "{");
+
         // Loop through the class attributes, generating the output for each.
         ivars = aClass.getClassAttributes();
 
@@ -927,12 +1046,12 @@ public class CsharpGenerator extends Generator {
             // Write out a method call to serialize a primitive type
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
                 String marshalType = marshalTypes.getProperty(anAttribute.getType());
-                String capped = this.initialCap(marshalType);
+                String capped = this.camelCaseCapIgnoreSpaces(anAttribute.getType());
 
                 // If we're a normal primitivetype, marshal out directly; otherwise, marshall out
                 // the list length.
                 if (anAttribute.getIsDynamicListLengthField() == false) {
-                    pw.println(indent + 2, "dos.write" + capped + "((" + marshalType + ")_" + anAttribute.getName() + ");");
+                    pw.println(indent + 3, "dos.Write" + capped + "((" + marshalType + ")this._" + anAttribute.getName() + ");");
                 } else {
                     ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
 
@@ -946,9 +1065,9 @@ public class CsharpGenerator extends Generator {
                     //else
                     //{
                     if (variableListfix.contains(listAttribute.getName()) == true) {
-                        pw.println(indent + 2, "dos.write" + capped + "((" + marshalType + ")_" + listAttribute.getName() + ".Length);");
+                        pw.println(indent + 3, "dos.Write" + capped + "((" + marshalType + ")this._" + listAttribute.getName() + ".Length);");
                     } else {
-                        pw.println(indent + 2, "dos.write" + capped + "((" + marshalType + ")_" + listAttribute.getName() + ".Count);");
+                        pw.println(indent + 3, "dos.Write" + capped + "((" + marshalType + ")this._" + listAttribute.getName() + ".Count);");
                     }
                     //}
                 }
@@ -959,14 +1078,14 @@ public class CsharpGenerator extends Generator {
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
                 String marshalType = anAttribute.getType();
 
-                pw.println(indent + 2, "_" + anAttribute.getName() + ".marshal(dos);");
+                pw.println(indent + 3, "this._" + anAttribute.getName() + ".Marshal(dos);");
             }
 
             // Write out the method call to marshal a fixed length list, aka an array.
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)) {
                 pw.println();
-                pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
-                pw.println(indent + 2, "{");
+                pw.println(indent + 3, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Length; idx++)");
+                pw.println(indent + 3, "{");
 
                 // This is some sleaze. We're an array, but an array of what? We could be either a
                 // primitive or a class. We need to figure out which. This is done via the expedient
@@ -982,14 +1101,13 @@ public class CsharpGenerator extends Generator {
                 //}
 
                 if (anAttribute.getUnderlyingTypeIsPrimitive()) {
-                    String capped = this.initialCap(marshalType);
-                    pw.println(indent + 3, "dos.write" + capped + "(_" + anAttribute.getName() + "[idx]);");
+                    String capped = this.camelCaseCapIgnoreSpaces(anAttribute.getType());
+                    pw.println(indent + 4, "dos.Write" + capped + "(this._" + anAttribute.getName() + "[idx]);");
                 } else {
-                    pw.println(indent + 3, "_" + anAttribute.getName() + "[idx].marshal(dos);");
+                    pw.println(indent + 4, "this._" + anAttribute.getName() + "[idx].Marshal(dos);");
                 }
 
-                pw.println(indent + 2, "} // end of array marshaling");
-                pw.println();
+                pw.println(indent + 3, "}"); // end of array marshaling
             }
 
             // Write out a section of code to marshal a variable length list. The code should look like
@@ -1002,12 +1120,12 @@ public class CsharpGenerator extends Generator {
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)) {
                 //PES 04/29/2009  Added to speed up unboxing of data, using byte[] vice unboxing of a Class ie. OneByteChunk
                 if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
-                    pw.println(indent + 2, "dos.writeByte (_" + anAttribute.getName() + ");");
+                    pw.println(indent + 3, "dos.WriteByte (this._" + anAttribute.getName() + ");");
 
                 } else {
                     pw.println();
-                    pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
-                    pw.println(indent + 2, "{");
+                    pw.println(indent + 3, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Count; idx++)");
+                    pw.println(indent + 3, "{");
 
                     // This is some sleaze. We're an array, but an array of what? We could be either a
                     // primitive or a class. We need to figure out which. This is done via the expedient
@@ -1017,27 +1135,30 @@ public class CsharpGenerator extends Generator {
                     String marshalType = marshalTypes.getProperty(anAttribute.getType());
 
                     if (anAttribute.getUnderlyingTypeIsPrimitive()) {
-                        String capped = this.initialCap(marshalType);
-                        pw.println(indent + 3, "dos.write" + capped + "(_" + anAttribute.getName() + ");");
+                        String capped = this.camelCaseCapIgnoreSpaces(anAttribute.getType());
+                        pw.println(indent + 4, "dos.Write" + capped + "(this._" + anAttribute.getName() + ");");
                     } else {
-                        pw.println(indent + 3, anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")_" +
-                                anAttribute.getName() + "[idx];"));
-                        pw.println(indent + 3, "a" + initialCap(anAttribute.getType()) + ".marshal(dos);");
+                        pw.println(indent + 4, anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")this._"
+                                + anAttribute.getName() + "[idx];"));
+                        pw.println(indent + 4, "a" + initialCap(anAttribute.getType()) + ".Marshal(dos);");
                     }
 
-                    pw.println(indent + 2, "} // end of list marshalling");
-                    pw.println();
+                    pw.println(indent + 3, "}");  // end of list marshalling
                 }
             }
         } // End of loop through the ivars for a marshal method
 
-        pw.println(indent + 1, "} // end try");
-        pw.println(indent + 1, "catch(Exception e)");
-        pw.println(indent + 1, "{");
-        pw.println(indent + 2, "Trace.WriteLine(e);");
-        pw.println(indent + 2, "Trace.Flush();");
+        pw.println(indent + 2, "}"); // end try
+        pw.println(indent + 2, "catch (Exception e)");
+        pw.println(indent + 2, "{");
+        pw.println(0, "#if DEBUG");
+        pw.println(indent + 3, "Trace.WriteLine(e);");
+        pw.println(indent + 3, "Trace.Flush();");
+        pw.println(0, "#endif");
+        pw.println(indent + 3, "this.OnException(e);");
+        pw.println(indent + 2, "}");
         pw.println(indent + 1, "}");
-        pw.println(indent, "} // end of marshal method");
+        pw.println(indent, "}"); // end of marshal method
     }
 
     private void writeUnmarshallMethod(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
@@ -1048,23 +1169,26 @@ public class CsharpGenerator extends Generator {
 
         //PES 032209 added to remove warning from C# compiler
         if (!aClass.getParentClass().equalsIgnoreCase("root")) {
-            newKeyword = "new ";
+            newKeyword = "override ";
         } else {
-            newKeyword = "";
+            newKeyword = "virtual ";
         }
 
         pw.println();
-        pw.println(indent, newKeyword + "public void unmarshal(DataInputStream dis)");
+        pw.println(indent, "[SuppressMessage(\"Microsoft.Design\", \"CA1031:DoNotCatchGeneralExceptionTypes\", Justification = \"Due to ignoring errors.\")]");
+        pw.println(indent, "public " + newKeyword + "void Unmarshal(DataInputStream dis)");
         pw.println(indent, "{");
 
         baseclassName = aClass.getParentClass();
-        if (!(baseclassName.equalsIgnoreCase("root"))) {
-            pw.println(indent + 1, "base.unmarshal(dis);\n");
+        if (!baseclassName.equalsIgnoreCase("root")) {
+            pw.println(indent + 1, "base.Unmarshal(dis);\n");
         }
 
-
-        pw.println(indent + 1, "try");
+        pw.println(indent + 1, "if (dis != null)");
         pw.println(indent + 1, "{");
+
+        pw.println(indent + 2, "try");
+        pw.println(indent + 2, "{");
 
         // Loop through the class attributes, generating the output for each.
 
@@ -1075,13 +1199,13 @@ public class CsharpGenerator extends Generator {
             // Write out a method call to deserialize a primitive type
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
                 String marshalType = unmarshalTypes.getProperty(anAttribute.getType());
-                String capped = this.initialCap(marshalType);
+                String capped = this.camelCaseCapIgnoreSpaces(anAttribute.getType());
                 if (marshalType.equalsIgnoreCase("UnsignedByte")) {
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = (short)dis.read" + capped + "();");
+                    pw.println(indent + 3, "this._" + anAttribute.getName() + " = (short)dis.Read" + capped + "();");
                 } else if (marshalType.equalsIgnoreCase("UnsignedShort")) {
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = (int)dis.read" + capped + "();");
+                    pw.println(indent + 3, "this._" + anAttribute.getName() + " = (int)dis.Read" + capped + "();");
                 } else {
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = dis.read" + capped + "();");
+                    pw.println(indent + 3, "this._" + anAttribute.getName() + " = dis.Read" + capped + "();");
                 }
             }
 
@@ -1089,13 +1213,13 @@ public class CsharpGenerator extends Generator {
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
                 String marshalType = anAttribute.getType();
 
-                pw.println(indent + 2, "_" + anAttribute.getName() + ".unmarshal(dis);");
+                pw.println(indent + 3, "this._" + anAttribute.getName() + ".Unmarshal(dis);");
             }
 
             // Write out the method call to unmarshal a fixed length list, aka an array.
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)) {
-                pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
-                pw.println(indent + 2, "{");
+                pw.println(indent + 3, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Length; idx++)");
+                pw.println(indent + 3, "{");
 
                 // This is some sleaze. We're an array, but an array of what? We could be either a
                 // primitive or a class. We need to figure out which. This is done via the expedient
@@ -1106,14 +1230,14 @@ public class CsharpGenerator extends Generator {
 
                 if (marshalType == null) // It's a class
                 {
-                    pw.println(indent + 3, "_" + anAttribute.getName() + "[idx].unmarshal(dis);");
+                    pw.println(indent + 4, "this._" + anAttribute.getName() + "[idx].Unmarshal(dis);");
                 } else // It's a primitive
                 {
-                    String capped = this.initialCap(marshalType);
-                    pw.println(indent + 3, "_" + anAttribute.getName() + "[idx] = dis.read" + capped + "();");
+                    String capped = this.camelCaseCapIgnoreSpaces(anAttribute.getType());
+                    pw.println(indent + 4, "this._" + anAttribute.getName() + "[idx] = dis.Read" + capped + "();");
                 }
 
-                pw.println(indent + 2, "} // end of array unmarshaling");
+                pw.println(indent + 3, "}"); // end of array unmarshaling
             } // end of array unmarshalling
 
             // Unmarshall a variable length array.
@@ -1123,10 +1247,10 @@ public class CsharpGenerator extends Generator {
 
                 //PES 04/29/2009  Added to speed up unboxing of data, using byte[] vice unboxing of a Class ie. OneByteChunk
                 if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
-                    pw.println(indent + 2, "_" + anAttribute.getName() + " = dis.readByteArray" + "(_" + anAttribute.getCountFieldName() + ");");
+                    pw.println(indent + 3, "this._" + anAttribute.getName() + " = dis.ReadByteArray" + "(this._" + anAttribute.getCountFieldName() + ");");
                 } else {
-                    pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getCountFieldName() + "; idx++)");
-                    pw.println(indent + 2, "{");
+                    pw.println(indent + 3, "for (int idx = 0; idx < this." + this.initialCap(anAttribute.getCountFieldName()) + "; idx++)");
+                    pw.println(indent + 3, "{");
 
                     // This is some sleaze. We're an array, but an array of what? We could be either a
                     // primitive or a class. We need to figure out which. This is done via the expedient
@@ -1136,28 +1260,32 @@ public class CsharpGenerator extends Generator {
 
                     if (marshalType == null) // It's a class
                     {
-                        pw.println(indent + 3, anAttribute.getType() + " anX = new " + anAttribute.getType() + "();");
-                        pw.println(indent + 3, "anX.unmarshal(dis);");
-                        pw.println(indent + 3, "_" + anAttribute.getName() + ".Add(anX);");
+                        pw.println(indent + 4, anAttribute.getType() + " anX = new " + anAttribute.getType() + "();");
+                        pw.println(indent + 4, "anX.Unmarshal(dis);");
+                        pw.println(indent + 4, "this._" + anAttribute.getName() + ".Add(anX);");
                     } else // It's a primitive
                     {
-                        String capped = this.initialCap(marshalType);
-                        pw.println(indent + 3, "dis.read" + capped + "(_" + anAttribute.getName() + ");");
+                        String capped = this.camelCaseCapIgnoreSpaces(anAttribute.getType());
+                        pw.println(indent + 4, "dis.Read" + capped + "(this._" + anAttribute.getName() + ");");
                     }
-                    pw.println(indent + 2, "};");
+                    pw.println(indent + 3, "};");
                     pw.println();
                 }
             } // end of unmarshalling a variable list
 
         } // End of loop through ivars for writing the unmarshal method
 
-        pw.println(indent + 1, "} // end try");
-        pw.println(indent + 1, "catch(Exception e)");
-        pw.println(indent + 1, "{");
-        pw.println(indent + 2, "Trace.WriteLine(e);");
-        pw.println(indent + 2, "Trace.Flush();");
+        pw.println(indent + 2, "}"); // end try
+        pw.println(indent + 2, "catch (Exception e)");
+        pw.println(indent + 2, "{");
+        pw.println(0, "#if DEBUG");
+        pw.println(indent + 3, "Trace.WriteLine(e);");
+        pw.println(indent + 3, "Trace.Flush();");
+        pw.println(0, "#endif");
+        pw.println(indent + 3, "this.OnException(e);");
+        pw.println(indent + 2, "}");
         pw.println(indent + 1, "}");
-        pw.println(indent, "} // end of unmarshal method");
+        pw.println(indent, "}"); // end of unmarshal method
 
     }
 
@@ -1172,29 +1300,31 @@ public class CsharpGenerator extends Generator {
 
         //PES 032209 added to remove warning from C# compiler
         if (!aClass.getParentClass().equalsIgnoreCase("root")) {
-            newKeyword = "new ";
+            newKeyword = "override ";
         } else {
-            newKeyword = "";
+            newKeyword = "virtual ";
         }
 
 
         pw.println();
-        pw.println(indent, "///<summary>");
-        pw.println(indent, "///This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.");
-        pw.println(indent, "///This will be modified in the future to provide a better display.  Usage: ");
-        pw.println(indent, "///pdu.GetType().InvokeMember(\"reflection\", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });");
-        pw.println(indent, "///where pdu is an object representing a single pdu and sb is a StringBuilder.");
-        pw.println(indent, "///Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality");
-        pw.println(indent, "///</summary>");
-        pw.println(indent, newKeyword + "public void reflection(StringBuilder sb)");
+        pw.println(indent, "/// <summary>");
+        pw.println(indent, "/// This allows for a quick display of PDU data.  The current format is unacceptable and only used for debugging.");
+        pw.println(indent, "/// This will be modified in the future to provide a better display.  Usage: ");
+        pw.println(indent, "/// pdu.GetType().InvokeMember(\"Reflection\", System.Reflection.BindingFlags.InvokeMethod, null, pdu, new object[] { sb });");
+        pw.println(indent, "/// where pdu is an object representing a single pdu and sb is a StringBuilder.");
+        pw.println(indent, "/// Note: The supplied Utilities folder contains a method called 'DecodePDU' in the PDUProcessor Class that provides this functionality");
+        pw.println(indent, "/// </summary>");
+        pw.println(indent, "/// <param name=\"sb\">The StringBuilder instance to which the PDU is written to.</param>");
+        pw.println(indent, "[SuppressMessage(\"Microsoft.Design\", \"CA1031:DoNotCatchGeneralExceptionTypes\", Justification = \"Due to ignoring errors.\")]");
+        pw.println(indent, "public " + newKeyword + "void Reflection(StringBuilder sb)");
         pw.println(indent, "{");
-        pw.println(indent + 1, "sb.Append(\"<" + aClass.getName() + ">\"  + System.Environment.NewLine);");
+        pw.println(indent + 1, "sb.AppendLine(\"<" + aClass.getName() + ">\");");
 
         // If we're a base class of another class, we should first call base
         // to make sure the base's ivars are reflected out.
         String baseclassName = aClass.getParentClass();
-        if (!(baseclassName.equalsIgnoreCase("root"))) {
-            pw.println(indent + 1, "base.reflection(sb);");
+        if (!baseclassName.equalsIgnoreCase("root")) {
+            pw.println(indent + 1, "base.Reflection(sb);");
         }
 
         pw.println(indent + 1, "try");
@@ -1213,48 +1343,45 @@ public class CsharpGenerator extends Generator {
             }
         }
 
-
         for (int idx = 0; idx < ivars.size(); idx++) {
             ClassAttribute anAttribute = (ClassAttribute) ivars.get(idx);
 
             // Write out a method call to reflect a primitive type
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
                 String marshalType = marshalTypes.getProperty(anAttribute.getType());
-                String capped = this.initialCap(marshalType);
+                //String capped = this.initialCap(marshalType);
 
                 // If we're a normal primitivetype, marshal out directly; otherwise, marshall out
                 // the list length.
                 if (anAttribute.getIsDynamicListLengthField() == false) {
                     //pw.println("           sb.Append(\"" + marshalType + tab + "_" + anAttribute.getName() + tab + "\" + _" + anAttribute.getName() + ".ToString() + System.Environment.NewLine);");
-                    pw.println(indent + 2, "sb.Append(\"<" + anAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + _" + anAttribute.getName() + ".ToString() + \"</" + anAttribute.getName() + "> \" + System.Environment.NewLine);");
+                    pw.println(indent + 2, "sb.AppendLine(\"<" + anAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + this._" + anAttribute.getName() + ".ToString(CultureInfo.InvariantCulture) + \"</" + anAttribute.getName() + ">\");");
 
                 } else {
                     ClassAttribute listAttribute = anAttribute.getDynamicListClassAttribute();
 
                     //PES 04/29/2009  Added to speed up unboxing of data, using byte[] vice unboxing of a Class ie. OneByteChunk
                     if (variableListfix.contains(listAttribute.getName()) == true) {
-                        pw.println(indent + 2, "sb.Append(\"<" + listAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + _" + listAttribute.getName() + ".Length.ToString() + \"</" + listAttribute.getName() + "> \" + System.Environment.NewLine);");
+                        pw.println(indent + 2, "sb.AppendLine(\"<" + listAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + this._" + listAttribute.getName() + ".Length.ToString(CultureInfo.InvariantCulture) + \"</" + listAttribute.getName() + ">\");");
                     } else {
-                        pw.println(indent + 2, "sb.Append(\"<" + listAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + _" + listAttribute.getName() + ".Count.ToString() + \"</" + listAttribute.getName() + "> \" + System.Environment.NewLine);");
+                        pw.println(indent + 2, "sb.AppendLine(\"<" + listAttribute.getName() + " type=\\\"" + marshalType + "\\\">\" + this._" + listAttribute.getName() + ".Count.ToString(CultureInfo.InvariantCulture) + \"</" + listAttribute.getName() + ">\");");
                     }
                 }
-
             }
 
             // Write out a method call to reflect another class.
             if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
-                String marshalType = anAttribute.getType();
-                pw.println(indent + 2, "sb.Append(\"<" + anAttribute.getName() + ">\"  + System.Environment.NewLine);");
-                pw.println(indent + 2, "_" + anAttribute.getName() + ".reflection(sb);");
-                pw.println(indent + 2, "sb.Append(\"</" + anAttribute.getName() + ">\"  + System.Environment.NewLine);");
+                //String marshalType = anAttribute.getType();
+                pw.println(indent + 2, "sb.AppendLine(\"<" + anAttribute.getName() + ">\");");
+                pw.println(indent + 2, "this._" + anAttribute.getName() + ".Reflection(sb);");
+                pw.println(indent + 2, "sb.AppendLine(\"</" + anAttribute.getName() + ">\");");
             }
 
             // Write out the method call to marshal a fixed length list, aka an array.
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)) {
                 //pw.println("    sb.Append(\"</" + anAttribute.getName() + ">\"  + System.Environment.NewLine);");
 
-                pw.println();
-                pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+                pw.println(indent + 2, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Length; idx++)");
                 pw.println(indent + 2, "{");
 
                 // This is some sleaze. We're an array, but an array of what? We could be either a
@@ -1265,34 +1392,37 @@ public class CsharpGenerator extends Generator {
                 String marshalType = marshalTypes.getProperty(anAttribute.getType());
 
                 if (anAttribute.getUnderlyingTypeIsPrimitive()) {
-                    String capped = this.initialCap(marshalType);
-                    pw.println(indent + 2, "sb.Append(\"<" + anAttribute.getName() + "\"+ idx.ToString() + \" type=\\\"" + marshalType + "\\\">\" + _" + anAttribute.getName() + "[idx] + \"</" + anAttribute.getName() + "\"+ idx.ToString() + \"> \" + System.Environment.NewLine);");
+                    //String capped = this.initialCap(marshalType);
+                    pw.println(indent + 3, "sb.AppendLine(\"<" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \" type=\\\"" + marshalType + "\\\">\" + this._" + anAttribute.getName() + "[idx] + \"</" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \">\");");
                     //pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "[idx] + System.Environment.NewLine);");
                 } else {
-                    pw.println(indent + 2, "sb.Append(\"<" + anAttribute.getName() + "\"+ idx.ToString() + \" type=\\\"" + anAttribute.getType() + "\\\">\" + _" + anAttribute.getName() + "[ \"+ idx.ToString() + \"] + System.Environment.NewLine);");
-                    pw.println(indent + 2, "_" + anAttribute.getName() + "[idx].reflection(sb);");
-                    pw.println(indent + 2, "sb.Append(\"</" + anAttribute.getName() + "\"+ idx.ToString() + \">\" + System.Environment.NewLine);");
+                    pw.println(indent + 3, "sb.AppendLine(\"<" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \" type=\\\"" + anAttribute.getType() + "\\\">\" + this._" + anAttribute.getName() + "[ \" + idx.ToString(CultureInfo.InvariantCulture) + \"]);");
+                    pw.println(indent + 3, "this._" + anAttribute.getName() + "[idx].Reflection(sb);");
+                    pw.println(indent + 3, "sb.AppendLine(\"</" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \">\");");
                 }
 
-                pw.println(indent + 1, "} // end of array reflection");
+                pw.println(indent + 1, "}"); // end of array reflection
                 pw.println();
             }
 
             if ((anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)) {
-                pw.println();
-
                 //This will fix the OneByteChunk problem where the arrays length is correctly set to Length vice Count.  This is needed as
                 //there was no way to determine if the underlining data referenced the OneByteChunk class
                 //PES 04/29/2009  Added to speed up unboxing of data, using byte[] vice unboxing of a Class ie. OneByteChunk
                 if (variableListfix.contains(anAttribute.getName()) == true) {
-                    pw.println(indent + 1, "sb.Append(\"<" + anAttribute.getName() + " type=\\\"byte[]\\\">\" + System.Environment.NewLine);");
-                    pw.println(indent + 1, "foreach (byte b in _" + anAttribute.getName() + ") sb.Append(b.ToString(\"X2\"));");
-                    pw.println(indent + 2, "sb.Append(\"</" + anAttribute.getName() + ">\" + System.Environment.NewLine);");
+                    pw.println(indent + 2, "sb.AppendLine(\"<" + anAttribute.getName() + " type=\\\"byte[]\\\">\");");
+                    pw.println(indent + 2, "foreach (byte b in this._" + anAttribute.getName() + ")");
+                    pw.println(indent + 2, "{");
+                    pw.println(indent + 3, "sb.Append(b.ToString(\"X2\", CultureInfo.InvariantCulture));");
+                    pw.println(indent + 2, "}");
+                    pw.println();
+                    pw.println(indent + 2, "sb.AppendLine(\"</" + anAttribute.getName() + ">\");");
+                    pw.println();
 
                 } else {
 
-                    pw.println(indent + 1, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
-                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Count; idx++)");
+                    pw.println(indent + 2, "{");
 
                     // This is some sleaze. We're an array, but an array of what? We could be either a
                     // primitive or a class. We need to figure out which. This is done via the expedient
@@ -1302,278 +1432,306 @@ public class CsharpGenerator extends Generator {
                     String marshalType = marshalTypes.getProperty(anAttribute.getType());
 
                     if (anAttribute.getUnderlyingTypeIsPrimitive()) {
-                        String capped = this.initialCap(marshalType);
+                        //String capped = this.initialCap(marshalType);
 
-                        pw.println(indent + 2, "sb.Append(\"<" + anAttribute.getName() + "\"+ idx.ToString() + \" type=\\\"" + anAttribute.getType() + "\\\">\" + _" + anAttribute.getName() + "[idx].ToString() + System.Environment.NewLine);");
-                        pw.println(indent + 2, "sb.Append(\"</" + anAttribute.getName() + "\"+ idx.ToString() + \">\" + System.Environment.NewLine);");
+                        pw.println(indent + 3, "sb.AppendLine(\"<" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \" type=\\\"" + anAttribute.getType() + "\\\">\" + this._" + anAttribute.getName() + "[idx].ToString(CultureInfo.InvariantCulture));");
+                        pw.println(indent + 3, "sb.AppendLine(\"</" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \">\");");
 
                         //pw.println("           sb.Append(\"" + marshalType + tab + "\" + _" + anAttribute.getName() + "  + System.Environment.NewLine);");
-                    } else {
-                        pw.println(indent + 2, "sb.Append(\"<" + anAttribute.getName() + "\"+ idx.ToString() + \" type=\\\"" + anAttribute.getType() + "\\\">\" + System.Environment.NewLine);");
-                        pw.println(indent + 2, anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];"));
-                        pw.println(indent + 2, "a" + initialCap(anAttribute.getType()) + ".reflection(sb);");
-                        pw.println(indent + 2, "sb.Append(\"</" + anAttribute.getName() + "\"+ idx.ToString() + \">\" + System.Environment.NewLine);");
+                    } 
+                    else
+                    {
+                        pw.println(indent + 3, "sb.AppendLine(\"<" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \" type=\\\"" + anAttribute.getType() + "\\\">\");");
+                        pw.println(indent + 3, anAttribute.getType() + " a" + initialCap(anAttribute.getType() + " = (" + anAttribute.getType() + ")this._" + anAttribute.getName() + "[idx];"));
+                        pw.println(indent + 3, "a" + initialCap(anAttribute.getType()) + ".Reflection(sb);");
+                        pw.println(indent + 3, "sb.AppendLine(\"</" + anAttribute.getName() + "\" + idx.ToString(CultureInfo.InvariantCulture) + \">\");");
                     }
-                    pw.println(indent + 1, "} // end of list marshalling");
+                    pw.println(indent + 2, "}"); // end of list marshalling
                     pw.println();
                 }
             }
         } // End of loop through the ivars for a marshal method
 
-        pw.println(indent + 2, "sb.Append(\"</" + aClass.getName() + ">\"  + System.Environment.NewLine);");
+        pw.println(indent + 2, "sb.AppendLine(\"</" + aClass.getName() + ">\");");
 
-        pw.println(indent + 1, "} // end try");
-        pw.println(indent + 1, "catch(Exception e)");
+        pw.println(indent + 1, "}"); // end try
+        pw.println(indent + 1, "catch (Exception e)");
         pw.println(indent + 1, "{");
-        pw.println(indent + 2, "Trace.WriteLine(e);");
-        pw.println(indent + 2, "Trace.Flush();");
+        pw.println(0, "#if DEBUG");
+        pw.println(indent + 3, "Trace.WriteLine(e);");
+        pw.println(indent + 3, "Trace.Flush();");
+        pw.println(0, "#endif");
+        pw.println(indent + 3, "this.OnException(e);");
         pw.println(indent + 1, "}");
-        pw.println(indent, "} // end of reflection method");
+        pw.println(indent, "}"); // end of reflection method
     }
 
-    public void writeEqualityMethod(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
-        try {
-
-            /**Added override method for != and == for C#   09142009 **/
+    private void writeEqualityMethod(PrintStringBuffer pw, GeneratedClass aClass, int indent) {
+        try
+        {
             pw.println();
-            pw.println(indent, "public static bool operator !=(" + aClass.getName() + " a, " + aClass.getName() + " b)");
-            pw.println(indent, "{");
-            pw.println(indent + 1, "return !(a == b);");
-            pw.println(indent, "}");
-
-            pw.println();
-            pw.println(indent, "public static bool operator ==(" + aClass.getName() + " a, " + aClass.getName() + " b)");
-            pw.println(indent, "{");
-            pw.println(indent + 1, "if (System.Object.ReferenceEquals(a, b))");
-            pw.println(indent + 1, "{");
-            pw.println(indent + 2, "return true;");
-            pw.println(indent + 1, "}");
-            pw.println();
-            pw.println(indent + 1, "if (((object)a == null) || ((object)b == null))");
-            pw.println(indent + 1, "{");
-            pw.println(indent + 2, "return false;");
-            pw.println(indent + 1, "}");
-            pw.println();
-            pw.println(indent + 1, "return a.equals(b);");
-            pw.println(indent, "}");
-            pw.println();
-
-
-		//** added to override the Equals 12082009
-            pw.println();
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// Determines whether the specified <see cref=\"System.Object\"/> is equal to this instance.");
+            pw.println(indent, "/// </summary>");
+            pw.println(indent, "/// <param name=\"obj\">The <see cref=\"System.Object\"/> to compare with this instance.</param>");
+            pw.println(indent, "/// <returns>");
+            pw.println(indent, "/// 	<c>true</c> if the specified <see cref=\"System.Object\"/> is equal to this instance; otherwise, <c>false</c>.");
+            pw.println(indent, "/// </returns>");
             pw.println(indent, "public override bool Equals(object obj)");
             pw.println(indent, "{");
             pw.println(indent + 1, "return this == obj as " + aClass.getName() + ";");
             pw.println(indent, "}");
-            pw.println();
-
 
             pw.println();
-            pw.println(indent, "/**");
-            pw.println(indent, " * Compares for reference equality and value equality.");
-            pw.println(indent, " */");
-            pw.println(indent, "public bool equals(" + aClass.getName() + " rhs)");
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// Compares for reference AND value equality.");
+            pw.println(indent, "/// </summary>");
+            pw.println(indent, "/// <param name=\"obj\">The object to compare with this instance.</param>");
+            pw.println(indent, "/// <returns>");
+            pw.println(indent, "/// 	<c>true</c> if both operands are equal; otherwise, <c>false</c>.");
+            pw.println(indent, "/// </returns>");
+            pw.println(indent, "public bool Equals(" + aClass.getName() + " obj)");
             pw.println(indent, "{");
             pw.println(indent + 1, "bool ivarsEqual = true;");
-            pw.println();
 
-            pw.println(indent + 1, "if(rhs.GetType() != this.GetType())");
+            pw.println();
+            pw.println(indent + 1, "if (obj.GetType() != this.GetType())");
+            pw.println(indent + 1, "{");
             pw.println(indent + 2, "return false;");
+            pw.println(indent + 1, "}");
             pw.println();
 
-	    //If the class is PDU then do not use the base.Equals as it defaults to the base API version which will return a false
-           String parentClass = aClass.getParentClass();
-           if (!parentClass.equalsIgnoreCase("root")) {
-	    	pw.println(indent + 1, "ivarsEqual = base.Equals(rhs);");
-	    }
+            //If the class is PDU then do not use the base.Equals as it defaults to the base API version which will return a false
+            String parentClass = aClass.getParentClass();
 
-	    pw.println();
+            if (!parentClass.equalsIgnoreCase("root"))
+            {
+                pw.println(indent + 1, "ivarsEqual = base.Equals(obj);");
+                pw.println();
+            }
 
-            for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++) {
+            for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++)
+            {
                 ClassAttribute anAttribute = (ClassAttribute) aClass.getClassAttributes().get(idx);
 
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
-                    pw.println(indent + 1, "if( ! (_" + anAttribute.getName() + " == rhs._" + anAttribute.getName() + ")) ivarsEqual = false;");
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+                {
+                    pw.println(indent + 1, "if (this._" + anAttribute.getName() + " != obj._" + anAttribute.getName() + ")");
+                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "ivarsEqual = false;");
+                    pw.println(indent + 1, "}");
+                    pw.println();
                 }
 
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
-                    pw.println(indent + 1, "if( ! (_" + anAttribute.getName() + ".Equals( rhs._" + anAttribute.getName() + ") )) ivarsEqual = false;");
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+                {
+                    pw.println(indent + 1, "if (!this._" + anAttribute.getName() + ".Equals(obj._" + anAttribute.getName() + "))");
+                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "ivarsEqual = false;");
+                    pw.println(indent + 1, "}");
+                    pw.println();
                 }
 
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
+                {
+                    //PES 12082009 Added to account for issue with comparison of fields that are not marshalled.  Such as when creating two identical PDUs then
+                    //comparing them.  The _numberofxxx variables will contain 0 as they only get filled when marshalling.
 
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST) {
-    
-			//PES 12082009 Added to account for issue with comparison of fields that are not marshalled.  Such as when creating two identical PDUs then
-			//comparing them.  The _numberofxxx variables will contain 0 as they only get filled when marshalling.
- 
+                    //pw.println(indent + 1, "if( ! (_" + anAttribute.getListLength() + " == rhs._" + anAttribute.getName() + ")) { ivarsEqual = false; }");
+                    pw.println(indent + 1, "if (obj._" + anAttribute.getName() + ".Length != " + anAttribute.getListLength() + ") ");
+                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "ivarsEqual = false;");
+                    pw.println(indent + 1, "}");
                     pw.println();
-                   
-                    //pw.println(indent + 1, "if( ! (_" + anAttribute.getListLength() + " == rhs._" + anAttribute.getName() + ")) ivarsEqual = false;");
-                   pw.println(indent + 1, "if( ! (rhs._" + anAttribute.getName() + ".Length == " + anAttribute.getListLength() + ")) ivarsEqual = false;");
 
-	
-			//If ivars is false then do not iterate through loop
-                    pw.println(indent + 1, "if(ivarsEqual)");
-		    pw.println(indent + 1, "{");
-
-                    pw.println();
-                    pw.println(indent + 2, "for(int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
+                    //If ivars is false then do not iterate through loop
+                    pw.println(indent + 1, "if (ivarsEqual)");
+                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "for (int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
                     pw.println(indent + 2, "{");
-                    pw.println(indent + 3, "if(!(_" + anAttribute.getName() + "[idx] == rhs._" + anAttribute.getName() + "[idx])) ivarsEqual = false;");
+                    pw.println(indent + 3, "if (this._" + anAttribute.getName() + "[idx] != obj._" + anAttribute.getName() + "[idx])");
+                    pw.println(indent + 3, "{");
+                    pw.println(indent + 4, "ivarsEqual = false;");
+                    pw.println(indent + 3, "}");
                     pw.println(indent + 2, "}");
-
-	            pw.println(indent + 1, "}");
+                    pw.println(indent + 1, "}");
                     pw.println();
                 }
 
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) {
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
+                {
                     //PES 04/29/2009  Added to speed up unboxing of data, using byte[] vice unboxing of a Class ie. OneByteChunk
-                    if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
-                        pw.println(indent + 1, "if( ! ( _" + anAttribute.getName() + ".Equals(rhs._" + anAttribute.getName() + "))) ivarsEqual = false;");
-
-                    } else {
+                    if (anAttribute.getType().equalsIgnoreCase("OneByteChunk"))
+                    {
+                        pw.println(indent + 1, "if (!this._" + anAttribute.getName() + ".Equals(obj._" + anAttribute.getName() + "))");
+                        pw.println(indent + 1, "{");
+                        pw.println(indent + 2, "ivarsEqual = false;");
+                        pw.println(indent + 1, "}");
                         pw.println();
-	
-	                pw.println(indent + 1, "if( ! (_" + anAttribute.getName() + ".Count == rhs._" + anAttribute.getName() + ".Count)) ivarsEqual = false;");
+                    }
+                    else
+                    {
+                        pw.println(indent + 1, "if (this._" + anAttribute.getName() + ".Count != obj._" + anAttribute.getName() + ".Count)");
+                        pw.println(indent + 1, "{");
+                        pw.println(indent + 2, "ivarsEqual = false;");
+                        pw.println(indent + 1, "}");
+                        pw.println();
 
-			//If ivars is false then do not iterate through loop
-             	        pw.println(indent + 1, "if(ivarsEqual)");
-			pw.println(indent + 1, "{");
-
-                        pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+                        //If ivars is false then do not iterate through loop
+                        pw.println(indent + 1, "if (ivarsEqual)");
+                        pw.println(indent + 1, "{");
+                        pw.println(indent + 2, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Count; idx++)");
                         pw.println(indent + 2, "{");
-			//PES 12102009 Do not believe this line is needed so commented out
+                        //PES 12102009 Do not believe this line is needed so commented out
                         //pw.println(indent + 3, anAttribute.getType() + " x = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
-                        pw.println(indent + 3, "if( ! ( _" + anAttribute.getName() + "[idx].Equals(rhs._" + anAttribute.getName() + "[idx]))) ivarsEqual = false;");
+                        pw.println(indent + 3, "if (!this._" + anAttribute.getName() + "[idx].Equals(obj._" + anAttribute.getName() + "[idx]))");
+                        pw.println(indent + 3, "{");
+                        pw.println(indent + 4, "ivarsEqual = false;");
+                        pw.println(indent + 3, "}");
                         pw.println(indent + 2, "}");
-
- 			pw.println(indent + 1, "}");
+                        pw.println(indent + 1, "}");
                         pw.println();
                     }
                 }
             }
-            pw.println();
+
             pw.println(indent + 1, "return ivarsEqual;");
             pw.println(indent, "}");
-
-
-
-	    pw.println();
-            pw.println(indent, "/**");
-            pw.println(indent, " * HashCode Helper");
-            pw.println(indent, " */");
-            pw.println(indent, "private int GenerateHash(int hash)");
-            pw.println(indent, "{");
-            pw.println(indent + 1, "hash = hash << 5 + hash;");
-            pw.println(indent + 1, "return(hash);");
-	    pw.println(indent, "}");
             pw.println();
 
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// HashCode Helper");
+            pw.println(indent, "/// </summary>");
+            pw.println(indent, "/// <param name=\"hash\">The hash value.</param>");
+            pw.println(indent, "/// <returns>The new hash value.</returns>");
+            pw.println(indent, "private static int GenerateHash(int hash)");
+            pw.println(indent, "{");
+            pw.println(indent + 1, "hash = hash << (5 + hash);");
+            pw.println(indent + 1, "return hash;");
+            pw.println(indent, "}");
+            pw.println();
 
-
-
-	    pw.println();
-            pw.println(indent, "/**");
-            pw.println(indent, " * Return Hash");
-            pw.println(indent, " */");
+            pw.println(indent, "/// <summary>");
+            pw.println(indent, "/// Gets the hash code.");
+            pw.println(indent, "/// </summary>");
+            pw.println(indent, "/// <returns>The hash code.</returns>");
             pw.println(indent, "public override int GetHashCode()");
             pw.println(indent, "{");
             pw.println(indent + 1, "int result = 0;");
-	    pw.println();
+            pw.println();
 
-	    //PES 12102009 needed to ensure that the base GetHashCode was not executed on a root class otherwise it returns random results
-	    if (!parentClass.equalsIgnoreCase("root")) {
-	      pw.println(indent + 1, "result = GenerateHash(result) ^ base.GetHashCode();");
-	      pw.println();
-	    }
+            //PES 12102009 needed to ensure that the base GetHashCode was not executed on a root class otherwise it returns random results
+            if (!parentClass.equalsIgnoreCase("root")) {
+                pw.println(indent + 1, "result = GenerateHash(result) ^ base.GetHashCode();");
+            }
 
-            
             for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++) {
                 ClassAttribute anAttribute = (ClassAttribute) aClass.getClassAttributes().get(idx);
 
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
-                    pw.println(indent + 1, "result = GenerateHash(result) ^ _" + anAttribute.getName() + ".GetHashCode();");
-                }
-
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
-                    pw.println(indent + 1, "result = GenerateHash(result) ^ _" + anAttribute.getName() + ".GetHashCode();");
-                }
-
-
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST) {
-     
-                   pw.println();
-                   
-                   pw.println(indent + 1, "if(" + anAttribute.getListLength() + " > 0)");
-		   pw.println(indent + 1, "{");
-
-                    pw.println();
-                    pw.println(indent + 2, "for(int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
-                    pw.println(indent + 2, "{");
-                    pw.println(indent + 3, "result = GenerateHash(result) ^ _" + anAttribute.getName() + "[idx].GetHashCode();");
-                    pw.println(indent + 2, "}");
-
-	            pw.println(indent + 1, "}");
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST ||
+                    anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST ||
+                    (!parentClass.equalsIgnoreCase("root") && idx == 0))
+                {
                     pw.println();
                 }
 
-                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) {
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
+                {
+                    pw.println(indent + 1, "result = GenerateHash(result) ^ this._" + anAttribute.getName() + ".GetHashCode();");
+                }
 
-                    if (anAttribute.getType().equalsIgnoreCase("OneByteChunk")) {
-			//PES need to modify as onebytechunks are represented as byte[] therefore need to change code slightly
-                        pw.println();
-	
-	                pw.println(indent + 1, "if(_" + anAttribute.getName() + ".Length > 0)");
-			pw.println(indent + 1, "{");
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
+                {
+                    pw.println(indent + 1, "result = GenerateHash(result) ^ this._" + anAttribute.getName() + ".GetHashCode();");
+                }
 
-                        pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Length; idx++)");
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
+                {
+                    //pw.println(indent + 1, "if (" + anAttribute.getListLength() + " > 0)");
+                    //pw.println(indent + 1, "{");
+                    pw.println(indent + 1, "for (int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
+                    pw.println(indent + 1, "{");
+                    pw.println(indent + 2, "result = GenerateHash(result) ^ this._" + anAttribute.getName() + "[idx].GetHashCode();");
+                    pw.println(indent + 1, "}");
+                    //pw.println(indent + 1, "}");
+                }
+
+                if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
+                {
+                    if (anAttribute.getType().equalsIgnoreCase("OneByteChunk"))
+                    {
+                        //PES need to modify as onebytechunks are represented as byte[] therefore need to change code slightly
+                        pw.println(indent + 1, "if (this._" + anAttribute.getName() + ".Length > 0)");
+                        pw.println(indent + 1, "{");
+                        pw.println(indent + 2, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Length; idx++)");
                         pw.println(indent + 2, "{");
-                        
-                        pw.println(indent + 3, "result = GenerateHash(result) ^ _" + anAttribute.getName() + "[idx].GetHashCode();");
+                        pw.println(indent + 3, "result = GenerateHash(result) ^ this._" + anAttribute.getName() + "[idx].GetHashCode();");
                         pw.println(indent + 2, "}");
-
- 			pw.println(indent + 1, "}");
-                        pw.println();
-
-                    } else {
-                        pw.println();
-	
-	                pw.println(indent + 1, "if(_" + anAttribute.getName() + ".Count > 0)");
-			pw.println(indent + 1, "{");
-
-                        pw.println(indent + 2, "for(int idx = 0; idx < _" + anAttribute.getName() + ".Count; idx++)");
+                        pw.println(indent + 1, "}");
+                    } 
+                    else
+                    {
+                        pw.println(indent + 1, "if (this._" + anAttribute.getName() + ".Count > 0)");
+                        pw.println(indent + 1, "{");
+                        pw.println(indent + 2, "for (int idx = 0; idx < this._" + anAttribute.getName() + ".Count; idx++)");
                         pw.println(indent + 2, "{");
                         //PES 12102009 Do not believe this line is needed so commented out
-			//pw.println(indent + 3, anAttribute.getType() + " x = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
-                        pw.println(indent + 3, "result = GenerateHash(result) ^ _" + anAttribute.getName() + "[idx].GetHashCode();");
+                        //pw.println(indent + 3, anAttribute.getType() + " x = (" + anAttribute.getType() + ")_" + anAttribute.getName() + "[idx];");
+                        pw.println(indent + 3, "result = GenerateHash(result) ^ this._" + anAttribute.getName() + "[idx].GetHashCode();");
                         pw.println(indent + 2, "}");
-
- 			pw.println(indent + 1, "}");
-                        pw.println();
-		    }
-                    
+                        pw.println(indent + 1, "}");
+                    }
                 }
             }
+
             pw.println();
             pw.println(indent + 1, "return result;");
             pw.println(indent, "}");
-
-
-
-
-        } catch (Exception e) {
+        } 
+        catch (Exception e)
+        {
             System.out.println(e);
         }
     }
 
     /**
-     * returns a string with the first letter capitalized. 
+     * returns a string with the first letter capitalized.
      */
     public String initialCap(String aString) {
         StringBuffer stb = new StringBuffer(aString);
         stb.setCharAt(0, Character.toUpperCase(aString.charAt(0)));
 
         return new String(stb);
+    }
+
+    public String camelCaseCapIgnoreSpaces(String aString) {
+        StringBuffer stb = new StringBuffer();
+
+        if (aString.length() > 0){
+            stb.append(Character.toUpperCase(aString.charAt(0)));
+
+            boolean previousIsSpace = false;
+            for (int i = 1; i < aString.length(); i++)
+            {
+                boolean currentIsSpace = aString.charAt(i) == ' ';
+
+                if (previousIsSpace)
+                {
+                    stb.append(Character.toUpperCase(aString.charAt(i)));
+                }
+                else if (!currentIsSpace)
+                {
+                    stb.append(aString.charAt(i));
+                }
+
+                previousIsSpace = currentIsSpace;
+            }
+        }
+
+        String newString = new String(stb);
+        //System.out.println(newString);
+
+        return newString;
     }
 
     public void postProcessData(PrintStringBuffer pw, GeneratedClass aClass) {
@@ -1594,87 +1752,94 @@ public class CsharpGenerator extends Generator {
         String findString;
         String newString;
 
-        findString = "_data = dis.readByteArray(_dataLength);";
-        newString = "_data = dis.readByteArray((_dataLength / 8) + (_dataLength % 8 > 0 ? 1 : 0));  //09062009 Post processed. Needed to convert from bits to bytes";  //PES changed to reflex that the datalength should hold bits
+        if (this.disVersion.equals("1998"))
+        {
+            findString = "this._data = dis.ReadByteArray(this._dataLength);";
+            newString = "this._data = dis.ReadByteArray((this._dataLength / 8) + (this._dataLength % 8 > 0 ? 1 : 0));  //09062009 Post processed. Needed to convert from bits to bytes";  //PES changed to reflex that the datalength should hold bits
 
-        startfind = pw.sb.indexOf(findString);
-        pw.sb.replace(startfind, startfind + findString.length(), newString);
+            startfind = pw.sb.indexOf(findString);
+            pw.sb.replace(startfind, startfind + findString.length(), newString);
 
+            findString = "dos.WriteShort((short)this._data.Length);";
+            newString = "dos.WriteShort((short)((this._dataLength == 0 && this._data.Length > 0) ? this._data.Length * 8 : this._dataLength)); //09062009 Post processed.  If value is zero then default to every byte will use all 8 bits";  //09062009 PES changed to reflex that the datalength should be set by user and not automatically as this value is the number of bits in the data field that should be used
 
+            startfind = pw.sb.indexOf(findString);
+            pw.sb.replace(startfind, startfind + findString.length(), newString);
 
+            findString = "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.";
+            newString = "/// This value must be set to the number of bits that will be used from the Data field.  Normally this value would be in increments of 8.  If this is the case then multiply the number of bytes used in the Data field by 8 and store that number here.";
 
+            startfind = pw.sb.indexOf(findString);
+            pw.sb.replace(startfind, startfind + 326, newString);
 
-        findString = "dos.writeShort((short)_data.Length);";
-        newString = "dos.writeShort((short)((_dataLength == 0 && _data.Length > 0) ? _data.Length * 8 : _dataLength)); //09062009 Post processed.  If value is zero then default to every byte will use all 8 bits";  //09062009 PES changed to reflex that the datalength should be set by user and not automatically as this value is the number of bits in the data field that should be used
-
-        startfind = pw.sb.indexOf(findString);
-        pw.sb.replace(startfind, startfind + findString.length(), newString);
-
-
-        findString = "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.";
-
-        newString = "/// This value must be set to the number of bits that will be used from the Data field.  Normally this value would be in increments of 8.  If this is the case then multiply the number of bytes used in the Data field by 8 and store that number here.";
-
-        startfind = pw.sb.indexOf(findString);
-        pw.sb.replace(startfind, startfind + 326, newString);
-
-        ///Do this twice as there are two occurences
-        startfind = pw.sb.indexOf(findString);
-        pw.sb.replace(startfind, startfind + 326, newString);
-
-
-
+//          ///Do this twice as there are two occurences
+//          startfind = pw.sb.indexOf(findString);
+//          pw.sb.replace(startfind, startfind + 326, newString);
+        }
     }
 
     public void postProcessVariableDatum(PrintStringBuffer pw) {
         ///String findString1 = "/// Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-/// The getvariableDatumLength method will also be based on the actual list length rather than this value. 
+/// The getvariableDatumLength method will also be based on the actual list length rather than this value.
 /// The method is simply here for completeness and should not be used for any computations.
 
         int startfind, endfind;
         String findString;
         String newString;
 
-        for (int i = 0; i < 2; i++) {
-            startfind = pw.sb.indexOf("Note that");
-            endfind = pw.sb.indexOf("for any computations.");
-            pw.sb.replace(startfind, endfind + 21, "This value must be set for any PDU using it to work!" + pw.newline + "/// This value should be the number of bits used.");
+        if (this.disVersion == "1998")
+        {
+            //for (int i = 0; i < 2; i++) {
+                startfind = pw.sb.indexOf("Note that");
+                endfind = pw.sb.indexOf("for any computations.");
+                pw.sb.replace(startfind, endfind + 21, "This value must be set for any PDU using it to work!" + pw.newline + "/// This value should be the number of bits used.");
+            //}
+
+            startfind = pw.sb.indexOf("dos.WriteUnsignedInt((uint)this._variableDatums.Count);");
+            pw.sb.replace(startfind, startfind + 43, "dos.WriteUnsignedInt((uint)this._variableDatumLength); //Post processed");
+
+            findString = "_variableDatumLength = dis.ReadUnsignedInt();";
+            newString = pw.newline + "        int variableCount = (int)(this._variableDatumLength / 64) + (this._variableDatumLength % 64 > 0 ? 1 : 0);  //Post processed";
+            startfind = pw.sb.indexOf(findString);
+            pw.sb.insert(startfind + findString.length() + 1, newString);
+
+            findString = "for (int idx = 0; idx < this.VariableDatumLength; idx++)";
+            newString = "for (int idx = 0; idx < variableCount; idx++)";
+            startfind = pw.sb.indexOf(findString);
+            pw.sb.replace(startfind, startfind + findString.length(), newString);
         }
+    }
 
-        startfind = pw.sb.indexOf("dos.writeUint((uint)_variableDatums.Count);");
-        pw.sb.replace(startfind, startfind + 43, "dos.writeUint((uint)_variableDatumLength); //Post processed");
-
-        findString = "_variableDatumLength = dis.readUint();";
-        newString = pw.newline + "        int variableCount = (int)(_variableDatumLength / 64) + (_variableDatumLength % 64 > 0 ? 1 : 0);  //Post processed";
-        startfind = pw.sb.indexOf(findString);
-        pw.sb.insert(startfind + findString.length() + 1, newString);
-
-        findString = "for(int idx = 0; idx < _variableDatumLength; idx++)";
-        newString = "for(int idx = 0; idx < variableCount; idx++)";
-        startfind = pw.sb.indexOf(findString);
-        pw.sb.replace(startfind, startfind + findString.length(), newString);
-
+    private void writeCopyrightNotice(PrintStringBuffer pw) {
+        pw.println("//");
+        pw.println("// Copyright (c) 2008, MOVES Institute, Naval Postgraduate School. All ");
+        pw.println("// rights reserved. This work is licensed under the BSD open source license,");
+        pw.println("// available at https://www.movesinstitute.org/licenses/bsd.html");
+        pw.println("//");
+        pw.println("// Author: DMcG");
+        pw.println("// Modified for use with C#:");
+        pw.println("//  - Peter Smith (Naval Air Warfare Center - Training Systems Division)");
+        pw.println("//  - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)");
+        pw.println();
     }
 
     private void writeLicenseNotice(PrintStringBuffer pw) {
         pw.println("// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.");
-
         pw.println("// Redistribution and use in source and binary forms, with or without");
         pw.println("// modification, are permitted provided that the following conditions");
-        pw.println("//  are met:");
-        pw.println("// ");
-        pw.println("//  * Redistributions of source code must retain the above copyright");
-        pw.println("// notice, this list of conditions and the following disclaimer.");
+        pw.println("// are met:");
+        pw.println("// * Redistributions of source code must retain the above copyright");
+        pw.println("//    notice, this list of conditions and the following disclaimer.");
         pw.println("// * Redistributions in binary form must reproduce the above copyright");
-        pw.println("// notice, this list of conditions and the following disclaimer");
-        pw.println("// in the documentation and/or other materials provided with the");
-        pw.println("// distribution.");
+        pw.println("//   notice, this list of conditions and the following disclaimer");
+        pw.println("//   in the documentation and/or other materials provided with the");
+        pw.println("//   distribution.");
         pw.println("// * Neither the names of the Naval Postgraduate School (NPS)");
-        pw.println("//  Modeling Virtual Environments and Simulation (MOVES) Institute");
-        pw.println("// (http://www.nps.edu and http://www.MovesInstitute.org)");
-        pw.println("// nor the names of its contributors may be used to endorse or");
-        pw.println("//  promote products derived from this software without specific");
-        pw.println("// prior written permission.");
+        pw.println("//   Modeling Virtual Environments and Simulation (MOVES) Institute");
+        pw.println("//   (http://www.nps.edu and http://www.MovesInstitute.org)");
+        pw.println("//   nor the names of its contributors may be used to endorse or");
+        pw.println("//   promote products derived from this software without specific");
+        pw.println("//   prior written permission.");
         pw.println("// ");
         pw.println("// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS");
         pw.println("// AS IS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT");
@@ -1688,8 +1853,6 @@ public class CsharpGenerator extends Generator {
         pw.println("// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN");
         pw.println("// ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE");
         pw.println("// POSSIBILITY OF SUCH DAMAGE.");
-        pw.println();
-
     }
 }
 
@@ -1737,6 +1900,7 @@ class PrintStringBuffer {
         sb.append(getPaddingOfLength(nrOfIndents) + s + newline);
     }
 
+    @Override
     public String toString() {
         return sb.toString();
     }
