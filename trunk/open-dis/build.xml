@@ -265,7 +265,7 @@
     <!-- Create a distribution. This skips the target of generateDisSourceCode, since that is not typically used
          in the development cycle. You can run that target separately.
     -->
-    <target name="dist" depends="clean, init, compile, javadoc, generateSchema, compileTest, test, jar" description="do everything">
+    <target name="dist" depends="clean, init, compile, javadoc, generateSchema, compileTest, testxml, jar" description="do everything">
      <copy file="${lib}/activation.jar" todir="${dist}/lib"/>
      <copy file="${lib}/dis-enums_1.1.jar" todir="${dist}/lib"/>
      <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
