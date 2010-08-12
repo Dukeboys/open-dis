@@ -13,6 +13,7 @@
     <property name="dist" location="dist"/>
     <property name="test" location="java/test"/>
     <property name="version" value="3.1.3"/>
+    <property name="testReportOutputDir" value="${build}/testReportOutputDir"/>
     
     <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
     <property name="compile.debug" value="true"/>
@@ -33,6 +34,7 @@
         <mkdir dir="${dist}/lib"/>
         <mkdir dir="${dist}/docs"/>
         <mkdir dir="${build}"/>
+        <mkdir dir="${testReportOutputDir}"/>
         <mkdir dir="${build}/test"/>
         <mkdir dir="${src}/edu"/>
         <mkdir dir="${src}/edu/nps"/>
@@ -253,8 +255,8 @@
         </fileset>
       </classpath>
 
-      <test name="edu.nps.moves.dis.DisAllTests" todir="${build}/testRunOutput"/>
-      <test name="edu.nps.moves.spatial.SpatialTestSuite" todir="${build}/testRunOutput"/>
+      <test name="edu.nps.moves.dis.DisAllTests" todir="${testReportOutputDir}"/>
+      <test name="edu.nps.moves.spatial.SpatialTestSuite" todir="${testReportOutputDir}"/>
 
       </junit>
     </target>
