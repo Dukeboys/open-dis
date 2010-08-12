@@ -99,7 +99,7 @@
     </target>
 
    <target name="spatial" depends="compile" description = "Run coordinate system santity check">
-        <java classname="edu.nps.moves.spatial.LocalFlat">
+        <java classname="edu.nps.moves.spatial.RangeCoordinates">
             <classpath refid="lib.path"/>
         </java>
    </target>
@@ -239,6 +239,27 @@
       </junit>
     </target>
 
+<!-- sends test case output to XML file, for use by Hudson -->
+    <target name="testxml" depends="compileTest" description="run junit unit tests on build">
+      <junit>
+      <formatter type="xml" usefile="true"/>
+      <classpath>
+        <pathelement location="${build}"/>
+        <pathelement location="${jarfile}"/>
+        <pathelement location="${build}/test"/>
+        <pathelement location="${lib}/junit-4.4.jar"/>
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+      </classpath>
+
+      <test name="edu.nps.moves.dis.DisAllTests" todir="${build}/testRunOutput"/>
+      <test name="edu.nps.moves.spatial.SpatialTestSuite" todir="${build}/testRunOutput"/>
+
+      </junit>
+    </target>
+
+
     <!-- Create a distribution. This skips the target of generateDisSourceCode, since that is not typically used
          in the development cycle. You can run that target separately.
     -->
@@ -268,7 +289,7 @@
             </classpath>
         </java>
     </target>
-    
+
     <!-- Runs a generator that sends many or most of the PDU types, and saves an example XML file -->
     <target name="runGenerator" depends="jar" description="run DIS PDU generator program">
         <java classname="edu.nps.moves.examples.PduSender">
