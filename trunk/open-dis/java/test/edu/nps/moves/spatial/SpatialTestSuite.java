@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
  * @author mcgredo
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({edu.nps.moves.spatial.LocalFlatTest.class})
+@Suite.SuiteClasses({edu.nps.moves.spatial.RangeCoordinates.class})
 public class SpatialTestSuite {
 
     @BeforeClass
