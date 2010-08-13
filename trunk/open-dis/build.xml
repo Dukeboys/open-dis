@@ -256,7 +256,9 @@
       </classpath>
 
       <test name="edu.nps.moves.dis.DisAllTests" todir="${testReportOutputDir}"/>
+      <!--
       <test name="edu.nps.moves.spatial.SpatialTestSuite" todir="${testReportOutputDir}"/>
+      -->
 
       </junit>
     </target>
