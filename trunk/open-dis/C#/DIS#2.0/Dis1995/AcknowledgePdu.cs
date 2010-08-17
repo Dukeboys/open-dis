@@ -38,13 +38,11 @@
 //  - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using System.Xml.Serialization;
-using OpenDis.Core;
 using OpenDis.Utilities;
 
 namespace OpenDis.Dis1995
@@ -117,7 +115,7 @@ namespace OpenDis.Dis1995
 
         public override int GetMarshalledSize()
         {
-            int marshalSize = 0; 
+            int marshalSize = 0;
 
             marshalSize = base.GetMarshalledSize();
             marshalSize += 2;  // this._acknowledgeFlag
@@ -262,10 +260,10 @@ namespace OpenDis.Dis1995
             catch (Exception e)
             {
 #if DEBUG
-                    Trace.WriteLine(e);
-                    Trace.Flush();
+                Trace.WriteLine(e);
+                Trace.Flush();
 #endif
-                    this.OnException(e);
+                this.OnException(e);
             }
         }
 
