@@ -35,7 +35,7 @@
 
 <class name="AggregateIdentifier" inheritsFrom="root" comment="The unique designation of each aggrgate in an exercise is specified by an aggregate identifier record. The aggregate ID is not an entity and shall not be treated as such. Section 6.2.3.">
     
-  <attribute name="simulationAddress" comment="Type of supply">
+  <attribute name="simulationAddress" comment="Simulation address, ie site and application, the first two fields of the entity ID">
     <classRef name="SimulationAddress"/>
   </attribute>
   
@@ -62,11 +62,11 @@
 
 <class name="AggregateType" inheritsFrom="root" comment="Identifies the type and organization of an aggregate. Section 6.2.5">
     
-    <attribute name="aggregateKind" comment="Kind of entity">
+    <attribute name="aggregateKind" comment="Grouping criterion used to group the aggregate. Enumeration from EBV document">
         <primitive type="unsigned byte"/>
     </attribute>
     
-    <attribute name="domain" comment="Domain of entity (air, surface, subsurface, space, etc)">
+    <attribute name="domain" comment="Domain of entity (air, surface, subsurface, space, etc) Zero means domain does not apply.">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -92,6 +92,7 @@
     
 </class>
 
+<!-- Section 6.2.6 specifies that angles will be represented as 32 bit floating points expressed in radians -->
 
 <class name="AngularVelocityVector" inheritsFrom="root" 
        comment="Angular velocity measured in radians per second out each of the entity's own coordinate axes. Order of measurement is angular velocity around the x, y, and z axis of the entity. The positive direction is determined by the right hand rule. Section 6.2.7">
@@ -132,9 +133,7 @@
     <classref name="Orientation"/>
     </attribute>
     
-    <attribute name="azimuthBeamwidth" commment="Full width of the beam to the -3dB power density points 
-    in the x-y plane of the beam coordinnate system.  Elevation beamwidth is represented by a 32 bit 
-    floating point number in units of radians.">
+    <attribute name="azimuthBeamwidth" commment="Full width of the beam to the -3dB power density points in the x-y plane of the beam coordinnate system.  Elevation beamwidth is represented by a 32 bit floating point number in units of radians.">
       <primitive type="float" defaultValue="0"/>
     </attribute>
     
@@ -142,9 +141,7 @@
       <primitive type="float" defaultValue="0"/>
     </attribute>
     
-    <attribute name="referenceSystem" commment="The reference coordinate system wrt which beam direction 
-    is specified. This field should not change over the duration of an exercise. World coordindate systemis 
-    prefered for exercises. The entity coordinate system should be used only when highly directional antennas must be precisely modeled.">
+    <attribute name="referenceSystem" commment="The reference coordinate system wrt which beam direction  is specified. This field should not change over the duration of an exercise. World coordindate systemis prefered for exercises. The entity coordinate system should be used only when highly directional antennas must be precisely modeled.">
       <primitive type="float" defaultValue="0"/>
     </attribute>
     
@@ -157,25 +154,25 @@
     </attribute>
     
     <attribute name="ez" comment="This field shall specify the magnitude of the Z-component (in beam coordinates) of the Electrical field at some arbitrary single point in the main beam and in the far field of the antenna. ">
-      <primitive type="float"/>
+      <primitive type="float" defaultValue="0.0"/>
     </attribute>
     
     <attribute name="ex" comment="This field shall specify the magnitude of the X-component (in beam coordinates) of the Electri- cal field at some arbitrary single point in the main beam and in the far field of the antenna.">
-      <primitive type="float"/>
+      <primitive type="float" defaultValue="0.0"/>
     </attribute>
     
     <attribute name="phase" comment="This field shall specify the phase angle between EZ and EX in radians. If fully omni-direc- tional antenna is modeled using beam pattern type one, the omni-directional antenna shall be repre- sented by beam direction Euler angles psi, theta, and phi of zero, an azimuth beamwidth of 2PI, and an elevation beamwidth of PI">
-      <primitive type="float"/>
+      <primitive type="float" defaultValue="0.0"/>
     </attribute>
     
      <attribute name="padding3" comment="padding">
-      <primitive type="unsigned int"/>
+      <primitive type="unsigned int" defaultValue="0"/>
     </attribute>
     
 </class>   
 
 <class name="Association" inheritsFrom="root" 
-       comment="For each association, this record shall specify the type of the association, the associated entity's EntityID and/or the associated location's world coordinates. This record may be used (optionally) in a transfer transaction to send internal state data from the divesting simulation to the acquiring simulation (see 5.9.4). This record may also be used for other purposes. Section 6.2.10">
+       comment="An entity's associations with other entities and/or locations. For each association, this record shall specify the type of the association, the associated entity's EntityID and/or the associated location's world coordinates. This record may be used (optionally) in a transfer transaction to send internal state data from the divesting simulation to the acquiring simulation (see 5.9.4). This record may also be used for other purposes. Section 6.2.10">
     
     <attribute name="associationType" commment="This field shall indicate the type of association. It shall be represented by an 8-bit enumeration. Values for this field are found in Section 14 of SISO-REF-010">
       <primitive type="unsigned byte"/>
@@ -190,11 +187,36 @@
     </attribute>
 
     
-    <attribute name="associatedLocation" comment="location">
+    <attribute name="associatedLocation" comment="location, in world coordinates">
         <classRef name="Vector3Double"/>
     </attribute>
 
-</class>
+</class
+
+<class name="Attribute" inheritsFrom="root"
+   comment="Used to convey information for one or more attributes. Attributes conform to the standard variable record format of 6.2.82. Section 6.2.11">
+
+    <attribute name="recordType" commment="The record type for this attribute.">
+      <primitive type="unsigned int"/>
+    </attribute>
+
+    <attribute name="recordLength" commment="Total length of the record in octets. The record shall end on a 64-bit boundary after any padding. = 6 + K + P">
+      <primitive type="unsigned byte"/>
+    </attribute>
+
+    <attribute name="recordSpecificFields" commment="The attribute data format conforming to that specified by the record type. K bytes long">
+      <primitive type="unsigned long"/>
+    </attribute>
+
+<!--
+     <attribute name="paddingTo64Bits" commment="Padding necessary to put the end of the record on a 64 bit boundary">
+      <primitive type="unsigned long"/>
+    </attribute>
+    -->
+
+    </class>
+
+
 
 <class name="BlankingSector" inheritsFrom="root" 
        comment="The Blanking Sector attribute record may be used to convey persistent areas within a scan volume where emitter power for a specific active emitter beam is reduced to an insignificant value. Section 6.2.12">
@@ -373,10 +395,9 @@
     
 </class>
  
-<class name="BeamData" inheritsFrom="root" comment="Describes the san volue of an emitter beam. Section 6.2.13.">
+<class name="BeamData" inheritsFrom="root" comment="Describes the scan volue of an emitter beam. Section 6.2.13.">
 
- <attribute name="beamAzimuthCenter" comment="Specifies the beam azimuth an elevation centers and corresponding half-angles
-    to describe the scan volume">
+ <attribute name="beamAzimuthCenter" comment="Specifies the beam azimuth an elevation centers and corresponding half-angles to describe the scan volume">
       <primitive type="float"/>
     </attribute>
     
@@ -392,14 +413,15 @@
       <primitive type="float"/>
     </attribute>
     
-    <attribute name="beamSweepSync" comment="allows receiver to synchronize its regenerated scan pattern to
-    that of the emmitter. Specifies the percentage of time a scan is through its pattern from its origion.">
+    <attribute name="beamSweepSync" comment="allows receiver to synchronize its regenerated scan pattern to that of the emmitter. Specifies the percentage of time a scan is through its pattern from its origion.">
       <primitive type="float"/>
     </attribute>
     
 </class>
 
-<class name="BeamState" inheritsFrom="root" comment="Information related to the status of a beam. This is contained in the beam status field of the electromagnitec emission PDU. The first bit determines whether the beam is active (0) or deactivated (1).">
+<!-- Section 6.2.15 is B.2.41 -->
+
+<class name="BeamStatus" inheritsFrom="root" comment="Information related to the status of a beam. This is contained in the beam status field of the electromagnitec emission PDU. The first bit determines whether the beam is active (0) or deactivated (1).">
 
  <attribute name="beamState" comment="First bit zero means beam is active, first bit = 1 means deactivated. The rest is padding.">
       <primitive type="unsigned byte"/>
@@ -419,6 +441,8 @@
  </attribute>
  
  </class>
+
+ <!-- Damage description records -->
  
   <class name="DirectedEnergyDamage"
         inheritsFrom="root"
@@ -499,8 +523,8 @@
   </attribute>
 
  </class>
- 
- <class name="DatumSpecificationRecord" 
+
+ <class name="DatumSpecification" 
        inheritsFrom="root" 
        comment="List of fixed and variable datum records. Section 6.2.19 ">
        
@@ -525,6 +549,8 @@
   </attribute>
 
  </class>
+
+<!-- Section 6.2.20: descriptor records" -->
 
 <class name="MunitionDescriptor" inheritsFrom="Descriptor" 
         comment="Represents the firing or detonation of a munition. Section 6.2.20.2">
@@ -555,7 +581,7 @@
          inheritsFrom="root" 
          comment="Explosion of a non-munition. Section 6.2.20.3">
 
-    <attribute name="explodingObject" comment="Type of the object that exploded">
+    <attribute name="explodingObject" comment="Type of the object that exploded. See 6.2.30">
       <classref name="EntityType"/> 
     </attribute>
     
@@ -587,9 +613,10 @@
 
 </class>
 
-<class name="DirectedEnergyAreaAimpointRecord"
+<!-- 6.2.21: directed entergy records -->
+<class name="DirectedEnergyAreaAimpoint"
         inheritsFrom="root"
-        comment="DE Precision Aimpoint Record. Section 6.2.21.2">
+        comment="DE Precision Aimpoint Record. NOT COMPLETE. Section 6.2.21.2">
 
    <attribute name="recordType" comment="Type of Record">
      <primitive type="unsigned int" defaultValue="4001"/>
@@ -611,13 +638,13 @@
      <primitive type="unsigned short" defaultValue="0"/>
    </attribute>
    
-   <attribute name="beamAntennaParameterList" comment="list of beam antenna records">
+   <attribute name="beamAntennaParameterList" comment="list of beam antenna records. See 6.2.9.2">
      <list type="variable" countFieldName="beamAntennaPatternRecordCount">
        <classRef name="BeamAntennaPattern"/>
     </list> 
    </attribute>
    
-    <attribute name="directedEnergyTargetEnergyDepositionRecordList" comment="list of DE target deposition records">
+    <attribute name="directedEnergyTargetEnergyDepositionRecordList" comment="list of DE target deposition records. See 6.2.21.4">
      <list type="variable" countFieldName="directedEnergyTargetEnergyDepositionRecordCount">
        <classRef name="DirectedEnergyTargetEnergyDeposition"/>
     </list> 
@@ -626,7 +653,7 @@
 </class>
 
 
-<class name="DirectedEnergyPrecisionAimpointRecord"
+<class name="DirectedEnergyPrecisionAimpoint"
         inheritsFrom="root"
         comment="DE Precision Aimpoint Record. Section 6.2.21.3">
 
@@ -713,8 +740,7 @@
       <primitive type="float"/>
     </attribute>
     
-    <attribute name="effectiveRadiatedPower" comment="Effective radiated power for the emission in DdBm. For a 
-    radar noise jammer, indicates the peak of the transmitted power.">
+    <attribute name="effectiveRadiatedPower" comment="Effective radiated power for the emission in DdBm. For a radar noise jammer, indicates the peak of the transmitted power.">
       <primitive type="float"/>
     </attribute>
     
@@ -846,8 +872,7 @@
             
 </class>
 
-<class name="EntityType" inheritsFrom="root" comment="Identifies the type of entity, including
-kind of entity, domain (surface, subsurface, air, etc) country, category, etc. Section 6.2.30">
+<class name="EntityType" inheritsFrom="root" comment="Identifies the type of entity, including kind of entity, domain (surface, subsurface, air, etc) country, category, etc. Section 6.2.30">
     
     <attribute name="entityKind" comment="Kind of entity">
         <primitive type="unsigned byte"/>
@@ -879,7 +904,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
     
 </class>
 
-<class name="Environment" inheritsFrom="root" 
+<class name="EnvironmentGeneral" inheritsFrom="root"
        comment=" Information about a geometry, a state associated with a geometry, a bounding volume, or an associated entity ID. NOTE: this class requires hand coding. 6.2.31">
     
     <attribute name="environmentType" comment="Record type">
@@ -1128,7 +1153,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
      
 </class>
 
-<class name="GridAxisRecord" inheritsFrom="root" comment="Grid axis record for fixed data. Section 6.2.41">
+<class name="GridAxis" inheritsFrom="root" comment="Grid axis record for fixed data. Section 6.2.41">
 
    <attribute name="domainInitialXi" comment="coordinate of the grid origin or initial value">
         <primitive type="double"/>
@@ -1157,6 +1182,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
       <attribute name="initialIndex" comment="initial grid point for the current pdu">
         <primitive type="unsigned short"/>
     </attribute>
+    
 </class>
 
 <class name="GroupIdentifier" 
@@ -1384,7 +1410,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="LayerHeaderRecord" inheritsFrom="root" comment="The identification of the additional information layer number, layer-specific information, and the length of the layer. Section 6.2.52">
+<class name="LayerHeader" inheritsFrom="root" comment="The identification of the additional information layer number, layer-specific information, and the length of the layer. Section 6.2.52">
 
       <attribute name="layerNumber">
          <primitive type="unsigned byte"/>
@@ -1400,7 +1426,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="LinearSegmentParameterRecord" inheritsFrom="root" comment="The specification of an individual segment of a linear segment synthetic environment object in a Linear Object State PDU Section 6.2.53">
+<class name="LinearSegmentParameter" inheritsFrom="root" comment="The specification of an individual segment of a linear segment synthetic environment object in a Linear Object State PDU Section 6.2.53">
 
      <attribute name="segmentNumber" comment="the individual segment of the linear segment "  >
          <primitive type="unsigned byte"/>
@@ -1470,7 +1496,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="MineEntityIdentifierRecord" inheritsFrom="root"
+<class name="MineEntityIdentifier" inheritsFrom="root"
        comment="The unique designation of a mine contained in the Minefield Data PDU. No espdus are issued for mine entities.  Section 6.2.56 ">
 
  <attribute name="simulationAddress" comment="">
@@ -1484,7 +1510,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 </class>
 
 
-<class name="MinefieldIdentifierRecord" inheritsFrom="root"
+<class name="MinefieldIdentifier" inheritsFrom="root"
        comment="The unique designation of a minefield Section 6.2.57 ">
 
  <attribute name="simulationAddress" comment="">
@@ -1497,12 +1523,12 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="ModulationParametersRecord" inheritsFrom="root"
+<class name="ModulationParameters" inheritsFrom="root"
        comment="Modulation parameters associated with a specific radio system. INCOMPLETE. 6.2.58 ">
 
 </class>
 
-<class name="ModulationTypeRecord" inheritsFrom="root"
+<class name="ModulationType" inheritsFrom="root"
        comment="Information about the type of modulation used for radio transmission. 6.2.59 ">
 
  <attribute name="spreadSpectrum" comment="This field shall indicate the spread spectrum technique or combination of spread spectrum techniques in use. Bt field.">
@@ -1523,7 +1549,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
  
 </class>
 
-<class name="MunitionRecord" inheritsFrom="root"
+<class name="Munition" inheritsFrom="root"
        comment="An entity's munition (e.g., bomb, missile) information shall be represented by one or more Munition records. For each type or location of munition, this record shall specify the type, location, quantity and status of munitions that an entity contains. Section 6.2.60 ">
 
  <attribute name="munitionType" comment=" This field shall identify the entity type of the munition. See section 6.2.30.">
@@ -1548,7 +1574,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="MunitionReloadRecord" inheritsFrom="root"
+<class name="MunitionReload" inheritsFrom="root"
        comment="indicate weapons (munitions) previously communicated via the Munition record. Section 6.2.61 ">
 
 <attribute name="munitionType" comment=" This field shall identify the entity type of the munition. See section 6.2.30.">
@@ -1577,7 +1603,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
  
 </class>
 
-<class name="ObjectIdentifierRecord" inheritsFrom="root"
+<class name="ObjectIdentifier" inheritsFrom="root"
        comment="The unique designation of an environmental object. Section 6.2.63">
 
  <attribute name="simulationAddress" comment=" Simulation Address">
@@ -1591,7 +1617,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 </class>
 
 
-<class name="ObjectTypeRecord" inheritsFrom="root"
+<class name="ObjectType" inheritsFrom="root"
        comment="The unique designation of an environmental object. Section 6.2.64">
 
     <attribute name="domain" comment="Domain of entity (air, surface, subsurface, space, etc)">
@@ -1612,7 +1638,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
  </class>
 
- <class name="OwnershipStatusRecord" inheritsFrom="root"
+ <class name="OwnershipStatus" inheritsFrom="root"
        comment="used to convey entity and conflict status information associated with transferring ownership of an entity. Section 6.2.65">
 
  <attribute name="entityId" comment="EntityID">
@@ -1628,7 +1654,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
     </attribute>
  </class>
 
-<class name="PduHeaderRecord" inheritsFrom="root"
+<class name="PduHeader" inheritsFrom="root"
        comment="Not used. The PDU Header Record is directly incoroporated into the PDU class. Here for completness only. Section 6.2.66"/>
  
  <attribute name="protocolVersion" comment="The version of the protocol. 5=DIS-1995, 6=DIS-1998, 7=DIS-2009.">
@@ -1665,7 +1691,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="PduStatusRecord" inheritsFrom="root"
+<class name="PduStatus" inheritsFrom="root"
        comment="PDU Status. These are a series of bit fields. Represented here as just a byte. Section 6.2.67">
 
    <attribute name="pduStatus" comment="Bit fields">
@@ -1674,7 +1700,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="PropulsionSystemDataRecord" inheritsFrom="root"
+<class name="PropulsionSystemData" inheritsFrom="root"
        comment="contains information describing the propulsion systems of the entity. This information shall be provided for each active propulsion system defined. Section 6.2.68">
 
  <attribute name="powerSetting" comment="powerSetting">
@@ -1687,7 +1713,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="PropulsionSystemDataRecord" inheritsFrom="root"
+<class name="PropulsionSystemData" inheritsFrom="root"
        comment="The unique designation of an attached or unattached radio in an event or exercise Section 6.2.69">
 
  <attribute name="siteNumber" comment=" site">
@@ -1708,7 +1734,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
   
 <class>
 
-<class name="NamedLocationIdentificationRecord" inheritsFrom="root"
+<class name="NamedLocationIdentification" inheritsFrom="root"
        comment="Information about the discrete positional relationship of the part entity with respect to the its host entity Section 6.2.62 ">
  <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
          <primitive type="unsigned short"/>
@@ -1721,7 +1747,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
  </class>
 
 
-<class name="RadioTypeRecord" inheritsFrom="root" comment="Identifies the type of radio. Section 6.2.70">
+<class name="RadioType" inheritsFrom="root" comment="Identifies the type of radio. Section 6.2.70">
 
 <attribute name="entityKind" comment="Kind of entity">
  <primitive type="unsigned byte"/>
@@ -1753,7 +1779,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="RecordQuerySpecificationRecord" inheritsFrom="root"
+<class name="RecordQuerySpecification" inheritsFrom="root"
        comment="The identification of the records being queried 6.2.71">
 
 <attribute name="numberOfRecords">
@@ -1797,7 +1823,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="RecordSpecificationRecord" inheritsFrom="root" comment="This record shall specify the number of record sets contained in the Record Specification record and the record details. Section 6.2.72.">
+<class name="RecordSpecification" inheritsFrom="root" comment="This record shall specify the number of record sets contained in the Record Specification record and the record details. Section 6.2.72.">
 
   <attribute name="numerOfRecordSets" comment="The number of record sets">
     <primitive type= "unsigned int"/>
@@ -1811,7 +1837,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="RelationshipRecord" inheritsFrom="root" comment="The relationship of the part entity to its host entity. Section 6.2.73.">
+<class name="Relationship" inheritsFrom="root" comment="The relationship of the part entity to its host entity. Section 6.2.73.">
 
 <attribute name="nature" comment="the nature or purpose for joining of the part entity to the host entity and shall be represented by a 16-bit enumeration">
     <primitive type="unsigned short"/>
@@ -1823,7 +1849,9 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="SecondaryOperationalDataRecord" inheritsFrom="root" comment="Additional operational data for an IFF emitting system and the number of IFF Fundamental Parameter Data records Section 6.2.76.">
+<!-- 6.2.74 nd 6.2.75 are enumerated values -->
+
+<class name="SecondaryOperationalData" inheritsFrom="root" comment="Additional operational data for an IFF emitting system and the number of IFF Fundamental Parameter Data records Section 6.2.76.">
 
 <attribute name="operationalData1" comment="additional operational characteristics of the IFF emitting system. Each 8-bit field will vary depending on the system type.">
     <primitive type="unsigned byte"/>
@@ -1839,7 +1867,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="SensorRecord" inheritsFrom="root" comment="An entity's sensor information.  Section 6.2.77.">
+<class name="Sensor" inheritsFrom="root" comment="An entity's sensor information.  Section 6.2.77.">
 
 <attribute name="sensorTypeSource" comment=" the source of the Sensor Type field ">
     <primitive type="unsigned byte"/>
@@ -1867,7 +1895,9 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
-<class name="SimulationAddressRecord" inheritsFrom="root" comment="A Simulation Address record shall consist of the Site Identification number and the Application Identification number. Section 6.2.79 ">
+<!-- Service type 6.2.78 is an 8-bit enumeration -->
+
+<class name="SimulationAddress" inheritsFrom="root" comment="A Simulation Address record shall consist of the Site Identification number and the Application Identification number. Section 6.2.79 ">
 
  <attribute name="site" comment="A site is defined as a facility, installation, organizational unit or a geographic location that has one or more simulation applications capable of participating in a distributed event. ">
    <primitive type="unsigned short"/>
@@ -1880,7 +1910,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 </class>
 
 
-<class name="SimulationIdentifierRecord" inheritsFrom="root" comment="The unique designation of a simulation when using the 48-bit identifier format shall be specified by the Sim- ulation Identifier record. The reason that the 48-bit format is required in addition to the 32-bit simulation address format that actually identifies a specific simulation is because some 48-bit identifier fields in PDUs may contain either an Object Identifier, such as an Entity ID, or a Simulation Identifier. Section 6.2.80">
+<class name="SimulationIdentifier" inheritsFrom="root" comment="The unique designation of a simulation when using the 48-bit identifier format shall be specified by the Sim- ulation Identifier record. The reason that the 48-bit format is required in addition to the 32-bit simulation address format that actually identifies a specific simulation is because some 48-bit identifier fields in PDUs may contain either an Object Identifier, such as an Entity ID, or a Simulation Identifier. Section 6.2.80">
 
  <attribute name="simulationAddress" comment="Simulation address ">
    <classRef name="SimulationAddressRecord"/>
@@ -1892,9 +1922,28 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
- <class name="StorageFuelRecord"
+<class name="SimulationManagementPduHeader" inheritsFrom="root"
+       comment="First part of a simulation management (SIMAN) PDU and SIMAN-Reliability (SIMAN-R) PDU. Sectionn 6.2.81">
+
+      <attribute name="pduHeader" comment="Conventional PDU header"/>
+        <classRef name="PduHeader"/>
+      </attribute>
+
+      <attribute name="originatingID" comment="IDs the simulation or entity, etiehr a simulation or an entity. Either 6.2.80 or 6.2.28"/>
+        <classRef name="EntityID"/>
+      </attribute>
+
+      <attribute name="recevingID" comment="simulation, all simulations, a special ID, or an entity. See 5.6.5 and 5.12.4"/>
+        <classRef name="EntityID"/>
+      </attribute>
+
+</class>
+
+<!-- Section 6.2.82, standard variale specification record, is a bit too complex -->
+
+ <class name="StorageFuel"
         inheritsFrom="root"
-        comment="Information about an entity's engine fuel. Section 6.2.82.">
+        comment="Information about an entity's engine fuel. Section 6.2.83.">
 
   <attribute name="fuelQuantity" comment="Fuel quantity, units specified by next field">
     <primitive type= "unsigned int"/>
@@ -1918,7 +1967,7 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 
 </class>
 
- <class name="StorageFuelReloadRecord"
+ <class name="StorageFuelReload"
         inheritsFrom="root"
         comment="For each type or location of Storage Fuel, this record shall specify the type, location, fuel measure- ment units, reload quantity and maximum quantity for storage fuel either for the whole entity or a specific storage fuel location (tank). Section 6.2.84.">
 
@@ -1957,10 +2006,9 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
 </class>
 
  
-
-   <class name="StorageFuelRecord"
+<class name="StorageFuelReload"
         inheritsFrom="root"
-        comment="Information about an entity's storage fuel. Section 6.2.83.">
+        comment="Information about an entity's storage fuel. Section 6.2.84.">
 
   <attribute name="fuelQuantity" comment="Fuel quantity, units specified by next field">
     <primitive type= "unsigned int"/>
@@ -1983,40 +2031,6 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
   </attribute>
   </class>
 
-  <class name="StorageFuelReloadRecord"
-        inheritsFrom="root"
-        comment="For each type or location of engine fuell, this record specifies the type, location, fuel measurement units, and reload quantity and maximum quantity. Section 6.2.84.">
-
-  <attribute name="standardQuantity" comment="standard quantity of fuel loaded">
-    <primitive type= "unsigned int"/>
-  </attribute>
-
-   <attribute name="maximumQuantity" comment="maximum quantity of fuel loaded">
-    <primitive type= "unsigned int"/>
-  </attribute>
-
-   <attribute name="standardQuantityReloadTime" comment="seconds normally required to to reload standard qty">
-    <primitive type= "unsigned int"/>
-  </attribute>
-
-   <attribute name="maximumQuantityReloadTime" comment="seconds normally required to to reload maximum qty">
-    <primitive type= "unsigned int"/>
-  </attribute>
-
-  <attribute name="fuelMeasurmentUnits" comment="Units of measure">
-    <primitive type= "unsigned byte"/>
-  </attribute>
-
- <attribute name="fuelLocation" comment="fuel  location as related to the entity">
-    <primitive type= "unsigned byte"/>
-  </attribute>
-
-   <attribute name="padding" comment="padding">
-    <primitive type= "unsigned byte" defaultValue="0"/>
-  </attribute>
-
-</class>
-
 <class name="SupplyQuantity" inheritsFrom="root" comment=" A supply, and the amount of that supply. Section 6.2.85">
 
     <attribute name="supplyType" comment="Type of supply">
@@ -2028,6 +2042,65 @@ kind of entity, domain (surface, subsurface, air, etc) country, category, etc. S
    </attribute>
 
   </class>
+
+ <class name="SystemIdentifier" inheritsFrom="root" comment="The ID of the IFF emitting system. NOT COMPLETE. Section 6.2.86">
+
+    <attribute name="systemType" comment="general type of emitting system, an enumeration">
+    <primitive type="unsighed short"/>
+  </attribute>
+
+   <attribute name="systemName" comment="named type of system, an enumeration">
+      <primitive type="unsigned short"/>
+   </attribute>
+
+   <attribute name="systemMode" comment="mode of operation for the system, an enumeration">
+      <primitive type="unsigned short"/>
+   </attribute>
+
+   <attribute name="changeOptions" comment="status of this PDU, see section 6.2.15">
+      <classRef name="ChangeOptions"/>
+   </attribute>
+
+   <!-- The change/options record is missing, and somewhat complex. See b.2.14-->
+
+  </class>
+
+  <!-- Section 6.2.87 Absolute timestamps are used when clocks on hosts are synced, perhaps via NTP.
+  Absolute timestamps have the LSB set to 1. Contents are the system clock time when the data was valid.
+
+  Relative timestamps are used when hosts are not synchronized. Each hosts keeps track from an arbitrary
+  starting point, relative to the simulation issuing the PDU. The LSB is set to zero.
+
+  Scale is one hour divided by 2^31-1, about 1.676 microseconds
+  -->
+
+<class name="TotalRecordSets" inheritsFrom="root" comment="Total number of record sets contained in a logical set of one or more PDUs. Used to transfer ownership, etc Section 6.2.88">
+
+  <attribute name="totalRecordSets" comment="Total number of record sets">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+    <attribute name="padding" comment="padding">
+    <primitive type="unsigned short" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+<class name="TrackJamData" inheritsFrom="root" comment=" Section 6.2.89">
+
+<attribute name="entityID" comment="the entity tracked or illumated, or an emitter beam targeted with jamming">
+    <classRef name="EntityID"/>
+</attribute>
+
+  <attribute name="emitterNumber" comment="Emitter system associated with the entity">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+   <attribute name="beamNumber" comment="Beam associated with the entity">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+</class>
 
 
 
