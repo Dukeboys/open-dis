@@ -2086,7 +2086,7 @@
 
 </class>
 
-<class name="TrackJamData" inheritsFrom="root" comment=" Section 6.2.89">
+<class name="TrackJamData" inheritsFrom="root" comment=" Track-Jam data Section 6.2.89">
 
 <attribute name="entityID" comment="the entity tracked or illumated, or an emitter beam targeted with jamming">
     <classRef name="EntityID"/>
@@ -2098,6 +2098,114 @@
 
    <attribute name="beamNumber" comment="Beam associated with the entity">
     <primitive type="unsigned byte"/>
+  </attribute>
+
+</class>
+
+<class name="UAFundamentalParameter" inheritsFrom="root" comment="Regeneration parameters for active emission systems that are variable throughout a scenario. Section 6.2.90">
+
+ <attribute name="activeEmissionParameterIndex" comment="Which database record shall be used. An enumeration from EBV document">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+  <attribute name="scanPattern" comment="The type of scan pattern, If not used, zero. An enumeration from EBV document">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+  <attribute name="beamCenterAzimuthHorizontal" comment="center azimuth bearing of th emain beam. In radians.">
+    <primitive type="float"/>
+  </attribute>
+
+  <attribute name="azimuthalBeamwidthHorizontal" comment="Horizontal beamwidth of th emain beam Meastued at the 3dB down point of peak radiated power. In radians.">
+    <primitive type="float"/>
+  </attribute>
+  
+   <attribute name="beamCenterDepressionElevation" comment="center of the d/e angle of th emain beam relative to the stablised de angle of the target. In radians.">
+    <primitive type="float"/>
+  </attribute>
+  
+    <attribute name="beamwidthDownElevation" comment="vertical beamwidth of the main beam. Meastured at the 3dB down point of peak radiated power. In radians.">
+    <primitive type="float"/>
+  </attribute>
+
+</class>
+
+<class name="UnattachedIdentifier" inheritsFrom="root" comment="The unique designation of one or more unattached radios in an event or exercise Section 6.2.91">
+
+  <attribute name="simulationAddress" comment="See 6.2.79">
+      <classref name="SimulationAddress">
+  </attribute>
+  
+   <attribute name="referenceNumber" comment="Reference number">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+</class>
+
+<class name="VariableDatum" inheritsFrom="root" comment="the variable datum type, the datum length, and the value for that variable datum type. NOT COMPLETE. Section 6.2.92">
+
+  <attribute name="variableDatumID" comment="Type of variable datum to be transmitted. 32 bit enumeration defined in EBV">
+      <primitive type="unsigned int"/>
+  </attribute>
+
+   <attribute name="variableDatumLength" comment="Length, in bits, of the variable datum.">
+    <primitive type="unsigned int"/>
+  </attribute>
+
+  <attribute name="variableDatumBits" comment="Variable datum. This can be any number of bits long, depending on the datum.">
+    <primitive type="unsigned int"/>
+  </attribute>
+
+  <attribute name="padding" comment="padding to put the record on a 64 bit boundary">
+    <primitive type="unsigned int" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+<class name="VariableParameter" inheritsFrom="root" comment="specification of additional information associated with an entity or detonation, not otherwise accounted for in a PDU 6.2.93.1">
+
+  <attribute name="recordType" comment="the identification of the Variable Parameter record. Enumeration from EBV">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+   <attribute name="variableParameterFields1" comment="Variable parameter data fields. Two longs minus one byte">
+     <primitive type="unsigned long"/>
+  </attribute>
+
+   <attribute name="variableParameterFields2" comment="Variable parameter data fields. ">
+     <primitive type="unsigned int"/>
+  </attribute>
+
+   <attribute name="variableParameterFields3" comment="Variable parameter data fields. ">
+     <primitive type="unsigned short"/>
+  </attribute>
+
+  <attribute name="variableParameterFields4" comment="Variable parameter data fields. ">
+     <primitive type="unsigned byre"/>
+  </attribute>
+  
+</class>
+
+<class name="ArticulatedParts" inheritsFrom="root" comment=" articulated parts for movable parts and a combination of moveable/attached parts of an entity. Section 6.2.93.2">
+
+  <attribute name="recordType" comment="the identification of the Variable Parameter record. Enumeration from EBV">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+  <attribute name="changeIndicator" comment="indicate the change of any parameter for any articulated part. Starts at zero, incremented for each change ">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+  <attribute name="partAttachedTo" comment="the identification of the articulated part to which this articulation parameter is attached. This field shall be specified by a 16-bit unsigned integer. This field shall contain the value zero if the articulated part is attached directly to the entity.">
+    <primitive type="unsigned short" defaultValue="0"/>
+  </attribute>
+
+  <attribute name="parameterType" comment="the type of parameter represented, 32 bit enumeration">
+    <primitive type="unsigned int" />
+  </attribute>
+  
+   <attribute name="parameterType" comment="The definition of the 64 bits shall be determined based on the type of parameter specified in the Parameter Type field ">
+    <primitive type="unsigned long" />
   </attribute>
 
 </class>
