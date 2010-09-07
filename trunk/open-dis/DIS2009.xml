@@ -2204,12 +2204,186 @@
     <primitive type="unsigned int" />
   </attribute>
   
-   <attribute name="parameterType" comment="The definition of the 64 bits shall be determined based on the type of parameter specified in the Parameter Type field ">
+   <attribute name="parameterValue" comment="The definition of the 64 bits shall be determined based on the type of parameter specified in the Parameter Type field ">
     <primitive type="unsigned long" />
   </attribute>
 
 </class>
 
+<class name="AttachedParts" inheritsFrom="root" comment="Removable parts that may be attached to an entity.  Section 6.2.93.3">
+
+  <attribute name="recordType" comment="the identification of the Variable Parameter record. Enumeration from EBV">
+    <primitive type="unsigned byte" defaultValue="1"/>
+  </attribute>
+
+  <attribute name="detachedIndicator" comment="0 = attached, 1 = detached. See I.2.3.1 for state transition diagram">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+  <attribute name="partAttachedTo" comment="the identification of the articulated part to which this articulation parameter is attached. This field shall be specified by a 16-bit unsigned integer. This field shall contain the value zero if the articulated part is attached directly to the entity.">
+    <primitive type="unsigned short" defaultValue="0"/>
+  </attribute>
+
+  <attribute name="parameterType" comment="The location or station to which the part is attached">
+    <primitive type="unsigned int" />
+  </attribute>
+
+   <attribute name="parameterValue" comment="The definition of the 64 bits shall be determined based on the type of parameter specified in the Parameter Type field ">
+    <primitive type="unsigned long" />
+  </attribute>
+
+</class>
+
+<class name="EntityAssociation" inheritsFrom="root" comment="Association or disassociation of two entities.  Section 6.2.93.4">
+
+  <attribute name="recordType" comment="the identification of the Variable Parameter record. Enumeration from EBV">
+    <primitive type="unsigned byte" defaultValue="2"/>
+  </attribute>
+
+  <attribute name="changeIndicator" comment="Indicates if this VP has changed since last issuance">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+   <attribute name="associationStatus" comment="Indicates association status between two entities; 8 bit enum">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+   <attribute name="associationType" comment="Type of association; 8 bit enum">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+  <attribute name="entityID" comment="Object ID of entity associated with this entity">
+    <classRef name="EntityID"/>
+  </attribute>
+
+    <attribute name="owsSttionLocation" comment="Station location on one's own entity. EBV doc.">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+  <attribute name="physicalConnectionType" comment="Type of physical connection. EBV doc">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+   <attribute name="groupMemberType" comment="Type of member the entity is within th egroup">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+   <attribute name="groupNumber" comment="Group if any to which the entity belongs">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+  </class>
+
+<class name="EntityTypeVP" inheritsFrom="root" comment="Association or disassociation of two entities.  Section 6.2.93.5">
+
+  <attribute name="recordType" comment="the identification of the Variable Parameter record. Enumeration from EBV">
+    <primitive type="unsigned byte" defaultValue="3"/>
+  </attribute>
+
+   <attribute name="changeIndicator" comment="Indicates if this VP has changed since last issuance">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+   <attribute name="entityType" comment="">
+    <classRef name="EntityType"/>
+  </attribute>
+
+   <attribute name="padding" comment="padding">
+    <primitive type="unsigned short" defaultValue="0"/>
+  </attribute>
+
+   <attribute name="padding1" comment="padding">
+    <primitive type="unsigned int" defaultValue="0"/>
+   </attribute>
+
+</class>
+
+<class name="SeparationVP" inheritsFrom="root" comment="Physical separation of an entity from another entity.  Section 6.2.93.6">
+
+  <attribute name="recordType" comment="the identification of the Variable Parameter record. Enumeration from EBV">
+    <primitive type="unsigned byte" defaultValue="4"/>
+  </attribute>
+
+    <attribute name="reasonForSeparation" comment="Reason for separation. EBV">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+    <attribute name="preENtityIndicator" comment="Whether the entity existed prior to separation EBV">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+    <attribute name="padding" comment="padding">
+    <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
+    <attribute name="parentEntityID" comment="ID of parent">
+    <classRef name="EntityID"/>
+  </attribute>
+
+    <attribute name="padding" comment="padding">
+    <primitive type="unsigned short" defaultValue="0"/>
+  </attribute>
+
+    <attribute name="stationLocation" comment="Station separated from">
+    <primitive type="unsigned int" defaultValue="0"/>
+  </attribute>
+
+</class>
+
+<class name="VariableTransmitterParameters" inheritsFrom="root" comment="Relates to radios. NOT COMPLETE. Section 6.2.94">
+
+  <attribute name="recordType" comment="Type of VTP. Enumeration from EBV">
+    <primitive type="unsigned int" defaultValue="4"/>
+  </attribute>
+
+   <attribute name="recordLength" comment="Length, in bytes">
+    <primitive type="unsigned int" defaultValue="4"/>
+  </attribute>
+
+<!-- Need a copule variable-sized, custom-coded fields here for record-specific and padding -->
+
+</class>
+
+
+<class name="Vector3Float" inheritsFrom="root" comment="Three floating point values, x, y, and z. Section 6.2.95">
+  <attribute name="x" comment = "X value">
+    <primitive type="float"/>
+  </attribute>
+
+  <attribute name="y" comment="y Value">
+    <primitive type="float"/>
+  </attribute>
+
+  <attribute name="z" comment="Z value">
+    <primitive type="float"/>
+  </attribute>
+</class>
+
+<class name="VectoringNozzleSystem" inheritsFrom="root" comment="Operational data for describing the vectoring nozzle systems Section 6.2.96">
+
+  <attribute name="horizontalDeflectionAngle" comment="In degrees">
+    <primitive type="float"/>
+  </attribute>
+
+   <attribute name="verticalDeflectionAngle" comment="In degrees">
+    <primitive type="float"/>
+  </attribute>
+
+<class>
+
+ <class name="Vector3Double" inheritsFrom="root" comment="Three double precision floating point values, x, y, and z. Used for world coordinates Section 6.2.97.">
+  <attribute name="x" comment = "X value">
+    <primitive type="double"/>
+  </attribute>
+
+  <attribute name="y" comment="y Value">
+    <primitive type="double"/>
+  </attribute>
+
+  <attribute name="z" comment="Z value">
+    <primitive type="double"/>
+  </attribute>
+</class>
 
 
 <class name="SphericalHarmonicAntennaPattern" inheritsFrom="root" 
