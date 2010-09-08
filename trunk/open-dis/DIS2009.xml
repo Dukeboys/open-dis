@@ -191,7 +191,7 @@
         <classRef name="Vector3Double"/>
     </attribute>
 
-</class
+</class>
 
 <class name="Attribute" inheritsFrom="root"
    comment="Used to convey information for one or more attributes. Attributes conform to the standard variable record format of 6.2.82. Section 6.2.11">
@@ -1654,9 +1654,10 @@
     </attribute>
  </class>
 
+
 <class name="PduHeader" inheritsFrom="root"
        comment="Not used. The PDU Header Record is directly incoroporated into the PDU class. Here for completness only. Section 6.2.66"/>
- 
+
  <attribute name="protocolVersion" comment="The version of the protocol. 5=DIS-1995, 6=DIS-1998, 7=DIS-2009.">
     <primitive type= "unsigned byte" defaultValue="7"/>
   </attribute>
@@ -1669,14 +1670,14 @@
     <primitive type="unsigned byte"/>
   </attribute>
   
-   <attribute name="protocolFamily" comment="value that refers to the protocol family, eg SimulationManagement, et">
+   <attribute name="protocolFamily" comment="value that refers to the protocol family, eg SimulationManagement, etc">
     <primitive type="unsigned byte"/>
   </attribute>
-  
+  <!--
   <attribute name="timestamp" comment="Timestamp value">
     <primitive type="unsigned int"/>
   </attribute>
-  
+
   <attribute name="length" comment="Length, in bytes, of the PDU">
     <primitive type="unsigned byte"/>
   </attribute>
@@ -1684,17 +1685,17 @@
    <attribute name="pduStatus" comment="PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions ">
     <primitive type="unsigned short"/>
   </attribute>
-  
-  <attribute name="padding" comment="zero-filled array of padding">
+ -->
+  <attribute name="padding" comment="zero filled array of padding">
      <primitive type="unsigned byte" defaultValue="0"/>
   </attribute>
-
-</class>
+ 
+  </class>
 
 <class name="PduStatus" inheritsFrom="root"
        comment="PDU Status. These are a series of bit fields. Represented here as just a byte. Section 6.2.67">
 
-   <attribute name="pduStatus" comment="Bit fields">
+  <attribute name="pduStatus" comment="Bit fields">
      <primitive type="unsigned byte" defaultValue="0"/>
   </attribute>
 
@@ -2387,7 +2388,8 @@
 
 <!-- PDUs start here. Everything before this was recordst that are contained inside of PDUs -->
   
-<class name="Pdu" inheritsFrom="root" comment="The superclass for all PDUs. This incorporates the PduHeader record, section 7.2.2">
+<class name="PduSuperclass" inheritsFrom="root"
+       comment="The superclass for all PDUs, including classic and Live Entity (LE) PDUs. This incorporates the PduHeader record, section 7.2.2">
 
   <attribute name="protocolVersion" comment="The version of the protocol. 5=DIS-1995, 6=DIS-1998, 7=DIS-2009.">
     <primitive type= "unsigned byte" defaultValue="7"/>
@@ -2412,15 +2414,32 @@
   <attribute name="length" comment="Length, in bytes, of the PDU">
     <primitive type="unsigned byte"/>
   </attribute>
+  
+</class>
 
-   <attribute name="pduStatus" comment="PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions ">
+<class name="Pdu" inheritsFrom="PduSuperclass" comment="Adds some fields to the the classic PDU">
+
+  <attribute name="pduStatus" comment="PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions ">
     <primitive type="unsigned short"/>
   </attribute>
-  
+
   <attribute name="padding" comment="zero-filled array of padding">
      <primitive type="unsigned byte" defaultValue="0"/>
   </attribute>
-  
+
+</class>
+
+<class name="LiveEntityPdu" inheritsFrom="PduSuperclass"
+       comment="The live enitty PDUs have a header with some different field names, but the same length. Section 9.3.2">
+
+  <attribute name="subprotocolNumber" comment="Subprotocol used to decode the PDU. Section 13 of EBV.">
+    <primitive type="unsigned short"/>
+  </attribute>
+
+  <attribute name="padding" comment="zero-filled array of padding">
+     <primitive type="unsigned byte" defaultValue="0"/>
+  </attribute>
+
 </class>
 
 <!-- Entity Information/Interaction Family PDUs. Contains ESPDU, collision pdu, collision-elastic PDU, entity state update PDU, attribute PDU -->
@@ -2468,7 +2487,7 @@
 </attribute>
 
 <attribute name="entityAppearance" comment="a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc.">
-  <primitive type="int"/>
+  <primitive type="unsigned int"/>
 </attribute>
 
  <attribute name="deadReckoningParameters" comment="parameters used for dead reckoning">
@@ -2480,7 +2499,7 @@
  </attribute>
  
  <attribute name="capabilities" comment="a series of bit flags">
-  <primitive type="int"/>
+  <primitive type="unsigned int"/>
 </attribute>
 
   <attribute name="articulationParameters" comment="variable length list of articulation parameters">
