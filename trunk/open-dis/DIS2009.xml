@@ -843,7 +843,7 @@
  
 </class>
 
-<class name="EntityIdentifier" 
+<class name="EntityID"
         inheritsFrom="root" 
         comment="Entity Identifier. Unique ID for entities in the world. Consists of an simulation address and a entity number. Section 6.2.28.">
     
@@ -2450,7 +2450,7 @@
            
 </class>
  
-<class name="EntityStatePdu" inheritsFrom="EntityInformationFamilyPdu" comment="Represents the postion and state of one entity in the world. Section 5.3.2. COMPLETE">
+<class name="EntityStatePdu" inheritsFrom="EntityInformationFamilyPdu" comment="Represents the postion and state of one entity in the world. Section 7.2.2. COMPLETE">
  
  <initialValue name="pduType" value="1"/>
   
@@ -2463,7 +2463,7 @@
  </attribute>
  
  <attribute name="numberOfArticulationParameters" comment="How many articulation parameters are in the variable length list">
-   <primitive type="byte"/>
+   <primitive type="unsigned byte"/>
 </attribute>
 
 <attribute name="entityType" comment="Describes the type of entity in the world">
