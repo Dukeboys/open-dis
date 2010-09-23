@@ -2879,7 +2879,7 @@
 </class>
 
 <class name="WarfareFamilyPdu" inheritsFrom="Pdu"
-       comment="Section 5.3.4. abstract superclass for fire and detonation pdus that have shared information. COMPLETE">
+       comment="abstract superclass for fire and detonation pdus that have shared information. Section 7.3 COMPLETE">
 
  <initialValue name="protocolFamily" value="2"/>
 
@@ -2896,14 +2896,6 @@
 <class name="FirePdu" inheritsFrom="WarfareFamilyPdu" comment=" The firing of a weapon or expendable shall be communicated by issuing a Fire PDU. Sectioin 7.3.2. COMPLETE">
 
  <initialValue name="pduType" value="2"/>
-
-	<attribute name="firingEntityID" comment="This field shall identify the firing entity, and shall be represented by an Entity Identifier record (see 6.2.28).">
-	   <classRef name="EntityID"/>
-	</attribute>
-
-    <attribute name="targetEntityID" comment="This field shall identify the intended target (see 5.4.3.3). This field shall be represented by an Entity Identifier record (see 6.2.28).">
-      <classRef name="EntityID"/>
-	</attribute>
 
    <attribute name="munitionExpendibleID" comment="This field shall specify the entity identification of the fired munition or expendable. This field shall be represented by an Entity Identifier record (see 6.2.28).">
     <classRef name="EntityID"/>
@@ -2936,75 +2928,211 @@
   </class>
 
 <!-- "end of MAJ Jason C. Caldwell jccaldwe@nps.edu END project work"-->
-  
-<class name="DetonationPdu" inheritsFrom="WarfareFamilyPdu" comment="Section 5.3.4.2. Information about stuff exploding. COMPLETE">
+
+  <!--#################Diaz, Gabe Project: Summer 2010 MV3500######################-->
+ <!--7.3.3 Detonation, 7.3.4 Directed Energy Fire Pdu, 7.3.5  Entity Damage Status Pdu , 7.4.2 Service Request PDU, 7.4.3 Resupply Offer PDU -->
+ <!-- NOTES:
+       ######### Sir, Here are the sections that were designated to me. The logistics part (7.4.2 & 7.4.3) were only modified minumally.
+       #########     For the "primitve types" through out the sections I could not find when I should assign a "default value", so I left them
+       #########     either unassigned with no value, or, If I could see in your previous code where you assigned them I did the same. If there are
+       #########      corrections or any additional items to address I will impliment them.
+       #########     Thank you for the classes. I thoroughly enjoyed them. -->
+
+<!--7.3.3 Detonation, 7.3.4 Directed Energy Fire Pdu, 7.3.5  Entity Damage Status Pdu -->
+
+<class name="DetonationPdu" inheritsFrom="WarfareFamilyPdu"
+        comment="Detonation or impact of munitions, as well as, non-munition explosions, the burst or initial bloom of chaff, and the ignition of a flare shall be indicated. Section 7.3.3  COMPLETE">
 
  <initialValue name="pduType" value="3"/>
- 
-  <attribute name="munitionID" comment="ID of muntion that was fired">
+
+   <attribute name="explodingEntityID" comment="ID of the expendable entity, Section 7.3.3 ">
+    <primitive type= "unsigned short">
     <classRef name="EntityID"/>
   </attribute>
-  
-  <attribute name="eventID" comment="ID firing event">
+
+   <attribute name="eventID" comment="ID of event, Section 7.3.3">
+    <primitive type= "unsigned short">
     <classRef name="EventID"/>
   </attribute>
-  
-  <attribute name="velocity" comment="ID firing event">
-    <classRef name="Vector3Float"/>
+
+  <attribute name="velocity" comment= "velocity of the munition immediately before detonation/impact, Section 7.3.3 ">
+   <classRef name="Vector3Float"/>
   </attribute>
-  
-   <attribute name="locationInWorldCoordinates" comment="where the detonation is, in world coordinates">
+
+   <attribute name="locationInWorldCoordinates" comment="location of the munition detonation, the expendable detonation, Section 7.3.3 ">
     <classRef name="Vector3Double"/>
   </attribute>
-  
-   <attribute name="burstDescriptor" comment="Describes munition used">
+
+  <attribute name="descriptor" comment="Describes the detonation represented, Section 7.3.3 ">
     <classRef name="MunitionDescriptor"/>
   </attribute>
- 
-   <attribute name="locationInEntityCoordinates" comment="location of the detonation or impact in the target entity's coordinate system. This information should be used for damage assessment.">
+
+  <attribute name="locationOfEntityCoordinates" comment="Velocity of the ammunition, Section 7.3.3 ">
     <classRef name="Vector3Float"/>
-   </attribute>
-  
-  <attribute name="detonationResult" comment="result of the explosion">
-    <primitive type="unsigned byte"/>
-  </attribute>
-  
-  <attribute name="numberOfArticulationParameters" comment="How many articulation parameters we have">
-    <primitive type="unsigned byte"/>
-  </attribute>
-  
-   <attribute name="pad" comment="padding">
-    <primitive type="short" defaultValue = "0"/>
   </attribute>
 
- <attribute name="articulationParameters">
-   <list type="variable" countFieldName="numberOfArticulationParameters">
-     <classRef name="ArticulationParameter"/>
-   </list> 
+   <attribute name="detonationResult" comment="result of the detonation, Section 7.3.3 ">
+    <primitive type="byte enum"/>
+  </attribute>
+
+  <attribute name="numberOfVariableParameters" comment="How many articulation parameters we have, Section 7.3.3 ">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+   <attribute name="pad" comment="padding">
+    <primitive type="short unused"/>
+  </attribute>
+
+ <attribute name="variableParameters1" comment="specify the parameter values for each Variable Parameter record, Section 7.3.3 ">
+   <list type="variable" fieldName="variableParameterFields">
+     <classRef name="VariableParameter"/>
+   </list>
+
+   <attribute name="variableParameters" comment="specify the parameter values for each Variable Parameter record, Section 7.3.3 ">
+   <list type="variable" fieldName="variableParameterFields">
+     <classRef name="VariableParameter"/>
+   </list>
 </attribute>
+
   </class>
- 
-<class name="LogisticsFamilyPdu" inheritsFrom="Pdu" comment="Section 5.3.5. Abstract superclass for logistics PDUs. COMPLETE">
+
+ <!--#######################################-->
+  <!--section 7.3.4 Directed Energy Fire PDU -->
+  <class name="DirectedEnergyFirePdu" inheritsFrom="WarfareFamilyPdu"
+        comment="Firing of a directed energy weapon shall be communicated by issuing a Directed Energy Fire PDU Section 7.3.4  COMPLETE">
+
+ <initialValue name="pduType" value="68"/>
+
+  <attribute name="munitionType" comment="Field shall identify the munition type enumeration for the DE weapon beam, Section 7.3.4 ">
+    <primitive type= "short">
+    <classRef name="EntityType"/>
+  </attribute>
+
+   <attribute name="shotStartTime" comment="Field shall indicate the simulation time at start of the shot, Section 7.3.4 ">
+    <primitive type= "unsigned int">
+    <classRef name="ClockTime"/>
+  </attribute>
+
+  <attribute name="commulativeShotTime" comment= "Field shall indicate the current cumulative duration of the shot, Section 7.3.4 ">
+   <primitive type="float"/>
+  </attribute>
+
+   <attribute name="ApertureEmitterLocation" comment="Field shall identify the location of the DE weapon aperture/emitter, Section 7.3.4 ">
+    <classRef name="Vector3Float"/>
+  </attribute>
+
+  <attribute name="apertureDiameter" comment="Field shall identify the beam diameter at the aperture/emitter, Section 7.3.4 ">
+    <primitive type="float"/>
+  </attribute>
+
+  <attribute name="wavelength" comment="Field shall identify the emissions wavelength in units of meters, Section 7.3.4 ">
+    <primitive type="float"/>
+  </attribute>
+
+   <attribute name="peakIrradiance" comment="Field shall identify the current peak irradiance of emissions in units of Watts per square meter, Section 7.3.4 ">
+    <primitive type="float"/>
+  </attribute>
+
+  <attribute name="pulseRepetitionFrequency" comment="field shall identify the current pulse repetition frequency in units of cycles per second (Hertz), Section 7.3.4 ">
+    <primitive type="float"/>
+  </attribute>
+
+   <attribute name="pulseWidth" comment="field shall identify the pulse width emissions in units of seconds, Section 7.3.4">
+    <primitive type="int"/>
+  </attribute>
+
+ <attribute name="flags" comment="16bit Boolean field shall contain various flags to indicate status information needed to process a DE, Section 7.3.4 ">
+   <primitive type="int">
+</attribute>
+
+ <attribute name="pulseShape" comment="Field shall identify the pulse shape and shall be represented as an 8-bit enumeration, Section 7.3.4 ">
+   <primitive type="byte">
+</attribute>
+
+ <attribute name="padding" comment="padding, Section 7.3.4 ">
+   <primitive type="unsused byte">
+</attribute>
+
+ <attribute name="padding" comment="padding, Section 7.3.4 ">
+   <primitive type="unused long">
+</attribute>
+
+ <attribute name="padding" comment="padding, Section 7.3.4 ">
+   <primitive type="byte">
+</attribute>
+
+<attribute name="numberOfDERecords" comment="Field shall specify the number of DE records, Section 7.3.4 ">
+   <primitive type="unsigned short">
+</attribute>
+
+  <attribute name="dERecords" comment="Fields shall contain one or more DE records, records shall conform to the variable record format (Section6.2.82), Section 7.3.4">
+   <list type="variable" countFieldName="numberOfStandardVariableRecords">
+     <classRef name="StandardVariableSpecification"/>
+   </list>
+</attribute>
+ </class>
+
+ <!--#######################################-->
+  <!--Section 7.3.5  Entity Damage Status Pdu  -->
+  <class name="EntityDamageStatusPdu" inheritsFrom="WarfareFamilyPdu"
+            comment="shall be used to communicate detailed damage information sustained by an entity regardless of the source of the damage Section 7.3.5  COMPLETE">
+ <initialValue name="pduType" value="69"/>
+
+   <attribute name="DamagedEntityID"
+            comment="Field shall identify the damaged entity (see 6.2.28), Section 7.3.4 COMPLETE">
+    <primitive type= "unsigned short">
+     <classref name="EntityID"/>
+   </attribute>
+
+   <attribute name="Padding1"
+            comment="Padding.">
+     <primitive type="unsigned short" defaultValue="0"/>
+   </attribute>
+
+   <attribute name="Padding2"
+            comment="Padding.">
+     <primitive type="unsigned short" defaultValue="0"/>
+   </attribute>
+
+   <attribute name="NumberOfDamageDescriptionRecord"
+            comment="field shall specify the number of Damage Description records, Section 7.3.5">
+     <primitive type="unsigned short" defaultValue="0"/>
+   </attribute>
+
+   <attribute name="DamageDescriptionRecords"
+              comment="Fields shall contain one or more Damage Description records (see 6.2.17) and may contain other Standard Variable records, Section 7.3.5">
+     <list type="variable" countFieldName="DamageDescriptionRecord"> <!-- NOT SURE OF THIS "countFieldName"-->
+       <classRef name="DirectedEnergyDamageDescription"/>
+     </list>
+   </attribute>
+ </class>
+
+ <!--#######################################-->
+ <!--Logistics protocol Family: Section 7.4.2 Service Request PDU, 7.4.3 Resupply Offer PDU -->
+
+  <!--Section 7.4.2 Service Request PDU -->
+ <class name="LogisticsFamilyPdu" inheritsFrom="Pdu" comment=" Abstract superclass for logistics PDUs. Section 7.4COMPLETE">
   <initialValue name="protocolFamily" value="3"/>
 </class>
-  
-<class name="ServiceRequestPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.3.5.1. Information about a request for supplies. COMPLETE">
 
+<class name="ServiceRequestPdu" inheritsFrom="LogisticsFamilyPdu"
+        comment="Service Request PDU shall be used to communicate information associated with
+                           one entity requesting a service from another). Section 7.4.2 COMPLETE">
  <initialValue name="pduType" value="5"/>
- 
-  <attribute name="requestingEntityID" comment="Entity that is requesting service">
+
+  <attribute name="requestingEntityID" comment="Entity that is requesting service (see 6.2.28), Section 7.4.2">
     <classref name="EntityID"/>
   </attribute>
 
-  <attribute name="servicingEntityID" comment="Entity that is providing the service">
+  <attribute name="servicingEntityID" comment="Entity that is providing the service (see 6.2.28), Section 7.4.2">
     <classref name="EntityID"/>
   </attribute>
 
-  <attribute name="serviceTypeRequested" comment="type of service requested">
+  <attribute name="serviceTypeRequested" comment="Type of service requested, Section 7.4.2">
     <primitive type="unsigned byte"/>
   </attribute>
 
-  <attribute name="numberOfSupplyTypes" comment="How many requested">
+  <attribute name="numberOfSupplyTypes" comment="How many requested, Section 7.4.2">
     <primitive type="unsigned byte"/>
   </attribute>
 
@@ -3013,122 +3141,122 @@
   </attribute>
 
   <attribute name="supplies">
-     <list type="variable" countFieldName="numberOfSupplyTypes">
+     <list type="variable"
+     countFieldName="Field shall specify the type of supply and the amount of that supply for the number
+                                 specified in the numberOfSupplyTypes (see 6.2.85), Section 7.4.2">
        <classRef name="SupplyQuantity"/>
-     </list> 
+     </list>
   </attribute>
 
 </class>
 
-  
-<class name="ResupplyOfferPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.3.5.2. Information about a request for supplies. COMPLETE">
+<!--#######################################-->
+ <!--Section 7.4.3 Resupply Offer PDU -->
+ <class name="ResupplyOfferPdu" inheritsFrom="LogisticsFamilyPdu"
+            comment="Information used to communicate the offer of supplies by a supplying entity to a receiving entity. Section 7.4.3 COMPLETE">
 
  <initialValue name="pduType" value="6"/>
 
-<attribute name="receivingEntityID" comment="Entity that is receiving service">
+<attribute name="receivingEntityID"
+            comment="Field identifies the Entity and respective Entity Record ID that is receiving service (see 6.2.28), Section 7.4.3">
   <classref name="EntityID"/>
 </attribute>
 
-<attribute name="supplyingEntityID" comment="Entity that is supplying">
+<attribute name="supplyingEntityID"
+            comment="Identifies the Entity and respective Entity ID Record that is supplying  (see 6.2.28), Section 7.4.3">
   <classref name="EntityID"/>
 </attribute>
 
-<attribute name="numberOfSupplyTypes" comment="how many supplies are being offered">
+<attribute name="numberOfSupplyTypes"
+            comment="How many supplies types are being offered, Section 7.4.3">
   <primitive type="unsigned byte"/>
  </attribute>
- 
- <attribute name="padding1" comment="padding">
+
+ <attribute name="padding1"
+            comment="padding">
    <primitive type="short" defaultValue="0"/>
  </attribute>
- 
+
  <attribute name="padding2" comment="padding">
    <primitive type="byte" defaultValue = "0"/>
  </attribute>
 
-<attribute name="supplies">
+<attribute name="supplies"
+            comment="A Reord that Specifies the type of supply and the amount of that supply for each of the supply types in numberOfSupplyTypes (see 6.2.85), Section 7.4.3">
    <list type="variable" countFieldName="numberOfSupplyTypes">
      <classRef name="SupplyQuantity"/>
-   </list> 
+   </list>
 </attribute>
 
 </class>
 
-<class name="ResupplyReceivedPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.3.5.3. Receipt of supplies is communiated. COMPLETE">
+<!--#################Diaz, Gabe Project: Summer 2010 MV3500######################-->
+
+<!--MCKAUGHAN Project Starts Here-->
+<class name="ResupplyReceivedPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 7.4.4. Receipt of supplies is communicated by issuing Resupply Received PDU. COMPLETE">
 
  <initialValue name="pduType" value="7"/>
 
-<attribute name="receivingEntityID" comment="Entity that is receiving service">
+<attribute name="receivingEntityID" comment="Entity that is receiving service.  Shall be represented by Entity Identifier record (see 6.2.28)">
   <classref name="EntityID"/>
 </attribute>
 
-<attribute name="supplyingEntityID" comment="Entity that is supplying">
+<attribute name="supplyingEntityID" comment="Entity that is supplying.  Shall be represented by Entity Identifier record (see 6.2.28)">
   <classref name="EntityID"/>
 </attribute>
 
-<attribute name="numberOfSupplyTypes" comment="how many supplies are being offered">
+<attribute name="numberOfSupplyTypes" comment="How many supplies are taken by receiving entity">
   <primitive type="unsigned byte"/>
  </attribute>
- 
+
  <attribute name="padding1" comment="padding">
    <primitive type="short" defaultValue="0"/>
  </attribute>
- 
+
  <attribute name="padding2" comment="padding">
    <primitive type="byte" defaultValue="0"/>
  </attribute>
- 
- <attribute name="supplies">
+
+ <attribute name="supplies" comment="Type and amount of supplies for each specified supply type.  See 6.2.85 for supply quantity record.">
    <list type="variable" countFieldName="numberOfSupplyTypes">
      <classRef name="SupplyQuantity"/>
-   </list> 
+   </list>
 </attribute>
 </class>
 
-<class name="ResupplyCancelPdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.2.5.4. Cancel of resupply by either the receiving or supplying entity. COMPLETE">
 
- <initialValue name="pduType" value="8"/>
-
-<attribute name="receivingEntityID" comment="Entity that is receiving service">
-  <classref name="EntityID"/>
-</attribute>
-
-<attribute name="supplyingEntityID" comment="Entity that is supplying">
-  <classref name="EntityID"/>
-</attribute>
-
-</class>
-
-<class name="RepairCompletePdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.2.5.5. Repair is complete. COMPLETE">
+<class name="RepairCompletePdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 7.4.6. Service Request PDU is received and repair is complete. COMPLETE">
 
  <initialValue name="pduType" value="9"/>
 
-<attribute name="receivingEntityID" comment="Entity that is receiving service">
+<attribute name="receivingEntityID" comment="Entity that is receiving service.  See 6.2.28">
   <classref name="EntityID"/>
 </attribute>
 
-<attribute name="repairingEntityID" comment="Entity that is supplying">
+<attribute name="repairingEntityID" comment="Entity that is supplying.  See 6.2.28">
   <classref name="EntityID"/>
 </attribute>
 
-<attribute name="repair" comment="Enumeration for type of repair">
+<attribute name="repair" comment="Enumeration for type of repair.  See 6.2.74">
   <primitive type="unsigned short"/>
 </attribute>
 
-<attribute name="padding2" comment="padding, number prevents conflict with superclass ivar name">
+<!-- "ATTENTION:  No mention in document about padding being necessary to prevent potential conflict, but I left it here b/c it was in the prior xml.-->
+<attribute name="padding" comment="padding, number prevents conflict with superclass ivar name">
   <primitive type="short" defaultValue="0"/>
 </attribute>
 
 </class>
 
-<class name="RepairResponsePdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 5.2.5.6. Sent after repair complete PDU. COMPLETE">
+<class name="RepairResponsePdu" inheritsFrom="LogisticsFamilyPdu" comment="Section 7.4.7. Sent after repair complete PDU. COMPLETE">
 
  <initialValue name="pduType" value="10"/>
 
-<attribute name="receivingEntityID" comment="Entity that is receiving service">
+<attribute name="receivingEntityID" comment="Entity that requested repairs.  See 6.2.28">
   <classref name="EntityID"/>
 </attribute>
 
-<attribute name="repairingEntityID" comment="Entity that is supplying">
+<attribute name="repairingEntityID" comment="Entity that is repairing.  See 6.2.28">
   <classref name="EntityID"/>
 </attribute>
 
@@ -3139,15 +3267,15 @@
 <attribute name="padding1" comment="padding">
    <primitive type="short" defaultValue="0"/>
  </attribute>
- 
+
  <attribute name="padding2" comment="padding">
    <primitive type="byte" defaultValue="0"/>
  </attribute>
- 
+
  </class>
- 
- <class name="SimulationManagementFamilyPdu" inheritsFrom="Pdu" comment="Section 5.3.6. Abstract superclass for PDUs relating to the simulation itself. COMPLETE">
- 
+
+ <class name="SimulationManagementFamilyPdu" inheritsFrom="Pdu" comment="Section 7.5 Abstract superclass for PDUs relating to the simulation itself. COMPLETE">
+
  <initialValue name="protocolFamily" value="5"/>
 
  <attribute name="originatingEntityID" comment="Entity that is sending message">
@@ -3159,128 +3287,212 @@
 </attribute>
 
  </class>
- 
-<class name="CreateEntityPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.1. Create a new entity. COMPLETE">
+
+<class name="CreateEntityPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.2. Create a new entity. COMPLETE">
 
  <initialValue name="pduType" value="11"/>
 
-<attribute name="requestID" comment="Identifier for the request">
+ <attribute name="originatingID" comment="Identifier for the request">
+   <classref name="EntityID"/>
+ </attribute>
+
+ <attribute name="receivingID" comment="Identifier for the request">
+   <classref name="EntityID"/>
+ </attribute>
+
+<attribute name="requestID" comment="Identifier for the request.  See 6.2.75">
    <primitive type="unsigned int"/>
  </attribute>
- 
+
  </class>
- 
-<class name="RemoveEntityPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.2. Remove an entity. COMPLETE">
+ <!--MCKAUGHAN Project STOPS here-->
+
+<!-- Stinchfield contributions start here -->
+<class name="RemoveEntityPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.3 The removal of an entity from an exercise shall be communicated with a Remove Entity PDU. COMPLETE">
 
  <initialValue name="pduType" value="12"/>
 
-<attribute name="requestID" comment="Identifier for the request">
+ <attribute name="originatingID" comment="Identifier for originating entity(or simulation)">
+     <classref name="EntityID"/>
+ </attribute>
+ 
+ <attribute name="receivingID" comment="Identifier for the receiving entity(or simulation)">
+     <classref name="EntityID"/>
+ </attribute>
+ 
+<attribute name="requestID" comment="This field shall identify the specific and unique start/resume request being made by the SM">
    <primitive type="unsigned int"/>
  </attribute>
  
  </class>
 
  
- <class name="StartResumePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.2.6.3. Start or resume an exercise. COMPLETE">
+ <class name="RemoveEntityPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.3 The removal of an entity from an exercise shall be communicated with a Remove Entity PDU. COMPLETE">
+
+ <initialValue name="pduType" value="12"/>
+
+ <attribute name="originatingID" comment="Identifier for originating entity(or simulation)">
+     <classref name="EntityID"/>
+ </attribute>
+
+ <attribute name="receivingID" comment="Identifier for the receiving entity(or simulation)">
+     <classref name="EntityID"/>
+ </attribute>
+
+<attribute name="requestID" comment="This field shall identify the specific and unique start/resume request being made by the SM">
+   <primitive type="unsigned int"/>
+ </attribute>
+
+ </class>
+
+
+ <class name="StartResumePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.4. Start or resume an exercise. COMPLETE">
 
  <initialValue name="pduType" value="13"/>
 
-<attribute name="realWorldTime" comment="UTC time at which the simulation shall start or resume">
-   <classRef name="ClockTime"/>
-</attribute>
+ <attribute name="originatingID" comment="Identifier for originating entity(or simulation)">
+     <classref name="EntityID"/>
+ </attribute>
 
-<attribute name="simulationTime" comment="Simulation clock time at which the simulation shall start or resume">
-   <classRef name="ClockTime"/>
-</attribute>
+ <attribute name="receivingID" comment="Identifier for the receiving entity(or simulation)">
+     <classref name="EntityID"/>
+ </attribute>
 
-<attribute name="requestID" comment="Identifier for the request">
+ <attribute name="realWorldTime" comment="This field shall specify the real-world time (UTC) at which the entity is to
+start/resume in the exercise. This information shall be used by the participating simulation applications
+to start/resume an exercise synchronously. This field shall be represented by a Clock Time
+record (see 6.2.16).">
+   <classRef name="ClockTime"/>
+ </attribute>
+
+ <attribute name="simulationTime" comment="The reference time within a simulation exercise. This time is established ahead of
+time by simulation management and is common to all participants in a particular exercise. Simulation
+time may be either Absolute Time or Relative Time. This field shall be represented by a Clock
+Time record (see 6.2.16)">
+   <classRef name="ClockTime"/>
+ </attribute>
+
+ <attribute name="requestID" comment="Identifier for the specific and unique start/resume request">
    <primitive type="unsigned int"/>
  </attribute>
- 
+
  </class>
- 
-  <class name="StopFreezePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.2.3.4. Stop or freeze an exercise. COMPLETE">
-  
+
+  <class name="StopFreezePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.5. Stop or freeze an enity (or exercise). COMPLETE">
+
   <initialValue name="pduType" value="14"/>
 
-  <attribute name="realWorldTime" comment="UTC time at which the simulation shall stop or freeze">
+  <attribute name="originatingID" comment="Identifier for originating entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
+
+  <attribute name="receivingID" comment="Identifier for the receiving entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
+
+  <attribute name="realWorldTime" comment="real-world(UTC) time at which the entity shall stop or freeze in the exercise">
    <classRef name="ClockTime"/>
   </attribute>
-  
-  <attribute name="reason" comment="Reason the simulation was stopped or frozen">
+
+  <attribute name="reason" comment="Reason the simulation was stopped or frozen (see section 7 of SISO-REF-010) represented by an 8-bit enumeration">
    <primitive type="unsigned byte"/>
   </attribute>
-  
-   <attribute name="frozenBehavior" comment="Internal behavior of the simulation and its appearance while frozento the other participants">
+
+   <attribute name="frozenBehavior" comment="Internal behavior of the entity(or simulation) and its appearance while frozen to the other participants">
    <primitive type="unsigned byte"/>
   </attribute>
-  
+
    <attribute name="padding1" comment="padding">
    <primitive type="short" defaultValue="0"/>
   </attribute>
-  
+
   <attribute name="requestID" comment="Request ID that is unique">
    <primitive type="unsigned int"/>
   </attribute>
-  
+
   </class>
-  
-   <class name="AcknowledgePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.5. Acknowledge the receiptof a start/resume, stop/freeze, or RemoveEntityPDU. COMPLETE">
-   
+
+   <class name="AcknowledgePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.6. Acknowledge the receipt of a start/resume, stop/freeze, or RemoveEntityPDU. COMPLETE">
+
    <initialValue name="pduType" value="15"/>
+
+  <attribute name="originatingID" comment="Identifier for originating entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
+
+  <attribute name="receivingID" comment="Identifier for the receiving entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
 
    <attribute name="acknowledgeFlag" comment="type of message being acknowledged">
    <primitive type="unsigned short"/>
   </attribute>
-  
+
    <attribute name="responseFlag" comment="Whether or not the receiving entity was able to comply with the request">
    <primitive type="unsigned short"/>
   </attribute>
-  
-  <attribute name="requestID" comment="Request ID that is unique">
-   <primitive type="unsigned int"/>
-  </attribute>
-  
-   </class>
-   
-<class name="ActionRequestPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.6. Request from simulation manager to an entity. COMPLETE">
-   
-   <initialValue name="pduType" value="16"/>
 
   <attribute name="requestID" comment="Request ID that is unique">
    <primitive type="unsigned int"/>
   </attribute>
-  
-   <attribute name="actionID" comment="identifies the action being requested">
+
+   </class>
+
+<class name="ActionRequestPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.7. Request from simulation manager to a managed entity to perform a specified action. COMPLETE">
+
+   <initialValue name="pduType" value="16"/>
+
+  <attribute name="originatingID" comment="Identifier for originating entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
+
+  <attribute name="receivingID" comment="Identifier for the receiving entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
+
+  <attribute name="requestID" comment="identifies the request being made by the simulaton manager">
    <primitive type="unsigned int"/>
   </attribute>
-  
-  
+
+   <attribute name="actionID" comment="identifies the particular action being requested(see Section 7 of SISO-REF-010).">
+   <primitive type="unsigned int"/>
+  </attribute>
+
+
    <attribute name="numberOfFixedDatumRecords" comment="Number of fixed datum records">
    <primitive type="unsigned int"/>
   </attribute>
-  
+
   <attribute name="numberOfVariableDatumRecords" comment="Number of variable datum records">
    <primitive type="unsigned int"/>
   </attribute>
-  
+
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
    <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </list> 
+   </list>
   </attribute>
-  
+
   <attribute name="variableDatums" comment="variable length list of variable length datums">
    <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </list> 
+   </list>
   </attribute>
 
 </class>
 
-<class name="ActionResponsePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.7. response to an action request PDU. COMPLETE">
+<class name="ActionResponsePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.8. response to an action request PDU. COMPLETE">
 
  <initialValue name="pduType" value="17"/>
+
+
+  <attribute name="originatingID" comment="Identifier for originating entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
+
+  <attribute name="receivingID" comment="Identifier for the receiving entity(or simulation)">
+     <classref name="EntityID"/>
+  </attribute>
 
   <attribute name="requestID" comment="Request ID that is unique">
    <primitive type="unsigned int"/>
@@ -3289,28 +3501,30 @@
   <attribute name="requestStatus" comment="Status of response">
    <primitive type="unsigned int"/>
   </attribute>
-  
+
    <attribute name="numberOfFixedDatumRecords" comment="Number of fixed datum records">
    <primitive type="unsigned int"/>
   </attribute>
-  
+
   <attribute name="numberOfVariableDatumRecords" comment="Number of variable datum records">
    <primitive type="unsigned int"/>
   </attribute>
-  
+
   <attribute name="fixedDatums" comment="variable length list of fixed datums">
    <list type="variable" countFieldName="numberOfFixedDatumRecords">
      <classRef name="FixedDatum"/>
-   </list> 
+   </list>
   </attribute>
-  
+
   <attribute name="variableDatums" comment="variable length list of variable length datums">
    <list type="variable" countFieldName="numberOfVariableDatumRecords">
      <classRef name="VariableDatum"/>
-   </list> 
+   </list>
   </attribute>
-  
+
   </class>
+
+<!-- End Stinchfield contributions -->
 
 <class name="DataQueryPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.8. Request for data from an entity. COMPLETE">
 
