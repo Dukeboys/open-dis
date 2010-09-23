@@ -2386,6 +2386,32 @@
   </attribute>
 </class>
 
+<!-- Dead reackoning parameters are not listed in the standard, but nonetheless appear in the ESPDU -->
+<class name="DeadReckoningParameters" inheritsFrom="root"
+       comment="Not specified in the standard. This is used by the ESPDU">
+ 
+  <attribute name="deadReckoningAlgorithm" comment="Algorithm to use in computing dead reckoning. See EBV doc.">
+    <primitive type="unsigned byte"/>
+  </attribute>
+
+ <attribute name="parameters" comment="Dead reckoning parameters. Contents depends on algorithm.">
+     <list type="fixed" length="15">
+       <primitive type="unsigned byte"/>
+     </list>
+  </attribute>
+
+  <attribute name="entityLinearAcceleration" comment="Linear acceleration of the entity">
+    <classref name="Vector3Float"/>
+  </attribute>
+
+  <attribute name="entityAngularVelocity" comment="Angular velocity of the entity">
+    <classref name="Vector3Float"/>
+  </attribute>
+  
+</class>
+
+<!-- End records -->
+
 <!-- PDUs start here. Everything before this was recordst that are contained inside of PDUs -->
   
 <class name="PduSuperclass" inheritsFrom="root"
