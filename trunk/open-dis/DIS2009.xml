@@ -1656,7 +1656,7 @@
 
 
 <class name="PduHeader" inheritsFrom="root"
-       comment="Not used. The PDU Header Record is directly incoroporated into the PDU class. Here for completness only. Section 6.2.66"/>
+       comment="Not used. The PDU Header Record is directly incoroporated into the PDU class. Here for completness only. Section 6.2.66">
 
  <attribute name="protocolVersion" comment="The version of the protocol. 5=DIS-1995, 6=DIS-1998, 7=DIS-2009.">
     <primitive type= "unsigned byte" defaultValue="7"/>
@@ -1673,7 +1673,7 @@
    <attribute name="protocolFamily" comment="value that refers to the protocol family, eg SimulationManagement, etc">
     <primitive type="unsigned byte"/>
   </attribute>
-  <!--
+ 
   <attribute name="timestamp" comment="Timestamp value">
     <primitive type="unsigned int"/>
   </attribute>
@@ -1685,7 +1685,7 @@
    <attribute name="pduStatus" comment="PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions ">
     <primitive type="unsigned short"/>
   </attribute>
- -->
+ 
   <attribute name="padding" comment="zero filled array of padding">
      <primitive type="unsigned byte" defaultValue="0"/>
   </attribute>
@@ -1926,15 +1926,15 @@
 <class name="SimulationManagementPduHeader" inheritsFrom="root"
        comment="First part of a simulation management (SIMAN) PDU and SIMAN-Reliability (SIMAN-R) PDU. Sectionn 6.2.81">
 
-      <attribute name="pduHeader" comment="Conventional PDU header"/>
+      <attribute name="pduHeader" comment="Conventional PDU header">
         <classRef name="PduHeader"/>
       </attribute>
 
-      <attribute name="originatingID" comment="IDs the simulation or entity, etiehr a simulation or an entity. Either 6.2.80 or 6.2.28"/>
+      <attribute name="originatingID" comment="IDs the simulation or entity, etiehr a simulation or an entity. Either 6.2.80 or 6.2.28">
         <classRef name="EntityID"/>
       </attribute>
 
-      <attribute name="recevingID" comment="simulation, all simulations, a special ID, or an entity. See 5.6.5 and 5.12.4"/>
+      <attribute name="recevingID" comment="simulation, all simulations, a special ID, or an entity. See 5.6.5 and 5.12.4">
         <classRef name="EntityID"/>
       </attribute>
 
@@ -2134,7 +2134,7 @@
 <class name="UnattachedIdentifier" inheritsFrom="root" comment="The unique designation of one or more unattached radios in an event or exercise Section 6.2.91">
 
   <attribute name="simulationAddress" comment="See 6.2.79">
-      <classref name="SimulationAddress">
+      <classref name="SimulationAddress"/>
   </attribute>
   
    <attribute name="referenceNumber" comment="Reference number">
@@ -2972,12 +2972,10 @@
  <initialValue name="pduType" value="3"/>
 
    <attribute name="explodingEntityID" comment="ID of the expendable entity, Section 7.3.3 ">
-    <primitive type= "unsigned short">
     <classRef name="EntityID"/>
   </attribute>
 
    <attribute name="eventID" comment="ID of event, Section 7.3.3">
-    <primitive type= "unsigned short">
     <classRef name="EventID"/>
   </attribute>
 
@@ -3009,16 +3007,11 @@
     <primitive type="short unused"/>
   </attribute>
 
- <attribute name="variableParameters1" comment="specify the parameter values for each Variable Parameter record, Section 7.3.3 ">
-   <list type="variable" fieldName="variableParameterFields">
-     <classRef name="VariableParameter"/>
-   </list>
-
    <attribute name="variableParameters" comment="specify the parameter values for each Variable Parameter record, Section 7.3.3 ">
-   <list type="variable" fieldName="variableParameterFields">
-     <classRef name="VariableParameter"/>
-   </list>
-</attribute>
+     <list type="variable" fieldName="variableParameterFields">
+       <classRef name="VariableParameter"/>
+     </list>
+   </attribute>
 
   </class>
 
@@ -3027,15 +3020,13 @@
   <class name="DirectedEnergyFirePdu" inheritsFrom="WarfareFamilyPdu"
         comment="Firing of a directed energy weapon shall be communicated by issuing a Directed Energy Fire PDU Section 7.3.4  COMPLETE">
 
- <initialValue name="pduType" value="68"/>
+   <initialValue name="pduType" value="68"/>
 
   <attribute name="munitionType" comment="Field shall identify the munition type enumeration for the DE weapon beam, Section 7.3.4 ">
-    <primitive type= "short">
     <classRef name="EntityType"/>
   </attribute>
 
    <attribute name="shotStartTime" comment="Field shall indicate the simulation time at start of the shot, Section 7.3.4 ">
-    <primitive type= "unsigned int">
     <classRef name="ClockTime"/>
   </attribute>
 
@@ -3075,16 +3066,16 @@
    <primitive type="byte">
 </attribute>
 
- <attribute name="padding" comment="padding, Section 7.3.4 ">
-   <primitive type="unsused byte">
+ <attribute name="padding1" comment="padding, Section 7.3.4 ">
+   <primitive type="unsigned byte">
 </attribute>
 
- <attribute name="padding" comment="padding, Section 7.3.4 ">
-   <primitive type="unused long">
+ <attribute name="padding2" comment="padding, Section 7.3.4 ">
+   <primitive type="unsigned int">
 </attribute>
 
- <attribute name="padding" comment="padding, Section 7.3.4 ">
-   <primitive type="byte">
+ <attribute name="padding3" comment="padding, Section 7.3.4 ">
+   <primitive type="unsigned short">
 </attribute>
 
 <attribute name="numberOfDERecords" comment="Field shall specify the number of DE records, Section 7.3.4 ">
