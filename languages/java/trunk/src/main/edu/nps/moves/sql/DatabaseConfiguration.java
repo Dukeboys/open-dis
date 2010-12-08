@@ -161,7 +161,7 @@ public class DatabaseConfiguration
                 ElectronicEmissionsPdu.class,
                 EmitterSystem.class,
                 EntityID.class,
-                EntityInformationFamilyPdu.class,
+               EntityInformationFamilyPdu.class,
                 EntityManagementFamilyPdu.class,
                 EntityStatePdu.class,
                 EntityStateUpdatePdu.class,
@@ -276,7 +276,7 @@ public class DatabaseConfiguration
         SessionFactory factory = DatabaseConfiguration.getSessionFactory(DatabaseType.MYSQL);
         //Session session = factory.getCurrentSession();
 
-        int NUMBER_OF_INSERTS = 100000;
+        int NUMBER_OF_INSERTS = 100;
         long startTime = System.currentTimeMillis();
         for(int idx = 0; idx < NUMBER_OF_INSERTS; idx++)
         {
@@ -285,7 +285,6 @@ public class DatabaseConfiguration
             FastEntityStatePdu espdu = new FastEntityStatePdu();
             espdu.setCapabilities(23);
             session.save(espdu);
-            transaction.commit();
         }
         long stopTime = System.currentTimeMillis();
         double seconds = (stopTime - startTime)/1000.0;

@@ -56,7 +56,8 @@ public class Pdu extends Object implements Serializable
  public Pdu()
  {
  }
-    
+   
+@Transient 
 public int getLength()
 {
     return this.getMarshalledSize();    
@@ -129,6 +130,7 @@ public short getPduType()
 * or XML.
 * @return this Pdu's type enumeration
 */
+@Transient
 public PduType getPduTypeEnum() {
    return PduType.lookup[pduType];
 }
