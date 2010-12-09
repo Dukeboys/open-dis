@@ -1,0 +1,25 @@
+--- VariableDatum.java	2010-12-09 11:51:41.000000000 -0800
++++ newVariableDatum.java	2010-12-09 13:47:29.000000000 -0800
+@@ -79,7 +79,7 @@
+     try 
+     {
+        dos.writeInt( (int)variableDatumID);
+-       dos.writeInt( (int)variableDatums.size());
++       dos.writeInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
+ 
+        for(int idx = 0; idx < variableDatums.size(); idx++)
+        {
+@@ -98,8 +98,11 @@
+     try 
+     {
+        variableDatumID = dis.readInt();
+-       variableDatumLength = dis.readInt();
+-       for(int idx = 0; idx < variableDatumLength; idx++)
++        variableDatumLength = dis.readInt();
++        int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
++        variableDatumLength = (variableDatumLength / 64) + over;
++        
++        for(int idx = 0; idx < variableDatumLength; idx++)
+        {
+            EightByteChunk anX = new EightByteChunk();
+            anX.unmarshal(dis);
