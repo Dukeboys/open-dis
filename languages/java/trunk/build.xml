@@ -12,7 +12,7 @@
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="test" location="src/test"/>
-    <property name="version" value="3.1.3"/>
+    <property name="version" value="4.0"/>
     <property name="testReportOutputDir" value="${build}/testReportOutputDir"/>
     
     <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
@@ -44,7 +44,16 @@
         <mkdir dir="${src}/edu/nps/moves/dis7mobile"/>
 
     </target>
-    
+
+    <!-- We have serveral products we can generate, including versions tuned for desktop and mobile java use.
+         This builds all the products.
+      -->
+
+    <target name="generateAllSource">
+      <antcall target="generateJavaDisSourceCode"/>
+      <antcall target="generateJavaMobileSourceCode"/>
+    </target>    
+
     <!-- Generate the desktop Java code. This relies on the jar file xmlpg.jar, from 
          a separate project in the trunk that is included in the lib directory of this project. You
          must run patch after this to apply known manual fixes to the source code generated.
@@ -61,36 +70,45 @@
         <property name="xmlpg.generatedSourceDir" value="${src}"/>
         <property name="xmlpg.useHibernate" value="true"/>
         <property name="xmlpg.useJaxb" value="true"/>
-        <property name="xmlpg.packageName" value="edu.nps.moves.dis"/>
+        <property name="xmlpg.package" value="edu.nps.moves.dis"/>
+        <property name="product" value="dis"/>
         <echo message="Generating DIS source code for java desktop"/>
         <echo message="source dir=${xmlpg.generatedSourceDir}"/>
         <antcall target="generateDisSourceCode"/>
     </target>
+
+    <target name="generateJavaMobileSourceCode" depends="init" description = "run program to generate java mobile version">
+        <property name="xmlSourceFile" value="DIS1998.xml"/>
+        <property name="xmlpg.generatedSourceDir" value="${src}"/>
+        <property name="xmlpg.useHibernate" value="false"/>
+        <property name="xmlpg.useJaxb" value="false"/>
+        <property name="xmlpg.package" value="edu.nps.moves.dismobile"/>
+        <property name="product" value="dismobile"/>
+        <echo message="Generating DIS source code for java mobile"/>
+        <echo message="source dir=${xmlpg.generatedSourceDir}"/>
+        <echo message="Package name= ${xmlpg.package}"/>
+        <antcall target="generateDisSourceCode"/>
+    </target>
+
 
      <target name="generateJavaDis7SourceCode" depends="init" description = "run program to generate java for DIS 2009, desktop version">
         <property name="xmlSourceFile" value="DIS2009.xml"/>
         <property name="javadir" value="${src}/edu/nps/moves/dis7"/>
         <property name="xmlpg.useHibernate" value="true"/>
         <property name="xmlpg.useJaxb" value="true"/>
+        <property name="xmlpg.package" value="edu.nps.moves.dis7"/>
+        <property name="product" value="dis7"/>
         <!-- apply the patches, manual changes to the code captured in the patch files -->
         <antcall target="generateDisSourceCode"/>
     </target>
-    
-    <target name="generateJavaMobileSourceCode" depends="init" description = "run program to generate java mobile version">
-        <property name="xmlSourceFile" value="DIS1998.xml"/>
-        <property name="xmlpg.generatedSourceDir" value="${src}/edu/nps/moves/dismobile"/>
-        <property name="xmlpg.useHibernate" value="false"/>
-        <property name="xmlpg.useJaxb" value="false"/>
-        <!-- apply the patches, manual changes to the code captured in the patch files -->
-        <antcall target="generateDisSourceCode"/>
-        </target>
-
     
     <target name="generateJavaDis7MobileCode" depends="init" description = "run program to generate java for DIS 2009, mobile version">
         <property name="xmlSourceFile" value="DIS2009.xml"/>
         <property name="xmlpg.generatedSourceDir" value="${src}/edu/nps/moves/dis7mobile"/>
         <property name="xmlpg.useHibernate" value="false"/>
         <property name="xmlpg.useJaxb" value="false"/>
+        <property name="xmlpg.package" value="edu.nps.moves.dis7mobile"/>
+        <property name="product" value="dis7mobile"/>
         <!-- apply the patches, manual changes to the code captured in the patch files -->
         <antcall target="generateDisSourceCode"/>
         </target>
@@ -122,6 +140,7 @@
             <sysproperty key="xmlpg.generatedSourceDir" value="${xmlpg.generatedSourceDir}"/>
             <sysproperty key="xmlpg.useJaxb" value="${xmlpg.useJaxb}"/>
             <sysproperty key="xmlpg.useHibernate" value="${xmlpg.useHibernate}"/>
+            <sysproperty key="xmlpg.package" value="${xmlpg.package}"/>
         </java>
 
         <!-- apply the patches, manual changes to the code captured in the patch files -->
@@ -180,6 +199,7 @@
   
             <!-- The bash script to run. this applies the patches to the source code -->
             <arg value="patches/applyPatches.bash"/>
+            <arg value="${product}"/>
         </exec>
     </target>
     
@@ -255,13 +275,11 @@
          in the development cycle. You can run that target separately.
     -->
     <target name="dist" depends="clean, init, compile, javadoc, generateSchema, compileTest, test, jar" description="do everything">
-     <copy file="${lib}/activation.jar" todir="${dist}/lib"/>
-     <copy file="${lib}/dis-enums_1.1.jar" todir="${dist}/lib"/>
-     <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
-     <copy file="${lib}/jaxb-impl.jar" todir="${dist}/lib"/>
-     <copy file="${lib}/jaxb-api.jar" todir="${dist}/lib"/>
-     <copy file="disJaxb.xsd" todir="${dist}"/>
-     <copy file="${lib}/jsr173_1.0_api.jar" todir="${dist}/lib"/>
+    <copy todir="dist/lib">
+      <fileset dir="lib"> 
+        <include name="**/*.jar"/>
+      </fileset>
+    </copy>
     </target>
 
     <target name="clean" description="Remove build and dist directories">
