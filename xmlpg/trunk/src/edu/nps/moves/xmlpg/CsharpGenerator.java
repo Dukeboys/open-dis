@@ -61,10 +61,21 @@ public class CsharpGenerator extends Generator {
         Properties systemProperties = System.getProperties();
         String directory = null;
         String clDirectory = systemProperties.getProperty("xmlpg.generatedSourceDir");
+        String clNamespace = systemProperties.getProperty("xmlpg.namespace");
+        String clUsing = systemProperties.getProperty("xmlpg.using");
 
         // Directory to place generated source code
         if(clDirectory != null)
             pCsharpProperties.setProperty("directory", clDirectory);
+        
+        // Namespace for generated code
+        if(clNamespace != null)
+            pCsharpProperties.setProperty("namespace", clNamespace);
+        
+        // the using (imports) for the generated code
+        if(clUsing != null)
+            pCsharpProperties.setProperty("using", clUsing);
+        
 
         super.setDirectory(pCsharpProperties.getProperty("directory"));
 
@@ -193,16 +204,22 @@ public class CsharpGenerator extends Generator {
                 // Create the new, empty file, and create printwriter object for output to it
                 File outputFile = new File(fullPath);
                 outputFile.createNewFile();
+                //System.out.println("created output file");
 
                 PrintWriter pw = new PrintWriter(outputFile);
                 PrintStringBuffer psw = new PrintStringBuffer(); //PES 05/01/2009
+                
+                //System.out.println("psw is " + PrintStringBuffer.class.getName());
+                //System.out.println("created pw, psw " + pw + ", " + psw.toString());
 
                 //PES 05/01/2009 modified to print data to a stringbuilder prior to output to a file
                 //will use this to post process any changes
                 this.writeClass(psw, aClass);
+                //System.out.println("wrote class");
 
                 //See if any post processing is needed
                 this.postProcessData(psw, aClass);
+                //System.out.println("post processed");
 
                 // print the source code of the class to the file
                 pw.print(psw.toString());
@@ -1829,6 +1846,7 @@ public class CsharpGenerator extends Generator {
     }
 
     private void writeLicenseNotice(PrintStringBuffer pw) {
+        System.out.println("pw is " + pw);
         pw.println("// Copyright (c) 1995-2009 held by the author(s).  All rights reserved.");
         pw.println("// Redistribution and use in source and binary forms, with or without");
         pw.println("// modification, are permitted provided that the following conditions");
