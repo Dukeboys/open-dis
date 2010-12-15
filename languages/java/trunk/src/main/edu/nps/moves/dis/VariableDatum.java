@@ -163,7 +163,7 @@ public void unmarshal(DataInputStream dis)
 public void marshal(java.nio.ByteBuffer buff)
 {
        buff.putInt( (int)variableDatumID);
-       buff.putInt( (int)variableDatums.size());
+       buff.putInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
 
        for(int idx = 0; idx < variableDatums.size(); idx++)
        {
@@ -184,6 +184,8 @@ public void unmarshal(java.nio.ByteBuffer buff)
 {
        variableDatumID = buff.getInt();
        variableDatumLength = buff.getInt();
+       int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
+       variableDatumLength = (variableDatumLength / 64) + over;
        for(int idx = 0; idx < variableDatumLength; idx++)
        {
             EightByteChunk anX = new EightByteChunk();
