@@ -376,6 +376,9 @@
                 </fileset>
                 <fileset refid="lib.jars"/>
             </classpath>
+             <sysproperty key="port" value="3000"/>            <!-- UDP port to listen on -->
+            <sysproperty key="networkMode" value="broadcast"/> <!-- multicast, unicast, broadcast -->
+            <sysproperty key="mulitcastAddress" value="239.1.2.3"/> <!-- mcast address to use; ignored if unicast or broadcast mode -->
         </java>
     </target>
 
@@ -389,6 +392,7 @@
                 </fileset>
                 <fileset refid="lib.jars"/>
             </classpath>
+           
         </java>
     </target>
 
