@@ -7,6 +7,9 @@ import org.hibernate.Transaction;
 import org.hibernate.Session;
 import org.hibernate.cfg.AnnotationConfiguration;
 import edu.nps.moves.dis.*;
+import edu.nps.moves.disutil.*;
+
+import java.net.*;
 
 
 /**
@@ -18,6 +21,8 @@ public class DatabaseConfiguration
 {
     private static SessionFactory sessionFactory = null;
 
+    public enum NetworkMode {UNICAST, MULTICAST, BROADCAST};
+
     /** Three popular database types. MySql requires a bit more setup, while hsqldb
      * and derby can be used as embedded databases, though possibly with lower performance
      * under load. */
@@ -25,6 +30,8 @@ public class DatabaseConfiguration
 
     public static DatabaseType databaseType = DatabaseType.MYSQL;
 
+    String MULTICAST_ADDRESS = "239.1.2.3";
+    String PORT = "62040";
 
     public static SessionFactory getSessionFactory(DatabaseType db)
     {
@@ -270,38 +277,110 @@ public class DatabaseConfiguration
         }
     }
 
+    public DatabaseConfiguration(SessionFactory sessionFactory, Properties props)
+    {
+        String multicastAddress = props.getProperty("multicastAddress");
+        InetAddress mcastAddress;
+        String port = props.getProperty("port");
+        int portNumber;
+        String mode = props.getProperty("networkMode"); // unicast or multicast or broadcast
+        NetworkMode networkMode = NetworkMode.MULTICAST;
+        PduFactory pduFactory = new PduFactory();
+
+        System.out.println("in constructor");
+
+        if(port == null)
+            port = PORT;
+        if(multicastAddress == null)
+            multicastAddress = MULTICAST_ADDRESS;
+        if(mode == null)
+            mode = "multicast";
+
+        try
+        {
+            portNumber = Integer.parseInt(port);
+            if(mode.equalsIgnoreCase("multicast"))
+                networkMode = NetworkMode.MULTICAST;
+            else if(mode.equalsIgnoreCase("unicast"))
+                networkMode = NetworkMode.UNICAST;
+            else if(mode.equalsIgnoreCase("broadcast"))
+                networkMode = NetworkMode.BROADCAST;
+
+            DatagramSocket socket = null;
+
+            portNumber = Integer.parseInt(port);
+
+            switch(networkMode)
+            {
+                case UNICAST:
+                case BROADCAST:
+                    socket = new DatagramSocket(portNumber);
+                    System.out.println("created unicast/bcast socket");
+                    break;
+
+                case MULTICAST:
+                    MulticastSocket aSocket = new MulticastSocket(portNumber);
+                    mcastAddress = InetAddress.getByName(multicastAddress);
+                    aSocket.joinGroup(mcastAddress);
+                    socket = aSocket;
+                    System.out.println("created multicast socket");
+
+                    break;
+
+                default:
+                    System.out.println("unhandled network type: expected to be unicast, broadcast, or multicast");
+            }
+
+            System.out.println("Network configured, port=" + port + " mode=" +networkMode);
+            
+            while(true)
+            {
+                byte buffer[] = new byte[1024 * 2]; // 8K was for at least a time the max PDU size; this should be good enough
+                DatagramPacket aPacket = new DatagramPacket(buffer, buffer.length);
+
+                System.out.println("ready to receive a packet");
+                System.out.println(socket);
+                socket.receive(aPacket);
+                System.out.println("got a packet");
+
+                Pdu aPdu = pduFactory.createPdu(aPacket.getData());
+
+                Session session = sessionFactory.openSession();
+                Transaction transaction = session.beginTransaction();
+                //FastEntityStatePdu espdu = new FastEntityStatePdu();
+                //espdu.setCapabilities(23);
+                session.save(aPdu);
+                transaction.commit();
+                
+            }
+
+
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+
+
+    }
 
     public static void main(String args[])
     {
+        System.out.println("Startup....");
         SessionFactory factory = DatabaseConfiguration.getSessionFactory(DatabaseType.MYSQL);
         //Session session = factory.getCurrentSession();
 
-        int NUMBER_OF_INSERTS = 100;
-        long startTime = System.currentTimeMillis();
-        for(int idx = 0; idx < NUMBER_OF_INSERTS; idx++)
-        {
-            Session session = factory.openSession();
-            Transaction transaction = session.beginTransaction();
-            FastEntityStatePdu espdu = new FastEntityStatePdu();
-            espdu.setCapabilities(23);
-            session.save(espdu);
-        }
-        long stopTime = System.currentTimeMillis();
-        double seconds = (stopTime - startTime)/1000.0;
-        System.out.println("Number of seconds to insert " + NUMBER_OF_INSERTS + " ESPDUS: " + seconds);
-        double insertsPerSecond = NUMBER_OF_INSERTS/seconds;
-        double secondsPerInsert = seconds/NUMBER_OF_INSERTS;
-        System.out.println("Inserts per second:" + insertsPerSecond + " Seconds per insert:" + secondsPerInsert);
+        Properties systemProperties = System.getProperties();
 
-       
-       
+        DatabaseConfiguration instance = new DatabaseConfiguration(factory, systemProperties);
+        
 
-        /*
-        session = sessionFactory.getCurrentSession();
-        transaction = session.beginTransaction();
-        //session.createSQLQuery("SHUTDOWN").executeUpdate();
-        transaction.commit();
-         * */
+        System.out.println("Starting");
+        System.out.println(systemProperties.getProperty("port"));
+        System.out.println(systemProperties.getProperty("networkMode"));
+
+
     }
 }
 

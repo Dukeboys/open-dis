@@ -34,7 +34,7 @@ public class FirePdu extends WarfareFamilyPdu implements Serializable
    protected Vector3Float  velocity = new Vector3Float(); 
 
    /** range to the target */
-   protected float  range;
+   protected float  rangeToTarget;
 
 
 /** Constructor */
@@ -54,7 +54,7 @@ public int getMarshalledSize()
    marshalSize = marshalSize + locationInWorldCoordinates.getMarshalledSize();  // locationInWorldCoordinates
    marshalSize = marshalSize + burstDescriptor.getMarshalledSize();  // burstDescriptor
    marshalSize = marshalSize + velocity.getMarshalledSize();  // velocity
-   marshalSize = marshalSize + 4;  // range
+   marshalSize = marshalSize + 4;  // rangeToTarget
 
    return marshalSize;
 }
@@ -108,12 +108,12 @@ public Vector3Float getVelocity()
 { return velocity; 
 }
 
-public void setRange(float pRange)
-{ range = pRange;
+public void setRangeToTarget(float pRangeToTarget)
+{ rangeToTarget = pRangeToTarget;
 }
 
-public float getRange()
-{ return range; 
+public float getRangeToTarget()
+{ return rangeToTarget; 
 }
 
 
@@ -128,7 +128,7 @@ public void marshal(DataOutputStream dos)
        locationInWorldCoordinates.marshal(dos);
        burstDescriptor.marshal(dos);
        velocity.marshal(dos);
-       dos.writeFloat( (float)range);
+       dos.writeFloat( (float)rangeToTarget);
     } // end try 
     catch(Exception e)
     { 
@@ -147,7 +147,7 @@ public void unmarshal(DataInputStream dis)
        locationInWorldCoordinates.unmarshal(dis);
        burstDescriptor.unmarshal(dis);
        velocity.unmarshal(dis);
-       range = dis.readFloat();
+       rangeToTarget = dis.readFloat();
     } // end try 
    catch(Exception e)
     { 
@@ -173,7 +173,7 @@ public void marshal(java.nio.ByteBuffer buff)
        locationInWorldCoordinates.marshal(buff);
        burstDescriptor.marshal(buff);
        velocity.marshal(buff);
-       buff.putFloat( (float)range);
+       buff.putFloat( (float)rangeToTarget);
     } // end of marshal method
 
 /**
@@ -193,7 +193,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
        locationInWorldCoordinates.unmarshal(buff);
        burstDescriptor.unmarshal(buff);
        velocity.unmarshal(buff);
-       range = buff.getFloat();
+       rangeToTarget = buff.getFloat();
  } // end of unmarshal method 
 
 
@@ -213,7 +213,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
      if( ! (locationInWorldCoordinates.equals( rhs.locationInWorldCoordinates) )) ivarsEqual = false;
      if( ! (burstDescriptor.equals( rhs.burstDescriptor) )) ivarsEqual = false;
      if( ! (velocity.equals( rhs.velocity) )) ivarsEqual = false;
-     if( ! (range == rhs.range)) ivarsEqual = false;
+     if( ! (rangeToTarget == rhs.rangeToTarget)) ivarsEqual = false;
 
     return ivarsEqual;
  }
