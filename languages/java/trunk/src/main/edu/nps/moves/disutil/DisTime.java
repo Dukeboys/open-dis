@@ -10,7 +10,7 @@ import java.util.*;
  * four bytes long and is specified to be an unsigned integer value.<p>
  *
  * There are two types of offical timestamps in the PDU header: absolute time and
- * relative time. Absoulte time is used when the host is sync'd to UTC, ie the host
+ * relative time. Absolute time is used when the host is sync'd to UTC, ie the host
  * has access to UTC via Network Time Protocol (NTP). This time can be legitimately
  * compared to the timestamp of packets received from other hosts, since they all
  * refer to the same universal time.<p>
@@ -77,7 +77,7 @@ public class DisTime
      * units per hour.
      * @return integer DIS time units since the start of the hour.
      */
-    public int getDisTimeUnitsSinceTopOfHour() {
+    private int getDisTimeUnitsSinceTopOfHour() {
         // set cal object to current time
         long currentTime = System.currentTimeMillis(); // UTC milliseconds since 1970
         cal.setTimeInMillis(currentTime);

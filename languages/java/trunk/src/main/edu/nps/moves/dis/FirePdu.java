@@ -44,7 +44,7 @@ public class FirePdu extends WarfareFamilyPdu implements Serializable
    /** Velocity of the ammunition */
    protected Vector3Float  velocity = new Vector3Float(); 
 
-   /** range to the target */
+   /** range to the target. Note the word range is a SQL reserved word. */
    protected float  rangeToTarget;
 
 

@@ -54,7 +54,7 @@ public class RecordQueryReliablePdu extends SimulationManagementWithReliabilityF
 /** Constructor */
  public RecordQueryReliablePdu()
  {
-    setPduType( (short)63 );
+    setPduType( (short)65 );
  }
 
 @Transient  // Marked as transient to prevent hibernate from thinking this is a persistent property

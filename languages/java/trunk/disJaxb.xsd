@@ -1235,7 +1235,7 @@
           <xs:element name="velocity" type="vector3Float" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute name="fireMissionIndex" type="xs:int" use="required"/>
-        <xs:attribute name="range" type="xs:float" use="required"/>
+        <xs:attribute name="rangeToTarget" type="xs:float" use="required"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
