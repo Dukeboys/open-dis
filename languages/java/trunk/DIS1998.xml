@@ -1772,7 +1772,7 @@ PduHeader record, section 5.2.29.">
     <classRef name="Vector3Float"/>
   </attribute>
   
-  <attribute name="range" comment="range to the target">
+  <attribute name="rangeToTarget" comment="range to the target. Note the word range is a SQL reserved word.">
     <primitive type="float"/>
   </attribute>
   
