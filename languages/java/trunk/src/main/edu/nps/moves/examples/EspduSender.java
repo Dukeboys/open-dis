@@ -5,6 +5,7 @@ import java.net.*;
 import java.util.*;
 
 import edu.nps.moves.dis.*;
+import edu.nps.moves.disutil.DisTime;
 
 /**
  * Creates and sends ESPDUs in IEEE binary format. 
@@ -35,6 +36,7 @@ public static void main(String args[])
     String unicastDestination = systemProperties.getProperty("unicastDestination");
     String port = systemProperties.getProperty("port");
     int portInt = PORT;
+    DisTime disTime = DisTime.getInstance();
 
     try
     {
@@ -93,6 +95,10 @@ public static void main(String args[])
                 long timestamp = espdu.getTimestamp();
                 timestamp++;
                 espdu.setTimestamp(timestamp);
+
+                // An alterative approach: actually follow the standard.
+                //int ts = disTime.getDisAbsoluteTimestamp();
+                //espdu.setTimestamp(ts);
                 
                 // Modify the x-axis position of the object
                 // 36.595517, -121.877939

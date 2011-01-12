@@ -9,7 +9,7 @@ import java.util.*;
  * units since the start of the hour. The timestamp field in the PDU header is
  * four bytes long and is specified to be an unsigned integer value.<p>
  *
- * There are two types of offical timestamps in the PDU header: absolute time and
+ * There are two types of official timestamps in the PDU header: absolute time and
  * relative time. Absolute time is used when the host is sync'd to UTC, ie the host
  * has access to UTC via Network Time Protocol (NTP). This time can be legitimately
  * compared to the timestamp of packets received from other hosts, since they all
@@ -22,7 +22,9 @@ import java.util.*;
  * directly comparable to the PDU timestamp field from another host.
  *
  * Absolute timestamps have their LSB set to 1, and relative timestamps have their
- * LSB set to 0.<p>
+ * LSB set to 0. The idea is to get the current time since the top of the hour,
+ * divide by 2^31-1, shift left one bit, then set the LSB to either 0 for relative
+ * timestamps or 1 for absolute timestamps.<p>
  *
  * The nature of the data is such that the timestamp fields will roll over once an
  * hour, and simulations must be prepared for that. Ie, at the top of the hour
@@ -36,12 +38,16 @@ import java.util.*;
  * we use hundreds of a second since the start of the year. The maximum value for
  * this field is 3,153,600,000, which can fit into an unsigned int. The resolution is
  * good enough for most applications, and you typically don't have to worry about
- * rollover, instead getting only a monotonically increasing timestamp value.
+ * rollover, instead getting only a monotonically increasing timestamp value.<p>
+ *
+ * Note that many applications in the wild have been known to completely ignore
+ * the standard and to simply put the Unix time (seconds since 1970) into the
+ * field. <p>
  *
  * You need to be careful with the shared instance of this class--I'm not at all
  * convinced it is thread safe. If you are using multiple threads, I suggest you
  * create a new instance of the class for each thread to prevent the values from
- * getting stomped on.
+ * getting stomped on.<p>
  * 
  * @author DMcG
  */
@@ -104,22 +110,24 @@ public class DisTime
 
     /**
      * Returns the absolute timestamp, assuminng that this host is sync'd to NTP.
+     * Fix to bitshift by mvormelch.
      * @return DIS time units, get absolute timestamp
      */
+
     public int getDisAbsoluteTimestamp() {
-        int val = this.getDisTimeUnitsSinceTopOfHour();
-        val = val | ABSOLUTE_TIMESTAMP_MASK; // always flip the lsb to 1
-        return val;
+         int val = this.getDisTimeUnitsSinceTopOfHour();
+         val = (val << 1) | ABSOLUTE_TIMESTAMP_MASK; // always flip the lsb to 1
+         return val;
     }
 
     /**
      * Returns the DIS standard relative timestamp, which should be used if this host
-     * is not slaved to NTP
+     * is not slaved to NTP. Fix to bitshift by mvormelch
      * @return DIS time units, relative
      */
     public int getDisRelativeTimestamp() {
         int val = this.getDisTimeUnitsSinceTopOfHour();
-        val = val & RELATIVE_TIMESTAMP_MASK; // always flip the lsb to 0
+        val = (val << 1) & RELATIVE_TIMESTAMP_MASK; // always flip the lsb to 0
         return val;
     }
 
