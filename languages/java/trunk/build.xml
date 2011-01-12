@@ -209,11 +209,33 @@
         <jar jarfile="${jarfile}" basedir="build" excludes="test"/>
         <copy file="${jarfile}" todir="."/>
     </target>
-    
+
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
         <javadoc destdir="${dist}/docs" packagenames="edu.nps.moves.*" sourcepath="${src}">
             <classpath refid="lib.path"/>
         </javadoc>
+    </target>
+
+    <target name="hudson" depends="dist" description="generate distribution when running on hudson server">
+<!--
+<p>
+<a href="http://open-dis.sourceforge.net">Open-DIS</a>
+ is an open-source implementation of the IEEE Distributed Interactive Simulation (DIS) protocol used by the
+<a href="https://savage.nps.edu/AuvWorkbench">AUV Workbench</a>,
+<a href="https://savage.nps.edu/X3D-Edit/#Open-DIS">X3D-Edit</a>,
+<a href="https://savage.nps.edu/developers.html#Xj3D">Xj3D</a> and other tools.
+</p>
+<p>
+The overall Open-DIS project contains many components which are available via
+<a href="https://open-dis.svn.sourceforge.net">subversion</a>.
+</p>
+<p>
+This project builds the Java version of Open-DIS.
+Locally built
+<a href="ws/trunk/dist/docs/index.html">javadoc</a>
+is available.
+</p>
+-->
     </target>
 
     <target name="compileTest" depends="compile" description="Compile java test code and place it in the test directory of of build">
