@@ -231,15 +231,36 @@ public void unmarshal(java.nio.ByteBuffer buff)
  } // end of unmarshal method 
 
 
- /**
+ /*
   * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
   */
- public boolean equals(IffAtcNavAidsLayer1Pdu rhs)
+@Override
+ public boolean equals(Object obj)
+ {
+
+    if(this == obj){
+      return true;
+    }
+
+    if(obj == null){
+       return false;
+    }
+
+    if(getClass() != obj.getClass())
+        return false;
+
+    return equalsImpl(obj);
+ }
+
+@Override
+ public boolean equalsImpl(Object obj)
  {
      boolean ivarsEqual = true;
 
-    if(rhs.getClass() != this.getClass())
+    if(!(obj instanceof IffAtcNavAidsLayer1Pdu))
         return false;
+
+     final IffAtcNavAidsLayer1Pdu rhs = (IffAtcNavAidsLayer1Pdu)obj;
 
      if( ! (emittingEntityId.equals( rhs.emittingEntityId) )) ivarsEqual = false;
      if( ! (eventID.equals( rhs.eventID) )) ivarsEqual = false;
@@ -248,6 +269,6 @@ public void unmarshal(java.nio.ByteBuffer buff)
      if( ! (pad2 == rhs.pad2)) ivarsEqual = false;
      if( ! (fundamentalParameters.equals( rhs.fundamentalParameters) )) ivarsEqual = false;
 
-    return ivarsEqual;
+    return ivarsEqual && super.equalsImpl(rhs);
  }
 } // end of class

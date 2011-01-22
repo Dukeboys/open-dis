@@ -161,38 +161,46 @@ public void unmarshal(java.nio.ByteBuffer buff)
  } // end of unmarshal method 
 
 
-    /**
-     * This equals method actually does work. Go ahead and use it. It's useful
-     * for hash table keys when looking up entities.
-     */
-    public boolean equals(EntityID rhs)
-    {
-        boolean ivarsEqual = true;
-        
-        if(rhs.getClass() != this.getClass())
-            return false;
-        
-        if( ! (site == rhs.site)) ivarsEqual = false;
-        if( ! (application == rhs.application)) ivarsEqual = false;
-        if( ! (entity == rhs.entity)) ivarsEqual = false;
-        
-        return ivarsEqual;
+ /*
+  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
+  */
+@Override
+ public boolean equals(Object obj)
+ {
+
+    if(this == obj){
+      return true;
     }
-    
-    /**
-     * Override of base class hashCode. This is convienent to use when looking up entities in
-     * a hash table. It uses the application and entity IDs to fill out the 32 bits. The idea
-     * is to get a "pretty close" to unique hashcode for each entity ID in 32 bits, and the
-     * best way to do that is leave out the site ID while keeping the rest, which tends to
-     * be more unique.
-     */
-    @Override
-    public int hashCode()
-    {
-        int hashcode = application; 
-        hashcode = hashcode << 16;
-        hashcode = hashcode + entity;
-        return hashcode;
+
+    if(obj == null){
+       return false;
     }
-	
+
+    if(getClass() != obj.getClass())
+        return false;
+
+    return equalsImpl(obj);
+ }
+
+ /**
+  * Compare all fields that contribute to the state, ignoring
+ transient and static fields, for <code>this</code> and the supplied object
+  * @param obj the object to compare to
+  * @return true if the objects are equal, false otherwise.
+  */
+ public boolean equalsImpl(Object obj)
+ {
+     boolean ivarsEqual = true;
+
+    if(!(obj instanceof EntityID))
+        return false;
+
+     final EntityID rhs = (EntityID)obj;
+
+     if( ! (site == rhs.site)) ivarsEqual = false;
+     if( ! (application == rhs.application)) ivarsEqual = false;
+     if( ! (entity == rhs.entity)) ivarsEqual = false;
+
+    return ivarsEqual;
+ }
 } // end of class

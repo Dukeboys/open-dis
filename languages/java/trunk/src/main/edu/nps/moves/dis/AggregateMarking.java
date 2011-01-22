@@ -158,15 +158,41 @@ public void unmarshal(java.nio.ByteBuffer buff)
  } // end of unmarshal method 
 
 
- /**
+ /*
   * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
   */
- public boolean equals(AggregateMarking rhs)
+@Override
+ public boolean equals(Object obj)
+ {
+
+    if(this == obj){
+      return true;
+    }
+
+    if(obj == null){
+       return false;
+    }
+
+    if(getClass() != obj.getClass())
+        return false;
+
+    return equalsImpl(obj);
+ }
+
+ /**
+  * Compare all fields that contribute to the state, ignoring
+ transient and static fields, for <code>this</code> and the supplied object
+  * @param obj the object to compare to
+  * @return true if the objects are equal, false otherwise.
+  */
+ public boolean equalsImpl(Object obj)
  {
      boolean ivarsEqual = true;
 
-    if(rhs.getClass() != this.getClass())
+    if(!(obj instanceof AggregateMarking))
         return false;
+
+     final AggregateMarking rhs = (AggregateMarking)obj;
 
      if( ! (characterSet == rhs.characterSet)) ivarsEqual = false;
 

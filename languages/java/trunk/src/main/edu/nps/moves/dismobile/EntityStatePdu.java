@@ -323,15 +323,36 @@ public void unmarshal(java.nio.ByteBuffer buff)
  } // end of unmarshal method 
 
 
- /**
+ /*
   * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
   */
- public boolean equals(EntityStatePdu rhs)
+@Override
+ public boolean equals(Object obj)
+ {
+
+    if(this == obj){
+      return true;
+    }
+
+    if(obj == null){
+       return false;
+    }
+
+    if(getClass() != obj.getClass())
+        return false;
+
+    return equalsImpl(obj);
+ }
+
+@Override
+ public boolean equalsImpl(Object obj)
  {
      boolean ivarsEqual = true;
 
-    if(rhs.getClass() != this.getClass())
+    if(!(obj instanceof EntityStatePdu))
         return false;
+
+     final EntityStatePdu rhs = (EntityStatePdu)obj;
 
      if( ! (entityID.equals( rhs.entityID) )) ivarsEqual = false;
      if( ! (forceId == rhs.forceId)) ivarsEqual = false;
@@ -352,6 +373,6 @@ public void unmarshal(java.nio.ByteBuffer buff)
      }
 
 
-    return ivarsEqual;
+    return ivarsEqual && super.equalsImpl(rhs);
  }
 } // end of class
