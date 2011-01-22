@@ -1699,85 +1699,134 @@ public class JavaGenerator extends Generator
    */
  
     /**
-     * Write the code for an equality operator. This allows you to compare
-     * two objects for equality.
-     * The code should look like
-     * 
-     * bool operator ==(const ClassName& rhs)
-     * return (_ivar1==rhs._ivar1 && _var2 == rhs._ivar2 ...)
-     *
-     */
-    public void writeEqualityMethod(PrintWriter pw, GeneratedClass aClass)
-    {
-        try
-    {
-        pw.println();
-        pw.println(" /**");
-        pw.println("  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.");
-        pw.println("  */");
-        pw.println(" public boolean equals(" + aClass.getName() + " rhs)");
-        pw.println(" {");
-        pw.println("     boolean ivarsEqual = true;");
-        pw.println();
-        
-        pw.println("    if(rhs.getClass() != this.getClass())");
-        pw.println("        return false;");
-        pw.println();
-            
-        //pw.println("      ivarsEqual = this.super().equals(rhs.super());");
-        //pw.println("      if(ivarsEqual == false)");
-        // pw.println("           return false;");
-        //pw.println();
-        
-        for(int idx = 0; idx < aClass.getClassAttributes().size(); idx++)
-        {
-            ClassAttribute anAttribute = (ClassAttribute)aClass.getClassAttributes().get(idx);
-            
-            if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE)
-            {
-                pw.println("     if( ! ("  + anAttribute.getName() + " == rhs." + anAttribute.getName() + ")) ivarsEqual = false;");
-            }
-            
-            if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF)
-            {
-                pw.println("     if( ! ("  + anAttribute.getName() + ".equals( rhs." + anAttribute.getName() + ") )) ivarsEqual = false;");
-            }
-            
-            
-            if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST)
-            {
-                pw.println();
-                pw.println("     for(int idx = 0; idx < " + anAttribute.getListLength() + "; idx++)");
-                pw.println("     {");
-                pw.println("          if(!(" + anAttribute.getName() + "[idx] == rhs." + anAttribute.getName() + "[idx])) ivarsEqual = false;");
-                pw.println("     }");
-                pw.println();
-            }
-            
-            if(anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST)
-            {
-                pw.println();
-                pw.println("     for(int idx = 0; idx < " + anAttribute.getName() + ".size(); idx++)");
-                pw.println("     {");
-                //pw.println("        " + anAttribute.getType() + " x = (" + anAttribute.getType() + ")" +  anAttribute.getName() + ".get(idx);");
-                pw.println("        if( ! ( " + anAttribute.getName() + ".get(idx).equals(rhs." + anAttribute.getName() + ".get(idx)))) ivarsEqual = false;");
-                pw.println("     }");
-                pw.println();
-            }
-            
-        }
-        
-        
-        pw.println();
-        pw.println("    return ivarsEqual;");
-        pw.println(" }");
-    }
-        catch(Exception e)
-    {
-            System.out.println(e);
-    }
-        
-}
+	 * Write the code for an equality operator. This allows you to compare two
+	 * objects for equality. The code should look like
+	 * 
+	 * bool operator ==(const ClassName& rhs) return (_ivar1==rhs._ivar1 &&
+	 * _var2 == rhs._ivar2 ...)
+	 * 
+	 */
+	public void writeEqualityMethod(PrintWriter pw, GeneratedClass aClass) {
+		try {
+			pw.println();
+			pw.println(" /*");
+			pw.println("  * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.");
+			pw.println("  */");
+			pw.println("@Override");
+			pw.println(" public boolean equals(Object obj)");
+			pw.println(" {");
+			pw.println();
+			pw.println("    if(this == obj){");
+			pw.println("      return true;");
+			pw.println("    }");
+			pw.println();
+			pw.println("    if(obj == null){");
+			pw.println("       return false;");
+			pw.println("    }");
+			pw.println();
+			pw.println("    if(getClass() != obj.getClass())");
+			pw.println("        return false;");
+			pw.println();
+			pw.println("    return equalsImpl(obj);");
+			pw.println(" }");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		writeEqualityImplMethod(pw, aClass); // Write impl for establishing
+												// equality
+
+	}
+
+	/**
+	 * write equalsImpl(...) method to this class to parent or subclasses
+	 * 
+	 * @param pw
+	 * @param aClass
+	 */
+	public void writeEqualityImplMethod(PrintWriter pw, GeneratedClass aClass) {
+		try {
+			pw.println();
+
+			if (aClass.getParentClass().equalsIgnoreCase("root")) {
+				pw.println(" /**");
+				pw.println("  * Compare all fields that contribute to the state, ignoring\n transient and static fields, for <code>this</code> and the supplied object");
+				pw.println("  * @param obj the object to compare to");
+				pw.println("  * @return true if the objects are equal, false otherwise.");
+				pw.println("  */");
+			} else {
+				pw.println("@Override");
+			}
+			pw.println(" public boolean equalsImpl(Object obj)");
+			pw.println(" {");
+			pw.println("     boolean ivarsEqual = true;");
+			pw.println();
+
+			pw.println("    if(!(obj instanceof " + aClass.getName() + "))");
+			pw.println("        return false;");
+			pw.println();
+			pw.println("     final " + aClass.getName() + " rhs = ("
+					+ aClass.getName() + ")obj;");
+			pw.println();
+
+			for (int idx = 0; idx < aClass.getClassAttributes().size(); idx++) {
+				ClassAttribute anAttribute = (ClassAttribute) aClass
+						.getClassAttributes().get(idx);
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.PRIMITIVE) {
+					pw.println("     if( ! (" + anAttribute.getName()
+							+ " == rhs." + anAttribute.getName()
+							+ ")) ivarsEqual = false;");
+				}
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.CLASSREF) {
+					pw.println("     if( ! (" + anAttribute.getName()
+							+ ".equals( rhs." + anAttribute.getName()
+							+ ") )) ivarsEqual = false;");
+				}
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.FIXED_LIST) {
+					pw.println();
+					pw.println("     for(int idx = 0; idx < "
+							+ anAttribute.getListLength() + "; idx++)");
+					pw.println("     {");
+					pw.println("          if(!(" + anAttribute.getName()
+							+ "[idx] == rhs." + anAttribute.getName()
+							+ "[idx])) ivarsEqual = false;");
+					pw.println("     }");
+					pw.println();
+				}
+
+				if (anAttribute.getAttributeKind() == ClassAttribute.ClassAttributeType.VARIABLE_LIST) {
+					pw.println();
+					pw.println("     for(int idx = 0; idx < "
+							+ anAttribute.getName() + ".size(); idx++)");
+					pw.println("     {");
+					// pw.println("        " + anAttribute.getType() + " x = ("
+					// + anAttribute.getType() + ")" + anAttribute.getName() +
+					// ".get(idx);");
+					pw.println("        if( ! ( " + anAttribute.getName()
+							+ ".get(idx).equals(rhs." + anAttribute.getName()
+							+ ".get(idx)))) ivarsEqual = false;");
+					pw.println("     }");
+					pw.println();
+				}
+
+			}
+
+			pw.println();
+			if (aClass.getParentClass().equalsIgnoreCase("root")) {
+				pw.println("    return ivarsEqual;");
+			} else {
+				pw.println("    return ivarsEqual && super.equalsImpl(rhs);");
+			}
+			pw.println(" }");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
+
   
 /**
  * This should be needed only for the XmlRoot class(es). 
