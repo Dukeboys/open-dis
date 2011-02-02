@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -32,47 +32,43 @@ namespace OpenDis.Enumerations.EntityState.Type
     public enum RadioNomenclatureVersion : byte
     {
         /// <summary>
-        /// Other.
+        /// Other. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Other.")]
-
+        [Description("Other. .")]
         Other = 0,
 
         /// <summary>
-        /// Joint Electronics Type Designation System (JETDS) Nomenclature (AN/ per Mil-STD-196).
+        /// Joint Electronics Type Designation System (JETDS) Nomenclature (AN/ per Mil-STD-196). .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Joint Electronics Type Designation System (JETDS) Nomenclature (AN/ per Mil-STD-196).")]
-
+        [Description("Joint Electronics Type Designation System (JETDS) Nomenclature (AN/ per Mil-STD-196). .")]
         JointElectronicsTypeDesignationSystemJETDSNomenclatureANPerMilSTD196 = 1,
 
         /// <summary>
-        /// Manufacturer Designation.
+        /// Manufacturer Designation. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Manufacturer Designation.")]
-
+        [Description("Manufacturer Designation. .")]
         ManufacturerDesignation = 2,
 
         /// <summary>
-        /// National Designation.
+        /// National Designation. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("National Designation.")]
-
+        [Description("National Designation. .")]
         NationalDesignation = 3
     }
 }

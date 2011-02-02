@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -32,47 +32,43 @@ namespace OpenDis.Enumerations.Radio.Intercom
     public enum DestinationLineStateCommand : byte
     {
         /// <summary>
-        /// None.
+        /// None. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("None.")]
-
+        [Description("None. .")]
         None = 0,
 
         /// <summary>
-        /// Set Line State - Transmitting.
+        /// Set Line State - Transmitting. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Set Line State - Transmitting.")]
-
+        [Description("Set Line State - Transmitting. .")]
         SetLineStateTransmitting = 1,
 
         /// <summary>
-        /// Set Line State - Not Transmitting.
+        /// Set Line State - Not Transmitting. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Set Line State - Not Transmitting.")]
-
+        [Description("Set Line State - Not Transmitting. .")]
         SetLineStateNotTransmitting = 2,
 
         /// <summary>
-        /// Return to Local Line State Control.
+        /// Return to Local Line State Control. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Return to Local Line State Control.")]
-
+        [Description("Return to Local Line State Control. .")]
         ReturnToLocalLineStateControl = 3
     }
 }

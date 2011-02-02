@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -29,39 +29,36 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
     [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
     [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
     [Serializable]
-    public enum PhysicalSensor : int
+    public enum PhysicalSensor : uint
     {
         /// <summary>
-        /// Generic Probe.
+        /// Generic Probe. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Generic Probe.")]
-
+        [Description("Generic Probe. .")]
         GenericProbe = 0,
 
         /// <summary>
-        /// Probe, metal content.
+        /// Probe, metal content. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Probe, metal content.")]
-
+        [Description("Probe, metal content. .")]
         ProbeMetalContent = 1,
 
         /// <summary>
-        /// Probe, no metal content.
+        /// Probe, no metal content. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Probe, no metal content.")]
-
+        [Description("Probe, no metal content. .")]
         ProbeNoMetalContent = 2
     }
 }

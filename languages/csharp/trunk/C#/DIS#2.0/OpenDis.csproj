@@ -306,6 +306,11 @@
     <Compile Include="Enumerations\DistributedEmission.Iff\Type1Modifier.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type1OperationalParameter1.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type1OperationalParameter2.cs" />
+    <Compile Include="Enumerations\DistributedEmission.Iff\Type1Parameter1Mode1CodeStatus.cs" />
+    <Compile Include="Enumerations\DistributedEmission.Iff\Type1Parameter2Mode2CodeStatus.cs" />
+    <Compile Include="Enumerations\DistributedEmission.Iff\Type1Parameter3Mode3CodeStatus.cs" />
+    <Compile Include="Enumerations\DistributedEmission.Iff\Type1Parameter4Mode4CodeStatus.cs" />
+    <Compile Include="Enumerations\DistributedEmission.Iff\Type1Parameter5ModeCCodeStatus.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type1Parameter6ModeSCodeStatus.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type2AlternateParameter4.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type2ChangeOptions.cs" />
@@ -314,6 +319,7 @@
     <Compile Include="Enumerations\DistributedEmission.Iff\Type2Parameter1Mode1InterrogatorStatus.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type2Parameter2Mode2InterrogatorStatus.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type2Parameter3Mode3InterrogatorStatus.cs" />
+    <Compile Include="Enumerations\DistributedEmission.Iff\Type2Parameter4Mode4InterrogatorStatus.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type2Parameter5ModeCInterrogatorStatus.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type2Parameter6ModeSCodeStatus.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type3ChangeOptions.cs" />
@@ -337,6 +343,7 @@
     <Compile Include="Enumerations\DistributedEmission.Iff\Type5ChangeOptions.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type5OperationalParameter1.cs" />
     <Compile Include="Enumerations\DistributedEmission.Iff\Type5OperationalParameter2.cs" />
+    <Compile Include="Enumerations\DistributedEmission.Iff\Type5Parameter1RRBResponse.cs" />
     <Compile Include="Enumerations\DistributedEmission.UnderwaterAcoustic\ActiveEmissionParameterIndex.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -347,6 +354,7 @@
     <Compile Include="Enumerations\DistributedEmission.UnderwaterAcoustic\PassiveParameterIndex.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\DistributedEmission.UnderwaterAcoustic\PropulsionPlantConfiguration.cs" />
     <Compile Include="Enumerations\DistributedEmission.UnderwaterAcoustic\ScanPattern.cs" />
     <Compile Include="Enumerations\DistributedEmission.UnderwaterAcoustic\StateChangeUpdateIndicator.cs">
       <SubType>Code</SubType>
@@ -378,12 +386,14 @@
     <Compile Include="Enumerations\DistributedEmission\TankEnginePower.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Entity.Information.Minefield\Appearance.cs" />
     <Compile Include="Enumerations\Entity.Information.Minefield\DataFilter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enumerations\Entity.Information.Minefield\FlirSensor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Entity.Information.Minefield\Fusing.cs" />
     <Compile Include="Enumerations\Entity.Information.Minefield\LaserSensor.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -396,9 +406,11 @@
     <Compile Include="Enumerations\Entity.Information.Minefield\OpticalSensor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Entity.Information.Minefield\PaintScheme.cs" />
     <Compile Include="Enumerations\Entity.Information.Minefield\PhysicalSensor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Entity.Information.Minefield\ProtocolMode.cs" />
     <Compile Include="Enumerations\Entity.Information.Minefield\RadarSensor.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -444,6 +456,16 @@
     <Compile Include="Enumerations\Entity.Management\TransferType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\EntityState.Appearance\AirPlatformAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\CulturalAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\EnvironmentalAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\LandPlatformAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\LifeFormAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\MunitionAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\SensorEmitterAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\SpacePlatformAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\SubsurfacePlatformAppearance.cs" />
+    <Compile Include="Enumerations\EntityState.Appearance\SurfacePlatformAppearance.cs" />
     <Compile Include="Enumerations\EntityState.Marking\ArmyMarkingCompany.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -532,18 +554,27 @@
     <Compile Include="Enumerations\Environment.Gridded\ConstantGrid.cs" />
     <Compile Include="Enumerations\Environment.Gridded\CoordinateSystem.cs" />
     <Compile Include="Enumerations\Environment.Gridded\DataRepresentationType.cs" />
+    <Compile Include="Enumerations\Environment.ObjectState\AirBurstAndGroundBurst.cs" />
     <Compile Include="Enumerations\Environment.ObjectState\ArealObjectStatePDUModificationField.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Environment.ObjectState\Crater.cs" />
+    <Compile Include="Enumerations\Environment.ObjectState\ExhaustSmoke.cs" />
+    <Compile Include="Enumerations\Environment.ObjectState\GeneralAppearance.cs" />
     <Compile Include="Enumerations\Environment.ObjectState\LinearObjectStatePDUModificationField.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Environment.ObjectState\LogCribAbatisVehicleDefiladeAndInfantryFightingPosition.cs" />
+    <Compile Include="Enumerations\Environment.ObjectState\Minefield.cs" />
+    <Compile Include="Enumerations\Environment.ObjectState\MinefieldLaneMarker.cs" />
     <Compile Include="Enumerations\Environment.ObjectState\ObjectKind.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enumerations\Environment.ObjectState\PointObjectStatePDUModificationField.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Environment.ObjectState\RibbonBridge.cs" />
+    <Compile Include="Enumerations\Environment.ObjectState\TankDitchAndConcertinaWire.cs" />
     <Compile Include="Enumerations\Environment.Process\EnvironmentalProcessTypesForGeometryRecord.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -641,6 +672,7 @@
     <Compile Include="Enumerations\Radio.Transmitter\MajorModulation.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enumerations\Radio.Transmitter\RadioSignalEncoding.cs" />
     <Compile Include="Enumerations\Radio.Transmitter\ReferenceSystem.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -685,10 +717,12 @@
     <Compile Include="Enumerations\Warfare\Warhead.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Extensions\Dis1995\Vector3Double.cs" />
-    <Compile Include="Extensions\Dis1998\Vector3Double.cs" />
-    <Compile Include="Extensions\Dis1998\Vector3Float.cs" />
-    <Compile Include="Extensions\Dis1995\Vector3Float.cs" />
+    <Compile Include="Dis1995\Extensions\EntityID.cs" />
+    <Compile Include="Dis1995\Extensions\Vector3Double.cs" />
+    <Compile Include="Dis1998\Extensions\EntityID.cs" />
+    <Compile Include="Dis1998\Extensions\Vector3Double.cs" />
+    <Compile Include="Dis1998\Extensions\Vector3Float.cs" />
+    <Compile Include="Dis1995\Extensions\Vector3Float.cs" />
     <Compile Include="Properties\Version.cs" />
     <Compile Include="Utilities\EnumNotFoundException.cs" />
     <Compile Include="Utilities\InternetDomainCodeAttribute.cs" />
@@ -696,7 +730,7 @@
     <Compile Include="Utilities\DataInputStream.cs" />
     <Compile Include="Utilities\DataOutputStream.cs" />
     <Compile Include="Utilities\DataStream.cs" />
-    <Compile Include="Utilities\EndianTypes.cs" />
+    <Compile Include="Core\EndianTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ChunkConverters.cs" />
     <Compile Include="Utilities\Conversion.cs" />
@@ -713,7 +747,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dis2009\" />
-    <Folder Include="Enumerations\EntityState.Appearance\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -733,5 +766,5 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\StyleCop\v4.3\Microsoft.StyleCop.targets" Condition=" '$(Configuration)|$(Platform)' == 'Analysis|x86' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\StyleCop\v4.4\Microsoft.StyleCop.targets" Condition=" '$(Configuration)|$(Platform)' == 'Analysis|x86' " />
 </Project>

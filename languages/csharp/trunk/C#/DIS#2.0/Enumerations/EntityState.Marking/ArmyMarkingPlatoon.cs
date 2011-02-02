@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -39,7 +39,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 0")]
-
         Value_0 = 0,
 
         /// <summary>
@@ -50,7 +49,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 1")]
-
         Value_1 = 1,
 
         /// <summary>
@@ -61,7 +59,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 2")]
-
         Value_2 = 2,
 
         /// <summary>
@@ -72,7 +69,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 3")]
-
         Value_3 = 3,
 
         /// <summary>
@@ -83,7 +79,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 4")]
-
         Value_4 = 4,
 
         /// <summary>
@@ -94,7 +89,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 5")]
-
         Value_5 = 5,
 
         /// <summary>
@@ -105,7 +99,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 6")]
-
         Value_6 = 6,
 
         /// <summary>
@@ -116,7 +109,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 7")]
-
         Value_7 = 7,
 
         /// <summary>
@@ -127,7 +119,6 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 8")]
-
         Value_8 = 8,
 
         /// <summary>
@@ -138,7 +129,7 @@ namespace OpenDis.Enumerations.EntityState.Marking
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Value 9")]
+        Value_9 = 9,
 
-        Value_9 = 9
     }
 }

@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -40,7 +40,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'On', reset bit means 'Off'.")]
-
         SystemOnOff = 1,
 
         /// <summary>
@@ -51,7 +50,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Not capable', reset bit means 'Capable'.")]
-
         Parameter1 = 2,
 
         /// <summary>
@@ -62,7 +60,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Not capable', reset bit means 'Capable'.")]
-
         Parameter2 = 4,
 
         /// <summary>
@@ -73,7 +70,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Not capable', reset bit means 'Capable'.")]
-
         Parameter3 = 8,
 
         /// <summary>
@@ -84,7 +80,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Not capable', reset bit means 'Capable'.")]
-
         Parameter4 = 16,
 
         /// <summary>
@@ -95,7 +90,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Not capable', reset bit means 'Capable'.")]
-
         Parameter5 = 32,
 
         /// <summary>
@@ -106,7 +100,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Not capable', reset bit means 'Capable'.")]
-
         Parameter6 = 64,
 
         /// <summary>
@@ -117,7 +110,6 @@ namespace OpenDis.Enumerations.DistributedEmission.Iff
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'System failed', reset bit means 'Operational'.")]
-
         OperationalStatus = 128
     }
 }

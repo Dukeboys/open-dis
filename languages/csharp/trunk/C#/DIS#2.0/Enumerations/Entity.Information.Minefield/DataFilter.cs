@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -30,7 +30,7 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
     [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
     [Serializable]
     [Flags]
-    public enum DataFilter : int
+    public enum DataFilter : uint
     {
         /// <summary>
         /// Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.
@@ -40,7 +40,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         GroundBurialDepthOffset = 1,
 
         /// <summary>
@@ -51,7 +50,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         WaterBurialDepthOffset = 2,
 
         /// <summary>
@@ -62,7 +60,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         SnowBurialDepthOffset = 4,
 
         /// <summary>
@@ -73,7 +70,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         MineOrientation = 8,
 
         /// <summary>
@@ -84,7 +80,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         ThermalContrast = 16,
 
         /// <summary>
@@ -95,7 +90,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         Reflectance = 32,
 
         /// <summary>
@@ -106,7 +100,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         MineEmplacementAge = 64,
 
         /// <summary>
@@ -117,7 +110,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         TripDetonationWire = 128,
 
         /// <summary>
@@ -128,7 +120,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         Fusing = 256,
 
         /// <summary>
@@ -139,7 +130,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         ScalarDetectionCoefficient = 512,
 
         /// <summary>
@@ -150,7 +140,6 @@ namespace OpenDis.Enumerations.Entity.Information.Minefield
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Set bit means 'Data is requested / present', reset bit means 'Data not requested / present'.")]
-
         PaintScheme = 1024
     }
 }

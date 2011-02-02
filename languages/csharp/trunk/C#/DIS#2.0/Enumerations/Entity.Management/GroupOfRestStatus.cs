@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -32,14 +32,13 @@ namespace OpenDis.Enumerations.Entity.Management
     public enum GroupOfRestStatus : byte
     {
         /// <summary>
-        /// Not rested (Has not slept in the last three days).
+        /// Not rested (Has not slept in the last three days). .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Not rested (Has not slept in the last three days).")]
-
+        [Description("Not rested (Has not slept in the last three days). .")]
         NotRestedHasNotSleptInTheLastThreeDays = 0,
 
         /// <summary>
@@ -50,7 +49,6 @@ namespace OpenDis.Enumerations.Entity.Management
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Has slept an average of 1 hour per day in the last three days.")]
-
         HasSleptAnAverageOf1HourPerDayInTheLastThreeDays = 1,
 
         /// <summary>
@@ -61,7 +59,6 @@ namespace OpenDis.Enumerations.Entity.Management
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Has slept an average of 2 hours per day in the last three days.")]
-
         HasSleptAnAverageOf2HoursPerDayInTheLastThreeDays = 2,
 
         /// <summary>
@@ -72,7 +69,6 @@ namespace OpenDis.Enumerations.Entity.Management
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Has slept an average of 3 hours per day in the last three days.")]
-
         HasSleptAnAverageOf3HoursPerDayInTheLastThreeDays = 3,
 
         /// <summary>
@@ -83,7 +79,6 @@ namespace OpenDis.Enumerations.Entity.Management
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Has slept an average of 4 hours per day in the last three days.")]
-
         HasSleptAnAverageOf4HoursPerDayInTheLastThreeDays = 4,
 
         /// <summary>
@@ -94,7 +89,6 @@ namespace OpenDis.Enumerations.Entity.Management
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Has slept an average of 5 hours per day in the last three days.")]
-
         HasSleptAnAverageOf5HoursPerDayInTheLastThreeDays = 5,
 
         /// <summary>
@@ -105,7 +99,6 @@ namespace OpenDis.Enumerations.Entity.Management
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Has slept an average of 6 hours per day in the last three days.")]
-
         HasSleptAnAverageOf6HoursPerDayInTheLastThreeDays = 6,
 
         /// <summary>
@@ -116,18 +109,16 @@ namespace OpenDis.Enumerations.Entity.Management
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Has slept an average of 7 hours per day in the last three days.")]
-
         HasSleptAnAverageOf7HoursPerDayInTheLastThreeDays = 7,
 
         /// <summary>
-        /// Fully rested (Has slept an average of 8 hours per day in the last three days).
+        /// Fully rested (Has slept an average of 8 hours per day in the last three days). .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Fully rested (Has slept an average of 8 hours per day in the last three days).")]
-
+        [Description("Fully rested (Has slept an average of 8 hours per day in the last three days). .")]
         FullyRestedHasSleptAnAverageOf8HoursPerDayInTheLastThreeDays = 8
     }
 }

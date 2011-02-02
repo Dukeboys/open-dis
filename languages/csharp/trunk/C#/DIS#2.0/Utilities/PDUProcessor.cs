@@ -54,7 +54,7 @@ namespace OpenDis.Utilities
         public const uint PDU_TYPE_POSITION = 2;
         public const uint PDU_VERSION_POSITION = 0;
 
-        private OpenDis.Utilities.Endian endian;
+        private OpenDis.Core.Endian endian;
         private System.Xml.Serialization.XmlSerializer xmlSerializedData;
 
 		#endregion Fields 
@@ -63,7 +63,7 @@ namespace OpenDis.Utilities
 
         public PduProcessor()
         {
-            this.endian = (BitConverter.IsLittleEndian ? OpenDis.Utilities.Endian.Little : OpenDis.Utilities.Endian.Big);
+            this.endian = (BitConverter.IsLittleEndian ? OpenDis.Core.Endian.Little : OpenDis.Core.Endian.Big);
         }
 
 		#endregion Constructors 
@@ -73,7 +73,7 @@ namespace OpenDis.Utilities
         /// <summary>
         /// Gets or sets the type of endian used to process the data
         /// </summary>
-        public OpenDis.Utilities.Endian Endian
+        public OpenDis.Core.Endian Endian
         {
             get
             {
@@ -97,7 +97,7 @@ namespace OpenDis.Utilities
         /// <param name="rawPdu">Byte array that hold raw 1998 PDU.</param>
         /// <param name="endian">The Endian type used for conversion.</param>
         /// <returns>PDU object</returns>
-        public static Pdu ConvertByteArrayToPdu1998(byte pduType, byte[] rawPdu, Endian endian)
+        public static Pdu ConvertByteArrayToPdu1998(byte pduType, byte[] rawPdu, OpenDis.Core.Endian endian)
         {
             DataInputStream ds = new DataInputStream(rawPdu, endian);
             
@@ -123,7 +123,7 @@ namespace OpenDis.Utilities
         /// <param name="buffer">byte array containing the pdu data to process</param>
         /// <param name="endian">format of value types</param>
         /// <returns>Collection of PDUs which are represented in base object class</returns>
-        public List<object> ProcessPdu(byte[] buffer, OpenDis.Utilities.Endian endian)
+        public List<object> ProcessPdu(byte[] buffer, OpenDis.Core.Endian endian)
         {
             this.Endian = endian;
             return this.ProcessPdu(buffer);
@@ -135,7 +135,7 @@ namespace OpenDis.Utilities
         /// <param name="stream">The stream.</param>
         /// <param name="endian">format of value types</param>
         /// <returns>The PDU instance.</returns>
-        public object ProcessPdu(Stream stream, OpenDis.Utilities.Endian endian)
+        public object ProcessPdu(Stream stream, OpenDis.Core.Endian endian)
         {
             this.Endian = endian;
             return this.ProcessPdu(stream);
@@ -147,7 +147,7 @@ namespace OpenDis.Utilities
         /// <param name="stream">The stream.</param>
         /// <param name="endian">format of value types</param>
         /// <param name="rawPdu">The raw pdu.</param>
-        public void ProcessPdu(Stream stream, OpenDis.Utilities.Endian endian, out byte[] rawPdu)
+        public void ProcessPdu(Stream stream, OpenDis.Core.Endian endian, out byte[] rawPdu)
         {
             this.Endian = endian;
             this.ProcessPdu(stream, out rawPdu);
@@ -160,7 +160,7 @@ namespace OpenDis.Utilities
         /// <param name="endian">format of value types</param>
         /// <remarks>Added to support passing back just the byte array.</remarks>
         /// <returns>Collection of Raw byte[] PDUs</returns>
-        public List<byte[]> ProcessRawPdu(byte[] buffer, OpenDis.Utilities.Endian endian)
+        public List<byte[]> ProcessRawPdu(byte[] buffer, OpenDis.Core.Endian endian)
         {
             this.Endian = endian;
             return this.ProcessRawPdu(buffer);
@@ -173,7 +173,7 @@ namespace OpenDis.Utilities
         /// <param name="endian">format of value types</param>
         /// <param name="dataQueue">Returns raw packets to a referenced Queue</param>
         /// <remarks>Added to support passing back just the byte array into a Queue.</remarks>
-        public void ProcessRawPdu(byte[] buffer, OpenDis.Utilities.Endian endian, ref Queue<byte[]> dataQueue)
+        public void ProcessRawPdu(byte[] buffer, OpenDis.Core.Endian endian, ref Queue<byte[]> dataQueue)
         {
             this.Endian = endian;
             
@@ -337,7 +337,7 @@ namespace OpenDis.Utilities
         /// <param name="endian">Endian type</param>
         /// <remarks>Added by PES to work with Mobile.</remarks>
         /// <returns>The PDU instance</returns>
-        public static Pdu UnmarshalRawPdu(byte pduType, byte[] rawPdu, OpenDis.Utilities.Endian endian)
+        public static Pdu UnmarshalRawPdu(byte pduType, byte[] rawPdu, OpenDis.Core.Endian endian)
         {
             DataInputStream ds = new DataInputStream(rawPdu, endian);
             return UnmarshalRawPdu((PduType1998)pduType, ds);
@@ -351,7 +351,7 @@ namespace OpenDis.Utilities
         /// <param name="endian">Endian type</param>
         /// <remarks>Added by PES to work with Mobile.</remarks>
         /// <returns>The PDU instance.</returns>
-        public static Pdu UnmarshalRawPdu(OpenDis.Utilities.PduType1998 pduType, byte[] rawPdu, OpenDis.Utilities.Endian endian)
+        public static Pdu UnmarshalRawPdu(OpenDis.Utilities.PduType1998 pduType, byte[] rawPdu, OpenDis.Core.Endian endian)
         {
             DataInputStream ds = new DataInputStream(rawPdu, endian);
             return UnmarshalRawPdu(pduType, ds);
@@ -406,7 +406,7 @@ namespace OpenDis.Utilities
 
             try
             {
-                if (this.endian == OpenDis.Utilities.Endian.Big)
+                if (this.endian == OpenDis.Core.Endian.Big)
                 {
                     Array.Reverse(buffer, (int)PDU_LENGTH_POSITION, 2);
                 }
@@ -464,7 +464,7 @@ namespace OpenDis.Utilities
             {
                 try
                 {
-                    if (this.endian == OpenDis.Utilities.Endian.Big)
+                    if (this.endian == OpenDis.Core.Endian.Big)
                     {
                         Array.Reverse(buffer, (int)PDU_LENGTH_POSITION, 2);
                     }
@@ -516,7 +516,7 @@ namespace OpenDis.Utilities
 
             try
             {
-                if (this.endian == OpenDis.Utilities.Endian.Big)
+                if (this.endian == OpenDis.Core.Endian.Big)
                 {
                     Array.Reverse(buffer, (int)PDU_LENGTH_POSITION, 2);
                 }
@@ -567,7 +567,7 @@ namespace OpenDis.Utilities
             {
                 try
                 {
-                    if (this.endian == OpenDis.Utilities.Endian.Big)
+                    if (this.endian == OpenDis.Core.Endian.Big)
                     {
                         Array.Reverse(buffer, (int)PDU_LENGTH_POSITION + countBytes, 2);
                     }

@@ -64,7 +64,7 @@ namespace OpenDis.Utilities
         /// Endian set to Little.
         /// </summary>
         public DataInputStream()
-            : this(Endian.Little)
+            : this(OpenDis.Core.Endian.Little)
         {
         }
 
@@ -72,7 +72,7 @@ namespace OpenDis.Utilities
         /// Initializes a new instance of the <see cref="DataInputStream"/> class.
         /// </summary>
         /// <param name="endian">The endian.</param>
-        public DataInputStream(OpenDis.Utilities.Endian endian)
+        public DataInputStream(OpenDis.Core.Endian endian)
         {
             this.pduDataStream = new DataStream();
             this.pduDataStream.StreamCounter = 0;
@@ -84,7 +84,7 @@ namespace OpenDis.Utilities
         /// </summary>
         /// <param name="ds">byte array</param>
         /// <param name="endian">type of endian</param>
-        public DataInputStream(byte[] ds, OpenDis.Utilities.Endian endian)
+        public DataInputStream(byte[] ds, OpenDis.Core.Endian endian)
             : this(endian)
         {
             this.pduDataStream.StreamByteArray = ds;            
@@ -112,7 +112,7 @@ namespace OpenDis.Utilities
         /// <summary>
         /// Gets or sets the endian value currently being used to process PDU data
         /// </summary>
-        public OpenDis.Utilities.Endian Endian
+        public OpenDis.Core.Endian Endian
         {
             get
             {
@@ -161,7 +161,7 @@ namespace OpenDis.Utilities
             int size = sizeof(double);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }
@@ -180,7 +180,7 @@ namespace OpenDis.Utilities
             int size = sizeof(float);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }
@@ -199,7 +199,7 @@ namespace OpenDis.Utilities
             int size = sizeof(int);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }
@@ -219,7 +219,7 @@ namespace OpenDis.Utilities
             int size = sizeof(long);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }
@@ -238,7 +238,7 @@ namespace OpenDis.Utilities
             int size = sizeof(short);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }
@@ -266,7 +266,7 @@ namespace OpenDis.Utilities
             int size = sizeof(uint);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }
@@ -286,7 +286,7 @@ namespace OpenDis.Utilities
             int size = sizeof(ulong);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }
@@ -305,7 +305,7 @@ namespace OpenDis.Utilities
             int size = sizeof(ushort);
             byte[] temp = OpenDis.Utilities.DataStream.ReturnByteArray(this.pduDataStream.StreamByteArray, this.pduDataStream.StreamCounter, size);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(temp);
             }

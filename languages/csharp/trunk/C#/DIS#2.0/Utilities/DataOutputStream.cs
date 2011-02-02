@@ -64,7 +64,7 @@ namespace OpenDis.Utilities
         /// </summary>
         /// <param name="ds">The data stream.</param>
         /// <param name="endian">The endian to be used.</param>
-        public DataOutputStream(OpenDis.Utilities.DataStream ds, OpenDis.Utilities.Endian endian)
+        public DataOutputStream(OpenDis.Utilities.DataStream ds, OpenDis.Core.Endian endian)
         {
             this.pduDataStream = ds;
             this.Endian = endian;
@@ -76,7 +76,7 @@ namespace OpenDis.Utilities
         /// </summary>
         /// <param name="endian">The endian to be used.</param>
         public DataOutputStream()
-            : this(Endian.Little)
+            : this(OpenDis.Core.Endian.Little)
         {
         }
         
@@ -85,7 +85,7 @@ namespace OpenDis.Utilities
         /// sets the Endian to use.
         /// </summary>
         /// <param name="endian">The endian to be used.</param>
-        public DataOutputStream(OpenDis.Utilities.Endian endian)
+        public DataOutputStream(OpenDis.Core.Endian endian)
         {
             this.pduDataStream = new DataStream();
             this.Endian = endian;
@@ -109,7 +109,7 @@ namespace OpenDis.Utilities
         /// <summary>
         /// Gets or sets the Endian type
         /// </summary>
-        public OpenDis.Utilities.Endian Endian
+        public OpenDis.Core.Endian Endian
         {
             get
             {
@@ -161,7 +161,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }
@@ -177,7 +177,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }
@@ -193,7 +193,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }
@@ -209,7 +209,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }
@@ -225,7 +225,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }
@@ -259,7 +259,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }
@@ -275,7 +275,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }
@@ -291,7 +291,7 @@ namespace OpenDis.Utilities
         {
             byte[] serializedData = System.BitConverter.GetBytes(data);
 
-            if (this.Endian == OpenDis.Utilities.Endian.Big)
+            if (this.Endian == OpenDis.Core.Endian.Big)
             {
                 Array.Reverse(serializedData);
             }

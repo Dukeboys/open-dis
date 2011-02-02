@@ -53,7 +53,7 @@ namespace OpenDis.Utilities
         /// <summary>
         /// The endian type.
         /// </summary>
-        private OpenDis.Utilities.Endian endianType;
+        private OpenDis.Core.Endian endianType;
 
 		#endregion Fields 
 
@@ -66,7 +66,7 @@ namespace OpenDis.Utilities
         public DataStream()
         {
             // Test the machine to determine to see what it supports. 
-            this.endianType = (BitConverter.IsLittleEndian ? OpenDis.Utilities.Endian.Little : OpenDis.Utilities.Endian.Big);
+            this.endianType = (BitConverter.IsLittleEndian ? OpenDis.Core.Endian.Little : OpenDis.Core.Endian.Big);
 
             // create a new MemoryStream
             this.Stream = new MemoryStream();
@@ -79,7 +79,7 @@ namespace OpenDis.Utilities
         /// <summary>
         /// Gets or sets the endian type
         /// </summary>
-        public OpenDis.Utilities.Endian Endian
+        public OpenDis.Core.Endian Endian
         {
             get
             {

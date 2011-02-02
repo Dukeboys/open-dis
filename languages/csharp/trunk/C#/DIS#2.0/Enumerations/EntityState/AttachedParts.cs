@@ -1,7 +1,7 @@
-// Copyright 2008-2010. This work is licensed under the BSD license, available at
+// Copyright 2008-2011. This work is licensed under the BSD license, available at
 // http://www.movesinstitute.org/licenses
 //
-// @author DMcG, Jason Nelson
+// Orignal authors: DMcG, Jason Nelson
 // Modified for use with C#:
 // - Peter Smith (Naval Air Warfare Center - Training Systems Division)
 // - Zvonko Bostjancic (Blubit d.o.o. - zvonko.bostjancic@blubit.si)
@@ -29,17 +29,16 @@ namespace OpenDis.Enumerations.EntityState
     [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
     [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
     [Serializable]
-    public enum AttachedParts : int
+    public enum AttachedParts : uint
     {
         /// <summary>
-        /// Nothing, Empty.
+        /// Nothing, Empty. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("Nothing, Empty.")]
-
+        [Description("Nothing, Empty. .")]
         NothingEmpty = 0,
 
         /// <summary>
@@ -50,7 +49,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 1).")]
-
         SequentialIDsForModelSpecificStations_1 = 1,
 
         /// <summary>
@@ -61,7 +59,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 2).")]
-
         SequentialIDsForModelSpecificStations_2 = 2,
 
         /// <summary>
@@ -72,7 +69,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 3).")]
-
         SequentialIDsForModelSpecificStations_3 = 3,
 
         /// <summary>
@@ -83,7 +79,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 4).")]
-
         SequentialIDsForModelSpecificStations_4 = 4,
 
         /// <summary>
@@ -94,7 +89,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 5).")]
-
         SequentialIDsForModelSpecificStations_5 = 5,
 
         /// <summary>
@@ -105,7 +99,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 6).")]
-
         SequentialIDsForModelSpecificStations_6 = 6,
 
         /// <summary>
@@ -116,7 +109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 7).")]
-
         SequentialIDsForModelSpecificStations_7 = 7,
 
         /// <summary>
@@ -127,7 +119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 8).")]
-
         SequentialIDsForModelSpecificStations_8 = 8,
 
         /// <summary>
@@ -138,7 +129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 9).")]
-
         SequentialIDsForModelSpecificStations_9 = 9,
 
         /// <summary>
@@ -149,7 +139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 10).")]
-
         SequentialIDsForModelSpecificStations_10 = 10,
 
         /// <summary>
@@ -160,7 +149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 11).")]
-
         SequentialIDsForModelSpecificStations_11 = 11,
 
         /// <summary>
@@ -171,7 +159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 12).")]
-
         SequentialIDsForModelSpecificStations_12 = 12,
 
         /// <summary>
@@ -182,7 +169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 13).")]
-
         SequentialIDsForModelSpecificStations_13 = 13,
 
         /// <summary>
@@ -193,7 +179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 14).")]
-
         SequentialIDsForModelSpecificStations_14 = 14,
 
         /// <summary>
@@ -204,7 +189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 15).")]
-
         SequentialIDsForModelSpecificStations_15 = 15,
 
         /// <summary>
@@ -215,7 +199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 16).")]
-
         SequentialIDsForModelSpecificStations_16 = 16,
 
         /// <summary>
@@ -226,7 +209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 17).")]
-
         SequentialIDsForModelSpecificStations_17 = 17,
 
         /// <summary>
@@ -237,7 +219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 18).")]
-
         SequentialIDsForModelSpecificStations_18 = 18,
 
         /// <summary>
@@ -248,7 +229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 19).")]
-
         SequentialIDsForModelSpecificStations_19 = 19,
 
         /// <summary>
@@ -259,7 +239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 20).")]
-
         SequentialIDsForModelSpecificStations_20 = 20,
 
         /// <summary>
@@ -270,7 +249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 21).")]
-
         SequentialIDsForModelSpecificStations_21 = 21,
 
         /// <summary>
@@ -281,7 +259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 22).")]
-
         SequentialIDsForModelSpecificStations_22 = 22,
 
         /// <summary>
@@ -292,7 +269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 23).")]
-
         SequentialIDsForModelSpecificStations_23 = 23,
 
         /// <summary>
@@ -303,7 +279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 24).")]
-
         SequentialIDsForModelSpecificStations_24 = 24,
 
         /// <summary>
@@ -314,7 +289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 25).")]
-
         SequentialIDsForModelSpecificStations_25 = 25,
 
         /// <summary>
@@ -325,7 +299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 26).")]
-
         SequentialIDsForModelSpecificStations_26 = 26,
 
         /// <summary>
@@ -336,7 +309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 27).")]
-
         SequentialIDsForModelSpecificStations_27 = 27,
 
         /// <summary>
@@ -347,7 +319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 28).")]
-
         SequentialIDsForModelSpecificStations_28 = 28,
 
         /// <summary>
@@ -358,7 +329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 29).")]
-
         SequentialIDsForModelSpecificStations_29 = 29,
 
         /// <summary>
@@ -369,7 +339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 30).")]
-
         SequentialIDsForModelSpecificStations_30 = 30,
 
         /// <summary>
@@ -380,7 +349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 31).")]
-
         SequentialIDsForModelSpecificStations_31 = 31,
 
         /// <summary>
@@ -391,7 +359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 32).")]
-
         SequentialIDsForModelSpecificStations_32 = 32,
 
         /// <summary>
@@ -402,7 +369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 33).")]
-
         SequentialIDsForModelSpecificStations_33 = 33,
 
         /// <summary>
@@ -413,7 +379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 34).")]
-
         SequentialIDsForModelSpecificStations_34 = 34,
 
         /// <summary>
@@ -424,7 +389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 35).")]
-
         SequentialIDsForModelSpecificStations_35 = 35,
 
         /// <summary>
@@ -435,7 +399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 36).")]
-
         SequentialIDsForModelSpecificStations_36 = 36,
 
         /// <summary>
@@ -446,7 +409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 37).")]
-
         SequentialIDsForModelSpecificStations_37 = 37,
 
         /// <summary>
@@ -457,7 +419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 38).")]
-
         SequentialIDsForModelSpecificStations_38 = 38,
 
         /// <summary>
@@ -468,7 +429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 39).")]
-
         SequentialIDsForModelSpecificStations_39 = 39,
 
         /// <summary>
@@ -479,7 +439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 40).")]
-
         SequentialIDsForModelSpecificStations_40 = 40,
 
         /// <summary>
@@ -490,7 +449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 41).")]
-
         SequentialIDsForModelSpecificStations_41 = 41,
 
         /// <summary>
@@ -501,7 +459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 42).")]
-
         SequentialIDsForModelSpecificStations_42 = 42,
 
         /// <summary>
@@ -512,7 +469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 43).")]
-
         SequentialIDsForModelSpecificStations_43 = 43,
 
         /// <summary>
@@ -523,7 +479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 44).")]
-
         SequentialIDsForModelSpecificStations_44 = 44,
 
         /// <summary>
@@ -534,7 +489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 45).")]
-
         SequentialIDsForModelSpecificStations_45 = 45,
 
         /// <summary>
@@ -545,7 +499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 46).")]
-
         SequentialIDsForModelSpecificStations_46 = 46,
 
         /// <summary>
@@ -556,7 +509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 47).")]
-
         SequentialIDsForModelSpecificStations_47 = 47,
 
         /// <summary>
@@ -567,7 +519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 48).")]
-
         SequentialIDsForModelSpecificStations_48 = 48,
 
         /// <summary>
@@ -578,7 +529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 49).")]
-
         SequentialIDsForModelSpecificStations_49 = 49,
 
         /// <summary>
@@ -589,7 +539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 50).")]
-
         SequentialIDsForModelSpecificStations_50 = 50,
 
         /// <summary>
@@ -600,7 +549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 51).")]
-
         SequentialIDsForModelSpecificStations_51 = 51,
 
         /// <summary>
@@ -611,7 +559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 52).")]
-
         SequentialIDsForModelSpecificStations_52 = 52,
 
         /// <summary>
@@ -622,7 +569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 53).")]
-
         SequentialIDsForModelSpecificStations_53 = 53,
 
         /// <summary>
@@ -633,7 +579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 54).")]
-
         SequentialIDsForModelSpecificStations_54 = 54,
 
         /// <summary>
@@ -644,7 +589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 55).")]
-
         SequentialIDsForModelSpecificStations_55 = 55,
 
         /// <summary>
@@ -655,7 +599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 56).")]
-
         SequentialIDsForModelSpecificStations_56 = 56,
 
         /// <summary>
@@ -666,7 +609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 57).")]
-
         SequentialIDsForModelSpecificStations_57 = 57,
 
         /// <summary>
@@ -677,7 +619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 58).")]
-
         SequentialIDsForModelSpecificStations_58 = 58,
 
         /// <summary>
@@ -688,7 +629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 59).")]
-
         SequentialIDsForModelSpecificStations_59 = 59,
 
         /// <summary>
@@ -699,7 +639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 60).")]
-
         SequentialIDsForModelSpecificStations_60 = 60,
 
         /// <summary>
@@ -710,7 +649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 61).")]
-
         SequentialIDsForModelSpecificStations_61 = 61,
 
         /// <summary>
@@ -721,7 +659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 62).")]
-
         SequentialIDsForModelSpecificStations_62 = 62,
 
         /// <summary>
@@ -732,7 +669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 63).")]
-
         SequentialIDsForModelSpecificStations_63 = 63,
 
         /// <summary>
@@ -743,7 +679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 64).")]
-
         SequentialIDsForModelSpecificStations_64 = 64,
 
         /// <summary>
@@ -754,7 +689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 65).")]
-
         SequentialIDsForModelSpecificStations_65 = 65,
 
         /// <summary>
@@ -765,7 +699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 66).")]
-
         SequentialIDsForModelSpecificStations_66 = 66,
 
         /// <summary>
@@ -776,7 +709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 67).")]
-
         SequentialIDsForModelSpecificStations_67 = 67,
 
         /// <summary>
@@ -787,7 +719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 68).")]
-
         SequentialIDsForModelSpecificStations_68 = 68,
 
         /// <summary>
@@ -798,7 +729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 69).")]
-
         SequentialIDsForModelSpecificStations_69 = 69,
 
         /// <summary>
@@ -809,7 +739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 70).")]
-
         SequentialIDsForModelSpecificStations_70 = 70,
 
         /// <summary>
@@ -820,7 +749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 71).")]
-
         SequentialIDsForModelSpecificStations_71 = 71,
 
         /// <summary>
@@ -831,7 +759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 72).")]
-
         SequentialIDsForModelSpecificStations_72 = 72,
 
         /// <summary>
@@ -842,7 +769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 73).")]
-
         SequentialIDsForModelSpecificStations_73 = 73,
 
         /// <summary>
@@ -853,7 +779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 74).")]
-
         SequentialIDsForModelSpecificStations_74 = 74,
 
         /// <summary>
@@ -864,7 +789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 75).")]
-
         SequentialIDsForModelSpecificStations_75 = 75,
 
         /// <summary>
@@ -875,7 +799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 76).")]
-
         SequentialIDsForModelSpecificStations_76 = 76,
 
         /// <summary>
@@ -886,7 +809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 77).")]
-
         SequentialIDsForModelSpecificStations_77 = 77,
 
         /// <summary>
@@ -897,7 +819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 78).")]
-
         SequentialIDsForModelSpecificStations_78 = 78,
 
         /// <summary>
@@ -908,7 +829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 79).")]
-
         SequentialIDsForModelSpecificStations_79 = 79,
 
         /// <summary>
@@ -919,7 +839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 80).")]
-
         SequentialIDsForModelSpecificStations_80 = 80,
 
         /// <summary>
@@ -930,7 +849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 81).")]
-
         SequentialIDsForModelSpecificStations_81 = 81,
 
         /// <summary>
@@ -941,7 +859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 82).")]
-
         SequentialIDsForModelSpecificStations_82 = 82,
 
         /// <summary>
@@ -952,7 +869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 83).")]
-
         SequentialIDsForModelSpecificStations_83 = 83,
 
         /// <summary>
@@ -963,7 +879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 84).")]
-
         SequentialIDsForModelSpecificStations_84 = 84,
 
         /// <summary>
@@ -974,7 +889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 85).")]
-
         SequentialIDsForModelSpecificStations_85 = 85,
 
         /// <summary>
@@ -985,7 +899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 86).")]
-
         SequentialIDsForModelSpecificStations_86 = 86,
 
         /// <summary>
@@ -996,7 +909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 87).")]
-
         SequentialIDsForModelSpecificStations_87 = 87,
 
         /// <summary>
@@ -1007,7 +919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 88).")]
-
         SequentialIDsForModelSpecificStations_88 = 88,
 
         /// <summary>
@@ -1018,7 +929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 89).")]
-
         SequentialIDsForModelSpecificStations_89 = 89,
 
         /// <summary>
@@ -1029,7 +939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 90).")]
-
         SequentialIDsForModelSpecificStations_90 = 90,
 
         /// <summary>
@@ -1040,7 +949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 91).")]
-
         SequentialIDsForModelSpecificStations_91 = 91,
 
         /// <summary>
@@ -1051,7 +959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 92).")]
-
         SequentialIDsForModelSpecificStations_92 = 92,
 
         /// <summary>
@@ -1062,7 +969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 93).")]
-
         SequentialIDsForModelSpecificStations_93 = 93,
 
         /// <summary>
@@ -1073,7 +979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 94).")]
-
         SequentialIDsForModelSpecificStations_94 = 94,
 
         /// <summary>
@@ -1084,7 +989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 95).")]
-
         SequentialIDsForModelSpecificStations_95 = 95,
 
         /// <summary>
@@ -1095,7 +999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 96).")]
-
         SequentialIDsForModelSpecificStations_96 = 96,
 
         /// <summary>
@@ -1106,7 +1009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 97).")]
-
         SequentialIDsForModelSpecificStations_97 = 97,
 
         /// <summary>
@@ -1117,7 +1019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 98).")]
-
         SequentialIDsForModelSpecificStations_98 = 98,
 
         /// <summary>
@@ -1128,7 +1029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 99).")]
-
         SequentialIDsForModelSpecificStations_99 = 99,
 
         /// <summary>
@@ -1139,7 +1039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 100).")]
-
         SequentialIDsForModelSpecificStations_100 = 100,
 
         /// <summary>
@@ -1150,7 +1049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 101).")]
-
         SequentialIDsForModelSpecificStations_101 = 101,
 
         /// <summary>
@@ -1161,7 +1059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 102).")]
-
         SequentialIDsForModelSpecificStations_102 = 102,
 
         /// <summary>
@@ -1172,7 +1069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 103).")]
-
         SequentialIDsForModelSpecificStations_103 = 103,
 
         /// <summary>
@@ -1183,7 +1079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 104).")]
-
         SequentialIDsForModelSpecificStations_104 = 104,
 
         /// <summary>
@@ -1194,7 +1089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 105).")]
-
         SequentialIDsForModelSpecificStations_105 = 105,
 
         /// <summary>
@@ -1205,7 +1099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 106).")]
-
         SequentialIDsForModelSpecificStations_106 = 106,
 
         /// <summary>
@@ -1216,7 +1109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 107).")]
-
         SequentialIDsForModelSpecificStations_107 = 107,
 
         /// <summary>
@@ -1227,7 +1119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 108).")]
-
         SequentialIDsForModelSpecificStations_108 = 108,
 
         /// <summary>
@@ -1238,7 +1129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 109).")]
-
         SequentialIDsForModelSpecificStations_109 = 109,
 
         /// <summary>
@@ -1249,7 +1139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 110).")]
-
         SequentialIDsForModelSpecificStations_110 = 110,
 
         /// <summary>
@@ -1260,7 +1149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 111).")]
-
         SequentialIDsForModelSpecificStations_111 = 111,
 
         /// <summary>
@@ -1271,7 +1159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 112).")]
-
         SequentialIDsForModelSpecificStations_112 = 112,
 
         /// <summary>
@@ -1282,7 +1169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 113).")]
-
         SequentialIDsForModelSpecificStations_113 = 113,
 
         /// <summary>
@@ -1293,7 +1179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 114).")]
-
         SequentialIDsForModelSpecificStations_114 = 114,
 
         /// <summary>
@@ -1304,7 +1189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 115).")]
-
         SequentialIDsForModelSpecificStations_115 = 115,
 
         /// <summary>
@@ -1315,7 +1199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 116).")]
-
         SequentialIDsForModelSpecificStations_116 = 116,
 
         /// <summary>
@@ -1326,7 +1209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 117).")]
-
         SequentialIDsForModelSpecificStations_117 = 117,
 
         /// <summary>
@@ -1337,7 +1219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 118).")]
-
         SequentialIDsForModelSpecificStations_118 = 118,
 
         /// <summary>
@@ -1348,7 +1229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 119).")]
-
         SequentialIDsForModelSpecificStations_119 = 119,
 
         /// <summary>
@@ -1359,7 +1239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 120).")]
-
         SequentialIDsForModelSpecificStations_120 = 120,
 
         /// <summary>
@@ -1370,7 +1249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 121).")]
-
         SequentialIDsForModelSpecificStations_121 = 121,
 
         /// <summary>
@@ -1381,7 +1259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 122).")]
-
         SequentialIDsForModelSpecificStations_122 = 122,
 
         /// <summary>
@@ -1392,7 +1269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 123).")]
-
         SequentialIDsForModelSpecificStations_123 = 123,
 
         /// <summary>
@@ -1403,7 +1279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 124).")]
-
         SequentialIDsForModelSpecificStations_124 = 124,
 
         /// <summary>
@@ -1414,7 +1289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 125).")]
-
         SequentialIDsForModelSpecificStations_125 = 125,
 
         /// <summary>
@@ -1425,7 +1299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 126).")]
-
         SequentialIDsForModelSpecificStations_126 = 126,
 
         /// <summary>
@@ -1436,7 +1309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 127).")]
-
         SequentialIDsForModelSpecificStations_127 = 127,
 
         /// <summary>
@@ -1447,7 +1319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 128).")]
-
         SequentialIDsForModelSpecificStations_128 = 128,
 
         /// <summary>
@@ -1458,7 +1329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 129).")]
-
         SequentialIDsForModelSpecificStations_129 = 129,
 
         /// <summary>
@@ -1469,7 +1339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 130).")]
-
         SequentialIDsForModelSpecificStations_130 = 130,
 
         /// <summary>
@@ -1480,7 +1349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 131).")]
-
         SequentialIDsForModelSpecificStations_131 = 131,
 
         /// <summary>
@@ -1491,7 +1359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 132).")]
-
         SequentialIDsForModelSpecificStations_132 = 132,
 
         /// <summary>
@@ -1502,7 +1369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 133).")]
-
         SequentialIDsForModelSpecificStations_133 = 133,
 
         /// <summary>
@@ -1513,7 +1379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 134).")]
-
         SequentialIDsForModelSpecificStations_134 = 134,
 
         /// <summary>
@@ -1524,7 +1389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 135).")]
-
         SequentialIDsForModelSpecificStations_135 = 135,
 
         /// <summary>
@@ -1535,7 +1399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 136).")]
-
         SequentialIDsForModelSpecificStations_136 = 136,
 
         /// <summary>
@@ -1546,7 +1409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 137).")]
-
         SequentialIDsForModelSpecificStations_137 = 137,
 
         /// <summary>
@@ -1557,7 +1419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 138).")]
-
         SequentialIDsForModelSpecificStations_138 = 138,
 
         /// <summary>
@@ -1568,7 +1429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 139).")]
-
         SequentialIDsForModelSpecificStations_139 = 139,
 
         /// <summary>
@@ -1579,7 +1439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 140).")]
-
         SequentialIDsForModelSpecificStations_140 = 140,
 
         /// <summary>
@@ -1590,7 +1449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 141).")]
-
         SequentialIDsForModelSpecificStations_141 = 141,
 
         /// <summary>
@@ -1601,7 +1459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 142).")]
-
         SequentialIDsForModelSpecificStations_142 = 142,
 
         /// <summary>
@@ -1612,7 +1469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 143).")]
-
         SequentialIDsForModelSpecificStations_143 = 143,
 
         /// <summary>
@@ -1623,7 +1479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 144).")]
-
         SequentialIDsForModelSpecificStations_144 = 144,
 
         /// <summary>
@@ -1634,7 +1489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 145).")]
-
         SequentialIDsForModelSpecificStations_145 = 145,
 
         /// <summary>
@@ -1645,7 +1499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 146).")]
-
         SequentialIDsForModelSpecificStations_146 = 146,
 
         /// <summary>
@@ -1656,7 +1509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 147).")]
-
         SequentialIDsForModelSpecificStations_147 = 147,
 
         /// <summary>
@@ -1667,7 +1519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 148).")]
-
         SequentialIDsForModelSpecificStations_148 = 148,
 
         /// <summary>
@@ -1678,7 +1529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 149).")]
-
         SequentialIDsForModelSpecificStations_149 = 149,
 
         /// <summary>
@@ -1689,7 +1539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 150).")]
-
         SequentialIDsForModelSpecificStations_150 = 150,
 
         /// <summary>
@@ -1700,7 +1549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 151).")]
-
         SequentialIDsForModelSpecificStations_151 = 151,
 
         /// <summary>
@@ -1711,7 +1559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 152).")]
-
         SequentialIDsForModelSpecificStations_152 = 152,
 
         /// <summary>
@@ -1722,7 +1569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 153).")]
-
         SequentialIDsForModelSpecificStations_153 = 153,
 
         /// <summary>
@@ -1733,7 +1579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 154).")]
-
         SequentialIDsForModelSpecificStations_154 = 154,
 
         /// <summary>
@@ -1744,7 +1589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 155).")]
-
         SequentialIDsForModelSpecificStations_155 = 155,
 
         /// <summary>
@@ -1755,7 +1599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 156).")]
-
         SequentialIDsForModelSpecificStations_156 = 156,
 
         /// <summary>
@@ -1766,7 +1609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 157).")]
-
         SequentialIDsForModelSpecificStations_157 = 157,
 
         /// <summary>
@@ -1777,7 +1619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 158).")]
-
         SequentialIDsForModelSpecificStations_158 = 158,
 
         /// <summary>
@@ -1788,7 +1629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 159).")]
-
         SequentialIDsForModelSpecificStations_159 = 159,
 
         /// <summary>
@@ -1799,7 +1639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 160).")]
-
         SequentialIDsForModelSpecificStations_160 = 160,
 
         /// <summary>
@@ -1810,7 +1649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 161).")]
-
         SequentialIDsForModelSpecificStations_161 = 161,
 
         /// <summary>
@@ -1821,7 +1659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 162).")]
-
         SequentialIDsForModelSpecificStations_162 = 162,
 
         /// <summary>
@@ -1832,7 +1669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 163).")]
-
         SequentialIDsForModelSpecificStations_163 = 163,
 
         /// <summary>
@@ -1843,7 +1679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 164).")]
-
         SequentialIDsForModelSpecificStations_164 = 164,
 
         /// <summary>
@@ -1854,7 +1689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 165).")]
-
         SequentialIDsForModelSpecificStations_165 = 165,
 
         /// <summary>
@@ -1865,7 +1699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 166).")]
-
         SequentialIDsForModelSpecificStations_166 = 166,
 
         /// <summary>
@@ -1876,7 +1709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 167).")]
-
         SequentialIDsForModelSpecificStations_167 = 167,
 
         /// <summary>
@@ -1887,7 +1719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 168).")]
-
         SequentialIDsForModelSpecificStations_168 = 168,
 
         /// <summary>
@@ -1898,7 +1729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 169).")]
-
         SequentialIDsForModelSpecificStations_169 = 169,
 
         /// <summary>
@@ -1909,7 +1739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 170).")]
-
         SequentialIDsForModelSpecificStations_170 = 170,
 
         /// <summary>
@@ -1920,7 +1749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 171).")]
-
         SequentialIDsForModelSpecificStations_171 = 171,
 
         /// <summary>
@@ -1931,7 +1759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 172).")]
-
         SequentialIDsForModelSpecificStations_172 = 172,
 
         /// <summary>
@@ -1942,7 +1769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 173).")]
-
         SequentialIDsForModelSpecificStations_173 = 173,
 
         /// <summary>
@@ -1953,7 +1779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 174).")]
-
         SequentialIDsForModelSpecificStations_174 = 174,
 
         /// <summary>
@@ -1964,7 +1789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 175).")]
-
         SequentialIDsForModelSpecificStations_175 = 175,
 
         /// <summary>
@@ -1975,7 +1799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 176).")]
-
         SequentialIDsForModelSpecificStations_176 = 176,
 
         /// <summary>
@@ -1986,7 +1809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 177).")]
-
         SequentialIDsForModelSpecificStations_177 = 177,
 
         /// <summary>
@@ -1997,7 +1819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 178).")]
-
         SequentialIDsForModelSpecificStations_178 = 178,
 
         /// <summary>
@@ -2008,7 +1829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 179).")]
-
         SequentialIDsForModelSpecificStations_179 = 179,
 
         /// <summary>
@@ -2019,7 +1839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 180).")]
-
         SequentialIDsForModelSpecificStations_180 = 180,
 
         /// <summary>
@@ -2030,7 +1849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 181).")]
-
         SequentialIDsForModelSpecificStations_181 = 181,
 
         /// <summary>
@@ -2041,7 +1859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 182).")]
-
         SequentialIDsForModelSpecificStations_182 = 182,
 
         /// <summary>
@@ -2052,7 +1869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 183).")]
-
         SequentialIDsForModelSpecificStations_183 = 183,
 
         /// <summary>
@@ -2063,7 +1879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 184).")]
-
         SequentialIDsForModelSpecificStations_184 = 184,
 
         /// <summary>
@@ -2074,7 +1889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 185).")]
-
         SequentialIDsForModelSpecificStations_185 = 185,
 
         /// <summary>
@@ -2085,7 +1899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 186).")]
-
         SequentialIDsForModelSpecificStations_186 = 186,
 
         /// <summary>
@@ -2096,7 +1909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 187).")]
-
         SequentialIDsForModelSpecificStations_187 = 187,
 
         /// <summary>
@@ -2107,7 +1919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 188).")]
-
         SequentialIDsForModelSpecificStations_188 = 188,
 
         /// <summary>
@@ -2118,7 +1929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 189).")]
-
         SequentialIDsForModelSpecificStations_189 = 189,
 
         /// <summary>
@@ -2129,7 +1939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 190).")]
-
         SequentialIDsForModelSpecificStations_190 = 190,
 
         /// <summary>
@@ -2140,7 +1949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 191).")]
-
         SequentialIDsForModelSpecificStations_191 = 191,
 
         /// <summary>
@@ -2151,7 +1959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 192).")]
-
         SequentialIDsForModelSpecificStations_192 = 192,
 
         /// <summary>
@@ -2162,7 +1969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 193).")]
-
         SequentialIDsForModelSpecificStations_193 = 193,
 
         /// <summary>
@@ -2173,7 +1979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 194).")]
-
         SequentialIDsForModelSpecificStations_194 = 194,
 
         /// <summary>
@@ -2184,7 +1989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 195).")]
-
         SequentialIDsForModelSpecificStations_195 = 195,
 
         /// <summary>
@@ -2195,7 +1999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 196).")]
-
         SequentialIDsForModelSpecificStations_196 = 196,
 
         /// <summary>
@@ -2206,7 +2009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 197).")]
-
         SequentialIDsForModelSpecificStations_197 = 197,
 
         /// <summary>
@@ -2217,7 +2019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 198).")]
-
         SequentialIDsForModelSpecificStations_198 = 198,
 
         /// <summary>
@@ -2228,7 +2029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 199).")]
-
         SequentialIDsForModelSpecificStations_199 = 199,
 
         /// <summary>
@@ -2239,7 +2039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 200).")]
-
         SequentialIDsForModelSpecificStations_200 = 200,
 
         /// <summary>
@@ -2250,7 +2049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 201).")]
-
         SequentialIDsForModelSpecificStations_201 = 201,
 
         /// <summary>
@@ -2261,7 +2059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 202).")]
-
         SequentialIDsForModelSpecificStations_202 = 202,
 
         /// <summary>
@@ -2272,7 +2069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 203).")]
-
         SequentialIDsForModelSpecificStations_203 = 203,
 
         /// <summary>
@@ -2283,7 +2079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 204).")]
-
         SequentialIDsForModelSpecificStations_204 = 204,
 
         /// <summary>
@@ -2294,7 +2089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 205).")]
-
         SequentialIDsForModelSpecificStations_205 = 205,
 
         /// <summary>
@@ -2305,7 +2099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 206).")]
-
         SequentialIDsForModelSpecificStations_206 = 206,
 
         /// <summary>
@@ -2316,7 +2109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 207).")]
-
         SequentialIDsForModelSpecificStations_207 = 207,
 
         /// <summary>
@@ -2327,7 +2119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 208).")]
-
         SequentialIDsForModelSpecificStations_208 = 208,
 
         /// <summary>
@@ -2338,7 +2129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 209).")]
-
         SequentialIDsForModelSpecificStations_209 = 209,
 
         /// <summary>
@@ -2349,7 +2139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 210).")]
-
         SequentialIDsForModelSpecificStations_210 = 210,
 
         /// <summary>
@@ -2360,7 +2149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 211).")]
-
         SequentialIDsForModelSpecificStations_211 = 211,
 
         /// <summary>
@@ -2371,7 +2159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 212).")]
-
         SequentialIDsForModelSpecificStations_212 = 212,
 
         /// <summary>
@@ -2382,7 +2169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 213).")]
-
         SequentialIDsForModelSpecificStations_213 = 213,
 
         /// <summary>
@@ -2393,7 +2179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 214).")]
-
         SequentialIDsForModelSpecificStations_214 = 214,
 
         /// <summary>
@@ -2404,7 +2189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 215).")]
-
         SequentialIDsForModelSpecificStations_215 = 215,
 
         /// <summary>
@@ -2415,7 +2199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 216).")]
-
         SequentialIDsForModelSpecificStations_216 = 216,
 
         /// <summary>
@@ -2426,7 +2209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 217).")]
-
         SequentialIDsForModelSpecificStations_217 = 217,
 
         /// <summary>
@@ -2437,7 +2219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 218).")]
-
         SequentialIDsForModelSpecificStations_218 = 218,
 
         /// <summary>
@@ -2448,7 +2229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 219).")]
-
         SequentialIDsForModelSpecificStations_219 = 219,
 
         /// <summary>
@@ -2459,7 +2239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 220).")]
-
         SequentialIDsForModelSpecificStations_220 = 220,
 
         /// <summary>
@@ -2470,7 +2249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 221).")]
-
         SequentialIDsForModelSpecificStations_221 = 221,
 
         /// <summary>
@@ -2481,7 +2259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 222).")]
-
         SequentialIDsForModelSpecificStations_222 = 222,
 
         /// <summary>
@@ -2492,7 +2269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 223).")]
-
         SequentialIDsForModelSpecificStations_223 = 223,
 
         /// <summary>
@@ -2503,7 +2279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 224).")]
-
         SequentialIDsForModelSpecificStations_224 = 224,
 
         /// <summary>
@@ -2514,7 +2289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 225).")]
-
         SequentialIDsForModelSpecificStations_225 = 225,
 
         /// <summary>
@@ -2525,7 +2299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 226).")]
-
         SequentialIDsForModelSpecificStations_226 = 226,
 
         /// <summary>
@@ -2536,7 +2309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 227).")]
-
         SequentialIDsForModelSpecificStations_227 = 227,
 
         /// <summary>
@@ -2547,7 +2319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 228).")]
-
         SequentialIDsForModelSpecificStations_228 = 228,
 
         /// <summary>
@@ -2558,7 +2329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 229).")]
-
         SequentialIDsForModelSpecificStations_229 = 229,
 
         /// <summary>
@@ -2569,7 +2339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 230).")]
-
         SequentialIDsForModelSpecificStations_230 = 230,
 
         /// <summary>
@@ -2580,7 +2349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 231).")]
-
         SequentialIDsForModelSpecificStations_231 = 231,
 
         /// <summary>
@@ -2591,7 +2359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 232).")]
-
         SequentialIDsForModelSpecificStations_232 = 232,
 
         /// <summary>
@@ -2602,7 +2369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 233).")]
-
         SequentialIDsForModelSpecificStations_233 = 233,
 
         /// <summary>
@@ -2613,7 +2379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 234).")]
-
         SequentialIDsForModelSpecificStations_234 = 234,
 
         /// <summary>
@@ -2624,7 +2389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 235).")]
-
         SequentialIDsForModelSpecificStations_235 = 235,
 
         /// <summary>
@@ -2635,7 +2399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 236).")]
-
         SequentialIDsForModelSpecificStations_236 = 236,
 
         /// <summary>
@@ -2646,7 +2409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 237).")]
-
         SequentialIDsForModelSpecificStations_237 = 237,
 
         /// <summary>
@@ -2657,7 +2419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 238).")]
-
         SequentialIDsForModelSpecificStations_238 = 238,
 
         /// <summary>
@@ -2668,7 +2429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 239).")]
-
         SequentialIDsForModelSpecificStations_239 = 239,
 
         /// <summary>
@@ -2679,7 +2439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 240).")]
-
         SequentialIDsForModelSpecificStations_240 = 240,
 
         /// <summary>
@@ -2690,7 +2449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 241).")]
-
         SequentialIDsForModelSpecificStations_241 = 241,
 
         /// <summary>
@@ -2701,7 +2459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 242).")]
-
         SequentialIDsForModelSpecificStations_242 = 242,
 
         /// <summary>
@@ -2712,7 +2469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 243).")]
-
         SequentialIDsForModelSpecificStations_243 = 243,
 
         /// <summary>
@@ -2723,7 +2479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 244).")]
-
         SequentialIDsForModelSpecificStations_244 = 244,
 
         /// <summary>
@@ -2734,7 +2489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 245).")]
-
         SequentialIDsForModelSpecificStations_245 = 245,
 
         /// <summary>
@@ -2745,7 +2499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 246).")]
-
         SequentialIDsForModelSpecificStations_246 = 246,
 
         /// <summary>
@@ -2756,7 +2509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 247).")]
-
         SequentialIDsForModelSpecificStations_247 = 247,
 
         /// <summary>
@@ -2767,7 +2519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 248).")]
-
         SequentialIDsForModelSpecificStations_248 = 248,
 
         /// <summary>
@@ -2778,7 +2529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 249).")]
-
         SequentialIDsForModelSpecificStations_249 = 249,
 
         /// <summary>
@@ -2789,7 +2539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 250).")]
-
         SequentialIDsForModelSpecificStations_250 = 250,
 
         /// <summary>
@@ -2800,7 +2549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 251).")]
-
         SequentialIDsForModelSpecificStations_251 = 251,
 
         /// <summary>
@@ -2811,7 +2559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 252).")]
-
         SequentialIDsForModelSpecificStations_252 = 252,
 
         /// <summary>
@@ -2822,7 +2569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 253).")]
-
         SequentialIDsForModelSpecificStations_253 = 253,
 
         /// <summary>
@@ -2833,7 +2579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 254).")]
-
         SequentialIDsForModelSpecificStations_254 = 254,
 
         /// <summary>
@@ -2844,7 +2589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 255).")]
-
         SequentialIDsForModelSpecificStations_255 = 255,
 
         /// <summary>
@@ -2855,7 +2599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 256).")]
-
         SequentialIDsForModelSpecificStations_256 = 256,
 
         /// <summary>
@@ -2866,7 +2609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 257).")]
-
         SequentialIDsForModelSpecificStations_257 = 257,
 
         /// <summary>
@@ -2877,7 +2619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 258).")]
-
         SequentialIDsForModelSpecificStations_258 = 258,
 
         /// <summary>
@@ -2888,7 +2629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 259).")]
-
         SequentialIDsForModelSpecificStations_259 = 259,
 
         /// <summary>
@@ -2899,7 +2639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 260).")]
-
         SequentialIDsForModelSpecificStations_260 = 260,
 
         /// <summary>
@@ -2910,7 +2649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 261).")]
-
         SequentialIDsForModelSpecificStations_261 = 261,
 
         /// <summary>
@@ -2921,7 +2659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 262).")]
-
         SequentialIDsForModelSpecificStations_262 = 262,
 
         /// <summary>
@@ -2932,7 +2669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 263).")]
-
         SequentialIDsForModelSpecificStations_263 = 263,
 
         /// <summary>
@@ -2943,7 +2679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 264).")]
-
         SequentialIDsForModelSpecificStations_264 = 264,
 
         /// <summary>
@@ -2954,7 +2689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 265).")]
-
         SequentialIDsForModelSpecificStations_265 = 265,
 
         /// <summary>
@@ -2965,7 +2699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 266).")]
-
         SequentialIDsForModelSpecificStations_266 = 266,
 
         /// <summary>
@@ -2976,7 +2709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 267).")]
-
         SequentialIDsForModelSpecificStations_267 = 267,
 
         /// <summary>
@@ -2987,7 +2719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 268).")]
-
         SequentialIDsForModelSpecificStations_268 = 268,
 
         /// <summary>
@@ -2998,7 +2729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 269).")]
-
         SequentialIDsForModelSpecificStations_269 = 269,
 
         /// <summary>
@@ -3009,7 +2739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 270).")]
-
         SequentialIDsForModelSpecificStations_270 = 270,
 
         /// <summary>
@@ -3020,7 +2749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 271).")]
-
         SequentialIDsForModelSpecificStations_271 = 271,
 
         /// <summary>
@@ -3031,7 +2759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 272).")]
-
         SequentialIDsForModelSpecificStations_272 = 272,
 
         /// <summary>
@@ -3042,7 +2769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 273).")]
-
         SequentialIDsForModelSpecificStations_273 = 273,
 
         /// <summary>
@@ -3053,7 +2779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 274).")]
-
         SequentialIDsForModelSpecificStations_274 = 274,
 
         /// <summary>
@@ -3064,7 +2789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 275).")]
-
         SequentialIDsForModelSpecificStations_275 = 275,
 
         /// <summary>
@@ -3075,7 +2799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 276).")]
-
         SequentialIDsForModelSpecificStations_276 = 276,
 
         /// <summary>
@@ -3086,7 +2809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 277).")]
-
         SequentialIDsForModelSpecificStations_277 = 277,
 
         /// <summary>
@@ -3097,7 +2819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 278).")]
-
         SequentialIDsForModelSpecificStations_278 = 278,
 
         /// <summary>
@@ -3108,7 +2829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 279).")]
-
         SequentialIDsForModelSpecificStations_279 = 279,
 
         /// <summary>
@@ -3119,7 +2839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 280).")]
-
         SequentialIDsForModelSpecificStations_280 = 280,
 
         /// <summary>
@@ -3130,7 +2849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 281).")]
-
         SequentialIDsForModelSpecificStations_281 = 281,
 
         /// <summary>
@@ -3141,7 +2859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 282).")]
-
         SequentialIDsForModelSpecificStations_282 = 282,
 
         /// <summary>
@@ -3152,7 +2869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 283).")]
-
         SequentialIDsForModelSpecificStations_283 = 283,
 
         /// <summary>
@@ -3163,7 +2879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 284).")]
-
         SequentialIDsForModelSpecificStations_284 = 284,
 
         /// <summary>
@@ -3174,7 +2889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 285).")]
-
         SequentialIDsForModelSpecificStations_285 = 285,
 
         /// <summary>
@@ -3185,7 +2899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 286).")]
-
         SequentialIDsForModelSpecificStations_286 = 286,
 
         /// <summary>
@@ -3196,7 +2909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 287).")]
-
         SequentialIDsForModelSpecificStations_287 = 287,
 
         /// <summary>
@@ -3207,7 +2919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 288).")]
-
         SequentialIDsForModelSpecificStations_288 = 288,
 
         /// <summary>
@@ -3218,7 +2929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 289).")]
-
         SequentialIDsForModelSpecificStations_289 = 289,
 
         /// <summary>
@@ -3229,7 +2939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 290).")]
-
         SequentialIDsForModelSpecificStations_290 = 290,
 
         /// <summary>
@@ -3240,7 +2949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 291).")]
-
         SequentialIDsForModelSpecificStations_291 = 291,
 
         /// <summary>
@@ -3251,7 +2959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 292).")]
-
         SequentialIDsForModelSpecificStations_292 = 292,
 
         /// <summary>
@@ -3262,7 +2969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 293).")]
-
         SequentialIDsForModelSpecificStations_293 = 293,
 
         /// <summary>
@@ -3273,7 +2979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 294).")]
-
         SequentialIDsForModelSpecificStations_294 = 294,
 
         /// <summary>
@@ -3284,7 +2989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 295).")]
-
         SequentialIDsForModelSpecificStations_295 = 295,
 
         /// <summary>
@@ -3295,7 +2999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 296).")]
-
         SequentialIDsForModelSpecificStations_296 = 296,
 
         /// <summary>
@@ -3306,7 +3009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 297).")]
-
         SequentialIDsForModelSpecificStations_297 = 297,
 
         /// <summary>
@@ -3317,7 +3019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 298).")]
-
         SequentialIDsForModelSpecificStations_298 = 298,
 
         /// <summary>
@@ -3328,7 +3029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 299).")]
-
         SequentialIDsForModelSpecificStations_299 = 299,
 
         /// <summary>
@@ -3339,7 +3039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 300).")]
-
         SequentialIDsForModelSpecificStations_300 = 300,
 
         /// <summary>
@@ -3350,7 +3049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 301).")]
-
         SequentialIDsForModelSpecificStations_301 = 301,
 
         /// <summary>
@@ -3361,7 +3059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 302).")]
-
         SequentialIDsForModelSpecificStations_302 = 302,
 
         /// <summary>
@@ -3372,7 +3069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 303).")]
-
         SequentialIDsForModelSpecificStations_303 = 303,
 
         /// <summary>
@@ -3383,7 +3079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 304).")]
-
         SequentialIDsForModelSpecificStations_304 = 304,
 
         /// <summary>
@@ -3394,7 +3089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 305).")]
-
         SequentialIDsForModelSpecificStations_305 = 305,
 
         /// <summary>
@@ -3405,7 +3099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 306).")]
-
         SequentialIDsForModelSpecificStations_306 = 306,
 
         /// <summary>
@@ -3416,7 +3109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 307).")]
-
         SequentialIDsForModelSpecificStations_307 = 307,
 
         /// <summary>
@@ -3427,7 +3119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 308).")]
-
         SequentialIDsForModelSpecificStations_308 = 308,
 
         /// <summary>
@@ -3438,7 +3129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 309).")]
-
         SequentialIDsForModelSpecificStations_309 = 309,
 
         /// <summary>
@@ -3449,7 +3139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 310).")]
-
         SequentialIDsForModelSpecificStations_310 = 310,
 
         /// <summary>
@@ -3460,7 +3149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 311).")]
-
         SequentialIDsForModelSpecificStations_311 = 311,
 
         /// <summary>
@@ -3471,7 +3159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 312).")]
-
         SequentialIDsForModelSpecificStations_312 = 312,
 
         /// <summary>
@@ -3482,7 +3169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 313).")]
-
         SequentialIDsForModelSpecificStations_313 = 313,
 
         /// <summary>
@@ -3493,7 +3179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 314).")]
-
         SequentialIDsForModelSpecificStations_314 = 314,
 
         /// <summary>
@@ -3504,7 +3189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 315).")]
-
         SequentialIDsForModelSpecificStations_315 = 315,
 
         /// <summary>
@@ -3515,7 +3199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 316).")]
-
         SequentialIDsForModelSpecificStations_316 = 316,
 
         /// <summary>
@@ -3526,7 +3209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 317).")]
-
         SequentialIDsForModelSpecificStations_317 = 317,
 
         /// <summary>
@@ -3537,7 +3219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 318).")]
-
         SequentialIDsForModelSpecificStations_318 = 318,
 
         /// <summary>
@@ -3548,7 +3229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 319).")]
-
         SequentialIDsForModelSpecificStations_319 = 319,
 
         /// <summary>
@@ -3559,7 +3239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 320).")]
-
         SequentialIDsForModelSpecificStations_320 = 320,
 
         /// <summary>
@@ -3570,7 +3249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 321).")]
-
         SequentialIDsForModelSpecificStations_321 = 321,
 
         /// <summary>
@@ -3581,7 +3259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 322).")]
-
         SequentialIDsForModelSpecificStations_322 = 322,
 
         /// <summary>
@@ -3592,7 +3269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 323).")]
-
         SequentialIDsForModelSpecificStations_323 = 323,
 
         /// <summary>
@@ -3603,7 +3279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 324).")]
-
         SequentialIDsForModelSpecificStations_324 = 324,
 
         /// <summary>
@@ -3614,7 +3289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 325).")]
-
         SequentialIDsForModelSpecificStations_325 = 325,
 
         /// <summary>
@@ -3625,7 +3299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 326).")]
-
         SequentialIDsForModelSpecificStations_326 = 326,
 
         /// <summary>
@@ -3636,7 +3309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 327).")]
-
         SequentialIDsForModelSpecificStations_327 = 327,
 
         /// <summary>
@@ -3647,7 +3319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 328).")]
-
         SequentialIDsForModelSpecificStations_328 = 328,
 
         /// <summary>
@@ -3658,7 +3329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 329).")]
-
         SequentialIDsForModelSpecificStations_329 = 329,
 
         /// <summary>
@@ -3669,7 +3339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 330).")]
-
         SequentialIDsForModelSpecificStations_330 = 330,
 
         /// <summary>
@@ -3680,7 +3349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 331).")]
-
         SequentialIDsForModelSpecificStations_331 = 331,
 
         /// <summary>
@@ -3691,7 +3359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 332).")]
-
         SequentialIDsForModelSpecificStations_332 = 332,
 
         /// <summary>
@@ -3702,7 +3369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 333).")]
-
         SequentialIDsForModelSpecificStations_333 = 333,
 
         /// <summary>
@@ -3713,7 +3379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 334).")]
-
         SequentialIDsForModelSpecificStations_334 = 334,
 
         /// <summary>
@@ -3724,7 +3389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 335).")]
-
         SequentialIDsForModelSpecificStations_335 = 335,
 
         /// <summary>
@@ -3735,7 +3399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 336).")]
-
         SequentialIDsForModelSpecificStations_336 = 336,
 
         /// <summary>
@@ -3746,7 +3409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 337).")]
-
         SequentialIDsForModelSpecificStations_337 = 337,
 
         /// <summary>
@@ -3757,7 +3419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 338).")]
-
         SequentialIDsForModelSpecificStations_338 = 338,
 
         /// <summary>
@@ -3768,7 +3429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 339).")]
-
         SequentialIDsForModelSpecificStations_339 = 339,
 
         /// <summary>
@@ -3779,7 +3439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 340).")]
-
         SequentialIDsForModelSpecificStations_340 = 340,
 
         /// <summary>
@@ -3790,7 +3449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 341).")]
-
         SequentialIDsForModelSpecificStations_341 = 341,
 
         /// <summary>
@@ -3801,7 +3459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 342).")]
-
         SequentialIDsForModelSpecificStations_342 = 342,
 
         /// <summary>
@@ -3812,7 +3469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 343).")]
-
         SequentialIDsForModelSpecificStations_343 = 343,
 
         /// <summary>
@@ -3823,7 +3479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 344).")]
-
         SequentialIDsForModelSpecificStations_344 = 344,
 
         /// <summary>
@@ -3834,7 +3489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 345).")]
-
         SequentialIDsForModelSpecificStations_345 = 345,
 
         /// <summary>
@@ -3845,7 +3499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 346).")]
-
         SequentialIDsForModelSpecificStations_346 = 346,
 
         /// <summary>
@@ -3856,7 +3509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 347).")]
-
         SequentialIDsForModelSpecificStations_347 = 347,
 
         /// <summary>
@@ -3867,7 +3519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 348).")]
-
         SequentialIDsForModelSpecificStations_348 = 348,
 
         /// <summary>
@@ -3878,7 +3529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 349).")]
-
         SequentialIDsForModelSpecificStations_349 = 349,
 
         /// <summary>
@@ -3889,7 +3539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 350).")]
-
         SequentialIDsForModelSpecificStations_350 = 350,
 
         /// <summary>
@@ -3900,7 +3549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 351).")]
-
         SequentialIDsForModelSpecificStations_351 = 351,
 
         /// <summary>
@@ -3911,7 +3559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 352).")]
-
         SequentialIDsForModelSpecificStations_352 = 352,
 
         /// <summary>
@@ -3922,7 +3569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 353).")]
-
         SequentialIDsForModelSpecificStations_353 = 353,
 
         /// <summary>
@@ -3933,7 +3579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 354).")]
-
         SequentialIDsForModelSpecificStations_354 = 354,
 
         /// <summary>
@@ -3944,7 +3589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 355).")]
-
         SequentialIDsForModelSpecificStations_355 = 355,
 
         /// <summary>
@@ -3955,7 +3599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 356).")]
-
         SequentialIDsForModelSpecificStations_356 = 356,
 
         /// <summary>
@@ -3966,7 +3609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 357).")]
-
         SequentialIDsForModelSpecificStations_357 = 357,
 
         /// <summary>
@@ -3977,7 +3619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 358).")]
-
         SequentialIDsForModelSpecificStations_358 = 358,
 
         /// <summary>
@@ -3988,7 +3629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 359).")]
-
         SequentialIDsForModelSpecificStations_359 = 359,
 
         /// <summary>
@@ -3999,7 +3639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 360).")]
-
         SequentialIDsForModelSpecificStations_360 = 360,
 
         /// <summary>
@@ -4010,7 +3649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 361).")]
-
         SequentialIDsForModelSpecificStations_361 = 361,
 
         /// <summary>
@@ -4021,7 +3659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 362).")]
-
         SequentialIDsForModelSpecificStations_362 = 362,
 
         /// <summary>
@@ -4032,7 +3669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 363).")]
-
         SequentialIDsForModelSpecificStations_363 = 363,
 
         /// <summary>
@@ -4043,7 +3679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 364).")]
-
         SequentialIDsForModelSpecificStations_364 = 364,
 
         /// <summary>
@@ -4054,7 +3689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 365).")]
-
         SequentialIDsForModelSpecificStations_365 = 365,
 
         /// <summary>
@@ -4065,7 +3699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 366).")]
-
         SequentialIDsForModelSpecificStations_366 = 366,
 
         /// <summary>
@@ -4076,7 +3709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 367).")]
-
         SequentialIDsForModelSpecificStations_367 = 367,
 
         /// <summary>
@@ -4087,7 +3719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 368).")]
-
         SequentialIDsForModelSpecificStations_368 = 368,
 
         /// <summary>
@@ -4098,7 +3729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 369).")]
-
         SequentialIDsForModelSpecificStations_369 = 369,
 
         /// <summary>
@@ -4109,7 +3739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 370).")]
-
         SequentialIDsForModelSpecificStations_370 = 370,
 
         /// <summary>
@@ -4120,7 +3749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 371).")]
-
         SequentialIDsForModelSpecificStations_371 = 371,
 
         /// <summary>
@@ -4131,7 +3759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 372).")]
-
         SequentialIDsForModelSpecificStations_372 = 372,
 
         /// <summary>
@@ -4142,7 +3769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 373).")]
-
         SequentialIDsForModelSpecificStations_373 = 373,
 
         /// <summary>
@@ -4153,7 +3779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 374).")]
-
         SequentialIDsForModelSpecificStations_374 = 374,
 
         /// <summary>
@@ -4164,7 +3789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 375).")]
-
         SequentialIDsForModelSpecificStations_375 = 375,
 
         /// <summary>
@@ -4175,7 +3799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 376).")]
-
         SequentialIDsForModelSpecificStations_376 = 376,
 
         /// <summary>
@@ -4186,7 +3809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 377).")]
-
         SequentialIDsForModelSpecificStations_377 = 377,
 
         /// <summary>
@@ -4197,7 +3819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 378).")]
-
         SequentialIDsForModelSpecificStations_378 = 378,
 
         /// <summary>
@@ -4208,7 +3829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 379).")]
-
         SequentialIDsForModelSpecificStations_379 = 379,
 
         /// <summary>
@@ -4219,7 +3839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 380).")]
-
         SequentialIDsForModelSpecificStations_380 = 380,
 
         /// <summary>
@@ -4230,7 +3849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 381).")]
-
         SequentialIDsForModelSpecificStations_381 = 381,
 
         /// <summary>
@@ -4241,7 +3859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 382).")]
-
         SequentialIDsForModelSpecificStations_382 = 382,
 
         /// <summary>
@@ -4252,7 +3869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 383).")]
-
         SequentialIDsForModelSpecificStations_383 = 383,
 
         /// <summary>
@@ -4263,7 +3879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 384).")]
-
         SequentialIDsForModelSpecificStations_384 = 384,
 
         /// <summary>
@@ -4274,7 +3889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 385).")]
-
         SequentialIDsForModelSpecificStations_385 = 385,
 
         /// <summary>
@@ -4285,7 +3899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 386).")]
-
         SequentialIDsForModelSpecificStations_386 = 386,
 
         /// <summary>
@@ -4296,7 +3909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 387).")]
-
         SequentialIDsForModelSpecificStations_387 = 387,
 
         /// <summary>
@@ -4307,7 +3919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 388).")]
-
         SequentialIDsForModelSpecificStations_388 = 388,
 
         /// <summary>
@@ -4318,7 +3929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 389).")]
-
         SequentialIDsForModelSpecificStations_389 = 389,
 
         /// <summary>
@@ -4329,7 +3939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 390).")]
-
         SequentialIDsForModelSpecificStations_390 = 390,
 
         /// <summary>
@@ -4340,7 +3949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 391).")]
-
         SequentialIDsForModelSpecificStations_391 = 391,
 
         /// <summary>
@@ -4351,7 +3959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 392).")]
-
         SequentialIDsForModelSpecificStations_392 = 392,
 
         /// <summary>
@@ -4362,7 +3969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 393).")]
-
         SequentialIDsForModelSpecificStations_393 = 393,
 
         /// <summary>
@@ -4373,7 +3979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 394).")]
-
         SequentialIDsForModelSpecificStations_394 = 394,
 
         /// <summary>
@@ -4384,7 +3989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 395).")]
-
         SequentialIDsForModelSpecificStations_395 = 395,
 
         /// <summary>
@@ -4395,7 +3999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 396).")]
-
         SequentialIDsForModelSpecificStations_396 = 396,
 
         /// <summary>
@@ -4406,7 +4009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 397).")]
-
         SequentialIDsForModelSpecificStations_397 = 397,
 
         /// <summary>
@@ -4417,7 +4019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 398).")]
-
         SequentialIDsForModelSpecificStations_398 = 398,
 
         /// <summary>
@@ -4428,7 +4029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 399).")]
-
         SequentialIDsForModelSpecificStations_399 = 399,
 
         /// <summary>
@@ -4439,7 +4039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 400).")]
-
         SequentialIDsForModelSpecificStations_400 = 400,
 
         /// <summary>
@@ -4450,7 +4049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 401).")]
-
         SequentialIDsForModelSpecificStations_401 = 401,
 
         /// <summary>
@@ -4461,7 +4059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 402).")]
-
         SequentialIDsForModelSpecificStations_402 = 402,
 
         /// <summary>
@@ -4472,7 +4069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 403).")]
-
         SequentialIDsForModelSpecificStations_403 = 403,
 
         /// <summary>
@@ -4483,7 +4079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 404).")]
-
         SequentialIDsForModelSpecificStations_404 = 404,
 
         /// <summary>
@@ -4494,7 +4089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 405).")]
-
         SequentialIDsForModelSpecificStations_405 = 405,
 
         /// <summary>
@@ -4505,7 +4099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 406).")]
-
         SequentialIDsForModelSpecificStations_406 = 406,
 
         /// <summary>
@@ -4516,7 +4109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 407).")]
-
         SequentialIDsForModelSpecificStations_407 = 407,
 
         /// <summary>
@@ -4527,7 +4119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 408).")]
-
         SequentialIDsForModelSpecificStations_408 = 408,
 
         /// <summary>
@@ -4538,7 +4129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 409).")]
-
         SequentialIDsForModelSpecificStations_409 = 409,
 
         /// <summary>
@@ -4549,7 +4139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 410).")]
-
         SequentialIDsForModelSpecificStations_410 = 410,
 
         /// <summary>
@@ -4560,7 +4149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 411).")]
-
         SequentialIDsForModelSpecificStations_411 = 411,
 
         /// <summary>
@@ -4571,7 +4159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 412).")]
-
         SequentialIDsForModelSpecificStations_412 = 412,
 
         /// <summary>
@@ -4582,7 +4169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 413).")]
-
         SequentialIDsForModelSpecificStations_413 = 413,
 
         /// <summary>
@@ -4593,7 +4179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 414).")]
-
         SequentialIDsForModelSpecificStations_414 = 414,
 
         /// <summary>
@@ -4604,7 +4189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 415).")]
-
         SequentialIDsForModelSpecificStations_415 = 415,
 
         /// <summary>
@@ -4615,7 +4199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 416).")]
-
         SequentialIDsForModelSpecificStations_416 = 416,
 
         /// <summary>
@@ -4626,7 +4209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 417).")]
-
         SequentialIDsForModelSpecificStations_417 = 417,
 
         /// <summary>
@@ -4637,7 +4219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 418).")]
-
         SequentialIDsForModelSpecificStations_418 = 418,
 
         /// <summary>
@@ -4648,7 +4229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 419).")]
-
         SequentialIDsForModelSpecificStations_419 = 419,
 
         /// <summary>
@@ -4659,7 +4239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 420).")]
-
         SequentialIDsForModelSpecificStations_420 = 420,
 
         /// <summary>
@@ -4670,7 +4249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 421).")]
-
         SequentialIDsForModelSpecificStations_421 = 421,
 
         /// <summary>
@@ -4681,7 +4259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 422).")]
-
         SequentialIDsForModelSpecificStations_422 = 422,
 
         /// <summary>
@@ -4692,7 +4269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 423).")]
-
         SequentialIDsForModelSpecificStations_423 = 423,
 
         /// <summary>
@@ -4703,7 +4279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 424).")]
-
         SequentialIDsForModelSpecificStations_424 = 424,
 
         /// <summary>
@@ -4714,7 +4289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 425).")]
-
         SequentialIDsForModelSpecificStations_425 = 425,
 
         /// <summary>
@@ -4725,7 +4299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 426).")]
-
         SequentialIDsForModelSpecificStations_426 = 426,
 
         /// <summary>
@@ -4736,7 +4309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 427).")]
-
         SequentialIDsForModelSpecificStations_427 = 427,
 
         /// <summary>
@@ -4747,7 +4319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 428).")]
-
         SequentialIDsForModelSpecificStations_428 = 428,
 
         /// <summary>
@@ -4758,7 +4329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 429).")]
-
         SequentialIDsForModelSpecificStations_429 = 429,
 
         /// <summary>
@@ -4769,7 +4339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 430).")]
-
         SequentialIDsForModelSpecificStations_430 = 430,
 
         /// <summary>
@@ -4780,7 +4349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 431).")]
-
         SequentialIDsForModelSpecificStations_431 = 431,
 
         /// <summary>
@@ -4791,7 +4359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 432).")]
-
         SequentialIDsForModelSpecificStations_432 = 432,
 
         /// <summary>
@@ -4802,7 +4369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 433).")]
-
         SequentialIDsForModelSpecificStations_433 = 433,
 
         /// <summary>
@@ -4813,7 +4379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 434).")]
-
         SequentialIDsForModelSpecificStations_434 = 434,
 
         /// <summary>
@@ -4824,7 +4389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 435).")]
-
         SequentialIDsForModelSpecificStations_435 = 435,
 
         /// <summary>
@@ -4835,7 +4399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 436).")]
-
         SequentialIDsForModelSpecificStations_436 = 436,
 
         /// <summary>
@@ -4846,7 +4409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 437).")]
-
         SequentialIDsForModelSpecificStations_437 = 437,
 
         /// <summary>
@@ -4857,7 +4419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 438).")]
-
         SequentialIDsForModelSpecificStations_438 = 438,
 
         /// <summary>
@@ -4868,7 +4429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 439).")]
-
         SequentialIDsForModelSpecificStations_439 = 439,
 
         /// <summary>
@@ -4879,7 +4439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 440).")]
-
         SequentialIDsForModelSpecificStations_440 = 440,
 
         /// <summary>
@@ -4890,7 +4449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 441).")]
-
         SequentialIDsForModelSpecificStations_441 = 441,
 
         /// <summary>
@@ -4901,7 +4459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 442).")]
-
         SequentialIDsForModelSpecificStations_442 = 442,
 
         /// <summary>
@@ -4912,7 +4469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 443).")]
-
         SequentialIDsForModelSpecificStations_443 = 443,
 
         /// <summary>
@@ -4923,7 +4479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 444).")]
-
         SequentialIDsForModelSpecificStations_444 = 444,
 
         /// <summary>
@@ -4934,7 +4489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 445).")]
-
         SequentialIDsForModelSpecificStations_445 = 445,
 
         /// <summary>
@@ -4945,7 +4499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 446).")]
-
         SequentialIDsForModelSpecificStations_446 = 446,
 
         /// <summary>
@@ -4956,7 +4509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 447).")]
-
         SequentialIDsForModelSpecificStations_447 = 447,
 
         /// <summary>
@@ -4967,7 +4519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 448).")]
-
         SequentialIDsForModelSpecificStations_448 = 448,
 
         /// <summary>
@@ -4978,7 +4529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 449).")]
-
         SequentialIDsForModelSpecificStations_449 = 449,
 
         /// <summary>
@@ -4989,7 +4539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 450).")]
-
         SequentialIDsForModelSpecificStations_450 = 450,
 
         /// <summary>
@@ -5000,7 +4549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 451).")]
-
         SequentialIDsForModelSpecificStations_451 = 451,
 
         /// <summary>
@@ -5011,7 +4559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 452).")]
-
         SequentialIDsForModelSpecificStations_452 = 452,
 
         /// <summary>
@@ -5022,7 +4569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 453).")]
-
         SequentialIDsForModelSpecificStations_453 = 453,
 
         /// <summary>
@@ -5033,7 +4579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 454).")]
-
         SequentialIDsForModelSpecificStations_454 = 454,
 
         /// <summary>
@@ -5044,7 +4589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 455).")]
-
         SequentialIDsForModelSpecificStations_455 = 455,
 
         /// <summary>
@@ -5055,7 +4599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 456).")]
-
         SequentialIDsForModelSpecificStations_456 = 456,
 
         /// <summary>
@@ -5066,7 +4609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 457).")]
-
         SequentialIDsForModelSpecificStations_457 = 457,
 
         /// <summary>
@@ -5077,7 +4619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 458).")]
-
         SequentialIDsForModelSpecificStations_458 = 458,
 
         /// <summary>
@@ -5088,7 +4629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 459).")]
-
         SequentialIDsForModelSpecificStations_459 = 459,
 
         /// <summary>
@@ -5099,7 +4639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 460).")]
-
         SequentialIDsForModelSpecificStations_460 = 460,
 
         /// <summary>
@@ -5110,7 +4649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 461).")]
-
         SequentialIDsForModelSpecificStations_461 = 461,
 
         /// <summary>
@@ -5121,7 +4659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 462).")]
-
         SequentialIDsForModelSpecificStations_462 = 462,
 
         /// <summary>
@@ -5132,7 +4669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 463).")]
-
         SequentialIDsForModelSpecificStations_463 = 463,
 
         /// <summary>
@@ -5143,7 +4679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 464).")]
-
         SequentialIDsForModelSpecificStations_464 = 464,
 
         /// <summary>
@@ -5154,7 +4689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 465).")]
-
         SequentialIDsForModelSpecificStations_465 = 465,
 
         /// <summary>
@@ -5165,7 +4699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 466).")]
-
         SequentialIDsForModelSpecificStations_466 = 466,
 
         /// <summary>
@@ -5176,7 +4709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 467).")]
-
         SequentialIDsForModelSpecificStations_467 = 467,
 
         /// <summary>
@@ -5187,7 +4719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 468).")]
-
         SequentialIDsForModelSpecificStations_468 = 468,
 
         /// <summary>
@@ -5198,7 +4729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 469).")]
-
         SequentialIDsForModelSpecificStations_469 = 469,
 
         /// <summary>
@@ -5209,7 +4739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 470).")]
-
         SequentialIDsForModelSpecificStations_470 = 470,
 
         /// <summary>
@@ -5220,7 +4749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 471).")]
-
         SequentialIDsForModelSpecificStations_471 = 471,
 
         /// <summary>
@@ -5231,7 +4759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 472).")]
-
         SequentialIDsForModelSpecificStations_472 = 472,
 
         /// <summary>
@@ -5242,7 +4769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 473).")]
-
         SequentialIDsForModelSpecificStations_473 = 473,
 
         /// <summary>
@@ -5253,7 +4779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 474).")]
-
         SequentialIDsForModelSpecificStations_474 = 474,
 
         /// <summary>
@@ -5264,7 +4789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 475).")]
-
         SequentialIDsForModelSpecificStations_475 = 475,
 
         /// <summary>
@@ -5275,7 +4799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 476).")]
-
         SequentialIDsForModelSpecificStations_476 = 476,
 
         /// <summary>
@@ -5286,7 +4809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 477).")]
-
         SequentialIDsForModelSpecificStations_477 = 477,
 
         /// <summary>
@@ -5297,7 +4819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 478).")]
-
         SequentialIDsForModelSpecificStations_478 = 478,
 
         /// <summary>
@@ -5308,7 +4829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 479).")]
-
         SequentialIDsForModelSpecificStations_479 = 479,
 
         /// <summary>
@@ -5319,7 +4839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 480).")]
-
         SequentialIDsForModelSpecificStations_480 = 480,
 
         /// <summary>
@@ -5330,7 +4849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 481).")]
-
         SequentialIDsForModelSpecificStations_481 = 481,
 
         /// <summary>
@@ -5341,7 +4859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 482).")]
-
         SequentialIDsForModelSpecificStations_482 = 482,
 
         /// <summary>
@@ -5352,7 +4869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 483).")]
-
         SequentialIDsForModelSpecificStations_483 = 483,
 
         /// <summary>
@@ -5363,7 +4879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 484).")]
-
         SequentialIDsForModelSpecificStations_484 = 484,
 
         /// <summary>
@@ -5374,7 +4889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 485).")]
-
         SequentialIDsForModelSpecificStations_485 = 485,
 
         /// <summary>
@@ -5385,7 +4899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 486).")]
-
         SequentialIDsForModelSpecificStations_486 = 486,
 
         /// <summary>
@@ -5396,7 +4909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 487).")]
-
         SequentialIDsForModelSpecificStations_487 = 487,
 
         /// <summary>
@@ -5407,7 +4919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 488).")]
-
         SequentialIDsForModelSpecificStations_488 = 488,
 
         /// <summary>
@@ -5418,7 +4929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 489).")]
-
         SequentialIDsForModelSpecificStations_489 = 489,
 
         /// <summary>
@@ -5429,7 +4939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 490).")]
-
         SequentialIDsForModelSpecificStations_490 = 490,
 
         /// <summary>
@@ -5440,7 +4949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 491).")]
-
         SequentialIDsForModelSpecificStations_491 = 491,
 
         /// <summary>
@@ -5451,7 +4959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 492).")]
-
         SequentialIDsForModelSpecificStations_492 = 492,
 
         /// <summary>
@@ -5462,7 +4969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 493).")]
-
         SequentialIDsForModelSpecificStations_493 = 493,
 
         /// <summary>
@@ -5473,7 +4979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 494).")]
-
         SequentialIDsForModelSpecificStations_494 = 494,
 
         /// <summary>
@@ -5484,7 +4989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 495).")]
-
         SequentialIDsForModelSpecificStations_495 = 495,
 
         /// <summary>
@@ -5495,7 +4999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 496).")]
-
         SequentialIDsForModelSpecificStations_496 = 496,
 
         /// <summary>
@@ -5506,7 +5009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 497).")]
-
         SequentialIDsForModelSpecificStations_497 = 497,
 
         /// <summary>
@@ -5517,7 +5019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 498).")]
-
         SequentialIDsForModelSpecificStations_498 = 498,
 
         /// <summary>
@@ -5528,7 +5029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 499).")]
-
         SequentialIDsForModelSpecificStations_499 = 499,
 
         /// <summary>
@@ -5539,7 +5039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 500).")]
-
         SequentialIDsForModelSpecificStations_500 = 500,
 
         /// <summary>
@@ -5550,7 +5049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 501).")]
-
         SequentialIDsForModelSpecificStations_501 = 501,
 
         /// <summary>
@@ -5561,7 +5059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 502).")]
-
         SequentialIDsForModelSpecificStations_502 = 502,
 
         /// <summary>
@@ -5572,7 +5069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 503).")]
-
         SequentialIDsForModelSpecificStations_503 = 503,
 
         /// <summary>
@@ -5583,7 +5079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 504).")]
-
         SequentialIDsForModelSpecificStations_504 = 504,
 
         /// <summary>
@@ -5594,7 +5089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 505).")]
-
         SequentialIDsForModelSpecificStations_505 = 505,
 
         /// <summary>
@@ -5605,7 +5099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 506).")]
-
         SequentialIDsForModelSpecificStations_506 = 506,
 
         /// <summary>
@@ -5616,7 +5109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 507).")]
-
         SequentialIDsForModelSpecificStations_507 = 507,
 
         /// <summary>
@@ -5627,7 +5119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 508).")]
-
         SequentialIDsForModelSpecificStations_508 = 508,
 
         /// <summary>
@@ -5638,7 +5129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 509).")]
-
         SequentialIDsForModelSpecificStations_509 = 509,
 
         /// <summary>
@@ -5649,7 +5139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 510).")]
-
         SequentialIDsForModelSpecificStations_510 = 510,
 
         /// <summary>
@@ -5660,7 +5149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Sequential IDs for model-specific stations (with id 511).")]
-
         SequentialIDsForModelSpecificStations_511 = 511,
 
         /// <summary>
@@ -5671,7 +5159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 512).")]
-
         FuselageStations_512 = 512,
 
         /// <summary>
@@ -5682,7 +5169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 513).")]
-
         FuselageStations_513 = 513,
 
         /// <summary>
@@ -5693,7 +5179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 514).")]
-
         FuselageStations_514 = 514,
 
         /// <summary>
@@ -5704,7 +5189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 515).")]
-
         FuselageStations_515 = 515,
 
         /// <summary>
@@ -5715,7 +5199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 516).")]
-
         FuselageStations_516 = 516,
 
         /// <summary>
@@ -5726,7 +5209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 517).")]
-
         FuselageStations_517 = 517,
 
         /// <summary>
@@ -5737,7 +5219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 518).")]
-
         FuselageStations_518 = 518,
 
         /// <summary>
@@ -5748,7 +5229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 519).")]
-
         FuselageStations_519 = 519,
 
         /// <summary>
@@ -5759,7 +5239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 520).")]
-
         FuselageStations_520 = 520,
 
         /// <summary>
@@ -5770,7 +5249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 521).")]
-
         FuselageStations_521 = 521,
 
         /// <summary>
@@ -5781,7 +5259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 522).")]
-
         FuselageStations_522 = 522,
 
         /// <summary>
@@ -5792,7 +5269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 523).")]
-
         FuselageStations_523 = 523,
 
         /// <summary>
@@ -5803,7 +5279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 524).")]
-
         FuselageStations_524 = 524,
 
         /// <summary>
@@ -5814,7 +5289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 525).")]
-
         FuselageStations_525 = 525,
 
         /// <summary>
@@ -5825,7 +5299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 526).")]
-
         FuselageStations_526 = 526,
 
         /// <summary>
@@ -5836,7 +5309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 527).")]
-
         FuselageStations_527 = 527,
 
         /// <summary>
@@ -5847,7 +5319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 528).")]
-
         FuselageStations_528 = 528,
 
         /// <summary>
@@ -5858,7 +5329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 529).")]
-
         FuselageStations_529 = 529,
 
         /// <summary>
@@ -5869,7 +5339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 530).")]
-
         FuselageStations_530 = 530,
 
         /// <summary>
@@ -5880,7 +5349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 531).")]
-
         FuselageStations_531 = 531,
 
         /// <summary>
@@ -5891,7 +5359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 532).")]
-
         FuselageStations_532 = 532,
 
         /// <summary>
@@ -5902,7 +5369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 533).")]
-
         FuselageStations_533 = 533,
 
         /// <summary>
@@ -5913,7 +5379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 534).")]
-
         FuselageStations_534 = 534,
 
         /// <summary>
@@ -5924,7 +5389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 535).")]
-
         FuselageStations_535 = 535,
 
         /// <summary>
@@ -5935,7 +5399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 536).")]
-
         FuselageStations_536 = 536,
 
         /// <summary>
@@ -5946,7 +5409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 537).")]
-
         FuselageStations_537 = 537,
 
         /// <summary>
@@ -5957,7 +5419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 538).")]
-
         FuselageStations_538 = 538,
 
         /// <summary>
@@ -5968,7 +5429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 539).")]
-
         FuselageStations_539 = 539,
 
         /// <summary>
@@ -5979,7 +5439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 540).")]
-
         FuselageStations_540 = 540,
 
         /// <summary>
@@ -5990,7 +5449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 541).")]
-
         FuselageStations_541 = 541,
 
         /// <summary>
@@ -6001,7 +5459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 542).")]
-
         FuselageStations_542 = 542,
 
         /// <summary>
@@ -6012,7 +5469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 543).")]
-
         FuselageStations_543 = 543,
 
         /// <summary>
@@ -6023,7 +5479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 544).")]
-
         FuselageStations_544 = 544,
 
         /// <summary>
@@ -6034,7 +5489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 545).")]
-
         FuselageStations_545 = 545,
 
         /// <summary>
@@ -6045,7 +5499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 546).")]
-
         FuselageStations_546 = 546,
 
         /// <summary>
@@ -6056,7 +5509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 547).")]
-
         FuselageStations_547 = 547,
 
         /// <summary>
@@ -6067,7 +5519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 548).")]
-
         FuselageStations_548 = 548,
 
         /// <summary>
@@ -6078,7 +5529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 549).")]
-
         FuselageStations_549 = 549,
 
         /// <summary>
@@ -6089,7 +5539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 550).")]
-
         FuselageStations_550 = 550,
 
         /// <summary>
@@ -6100,7 +5549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 551).")]
-
         FuselageStations_551 = 551,
 
         /// <summary>
@@ -6111,7 +5559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 552).")]
-
         FuselageStations_552 = 552,
 
         /// <summary>
@@ -6122,7 +5569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 553).")]
-
         FuselageStations_553 = 553,
 
         /// <summary>
@@ -6133,7 +5579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 554).")]
-
         FuselageStations_554 = 554,
 
         /// <summary>
@@ -6144,7 +5589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 555).")]
-
         FuselageStations_555 = 555,
 
         /// <summary>
@@ -6155,7 +5599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 556).")]
-
         FuselageStations_556 = 556,
 
         /// <summary>
@@ -6166,7 +5609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 557).")]
-
         FuselageStations_557 = 557,
 
         /// <summary>
@@ -6177,7 +5619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 558).")]
-
         FuselageStations_558 = 558,
 
         /// <summary>
@@ -6188,7 +5629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 559).")]
-
         FuselageStations_559 = 559,
 
         /// <summary>
@@ -6199,7 +5639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 560).")]
-
         FuselageStations_560 = 560,
 
         /// <summary>
@@ -6210,7 +5649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 561).")]
-
         FuselageStations_561 = 561,
 
         /// <summary>
@@ -6221,7 +5659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 562).")]
-
         FuselageStations_562 = 562,
 
         /// <summary>
@@ -6232,7 +5669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 563).")]
-
         FuselageStations_563 = 563,
 
         /// <summary>
@@ -6243,7 +5679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 564).")]
-
         FuselageStations_564 = 564,
 
         /// <summary>
@@ -6254,7 +5689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 565).")]
-
         FuselageStations_565 = 565,
 
         /// <summary>
@@ -6265,7 +5699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 566).")]
-
         FuselageStations_566 = 566,
 
         /// <summary>
@@ -6276,7 +5709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 567).")]
-
         FuselageStations_567 = 567,
 
         /// <summary>
@@ -6287,7 +5719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 568).")]
-
         FuselageStations_568 = 568,
 
         /// <summary>
@@ -6298,7 +5729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 569).")]
-
         FuselageStations_569 = 569,
 
         /// <summary>
@@ -6309,7 +5739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 570).")]
-
         FuselageStations_570 = 570,
 
         /// <summary>
@@ -6320,7 +5749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 571).")]
-
         FuselageStations_571 = 571,
 
         /// <summary>
@@ -6331,7 +5759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 572).")]
-
         FuselageStations_572 = 572,
 
         /// <summary>
@@ -6342,7 +5769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 573).")]
-
         FuselageStations_573 = 573,
 
         /// <summary>
@@ -6353,7 +5779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 574).")]
-
         FuselageStations_574 = 574,
 
         /// <summary>
@@ -6364,7 +5789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 575).")]
-
         FuselageStations_575 = 575,
 
         /// <summary>
@@ -6375,7 +5799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 576).")]
-
         FuselageStations_576 = 576,
 
         /// <summary>
@@ -6386,7 +5809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 577).")]
-
         FuselageStations_577 = 577,
 
         /// <summary>
@@ -6397,7 +5819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 578).")]
-
         FuselageStations_578 = 578,
 
         /// <summary>
@@ -6408,7 +5829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 579).")]
-
         FuselageStations_579 = 579,
 
         /// <summary>
@@ -6419,7 +5839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 580).")]
-
         FuselageStations_580 = 580,
 
         /// <summary>
@@ -6430,7 +5849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 581).")]
-
         FuselageStations_581 = 581,
 
         /// <summary>
@@ -6441,7 +5859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 582).")]
-
         FuselageStations_582 = 582,
 
         /// <summary>
@@ -6452,7 +5869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 583).")]
-
         FuselageStations_583 = 583,
 
         /// <summary>
@@ -6463,7 +5879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 584).")]
-
         FuselageStations_584 = 584,
 
         /// <summary>
@@ -6474,7 +5889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 585).")]
-
         FuselageStations_585 = 585,
 
         /// <summary>
@@ -6485,7 +5899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 586).")]
-
         FuselageStations_586 = 586,
 
         /// <summary>
@@ -6496,7 +5909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 587).")]
-
         FuselageStations_587 = 587,
 
         /// <summary>
@@ -6507,7 +5919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 588).")]
-
         FuselageStations_588 = 588,
 
         /// <summary>
@@ -6518,7 +5929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 589).")]
-
         FuselageStations_589 = 589,
 
         /// <summary>
@@ -6529,7 +5939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 590).")]
-
         FuselageStations_590 = 590,
 
         /// <summary>
@@ -6540,7 +5949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 591).")]
-
         FuselageStations_591 = 591,
 
         /// <summary>
@@ -6551,7 +5959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 592).")]
-
         FuselageStations_592 = 592,
 
         /// <summary>
@@ -6562,7 +5969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 593).")]
-
         FuselageStations_593 = 593,
 
         /// <summary>
@@ -6573,7 +5979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 594).")]
-
         FuselageStations_594 = 594,
 
         /// <summary>
@@ -6584,7 +5989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 595).")]
-
         FuselageStations_595 = 595,
 
         /// <summary>
@@ -6595,7 +5999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 596).")]
-
         FuselageStations_596 = 596,
 
         /// <summary>
@@ -6606,7 +6009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 597).")]
-
         FuselageStations_597 = 597,
 
         /// <summary>
@@ -6617,7 +6019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 598).")]
-
         FuselageStations_598 = 598,
 
         /// <summary>
@@ -6628,7 +6029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 599).")]
-
         FuselageStations_599 = 599,
 
         /// <summary>
@@ -6639,7 +6039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 600).")]
-
         FuselageStations_600 = 600,
 
         /// <summary>
@@ -6650,7 +6049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 601).")]
-
         FuselageStations_601 = 601,
 
         /// <summary>
@@ -6661,7 +6059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 602).")]
-
         FuselageStations_602 = 602,
 
         /// <summary>
@@ -6672,7 +6069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 603).")]
-
         FuselageStations_603 = 603,
 
         /// <summary>
@@ -6683,7 +6079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 604).")]
-
         FuselageStations_604 = 604,
 
         /// <summary>
@@ -6694,7 +6089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 605).")]
-
         FuselageStations_605 = 605,
 
         /// <summary>
@@ -6705,7 +6099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 606).")]
-
         FuselageStations_606 = 606,
 
         /// <summary>
@@ -6716,7 +6109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 607).")]
-
         FuselageStations_607 = 607,
 
         /// <summary>
@@ -6727,7 +6119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 608).")]
-
         FuselageStations_608 = 608,
 
         /// <summary>
@@ -6738,7 +6129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 609).")]
-
         FuselageStations_609 = 609,
 
         /// <summary>
@@ -6749,7 +6139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 610).")]
-
         FuselageStations_610 = 610,
 
         /// <summary>
@@ -6760,7 +6149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 611).")]
-
         FuselageStations_611 = 611,
 
         /// <summary>
@@ -6771,7 +6159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 612).")]
-
         FuselageStations_612 = 612,
 
         /// <summary>
@@ -6782,7 +6169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 613).")]
-
         FuselageStations_613 = 613,
 
         /// <summary>
@@ -6793,7 +6179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 614).")]
-
         FuselageStations_614 = 614,
 
         /// <summary>
@@ -6804,7 +6189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 615).")]
-
         FuselageStations_615 = 615,
 
         /// <summary>
@@ -6815,7 +6199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 616).")]
-
         FuselageStations_616 = 616,
 
         /// <summary>
@@ -6826,7 +6209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 617).")]
-
         FuselageStations_617 = 617,
 
         /// <summary>
@@ -6837,7 +6219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 618).")]
-
         FuselageStations_618 = 618,
 
         /// <summary>
@@ -6848,7 +6229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 619).")]
-
         FuselageStations_619 = 619,
 
         /// <summary>
@@ -6859,7 +6239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 620).")]
-
         FuselageStations_620 = 620,
 
         /// <summary>
@@ -6870,7 +6249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 621).")]
-
         FuselageStations_621 = 621,
 
         /// <summary>
@@ -6881,7 +6259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 622).")]
-
         FuselageStations_622 = 622,
 
         /// <summary>
@@ -6892,7 +6269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 623).")]
-
         FuselageStations_623 = 623,
 
         /// <summary>
@@ -6903,7 +6279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 624).")]
-
         FuselageStations_624 = 624,
 
         /// <summary>
@@ -6914,7 +6289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 625).")]
-
         FuselageStations_625 = 625,
 
         /// <summary>
@@ -6925,7 +6299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 626).")]
-
         FuselageStations_626 = 626,
 
         /// <summary>
@@ -6936,7 +6309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 627).")]
-
         FuselageStations_627 = 627,
 
         /// <summary>
@@ -6947,7 +6319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 628).")]
-
         FuselageStations_628 = 628,
 
         /// <summary>
@@ -6958,7 +6329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 629).")]
-
         FuselageStations_629 = 629,
 
         /// <summary>
@@ -6969,7 +6339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 630).")]
-
         FuselageStations_630 = 630,
 
         /// <summary>
@@ -6980,7 +6349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 631).")]
-
         FuselageStations_631 = 631,
 
         /// <summary>
@@ -6991,7 +6359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 632).")]
-
         FuselageStations_632 = 632,
 
         /// <summary>
@@ -7002,7 +6369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 633).")]
-
         FuselageStations_633 = 633,
 
         /// <summary>
@@ -7013,7 +6379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 634).")]
-
         FuselageStations_634 = 634,
 
         /// <summary>
@@ -7024,7 +6389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 635).")]
-
         FuselageStations_635 = 635,
 
         /// <summary>
@@ -7035,7 +6399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 636).")]
-
         FuselageStations_636 = 636,
 
         /// <summary>
@@ -7046,7 +6409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 637).")]
-
         FuselageStations_637 = 637,
 
         /// <summary>
@@ -7057,7 +6419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 638).")]
-
         FuselageStations_638 = 638,
 
         /// <summary>
@@ -7068,7 +6429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Fuselage Stations (with id 639).")]
-
         FuselageStations_639 = 639,
 
         /// <summary>
@@ -7079,7 +6439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 640).")]
-
         LeftWingStations_640 = 640,
 
         /// <summary>
@@ -7090,7 +6449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 641).")]
-
         LeftWingStations_641 = 641,
 
         /// <summary>
@@ -7101,7 +6459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 642).")]
-
         LeftWingStations_642 = 642,
 
         /// <summary>
@@ -7112,7 +6469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 643).")]
-
         LeftWingStations_643 = 643,
 
         /// <summary>
@@ -7123,7 +6479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 644).")]
-
         LeftWingStations_644 = 644,
 
         /// <summary>
@@ -7134,7 +6489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 645).")]
-
         LeftWingStations_645 = 645,
 
         /// <summary>
@@ -7145,7 +6499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 646).")]
-
         LeftWingStations_646 = 646,
 
         /// <summary>
@@ -7156,7 +6509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 647).")]
-
         LeftWingStations_647 = 647,
 
         /// <summary>
@@ -7167,7 +6519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 648).")]
-
         LeftWingStations_648 = 648,
 
         /// <summary>
@@ -7178,7 +6529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 649).")]
-
         LeftWingStations_649 = 649,
 
         /// <summary>
@@ -7189,7 +6539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 650).")]
-
         LeftWingStations_650 = 650,
 
         /// <summary>
@@ -7200,7 +6549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 651).")]
-
         LeftWingStations_651 = 651,
 
         /// <summary>
@@ -7211,7 +6559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 652).")]
-
         LeftWingStations_652 = 652,
 
         /// <summary>
@@ -7222,7 +6569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 653).")]
-
         LeftWingStations_653 = 653,
 
         /// <summary>
@@ -7233,7 +6579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 654).")]
-
         LeftWingStations_654 = 654,
 
         /// <summary>
@@ -7244,7 +6589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 655).")]
-
         LeftWingStations_655 = 655,
 
         /// <summary>
@@ -7255,7 +6599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 656).")]
-
         LeftWingStations_656 = 656,
 
         /// <summary>
@@ -7266,7 +6609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 657).")]
-
         LeftWingStations_657 = 657,
 
         /// <summary>
@@ -7277,7 +6619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 658).")]
-
         LeftWingStations_658 = 658,
 
         /// <summary>
@@ -7288,7 +6629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 659).")]
-
         LeftWingStations_659 = 659,
 
         /// <summary>
@@ -7299,7 +6639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 660).")]
-
         LeftWingStations_660 = 660,
 
         /// <summary>
@@ -7310,7 +6649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 661).")]
-
         LeftWingStations_661 = 661,
 
         /// <summary>
@@ -7321,7 +6659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 662).")]
-
         LeftWingStations_662 = 662,
 
         /// <summary>
@@ -7332,7 +6669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 663).")]
-
         LeftWingStations_663 = 663,
 
         /// <summary>
@@ -7343,7 +6679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 664).")]
-
         LeftWingStations_664 = 664,
 
         /// <summary>
@@ -7354,7 +6689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 665).")]
-
         LeftWingStations_665 = 665,
 
         /// <summary>
@@ -7365,7 +6699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 666).")]
-
         LeftWingStations_666 = 666,
 
         /// <summary>
@@ -7376,7 +6709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 667).")]
-
         LeftWingStations_667 = 667,
 
         /// <summary>
@@ -7387,7 +6719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 668).")]
-
         LeftWingStations_668 = 668,
 
         /// <summary>
@@ -7398,7 +6729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 669).")]
-
         LeftWingStations_669 = 669,
 
         /// <summary>
@@ -7409,7 +6739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 670).")]
-
         LeftWingStations_670 = 670,
 
         /// <summary>
@@ -7420,7 +6749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 671).")]
-
         LeftWingStations_671 = 671,
 
         /// <summary>
@@ -7431,7 +6759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 672).")]
-
         LeftWingStations_672 = 672,
 
         /// <summary>
@@ -7442,7 +6769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 673).")]
-
         LeftWingStations_673 = 673,
 
         /// <summary>
@@ -7453,7 +6779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 674).")]
-
         LeftWingStations_674 = 674,
 
         /// <summary>
@@ -7464,7 +6789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 675).")]
-
         LeftWingStations_675 = 675,
 
         /// <summary>
@@ -7475,7 +6799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 676).")]
-
         LeftWingStations_676 = 676,
 
         /// <summary>
@@ -7486,7 +6809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 677).")]
-
         LeftWingStations_677 = 677,
 
         /// <summary>
@@ -7497,7 +6819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 678).")]
-
         LeftWingStations_678 = 678,
 
         /// <summary>
@@ -7508,7 +6829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 679).")]
-
         LeftWingStations_679 = 679,
 
         /// <summary>
@@ -7519,7 +6839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 680).")]
-
         LeftWingStations_680 = 680,
 
         /// <summary>
@@ -7530,7 +6849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 681).")]
-
         LeftWingStations_681 = 681,
 
         /// <summary>
@@ -7541,7 +6859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 682).")]
-
         LeftWingStations_682 = 682,
 
         /// <summary>
@@ -7552,7 +6869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 683).")]
-
         LeftWingStations_683 = 683,
 
         /// <summary>
@@ -7563,7 +6879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 684).")]
-
         LeftWingStations_684 = 684,
 
         /// <summary>
@@ -7574,7 +6889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 685).")]
-
         LeftWingStations_685 = 685,
 
         /// <summary>
@@ -7585,7 +6899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 686).")]
-
         LeftWingStations_686 = 686,
 
         /// <summary>
@@ -7596,7 +6909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 687).")]
-
         LeftWingStations_687 = 687,
 
         /// <summary>
@@ -7607,7 +6919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 688).")]
-
         LeftWingStations_688 = 688,
 
         /// <summary>
@@ -7618,7 +6929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 689).")]
-
         LeftWingStations_689 = 689,
 
         /// <summary>
@@ -7629,7 +6939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 690).")]
-
         LeftWingStations_690 = 690,
 
         /// <summary>
@@ -7640,7 +6949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 691).")]
-
         LeftWingStations_691 = 691,
 
         /// <summary>
@@ -7651,7 +6959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 692).")]
-
         LeftWingStations_692 = 692,
 
         /// <summary>
@@ -7662,7 +6969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 693).")]
-
         LeftWingStations_693 = 693,
 
         /// <summary>
@@ -7673,7 +6979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 694).")]
-
         LeftWingStations_694 = 694,
 
         /// <summary>
@@ -7684,7 +6989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 695).")]
-
         LeftWingStations_695 = 695,
 
         /// <summary>
@@ -7695,7 +6999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 696).")]
-
         LeftWingStations_696 = 696,
 
         /// <summary>
@@ -7706,7 +7009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 697).")]
-
         LeftWingStations_697 = 697,
 
         /// <summary>
@@ -7717,7 +7019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 698).")]
-
         LeftWingStations_698 = 698,
 
         /// <summary>
@@ -7728,7 +7029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 699).")]
-
         LeftWingStations_699 = 699,
 
         /// <summary>
@@ -7739,7 +7039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 700).")]
-
         LeftWingStations_700 = 700,
 
         /// <summary>
@@ -7750,7 +7049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 701).")]
-
         LeftWingStations_701 = 701,
 
         /// <summary>
@@ -7761,7 +7059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 702).")]
-
         LeftWingStations_702 = 702,
 
         /// <summary>
@@ -7772,7 +7069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 703).")]
-
         LeftWingStations_703 = 703,
 
         /// <summary>
@@ -7783,7 +7079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 704).")]
-
         LeftWingStations_704 = 704,
 
         /// <summary>
@@ -7794,7 +7089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 705).")]
-
         LeftWingStations_705 = 705,
 
         /// <summary>
@@ -7805,7 +7099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 706).")]
-
         LeftWingStations_706 = 706,
 
         /// <summary>
@@ -7816,7 +7109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 707).")]
-
         LeftWingStations_707 = 707,
 
         /// <summary>
@@ -7827,7 +7119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 708).")]
-
         LeftWingStations_708 = 708,
 
         /// <summary>
@@ -7838,7 +7129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 709).")]
-
         LeftWingStations_709 = 709,
 
         /// <summary>
@@ -7849,7 +7139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 710).")]
-
         LeftWingStations_710 = 710,
 
         /// <summary>
@@ -7860,7 +7149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 711).")]
-
         LeftWingStations_711 = 711,
 
         /// <summary>
@@ -7871,7 +7159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 712).")]
-
         LeftWingStations_712 = 712,
 
         /// <summary>
@@ -7882,7 +7169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 713).")]
-
         LeftWingStations_713 = 713,
 
         /// <summary>
@@ -7893,7 +7179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 714).")]
-
         LeftWingStations_714 = 714,
 
         /// <summary>
@@ -7904,7 +7189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 715).")]
-
         LeftWingStations_715 = 715,
 
         /// <summary>
@@ -7915,7 +7199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 716).")]
-
         LeftWingStations_716 = 716,
 
         /// <summary>
@@ -7926,7 +7209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 717).")]
-
         LeftWingStations_717 = 717,
 
         /// <summary>
@@ -7937,7 +7219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 718).")]
-
         LeftWingStations_718 = 718,
 
         /// <summary>
@@ -7948,7 +7229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 719).")]
-
         LeftWingStations_719 = 719,
 
         /// <summary>
@@ -7959,7 +7239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 720).")]
-
         LeftWingStations_720 = 720,
 
         /// <summary>
@@ -7970,7 +7249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 721).")]
-
         LeftWingStations_721 = 721,
 
         /// <summary>
@@ -7981,7 +7259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 722).")]
-
         LeftWingStations_722 = 722,
 
         /// <summary>
@@ -7992,7 +7269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 723).")]
-
         LeftWingStations_723 = 723,
 
         /// <summary>
@@ -8003,7 +7279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 724).")]
-
         LeftWingStations_724 = 724,
 
         /// <summary>
@@ -8014,7 +7289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 725).")]
-
         LeftWingStations_725 = 725,
 
         /// <summary>
@@ -8025,7 +7299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 726).")]
-
         LeftWingStations_726 = 726,
 
         /// <summary>
@@ -8036,7 +7309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 727).")]
-
         LeftWingStations_727 = 727,
 
         /// <summary>
@@ -8047,7 +7319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 728).")]
-
         LeftWingStations_728 = 728,
 
         /// <summary>
@@ -8058,7 +7329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 729).")]
-
         LeftWingStations_729 = 729,
 
         /// <summary>
@@ -8069,7 +7339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 730).")]
-
         LeftWingStations_730 = 730,
 
         /// <summary>
@@ -8080,7 +7349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 731).")]
-
         LeftWingStations_731 = 731,
 
         /// <summary>
@@ -8091,7 +7359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 732).")]
-
         LeftWingStations_732 = 732,
 
         /// <summary>
@@ -8102,7 +7369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 733).")]
-
         LeftWingStations_733 = 733,
 
         /// <summary>
@@ -8113,7 +7379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 734).")]
-
         LeftWingStations_734 = 734,
 
         /// <summary>
@@ -8124,7 +7389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 735).")]
-
         LeftWingStations_735 = 735,
 
         /// <summary>
@@ -8135,7 +7399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 736).")]
-
         LeftWingStations_736 = 736,
 
         /// <summary>
@@ -8146,7 +7409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 737).")]
-
         LeftWingStations_737 = 737,
 
         /// <summary>
@@ -8157,7 +7419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 738).")]
-
         LeftWingStations_738 = 738,
 
         /// <summary>
@@ -8168,7 +7429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 739).")]
-
         LeftWingStations_739 = 739,
 
         /// <summary>
@@ -8179,7 +7439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 740).")]
-
         LeftWingStations_740 = 740,
 
         /// <summary>
@@ -8190,7 +7449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 741).")]
-
         LeftWingStations_741 = 741,
 
         /// <summary>
@@ -8201,7 +7459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 742).")]
-
         LeftWingStations_742 = 742,
 
         /// <summary>
@@ -8212,7 +7469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 743).")]
-
         LeftWingStations_743 = 743,
 
         /// <summary>
@@ -8223,7 +7479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 744).")]
-
         LeftWingStations_744 = 744,
 
         /// <summary>
@@ -8234,7 +7489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 745).")]
-
         LeftWingStations_745 = 745,
 
         /// <summary>
@@ -8245,7 +7499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 746).")]
-
         LeftWingStations_746 = 746,
 
         /// <summary>
@@ -8256,7 +7509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 747).")]
-
         LeftWingStations_747 = 747,
 
         /// <summary>
@@ -8267,7 +7519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 748).")]
-
         LeftWingStations_748 = 748,
 
         /// <summary>
@@ -8278,7 +7529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 749).")]
-
         LeftWingStations_749 = 749,
 
         /// <summary>
@@ -8289,7 +7539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 750).")]
-
         LeftWingStations_750 = 750,
 
         /// <summary>
@@ -8300,7 +7549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 751).")]
-
         LeftWingStations_751 = 751,
 
         /// <summary>
@@ -8311,7 +7559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 752).")]
-
         LeftWingStations_752 = 752,
 
         /// <summary>
@@ -8322,7 +7569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 753).")]
-
         LeftWingStations_753 = 753,
 
         /// <summary>
@@ -8333,7 +7579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 754).")]
-
         LeftWingStations_754 = 754,
 
         /// <summary>
@@ -8344,7 +7589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 755).")]
-
         LeftWingStations_755 = 755,
 
         /// <summary>
@@ -8355,7 +7599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 756).")]
-
         LeftWingStations_756 = 756,
 
         /// <summary>
@@ -8366,7 +7609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 757).")]
-
         LeftWingStations_757 = 757,
 
         /// <summary>
@@ -8377,7 +7619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 758).")]
-
         LeftWingStations_758 = 758,
 
         /// <summary>
@@ -8388,7 +7629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 759).")]
-
         LeftWingStations_759 = 759,
 
         /// <summary>
@@ -8399,7 +7639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 760).")]
-
         LeftWingStations_760 = 760,
 
         /// <summary>
@@ -8410,7 +7649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 761).")]
-
         LeftWingStations_761 = 761,
 
         /// <summary>
@@ -8421,7 +7659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 762).")]
-
         LeftWingStations_762 = 762,
 
         /// <summary>
@@ -8432,7 +7669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 763).")]
-
         LeftWingStations_763 = 763,
 
         /// <summary>
@@ -8443,7 +7679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 764).")]
-
         LeftWingStations_764 = 764,
 
         /// <summary>
@@ -8454,7 +7689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 765).")]
-
         LeftWingStations_765 = 765,
 
         /// <summary>
@@ -8465,7 +7699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 766).")]
-
         LeftWingStations_766 = 766,
 
         /// <summary>
@@ -8476,7 +7709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Left-wing Stations (with id 767).")]
-
         LeftWingStations_767 = 767,
 
         /// <summary>
@@ -8487,7 +7719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 768).")]
-
         RightWingStations_768 = 768,
 
         /// <summary>
@@ -8498,7 +7729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 769).")]
-
         RightWingStations_769 = 769,
 
         /// <summary>
@@ -8509,7 +7739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 770).")]
-
         RightWingStations_770 = 770,
 
         /// <summary>
@@ -8520,7 +7749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 771).")]
-
         RightWingStations_771 = 771,
 
         /// <summary>
@@ -8531,7 +7759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 772).")]
-
         RightWingStations_772 = 772,
 
         /// <summary>
@@ -8542,7 +7769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 773).")]
-
         RightWingStations_773 = 773,
 
         /// <summary>
@@ -8553,7 +7779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 774).")]
-
         RightWingStations_774 = 774,
 
         /// <summary>
@@ -8564,7 +7789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 775).")]
-
         RightWingStations_775 = 775,
 
         /// <summary>
@@ -8575,7 +7799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 776).")]
-
         RightWingStations_776 = 776,
 
         /// <summary>
@@ -8586,7 +7809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 777).")]
-
         RightWingStations_777 = 777,
 
         /// <summary>
@@ -8597,7 +7819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 778).")]
-
         RightWingStations_778 = 778,
 
         /// <summary>
@@ -8608,7 +7829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 779).")]
-
         RightWingStations_779 = 779,
 
         /// <summary>
@@ -8619,7 +7839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 780).")]
-
         RightWingStations_780 = 780,
 
         /// <summary>
@@ -8630,7 +7849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 781).")]
-
         RightWingStations_781 = 781,
 
         /// <summary>
@@ -8641,7 +7859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 782).")]
-
         RightWingStations_782 = 782,
 
         /// <summary>
@@ -8652,7 +7869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 783).")]
-
         RightWingStations_783 = 783,
 
         /// <summary>
@@ -8663,7 +7879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 784).")]
-
         RightWingStations_784 = 784,
 
         /// <summary>
@@ -8674,7 +7889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 785).")]
-
         RightWingStations_785 = 785,
 
         /// <summary>
@@ -8685,7 +7899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 786).")]
-
         RightWingStations_786 = 786,
 
         /// <summary>
@@ -8696,7 +7909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 787).")]
-
         RightWingStations_787 = 787,
 
         /// <summary>
@@ -8707,7 +7919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 788).")]
-
         RightWingStations_788 = 788,
 
         /// <summary>
@@ -8718,7 +7929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 789).")]
-
         RightWingStations_789 = 789,
 
         /// <summary>
@@ -8729,7 +7939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 790).")]
-
         RightWingStations_790 = 790,
 
         /// <summary>
@@ -8740,7 +7949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 791).")]
-
         RightWingStations_791 = 791,
 
         /// <summary>
@@ -8751,7 +7959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 792).")]
-
         RightWingStations_792 = 792,
 
         /// <summary>
@@ -8762,7 +7969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 793).")]
-
         RightWingStations_793 = 793,
 
         /// <summary>
@@ -8773,7 +7979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 794).")]
-
         RightWingStations_794 = 794,
 
         /// <summary>
@@ -8784,7 +7989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 795).")]
-
         RightWingStations_795 = 795,
 
         /// <summary>
@@ -8795,7 +7999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 796).")]
-
         RightWingStations_796 = 796,
 
         /// <summary>
@@ -8806,7 +8009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 797).")]
-
         RightWingStations_797 = 797,
 
         /// <summary>
@@ -8817,7 +8019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 798).")]
-
         RightWingStations_798 = 798,
 
         /// <summary>
@@ -8828,7 +8029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 799).")]
-
         RightWingStations_799 = 799,
 
         /// <summary>
@@ -8839,7 +8039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 800).")]
-
         RightWingStations_800 = 800,
 
         /// <summary>
@@ -8850,7 +8049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 801).")]
-
         RightWingStations_801 = 801,
 
         /// <summary>
@@ -8861,7 +8059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 802).")]
-
         RightWingStations_802 = 802,
 
         /// <summary>
@@ -8872,7 +8069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 803).")]
-
         RightWingStations_803 = 803,
 
         /// <summary>
@@ -8883,7 +8079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 804).")]
-
         RightWingStations_804 = 804,
 
         /// <summary>
@@ -8894,7 +8089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 805).")]
-
         RightWingStations_805 = 805,
 
         /// <summary>
@@ -8905,7 +8099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 806).")]
-
         RightWingStations_806 = 806,
 
         /// <summary>
@@ -8916,7 +8109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 807).")]
-
         RightWingStations_807 = 807,
 
         /// <summary>
@@ -8927,7 +8119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 808).")]
-
         RightWingStations_808 = 808,
 
         /// <summary>
@@ -8938,7 +8129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 809).")]
-
         RightWingStations_809 = 809,
 
         /// <summary>
@@ -8949,7 +8139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 810).")]
-
         RightWingStations_810 = 810,
 
         /// <summary>
@@ -8960,7 +8149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 811).")]
-
         RightWingStations_811 = 811,
 
         /// <summary>
@@ -8971,7 +8159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 812).")]
-
         RightWingStations_812 = 812,
 
         /// <summary>
@@ -8982,7 +8169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 813).")]
-
         RightWingStations_813 = 813,
 
         /// <summary>
@@ -8993,7 +8179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 814).")]
-
         RightWingStations_814 = 814,
 
         /// <summary>
@@ -9004,7 +8189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 815).")]
-
         RightWingStations_815 = 815,
 
         /// <summary>
@@ -9015,7 +8199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 816).")]
-
         RightWingStations_816 = 816,
 
         /// <summary>
@@ -9026,7 +8209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 817).")]
-
         RightWingStations_817 = 817,
 
         /// <summary>
@@ -9037,7 +8219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 818).")]
-
         RightWingStations_818 = 818,
 
         /// <summary>
@@ -9048,7 +8229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 819).")]
-
         RightWingStations_819 = 819,
 
         /// <summary>
@@ -9059,7 +8239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 820).")]
-
         RightWingStations_820 = 820,
 
         /// <summary>
@@ -9070,7 +8249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 821).")]
-
         RightWingStations_821 = 821,
 
         /// <summary>
@@ -9081,7 +8259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 822).")]
-
         RightWingStations_822 = 822,
 
         /// <summary>
@@ -9092,7 +8269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 823).")]
-
         RightWingStations_823 = 823,
 
         /// <summary>
@@ -9103,7 +8279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 824).")]
-
         RightWingStations_824 = 824,
 
         /// <summary>
@@ -9114,7 +8289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 825).")]
-
         RightWingStations_825 = 825,
 
         /// <summary>
@@ -9125,7 +8299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 826).")]
-
         RightWingStations_826 = 826,
 
         /// <summary>
@@ -9136,7 +8309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 827).")]
-
         RightWingStations_827 = 827,
 
         /// <summary>
@@ -9147,7 +8319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 828).")]
-
         RightWingStations_828 = 828,
 
         /// <summary>
@@ -9158,7 +8329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 829).")]
-
         RightWingStations_829 = 829,
 
         /// <summary>
@@ -9169,7 +8339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 830).")]
-
         RightWingStations_830 = 830,
 
         /// <summary>
@@ -9180,7 +8349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 831).")]
-
         RightWingStations_831 = 831,
 
         /// <summary>
@@ -9191,7 +8359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 832).")]
-
         RightWingStations_832 = 832,
 
         /// <summary>
@@ -9202,7 +8369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 833).")]
-
         RightWingStations_833 = 833,
 
         /// <summary>
@@ -9213,7 +8379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 834).")]
-
         RightWingStations_834 = 834,
 
         /// <summary>
@@ -9224,7 +8389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 835).")]
-
         RightWingStations_835 = 835,
 
         /// <summary>
@@ -9235,7 +8399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 836).")]
-
         RightWingStations_836 = 836,
 
         /// <summary>
@@ -9246,7 +8409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 837).")]
-
         RightWingStations_837 = 837,
 
         /// <summary>
@@ -9257,7 +8419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 838).")]
-
         RightWingStations_838 = 838,
 
         /// <summary>
@@ -9268,7 +8429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 839).")]
-
         RightWingStations_839 = 839,
 
         /// <summary>
@@ -9279,7 +8439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 840).")]
-
         RightWingStations_840 = 840,
 
         /// <summary>
@@ -9290,7 +8449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 841).")]
-
         RightWingStations_841 = 841,
 
         /// <summary>
@@ -9301,7 +8459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 842).")]
-
         RightWingStations_842 = 842,
 
         /// <summary>
@@ -9312,7 +8469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 843).")]
-
         RightWingStations_843 = 843,
 
         /// <summary>
@@ -9323,7 +8479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 844).")]
-
         RightWingStations_844 = 844,
 
         /// <summary>
@@ -9334,7 +8489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 845).")]
-
         RightWingStations_845 = 845,
 
         /// <summary>
@@ -9345,7 +8499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 846).")]
-
         RightWingStations_846 = 846,
 
         /// <summary>
@@ -9356,7 +8509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 847).")]
-
         RightWingStations_847 = 847,
 
         /// <summary>
@@ -9367,7 +8519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 848).")]
-
         RightWingStations_848 = 848,
 
         /// <summary>
@@ -9378,7 +8529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 849).")]
-
         RightWingStations_849 = 849,
 
         /// <summary>
@@ -9389,7 +8539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 850).")]
-
         RightWingStations_850 = 850,
 
         /// <summary>
@@ -9400,7 +8549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 851).")]
-
         RightWingStations_851 = 851,
 
         /// <summary>
@@ -9411,7 +8559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 852).")]
-
         RightWingStations_852 = 852,
 
         /// <summary>
@@ -9422,7 +8569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 853).")]
-
         RightWingStations_853 = 853,
 
         /// <summary>
@@ -9433,7 +8579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 854).")]
-
         RightWingStations_854 = 854,
 
         /// <summary>
@@ -9444,7 +8589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 855).")]
-
         RightWingStations_855 = 855,
 
         /// <summary>
@@ -9455,7 +8599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 856).")]
-
         RightWingStations_856 = 856,
 
         /// <summary>
@@ -9466,7 +8609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 857).")]
-
         RightWingStations_857 = 857,
 
         /// <summary>
@@ -9477,7 +8619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 858).")]
-
         RightWingStations_858 = 858,
 
         /// <summary>
@@ -9488,7 +8629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 859).")]
-
         RightWingStations_859 = 859,
 
         /// <summary>
@@ -9499,7 +8639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 860).")]
-
         RightWingStations_860 = 860,
 
         /// <summary>
@@ -9510,7 +8649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 861).")]
-
         RightWingStations_861 = 861,
 
         /// <summary>
@@ -9521,7 +8659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 862).")]
-
         RightWingStations_862 = 862,
 
         /// <summary>
@@ -9532,7 +8669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 863).")]
-
         RightWingStations_863 = 863,
 
         /// <summary>
@@ -9543,7 +8679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 864).")]
-
         RightWingStations_864 = 864,
 
         /// <summary>
@@ -9554,7 +8689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 865).")]
-
         RightWingStations_865 = 865,
 
         /// <summary>
@@ -9565,7 +8699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 866).")]
-
         RightWingStations_866 = 866,
 
         /// <summary>
@@ -9576,7 +8709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 867).")]
-
         RightWingStations_867 = 867,
 
         /// <summary>
@@ -9587,7 +8719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 868).")]
-
         RightWingStations_868 = 868,
 
         /// <summary>
@@ -9598,7 +8729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 869).")]
-
         RightWingStations_869 = 869,
 
         /// <summary>
@@ -9609,7 +8739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 870).")]
-
         RightWingStations_870 = 870,
 
         /// <summary>
@@ -9620,7 +8749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 871).")]
-
         RightWingStations_871 = 871,
 
         /// <summary>
@@ -9631,7 +8759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 872).")]
-
         RightWingStations_872 = 872,
 
         /// <summary>
@@ -9642,7 +8769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 873).")]
-
         RightWingStations_873 = 873,
 
         /// <summary>
@@ -9653,7 +8779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 874).")]
-
         RightWingStations_874 = 874,
 
         /// <summary>
@@ -9664,7 +8789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 875).")]
-
         RightWingStations_875 = 875,
 
         /// <summary>
@@ -9675,7 +8799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 876).")]
-
         RightWingStations_876 = 876,
 
         /// <summary>
@@ -9686,7 +8809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 877).")]
-
         RightWingStations_877 = 877,
 
         /// <summary>
@@ -9697,7 +8819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 878).")]
-
         RightWingStations_878 = 878,
 
         /// <summary>
@@ -9708,7 +8829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 879).")]
-
         RightWingStations_879 = 879,
 
         /// <summary>
@@ -9719,7 +8839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 880).")]
-
         RightWingStations_880 = 880,
 
         /// <summary>
@@ -9730,7 +8849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 881).")]
-
         RightWingStations_881 = 881,
 
         /// <summary>
@@ -9741,7 +8859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 882).")]
-
         RightWingStations_882 = 882,
 
         /// <summary>
@@ -9752,7 +8869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 883).")]
-
         RightWingStations_883 = 883,
 
         /// <summary>
@@ -9763,7 +8879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 884).")]
-
         RightWingStations_884 = 884,
 
         /// <summary>
@@ -9774,7 +8889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 885).")]
-
         RightWingStations_885 = 885,
 
         /// <summary>
@@ -9785,7 +8899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 886).")]
-
         RightWingStations_886 = 886,
 
         /// <summary>
@@ -9796,7 +8909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 887).")]
-
         RightWingStations_887 = 887,
 
         /// <summary>
@@ -9807,7 +8919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 888).")]
-
         RightWingStations_888 = 888,
 
         /// <summary>
@@ -9818,7 +8929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 889).")]
-
         RightWingStations_889 = 889,
 
         /// <summary>
@@ -9829,7 +8939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 890).")]
-
         RightWingStations_890 = 890,
 
         /// <summary>
@@ -9840,7 +8949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 891).")]
-
         RightWingStations_891 = 891,
 
         /// <summary>
@@ -9851,7 +8959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 892).")]
-
         RightWingStations_892 = 892,
 
         /// <summary>
@@ -9862,7 +8969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 893).")]
-
         RightWingStations_893 = 893,
 
         /// <summary>
@@ -9873,7 +8979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 894).")]
-
         RightWingStations_894 = 894,
 
         /// <summary>
@@ -9884,117 +8989,106 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Right-wing Stations (with id 895).")]
-
         RightWingStations_895 = 895,
 
         /// <summary>
-        /// M16A42 rifle.
+        /// M16A42 rifle. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M16A42 rifle.")]
-
+        [Description("M16A42 rifle. .")]
         M16A42Rifle = 896,
 
         /// <summary>
-        /// M249 SAW.
+        /// M249 SAW. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M249 SAW.")]
-
+        [Description("M249 SAW. .")]
         M249SAW = 897,
 
         /// <summary>
-        /// M60 Machine gun.
+        /// M60 Machine gun. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M60 Machine gun.")]
-
+        [Description("M60 Machine gun. .")]
         M60MachineGun = 898,
 
         /// <summary>
-        /// M203 Grenade Launcher.
+        /// M203 Grenade Launcher. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M203 Grenade Launcher.")]
-
+        [Description("M203 Grenade Launcher. .")]
         M203GrenadeLauncher = 899,
 
         /// <summary>
-        /// M136 AT4.
+        /// M136 AT4. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M136 AT4.")]
-
+        [Description("M136 AT4. .")]
         M136AT4 = 900,
 
         /// <summary>
-        /// M47 Dragon.
+        /// M47 Dragon. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M47 Dragon.")]
-
+        [Description("M47 Dragon. .")]
         M47Dragon = 901,
 
         /// <summary>
-        /// AAWS-M Javelin.
+        /// AAWS-M Javelin. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("AAWS-M Javelin.")]
-
+        [Description("AAWS-M Javelin. .")]
         AAWSMJavelin = 902,
 
         /// <summary>
-        /// M18A1 Claymore Mine.
+        /// M18A1 Claymore Mine. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M18A1 Claymore Mine.")]
-
+        [Description("M18A1 Claymore Mine. .")]
         M18A1ClaymoreMine = 903,
 
         /// <summary>
-        /// MK19 Grenade Launcher.
+        /// MK19 Grenade Launcher. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("MK19 Grenade Launcher.")]
-
+        [Description("MK19 Grenade Launcher. .")]
         MK19GrenadeLauncher = 904,
 
         /// <summary>
-        /// M2 Machine Gun.
+        /// M2 Machine Gun. .
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
-        [Description("M2 Machine Gun.")]
-
+        [Description("M2 Machine Gun. .")]
         M2MachineGun = 905,
 
         /// <summary>
@@ -10005,7 +9099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 906).")]
-
         OtherAttachedParts_906 = 906,
 
         /// <summary>
@@ -10016,7 +9109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 907).")]
-
         OtherAttachedParts_907 = 907,
 
         /// <summary>
@@ -10027,7 +9119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 908).")]
-
         OtherAttachedParts_908 = 908,
 
         /// <summary>
@@ -10038,7 +9129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 909).")]
-
         OtherAttachedParts_909 = 909,
 
         /// <summary>
@@ -10049,7 +9139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 910).")]
-
         OtherAttachedParts_910 = 910,
 
         /// <summary>
@@ -10060,7 +9149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 911).")]
-
         OtherAttachedParts_911 = 911,
 
         /// <summary>
@@ -10071,7 +9159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 912).")]
-
         OtherAttachedParts_912 = 912,
 
         /// <summary>
@@ -10082,7 +9169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 913).")]
-
         OtherAttachedParts_913 = 913,
 
         /// <summary>
@@ -10093,7 +9179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 914).")]
-
         OtherAttachedParts_914 = 914,
 
         /// <summary>
@@ -10104,7 +9189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 915).")]
-
         OtherAttachedParts_915 = 915,
 
         /// <summary>
@@ -10115,7 +9199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 916).")]
-
         OtherAttachedParts_916 = 916,
 
         /// <summary>
@@ -10126,7 +9209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 917).")]
-
         OtherAttachedParts_917 = 917,
 
         /// <summary>
@@ -10137,7 +9219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 918).")]
-
         OtherAttachedParts_918 = 918,
 
         /// <summary>
@@ -10148,7 +9229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 919).")]
-
         OtherAttachedParts_919 = 919,
 
         /// <summary>
@@ -10159,7 +9239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 920).")]
-
         OtherAttachedParts_920 = 920,
 
         /// <summary>
@@ -10170,7 +9249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 921).")]
-
         OtherAttachedParts_921 = 921,
 
         /// <summary>
@@ -10181,7 +9259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 922).")]
-
         OtherAttachedParts_922 = 922,
 
         /// <summary>
@@ -10192,7 +9269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 923).")]
-
         OtherAttachedParts_923 = 923,
 
         /// <summary>
@@ -10203,7 +9279,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 924).")]
-
         OtherAttachedParts_924 = 924,
 
         /// <summary>
@@ -10214,7 +9289,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 925).")]
-
         OtherAttachedParts_925 = 925,
 
         /// <summary>
@@ -10225,7 +9299,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 926).")]
-
         OtherAttachedParts_926 = 926,
 
         /// <summary>
@@ -10236,7 +9309,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 927).")]
-
         OtherAttachedParts_927 = 927,
 
         /// <summary>
@@ -10247,7 +9319,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 928).")]
-
         OtherAttachedParts_928 = 928,
 
         /// <summary>
@@ -10258,7 +9329,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 929).")]
-
         OtherAttachedParts_929 = 929,
 
         /// <summary>
@@ -10269,7 +9339,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 930).")]
-
         OtherAttachedParts_930 = 930,
 
         /// <summary>
@@ -10280,7 +9349,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 931).")]
-
         OtherAttachedParts_931 = 931,
 
         /// <summary>
@@ -10291,7 +9359,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 932).")]
-
         OtherAttachedParts_932 = 932,
 
         /// <summary>
@@ -10302,7 +9369,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 933).")]
-
         OtherAttachedParts_933 = 933,
 
         /// <summary>
@@ -10313,7 +9379,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 934).")]
-
         OtherAttachedParts_934 = 934,
 
         /// <summary>
@@ -10324,7 +9389,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 935).")]
-
         OtherAttachedParts_935 = 935,
 
         /// <summary>
@@ -10335,7 +9399,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 936).")]
-
         OtherAttachedParts_936 = 936,
 
         /// <summary>
@@ -10346,7 +9409,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 937).")]
-
         OtherAttachedParts_937 = 937,
 
         /// <summary>
@@ -10357,7 +9419,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 938).")]
-
         OtherAttachedParts_938 = 938,
 
         /// <summary>
@@ -10368,7 +9429,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 939).")]
-
         OtherAttachedParts_939 = 939,
 
         /// <summary>
@@ -10379,7 +9439,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 940).")]
-
         OtherAttachedParts_940 = 940,
 
         /// <summary>
@@ -10390,7 +9449,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 941).")]
-
         OtherAttachedParts_941 = 941,
 
         /// <summary>
@@ -10401,7 +9459,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 942).")]
-
         OtherAttachedParts_942 = 942,
 
         /// <summary>
@@ -10412,7 +9469,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 943).")]
-
         OtherAttachedParts_943 = 943,
 
         /// <summary>
@@ -10423,7 +9479,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 944).")]
-
         OtherAttachedParts_944 = 944,
 
         /// <summary>
@@ -10434,7 +9489,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 945).")]
-
         OtherAttachedParts_945 = 945,
 
         /// <summary>
@@ -10445,7 +9499,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 946).")]
-
         OtherAttachedParts_946 = 946,
 
         /// <summary>
@@ -10456,7 +9509,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 947).")]
-
         OtherAttachedParts_947 = 947,
 
         /// <summary>
@@ -10467,7 +9519,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 948).")]
-
         OtherAttachedParts_948 = 948,
 
         /// <summary>
@@ -10478,7 +9529,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 949).")]
-
         OtherAttachedParts_949 = 949,
 
         /// <summary>
@@ -10489,7 +9539,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 950).")]
-
         OtherAttachedParts_950 = 950,
 
         /// <summary>
@@ -10500,7 +9549,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 951).")]
-
         OtherAttachedParts_951 = 951,
 
         /// <summary>
@@ -10511,7 +9559,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 952).")]
-
         OtherAttachedParts_952 = 952,
 
         /// <summary>
@@ -10522,7 +9569,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 953).")]
-
         OtherAttachedParts_953 = 953,
 
         /// <summary>
@@ -10533,7 +9579,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 954).")]
-
         OtherAttachedParts_954 = 954,
 
         /// <summary>
@@ -10544,7 +9589,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 955).")]
-
         OtherAttachedParts_955 = 955,
 
         /// <summary>
@@ -10555,7 +9599,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 956).")]
-
         OtherAttachedParts_956 = 956,
 
         /// <summary>
@@ -10566,7 +9609,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 957).")]
-
         OtherAttachedParts_957 = 957,
 
         /// <summary>
@@ -10577,7 +9619,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 958).")]
-
         OtherAttachedParts_958 = 958,
 
         /// <summary>
@@ -10588,7 +9629,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 959).")]
-
         OtherAttachedParts_959 = 959,
 
         /// <summary>
@@ -10599,7 +9639,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 960).")]
-
         OtherAttachedParts_960 = 960,
 
         /// <summary>
@@ -10610,7 +9649,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 961).")]
-
         OtherAttachedParts_961 = 961,
 
         /// <summary>
@@ -10621,7 +9659,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 962).")]
-
         OtherAttachedParts_962 = 962,
 
         /// <summary>
@@ -10632,7 +9669,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 963).")]
-
         OtherAttachedParts_963 = 963,
 
         /// <summary>
@@ -10643,7 +9679,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 964).")]
-
         OtherAttachedParts_964 = 964,
 
         /// <summary>
@@ -10654,7 +9689,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 965).")]
-
         OtherAttachedParts_965 = 965,
 
         /// <summary>
@@ -10665,7 +9699,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 966).")]
-
         OtherAttachedParts_966 = 966,
 
         /// <summary>
@@ -10676,7 +9709,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 967).")]
-
         OtherAttachedParts_967 = 967,
 
         /// <summary>
@@ -10687,7 +9719,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 968).")]
-
         OtherAttachedParts_968 = 968,
 
         /// <summary>
@@ -10698,7 +9729,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 969).")]
-
         OtherAttachedParts_969 = 969,
 
         /// <summary>
@@ -10709,7 +9739,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 970).")]
-
         OtherAttachedParts_970 = 970,
 
         /// <summary>
@@ -10720,7 +9749,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 971).")]
-
         OtherAttachedParts_971 = 971,
 
         /// <summary>
@@ -10731,7 +9759,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 972).")]
-
         OtherAttachedParts_972 = 972,
 
         /// <summary>
@@ -10742,7 +9769,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 973).")]
-
         OtherAttachedParts_973 = 973,
 
         /// <summary>
@@ -10753,7 +9779,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 974).")]
-
         OtherAttachedParts_974 = 974,
 
         /// <summary>
@@ -10764,7 +9789,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 975).")]
-
         OtherAttachedParts_975 = 975,
 
         /// <summary>
@@ -10775,7 +9799,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 976).")]
-
         OtherAttachedParts_976 = 976,
 
         /// <summary>
@@ -10786,7 +9809,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 977).")]
-
         OtherAttachedParts_977 = 977,
 
         /// <summary>
@@ -10797,7 +9819,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 978).")]
-
         OtherAttachedParts_978 = 978,
 
         /// <summary>
@@ -10808,7 +9829,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 979).")]
-
         OtherAttachedParts_979 = 979,
 
         /// <summary>
@@ -10819,7 +9839,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 980).")]
-
         OtherAttachedParts_980 = 980,
 
         /// <summary>
@@ -10830,7 +9849,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 981).")]
-
         OtherAttachedParts_981 = 981,
 
         /// <summary>
@@ -10841,7 +9859,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 982).")]
-
         OtherAttachedParts_982 = 982,
 
         /// <summary>
@@ -10852,7 +9869,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 983).")]
-
         OtherAttachedParts_983 = 983,
 
         /// <summary>
@@ -10863,7 +9879,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 984).")]
-
         OtherAttachedParts_984 = 984,
 
         /// <summary>
@@ -10874,7 +9889,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 985).")]
-
         OtherAttachedParts_985 = 985,
 
         /// <summary>
@@ -10885,7 +9899,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 986).")]
-
         OtherAttachedParts_986 = 986,
 
         /// <summary>
@@ -10896,7 +9909,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 987).")]
-
         OtherAttachedParts_987 = 987,
 
         /// <summary>
@@ -10907,7 +9919,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 988).")]
-
         OtherAttachedParts_988 = 988,
 
         /// <summary>
@@ -10918,7 +9929,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 989).")]
-
         OtherAttachedParts_989 = 989,
 
         /// <summary>
@@ -10929,7 +9939,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 990).")]
-
         OtherAttachedParts_990 = 990,
 
         /// <summary>
@@ -10940,7 +9949,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 991).")]
-
         OtherAttachedParts_991 = 991,
 
         /// <summary>
@@ -10951,7 +9959,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 992).")]
-
         OtherAttachedParts_992 = 992,
 
         /// <summary>
@@ -10962,7 +9969,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 993).")]
-
         OtherAttachedParts_993 = 993,
 
         /// <summary>
@@ -10973,7 +9979,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 994).")]
-
         OtherAttachedParts_994 = 994,
 
         /// <summary>
@@ -10984,7 +9989,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 995).")]
-
         OtherAttachedParts_995 = 995,
 
         /// <summary>
@@ -10995,7 +9999,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 996).")]
-
         OtherAttachedParts_996 = 996,
 
         /// <summary>
@@ -11006,7 +10009,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 997).")]
-
         OtherAttachedParts_997 = 997,
 
         /// <summary>
@@ -11017,7 +10019,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 998).")]
-
         OtherAttachedParts_998 = 998,
 
         /// <summary>
@@ -11028,7 +10029,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 999).")]
-
         OtherAttachedParts_999 = 999,
 
         /// <summary>
@@ -11039,7 +10039,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1000).")]
-
         OtherAttachedParts_1000 = 1000,
 
         /// <summary>
@@ -11050,7 +10049,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1001).")]
-
         OtherAttachedParts_1001 = 1001,
 
         /// <summary>
@@ -11061,7 +10059,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1002).")]
-
         OtherAttachedParts_1002 = 1002,
 
         /// <summary>
@@ -11072,7 +10069,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1003).")]
-
         OtherAttachedParts_1003 = 1003,
 
         /// <summary>
@@ -11083,7 +10079,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1004).")]
-
         OtherAttachedParts_1004 = 1004,
 
         /// <summary>
@@ -11094,7 +10089,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1005).")]
-
         OtherAttachedParts_1005 = 1005,
 
         /// <summary>
@@ -11105,7 +10099,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1006).")]
-
         OtherAttachedParts_1006 = 1006,
 
         /// <summary>
@@ -11116,7 +10109,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1007).")]
-
         OtherAttachedParts_1007 = 1007,
 
         /// <summary>
@@ -11127,7 +10119,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1008).")]
-
         OtherAttachedParts_1008 = 1008,
 
         /// <summary>
@@ -11138,7 +10129,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1009).")]
-
         OtherAttachedParts_1009 = 1009,
 
         /// <summary>
@@ -11149,7 +10139,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1010).")]
-
         OtherAttachedParts_1010 = 1010,
 
         /// <summary>
@@ -11160,7 +10149,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1011).")]
-
         OtherAttachedParts_1011 = 1011,
 
         /// <summary>
@@ -11171,7 +10159,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1012).")]
-
         OtherAttachedParts_1012 = 1012,
 
         /// <summary>
@@ -11182,7 +10169,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1013).")]
-
         OtherAttachedParts_1013 = 1013,
 
         /// <summary>
@@ -11193,7 +10179,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1014).")]
-
         OtherAttachedParts_1014 = 1014,
 
         /// <summary>
@@ -11204,7 +10189,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1015).")]
-
         OtherAttachedParts_1015 = 1015,
 
         /// <summary>
@@ -11215,7 +10199,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1016).")]
-
         OtherAttachedParts_1016 = 1016,
 
         /// <summary>
@@ -11226,7 +10209,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1017).")]
-
         OtherAttachedParts_1017 = 1017,
 
         /// <summary>
@@ -11237,7 +10219,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1018).")]
-
         OtherAttachedParts_1018 = 1018,
 
         /// <summary>
@@ -11248,7 +10229,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1019).")]
-
         OtherAttachedParts_1019 = 1019,
 
         /// <summary>
@@ -11259,7 +10239,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1020).")]
-
         OtherAttachedParts_1020 = 1020,
 
         /// <summary>
@@ -11270,7 +10249,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1021).")]
-
         OtherAttachedParts_1021 = 1021,
 
         /// <summary>
@@ -11281,7 +10259,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1022).")]
-
         OtherAttachedParts_1022 = 1022,
 
         /// <summary>
@@ -11292,7 +10269,6 @@ namespace OpenDis.Enumerations.EntityState
         [SuppressMessage("Microsoft.Naming", "CA1707:IdentifiersShouldNotContainUnderscores", Justification = "Due to SISO standardized naming.")]
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", Justification = "Due to SISO standardized naming.")]
         [Description("Other attached parts (with id 1023).")]
-
         OtherAttachedParts_1023 = 1023
     }
 }
