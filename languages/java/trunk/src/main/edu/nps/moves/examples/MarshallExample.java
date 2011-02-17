@@ -85,6 +85,13 @@ public class MarshallExample {
 			{
 				Pdu aPdu = unmarshalledPdus.get(idx);
 				System.out.println("   Pdu Type: " + aPdu.getClass().getName());
+				if(aPdu instanceof EntityStatePdu)
+				{
+					EntityStatePdu es = (EntityStatePdu)aPdu;
+					System.out.println("      EID:(" + es.getEntityID().getSite() + "," + 
+									           es.getEntityID().getApplication() + "," + 
+									           es.getEntityID().getEntity() + ")");
+				}
 			}
 			
 			
