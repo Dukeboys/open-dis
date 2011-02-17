@@ -16,11 +16,7 @@ import java.util.*;
 public class MarshallExample {
 
     /**
-     * Shows two ways to marshal and unmarshal XML. The first way to marshal
-     * involves calling a method in a class marked as an XmlRootElement in
-     * the generated code. The second (preferred) way involves simply calling
-     * the required marshal/unmarshal code external to the XmlRootElement
-     * class.
+     * Shows how to marshal out to XML and read from XML files.
      * @param args
      */
     public static void main(String args[]) {
@@ -39,7 +35,7 @@ public class MarshallExample {
         container.getPdus().add(detonationPdu);
         container.getPdus().add(bang);
         
-		// Create some PDUs, setting the location, velocity, and entity IDs
+		// Create some more PDUs, setting the location, velocity, and entity IDs
 		// to be random numbers.
         for(int idx = 0; idx < 20; idx++)
         {
@@ -63,13 +59,15 @@ public class MarshallExample {
             container.getPdus().add(pdu);
         }
 
-        // And marshall it to this file
-        
-        //container.marshallToXml("somePdus.xml");
-
-        // An alternative way to marshall
-        try {
+        // And marshal it out to an XML file. We have the PduContainer, which 
+		// holds all the PDUs. Marshal it out to the given XML file.
+        try 
+		{
+			// The context, which will contain the package of the classes we marshal
+			// out
             JAXBContext context = JAXBContext.newInstance("edu.nps.moves.dis"); 
+			
+			// Choose the file to send to, and make it pretty-print
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(container, new FileOutputStream("somePdus.xml"));
