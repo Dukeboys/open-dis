@@ -51,7 +51,6 @@ void IncomingMessage::SwitchOnType(unsigned int pdu_type, DataStream& ds)
    }
    else
    {
-      std::cerr << "." << std::endl;
       ds.clear();
    }   
 
