@@ -15,9 +15,9 @@
   self = [super init];
   if(self)
   {
+    padding1 = 0;
     [self setPduType:19];
     requestID = 0;
-    padding1 = 0;
     numberOfFixedDatumRecords = 0;
     numberOfVariableDatumRecords = 0;
     fixedDatums = [NSMutableArray arrayWithCapacity:1];

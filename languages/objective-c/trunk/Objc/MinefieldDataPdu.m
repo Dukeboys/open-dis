@@ -23,6 +23,7 @@
   self = [super init];
   if(self)
   {
+    pad2 = 0;
     [self setPduType:39];
     minefieldID = [[EntityID alloc] init];
     requestingEntityID = [[EntityID alloc] init];
@@ -32,7 +33,6 @@
     numberOfPdus = 0;
     numberOfMinesInThisPdu = 0;
     numberOfSensorTypes = 0;
-    pad2 = 0;
     dataFilter = 0;
     mineType = [[EntityType alloc] init];
     sensorTypes = [NSMutableArray arrayWithCapacity:1];

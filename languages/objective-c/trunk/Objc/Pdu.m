@@ -8,7 +8,7 @@
 @synthesize pduType;
 @synthesize protocolFamily;
 @synthesize timestamp;
-@synthesize length;
+@synthesize pduLength;
 @synthesize padding;
 
 -(id)init
@@ -16,13 +16,13 @@
   self = [super init];
   if(self)
   {
-    protocolVersion = 0;
+    protocolVersion = 6;
     exerciseID = 0;
+    padding = 0;
     pduType = 0;
     protocolFamily = 0;
     timestamp = 0;
-    length = 0;
-    padding = 0;
+    pduLength = 0;
   } // end if(self)
   return self;
 }
@@ -40,7 +40,7 @@
     [dataStream writeUnsignedByte:pduType];
     [dataStream writeUnsignedByte:protocolFamily];
     [dataStream writeUnsignedInt:timestamp];
-    [dataStream writeUnsignedShort:length];
+    [dataStream writeUnsignedShort:[self getMarshalledSize]];
     [dataStream writeShort:padding];
 }
 
@@ -51,7 +51,7 @@
     pduType = [dataStream readUnsignedByte];
     protocolFamily = [dataStream readUnsignedByte];
     timestamp = [dataStream readUnsignedInt];
-    length = [dataStream readUnsignedShort];
+    pduLength = [dataStream readUnsignedShort];
     padding = [dataStream readShort];
 }
 
@@ -65,7 +65,7 @@
    marshalSize = marshalSize + 1;  // pduType
    marshalSize = marshalSize + 1;  // protocolFamily
    marshalSize = marshalSize + 4;  // timestamp
-   marshalSize = marshalSize + 2;  // length
+   marshalSize = marshalSize + 2;  // pduLength
    marshalSize = marshalSize + 2;  // padding
     return marshalSize;
 }

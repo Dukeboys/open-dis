@@ -19,6 +19,7 @@
   self = [super init];
   if(self)
   {
+    pad4 = 0;
     beamDataLength = 0;
     beamIDNumber = 0;
     beamParameterIndex = 0;
@@ -26,7 +27,6 @@
     beamFunction = 0;
     numberOfTrackJamTargets = 0;
     highDensityTrackJam = 0;
-    pad4 = 0;
     jammingModeSequence = 0;
     trackJamTargets = [NSMutableArray arrayWithCapacity:1];
   } // end if(self)

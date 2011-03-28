@@ -26,8 +26,8 @@
   /** subcategory of entity */
   unsigned char subcategory; 
 
-  /** specific info based on subcategory field */
-  unsigned char specific; 
+  /** specific info based on subcategory field. Renamed from specific because that is a reserved word in SQL */
+  unsigned char spec; 
 
   unsigned char extra; 
 
@@ -38,7 +38,7 @@
 @property(readwrite, assign) unsigned short country; 
 @property(readwrite, assign) unsigned char category; 
 @property(readwrite, assign) unsigned char subcategory; 
-@property(readwrite, assign) unsigned char specific; 
+@property(readwrite, assign) unsigned char spec; 
 @property(readwrite, assign) unsigned char extra; 
 
 -(id)init; // Initializer

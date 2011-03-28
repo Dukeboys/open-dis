@@ -19,6 +19,7 @@
   self = [super init];
   if(self)
   {
+    pad = 0;
     [self setPduType:3];
     munitionID = [[EntityID alloc] init];
     eventID = [[EventID alloc] init];
@@ -28,7 +29,6 @@
     locationInEntityCoordinates = [[Vector3Float alloc] init];
     detonationResult = 0;
     numberOfArticulationParameters = 0;
-    pad = 0;
     articulationParameters = [NSMutableArray arrayWithCapacity:1];
   } // end if(self)
   return self;

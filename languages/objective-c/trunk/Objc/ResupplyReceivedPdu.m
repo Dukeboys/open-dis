@@ -15,12 +15,12 @@
   self = [super init];
   if(self)
   {
+    padding1 = 0;
+    padding2 = 0;
     [self setPduType:7];
     receivingEntityID = [[EntityID alloc] init];
     supplyingEntityID = [[EntityID alloc] init];
     numberOfSupplyTypes = 0;
-    padding1 = 0;
-    padding2 = 0;
     supplies = [NSMutableArray arrayWithCapacity:1];
   } // end if(self)
   return self;

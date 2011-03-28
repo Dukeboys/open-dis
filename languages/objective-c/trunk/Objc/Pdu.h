@@ -26,8 +26,8 @@
   /** Timestamp value */
   unsigned int timestamp; 
 
-  /** Length, in bytes, of the PDU */
-  unsigned short length; 
+  /** Length, in bytes, of the PDU. Changed name from length to avoid use of Hibernate QL reserved word */
+  unsigned short pduLength; 
 
   /** zero-filled array of padding */
   short padding; 
@@ -39,7 +39,7 @@
 @property(readwrite, assign) unsigned char pduType; 
 @property(readwrite, assign) unsigned char protocolFamily; 
 @property(readwrite, assign) unsigned int timestamp; 
-@property(readwrite, assign) unsigned short length; 
+@property(readwrite, assign) unsigned short pduLength; 
 @property(readwrite, assign) short padding; 
 
 -(id)init; // Initializer

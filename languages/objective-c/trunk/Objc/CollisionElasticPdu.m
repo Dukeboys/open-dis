@@ -24,12 +24,12 @@
   self = [super init];
   if(self)
   {
+    pad = 0;
     [self setPduType:66];
     [self setProtocolFamily:1];
     issuingEntityID = [[EntityID alloc] init];
     collidingEntityID = [[EntityID alloc] init];
     collisionEventID = [[EventID alloc] init];
-    pad = 0;
     contactVelocity = [[Vector3Float alloc] init];
     mass = 0;
     location = [[Vector3Float alloc] init];

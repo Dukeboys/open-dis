@@ -17,11 +17,11 @@
   self = [super init];
   if(self)
   {
-    beamDirection = [[Orientation alloc] init];
     azimuthBeamwidth = 0;
     referenceSystem = 0;
     padding1 = 0;
     padding2 = 0;
+    beamDirection = [[Orientation alloc] init];
     ez = 0;
     ex = 0;
     phase = 0;

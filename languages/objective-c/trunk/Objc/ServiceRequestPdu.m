@@ -15,12 +15,12 @@
   self = [super init];
   if(self)
   {
+    serviceRequestPadding = 0;
     [self setPduType:5];
     requestingEntityID = [[EntityID alloc] init];
     servicingEntityID = [[EntityID alloc] init];
     serviceTypeRequested = 0;
     numberOfSupplyTypes = 0;
-    serviceRequestPadding = 0;
     supplies = [NSMutableArray arrayWithCapacity:1];
   } // end if(self)
   return self;

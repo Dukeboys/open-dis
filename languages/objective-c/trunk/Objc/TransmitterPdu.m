@@ -28,6 +28,8 @@
   self = [super init];
   if(self)
   {
+    padding2 = 0;
+    padding3 = 0;
     [self setPduType:25];
     radioEntityType = [[RadioEntityType alloc] init];
     transmitState = 0;
@@ -44,8 +46,6 @@
     cryptoSystem = 0;
     cryptoKeyId = 0;
     modulationParameterCount = 0;
-    padding2 = 0;
-    padding3 = 0;
     modulationParametersList = [NSMutableArray arrayWithCapacity:1];
     antennaPatternList = [NSMutableArray arrayWithCapacity:1];
   } // end if(self)

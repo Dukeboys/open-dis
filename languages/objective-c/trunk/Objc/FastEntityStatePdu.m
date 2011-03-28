@@ -13,7 +13,7 @@
 @synthesize country;
 @synthesize category;
 @synthesize subcategory;
-@synthesize specific;
+@synthesize specif;
 @synthesize extra;
 @synthesize altEntityKind;
 @synthesize altDomain;
@@ -62,7 +62,7 @@
     country = 0;
     category = 0;
     subcategory = 0;
-    specific = 0;
+    specif = 0;
     extra = 0;
     altEntityKind = 0;
     altDomain = 0;
@@ -130,7 +130,7 @@
     [dataStream writeUnsignedShort:country];
     [dataStream writeUnsignedByte:category];
     [dataStream writeUnsignedByte:subcategory];
-    [dataStream writeUnsignedByte:specific];
+    [dataStream writeUnsignedByte:specif];
     [dataStream writeUnsignedByte:extra];
     [dataStream writeUnsignedByte:altEntityKind];
     [dataStream writeUnsignedByte:altDomain];
@@ -191,7 +191,7 @@
     country = [dataStream readUnsignedShort];
     category = [dataStream readUnsignedByte];
     subcategory = [dataStream readUnsignedByte];
-    specific = [dataStream readUnsignedByte];
+    specif = [dataStream readUnsignedByte];
     extra = [dataStream readUnsignedByte];
     altEntityKind = [dataStream readUnsignedByte];
     altDomain = [dataStream readUnsignedByte];
@@ -256,7 +256,7 @@
    marshalSize = marshalSize + 2;  // country
    marshalSize = marshalSize + 1;  // category
    marshalSize = marshalSize + 1;  // subcategory
-   marshalSize = marshalSize + 1;  // specific
+   marshalSize = marshalSize + 1;  // specif
    marshalSize = marshalSize + 1;  // extra
    marshalSize = marshalSize + 1;  // altEntityKind
    marshalSize = marshalSize + 1;  // altDomain

@@ -15,9 +15,9 @@
   self = [super init];
   if(self)
   {
+    emissionsPadding2 = 0;
     systemDataLength = 0;
     numberOfBeams = 0;
-    emissionsPadding2 = 0;
     emitterSystem = [[EmitterSystem alloc] init];
     location = [[Vector3Float alloc] init];
     beamDataRecords = [NSMutableArray arrayWithCapacity:1];

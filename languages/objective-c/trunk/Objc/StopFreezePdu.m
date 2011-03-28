@@ -14,11 +14,11 @@
   self = [super init];
   if(self)
   {
+    padding1 = 0;
     [self setPduType:14];
     realWorldTime = [[ClockTime alloc] init];
     reason = 0;
     frozenBehavior = 0;
-    padding1 = 0;
     requestID = 0;
   } // end if(self)
   return self;

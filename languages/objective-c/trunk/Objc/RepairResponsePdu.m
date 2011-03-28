@@ -14,12 +14,12 @@
   self = [super init];
   if(self)
   {
+    padding1 = 0;
+    padding2 = 0;
     [self setPduType:10];
     receivingEntityID = [[EntityID alloc] init];
     repairingEntityID = [[EntityID alloc] init];
     repairResult = 0;
-    padding1 = 0;
-    padding2 = 0;
   } // end if(self)
   return self;
 }

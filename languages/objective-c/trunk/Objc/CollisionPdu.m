@@ -17,13 +17,13 @@
   self = [super init];
   if(self)
   {
+    pad = 0;
     [self setPduType:4];
     [self setProtocolFamily:1];
     issuingEntityID = [[EntityID alloc] init];
     collidingEntityID = [[EntityID alloc] init];
     eventID = [[EventID alloc] init];
     collisionType = 0;
-    pad = 0;
     velocity = [[Vector3Float alloc] init];
     mass = 0;
     location = [[Vector3Float alloc] init];
