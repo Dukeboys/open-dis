@@ -14,7 +14,7 @@ import edu.nps.moves.disutil.DisTime;
  */
 public class EspduSender 
 {
-    public enum Mode{UNICAST, MULTICAST};
+    public enum NetworkMode{UNICAST, MULTICAST, BROADCAST};
 
     /** multicast group we send on */
     public static final String MULTICAST_GROUP="239.1.2.3";
@@ -22,47 +22,82 @@ public class EspduSender
     /** Port we send on */
     public static final int    PORT = 62040;
     
+/** Possible system properties:
+     * networkMode: unicast, broadcast, multicast
+     * destinationIp: where to send the packet. If in multicast mode, this can be mcast.
+     *                To determine bcast destination IP, use an online bcast address
+     *                caclulator, for example http://www.remotemonitoringsystems.ca/broadcast.php
+     *                If in mcast mode, a join() will be done on the mcast address.
+     * port: port used for both source and destination.
+     * @param args 
+     */
 public static void main(String args[])
 {
     EntityStatePdu espdu = new EntityStatePdu();
     MulticastSocket socket = null;
-    InetAddress     address = null;
-    Mode mode = Mode.MULTICAST;
-    
-    // Check for system properties passed into the VM via the -Dattr=value
-    // method
-    Properties systemProperties = System.getProperties();
-    String multicastGroup = systemProperties.getProperty("multicastGroup");
-    String unicastDestination = systemProperties.getProperty("unicastDestination");
-    String port = systemProperties.getProperty("port");
-    int portInt = PORT;
     DisTime disTime = DisTime.getInstance();
+
+    
+    // Default settings. These are used if no system properties are set. 
+    // If system properties are passed in, these are over ridden.
+    int port = PORT;
+    NetworkMode mode = NetworkMode.MULTICAST;
+    InetAddress destinationIp = null;
+    
+    try
+    {
+        destinationIp = InetAddress.getByName("239.1.2.3");
+    }
+    catch(Exception e)
+    {
+        System.out.println("Cannot create multicast address");
+        System.exit(0);
+    }
+    
+    // All system properties, passed in on the command line via -Dattribute=value
+    Properties systemProperties = System.getProperties();
+    
+    // IP address we send to
+    String destinationIpString = systemProperties.getProperty("destinationIp");
+    
+    // Port we send to, and local port we open the socket on
+    String portString = systemProperties.getProperty("port");
+    
+    // Network mode: unicast, multicast, broadcast
+    String networkModeString = systemProperties.getProperty("networkMode"); // unicast or multicast or broadcast
+        
 
     try
     {
-        if(port != null)
-            portInt = Integer.parseInt(port);
+      
+        if(portString != null)
+            port = Integer.parseInt(portString);
+        
+        socket = new MulticastSocket(port);
+        
+        if(destinationIpString != null)
+        {
+            destinationIp = InetAddress.getByName(destinationIpString);
+        }
 
-        if(unicastDestination != null)
-            mode = Mode.UNICAST;
-          else
-            mode = Mode.MULTICAST;
-
-         if(mode == mode.UNICAST)
-         {
-             address = InetAddress.getByName(unicastDestination);
-             socket = new MulticastSocket(portInt);
-         }
-
-         if(mode == mode.MULTICAST)
-         {
-            if(multicastGroup == null)
-                multicastGroup = MULTICAST_GROUP;
-            address = InetAddress.getByName(multicastGroup);
-            socket = new MulticastSocket(portInt);
-            socket.joinGroup(address);
-         }
-
+        if(networkModeString != null)
+        {
+            if(networkModeString.equalsIgnoreCase("unicast"))
+                mode = NetworkMode.UNICAST;
+            else if(networkModeString.equalsIgnoreCase("broadcast"))
+                mode = NetworkMode.BROADCAST;
+            else if(networkModeString.equalsIgnoreCase("multicast"))
+            {
+                mode = NetworkMode.MULTICAST;
+                if(!destinationIp.isMulticastAddress())
+                {
+                    throw new RuntimeException("Sending to multicast address, but destination address " + destinationIp.toString() + "is not multicast");
+                }
+                
+                socket.joinGroup(destinationIp);
+                
+            }
+        } // end networkModeString
     }
     catch(Exception e)
     {
@@ -85,6 +120,7 @@ public static void main(String args[])
         
         while(true)
         {
+            System.out.println("Sending 100 ESPDU packets to " + destinationIp.toString());
             for(int idx = 0; idx < 100; idx++)
             {
                 // The timestamp should be monotonically increasing. Many implementations
@@ -120,12 +156,12 @@ public static void main(String args[])
                 espdu.marshal(dos);
                 byte[] data = baos.toByteArray();
                
-                DatagramPacket packet = new DatagramPacket(data, data.length, address, PORT);
+                DatagramPacket packet = new DatagramPacket(data, data.length, destinationIp, PORT);
                 
                 socket.send(packet);
                 Thread.sleep(1000);
                 
-                System.out.print("Moving espdu EID=[" + eid.getSite() + "," + eid.getApplication() + "," + eid.getEntity() + "]");
+                System.out.print("Espdu #" + idx + " EID=[" + eid.getSite() + "," + eid.getApplication() + "," + eid.getEntity() + "]");
                 System.out.println(" Location=[" + location.getX() + "," + location.getY() + "," + location.getZ() + "]");
                                    
             }

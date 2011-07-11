@@ -313,14 +313,14 @@ is available.
    
     <target name="runSender" depends="jar" description="run DIS example program">
         <java classname="edu.nps.moves.examples.EspduSender">
-            <!-- Possible properties to pass into the program: unicast or multicast
-                 destination, port on sending socket If unicastDestination is specified
-                 at all, this overrides multicast and the packets are sent to unicast.
-                 This means multicast & unicast are either, but not both.
+            <!-- Possible properties to pass into the program: 
+                 networkMode: unicast or multicast or broadcast
+                 destinationIp: destination IP address. Could be mcast if in mcast mode, bcast if in bcast mode 
+                 port: Both source and destination port
             -->
-             <!--sysproperty key="multicastGroup" value="239.1.2.3"/-->
-             <!--sysproperty key="unicastDestination" value="172.20.81.17"/-->
-             <!--sysproperty key="port" value="62040"/-->
+             <sysproperty key="networkMode" value="multicast"/>   <!-- multicast, unicast, broadcast -->
+             <sysproperty key="destinationIp" value="239.1.2.3"/> <!-- could be multicast (if in mc mode) or bcast -->
+             <sysproperty key="port" value="62040"/>              <!-- Both source and destination port -->
             <classpath>
                 <fileset dir="${dist}">
                     <include name="**/*.jar"/>
@@ -398,7 +398,7 @@ is available.
                 </fileset>
                 <fileset refid="lib.jars"/>
             </classpath>
-             <sysproperty key="port" value="3000"/>            <!-- UDP port to listen on -->
+            <sysproperty key="port" value="3000"/>            <!-- UDP port to listen on -->
             <sysproperty key="networkMode" value="broadcast"/> <!-- multicast, unicast, broadcast -->
             <sysproperty key="mulitcastAddress" value="239.1.2.3"/> <!-- mcast address to use; ignored if unicast or broadcast mode -->
         </java>

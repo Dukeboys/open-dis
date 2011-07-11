@@ -287,8 +287,6 @@ public class DatabaseConfiguration
         NetworkMode networkMode = NetworkMode.MULTICAST;
         PduFactory pduFactory = new PduFactory();
 
-        System.out.println("in constructor");
-
         if(port == null)
             port = PORT;
         if(multicastAddress == null)
