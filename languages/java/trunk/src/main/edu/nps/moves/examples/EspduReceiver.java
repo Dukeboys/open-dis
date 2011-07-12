@@ -40,7 +40,15 @@ public class EspduReceiver {
 
                 Pdu pdu = pduFactory.createPdu(packet.getData());
 
-                System.out.println("got PDU of type: " + pdu.getClass().getName());
+                System.out.print("got PDU of type: " + pdu.getClass().getName());
+                if(pdu instanceof EntityStatePdu)
+                {
+                    EntityID eid = ((EntityStatePdu)pdu).getEntityID();
+                    Vector3Double position = ((EntityStatePdu)pdu).getEntityLocation();
+                    System.out.print(" EID:[" + eid.getSite() + ", " + eid.getApplication() + ", " + eid.getEntity() + "] ");
+                    System.out.print(" Location in DIS coordinates: [" + position.getX() + ", " + position.getY() + ", " + position.getZ() + "]");
+                }
+                System.out.println();
 
             } // end while
         } // End try
