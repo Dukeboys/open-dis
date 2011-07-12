@@ -201,7 +201,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
         radiansLon = (Math.PI * y) / 180.0;
         
         // Do the conversion
-        xyz = CoordinateConversions.getXYZfromLatLong(radiansLat, radiansLon, z);
+        xyz = CoordinateConversions.getXYZfromLatLonRadians(radiansLat, radiansLon, z);
         
         // Set the values
         this.setX(xyz[0]);
@@ -225,7 +225,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
         xyz[1] = y;
         xyz[2] = z;
         
-        result = CoordinateConversions.xyzToLatLong(xyz);
+        result = CoordinateConversions.xyzToLatLonRadians(xyz);
         
         // Convert radians in the result to degrees
         result[0] = (result[0] * 180.0)/Math.PI; // latitude

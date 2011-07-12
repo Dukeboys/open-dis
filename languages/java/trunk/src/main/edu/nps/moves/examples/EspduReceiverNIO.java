@@ -30,7 +30,7 @@ public class EspduReceiverNIO {
         try {
             // Specify the socket to receive data
             socket = new MulticastSocket(EspduSender.PORT);
-            address = InetAddress.getByName(EspduSender.MULTICAST_GROUP);
+            address = InetAddress.getByName(EspduSender.DEFAULT_MULTICAST_GROUP);
             socket.joinGroup(address);
 
             // Loop infinitely, receiving datagrams

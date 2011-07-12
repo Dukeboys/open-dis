@@ -8,18 +8,21 @@ package edu.nps.moves.disutil;
  */
 public class CoordinateConversions
 {
+    public static final double RADIANS_TO_DEGREES = 180.0/Math.PI;
+    public static final double DEGREES_TO_RADIANS = Math.PI/180.0;
+    
     private CoordinateConversions()
     {
     }
     /**
-     * Converts xyz world coordinates to latitude and longitude (IN RADIANS). This algorithm may not be 100% accurate
+     * Converts DIS xyz world coordinates to latitude and longitude (IN RADIANS). This algorithm may not be 100% accurate
      * near the poles. Uses WGS84 , though you can change the ellipsoid constants a and b if you want to use something
      * else. These formulas were obtained from Military Handbook 600008
      * @param xyz A double array with the x, y, and z coordinates, in that order.
      * @return An array with the lat, long, and elevation corresponding to those coordinates.
      * Elevation is in meters, lat and long are in radians
      */
-    public static double[] xyzToLatLong(double[] xyz)
+    public static double[] xyzToLatLonRadians(double[] xyz)
     {
         double x = xyz[0];
         double y = xyz[1];
@@ -76,8 +79,27 @@ public class CoordinateConversions
 
         return answer;
     }
-	
-	/**
+    
+    /**
+     * Converts DIS xyz world coordinates to latitude and longitude (IN DEGREES). This algorithm may not be 100% accurate
+     * near the poles. Uses WGS84 , though you can change the ellipsoid constants a and b if you want to use something
+     * else. These formulas were obtained from Military Handbook 600008
+     * @param xyz A double array with the x, y, and z coordinates, in that order.
+     * @return An array with the lat, lon, and elevation corresponding to those coordinates.
+     * Elevation is in meters, lat and long are in degrees
+     */
+    public static double[] xyzToLatLonDegrees(double[] xyz)
+    {
+        double degrees[] = CoordinateConversions.xyzToLatLonRadians(xyz);
+        
+        degrees[0] = degrees[0] * 180.0 / Math.PI;
+        degrees[1] = degrees[1] * 180.0 / Math.PI;
+        
+        return degrees;
+
+    }
+    
+    /**
      * Converts lat long and geodetic height (elevation) into DIS XYZ
      * This algorithm also uses the WGS84 ellipsoid, though you can change the values
      * of a and b for a different ellipsoid. Adapted from Military Handbook 600008
@@ -86,7 +108,7 @@ public class CoordinateConversions
      * @param height The elevation, in meters
      * @return a double array with the calculated X, Y, and Z values, in that order
      */
-    public static double[] getXYZfromLatLong(double latitude, double longitude, double height)
+    public static double[] getXYZfromLatLonRadians(double latitude, double longitude, double height)
     {
         double a = 6378137.0; //semi major axis
         double b = 6356752.3142; //semi minor axis
@@ -101,5 +123,23 @@ public class CoordinateConversions
         double Z = ((((b*b) / (a*a)) * rSubN) + height) * sinLat;
 		
         return new double[] {X, Y, Z};
+    }
+    
+    /**
+     * Converts lat long IN DEGREES and geodetic height (elevation) into DIS XYZ
+     * This algorithm also uses the WGS84 ellipsoid, though you can change the values
+     * of a and b for a different ellipsoid. Adapted from Military Handbook 600008
+     * @param latitude The latitude, IN DEGREES
+     * @param longitude The longitude, in DEGREES
+     * @param height The elevation, in meters
+     * @return a double array with the calculated X, Y, and Z values, in that order
+     */
+    public static double[] getXYZfromLatLonDegrees(double latitude, double longitude, double height)
+    {
+        double degrees[] = CoordinateConversions.getXYZfromLatLonRadians(latitude * CoordinateConversions.DEGREES_TO_RADIANS, 
+                                                                   longitude * CoordinateConversions.DEGREES_TO_RADIANS, 
+                                                                   height);
+        
+        return degrees;
     }
 }
