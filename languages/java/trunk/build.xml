@@ -311,6 +311,11 @@ is available.
     </target>
 
    
+       <!-- Note: by default VBS2 runs on port 3000 with broadcast, so if you want to send      -->
+       <!-- to VBS2, set the network mode to bcast, select the appropriate bcast address,       -->
+       <!-- and send to port 3000. You'll almost certainly have to adjust the location as well. -->
+       
+
     <target name="runSender" depends="jar" description="run DIS example program">
         <java classname="edu.nps.moves.examples.EspduSender">
             <!-- Possible properties to pass into the program: 
@@ -398,8 +403,8 @@ is available.
                 </fileset>
                 <fileset refid="lib.jars"/>
             </classpath>
-            <sysproperty key="port" value="3000"/>            <!-- UDP port to listen on -->
-            <sysproperty key="networkMode" value="broadcast"/> <!-- multicast, unicast, broadcast -->
+            <sysproperty key="port" value="62040"/>            <!-- UDP port to listen on -->
+            <sysproperty key="networkMode" value="multicast"/> <!-- multicast, unicast, broadcast -->
             <sysproperty key="mulitcastAddress" value="239.1.2.3"/> <!-- mcast address to use; ignored if unicast or broadcast mode -->
         </java>
     </target>
