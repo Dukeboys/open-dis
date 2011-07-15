@@ -21,11 +21,9 @@ import edu.nps.moves.dis.Vector3Float;
  */
 public abstract class CoordinateTransformer
 {
-    /** Changes the coordinate system of the input coordinates to the target. The
-     * values of the input variable are changed by this method.
+    /** Changes the coordinate system of the input coordinates to the target. 
      * 
      * @param source
-     * @return the destuctively modified object coordinates
      */
    public abstract void transformLocation(Vector3Double source);
 
