@@ -86,7 +86,7 @@ public class RangeCoordinates
      * 
      * @param originLat Origin of the flat local coordinate system, in degrees, latitude
      * @param originLon Origin of the flat local coordinate system, in degrees, longitude
-     * @param origin height above ellipsoid surface, in meters
+     * @param heightOffset height above ellipsoid surface, in meters
      */
     public RangeCoordinates(double originLat, double originLon, double heightOffset)
     {
