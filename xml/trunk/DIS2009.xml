@@ -7,15 +7,19 @@
 <!--
 <java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*, javax.xml.bind.annotation.*" 
 -->
-<java imports="java.util.*, java.io.*, javax.xml.bind.annotation.*"
-      package="edu.nps.moves.dis200x"/>
+<java imports="java.util.*, java.io.*, edu.nps.moves.disenum.*, edu.nps.moves.disutil.*"
+      package="edu.nps.moves.dis"
+      directory="java/main/edu/nps/moves/dis"
+      usesJaxb="true"
+      usesHibernate="true"/>
 
-<!--PES added for C# support-->
-<csharp using="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"/>
-<csharp namespace="DIS1998net"/>
+<csharp using="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"
+        namespace="DIS1998net"
+        directory="CSharp/DIS"/>
 
-      
-<cpp namespace="DIS"/>
+ <!-- tag for C++ code generator -->     
+<cpp namespace="DIS"
+     directory="cpp/DIS"/>
 
 <class name="AcousticEmitter" inheritsFrom="root" comment=" information about a specific UA emmtter. Section 6.2.2.">
     
@@ -130,7 +134,7 @@
          comment="Used when the antenna pattern type field has a value of 1. Specifies the direction, pattern, and polarization of radiation from an antenna. Section 6.2.9.2">
    
    <attribute name="beamDirection" comment="The rotation that transforms the reference coordinate sytem into the beam coordinate system. Either world coordinates or entity coordinates may be used as the reference coordinate system, as specified by the reference system field of the antenna pattern record.">
-    <classref name="Orientation"/>
+    <classref name="EulerAngles"/>
     </attribute>
     
     <attribute name="azimuthBeamwidth" commment="Full width of the beam to the -3dB power density points in the x-y plane of the beam coordinnate system.  Elevation beamwidth is represented by a 32 bit floating point number in units of radians.">
@@ -419,7 +423,11 @@
     
 </class>
 
-<!-- Section 6.2.15 is B.2.41 -->
+<!-- Section 6.2.15 is B.2.41 This is a placeholder THAT WILL BREAK SERIALIZATION. -->
+
+<class name="ChangeOptions" comment="This is wrong and breaks serialization. See section 6.2.15 aka B.2.41">
+    
+</class>
 
 <class name="BeamStatus" inheritsFrom="root" comment="Information related to the status of a beam. This is contained in the beam status field of the electromagnitec emission PDU. The first bit determines whether the beam is active (0) or deactivated (1).">
 
@@ -489,7 +497,7 @@
  </attribute>
  
  <attribute name="fireEventID" comment="For any component damage resulting this field shall be set to the fire event ID from that PDU.">
-      <classref name="EventID"/> 
+      <classref name="EventIdentifier"/> 
  </attribute>
  
  <attribute name="padding2" comment="padding">
@@ -1237,7 +1245,9 @@
     </attribute>
     
     <attribute name="systemSpecificData" comment="System-specific data">
-        <classRef name="ThreeByteChunk"/>
+        <list type="fixed" length="3">
+            <primitive type="unsigned byte"/>
+        </list>
     </attribute>
 
 </class>
@@ -1421,7 +1431,7 @@
      </attribute>
 
       <attribute name="length" comment="This field shall specify the length in octets of the layer, including the Layer Header record">
-         <primitive type="unsgined short"/>
+         <primitive type="unsigned short"/>
      </attribute>
 
 </class>
@@ -1449,7 +1459,7 @@
      </attribute>
 
      <attribute name="segmentOrientation" comment="orientation of the linear segment about the segment location and shall be represented by a Euler Angles record ">
-         <classRef name="Orientation"/>
+         <classRef name="EulerAngles"/>
      </attribute>
 
       <attribute name="segmentLength" comment="length of the linear segment, in meters, extending in the positive X direction">
@@ -1603,6 +1613,18 @@
  
 </class>
 
+<class name="NamedLocationIdentification" inheritsFrom="root"
+       comment="Information about the discrete positional relationship of the part entity with respect to the its host entity Section 6.2.62 ">
+ <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
+         <primitive type="unsigned short"/>
+ </attribute>
+ 
+  <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
+         <primitive type="unsigned short"/>
+ </attribute>
+
+ </class>
+
 <class name="ObjectIdentifier" inheritsFrom="root"
        comment="The unique designation of an environmental object. Section 6.2.63">
 
@@ -1611,7 +1633,7 @@
  </attribute>
 
   <attribute name="objectNumber" comment="">
-         <primitive name="unsigned short"/>
+         <primitive type="unsigned short"/>
  </attribute>
 
 </class>
@@ -1714,38 +1736,28 @@
 
 </class>
 
-<class name="PropulsionSystemData" inheritsFrom="root"
+<class name="RadioIdentifier" inheritsFrom="root"
        comment="The unique designation of an attached or unattached radio in an event or exercise Section 6.2.69">
 
  <attribute name="siteNumber" comment=" site">
-    <primitive tpe="unsigned short"/>
+    <primitive type="unsigned short"/>
   </attribute>
 
   <attribute name="applicationNumber" comment="application number">
-    <primitive tpe="unsigned short"/>
+    <primitive type="unsigned short"/>
   </attribute>
 
   <attribute name="referenceNumber" comment=" reference number">
-    <primitive tpe="unsigned short"/>
+    <primitive type="unsigned short"/>
   </attribute>
   
  <attribute name="radioNumber" comment=" Radio number">
-    <primitive tpe="unsigned short"/>
+    <primitive type="unsigned short"/>
   </attribute>
   
-<class>
+</class>
 
-<class name="NamedLocationIdentification" inheritsFrom="root"
-       comment="Information about the discrete positional relationship of the part entity with respect to the its host entity Section 6.2.62 ">
- <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
-         <primitive type="unsigned short"/>
- </attribute>
- 
-  <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
-         <primitive type="unsigned short"/>
- </attribute>
 
- </class>
 
 
 <class name="RadioType" inheritsFrom="root" comment="Identifies the type of radio. Section 6.2.70">
@@ -1826,7 +1838,7 @@
 
 <class name="RecordSpecification" inheritsFrom="root" comment="This record shall specify the number of record sets contained in the Record Specification record and the record details. Section 6.2.72.">
 
-  <attribute name="numerOfRecordSets" comment="The number of record sets">
+  <attribute name="numberOfRecordSets" comment="The number of record sets">
     <primitive type= "unsigned int"/>
   </attribute>
 
@@ -1914,7 +1926,7 @@
 <class name="SimulationIdentifier" inheritsFrom="root" comment="The unique designation of a simulation when using the 48-bit identifier format shall be specified by the Sim- ulation Identifier record. The reason that the 48-bit format is required in addition to the 32-bit simulation address format that actually identifies a specific simulation is because some 48-bit identifier fields in PDUs may contain either an Object Identifier, such as an Entity ID, or a Simulation Identifier. Section 6.2.80">
 
  <attribute name="simulationAddress" comment="Simulation address ">
-   <classRef name="SimulationAddressRecord"/>
+   <classRef name="SimulationAddress"/>
  </attribute>
 
  <attribute name="referenceNumber" comment="This field shall be set to zero as there is no reference number associated with a Simulation Identifier.">
@@ -1940,7 +1952,7 @@
 
 </class>
 
-<!-- Section 6.2.82, standard variale specification record, is a bit too complex -->
+<!-- Section 6.2.82, standard variable specification record, is a bit too complex -->
 
  <class name="StorageFuel"
         inheritsFrom="root"
@@ -2006,35 +2018,10 @@
 
 </class>
 
- 
-<class name="StorageFuelReload"
-        inheritsFrom="root"
-        comment="Information about an entity's storage fuel. Section 6.2.84.">
-
-  <attribute name="fuelQuantity" comment="Fuel quantity, units specified by next field">
-    <primitive type= "unsigned int"/>
-  </attribute>
-
-  <attribute name="fuelMeasurementUnits" comment="Units in which the fuel is measured">
-    <primitive type= "unsigned byte"/>
-  </attribute>
-
-  <attribute name="fuelType" comment="Type of fuel">
-    <primitive type= "unsigned byte"/>
-  </attribute>
-
-   <attribute name="fuelLocation" comment="Location of fuel as related to entity. See section 14 of EBV document">
-    <primitive type= "unsigned byte"/>
-  </attribute>
-
-   <attribute name="padding" comment="padding">
-    <primitive type= "unsigned byte" defaultValue="0"/>
-  </attribute>
-  </class>
 
 <class name="SupplyQuantity" inheritsFrom="root" comment=" A supply, and the amount of that supply. Section 6.2.85">
 
-    <attribute name="supplyType" comment="Type of supply">
+  <attribute name="supplyType" comment="Type of supply">
     <classRef name="EntityType"/>
   </attribute>
 
@@ -2047,7 +2034,7 @@
  <class name="SystemIdentifier" inheritsFrom="root" comment="The ID of the IFF emitting system. NOT COMPLETE. Section 6.2.86">
 
     <attribute name="systemType" comment="general type of emitting system, an enumeration">
-    <primitive type="unsighed short"/>
+    <primitive type="unsigned short"/>
   </attribute>
 
    <attribute name="systemName" comment="named type of system, an enumeration">
@@ -2182,7 +2169,7 @@
   </attribute>
 
   <attribute name="variableParameterFields4" comment="Variable parameter data fields. ">
-     <primitive type="unsigned byre"/>
+     <primitive type="unsigned byte"/>
   </attribute>
   
 </class>
@@ -2309,7 +2296,7 @@
     <primitive type="unsigned byte"/>
   </attribute>
 
-    <attribute name="preENtityIndicator" comment="Whether the entity existed prior to separation EBV">
+    <attribute name="preEntityIndicator" comment="Whether the entity existed prior to separation EBV">
     <primitive type="unsigned byte"/>
   </attribute>
 
@@ -2340,13 +2327,16 @@
    <attribute name="recordLength" comment="Length, in bytes">
     <primitive type="unsigned int" defaultValue="4"/>
   </attribute>
+  
+  </class>
 
 <!-- Need a copule variable-sized, custom-coded fields here for record-specific and padding -->
 
-</class>
+
 
 
 <class name="Vector3Float" inheritsFrom="root" comment="Three floating point values, x, y, and z. Section 6.2.95">
+    
   <attribute name="x" comment = "X value">
     <primitive type="float"/>
   </attribute>
@@ -2358,6 +2348,7 @@
   <attribute name="z" comment="Z value">
     <primitive type="float"/>
   </attribute>
+  
 </class>
 
 <class name="VectoringNozzleSystem" inheritsFrom="root" comment="Operational data for describing the vectoring nozzle systems Section 6.2.96">
@@ -2370,7 +2361,7 @@
     <primitive type="float"/>
   </attribute>
 
-<class>
+</class>
 
  <class name="Vector3Double" inheritsFrom="root" comment="Three double precision floating point values, x, y, and z. Used for world coordinates Section 6.2.97.">
   <attribute name="x" comment = "X value">
@@ -2411,6 +2402,8 @@
 </class>
 
 <!-- End records -->
+
+
 
 <!-- PDUs start here. Everything before this was recordst that are contained inside of PDUs -->
   
@@ -2509,7 +2502,7 @@
 </attribute>
 
 <attribute name="entityOrientation" comment="describes the orientation of the entity, in euler angles">
-  <classRef name="Orientation"/>
+  <classRef name="EulerAngles"/>
 </attribute>
 
 <attribute name="entityAppearance" comment="a series of bit flags that are used to help draw the entity, such as smoking, on fire, etc.">
@@ -2517,11 +2510,11 @@
 </attribute>
 
  <attribute name="deadReckoningParameters" comment="parameters used for dead reckoning">
-     <classRef name="DeadReckoningParameter"/>
+     <classRef name="DeadReckoningParameters"/>
 </attribute>
 
  <attribute name="marking" comment="characters that can be used for debugging, or to draw unique strings on the side of entities in the world">
-    <classRef name="Marking"/>
+    <classRef name="EntityMarking"/>
  </attribute>
  
  <attribute name="capabilities" comment="a series of bit flags">
@@ -2729,7 +2722,7 @@
   </attribute>
 
    <attribute name="eventID" comment="This field shall contain an identification generated by the issuing simulation application to associate related collision events. This field shall be represented by an Event Identifier record (see 6.2.34).">
-    <classRef name="EventID"/>
+    <classRef name="EventIdentifier"/>
   </attribute>
 
    <attribute name="collisionType" comment="This field shall identify the type of collision. The Collision Type field shall be represented by an 8-bit record of enumerations">
@@ -2768,7 +2761,7 @@
   </attribute>
 
    <attribute name="collisionEventID" comment="This field shall contain an identification generated by the issuing simulation application to associate related collision events. This field shall be represented by an Event Identifier record (see 6.2.34).">
-    <classRef name="EventID"/>
+    <classRef name="EventIdentifier"/>
   </attribute>
 
   <attribute name="pad" comment="some padding">
@@ -2847,7 +2840,7 @@
    </attribute>
 
    <attribute name="entityOrientation" comment="This field shall specify an entity’s orientation and shall be represented by an Euler Angles record (see 6.2.33).">
-     <classRef name="Orientation"/>
+     <classRef name="EulerAngles"/>
    </attribute>
 
    <attribute name="entityAppearance" comment="This field shall specify the dynamic changes to the entity’s appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).">
@@ -2976,7 +2969,7 @@
   </attribute>
 
    <attribute name="eventID" comment="ID of event, Section 7.3.3">
-    <classRef name="EventID"/>
+    <classRef name="EventIdentifier"/>
   </attribute>
 
   <attribute name="velocity" comment= "velocity of the munition immediately before detonation/impact, Section 7.3.3 ">
@@ -2996,7 +2989,7 @@
   </attribute>
 
    <attribute name="detonationResult" comment="result of the detonation, Section 7.3.3 ">
-    <primitive type="byte enum"/>
+    <primitive type="unsigned byte"/>
   </attribute>
 
   <attribute name="numberOfVariableParameters" comment="How many articulation parameters we have, Section 7.3.3 ">
@@ -3004,7 +2997,7 @@
   </attribute>
 
    <attribute name="pad" comment="padding">
-    <primitive type="short unused"/>
+    <primitive type="unsigned short"/>
   </attribute>
 
    <attribute name="variableParameters" comment="specify the parameter values for each Variable Parameter record, Section 7.3.3 ">
@@ -3059,31 +3052,31 @@
   </attribute>
 
  <attribute name="flags" comment="16bit Boolean field shall contain various flags to indicate status information needed to process a DE, Section 7.3.4 ">
-   <primitive type="int">
+   <primitive type="int"/>
 </attribute>
 
  <attribute name="pulseShape" comment="Field shall identify the pulse shape and shall be represented as an 8-bit enumeration, Section 7.3.4 ">
-   <primitive type="byte">
+   <primitive type="byte"/>
 </attribute>
 
  <attribute name="padding1" comment="padding, Section 7.3.4 ">
-   <primitive type="unsigned byte">
+   <primitive type="unsigned byte"/>
 </attribute>
 
  <attribute name="padding2" comment="padding, Section 7.3.4 ">
-   <primitive type="unsigned int">
+   <primitive type="unsigned int"/>
 </attribute>
 
  <attribute name="padding3" comment="padding, Section 7.3.4 ">
-   <primitive type="unsigned short">
+   <primitive type="unsigned short"/>
 </attribute>
 
 <attribute name="numberOfDERecords" comment="Field shall specify the number of DE records, Section 7.3.4 ">
-   <primitive type="unsigned short">
+   <primitive type="unsigned short"/>
 </attribute>
 
   <attribute name="dERecords" comment="Fields shall contain one or more DE records, records shall conform to the variable record format (Section6.2.82), Section 7.3.4">
-   <list type="variable" countFieldName="numberOfStandardVariableRecords">
+   <list type="variable" countFieldName="numberOfDERecords">
      <classRef name="StandardVariableSpecification"/>
    </list>
 </attribute>
@@ -3092,45 +3085,52 @@
  <!--#######################################-->
   <!--Section 7.3.5  Entity Damage Status Pdu  -->
   <class name="EntityDamageStatusPdu" inheritsFrom="WarfareFamilyPdu"
-            comment="shall be used to communicate detailed damage information sustained by an entity regardless of the source of the damage Section 7.3.5  COMPLETE">
+         comment="shall be used to communicate detailed damage information sustained by an entity regardless of the source of the damage Section 7.3.5  COMPLETE">
+                
  <initialValue name="pduType" value="69"/>
 
-   <attribute name="DamagedEntityID"
+   <attribute name="damagedEntityID"
             comment="Field shall identify the damaged entity (see 6.2.28), Section 7.3.4 COMPLETE">
-    <primitive type= "unsigned short">
      <classref name="EntityID"/>
    </attribute>
 
-   <attribute name="Padding1"
+   <attribute name="padding1"
             comment="Padding.">
      <primitive type="unsigned short" defaultValue="0"/>
    </attribute>
 
-   <attribute name="Padding2"
+   <attribute name="padding2"
             comment="Padding.">
      <primitive type="unsigned short" defaultValue="0"/>
    </attribute>
 
-   <attribute name="NumberOfDamageDescriptionRecord"
+   <attribute name="numberOfDamageDescription"
             comment="field shall specify the number of Damage Description records, Section 7.3.5">
      <primitive type="unsigned short" defaultValue="0"/>
    </attribute>
+   
 
-   <attribute name="DamageDescriptionRecords"
+   <attribute name="damageDescriptionRecords"
               comment="Fields shall contain one or more Damage Description records (see 6.2.17) and may contain other Standard Variable records, Section 7.3.5">
-     <list type="variable" countFieldName="DamageDescriptionRecord"> <!-- NOT SURE OF THIS "countFieldName"-->
-       <classRef name="DirectedEnergyDamageDescription"/>
+     <list type="variable" countFieldName="numberOfDamageDescription"> 
+       <classRef name="DirectedEnergyDamage"/>
      </list>
    </attribute>
- </class>
+
+</class>
 
  <!--#######################################-->
  <!--Logistics protocol Family: Section 7.4.2 Service Request PDU, 7.4.3 Resupply Offer PDU -->
+ <class name="LogisticsFamilyPdu" inheritsFrom="Pdu" 
+        comment=" Abstract superclass for logistics PDUs. Section 7.4 COMPLETE" >
+     
+  <initialValue name="protocolFamily" value="3"/>
+  
+</class>
+
 
   <!--Section 7.4.2 Service Request PDU -->
- <class name="LogisticsFamilyPdu" inheritsFrom="Pdu" comment=" Abstract superclass for logistics PDUs. Section 7.4COMPLETE">
-  <initialValue name="protocolFamily" value="3"/>
-</class>
+ 
 
 <class name="ServiceRequestPdu" inheritsFrom="LogisticsFamilyPdu"
         comment="Service Request PDU shall be used to communicate information associated with
@@ -3159,7 +3159,7 @@
 
   <attribute name="supplies">
      <list type="variable"
-     countFieldName="Field shall specify the type of supply and the amount of that supply for the number
+     countFieldName="numberOfSupplyTypes" comment="Field shall specify the type of supply and the amount of that supply for the number
                                  specified in the numberOfSupplyTypes (see 6.2.85), Section 7.4.2">
        <classRef name="SupplyQuantity"/>
      </list>
@@ -3259,7 +3259,7 @@
 </attribute>
 
 <!-- "ATTENTION:  No mention in document about padding being necessary to prevent potential conflict, but I left it here b/c it was in the prior xml.-->
-<attribute name="padding" comment="padding, number prevents conflict with superclass ivar name">
+<attribute name="padding4" comment="padding, number prevents conflict with superclass ivar name">
   <primitive type="short" defaultValue="0"/>
 </attribute>
 
@@ -3375,17 +3375,11 @@
      <classref name="EntityID"/>
  </attribute>
 
- <attribute name="realWorldTime" comment="This field shall specify the real-world time (UTC) at which the entity is to
-start/resume in the exercise. This information shall be used by the participating simulation applications
-to start/resume an exercise synchronously. This field shall be represented by a Clock Time
-record (see 6.2.16).">
+ <attribute name="realWorldTime" comment="This field shall specify the real-world time (UTC) at which the entity is to start/resume in the exercise. This information shall be used by the participating simulation applications to start/resume an exercise synchronously. This field shall be represented by a Clock Time record (see 6.2.16).">
    <classRef name="ClockTime"/>
  </attribute>
 
- <attribute name="simulationTime" comment="The reference time within a simulation exercise. This time is established ahead of
-time by simulation management and is common to all participants in a particular exercise. Simulation
-time may be either Absolute Time or Relative Time. This field shall be represented by a Clock
-Time record (see 6.2.16)">
+ <attribute name="simulationTime" comment="The reference time within a simulation exercise. This time is established ahead of time by simulation management and is common to all participants in a particular exercise. Simulation time may be either Absolute Time or Relative Time. This field shall be represented by a Clock Time record (see 6.2.16)">
    <classRef name="ClockTime"/>
  </attribute>
 
@@ -3543,6 +3537,7 @@ Time record (see 6.2.16)">
 
 <!-- End Stinchfield contributions -->
 
+<!--
 <class name="DataQueryPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.8. Request for data from an entity. COMPLETE">
 
  <initialValue name="pduType" value="18"/>
@@ -3720,7 +3715,7 @@ Time record (see 6.2.16)">
   </attribute>
 
   <attribute name="eventID" comment="ID of event">
-    <classRef name="EventID"/>
+    <classRef name="EventIdentifier"/>
   </attribute>
   
   <attribute name="stateUpdateIndicator" comment="This field shall be used to indicate if the data in the PDU represents a state update or just data that has changed since issuance of the last Electromagnetic Emission PDU [relative to the identified entity and emission system(s)].">
@@ -3810,7 +3805,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   </attribute> 
 
    <attribute name="eventID" comment="ID of event">
-    <classRef name="EventID"/>
+    <classRef name="EventIdentifier"/>
   </attribute>
   
   <attribute name="stateChangeIndicator" comment="This field shall be used to indicate whether the data in the UA PDU represent a state update or data that have changed since issuance of the last UA PDU">
@@ -3870,7 +3865,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   </attribute> 
   
   <attribute name="eventID" comment="Number generated by the issuing simulation to associate realted events.">
-    <classRef name="EventID"/>
+    <classRef name="EventIdentifier"/>
   </attribute>
   
    <attribute name="location" comment="Location wrt entity. There is some ambugiuity in the standard here, but this is the order it is listed in the table.">
@@ -4216,7 +4211,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "unsigned int"/>
   </attribute>
   
-   <attribute name="intercomParameters" comment="^^^This is wrong--the length of the data field is variable. Using a long for now.">
+   <attribute name="intercomParameters" comment="^^^This is wrong the length of the data field is variable. Using a long for now.">
      <list type="variable" countFieldName="intercomParametersLength">
        <classRef name="IntercomCommunicationsParameters"/>
     </list> 
@@ -4229,10 +4224,11 @@ The beam data records should ALL be a the finish, rather than attached to each e
            
 </class>
 
+-->
+
+<!--
 <class name="AggregateStatePdu" inheritsFrom="EntityManagementFamilyPdu"
-       comment="Section 5.3.9.1 informationa bout aggregating entities anc communicating information about the aggregated entities.
-       requires manual intervention to fix the padding between entityID lists and silent aggregate sysem lists--this padding
-       is dependent on how many entityIDs there are, and needs to be on a 32 bit word boundary. UNFINISHED">
+       comment="Section 5.3.9.1 informationa bout aggregating entities anc communicating information about the aggregated entities. requires manual intervention to fix the padding between entityID lists and silent aggregate sysem lists this padding  is dependent on how many entityIDs there are, and needs to be on a 32 bit word boundary. UNFINISHED">
 
  <initialValue name="pduType" value="33"/>
  
@@ -4362,7 +4358,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "double"/>
   </attribute>
   
-   <attribute name="groupedEntityDescriptions" comment="GED records about each individual entity in the group. ^^^this is wrong--need a database lookup to find the actual size of the list elements">
+   <attribute name="groupedEntityDescriptions" comment="GED records about each individual entity in the group. ^^^this is wrong  need a database lookup to find the actual size of the list elements">
      <list type="variable" countFieldName="numberOfGroupedEntities">
        <classRef name="VariableDatum"/>
     </list> 
@@ -4404,7 +4400,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     <primitive type= "unsigned byte"/>
   </attribute>
 
-   <attribute name="recordSets" comment="^^^This is wrong--the RecordSet class needs more work">
+   <attribute name="recordSets" comment="^^^This is wrong the RecordSet class needs more work">
      <list type="variable" countFieldName="numberOfRecordSets">
        <classRef name="RecordSet"/>
     </list> 
@@ -4615,7 +4611,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </list> 
     </attribute>
    
-    <attribute name="pad3" comment="Padding to get things 32-bit aligned. ^^^this is wrong--dyanmically sized padding needed">
+    <attribute name="pad3" comment="Padding to get things 32-bit aligned. ^^^this is wrong dyanmically sized padding needed">
      <primitive type= "unsigned byte"/>
    </attribute>
    
@@ -5426,6 +5422,8 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </attribute>
     
     </class>
+   
+   -->
     
     <!-- Generic holder of PDUs. This is mostly for XML compatability -->
     <class name="PduContainer" 
@@ -5447,7 +5445,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
      <!-- Begin DE Fire and Damage Status -->
 
- 
+ <!--
 
  <class name="DeBeamAntennaPatternRecord"
         inheritsFrom="root"
@@ -5566,7 +5564,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    </attribute>
 
    <attribute name="EventID" comment="Unique event ID for this event.">
-     <classref name="EventID"/>
+     <classref name="EventIdentifier"/>
    </attribute>
 
    <attribute name="MunitionType" comment="Unique ID of the munition from the munition.cfg file.">
@@ -5635,8 +5633,9 @@ The beam data records should ALL be a the finish, rather than attached to each e
    </attribute>
 
  </class>
+ -->
 
-
+<!--
  <class name="DamageDescriptionRecord"
         inheritsFrom="root"
         comment="This record contains additional damage descriptions from an entity that was damaged.">
@@ -5723,7 +5722,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    </attribute>
 
    <attribute name="FireEventID" comment="Unique event ID for this event.">
-     <classref name="EventID"/>
+     <classref name="EventIdentifier"/>
    </attribute>
 
    <attribute name="Padding2" comment="Padding.">
@@ -5731,39 +5730,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
    </attribute>
 
  </class>
-
-
- <class name="DamageStatusPdu"
-        inheritsFrom="Pdu"
-        DynamicDispatch="true"
-        comment="This message is sent from an entity as a supplement to its enity information.  It provides a more detailed damage status indication.">
-
-   <attribute name="DamagedEntityID" comment="Unique entity ID (0 if not specified).">
-     <classref name="EntityID"/>
-   </attribute>
-
-   <attribute name="Padding1" comment="Padding.">
-     <primitive type="unsigned short" defaultValue="0"/>
-   </attribute>
-
-   <attribute name="Padding2" comment="Padding.">
-     <primitive type="unsigned short" defaultValue="0"/>
-   </attribute>
-
-   <attribute name="DamageDescriptionRecordCount" comment="Count of damage description records.">
-     <primitive type="unsigned short" defaultValue="0"/>
-   </attribute>
-
-   <attribute name="DamageDescriptionRecords"
-              comment="Damage Description variable length record array.">
-     <list type="variable" countFieldName="DamageDescriptionRecordCount">
-       <classRef name="DamageDescriptionRecord"/>
-     </list>
-   </attribute>
-
- </class>
-
-<!-- End DE Fire and Damage Status -->
+ -->
     
 </classes>
 
