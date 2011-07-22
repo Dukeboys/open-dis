@@ -505,6 +505,14 @@
  </attribute>
 
  </class>
+ 
+<class name="UnsignedDISInteger" comment="container class not in specification" inheritsFrom="root">
+    
+    <attribute name="val" comment="unsigned integer">
+       <primitive type="unsigned int"/>    
+    </attribute>
+    
+</class>
 
 <class name="DataQueryDatumSpecification" 
        inheritsFrom="root" 
@@ -560,7 +568,7 @@
 
 <!-- Section 6.2.20: descriptor records" -->
 
-<class name="MunitionDescriptor" inheritsFrom="Descriptor" 
+<class name="MunitionDescriptor" inheritsFrom="root" 
         comment="Represents the firing or detonation of a munition. Section 6.2.20.2">
     
     <attribute name="munitionType" comment="What munition was used in the burst">
@@ -1953,6 +1961,25 @@
 </class>
 
 <!-- Section 6.2.82, standard variable specification record, is a bit too complex -->
+<class name="StandardVariableSpecification" inheritsFrom="root"
+       comment="Does not work, and causes failure in anything it is embedded in. Section 6.2.82">
+           
+   <attribute name="numberOfStandardVariableRecords" comment="Number of static variable records">
+       <primitive type="unsigned short"/>
+   </attribute>
+   
+   
+  <attribute name="standardVariables" comment="variable length list of standard variables, The class type and length here are WRONG and will cause the incorrect serialization of any class in whihc it is embedded.">
+   <list type="variable" countFieldName="numberOfStandardVariableRecords">
+     <classRef name="ArticulationParameter"/>
+   </list> 
+</attribute>
+
+   
+   
+   
+   </class>
+ 
 
  <class name="StorageFuel"
         inheritsFrom="root"
@@ -3537,8 +3564,7 @@
 
 <!-- End Stinchfield contributions -->
 
-<!--
-<class name="DataQueryPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.8. Request for data from an entity. COMPLETE">
+<class name="DataQueryPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.9. Request for data from an entity. COMPLETE">
 
  <initialValue name="pduType" value="18"/>
 
@@ -3572,7 +3598,8 @@
 
 </class>
 
-<class name="SetDataPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.9. Change state information with the data contained in this. COMPLETE">
+
+<class name="SetDataPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 7.5.10. Change state information with the data contained in this. COMPLETE">
 
    <initialValue name="pduType" value="19"/>
 
@@ -3606,6 +3633,7 @@
 
 </class>
 
+<!--
 <class name="DataPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.10. Information issued in response to a data query pdu or a set data pdu is communicated using a data pdu. COMPLETE">
     
   <initialValue name="pduType" value="20"/>
