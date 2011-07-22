@@ -1623,11 +1623,12 @@
 
 <class name="NamedLocationIdentification" inheritsFrom="root"
        comment="Information about the discrete positional relationship of the part entity with respect to the its host entity Section 6.2.62 ">
- <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
+ 
+  <attribute name="stationName" comment="the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the part’s location data fields. This field shall be specified by a 16-bit enumeration ">
          <primitive type="unsigned short"/>
  </attribute>
  
-  <attribute name="standardQuantityReloadTime" comment="the seconds normally required to reload the standard quantity of this munition type at this specific station/launcher.">
+ <attribute name="stationNumber" comment="the number of the particular wing station, cargo hold etc., at which the part is attached. ">
          <primitive type="unsigned short"/>
  </attribute>
 
@@ -1968,10 +1969,9 @@
        <primitive type="unsigned short"/>
    </attribute>
    
-   
   <attribute name="standardVariables" comment="variable length list of standard variables, The class type and length here are WRONG and will cause the incorrect serialization of any class in whihc it is embedded.">
    <list type="variable" countFieldName="numberOfStandardVariableRecords">
-     <classRef name="ArticulationParameter"/>
+     <classRef name="SimulationManagementPduHeader"/> <!-- This is WRONG, as in the wrong type of class in the list -->
    </list> 
 </attribute>
 
@@ -2327,7 +2327,7 @@
     <primitive type="unsigned byte"/>
   </attribute>
 
-    <attribute name="padding" comment="padding">
+    <attribute name="padding1" comment="padding">
     <primitive type="unsigned byte" defaultValue="0"/>
   </attribute>
 
@@ -2335,7 +2335,7 @@
     <classRef name="EntityID"/>
   </attribute>
 
-    <attribute name="padding" comment="padding">
+    <attribute name="padding2" comment="padding">
     <primitive type="unsigned short" defaultValue="0"/>
   </attribute>
 
@@ -2428,6 +2428,41 @@
   
 </class>
 
+<!-- These are not specified in the standard, but are useful utility objects. -->
+
+  
+  <class name="EightByteChunk" inheritsFrom="root" comment="64 bit piece of data">
+     <attribute name="otherParameters" comment="Eight bytes of arbitrary data">
+       <list type="fixed" length="8">
+        <primitive type="byte"/>
+       </list>
+     </attribute>
+   </class>
+   
+   <class name="OneByteChunk" inheritsFrom="root" comment="8 bit piece of data">
+     <attribute name="otherParameters" comment="one byte of arbitrary data">
+       <list type="fixed" length="1">
+        <primitive type="byte"/>
+       </list>
+     </attribute>
+   </class>
+   
+    <class name="TwoByteChunk" inheritsFrom="root" comment="16 bit piece of data">
+     <attribute name="otherParameters" comment="two bytes of arbitrary data">
+       <list type="fixed" length="2">
+        <primitive type="byte"/>
+       </list>
+     </attribute>
+   </class>
+   
+    <class name="FourByteChunk" inheritsFrom="root" comment="32 bit piece of data">
+     <attribute name="otherParameters" comment="four bytes of arbitrary data">
+       <list type="fixed" length="4">
+        <primitive type="byte"/>
+       </list>
+     </attribute>
+   </class>
+
 <!-- End records -->
 
 
@@ -2458,7 +2493,7 @@
   </attribute>
   
   <attribute name="length" comment="Length, in bytes, of the PDU">
-    <primitive type="unsigned byte"/>
+    <primitive type="unsigned short"/>
   </attribute>
   
 </class>
@@ -2508,7 +2543,7 @@
   <primitive type="unsigned byte"/>
  </attribute>
  
- <attribute name="numberOfArticulationParameters" comment="How many articulation parameters are in the variable length list">
+ <attribute name="numberOfVariableParameters" comment="How many variable parameters are in the variable length list. In earlier versions of DIS these were known as articulation parameters">
    <primitive type="unsigned byte"/>
 </attribute>
 
@@ -2548,9 +2583,9 @@
   <primitive type="unsigned int"/>
 </attribute>
 
-  <attribute name="articulationParameters" comment="variable length list of articulation parameters">
-   <list type="variable" countFieldName="numberOfArticulationParameters">
-     <classRef name="ArticulationParameter"/>
+  <attribute name="variableParameters" comment="variable length list of variable parameters. In earlier DIS versions this was articulation parameters.">
+   <list type="variable" countFieldName="numberOfVariableParameters">
+     <classRef name="VariableParameter"/>
    </list> 
 </attribute>
 
@@ -2576,7 +2611,7 @@
   <primitive type="unsigned byte"/>
  </attribute>
  
- <attribute name="numberOfArticulationParameters" comment="How many articulation parameters are in the variable length list">
+ <attribute name="numberOfVariableParameters" comment="How many variable (nee articulation) parameters are in the variable length list">
    <primitive type="byte"/>
 </attribute>
 
@@ -2725,9 +2760,9 @@
   <primitive type="int"/>
 </attribute>
 
-  <attribute name="articulationParameters" comment="variable length list of articulation parameters">
-   <list type="variable" countFieldName="numberOfArticulationParameters">
-     <classRef name="ArticulationParameter"/>
+  <attribute name="variableParameters" comment="variable length list of variable parameters. In earlier versions of DIS these were known as articulation parameters">
+   <list type="variable" countFieldName="numberOfVariableParameters">
+     <classRef name="VariableParameter"/>
    </list> 
 </attribute>
 
@@ -2850,7 +2885,7 @@
         <classRef name="EntityID"/>
     </attribute>
 
-   <attribute name="padding" comment="Padding">
+   <attribute name="padding1" comment="Padding">
      <primitive type="byte" value="0"/>
    </attribute>
 
@@ -2876,7 +2911,7 @@
 
     <attribute name="variableParameters" comment="This field shall specify the parameter values for each Variable Parameter record that is included (see 6.2.93 and Annex I).">
      <list type="variable" countFieldName="numberOfVariableParameters">
-       <classRef name="ArticulationParameter"/>
+       <classRef name="VariableParameter"/>
      </list>
    </attribute>
 
@@ -3028,7 +3063,7 @@
   </attribute>
 
    <attribute name="variableParameters" comment="specify the parameter values for each Variable Parameter record, Section 7.3.3 ">
-     <list type="variable" fieldName="variableParameterFields">
+     <list type="variable" countFieldName="numberOfVariableParameters">
        <classRef name="VariableParameter"/>
      </list>
    </attribute>
@@ -3633,8 +3668,8 @@
 
 </class>
 
-<!--
-<class name="DataPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.10. Information issued in response to a data query pdu or a set data pdu is communicated using a data pdu. COMPLETE">
+
+<class name="DataPdu" inheritsFrom="SimulationManagementFamilyPdu" comment=" Information issued in response to a data query pdu or a set data pdu is communicated using a data pdu. Section 7.5.11 COMPLETE">
     
   <initialValue name="pduType" value="20"/>
   
@@ -3668,7 +3703,8 @@
   
 </class>
 
-<class name="EventReportPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.11. Reports occurance of a significant event to the simulation manager. COMPLETE">
+
+<class name="EventReportPdu" inheritsFrom="SimulationManagementFamilyPdu" comment=" Reports occurance of a significant event to the simulation manager. Section 7.5.12. COMPLETE">
 
  <initialValue name="pduType" value="21"/>
 
@@ -3702,7 +3738,8 @@
 
 </class>
 
-<class name="CommentPdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.12. Arbitrary messages can be entered into the data stream via use of this PDU. COMPLETE">
+
+<class name="CommentPdu" inheritsFrom="SimulationManagementFamilyPdu" comment=" Arbitrary messages can be entered into the data stream via use of this PDU. Section 7.5.13 COMPLETE">
 
  <initialValue name="pduType" value="22"/>
 
@@ -3732,8 +3769,10 @@
    <initialValue name="protocolFamily" value="6"/>
 </class>
 
+
+
 <class name="ElectronicEmissionsPdu" inheritsFrom="DistributedEmissionsFamilyPdu"
-       comment="Section 5.3.7.1. Information about active electronic warfare (EW) emissions and active EW countermeasures shall be communicated using an Electromagnetic Emission PDU. COMPLETE (I think)">
+       comment="Section 5.3.7.1. Information about active electronic warfare (EW) emissions and active EW countermeasures shall be communicated using an Electromagnetic Emission PDU. NOT COMPLETE">
     
   <initialValue name="pduType" value="23"/> 
   <initialValue name="paddingForEmissionsPdu" value="0"/>
@@ -3757,10 +3796,26 @@
   <attribute name="paddingForEmissionsPdu" comment="padding">
     <primitive type="unsigned short"/>
   </attribute>
+  
+  <attribute name="systemDataLength" comment=" this field shall specify the length of this emitter system's data in 32-bit words.">
+    <primitive type="unsigned byte"/>
+  </attribute>
+  
+  <attribute name="numberOfBeams" comment="the number of beams being described in the current PDU for the emitter system being described. ">
+    <primitive type="unsigned byte"/>
+  </attribute>
+  
+  <attribute name="emitterSystem" comment=" information about a particular emitter system and shall be represented by an Emitter System record (see 6.2.23).">
+    <classRef name="EmitterSystem"/>
+  </attribute>
+  
+  <attribute name="location" comment="the location of the antenna beam source with respect to the emitting entity's coordinate system. This location shall be the origin of the emitter coordinate system that shall have the same orientation as the entity coordinate system. This field shall be represented by an Entity Coordinate Vector record see 6.2.95 ">
+    <classRef name="Vector3Float"/>
+  </attribute>
  
-   <attribute name="systems" comment="Electronic emmissions systems">
+   <attribute name="systems" comment="Electronic emmissions systems THIS IS WRONG. It has the WRONG class type and will cause problems in any marshalling.">
       <list type="variable" countFieldName="numberOfSystems">
-          <classRef name="ElectronicEmissionSystemData"/>
+          <classRef name="Vector3Float"/> <!--THIS IS WRONG-->
       </list>
   </attribute>
   
@@ -3823,8 +3878,7 @@
   
 </class>
 
-<class name="UaPdu" inheritsFrom="DistributedEmissionsFamilyPdu" comment="Section 5.3.7.3. Information about underwater acoustic emmissions. This requires manual cleanup. 
-The beam data records should ALL be a the finish, rather than attached to each emitter system. UNFINISHED">
+<class name="UaPdu" inheritsFrom="DistributedEmissionsFamilyPdu" comment=" Information about underwater acoustic emmissions. This requires manual cleanup.  The beam data records should ALL be a the finish, rather than attached to each emitter system. Section 7.6.4. UNFINISHED">
     
     <initialValue name="pduType" value="29"/> 
     
@@ -3864,28 +3918,29 @@ The beam data records should ALL be a the finish, rather than attached to each e
       <primitive type= "unsigned byte"/>
     </attribute>
   
-  <attribute name="shaftRPMs" comment="shaft RPM values">
+  <attribute name="shaftRPMs" comment="shaft RPM values. THIS IS WRONG. It has the wrong class in the list.">
       <list type="variable" countFieldName="numberOfShafts">
-          <classref name="ShaftRPMs"/>
+          <classref name="Vector3Float"/>
       </list>
   </attribute>
   
-  <attribute name="apaData" comment="apaData">
+  <attribute name="apaData" comment="apaData. THIS IS WRONG. It has the worng class in the list.">
       <list type="variable" countFieldName="numberOfAPAs">
-          <classRef name="ApaData"/>
+          <classRef name="Vector3Float"/>
       </list>
   </attribute>
   
-    <attribute name="emitterSystems">
+    <attribute name="emitterSystems" comment="THIS IS WRONG. It has the wrong class in the list.">
         <list type="variable" countFieldName="numberOfUAEmitterSystems">
-            <classRef name="AcousticEmitterSystemData"/>
+            <classRef name="Vector3Float"/>
         </list>
     </attribute>
     
 </class>
 
+<!--
 <class name="IffAtcNavAidsLayer1Pdu" inheritsFrom="DistributedEmissionsFamilyPdu" 
-          comment="5.3.7.4.1: Navigational and IFF PDU. COMPLETE" >
+          comment=" Navigational and IFF PDU. COMPLETE" >
  <initialValue name="pduType" value="28"/> 
 
   <attribute name="emittingEntityId" comment="ID of the entity that is the source of the emissions">
@@ -3937,9 +3992,9 @@ The beam data records should ALL be a the finish, rather than attached to each e
   </attribute>
 
 </class>
-
+-->
 <class name="SeesPdu" inheritsFrom="DistributedEmissionsFamilyPdu"
-       comment="Section 5.3.7.5. SEES PDU, supplemental emissions entity state information. COMPLETE">
+       comment=" SEES PDU, supplemental emissions entity state information. Section 7.6.6 COMPLETE">
  
  <initialValue name="pduType" value="30"/>
    
@@ -3975,7 +4030,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
   
   <attribute name="vectoringSystemData" comment="variable length list of vectoring system data">
    <list type="variable" countFieldName="numberOfVectoringNozzleSystems">
-     <classRef name="VectoringNozzleSystemData"/>
+     <classRef name="VectoringNozzleSystem"/>
    </list> 
   </attribute>
        
@@ -3983,7 +4038,7 @@ The beam data records should ALL be a the finish, rather than attached to each e
 
 
 <class name="RadioCommunicationsFamilyPdu" inheritsFrom="Pdu"
-       comment="Section 5.3.8. Abstract superclass for radio communications PDUs.">
+       comment=" Abstract superclass for radio communications PDUs. Section 7.7">
   
   <initialValue name="protocolFamily" value="4"/> 
    
@@ -3997,8 +4052,9 @@ The beam data records should ALL be a the finish, rather than attached to each e
   
 </class>
 
+
 <class name="IntercomSignalPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment="Section 5.3.8.4. Actual transmission of intercome voice data. COMPLETE">
+       comment=" Actual transmission of intercome voice data. Section 7.7.5. COMPLETE">
    
   <initialValue name="pduType" value="31"/>
    
@@ -4037,9 +4093,10 @@ The beam data records should ALL be a the finish, rather than attached to each e
     </attribute>
 </class>
 
+
+
 <class name="TransmitterPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment="Section 5.3.8.1. Detailed information about a radio transmitter. This PDU requires manually 
-       written code to complete, since the modulation parameters are of variable length. UNFINISHED">
+       comment="Detailed information about a radio transmitter. This PDU requires manually written code to complete, since the modulation parameters are of variable length. Section 7.7.2 UNFINISHED">
   
   <initialValue name="pduType" value="25"/> 
             
@@ -4125,9 +4182,8 @@ The beam data records should ALL be a the finish, rather than attached to each e
 </class>
 
 <class name="SignalPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment="Section 5.3.8.2. Detailed information about a radio transmitter. This PDU requires
-       manually written code to complete. The encodingScheme field can be used in multiple
-       ways, which requires hand-written code to finish. UNFINISHED">
+       comment=" Detailed information about a radio transmitter. This PDU requires manually written code to complete. The encodingScheme field can be used in multiple
+       ways, which requires hand-written code to finish. Section 7.7.3. UNFINISHED">
     
     <initialValue name="pduType" value="26"/> 
     
@@ -4159,8 +4215,11 @@ The beam data records should ALL be a the finish, rather than attached to each e
  
 </class>
 
+
+
+
 <class name="ReceiverPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment="Section 5.3.8.3. Communication of a receiver state. COMPLETE">
+       comment=" Communication of a receiver state. Section 7.7.4 COMPLETE">
     
     <initialValue name="pduType" value="27"/>
     
@@ -4187,11 +4246,21 @@ The beam data records should ALL be a the finish, rather than attached to each e
 </class>
 
 
+<class name="EntityManagementFamilyPdu" inheritsFrom="Pdu"
+       comment=" Managment of grouping of PDUs, and more. Section 7.8">
+  
+  <initialValue name="protocolFamily" value="7"/> 
+   
+  
+  
+</class>
+
+<!--
 
 <class name="IntercomControlPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
-       comment="Section 5.3.8.5. Detailed inofrmation about the state of an intercom device and the actions it is requestion 
+       comment=" Detailed inofrmation about the state of an intercom device and the actions it is requestion 
        of another intercom device, or the response to a requested action. Required manual intervention to fix the intercom parameters,
-       which can be of varialbe length. UNFINSISHED">
+       which can be of varialbe length. Section 7.7.5 UNFINSISHED">
    
   <initialValue name="pduType" value="32"/>
    
