@@ -93,7 +93,7 @@
 
      <target name="generateJavaDis7SourceCode" depends="init" description = "run program to generate java for DIS 2009, desktop version">
         <property name="xmlSourceFile" value="DIS2009.xml"/>
-        <property name="javadir" value="${src}/edu/nps/moves/dis7"/>
+        <property name="javadir" value="${src}"/>
         <property name="xmlpg.useHibernate" value="true"/>
         <property name="xmlpg.useJaxb" value="true"/>
         <property name="xmlpg.package" value="edu.nps.moves.dis7"/>
@@ -104,7 +104,7 @@
     
     <target name="generateJavaDis7MobileCode" depends="init" description = "run program to generate java for DIS 2009, mobile version">
         <property name="xmlSourceFile" value="DIS2009.xml"/>
-        <property name="xmlpg.generatedSourceDir" value="${src}/edu/nps/moves/dis7mobile"/>
+        <property name="xmlpg.generatedSourceDir" value="${src}"/>
         <property name="xmlpg.useHibernate" value="false"/>
         <property name="xmlpg.useJaxb" value="false"/>
         <property name="xmlpg.package" value="edu.nps.moves.dis7mobile"/>
