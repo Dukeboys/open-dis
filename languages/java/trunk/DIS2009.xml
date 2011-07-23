@@ -2378,6 +2378,18 @@
   
 </class>
 
+<class name="Vector2Float" inheritsFrom="root" comment="Two floating point values, x, y">
+    
+  <attribute name="x" comment = "X value">
+    <primitive type="float"/>
+  </attribute>
+
+  <attribute name="y" comment="y Value">
+    <primitive type="float"/>
+  </attribute>
+  
+</class>
+
 <class name="VectoringNozzleSystem" inheritsFrom="root" comment="Operational data for describing the vectoring nozzle systems Section 6.2.96">
 
   <attribute name="horizontalDeflectionAngle" comment="In degrees">
@@ -2462,6 +2474,7 @@
        </list>
      </attribute>
    </class>
+   
 
 <!-- End records -->
 
@@ -4094,6 +4107,7 @@
 </class>
 
 
+<!--
 
 <class name="TransmitterPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
        comment="Detailed information about a radio transmitter. This PDU requires manually written code to complete, since the modulation parameters are of variable length. Section 7.7.2 UNFINISHED">
@@ -4180,7 +4194,9 @@
    </list> 
   </attribute>       
 </class>
+-->
 
+<!--
 <class name="SignalPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
        comment=" Detailed information about a radio transmitter. This PDU requires manually written code to complete. The encodingScheme field can be used in multiple
        ways, which requires hand-written code to finish. Section 7.7.3. UNFINISHED">
@@ -4215,7 +4231,7 @@
  
 </class>
 
-
+-->
 
 
 <class name="ReceiverPdu" inheritsFrom="RadioCommunicationsFamilyPdu"
@@ -4245,15 +4261,6 @@
     
 </class>
 
-
-<class name="EntityManagementFamilyPdu" inheritsFrom="Pdu"
-       comment=" Managment of grouping of PDUs, and more. Section 7.8">
-  
-  <initialValue name="protocolFamily" value="7"/> 
-   
-  
-  
-</class>
 
 <!--
 
@@ -4314,14 +4321,16 @@
     </list> 
     </attribute>
     </class>
+-->
+
+
+<class name="EntityManagementFamilyPdu" inheritsFrom="Pdu"
+       comment=" Managment of grouping of PDUs, and more. Section 7.8">
+  
+  <initialValue name="protocolFamily" value="7"/> 
     
- <class name="EntityManagementFamilyPdu" inheritsFrom="Pdu" 
-       comment="Section 5.3.9. Common superclass for EntityManagment PDUs, including aggregate state, isGroupOf, TransferControLRequest, and isPartOf">
-    <initialValue name="protocolFamily" value="7"/>
-           
 </class>
 
--->
 
 <!--
 <class name="AggregateStatePdu" inheritsFrom="EntityManagementFamilyPdu"
@@ -4424,10 +4433,11 @@
     </attribute>
   
  </class>
+-->
 
+<!--
 <class name="IsGroupOfPdu" inheritsFrom="EntityManagementFamilyPdu"
-       comment="Section 5.3.9.2 Information about a particular group of entities grouped together for the purposes of netowrk bandwidth 
-       reduction or aggregation. Needs manual cleanup. The GED size requires a database lookup. UNFINISHED">
+       comment="Information about a particular group of entities grouped together for the purposes of netowrk bandwidth reduction or aggregation. Needs manual cleanup. The GED size requires a database lookup. Section 7.8.3 UNFINISHED">
 
  <initialValue name="pduType" value="34"/>
  
@@ -4462,10 +4472,11 @@
     </attribute>
 
 </class>
+-->
 
-<class name="TransferControlRequestPdu" inheritsFrom="EntityManagementFamilyPdu"
-       comment="Section 5.3.9.3 Information initiating the dyanic allocation and control of simulation entities 
-       between two simulation applications. Requires manual cleanup. The padding between record sets is variable. UNFINISHED">
+<!--
+<class name="TransferOwnershipPdu" inheritsFrom="EntityManagementFamilyPdu"
+       comment=" Information initiating the dyanic allocation and control of simulation entities between two simulation applications. Requires manual cleanup. The padding between record sets is variable. Section 7.8.4 UNFINISHED">
 
  <initialValue name="pduType" value="35"/>
  
@@ -4504,9 +4515,10 @@
     </attribute>
 
 </class>
+-->
 
 <class name="IsPartOfPdu" inheritsFrom="EntityManagementFamilyPdu"
-       comment="Section 5.3.9.4 The joining of two or more simulation entities is communicated by this PDU. COMPLETE">
+       comment=" The joining of two or more simulation entities is communicated by this PDU. Section 7.8.5 COMPLETE">
 
  <initialValue name="pduType" value="36"/>
  
@@ -4528,7 +4540,7 @@
    </attribute>
    
     <attribute name="namedLocationID" comment="named location">
-     <classRef name= "NamedLocation"/>
+     <classRef name= "NamedLocationIdentification"/>
    </attribute>
    
    <attribute name="partEntityType" comment="entity type">
@@ -4537,20 +4549,23 @@
    
    </class>
    
+
+
    <class name="MinefieldFamilyPdu" inheritsFrom="Pdu"
-       comment="Section 5.3.10.1 Abstract superclass for PDUs relating to minefields">
+       comment=" Abstract superclass for PDUs relating to minefields. Section 7.9">
 
      <initialValue name="protocolFamily" value="8"/>
      
    </class>
    
+   
     <class name="MinefieldStatePdu" inheritsFrom="MinefieldFamilyPdu"
-       comment="Section 5.3.10.1 Abstract superclass for PDUs relating to minefields. COMPLETE">
+       comment="information about the complete minefield. The minefield presence, perimiter, etc. Section 7.9.2 COMPLETE">
 
      <initialValue name="pduType" value="37"/>
      
    <attribute name="minefieldID" comment="Minefield ID">
-     <classRef name= "EntityID"/>
+     <classRef name= "MinefieldIdentifier"/>
    </attribute>
    
    <attribute name="minefieldSequence" comment="Minefield sequence">
@@ -4573,25 +4588,25 @@
      <primitive type= "unsigned short"/>
    </attribute>
    
-   <attribute name="minefieldLocation" comment="location of minefield in world coords">
+   <attribute name="minefieldLocation" comment="location of center of minefield in world coords">
      <classRef name= "Vector3Double"/>
    </attribute>
    
    <attribute name="minefieldOrientation" comment="orientation of minefield">
-     <classRef name= "Orientation"/>
+     <classRef name= "EulerAngles"/>
    </attribute>
    
     <attribute name="appearance" comment="appearance bitflags">
      <primitive type= "unsigned short"/>
    </attribute>
    
-    <attribute name="protocolMode" comment="protocolMode">
+    <attribute name="protocolMode" comment="protocolMode. First two bits are the protocol mode, 14 bits reserved.">
      <primitive type= "unsigned short"/>
    </attribute>
    
     <attribute name="perimeterPoints" comment="perimeter points for the minefield">
      <list type="variable" countFieldName="numberOfPerimeterPoints">
-       <classRef name="Point"/>
+       <classRef name="Vector2Float"/>
     </list> 
     </attribute>
     
@@ -4602,9 +4617,10 @@
     </attribute>
    
    </class>
-   
+  
+  <!--
   <class name="MinefieldQueryPdu" inheritsFrom="MinefieldFamilyPdu"
-       comment="Section 5.3.10.2 Query a minefield for information about individual mines. Requires manual clean up to get the padding right. UNFINISHED">
+       comment="Query a minefield for information about individual mines. Requires manual clean up to get the padding right. Section 7.9.3 UNFINISHED">
 
      <initialValue name="pduType" value="38"/>
      
@@ -4642,7 +4658,7 @@
 
  <attribute name="requestedPerimeterPoints" comment="perimeter points of request">
      <list type="variable" countFieldName="numberOfPerimeterPoints">
-       <classRef name="Point"/>
+       <classRef name="Vector2Float"/>
     </list> 
     </attribute>
     
@@ -4652,9 +4668,11 @@
     </list> 
     </attribute>
 </class>
+-->
 
+ <!--
  <class name="MinefieldDataPdu" inheritsFrom="MinefieldFamilyPdu"
-       comment="Section 5.3.10.3 Information about individual mines within a minefield. This is very, very wrong. UNFINISHED">
+       comment="Information about individual mines within a minefield. This is very, very wrong. Section 7.9.4 UNFINISHED">
 
      <initialValue name="pduType" value="39"/>
      
@@ -4719,9 +4737,11 @@
     </attribute>
     
     </class>
+    -->
     
-     <class name="MinefieldResponseNackPdu" inheritsFrom="MinefieldFamilyPdu"
-       comment="Section 5.3.10.4 proivde the means to request a retransmit of a minefield data pdu. COMPLETE">
+    
+<class name="MinefieldResponseNackPdu" inheritsFrom="MinefieldFamilyPdu"
+       comment="proivde the means to request a retransmit of a minefield data pdu. Section 7.9.5 COMPLETE">
 
      <initialValue name="pduType" value="40"/>
      
@@ -4748,7 +4768,8 @@
     </attribute>
     
     </class>
-    
+
+
      <class name="SyntheticEnvironmentFamilyPdu" inheritsFrom="Pdu"
        comment="Section 5.3.11: Abstract superclass for synthetic environment PDUs">
 
@@ -4756,6 +4777,7 @@
      
      </class>
 
+    <!--
 <class name="EnvironmentalProcessPdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
        comment="Section 5.3.11.1: Information about environmental effects and processes. This requires manual cleanup. the environmental
        record is variable, as is the padding. UNFINISHED">
@@ -4865,10 +4887,11 @@
     </attribute>
 
 </class>
+-->
+
 
 <class name="PointObjectStatePdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
-    comment="Section 5.3.11.3: Inormation abut the addition or modification of a synthecic enviroment object that is anchored 
-    to the terrain with a single point. COMPLETE">
+    comment=": Inormation abut the addition or modification of a synthecic enviroment object that is anchored to the terrain with a single point. Section 7.10.4 COMPLETE">
     
        <initialValue name="pduType" value="43"/>
        
@@ -4901,7 +4924,7 @@
    </attribute>
    
     <attribute name="objectOrientation" comment="Object orientation">
-     <classRef name= "Orientation"/>
+     <classRef name= "EulerAngles"/>
    </attribute>
    
     <attribute name="objectAppearance" comment="Object apperance">
@@ -4921,10 +4944,13 @@
    </attribute>
    
    </class>
-  
+
+
+
+
    <class name="LinearObjectStatePdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
-    comment="Section 5.3.11.4: Information abut the addition or modification of a synthecic enviroment object that 
-    is anchored to the terrain with a single point and has size or orientation. COMPLETE">
+    comment=": Information abut the addition or modification of a synthecic enviroment object that 
+    is anchored to the terrain with a single point and has size or orientation. Section 7.10.5 COMPLETE">
       
    <initialValue name="pduType" value="44"/>
        
@@ -4967,10 +4993,10 @@
     </attribute>
   
     </class>
-    
+ 
+ 
      <class name="ArealObjectStatePdu" inheritsFrom="SyntheticEnvironmentFamilyPdu"
-    comment="Section 5.3.11.5: Information about the addition/modification of an oobject that is geometrically 
-    achored to the terrain with a set of three or more points that come to a closure. COMPLETE">
+    comment="Information about the addition/modification of an oobject that is geometrically anchored to the terrain with a set of three or more points that come to a closure. Section 7.10.6 COMPLETE">
       
    <initialValue name="pduType" value="45"/>
    
@@ -4998,8 +5024,12 @@
      <classRef name= "EntityType"/>
    </attribute>
    
-   <attribute name="objectAppearance" comment="Object appearance">
-     <classRef name= "SixByteChunk"/>
+   <attribute name="specificObjectAppearance" comment="Object appearance">
+     <primitive type="unsigned int"/>
+   </attribute>
+   
+   <attribute name="generalObjectAppearance" comment="Object appearance">
+     <primitive type="unsigned short"/>
    </attribute>
    
    <attribute name="numberOfPoints" comment="Number of points">
@@ -5021,7 +5051,7 @@
     </attribute>
     
 </class>
-
+<!--
   <class name="SimulationManagementWithReliabilityFamilyPdu" inheritsFrom="Pdu"
        comment="Section 5.3.12: Abstract superclass for reliable simulation management PDUs">
 
