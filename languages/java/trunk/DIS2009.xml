@@ -5051,7 +5051,7 @@
     </attribute>
     
 </class>
-<!--
+
   <class name="SimulationManagementWithReliabilityFamilyPdu" inheritsFrom="Pdu"
        comment="Section 5.3.12: Abstract superclass for reliable simulation management PDUs">
 
@@ -5143,7 +5143,7 @@
    </attribute>
    
   </class> 
-  
+ 
   <class name="StopFreezeReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.4: Stop freeze simulation, relaible. COMPLETE">
       
@@ -5193,7 +5193,7 @@
    </attribute>
    
    </class>
-   
+ 
    <class name="ActionRequestReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.6: request from a simulation manager to a managed entity to perform a specified action. COMPLETE">
       
@@ -5516,6 +5516,7 @@
 
 </class>
 
+<!--
  <class name="SetRecordReliablePdu" inheritsFrom="SimulationManagementWithReliabilityFamilyPdu"
     comment="Section 5.3.12.14: Initializing or changing internal parameter info. Needs manual intervention
     to fix padding in recrod set PDUs. UNFINISHED">
@@ -5550,7 +5551,7 @@
     
     </class>
    
-   -->
+-->
     
     <!-- Generic holder of PDUs. This is mostly for XML compatability -->
     <class name="PduContainer" 
@@ -5570,7 +5571,12 @@
         
     </class>
 
-     <!-- Begin DE Fire and Damage Status -->
+     <!-- This is some experimental XML that combines the field description with 
+     enumerations and bitfields. I'm not convinced by the approach; the enumerations
+     are in the EBV document, which is more changeable and faster
+     moving than the IEEE spec. The bitfields _are_ in the IEEE spec, though. I 
+     suspect the way to do this is to define a separate set of XML documents to
+     describe the bitfields and enumerations. DMcG -->
 
  <!--
 
