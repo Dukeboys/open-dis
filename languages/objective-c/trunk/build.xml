@@ -23,12 +23,20 @@
          a separate project in the trunk that is included in the lib directory of this project. You
          must run patch after this to apply known manual fixes to the source code generated.
     --> 
-    <target name="generateObjcDisSourceCode" depends="init" description = "run program to generate cpp">
+    <target name="generateObjcDisSourceCode" depends="init" description = "run program to generate objective-c">
         <property name="xmlSourceFile" value="DIS1998.xml"/>
         <property name="objcdir" value="Objc"/>
         <property name="product" value="objc"/>
         <antcall target="generateDisSourceCode"/>
     </target>
+
+<target name="generateObjcDis7SourceCode" depends="init" description = "run program to generate objc for dis7">
+        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="objcdir" value="ObjcDis7"/>
+        <property name="product" value="objcDis7"/>
+        <antcall target="generateDisSourceCode"/>
+    </target>
+
 
     <target name="check-prerequisites-generate">
         <condition property="properties-set">
