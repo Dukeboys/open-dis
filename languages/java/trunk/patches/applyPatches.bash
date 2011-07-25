@@ -59,9 +59,17 @@ case "$1" in
       # converting back and forth to DIS coordinates from lat/lon/alt.
       patch src/main/edu/nps/moves/dismobile/Vector3Double.java patches/dismobile/Vector3Double.patch
       ;;
+
+  dis7mobile)
+     echo No patches defined yet for dis7mobile
+     ;;
+
+  dis7)
+     echo No patches defined yet for dis7
+     ;;
  
    *)
-     echo product not found. You should set the "product" ant property in the build.xml file.
+     echo product not found. You should set the "product" ant property in the build.xml file and add a case statement entry to applyPatches.sh
      exit
      ;;
  esac     
