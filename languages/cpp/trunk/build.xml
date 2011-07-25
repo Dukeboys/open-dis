@@ -30,6 +30,14 @@
         <antcall target="generateDisSourceCode"/>
     </target>
 
+    <target name="generateCppDis7SourceCode" depends="init" description = "run program to generate cpp">
+        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="cppdir" value="cpp/DIS7"/>
+        <property name="product" value="cpp"/>
+        <antcall target="generateDisSourceCode"/>
+    </target>
+
+
     <target name="check-prerequisites-generate">
         <condition property="properties-set">
             <and>
