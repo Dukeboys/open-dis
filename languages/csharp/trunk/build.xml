@@ -24,12 +24,26 @@
         <property name="csharpdir" value="CSharp/DIS"/>
         <property name="product" value="csharp"/>
         <property name="using" value="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"/>
-        
+
           <!-- apply the patches, manual changes to the code captured in the patch files -->
         <antcall target="generateDisSourceCode"/>
         <!-- fix eol for generated source depending on host platform -->
         <fixcrlf srcdir="${csharpdir}" includes="**/*.cs"/>
     </target>
+
+  <target name="generateCsharpDis7SourceCode" depends="init" description = "run program to generate csharp for DIS7">
+        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="csharpdir" value="CSharpDis7"/>
+        <property name="product" value="csharpDis7"/>
+        <property name="using" value="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, 
+DISnet.DataStreamUtilities"/>
+
+          <!-- apply the patches, manual changes to the code captured in the patch files -->
+        <antcall target="generateDisSourceCode"/>
+        <!-- fix eol for generated source depending on host platform -->
+        <fixcrlf srcdir="${csharpdir}" includes="**/*.cs"/>
+    </target>
+
 
     <target name="check-prerequisites-generate">
         <condition property="properties-set">
