@@ -52,6 +52,8 @@
     <target name="generateAllSource">
       <antcall target="generateJavaDisSourceCode"/>
       <antcall target="generateJavaMobileSourceCode"/>
+      <antcall target="generateJavaDis7SourceCode"/>
+      <antcall target="generateJavaDis7MobileCode"/>
     </target>    
 
     <!-- Generate the desktop Java code. This relies on the jar file xmlpg.jar, from 
