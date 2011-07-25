@@ -65,6 +65,12 @@ case "$1" in
       patch cpp/DIS/VariableDatum.cpp patches/cpp/VariableDatum.patch
       ;;
 
+  cppDis7)
+      # Apply patch to VariableDatum.java
+      patch cpp/DIS7/VariableDatum.cpp patches/cppDis7/VariableDatum.cpp.patch
+      ;;
+
+
  
    *)
      echo product not found. You should set the "product" ant property in the build.xml file.
