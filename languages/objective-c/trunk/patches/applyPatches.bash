@@ -63,6 +63,10 @@ case "$1" in
    objc)
     # Apply patches for Obj-C
     ;;
+   
+   objcDis7:
+    # Apply patches for objc-c DIS 7
+    ;;
  
    *)
      echo product not found. You should set the "product" ant property in the build.xml file.
