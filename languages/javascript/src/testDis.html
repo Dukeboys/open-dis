@@ -1,0 +1,125 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body onLoad="main()">
+<script type="text/javascript">
+    
+function Pdu()
+{
+    Pdu.prototype.protocolVersion = 7;
+    Pdu.prototype.exerciseId = 0;
+    Pdu.prototype.pduType = 1;
+    Pdu.prototype.protocolFamily = 1;
+    Pdu.prototype.timestamp = 0;
+    Pdu.prototype.length = 0;
+    Pdu.prototype.pduStatus = 0;
+    Pdu.prototype.padding = 0;
+    
+}
+
+function EntityID()
+{
+    EntityID.prototype.site = 0;
+    EntityID.prototype.application = 0;
+    EntityID.prototype.entity = 0;
+}
+
+function EntityType()
+{
+    EntityType.prototype.entityKind = 0;
+    EntityType.prototype.domain = 0;
+    EntityType.prototype.country = 0;
+    EntityType.prototype.category = 0;
+    EntityType.prototype.subcategory = 0;
+    EntityType.prototype.specific = 0;
+    EntityType.prototype.extra = 0;
+}
+
+function Vector3Float()
+{
+    Vector3Float.prototype.x = 0;
+    Vector3Float.prototype.y = 0;
+    Vector3Float.prototype.z = 0;
+}
+
+function Vector3Double()
+{
+    Vector3Double.prototype.x = 0;
+    Vector3Double.prototype.y = 0;
+    Vector3Double.prototype.z = 0;
+}
+
+function EulerAngles()
+{
+    EulerAngles.prototype.psi = 0;
+    EulerAngles.prototype.theta = 0;
+    EulerAngles.prototype.phi = 0;
+}
+
+function DeadReckoningParameters()
+{
+    DeadReckoningParameters.prototype.deadReckoningAlgorithm = 0;
+    DeadReckoningParameters.prototype.otherParameters = 0;
+    DeadReckoningParameters.prototype.linearAcceleration = new Vector3Float();
+    DeadReckoningParameters.prototype.angularVelocity = new Vector3Float();
+}
+
+function EntityMarking()
+{
+    EntityMarking.prototype.characterSet = 0;
+    EntityMarking.prototype.marking = new Array(" ", " "," "," "," "," "," "," "," "," "," ");
+}
+
+function EntityStatePdu()
+{
+    EntityStatePdu.prototype = Pdu.prototype;
+    
+    //EntityStatePdu.prototype.pduType = 1;
+    //EntityStatePdu.prototype.protocolFamily = 1;
+
+    EntityStatePdu.prototype.entityId = new EntityID();    
+    EntityStatePdu.prototype.forceID = 0;
+    EntityStatePdu.prototype.variableParameterCount = 0;
+    EntityStatePdu.prototype.entityType = new EntityType();
+    EntityStatePdu.prototype.altEntityType = new EntityType();
+    EntityStatePdu.prototype.entityLinearVelocity = new Vector3Float();
+    EntityStatePdu.prototype.entityLocation = new Vector3Double();
+    EntityStatePdu.prototype.entityOrientation = new EulerAngles();
+    EntityStatePdu.prototype.entityAppearance = 0;
+    EntityStatePdu.prototype.deadReckoningParameters = new DeadReckoningParameters();
+    EntityStatePdu.prototype.marking = new EntityMarking();
+    EntityStatePdu.prototype.capabilities = 0;
+     // Variable parameters here....
+    
+}
+
+
+function main()
+{
+    var eid = new EntityID();
+    var pdu = new Pdu();
+    var espdu = new EntityStatePdu();
+    
+    eid.application = 17;
+
+    
+    //alert(JSON.stringify(espdu));
+    alert(espdu.protocolFamily);
+  
+}
+
+
+
+
+</script>
+
+Yo
+    </body ">
+</html>
