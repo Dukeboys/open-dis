@@ -13,70 +13,76 @@ and open the template in the editor.
     
 function Pdu()
 {
-    Pdu.prototype.protocolVersion = 7;
-    Pdu.prototype.exerciseId = 0;
-    Pdu.prototype.pduType = 1;
-    Pdu.prototype.protocolFamily = 1;
-    Pdu.prototype.timestamp = 0;
-    Pdu.prototype.length = 0;
-    Pdu.prototype.pduStatus = 0;
-    Pdu.prototype.padding = 0;
-    
+    this.protocolVersion = 7;
+    this.exerciseId = 0;
+    this.pduType = 1;
+    this.protocolFamily = 1;
+    this.timestamp = 0;
+    this.length = 0;
+    this.pduStatus = 0;
+    this.padding = 0;
+}
+
+Pdu.prototype.greeting = function()
+{
+    alert("From PDU");
 }
 
 function EntityID()
 {
-    EntityID.prototype.site = 0;
-    EntityID.prototype.application = 0;
-    EntityID.prototype.entity = 0;
+    this.site = 0;
+    this.application = 0;
+    this.entity = 0;
 }
 
 function EntityType()
 {
-    EntityType.prototype.entityKind = 0;
-    EntityType.prototype.domain = 0;
-    EntityType.prototype.country = 0;
-    EntityType.prototype.category = 0;
-    EntityType.prototype.subcategory = 0;
-    EntityType.prototype.specific = 0;
-    EntityType.prototype.extra = 0;
+    this.entityKind = 0;
+    this.domain = 0;
+    this.country = 0;
+    this.category = 0;
+    this.subcategory = 0;
+    this.specific = 0;
+    this.extra = 0;
 }
 
 function Vector3Float()
 {
-    Vector3Float.prototype.x = 0;
-    Vector3Float.prototype.y = 0;
-    Vector3Float.prototype.z = 0;
+    this.x = 0;
+    this.y = 0;
+    this.z = 0;
 }
 
 function Vector3Double()
 {
-    Vector3Double.prototype.x = 0;
-    Vector3Double.prototype.y = 0;
-    Vector3Double.prototype.z = 0;
+    this.x = 0;
+    this.y = 0;
+    this.z = 0;
 }
 
 function EulerAngles()
 {
-    EulerAngles.prototype.psi = 0;
-    EulerAngles.prototype.theta = 0;
-    EulerAngles.prototype.phi = 0;
+    this.psi = 0;
+    this.theta = 0;
+    this.phi = 0;
 }
 
 function DeadReckoningParameters()
 {
-    DeadReckoningParameters.prototype.deadReckoningAlgorithm = 0;
-    DeadReckoningParameters.prototype.otherParameters = 0;
-    DeadReckoningParameters.prototype.linearAcceleration = new Vector3Float();
-    DeadReckoningParameters.prototype.angularVelocity = new Vector3Float();
+    this.deadReckoningAlgorithm = 0;
+    this.otherParameters = 0;
+    this.linearAcceleration = new Vector3Float();
+    this.angularVelocity = new Vector3Float();
 }
 
 function EntityMarking()
 {
-    EntityMarking.prototype.characterSet = 0;
-    EntityMarking.prototype.marking = new Array(" ", " "," "," "," "," "," "," "," "," "," ");
+    this.characterSet = 0;
+    this.marking = new Array(" ", " "," "," "," "," "," "," "," "," "," ");
 }
 
+EntityStatePdu.prototype = new Pdu();
+EntityStatePdu.prototype.constructor = Pdu;
 function EntityStatePdu()
 {
     EntityStatePdu.prototype = Pdu.prototype;
@@ -84,18 +90,18 @@ function EntityStatePdu()
     //EntityStatePdu.prototype.pduType = 1;
     //EntityStatePdu.prototype.protocolFamily = 1;
 
-    EntityStatePdu.prototype.entityId = new EntityID();    
-    EntityStatePdu.prototype.forceID = 0;
-    EntityStatePdu.prototype.variableParameterCount = 0;
-    EntityStatePdu.prototype.entityType = new EntityType();
-    EntityStatePdu.prototype.altEntityType = new EntityType();
-    EntityStatePdu.prototype.entityLinearVelocity = new Vector3Float();
-    EntityStatePdu.prototype.entityLocation = new Vector3Double();
-    EntityStatePdu.prototype.entityOrientation = new EulerAngles();
-    EntityStatePdu.prototype.entityAppearance = 0;
-    EntityStatePdu.prototype.deadReckoningParameters = new DeadReckoningParameters();
-    EntityStatePdu.prototype.marking = new EntityMarking();
-    EntityStatePdu.prototype.capabilities = 0;
+    this.entityId = new EntityID();    
+    this.forceID = 0;
+    this.variableParameterCount = 0;
+    this.entityType = new EntityType();
+    this.altEntityType = new EntityType();
+    this.entityLinearVelocity = new Vector3Float();
+    this.entityLocation = new Vector3Double();
+    this.entityOrientation = new EulerAngles();
+    this.entityAppearance = 0;
+    this.deadReckoningParameters = new DeadReckoningParameters();
+    this.marking = new EntityMarking();
+    this.capabilities = 0;
      // Variable parameters here....
     
 }
@@ -111,7 +117,11 @@ function main()
 
     
     //alert(JSON.stringify(espdu));
-    alert(espdu.protocolFamily);
+    alert(espdu.length);
+    
+    espdu.length = 23;
+    espdu.greeting();
+    alert(espdu.length);
   
 }
 
