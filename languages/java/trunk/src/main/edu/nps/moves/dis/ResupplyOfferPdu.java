@@ -37,10 +37,10 @@ public class ResupplyOfferPdu extends LogisticsFamilyPdu implements Serializable
    protected short  numberOfSupplyTypes;
 
    /** padding */
-   protected short  padding1 = 0;
+   protected short  padding1 = (short)0;
 
    /** padding */
-   protected byte  padding2 = 0;
+   protected byte  padding2 = (byte)0;
 
    protected List< SupplyQuantity> supplies = new ArrayList<SupplyQuantity>(); 
 

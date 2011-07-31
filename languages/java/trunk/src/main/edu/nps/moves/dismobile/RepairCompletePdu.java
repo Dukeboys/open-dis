@@ -26,7 +26,7 @@ public class RepairCompletePdu extends LogisticsFamilyPdu implements Serializabl
    protected int  repair;
 
    /** padding, number prevents conflict with superclass ivar name */
-   protected short  padding2 = 0;
+   protected short  padding2 = (short)0;
 
 
 /** Constructor */

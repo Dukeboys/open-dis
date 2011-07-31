@@ -31,7 +31,7 @@ public class SetDataPdu extends SimulationManagementFamilyPdu implements Seriali
    protected long  requestID;
 
    /** padding */
-   protected long  padding1 = 0;
+   protected long  padding1 = (long)0;
 
    /** Number of fixed datum records */
    protected long  numberOfFixedDatumRecords;

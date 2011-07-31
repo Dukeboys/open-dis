@@ -37,7 +37,7 @@ public class StopFreezePdu extends SimulationManagementFamilyPdu implements Seri
    protected short  frozenBehavior;
 
    /** padding */
-   protected short  padding1 = 0;
+   protected short  padding1 = (short)0;
 
    /** Request ID that is unique */
    protected long  requestID;

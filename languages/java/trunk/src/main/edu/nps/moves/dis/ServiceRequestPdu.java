@@ -40,7 +40,7 @@ public class ServiceRequestPdu extends LogisticsFamilyPdu implements Serializabl
    protected short  numberOfSupplyTypes;
 
    /** padding */
-   protected short  serviceRequestPadding = 0;
+   protected short  serviceRequestPadding = (short)0;
 
    protected List< SupplyQuantity> supplies = new ArrayList<SupplyQuantity>(); 
 

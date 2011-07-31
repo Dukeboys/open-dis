@@ -20,7 +20,7 @@ public class EventReportPdu extends SimulationManagementFamilyPdu implements Ser
    protected long  eventType;
 
    /** padding */
-   protected long  padding1 = 0;
+   protected long  padding1 = (long)0;
 
    /** Number of fixed datum records */
    protected long  numberOfFixedDatumRecords;

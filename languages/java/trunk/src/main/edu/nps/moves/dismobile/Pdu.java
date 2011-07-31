@@ -17,10 +17,10 @@ import edu.nps.moves.disutil.*;
 public class Pdu extends Object implements Serializable
 {
    /** The version of the protocol. 5=DIS-1995, 6=DIS-1998. */
-   protected short  protocolVersion = 6;
+   protected short  protocolVersion = (short)6;
 
    /** Exercise ID */
-   protected short  exerciseID = 0;
+   protected short  exerciseID = (short)0;
 
    /** Type of pdu, unique for each PDU class */
    protected short  pduType;
@@ -35,7 +35,7 @@ public class Pdu extends Object implements Serializable
    protected int  pduLength;
 
    /** zero-filled array of padding */
-   protected short  padding = 0;
+   protected short  padding = (short)0;
 
 
 /** Constructor */

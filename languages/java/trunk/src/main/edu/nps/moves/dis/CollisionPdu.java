@@ -40,7 +40,7 @@ public class CollisionPdu extends EntityInformationFamilyPdu implements Serializ
    protected short  collisionType;
 
    /** some padding */
-   protected byte  pad = 0;
+   protected byte  pad = (byte)0;
 
    /** velocity at collision */
    protected Vector3Float  velocity = new Vector3Float(); 

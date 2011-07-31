@@ -133,7 +133,7 @@ public void marshal(java.nio.ByteBuffer buff)
 
        for(int idx = 0; idx < characters.length; idx++)
        {
-           buff.put(characters[idx]);
+           buff.put((byte)characters[idx]);
        } // end of array marshaling
 
     } // end of marshal method

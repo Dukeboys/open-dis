@@ -73,10 +73,10 @@ public class TransmitterPdu extends RadioCommunicationsFamilyPdu implements Seri
    protected short  modulationParameterCount;
 
    /** padding2 */
-   protected int  padding2 = 0;
+   protected int  padding2 = (int)0;
 
    /** padding3 */
-   protected short  padding3 = 0;
+   protected short  padding3 = (short)0;
 
    /** variable length list of modulation parameters */
    protected List< Vector3Float> modulationParametersList = new ArrayList<Vector3Float>(); 

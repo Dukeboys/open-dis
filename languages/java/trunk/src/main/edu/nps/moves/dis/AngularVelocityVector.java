@@ -31,13 +31,13 @@ public class AngularVelocityVector extends Object implements Serializable
    private long pk_AngularVelocityVector;
 
    /** velocity about the x axis */
-   protected float  x = 0;
+   protected float  x = (float)0;
 
    /** velocity about the y axis */
-   protected float  y = 0;
+   protected float  y = (float)0;
 
    /** velocity about the zaxis */
-   protected float  z = 0;
+   protected float  z = (float)0;
 
 
 /** Constructor */

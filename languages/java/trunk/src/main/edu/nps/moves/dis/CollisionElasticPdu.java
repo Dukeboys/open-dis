@@ -37,7 +37,7 @@ public class CollisionElasticPdu extends EntityInformationFamilyPdu implements S
    protected EventID  collisionEventID = new EventID(); 
 
    /** some padding */
-   protected short  pad = 0;
+   protected short  pad = (short)0;
 
    /** velocity at collision */
    protected Vector3Float  contactVelocity = new Vector3Float(); 

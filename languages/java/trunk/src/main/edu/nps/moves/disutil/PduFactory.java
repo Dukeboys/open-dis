@@ -17,7 +17,14 @@ import edu.nps.moves.disenum.PduType;
  */
 public class PduFactory {
 
+    /** whether we should use return flattened, "fast" espdus with fewer objects */
     private boolean useFastPdu = false;
+    
+    /** Release version of objects we should return. The DIS version has more features and is suitable for desktops. */
+    private Platform release = Platform.DESKTOP;
+    
+    public enum Platform{DESKTOP, MOBILE};
+            
 
     /** Creates a new instance of PduFactory */
     public PduFactory() {

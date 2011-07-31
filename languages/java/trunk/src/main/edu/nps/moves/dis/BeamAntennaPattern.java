@@ -33,13 +33,13 @@ public class BeamAntennaPattern extends Object implements Serializable
    /** The rotation that transformst he reference coordinate sytem     into the beam coordinate system. Either world coordinates or entity coordinates may be used as the     reference coordinate system, as specified by teh reference system field of the antenna pattern record. */
    protected Orientation  beamDirection = new Orientation(); 
 
-   protected float  azimuthBeamwidth = 0;
+   protected float  azimuthBeamwidth = (float)0;
 
-   protected float  referenceSystem = 0;
+   protected float  referenceSystem = (float)0;
 
-   protected short  padding1 = 0;
+   protected short  padding1 = (short)0;
 
-   protected byte  padding2 = 0;
+   protected byte  padding2 = (byte)0;
 
    /** Magnigute of the z-component in beam coordinates at some arbitrary      single point in the mainbeam      and in the far field of the antenna. */
    protected float  ez;

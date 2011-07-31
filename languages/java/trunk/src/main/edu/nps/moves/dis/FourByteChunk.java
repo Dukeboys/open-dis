@@ -119,7 +119,7 @@ public void marshal(java.nio.ByteBuffer buff)
 
        for(int idx = 0; idx < otherParameters.length; idx++)
        {
-           buff.put(otherParameters[idx]);
+           buff.put((byte)otherParameters[idx]);
        } // end of array marshaling
 
     } // end of marshal method

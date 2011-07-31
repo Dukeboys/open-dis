@@ -41,7 +41,7 @@ public class MinefieldDataPdu extends MinefieldFamilyPdu implements Serializable
    protected short  numberOfSensorTypes;
 
    /** padding */
-   protected short  pad2 = 0;
+   protected short  pad2 = (short)0;
 
    /** 32 boolean fields */
    protected long  dataFilter;

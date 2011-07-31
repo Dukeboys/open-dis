@@ -52,7 +52,7 @@ public class ElectronicEmissionBeamData extends Object implements Serializable
    protected short  highDensityTrackJam;
 
    /** padding */
-   protected short  pad4 = 0;
+   protected short  pad4 = (short)0;
 
    /** identify jamming techniques used */
    protected long  jammingModeSequence;

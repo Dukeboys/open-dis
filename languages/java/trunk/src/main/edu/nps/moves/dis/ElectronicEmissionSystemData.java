@@ -37,7 +37,7 @@ public class ElectronicEmissionSystemData extends Object implements Serializable
    protected short  numberOfBeams;
 
    /** padding. */
-   protected int  emissionsPadding2 = 0;
+   protected int  emissionsPadding2 = (int)0;
 
    /** This field shall specify information about a particular emitter system */
    protected EmitterSystem  emitterSystem = new EmitterSystem(); 

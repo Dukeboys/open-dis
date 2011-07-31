@@ -52,7 +52,7 @@ public class DetonationPdu extends WarfareFamilyPdu implements Serializable
    protected short  numberOfArticulationParameters;
 
    /** padding */
-   protected short  pad = 0;
+   protected short  pad = (short)0;
 
    protected List< ArticulationParameter> articulationParameters = new ArrayList<ArticulationParameter>(); 
 

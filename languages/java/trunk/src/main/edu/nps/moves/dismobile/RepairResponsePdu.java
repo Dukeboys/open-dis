@@ -26,10 +26,10 @@ public class RepairResponsePdu extends LogisticsFamilyPdu implements Serializabl
    protected short  repairResult;
 
    /** padding */
-   protected short  padding1 = 0;
+   protected short  padding1 = (short)0;
 
    /** padding */
-   protected byte  padding2 = 0;
+   protected byte  padding2 = (byte)0;
 
 
 /** Constructor */
