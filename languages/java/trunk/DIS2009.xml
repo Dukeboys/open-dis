@@ -2906,7 +2906,7 @@
       <primitive type="unsigned byte"/>
    </attribute>
 
-   <attribute name="entityLinearVelocity" comment="This field shall specify an entitys linear velocity. The coordinate system for an entity’s linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).">
+   <attribute name="entityLinearVelocity" comment="This field shall specify an entitys linear velocity. The coordinate system for an entitys linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).">
      <classRef name="Vector3Float"/>
    </attribute>
 
