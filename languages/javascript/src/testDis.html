@@ -11,6 +11,8 @@ and open the template in the editor.
     <body onLoad="main()">
 <script type="text/javascript">
     
+
+
 function Pdu()
 {
     this.protocolVersion = 7;
@@ -25,7 +27,6 @@ function Pdu()
 
 Pdu.prototype.greeting = function()
 {
-    alert("From PDU");
 }
 
 function EntityID()
@@ -109,19 +110,45 @@ function EntityStatePdu()
 
 function main()
 {
+    if (!window.WebSocket)
+        alert("WebSocket not supported by this browser");
+    else
+        document.writeln(Date(), " Browser has websockets<p>");
+
+
     var eid = new EntityID();
     var pdu = new Pdu();
     var espdu = new EntityStatePdu();
     
     eid.application = 17;
-
-    
     //alert(JSON.stringify(espdu));
-    alert(espdu.length);
+    //alert(espdu.length);
     
     espdu.length = 23;
     espdu.greeting();
-    alert(espdu.length);
+    //alert(espdu.length);
+   
+    myWebSocket = new WebSocket("ws://localhost:8081");
+   
+    
+    myWebSocket.onopen = function(evt) {document.write(Date() + " onOpen function call</p>")}; 
+    myWebSocket.onclose = function(evt) {document.write(Date() + " onclose function call</p>")}; 
+    myWebSocket.onmessage = function(evt) 
+    {   
+            document.write(Date() + " Got message from server</p>");
+            document.write(Date() + evt.data);
+
+    };
+    myWebSocket.onerror = function(evt) { document.write("error on web socket") };
+    document.write(Date() + " past event handler setup</p>")
+    
+     document.write(Date() + " Staring websocket section</p>");
+    
+    document.write(Date() + "Created new web socket</p>");
+    myWebSocket.send("wocka wocka");
+
+    document.write(Date() + "Wrote something</p>");
+    
   
 }
 
