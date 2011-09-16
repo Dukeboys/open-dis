@@ -323,7 +323,7 @@ is available.
 <taskdef resource="checkstyletask.properties" classpath="/usr/java/checkstyle-5.4/checkstyle-5.4-all.jar"/>
 
 <target name="checkstyle-jenkins">
-  <checkstyle failOnViolation="no" config="/usr/java/checkstyle-5.4/sun_checks.xml">
+  <checkstyle failOnViolation="no" config="/usr/java/checkstyle-5.4/nps_checks.xml">
     <fileset dir="src/main" includes="**/*.java"/>
     <formatter type="xml" toFile="checkstyle_results.xml"/>
   </checkstyle>
