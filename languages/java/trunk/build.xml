@@ -274,7 +274,7 @@ is available.
       </junit>
     </target>
 
-<!-- sends test case output to XML file, for use by Hudson -->
+<!-- sends test case output to XML file, for use by Jenkins -->
     <target name="testxml" depends="compileTest" description="run junit unit tests on build">
       <junit>
       <formatter type="xml" usefile="true"/>
@@ -293,6 +293,27 @@ is available.
 
       </junit>
     </target>
+
+<!-- Setup for findbugs, findbugs.soruceforge.net, a static code analysis tool. You can set this
+     up on your box if you like, but this is written with the jenkins continuous integration server
+     in mind. This requires that the findbugs-ant.jar file be placed in the $ANT_HOME/lib directory.
+-->
+
+<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+
+<property name="findbugs.home" value="/usr/java/findbugs-1.3.9"/>
+
+  <target name="findbugs-jenkins" depends="jar">
+    <findbugs home="${findbugs.home}"
+              output="xml"
+              outputFile="findbugsXml.xml" >
+    <auxClasspath>
+       <path refid="findbugs.auxinput" />
+    </auxClasspath>
+    <sourcePath path="${basedir}/src/main" />
+      <class location="${dist}/open-dis_${version}.jar" />
+    </findbugs>
+  </target>
 
 
     <!-- Create a distribution. This skips the target of generateDisSourceCode, since that is not typically used
