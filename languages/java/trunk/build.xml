@@ -317,7 +317,9 @@ is available.
     </findbugs>
   </target>
 
-<!-- Checkstyle ant task. Used on the server side in jenkins for static code analysis. -->
+<!-- Checkstyle ant task. Used on the server side in jenkins for static code analysis on the 
+     continuous integration server. 
+-->
 <taskdef resource="checkstyletask.properties" classpath="/usr/java/checkstyle-5.4/checkstyle-5.4-all.jar"/>
 
 <target name="checkstyle-jenkins">
@@ -326,6 +328,40 @@ is available.
     <formatter type="xml" toFile="checkstyle_results.xml"/>
   </checkstyle>
 </target>
+
+<!-- crap4j ant task. Used on the server side in jenkins for static code analysis in continuous integration. -->
+
+<property name="CRAP4J_HOME" value="/usr/java/crap4j">
+
+<taskdef name="crap4j" classname="org.crap4j.anttask.Crap4jAntTask" >
+      <classpath>
+         <fileset dir="${CRAP4J_HOME}/lib">
+             <include name="**/*.jar" />
+         </fileset>
+      </classpath>
+</taskdef>
+
+<target name="crap4j-jenkins">
+   <crap4j projectdir="${basedir}"
+       outputDir="agitar/reports/crap4j"
+       dontTest="false" debug="false">
+       <classDirs>
+          <pathElement location="bin" />
+        </classDirs>
+        <srcDirs>
+          <pathElement location="src" />
+        </srcDirs>
+        <testClassDirs>
+           <pathElement location="test_bin" />
+        </testClassDirs>
+        <libClasspath>
+           <fileset dir="lib">
+              <include name="**/*.jar" />
+            </fileset>
+        </libClasspath>
+     </crap4j>
+</target>
+
 
     <!-- Create a distribution. This skips the target of generateDisSourceCode, since that is not typically used
          in the development cycle. You can run that target separately.
