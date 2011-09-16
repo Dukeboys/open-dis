@@ -343,16 +343,16 @@ is available.
 
 <target name="crap4j-jenkins">
    <crap4j projectdir="${basedir}"
-       outputDir="agitar/reports/crap4j"
+       outputDir="build/crap4j"
        dontTest="false" debug="false">
        <classDirs>
-          <pathElement location="bin" />
+          <pathElement location="build/edu" />
         </classDirs>
         <srcDirs>
-          <pathElement location="src" />
+          <pathElement location="src/main" />
         </srcDirs>
         <testClassDirs>
-           <pathElement location="test_bin" />
+           <pathElement location="build/test" />
         </testClassDirs>
         <libClasspath>
            <fileset dir="lib">
