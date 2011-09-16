@@ -331,7 +331,7 @@ is available.
 
 <!-- crap4j ant task. Used on the server side in jenkins for static code analysis in continuous integration. -->
 
-<property name="CRAP4J_HOME" value="/usr/java/crap4j">
+<property name="CRAP4J_HOME" value="/usr/java/crap4j"/>
 
 <taskdef name="crap4j" classname="org.crap4j.anttask.Crap4jAntTask" >
       <classpath>
