@@ -323,8 +323,7 @@ is available.
 <target name="checkstyle-jenkins">
   <checkstyle config="/usr/java/checkstyle-5.4/sun_checks.xml">
     <fileset dir="src/main" includes="**/*.java"/>
-    <formatter type="plain"/>
-    <formatter type="xml" toFile="build/checkstyle_errors.xml"/>
+    <formatter type="xml" toFile="build/checkstyle_results.xml"/>
   </checkstyle>
 </target>
 
