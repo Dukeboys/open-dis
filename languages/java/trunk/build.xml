@@ -308,7 +308,9 @@ is available.
               output="xml"
               outputFile="findbugsXml.xml" >
     <auxClasspath>
-       <path refid="findbugs.auxinput" />
+       <fileset id="lib.jars" dir="${lib}">
+          <include name="**/*.jar"/>
+       </fileset>
     </auxClasspath>
     <sourcePath path="${basedir}/src/main" />
       <class location="${dist}/open-dis_${version}.jar" />
