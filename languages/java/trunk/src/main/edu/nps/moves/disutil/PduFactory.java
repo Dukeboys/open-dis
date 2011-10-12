@@ -60,8 +60,18 @@ public class PduFactory {
         // first eight bits. This effectively lets us read this as an unsigned byte
         int pduType = 0x000000FF & (int) data[2]; // The pdu type is a one-byte, unsigned byte in the third byte position.
 
-        // Do a lookup to get the enumeration instance that corresponds to this value. 
-        PduType pduTypeEnum = PduType.lookup[pduType];
+        // Do a lookup to get the enumeration instance that corresponds to this value. If we can't find a 
+        // relevant enumerated PDU type, return null.
+        PduType pduTypeEnum = null;
+        
+        try
+        {
+           pduTypeEnum = PduType.lookup[pduType];
+        }
+        catch(Exception e)
+        {
+           return null;  // Unknown pdu type detected
+        }   
 
         DataInputStream dis = new DataInputStream(new ByteArrayInputStream(data));
         Pdu aPdu = null;
