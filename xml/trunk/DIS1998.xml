@@ -80,11 +80,13 @@
     <classref name="Orientation"/>
     </attribute>
     
-    <attribute name="azimuthBeamwidth" commment="Full width of the beam to the -3dB power density points 
-    in the x-y plane of the beam coordinnate system.  Elevation beamwidth is represented by a 32 bit 
-    floating point number in units of radians.">
+    <attribute name="azimuthBeamwidth" commment="Full width of the beam to the -3dB power density points in the x-y plane of the beam coordinnate system.  Elevation beamwidth is represented by a 32 bit floating point number in units of radians.">
       <primitive type="float" defaultValue="0"/>
     </attribute>
+
+   <attribute name="elevationBeamwidth" commment="The full width of the beam to the –3 dB power density points in the x-z plane of the beam coordinate system. Elevation beamwidth shall be represented by a 32-bit floating point number in units of radians.">
+      <primitive type="float" defaultValue="0"/>
+   </attribute>
     
     <attribute name="referenceSystem" commment="The reference coordinate system wrt which beam direction 
     is specified. This field should not change over the duration of an exercise. World coordindate systemis 
