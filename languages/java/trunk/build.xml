@@ -12,7 +12,7 @@
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="test" location="src/test"/>
-    <property name="version" value="4.02"/>
+    <property name="version" value="4.03"/>
     <property name="testReportOutputDir" value="${build}/testReportOutputDir"/>
     
     <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
@@ -297,6 +297,9 @@ is available.
 <!-- Setup for findbugs, findbugs.soruceforge.net, a static code analysis tool. You can set this
      up on your box if you like, but this is written with the jenkins continuous integration server
      in mind. This requires that the findbugs-ant.jar file be placed in the $ANT_HOME/lib directory.
+    
+     This is strictly a testing/continuous integration function. You can safely comment this out
+     if running on a dev box.
 -->
 
 <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
@@ -316,9 +319,8 @@ is available.
       <class location="${dist}/open-dis_${version}.jar" />
     </findbugs>
   </target>
-
 <!-- Checkstyle ant task. Used on the server side in jenkins for static code analysis on the 
-     continuous integration server. 
+     continuous integration server. You can safely comment this out if running on a dev box.
 -->
 <taskdef resource="checkstyletask.properties" classpath="/usr/java/checkstyle-5.4/checkstyle-5.4-all.jar"/>
 
@@ -328,7 +330,6 @@ is available.
     <formatter type="xml" toFile="checkstyle_results.xml"/>
   </checkstyle>
 </target>
-
 
     <!-- Create a distribution. This skips the target of generateDisSourceCode, since that is not typically used
          in the development cycle. You can run that target separately.
