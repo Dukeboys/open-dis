@@ -21,6 +21,8 @@ public class BeamAntennaPattern extends Object implements Serializable
 
    protected float  azimuthBeamwidth = (float)0;
 
+   protected float  elevationBeamwidth = (float)0;
+
    protected float  referenceSystem = (float)0;
 
    protected short  padding1 = (short)0;
@@ -48,6 +50,7 @@ public int getMarshalledSize()
 
    marshalSize = marshalSize + beamDirection.getMarshalledSize();  // beamDirection
    marshalSize = marshalSize + 4;  // azimuthBeamwidth
+   marshalSize = marshalSize + 4;  // elevationBeamwidth
    marshalSize = marshalSize + 4;  // referenceSystem
    marshalSize = marshalSize + 2;  // padding1
    marshalSize = marshalSize + 1;  // padding2
@@ -73,6 +76,14 @@ public void setAzimuthBeamwidth(float pAzimuthBeamwidth)
 
 public float getAzimuthBeamwidth()
 { return azimuthBeamwidth; 
+}
+
+public void setElevationBeamwidth(float pElevationBeamwidth)
+{ elevationBeamwidth = pElevationBeamwidth;
+}
+
+public float getElevationBeamwidth()
+{ return elevationBeamwidth; 
 }
 
 public void setReferenceSystem(float pReferenceSystem)
@@ -130,6 +141,7 @@ public void marshal(DataOutputStream dos)
     {
        beamDirection.marshal(dos);
        dos.writeFloat( (float)azimuthBeamwidth);
+       dos.writeFloat( (float)elevationBeamwidth);
        dos.writeFloat( (float)referenceSystem);
        dos.writeShort( (short)padding1);
        dos.writeByte( (byte)padding2);
@@ -148,6 +160,7 @@ public void unmarshal(DataInputStream dis)
     {
        beamDirection.unmarshal(dis);
        azimuthBeamwidth = dis.readFloat();
+       elevationBeamwidth = dis.readFloat();
        referenceSystem = dis.readFloat();
        padding1 = dis.readShort();
        padding2 = dis.readByte();
@@ -174,6 +187,7 @@ public void marshal(java.nio.ByteBuffer buff)
 {
        beamDirection.marshal(buff);
        buff.putFloat( (float)azimuthBeamwidth);
+       buff.putFloat( (float)elevationBeamwidth);
        buff.putFloat( (float)referenceSystem);
        buff.putShort( (short)padding1);
        buff.put( (byte)padding2);
@@ -193,6 +207,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 {
        beamDirection.unmarshal(buff);
        azimuthBeamwidth = buff.getFloat();
+       elevationBeamwidth = buff.getFloat();
        referenceSystem = buff.getFloat();
        padding1 = buff.getShort();
        padding2 = buff.get();
@@ -240,6 +255,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
      if( ! (beamDirection.equals( rhs.beamDirection) )) ivarsEqual = false;
      if( ! (azimuthBeamwidth == rhs.azimuthBeamwidth)) ivarsEqual = false;
+     if( ! (elevationBeamwidth == rhs.elevationBeamwidth)) ivarsEqual = false;
      if( ! (referenceSystem == rhs.referenceSystem)) ivarsEqual = false;
      if( ! (padding1 == rhs.padding1)) ivarsEqual = false;
      if( ! (padding2 == rhs.padding2)) ivarsEqual = false;
