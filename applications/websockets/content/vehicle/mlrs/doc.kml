@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns='http://earth.google.com/kml/2.1'>
+<Folder>
+    <name>mlrs</name>
+    <description><![CDATA[Created with <a href="http://sketchup.google.com/">Google SketchUp 6.0.1099</a>]]></description>
+    <DocumentSource>SketchUp</DocumentSource>
+<visibility>1</visibility>
+<LookAt>
+<heading>316.202</heading>
+<tilt>87.7013</tilt>
+<latitude>40.01696344538058</latitude>
+<longitude>-105.282902361968</longitude>
+<range>60.94556196265506</range>
+<altitude>2.445809477955181</altitude>
+</LookAt>
+<Folder>
+<name>Tour</name>
+<Placemark>
+<name>Camera</name>
+<visibility>1</visibility>
+<LookAt>
+<heading>316.202</heading>
+<tilt>87.7013</tilt>
+<latitude>40.01696344538058</latitude>
+<longitude>-105.282902361968</longitude>
+<range>60.94556196265506</range>
+<altitude>2.445809477955181</altitude>
+</LookAt>
+</Placemark>
+</Folder>
+  <Placemark>
+    <name>Model</name>
+    <description><![CDATA[]]></description>
+    <Style id='default'>
+    </Style>
+    <Model>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <Location>
+            <longitude>-105.283000000000</longitude>
+            <latitude>40.017000000000</latitude>
+            <altitude>0.000000000000</altitude>
+        </Location>
+        <Orientation>
+            <heading>0</heading>
+            <tilt>0</tilt>
+            <roll>0</roll>
+        </Orientation>
+        <Scale>
+            <x>1.0</x>
+            <y>1.0</y>
+            <z>1.0</z>
+        </Scale>
+        <Link>
+            <href>models/mlrs.dae</href>
+        </Link>
+    </Model>
+  </Placemark></Folder>
+</kml>

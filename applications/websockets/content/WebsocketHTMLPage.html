@@ -1,0 +1,160 @@
+<!-- This is intended to be a dead-simple example of using websockets. It does
+     nothing but communicate with the server. 
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    <script language="javascript" type="text/javascript">
+        
+var websocket;
+var output;
+var updater;
+
+// Port must match what is specified on the server side, and the end part must
+// match what we registered as the servlet handler
+var websocketUri = "ws://localhost:8081/nve"
+
+function init()
+{
+    output = document.getElementById("output");
+    initializeWebsocket();
+    
+    // Note that it might take a while for the web socket to be
+    // established. If you try to immediately send a message to
+    // the server odds are it will fail. This is because javascript
+    // is single-threaded; the onOpen() method needs to be processed
+    // in a callback, and that can't happen while we're sequentially
+    // processing in the init() method. We can fake this by doing a
+    // wait for a while. 
+    
+    // In the server side of the code, we simply start sending messages
+    // to the client when we connect. So we don't need to contact the server
+    // first
+    
+    //setTimeout("getUniqueIdFromServer()", 5000);
+}
+
+// Write some text to the screen 
+function writeToScreen(message)
+{
+  var pre = document.createElement("p");
+  pre.style.wordWrap = "break-word";
+  pre.innerHTML = message;
+  output.appendChild(pre);
+}
+
+// Sends a request to the server for a unique ID. The response is 
+// sent back and handled by the onMessage() function.
+function getUniqueIdFromServer()
+{
+    writeToScreen("Asked server for unique ID");
+    sendMessageToServer('{"messageType":"uniqueIdRequest"}');
+}
+
+// Initialize the web socket, and define various methods that are called
+// on events such as an open, close, and, most importantly, a message.
+function initializeWebsocket()
+{
+  // uri, and the protocl at that uri. We can also use subprotocols, for example versions, with something like "nve/v2"
+  // 
+  // Note that we have to worry about Firefox brain damage; for who knows what reason they decicded
+  // to change the name to "Mozwebsocket" instead of "websocket".
+  if(window.WebSocket)
+    websocket = new WebSocket(websocketUri, "nve");
+   else if (window.MozWebSocket)
+       websocket = new MozWebSocket(websocketUri, "nve");
+   else
+   {
+           writeToScreen("Websockets not supported in this browser");
+           return;
+   }
+  
+  websocket.onopen = function(evt) { onOpen(evt) };
+  websocket.onclose = function(evt) { onClose(evt) };
+  websocket.onmessage = function(evt) { onMessage(evt) };
+  websocket.onerror = function(evt) { onError(evt) };
+}
+
+// Sends a text message to the server
+function sendMessageToServer(message)
+{
+    writeToScreen("SENT: " + message); 
+    websocket.send(message);
+}
+
+
+// Callback called on the open event, when the websocket establishes a connection
+function onOpen(evt)
+{
+  writeToScreen("CONNECTED");
+  writeToScreen("   websocket to " + websocketUri + " opened");
+}
+
+// Callback called when the websocket is closed
+function onClose(evt)
+{
+    writeToScreen("DISCONNECTED");
+    writeToScreen("   websocket to " + websocketUri + " closed");
+}
+
+// Called when we receive a message from the server. We expect to get messages
+// from the server in JSON format.
+function onMessage(evt)
+ {
+    writeToScreen('<span style="color: blue;">MESSAGE FROM SERVER: ' + evt.data+'</span>');
+
+    // Input text is in JSON format. Convert it to a javascript object
+    var updateObject = eval('(' + evt.data + ')');
+    writeToScreen('<span style="color: blue;">converted to javascript object</span>');
+    
+    if(updateObject.messageType == "uniqueIdResponse")
+    {
+        writeToScreen("Got uniqueIdResponse, " + updateObject);
+    }
+    else if(updateObject.messageType == "positionUpdate")
+    {
+        writeToScreen("Got position update, " + updateObject);
+    }
+    else
+    {
+        writeToScreen("Unknown object received from server over websocket, " + updateObject);
+    }
+    
+ }
+ 
+ // Called when we have some sort of error
+ function onError(evt)
+  {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+  
+  // Code found on the net to generate a UUID.
+  function createUUID() {
+    // http://www.ietf.org/rfc/rfc4122.txt
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("");
+    return uuid;
+}
+   
+ </script>
+    
+    </head>
+    
+    <!-- Call the init() method in the javascript node on pageload -->
+    <body onLoad="init()">
+        <div>Web socket debugging output</div>
+        <div id="output"></div>
+
+    </body>
+</html>

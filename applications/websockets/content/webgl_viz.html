@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>example 1: load model</title>
+<script type="text/javascript" src="js/three/Three.js"></script>
+<script type="text/javascript">
+
+var moveThisMesh;
+var websocket;
+
+// Port must match what is specified on the server side, and the end part must
+// match what we registered as the servlet handler
+var websocketUri = "ws://localhost:8081/nve"
+
+function writeToScreen(str)
+{
+  console.log(str);
+}
+
+// Initialize the web socket, and define various methods that are called
+// on events such as an open, close, and, most importantly, a message.
+function initializeWebsocket()
+{
+  // uri, and the protocl at that uri. We can also use subprotocols, for example versions, with something like "nve/v2"
+  // 
+  // Note that we have to worry about Firefox brain damage; for who knows what reason they decicded
+  // to change the name to "Mozwebsocket" instead of "websocket". Gah.
+  if(window.WebSocket)
+    websocket = new WebSocket(websocketUri, "nve");
+   else if (window.MozWebSocket)
+       websocket = new MozWebSocket(websocketUri, "nve");
+   else
+   {
+           writeToScreen("Websockets not supported in this browser");
+           return;
+   }
+  
+  websocket.onopen = function(evt) { onOpen(evt) };
+  websocket.onclose = function(evt) { onClose(evt) };
+  websocket.onmessage = function(evt) { onMessage(evt) };
+  websocket.onerror = function(evt) { onError(evt) };
+}
+
+// Sends a text message to the server
+function sendMessageToServer(message)
+{
+    writeToScreen("SENT: " + message); 
+    websocket.send(message);
+}
+
+
+// Callback called on the open event, when the websocket establishes a connection
+function onOpen(evt)
+{
+  writeToScreen("CONNECTED");
+  writeToScreen("   websocket to " + websocketUri + " opened");
+}
+
+// Callback called when the websocket is closed
+function onClose(evt)
+{
+    writeToScreen("DISCONNECTED");
+    writeToScreen("   websocket to " + websocketUri + " closed");
+}
+
+// Called when we receive a message from the server
+function onMessage(evt)
+ {
+    writeToScreen('<span style="color: blue;">MESSAGE FROM SERVER: ' + evt.data+'</span>');
+
+    // Input text is in JSON format. Convert it to a javascript object
+    var updateObject = eval('(' + evt.data + ')');
+    writeToScreen('<span style="color: blue;">converted to javascript object</span>');
+    
+    moveThisMesh.position.set(updateObject.entityLocation.x,updateObject.entityLocation.y,updateObject.entityLocation.z);
+    var updateJson = JSON.stringify(updateObject);
+    writeToScreen('<span style="color: blue;">converted to javascript object to JSON</span>');
+    writeToScreen('<span style="color: blue;">JSON is ' + updateJson + '</span>');
+    
+    sendMessageToServer(updateJson);
+ }
+ 
+ // Called when we have some sort of error
+ function onError(evt)
+  {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+var init = function() {
+  initializeWebsocket();
+
+  var canv = document.getElementsByTagName("canvas")[0];
+  var w = canv.clientWidth;
+  var h = canv.clientHeight;
+
+  renderer = new THREE.WebGLRenderer({canvas:canv});
+  renderer.setSize( w, h );
+
+  var scene = new THREE.Scene();
+
+  var camera = new THREE.Camera(
+      15,     // Field of view
+      w / h,  // Aspect ratio
+      0.1,    // Near
+      10000   // Far
+  );
+  camera.position.set( -15, 10, 15 );
+
+  var light = new THREE.PointLight( 0xFFFFDD );
+  light.position.set( -15, 10, 15 );
+  scene.addLight( light );
+  
+  var ambient = new THREE.AmbientLight( 0x777777 );
+  scene.addLight( ambient );
+  
+  var loader = new THREE.JSONLoader(  );
+  var onGeometry = function(geom) {
+    var mesh = new THREE.Mesh( geom, new THREE.MeshFaceMaterial());
+    moveThisMesh = mesh;
+    scene.addObject(mesh);
+  };
+  loader.load( { model: "models/vwbug/vwbug.js", callback: onGeometry } );
+
+  var render = function() {
+    // Texture missing if rendered from OnGeometry
+    renderer.render(scene, camera);
+  };
+  
+  setInterval(render,10);
+}
+  
+window.onload = init;
+window.onresize = init;
+</script>
+</head>
+<body><canvas style="width:100%;height:95%;"></body>
+</html>
+  
