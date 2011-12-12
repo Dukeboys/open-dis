@@ -16,7 +16,7 @@ import edu.nps.moves.disutil.*;
  */
 public class SphericalHarmonicAntennaPattern extends Object implements Serializable
 {
-   protected byte  order;
+   protected byte  harmonicOrder;
 
 
 /** Constructor */
@@ -28,18 +28,18 @@ public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
-   marshalSize = marshalSize + 1;  // order
+   marshalSize = marshalSize + 1;  // harmonicOrder
 
    return marshalSize;
 }
 
 
-public void setOrder(byte pOrder)
-{ order = pOrder;
+public void setHarmonicOrder(byte pHarmonicOrder)
+{ harmonicOrder = pHarmonicOrder;
 }
 
-public byte getOrder()
-{ return order; 
+public byte getHarmonicOrder()
+{ return harmonicOrder; 
 }
 
 
@@ -47,7 +47,7 @@ public void marshal(DataOutputStream dos)
 {
     try 
     {
-       dos.writeByte( (byte)order);
+       dos.writeByte( (byte)harmonicOrder);
     } // end try 
     catch(Exception e)
     { 
@@ -58,7 +58,7 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       order = dis.readByte();
+       harmonicOrder = dis.readByte();
     } // end try 
    catch(Exception e)
     { 
@@ -77,7 +77,7 @@ public void unmarshal(DataInputStream dis)
  */
 public void marshal(java.nio.ByteBuffer buff)
 {
-       buff.put( (byte)order);
+       buff.put( (byte)harmonicOrder);
     } // end of marshal method
 
 /**
@@ -89,7 +89,7 @@ public void marshal(java.nio.ByteBuffer buff)
  */
 public void unmarshal(java.nio.ByteBuffer buff)
 {
-       order = buff.get();
+       harmonicOrder = buff.get();
  } // end of unmarshal method 
 
 
@@ -129,7 +129,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
      final SphericalHarmonicAntennaPattern rhs = (SphericalHarmonicAntennaPattern)obj;
 
-     if( ! (order == rhs.order)) ivarsEqual = false;
+     if( ! (harmonicOrder == rhs.harmonicOrder)) ivarsEqual = false;
 
     return ivarsEqual;
  }

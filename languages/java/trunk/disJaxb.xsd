@@ -416,7 +416,7 @@
     <xs:attribute name="country" type="xs:int" use="required"/>
     <xs:attribute name="domain" type="xs:short" use="required"/>
     <xs:attribute name="extra" type="xs:short" use="required"/>
-    <xs:attribute name="specific" type="xs:short" use="required"/>
+    <xs:attribute name="specificInfo" type="xs:short" use="required"/>
     <xs:attribute name="subcategory" type="xs:short" use="required"/>
   </xs:complexType>
 
@@ -1080,10 +1080,10 @@
     </xs:sequence>
     <xs:attribute name="environmentType" type="xs:long" use="required"/>
     <xs:attribute name="geometry" type="xs:short" use="required"/>
-    <xs:attribute name="index" type="xs:short" use="required"/>
     <xs:attribute name="length" type="xs:short" use="required"/>
     <xs:attribute name="padding1" type="xs:short" use="required"/>
     <xs:attribute name="padding2" type="xs:short" use="required"/>
+    <xs:attribute name="recordIndex" type="xs:short" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="environmentalProcessPdu">
@@ -1817,6 +1817,15 @@
     <xs:attribute name="numberOfPdus" type="xs:int" use="required"/>
   </xs:complexType>
 
+  <xs:complexType name="pduStream">
+    <xs:sequence>
+      <xs:element name="marking" type="xs:base64Binary" minOccurs="0"/>
+      <xs:element name="pk_PduStream" type="xs:long"/>
+    </xs:sequence>
+    <xs:attribute name="startTime" type="xs:long" use="required"/>
+    <xs:attribute name="stopTime" type="xs:long" use="required"/>
+  </xs:complexType>
+
   <xs:complexType name="pointObjectStatePdu">
     <xs:complexContent>
       <xs:extension base="syntheticEnvironmentFamilyPdu">
@@ -2207,7 +2216,7 @@
     <xs:sequence>
       <xs:element name="pk_SphericalHarmonicAntennaPattern" type="xs:long"/>
     </xs:sequence>
-    <xs:attribute name="order" type="xs:byte" use="required"/>
+    <xs:attribute name="harmonicOrder" type="xs:byte" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="startResumePdu">

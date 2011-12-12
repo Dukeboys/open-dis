@@ -86,7 +86,7 @@
         <primitive type="unsigned byte"/>
     </attribute>
     
-    <attribute name="specific" comment="specific info based on subcategory field">
+    <attribute name="specificInfo" comment="specific info based on subcategory field. Specific is a sql reserved word">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -931,7 +931,7 @@
       <primitive type="unsigned byte"/>
     </attribute>
     
-     <attribute name="index" comment="Identify the sequentially numbered record index">
+     <attribute name="recordIndex" comment="Identify the sequentially numbered record index">
       <primitive type="unsigned byte"/>
     </attribute>
     
@@ -961,7 +961,7 @@
       <primitive type="unsigned short"/>
  </attribute>
  
- <attribute name="index" comment="identifies the sequntially numbered record index">
+ <attribute name="recordIndex" comment="identifies the sequntially numbered record index">
       <primitive type="unsigned byte"/>
  </attribute>
  
