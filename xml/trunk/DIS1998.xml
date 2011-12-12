@@ -125,9 +125,9 @@
        Specified the direction and radiation pattern from a radio transmitter's antenna.
        NOTE: this class must be hand-coded to clean up some implementation details.">
     
-    <attribute name="order" commment="The highest order of the expansion in spherical harmonics, couting
+    <attribute name="harmonicOrder" commment="The highest order of the expansion in spherical harmonics, counting
     from zero. There are 2n+1 coefficients for each order n, and a total of N^2 + 2N + 1 coefficients
-    through order N.">
+    through order N. note that order by itself is a sql reserved word">
       <primitive type="byte"/>
     </attribute>
                     
@@ -614,7 +614,7 @@ Also provides basic parametric data that may be used to support low-fidelity sim
         <primitive type="unsigned byte"/>
     </attribute>
     
-    <attribute name="specific" comment="specific info based on subcategory field">
+    <attribute name="specificInfo" comment="specific info based on subcategory field, sql has a reserved word for specific">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -663,7 +663,7 @@ volume, or an associated entity ID. NOTE: this class requires hand coding.">
       <primitive type="unsigned byte"/>
     </attribute>
     
-     <attribute name="index" comment="Identify the sequentially numbered record index">
+     <attribute name="recordIndex" comment="Identify the sequentially numbered record index">
       <primitive type="unsigned byte"/>
     </attribute>
     
@@ -1304,6 +1304,24 @@ receiver of the create entity to define the entity identifier number of the new 
   </attribute>
   
 </class>
+
+<class name="PduStream" inheritsFrom="root" comment="Non-DIS class, used on SQL databases">
+
+ <attribute name="marking" comment="characters that can be used for debugging, or to draw unique strings on the side of entities in the world">
+   <list type="fixed" length="256" couldBeString="true">
+     <primitive type="byte"/>
+   </list>
+ </attribute>
+  
+  <attribute name="startTime" comment="Start time of recording, in Unix time">
+    <primitive type= "long"/>
+  </attribute>
+  
+  <attribute name="stopTime" comment="stop time of recording, in Unix time">
+    <primitive type= "long"/>
+  </attribute>
+  
+ </class>
 
 <!-- PDUs start here -->
   
