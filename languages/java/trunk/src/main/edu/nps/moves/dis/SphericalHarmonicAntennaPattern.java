@@ -30,7 +30,7 @@ public class SphericalHarmonicAntennaPattern extends Object implements Serializa
    /** Primary key for hibernate, not part of the DIS standard */
    private long pk_SphericalHarmonicAntennaPattern;
 
-   protected byte  order;
+   protected byte  harmonicOrder;
 
 
 /** Constructor */
@@ -43,7 +43,7 @@ public int getMarshalledSize()
 {
    int marshalSize = 0; 
 
-   marshalSize = marshalSize + 1;  // order
+   marshalSize = marshalSize + 1;  // harmonicOrder
 
    return marshalSize;
 }
@@ -63,14 +63,14 @@ public void setPk_SphericalHarmonicAntennaPattern(long pKeyName)
    this.pk_SphericalHarmonicAntennaPattern = pKeyName;
 }
 
-public void setOrder(byte pOrder)
-{ order = pOrder;
+public void setHarmonicOrder(byte pHarmonicOrder)
+{ harmonicOrder = pHarmonicOrder;
 }
 
 @XmlAttribute // Jaxb
 @Basic       // Hibernate
-public byte getOrder()
-{ return order; 
+public byte getHarmonicOrder()
+{ return harmonicOrder; 
 }
 
 
@@ -78,7 +78,7 @@ public void marshal(DataOutputStream dos)
 {
     try 
     {
-       dos.writeByte( (byte)order);
+       dos.writeByte( (byte)harmonicOrder);
     } // end try 
     catch(Exception e)
     { 
@@ -89,7 +89,7 @@ public void unmarshal(DataInputStream dis)
 {
     try 
     {
-       order = dis.readByte();
+       harmonicOrder = dis.readByte();
     } // end try 
    catch(Exception e)
     { 
@@ -108,7 +108,7 @@ public void unmarshal(DataInputStream dis)
  */
 public void marshal(java.nio.ByteBuffer buff)
 {
-       buff.put( (byte)order);
+       buff.put( (byte)harmonicOrder);
     } // end of marshal method
 
 /**
@@ -120,7 +120,7 @@ public void marshal(java.nio.ByteBuffer buff)
  */
 public void unmarshal(java.nio.ByteBuffer buff)
 {
-       order = buff.get();
+       harmonicOrder = buff.get();
  } // end of unmarshal method 
 
 
@@ -160,7 +160,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
      final SphericalHarmonicAntennaPattern rhs = (SphericalHarmonicAntennaPattern)obj;
 
-     if( ! (order == rhs.order)) ivarsEqual = false;
+     if( ! (harmonicOrder == rhs.harmonicOrder)) ivarsEqual = false;
 
     return ivarsEqual;
  }

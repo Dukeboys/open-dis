@@ -37,7 +37,7 @@ public class Environment extends Object implements Serializable
    protected short  length;
 
    /** Identify the sequentially numbered record index */
-   protected short  index;
+   protected short  recordIndex;
 
    /** padding */
    protected short  padding1;
@@ -61,7 +61,7 @@ public int getMarshalledSize()
 
    marshalSize = marshalSize + 4;  // environmentType
    marshalSize = marshalSize + 1;  // length
-   marshalSize = marshalSize + 1;  // index
+   marshalSize = marshalSize + 1;  // recordIndex
    marshalSize = marshalSize + 1;  // padding1
    marshalSize = marshalSize + 1;  // geometry
    marshalSize = marshalSize + 1;  // padding2
@@ -104,14 +104,14 @@ public short getLength()
 { return length; 
 }
 
-public void setIndex(short pIndex)
-{ index = pIndex;
+public void setRecordIndex(short pRecordIndex)
+{ recordIndex = pRecordIndex;
 }
 
 @XmlAttribute // Jaxb
 @Basic       // Hibernate
-public short getIndex()
-{ return index; 
+public short getRecordIndex()
+{ return recordIndex; 
 }
 
 public void setPadding1(short pPadding1)
@@ -151,7 +151,7 @@ public void marshal(DataOutputStream dos)
     {
        dos.writeInt( (int)environmentType);
        dos.writeByte( (byte)length);
-       dos.writeByte( (byte)index);
+       dos.writeByte( (byte)recordIndex);
        dos.writeByte( (byte)padding1);
        dos.writeByte( (byte)geometry);
        dos.writeByte( (byte)padding2);
@@ -167,7 +167,7 @@ public void unmarshal(DataInputStream dis)
     {
        environmentType = dis.readInt();
        length = (short)dis.readUnsignedByte();
-       index = (short)dis.readUnsignedByte();
+       recordIndex = (short)dis.readUnsignedByte();
        padding1 = (short)dis.readUnsignedByte();
        geometry = (short)dis.readUnsignedByte();
        padding2 = (short)dis.readUnsignedByte();
@@ -191,7 +191,7 @@ public void marshal(java.nio.ByteBuffer buff)
 {
        buff.putInt( (int)environmentType);
        buff.put( (byte)length);
-       buff.put( (byte)index);
+       buff.put( (byte)recordIndex);
        buff.put( (byte)padding1);
        buff.put( (byte)geometry);
        buff.put( (byte)padding2);
@@ -208,7 +208,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 {
        environmentType = buff.getInt();
        length = (short)(buff.get() & 0xFF);
-       index = (short)(buff.get() & 0xFF);
+       recordIndex = (short)(buff.get() & 0xFF);
        padding1 = (short)(buff.get() & 0xFF);
        geometry = (short)(buff.get() & 0xFF);
        padding2 = (short)(buff.get() & 0xFF);
@@ -253,7 +253,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
 
      if( ! (environmentType == rhs.environmentType)) ivarsEqual = false;
      if( ! (length == rhs.length)) ivarsEqual = false;
-     if( ! (index == rhs.index)) ivarsEqual = false;
+     if( ! (recordIndex == rhs.recordIndex)) ivarsEqual = false;
      if( ! (padding1 == rhs.padding1)) ivarsEqual = false;
      if( ! (geometry == rhs.geometry)) ivarsEqual = false;
      if( ! (padding2 == rhs.padding2)) ivarsEqual = false;

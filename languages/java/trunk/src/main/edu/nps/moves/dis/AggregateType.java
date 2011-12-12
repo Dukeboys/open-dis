@@ -45,8 +45,8 @@ public class AggregateType extends Object implements Serializable
    /** subcategory of entity */
    protected short  subcategory;
 
-   /** specific info based on subcategory field */
-   protected short  specific;
+   /** specific info based on subcategory field, sql has a reserved word for specific */
+   protected short  specificInfo;
 
    protected short  extra;
 
@@ -66,7 +66,7 @@ public int getMarshalledSize()
    marshalSize = marshalSize + 2;  // country
    marshalSize = marshalSize + 1;  // category
    marshalSize = marshalSize + 1;  // subcategory
-   marshalSize = marshalSize + 1;  // specific
+   marshalSize = marshalSize + 1;  // specificInfo
    marshalSize = marshalSize + 1;  // extra
 
    return marshalSize;
@@ -137,14 +137,14 @@ public short getSubcategory()
 { return subcategory; 
 }
 
-public void setSpecific(short pSpecific)
-{ specific = pSpecific;
+public void setSpecificInfo(short pSpecificInfo)
+{ specificInfo = pSpecificInfo;
 }
 
 @XmlAttribute // Jaxb
 @Basic       // Hibernate
-public short getSpecific()
-{ return specific; 
+public short getSpecificInfo()
+{ return specificInfo; 
 }
 
 public void setExtra(short pExtra)
@@ -167,7 +167,7 @@ public void marshal(DataOutputStream dos)
        dos.writeShort( (short)country);
        dos.writeByte( (byte)category);
        dos.writeByte( (byte)subcategory);
-       dos.writeByte( (byte)specific);
+       dos.writeByte( (byte)specificInfo);
        dos.writeByte( (byte)extra);
     } // end try 
     catch(Exception e)
@@ -184,7 +184,7 @@ public void unmarshal(DataInputStream dis)
        country = (int)dis.readUnsignedShort();
        category = (short)dis.readUnsignedByte();
        subcategory = (short)dis.readUnsignedByte();
-       specific = (short)dis.readUnsignedByte();
+       specificInfo = (short)dis.readUnsignedByte();
        extra = (short)dis.readUnsignedByte();
     } // end try 
    catch(Exception e)
@@ -209,7 +209,7 @@ public void marshal(java.nio.ByteBuffer buff)
        buff.putShort( (short)country);
        buff.put( (byte)category);
        buff.put( (byte)subcategory);
-       buff.put( (byte)specific);
+       buff.put( (byte)specificInfo);
        buff.put( (byte)extra);
     } // end of marshal method
 
@@ -227,7 +227,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
        country = (int)(buff.getShort() & 0xFFFF);
        category = (short)(buff.get() & 0xFF);
        subcategory = (short)(buff.get() & 0xFF);
-       specific = (short)(buff.get() & 0xFF);
+       specificInfo = (short)(buff.get() & 0xFF);
        extra = (short)(buff.get() & 0xFF);
  } // end of unmarshal method 
 
@@ -273,7 +273,7 @@ public void unmarshal(java.nio.ByteBuffer buff)
      if( ! (country == rhs.country)) ivarsEqual = false;
      if( ! (category == rhs.category)) ivarsEqual = false;
      if( ! (subcategory == rhs.subcategory)) ivarsEqual = false;
-     if( ! (specific == rhs.specific)) ivarsEqual = false;
+     if( ! (specificInfo == rhs.specificInfo)) ivarsEqual = false;
      if( ! (extra == rhs.extra)) ivarsEqual = false;
 
     return ivarsEqual;
