@@ -1307,7 +1307,13 @@ receiver of the create entity to define the entity identifier number of the new 
 
 <class name="PduStream" inheritsFrom="root" comment="Non-DIS class, used on SQL databases">
 
- <attribute name="marking" comment="characters that can be used for debugging, or to draw unique strings on the side of entities in the world">
+ <attribute name="description" comment="Longish description of this PDU stream">
+   <list type="fixed" length="512" couldBeString="true">
+     <primitive type="byte"/>
+   </list>
+ </attribute>
+ 
+ <attribute name="name" comment="short description of this PDU stream">
    <list type="fixed" length="256" couldBeString="true">
      <primitive type="byte"/>
    </list>
