@@ -2479,6 +2479,29 @@
 <!-- End records -->
 
 
+<class name="PduStream" inheritsFrom="root" comment="Non-DIS class, used on SQL databases">
+
+ <attribute name="description" comment="Longish description of this PDU stream">
+   <list type="fixed" length="512" couldBeString="true">
+     <primitive type="byte"/>
+   </list>
+ </attribute>
+ 
+ <attribute name="name" comment="short description of this PDU stream">
+   <list type="fixed" length="256" couldBeString="true">
+     <primitive type="byte"/>
+   </list>
+ </attribute>
+  
+  <attribute name="startTime" comment="Start time of recording, in Unix time">
+    <primitive type= "long"/>
+  </attribute>
+  
+  <attribute name="stopTime" comment="stop time of recording, in Unix time">
+    <primitive type= "long"/>
+  </attribute>
+  
+ </class>
 
 <!-- PDUs start here. Everything before this was recordst that are contained inside of PDUs -->
   
