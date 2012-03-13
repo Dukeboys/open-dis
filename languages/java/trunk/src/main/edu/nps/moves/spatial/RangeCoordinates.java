@@ -65,7 +65,7 @@ public class RangeCoordinates
      */
     SRF_Celestiocentric disCoordinateReferenceFrame;
 
-    /** A local, flat, euclidian reference frame. This is tangent to a (lat, lon, height)
+    /** A local, flat, euclidian reference frame. This is tangent to a (lat, lon, altitudeOrigin)
      * on an earth that is supplied by the user in the constructor.
      * This allows users to set up a local, relatively small area
      * for moving things around without in the nuisance of worrying about curved
@@ -75,24 +75,31 @@ public class RangeCoordinates
      */
     SRF_LocalTangentSpaceEuclidean localTangentSurfaceReferenceFrame;
 
-    /** The origin of the local euclidian reference frame */
+    /** The origin of the local euclidian reference frame, in sedris data structure */
     Coord3D localEuclidianOrigin;
 
-    double latitudeOrigin, longitudeOrigin, height;
+    /** The latitude and longitude of the local, flat, euclidian coordinate system origin */
+    double latitudeOrigin, longitudeOrigin;
+    
+    /** The altitude of the local coordinate system origin, ie the distance
+     * above the ellipsoid, not distance above terrain
+     */
+    double altitudeOrigin;
 
     /**
      * Constructor for a local flat coordinate system. Takes the latitude and
-     * longitude (in degrees) for WGS_84.<p>
+     * longitude (in degrees) for WGS_84 and the height above the ellipsoid
+     * and creates a local, flat coordinate system at that point.<p>
      * 
      * @param originLat Origin of the flat local coordinate system, in degrees, latitude
      * @param originLon Origin of the flat local coordinate system, in degrees, longitude
-     * @param heightOffset height above ellipsoid surface, in meters
+     * @param heightOffset altitudeOrigin above ellipsoid surface, in meters
      */
     public RangeCoordinates(double originLat, double originLon, double heightOffset)
     {
         latitudeOrigin = originLat;
         longitudeOrigin = originLon;
-        height = heightOffset;
+        altitudeOrigin = heightOffset;
         try
         {
             // Create a Celestiodetic SRF with WGS 1984, ie a curved coordinate
@@ -128,10 +135,27 @@ public class RangeCoordinates
         }
 
     }
+    
+    /** Changes a Vector3Double from the local coordinate system (flat, euclidian,
+     * orgin given at (lat, lon, alt)) to a global, DIS, earth-centric coordinate
+     * system. Overwrites the values currently in Vector3Double passed in.
+     * 
+     * @param localCoordinates Position in local euclidian coordinate system. Values are overwritten to the DIS earth-centric coordinate system on return
+     */
+    public void changeVectorToDisCoordFromLocalFlat(Vector3Double localCoordinates)
+    {
+        Vector3Double vec = this.DISCoordFromLocalFlat(localCoordinates.getX(), 
+                localCoordinates.getY(), 
+                localCoordinates.getZ());
+        localCoordinates.setX(vec.getX());
+        localCoordinates.setY(vec.getY());
+        localCoordinates.setZ(vec.getZ());
+    }
 
     /**
      * Transform from local, flat coordinate system to the DIS coordinate system.
-     * All units in meters, positive x east, y north, z altitude.
+     * All units in meters, positive x east, y north, z altitude.<p>
+     * 
      * @param x x coordinate in local, flat coordinate system
      * @param y y coordinate in meters in local, flat coordinate system
      * @param z z coordinate, altitude, in meters in local flat coordinate system
@@ -169,6 +193,22 @@ public class RangeCoordinates
         return disCoordinates;
     }
 
+    /** 
+     * Changes the world-coordinates vector3double to the local euclidian flat
+     * coordinate system. Overwrites the values in worldCoordinates.
+     * 
+     * @param worldCoordinates 
+     */
+   public void changeVectorToLocalCoordFromDIS(Vector3Double worldCoordinates)
+   {
+       Vector3Double vec = this.localCoordFromDis(worldCoordinates.getX(), 
+               worldCoordinates.getY(), 
+               worldCoordinates.getZ());
+       worldCoordinates.setX(vec.getX());
+       worldCoordinates.setY(vec.getY());
+       worldCoordinates.setZ(vec.getZ());
+   }
+    
     /**
      * Given DIS coordinates, convert to the local euclidian plane coordinates.
      * 
@@ -349,7 +389,7 @@ public class RangeCoordinates
             Coord3D localLTSEOrigin = localTangentSurfaceReferenceFrame.createCoordinate3D(0.0, 0.0, 0.0);
             Coord3D disPosition = disCoordinateReferenceFrame.createCoordinate3D();
             Coord3D disOrigin = disCoordinateReferenceFrame.createCoordinate3D();
-            //Coord3D geodeticPosition = earthSurfaceReferenceFrame.createCoordinate3D(latitudeOrigin, longitudeOrigin, height);
+            //Coord3D geodeticPosition = earthSurfaceReferenceFrame.createCoordinate3D(latitudeOrigin, longitudeOrigin, altitudeOrigin);
 
             // changes the contents of disPosition to reflect the geocentric coordinates of the LTSE position
             SRM_Coordinate_Valid_Region_Code region = disCoordinateReferenceFrame.changeCoordinateSRF(localLTSEPosition, disPosition);
