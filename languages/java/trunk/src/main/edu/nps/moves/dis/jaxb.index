@@ -87,6 +87,7 @@ ObjectType
 OneByteChunk
 Orientation
 Pdu
+PduContainer
 Point
 PointObjectStatePdu
 PropulsionSystemData
