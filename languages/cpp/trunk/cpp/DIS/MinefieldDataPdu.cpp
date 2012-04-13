@@ -15,7 +15,9 @@ MinefieldDataPdu::MinefieldDataPdu() : MinefieldFamilyPdu(),
    _pad2(0), 
    _dataFilter(0), 
    _mineType(), 
-   _pad3(0)
+   _sensorTypes(0), 
+   _pad3(0), 
+   _mineLocation(0)
 {
     setPduType( 39 );
 }

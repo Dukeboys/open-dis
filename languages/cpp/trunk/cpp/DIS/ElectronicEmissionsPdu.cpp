@@ -8,7 +8,8 @@ ElectronicEmissionsPdu::ElectronicEmissionsPdu() : DistributedEmissionsFamilyPdu
    _eventID(), 
    _stateUpdateIndicator(0), 
    _numberOfSystems(0), 
-   _paddingForEmissionsPdu(0)
+   _paddingForEmissionsPdu(0), 
+   _systems(0)
 {
     setPduType( 23 );
     setPaddingForEmissionsPdu( 0 );

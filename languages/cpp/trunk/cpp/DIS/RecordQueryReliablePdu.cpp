@@ -10,7 +10,8 @@ RecordQueryReliablePdu::RecordQueryReliablePdu() : SimulationManagementWithRelia
    _pad2(0), 
    _eventType(0), 
    _time(0), 
-   _numberOfRecords(0)
+   _numberOfRecords(0), 
+   _recordIDs(0)
 {
     setPduType( 63 );
 }

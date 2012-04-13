@@ -10,7 +10,8 @@ EntityStateUpdatePdu::EntityStateUpdatePdu() : EntityInformationFamilyPdu(),
    _entityLinearVelocity(), 
    _entityLocation(), 
    _entityOrientation(), 
-   _entityAppearance(0)
+   _entityAppearance(0), 
+   _articulationParameters(0)
 {
     setPduType( 67 );
     setProtocolFamily( 1 );

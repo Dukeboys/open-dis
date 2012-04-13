@@ -10,7 +10,8 @@ TransferControlRequestPdu::TransferControlRequestPdu() : EntityManagementFamilyP
    _requiredReliabilityService(0), 
    _tranferType(0), 
    _transferEntityID(), 
-   _numberOfRecordSets(0)
+   _numberOfRecordSets(0), 
+   _recordSets(0)
 {
     setPduType( 35 );
 }

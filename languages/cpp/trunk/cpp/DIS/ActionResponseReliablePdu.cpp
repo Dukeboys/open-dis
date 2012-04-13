@@ -7,7 +7,9 @@ ActionResponseReliablePdu::ActionResponseReliablePdu() : SimulationManagementWit
    _requestID(0), 
    _responseStatus(0), 
    _numberOfFixedDatumRecords(0), 
-   _numberOfVariableDatumRecords(0)
+   _numberOfVariableDatumRecords(0), 
+   _fixedDatumRecords(0), 
+   _variableDatumRecords(0)
 {
     setPduType( 57 );
 }

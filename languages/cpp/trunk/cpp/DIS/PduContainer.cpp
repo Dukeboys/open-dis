@@ -4,7 +4,8 @@ using namespace DIS;
 
 
 PduContainer::PduContainer():
-   _numberOfPdus(0)
+   _numberOfPdus(0), 
+   _pdus(0)
 {
 }
 

@@ -9,7 +9,8 @@ IsGroupOfPdu::IsGroupOfPdu() : EntityManagementFamilyPdu(),
    _numberOfGroupedEntities(0), 
    _pad2(0), 
    _latitude(0.0), 
-   _longitude(0.0)
+   _longitude(0.0), 
+   _groupedEntityDescriptions(0)
 {
     setPduType( 34 );
 }

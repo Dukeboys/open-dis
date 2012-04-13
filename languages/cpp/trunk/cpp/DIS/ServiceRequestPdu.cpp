@@ -8,7 +8,8 @@ ServiceRequestPdu::ServiceRequestPdu() : LogisticsFamilyPdu(),
    _servicingEntityID(), 
    _serviceTypeRequested(0), 
    _numberOfSupplyTypes(0), 
-   _serviceRequestPadding(0)
+   _serviceRequestPadding(0), 
+   _supplies(0)
 {
     setPduType( 5 );
 }

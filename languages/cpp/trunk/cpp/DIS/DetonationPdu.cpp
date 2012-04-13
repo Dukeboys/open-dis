@@ -12,7 +12,8 @@ DetonationPdu::DetonationPdu() : WarfareFamilyPdu(),
    _locationInEntityCoordinates(), 
    _detonationResult(0), 
    _numberOfArticulationParameters(0), 
-   _pad(0)
+   _pad(0), 
+   _articulationParameters(0)
 {
     setPduType( 3 );
 }

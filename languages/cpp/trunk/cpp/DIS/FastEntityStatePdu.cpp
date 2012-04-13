@@ -40,7 +40,8 @@ FastEntityStatePdu::FastEntityStatePdu() : EntityInformationFamilyPdu(),
    _xAngularVelocity(0.0), 
    _yAngularVelocity(0.0), 
    _zAngularVelocity(0.0), 
-   _capabilities(0)
+   _capabilities(0), 
+   _articulationParameters(0)
 {
     setPduType( 1 );
      // Initialize fixed length array

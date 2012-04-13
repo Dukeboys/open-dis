@@ -12,7 +12,8 @@ ElectronicEmissionBeamData::ElectronicEmissionBeamData():
    _numberOfTrackJamTargets(0), 
    _highDensityTrackJam(0), 
    _pad4(0), 
-   _jammingModeSequence(0)
+   _jammingModeSequence(0), 
+   _trackJamTargets(0)
 {
 }
 

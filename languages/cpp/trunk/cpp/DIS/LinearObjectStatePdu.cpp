@@ -11,7 +11,8 @@ LinearObjectStatePdu::LinearObjectStatePdu() : SyntheticEnvironmentFamilyPdu(),
    _numberOfSegments(0), 
    _requesterID(), 
    _receivingID(), 
-   _objectType()
+   _objectType(), 
+   _linearSegmentParameters(0)
 {
     setPduType( 44 );
 }

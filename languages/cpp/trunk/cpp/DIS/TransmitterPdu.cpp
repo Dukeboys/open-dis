@@ -20,7 +20,9 @@ TransmitterPdu::TransmitterPdu() : RadioCommunicationsFamilyPdu(),
    _cryptoKeyId(0), 
    _modulationParameterCount(0), 
    _padding2(0), 
-   _padding3(0)
+   _padding3(0), 
+   _modulationParametersList(0), 
+   _antennaPatternList(0)
 {
     setPduType( 25 );
 }

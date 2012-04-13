@@ -13,7 +13,9 @@ MinefieldStatePdu::MinefieldStatePdu() : MinefieldFamilyPdu(),
    _minefieldLocation(), 
    _minefieldOrientation(), 
    _appearance(0), 
-   _protocolMode(0)
+   _protocolMode(0), 
+   _perimeterPoints(0), 
+   _mineType(0)
 {
     setPduType( 37 );
 }

@@ -6,7 +6,8 @@ using namespace DIS;
 GridAxisRecordRepresentation1::GridAxisRecordRepresentation1() : GridAxisRecord(),
    _fieldScale(0.0), 
    _fieldOffset(0.0), 
-   _numberOfValues(0)
+   _numberOfValues(0), 
+   _dataValues(0)
 {
 }
 

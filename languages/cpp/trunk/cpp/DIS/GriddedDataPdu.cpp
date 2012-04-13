@@ -17,7 +17,8 @@ GriddedDataPdu::GriddedDataPdu() : SyntheticEnvironmentFamilyPdu(),
    _totalValues(0), 
    _vectorDimension(0), 
    _padding1(0), 
-   _padding2(0)
+   _padding2(0), 
+   _gridDataList(0)
 {
     setPduType( 42 );
 }

@@ -7,7 +7,9 @@ ActionRequestPdu::ActionRequestPdu() : SimulationManagementFamilyPdu(),
    _requestID(0), 
    _actionID(0), 
    _numberOfFixedDatumRecords(0), 
-   _numberOfVariableDatumRecords(0)
+   _numberOfVariableDatumRecords(0), 
+   _fixedDatums(0), 
+   _variableDatums(0)
 {
     setPduType( 16 );
 }

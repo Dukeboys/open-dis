@@ -6,7 +6,8 @@ using namespace DIS;
 IffAtcNavAidsLayer2Pdu::IffAtcNavAidsLayer2Pdu() : IffAtcNavAidsLayer1Pdu(),
    _layerHeader(), 
    _beamData(), 
-   _secondaryOperationalData()
+   _secondaryOperationalData(), 
+   _fundamentalIffParameters(0)
 {
 }
 

@@ -11,7 +11,9 @@ MinefieldQueryPdu::MinefieldQueryPdu() : MinefieldFamilyPdu(),
    _pad2(0), 
    _numberOfSensorTypes(0), 
    _dataFilter(0), 
-   _requestedMineType()
+   _requestedMineType(), 
+   _requestedPerimeterPoints(0), 
+   _sensorTypes(0)
 {
     setPduType( 38 );
 }

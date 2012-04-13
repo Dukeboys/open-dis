@@ -5,7 +5,8 @@ using namespace DIS;
 
 VariableDatum::VariableDatum():
    _variableDatumID(0), 
-   _variableDatumLength(0)
+   _variableDatumLength(0), 
+   _variableDatums(0)
 {
 }
 

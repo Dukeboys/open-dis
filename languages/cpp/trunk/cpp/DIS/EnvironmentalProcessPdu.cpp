@@ -9,7 +9,8 @@ EnvironmentalProcessPdu::EnvironmentalProcessPdu() : SyntheticEnvironmentFamilyP
    _modelType(0), 
    _environmentStatus(0), 
    _numberOfEnvironmentRecords(0), 
-   _sequenceNumber(0)
+   _sequenceNumber(0), 
+   _environmentRecords(0)
 {
     setPduType( 41 );
 }

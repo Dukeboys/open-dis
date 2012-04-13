@@ -10,7 +10,8 @@ IntercomSignalPdu::IntercomSignalPdu() : RadioCommunicationsFamilyPdu(),
    _tdlType(0), 
    _sampleRate(0), 
    _dataLength(0), 
-   _samples(0)
+   _samples(0), 
+   _data(0)
 {
     setPduType( 31 );
 }

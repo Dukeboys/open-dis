@@ -18,8 +18,13 @@ AggregateStatePdu::AggregateStatePdu() : EntityManagementFamilyPdu(),
    _numberOfDisEntities(0), 
    _numberOfSilentAggregateTypes(0), 
    _numberOfSilentEntityTypes(0), 
+   _aggregateIDList(0), 
+   _entityIDList(0), 
    _pad2(0), 
-   _numberOfVariableDatumRecords(0)
+   _silentAggregateSystemList(0), 
+   _silentEntitySystemList(0), 
+   _numberOfVariableDatumRecords(0), 
+   _variableDatumList(0)
 {
     setPduType( 33 );
 }

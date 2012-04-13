@@ -15,7 +15,8 @@ EntityStatePdu::EntityStatePdu() : EntityInformationFamilyPdu(),
    _entityAppearance(0), 
    _deadReckoningParameters(), 
    _marking(), 
-   _capabilities(0)
+   _capabilities(0), 
+   _articulationParameters(0)
 {
     setPduType( 1 );
 }

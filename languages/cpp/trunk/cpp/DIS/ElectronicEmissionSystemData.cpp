@@ -8,7 +8,8 @@ ElectronicEmissionSystemData::ElectronicEmissionSystemData():
    _numberOfBeams(0), 
    _emissionsPadding2(0), 
    _emitterSystem(), 
-   _location()
+   _location(), 
+   _beamDataRecords(0)
 {
 }
 

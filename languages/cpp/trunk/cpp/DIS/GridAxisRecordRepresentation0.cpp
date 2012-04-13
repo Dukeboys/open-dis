@@ -4,7 +4,8 @@ using namespace DIS;
 
 
 GridAxisRecordRepresentation0::GridAxisRecordRepresentation0() : GridAxisRecord(),
-   _numberOfBytes(0)
+   _numberOfBytes(0), 
+   _dataValues(0)
 {
 }
 

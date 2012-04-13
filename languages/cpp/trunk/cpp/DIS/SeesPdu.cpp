@@ -9,7 +9,9 @@ SeesPdu::SeesPdu() : DistributedEmissionsFamilyPdu(),
    _acousticSignatureRepresentationIndex(0), 
    _radarCrossSectionSignatureRepresentationIndex(0), 
    _numberOfPropulsionSystems(0), 
-   _numberOfVectoringNozzleSystems(0)
+   _numberOfVectoringNozzleSystems(0), 
+   _propulsionSystemData(0), 
+   _vectoringSystemData(0)
 {
     setPduType( 30 );
 }

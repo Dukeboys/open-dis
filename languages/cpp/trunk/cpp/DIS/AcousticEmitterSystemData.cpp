@@ -8,7 +8,8 @@ AcousticEmitterSystemData::AcousticEmitterSystemData():
    _numberOfBeams(0), 
    _pad2(0), 
    _acousticEmitterSystem(), 
-   _emitterLocation()
+   _emitterLocation(), 
+   _beamRecords(0)
 {
 }
 

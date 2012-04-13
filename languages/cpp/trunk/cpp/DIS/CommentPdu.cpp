@@ -5,7 +5,9 @@ using namespace DIS;
 
 CommentPdu::CommentPdu() : SimulationManagementFamilyPdu(),
    _numberOfFixedDatumRecords(0), 
-   _numberOfVariableDatumRecords(0)
+   _numberOfVariableDatumRecords(0), 
+   _fixedDatums(0), 
+   _variableDatums(0)
 {
     setPduType( 22 );
 }

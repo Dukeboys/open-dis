@@ -8,7 +8,8 @@ SetRecordReliablePdu::SetRecordReliablePdu() : SimulationManagementWithReliabili
    _requiredReliabilityService(0), 
    _pad1(0), 
    _pad2(0), 
-   _numberOfRecordSets(0)
+   _numberOfRecordSets(0), 
+   _recordSets(0)
 {
     setPduType( 64 );
 }

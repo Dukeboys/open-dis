@@ -7,7 +7,9 @@ EventReportPdu::EventReportPdu() : SimulationManagementFamilyPdu(),
    _eventType(0), 
    _padding1(0), 
    _numberOfFixedDatumRecords(0), 
-   _numberOfVariableDatumRecords(0)
+   _numberOfVariableDatumRecords(0), 
+   _fixedDatums(0), 
+   _variableDatums(0)
 {
     setPduType( 21 );
 }

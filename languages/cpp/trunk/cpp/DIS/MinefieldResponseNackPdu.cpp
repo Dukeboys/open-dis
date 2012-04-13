@@ -7,7 +7,8 @@ MinefieldResponseNackPdu::MinefieldResponseNackPdu() : MinefieldFamilyPdu(),
    _minefieldID(), 
    _requestingEntityID(), 
    _requestID(0), 
-   _numberOfMissingPdus(0)
+   _numberOfMissingPdus(0), 
+   _missingPduSequenceNumbers(0)
 {
     setPduType( 40 );
 }

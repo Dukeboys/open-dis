@@ -14,7 +14,8 @@ IntercomControlPdu::IntercomControlPdu() : RadioCommunicationsFamilyPdu(),
    _command(0), 
    _masterEntityID(), 
    _masterCommunicationsDeviceID(0), 
-   _intercomParametersLength(0)
+   _intercomParametersLength(0), 
+   _intercomParameters(0)
 {
     setPduType( 32 );
 }

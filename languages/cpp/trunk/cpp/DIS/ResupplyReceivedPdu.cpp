@@ -8,7 +8,8 @@ ResupplyReceivedPdu::ResupplyReceivedPdu() : LogisticsFamilyPdu(),
    _supplyingEntityID(), 
    _numberOfSupplyTypes(0), 
    _padding1(0), 
-   _padding2(0)
+   _padding2(0), 
+   _supplies(0)
 {
     setPduType( 7 );
 }

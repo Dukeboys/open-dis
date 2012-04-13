@@ -12,7 +12,10 @@ UaPdu::UaPdu() : DistributedEmissionsFamilyPdu(),
    _propulsionPlantConfiguration(0), 
    _numberOfShafts(0), 
    _numberOfAPAs(0), 
-   _numberOfUAEmitterSystems(0)
+   _numberOfUAEmitterSystems(0), 
+   _shaftRPMs(0), 
+   _apaData(0), 
+   _emitterSystems(0)
 {
     setPduType( 29 );
 }

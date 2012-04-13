@@ -13,7 +13,8 @@ ArealObjectStatePdu::ArealObjectStatePdu() : SyntheticEnvironmentFamilyPdu(),
    _objectAppearance(), 
    _numberOfPoints(0), 
    _requesterID(), 
-   _receivingID()
+   _receivingID(), 
+   _objectLocation(0)
 {
     setPduType( 45 );
 }
