@@ -302,6 +302,7 @@ is available.
      if running on a dev box.
 -->
 
+<!--
 <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
 
 <property name="findbugs.home" value="/usr/java/findbugs-1.3.9/lib"/>
@@ -319,9 +320,12 @@ is available.
       <class location="${dist}/open-dis_${version}.jar" />
     </findbugs>
   </target>
+-->
+
 <!-- Checkstyle ant task. Used on the server side in jenkins for static code analysis on the 
      continuous integration server. You can safely comment this out if running on a dev box.
 -->
+<!--
 <taskdef resource="checkstyletask.properties" classpath="/usr/java/checkstyle-5.4/checkstyle-5.4-all.jar"/>
 
 <target name="checkstyle-jenkins">
@@ -330,6 +334,7 @@ is available.
     <formatter type="xml" toFile="checkstyle_results.xml"/>
   </checkstyle>
 </target>
+-->
 
     <!-- Create a distribution. This skips the target of generateDisSourceCode, since that is not typically used
          in the development cycle. You can run that target separately.
@@ -385,6 +390,19 @@ is available.
             </classpath>
         </java>
     </target>
+
+<!-- Saves an example XML file -->
+    <target name="runXmlPdus" depends="jar" description="run DIS XML PDU generator program">
+        <java classname="edu.nps.moves.examples.MarshallExample">
+            <classpath>
+                <fileset dir="${dist}">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset refid="lib.jars"/>
+            </classpath>
+        </java>
+    </target>
+
     
      <!-- Runs a generator that sends many or most of the PDU types, and saves an example XML file -->
     <target name="runConcatReader" depends="jar" description="run DIS PDU program that reads IEEE concatenated PDUs from a file">
