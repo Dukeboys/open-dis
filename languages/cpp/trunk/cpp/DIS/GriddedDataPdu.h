@@ -15,9 +15,12 @@ namespace DIS
 {
 // Section 5.3.11.2: Information about globat, spatially varying enviornmental effects. This requires manual cleanup; the grid axis        records are variable sized. UNFINISHED
 
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2012, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Licensed under the BSD open source license. See http://www.movesinstitute.org/licenses/bsd.html
 //
 // @author DMcG, jkg
+
+#pragma warning(disable: 4251 ) // Disables warning for stl vector template DLL export in msvc
 
 class EXPORT_MACRO GriddedDataPdu : public SyntheticEnvironmentFamilyPdu
 {

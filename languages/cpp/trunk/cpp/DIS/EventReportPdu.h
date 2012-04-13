@@ -13,9 +13,12 @@ namespace DIS
 {
 // Section 5.3.6.11. Reports occurance of a significant event to the simulation manager. COMPLETE
 
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2012, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Licensed under the BSD open source license. See http://www.movesinstitute.org/licenses/bsd.html
 //
 // @author DMcG, jkg
+
+#pragma warning(disable: 4251 ) // Disables warning for stl vector template DLL export in msvc
 
 class EXPORT_MACRO EventReportPdu : public SimulationManagementFamilyPdu
 {

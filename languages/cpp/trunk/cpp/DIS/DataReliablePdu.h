@@ -13,9 +13,12 @@ namespace DIS
 {
 // Section 5.3.12.10: issued in response to a data query R or set dataR pdu. Needs manual intervention      to fix padding on variable datums. UNFINSIHED
 
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2012, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Licensed under the BSD open source license. See http://www.movesinstitute.org/licenses/bsd.html
 //
 // @author DMcG, jkg
+
+#pragma warning(disable: 4251 ) // Disables warning for stl vector template DLL export in msvc
 
 class EXPORT_MACRO DataReliablePdu : public SimulationManagementWithReliabilityFamilyPdu
 {

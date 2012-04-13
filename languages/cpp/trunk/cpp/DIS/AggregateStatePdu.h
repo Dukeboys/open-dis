@@ -23,9 +23,12 @@ namespace DIS
 {
 // Section 5.3.9.1 informationa bout aggregating entities anc communicating information about the aggregated entities.        requires manual intervention to fix the padding between entityID lists and silent aggregate sysem lists--this padding        is dependent on how many entityIDs there are, and needs to be on a 32 bit word boundary. UNFINISHED
 
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2012, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Licensed under the BSD open source license. See http://www.movesinstitute.org/licenses/bsd.html
 //
 // @author DMcG, jkg
+
+#pragma warning(disable: 4251 ) // Disables warning for stl vector template DLL export in msvc
 
 class EXPORT_MACRO AggregateStatePdu : public EntityManagementFamilyPdu
 {

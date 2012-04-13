@@ -11,7 +11,8 @@ namespace DIS
 {
 // 5.2.3: location of the radiating portion of the antenna, specified in world coordinates and         entity coordinates.
 
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2012, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Licensed under the BSD open source license. See http://www.movesinstitute.org/licenses/bsd.html
 //
 // @author DMcG, jkg
 

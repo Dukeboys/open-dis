@@ -9,7 +9,8 @@ namespace DIS
 {
 // Section 5.2.15. Specifies the character set used inthe first byte, followed by 11 characters of text data.
 
-// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Copyright (c) 2007-2012, MOVES Institute, Naval Postgraduate School. All rights reserved. 
+// Licensed under the BSD open source license. See http://www.movesinstitute.org/licenses/bsd.html
 //
 // @author DMcG, jkg
 
