@@ -70,7 +70,7 @@ void Pdu::setTimestamp(unsigned int pX)
 
 unsigned short Pdu::getLength() const
 {
-    return _length;
+    return this->getMarshalledSize();
 }
 
 void Pdu::setLength(unsigned short pX)
@@ -95,7 +95,7 @@ void Pdu::marshal(DataStream& dataStream) const
     dataStream << _pduType;
     dataStream << _protocolFamily;
     dataStream << _timestamp;
-    dataStream << _length;
+    dataStream << this->getLength();
     dataStream << _padding;
 }
 
