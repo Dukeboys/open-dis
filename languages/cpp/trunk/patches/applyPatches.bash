@@ -63,6 +63,7 @@ case "$1" in
    cpp)
       # Apply patch to VariableDatum.java
       patch cpp/DIS/VariableDatum.cpp patches/cpp/VariableDatum.patch
+      patch cpp/DIS/Pdu.cpp patches/cpp/Pdu.patch
       ;;
 
   cppDis7)
