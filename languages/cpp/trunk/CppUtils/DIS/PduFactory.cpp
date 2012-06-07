@@ -1,6 +1,10 @@
 #include "PduFactory.h"
 #include <DIS/EntityStatePdu.h>
 #include <DIS/FirePdu.h>
+#include <DIS/SetDataPdu.h>
+#include <DIS/DetonationPdu.h>
+#include <DIS/CreateEntityPdu.h>
+#include <DIS/RemoveEntityPdu.h>
 #include <DIS/Endian.h>
 #include <DIS/PDUType.h>
 
@@ -26,7 +30,7 @@ PduFactory::~PduFactory(void)
 
 Pdu * PduFactory::createPdu(const char* data)
 {
-	int dataLength = 1500; // MTU
+	int dataLength = 1500; // MTU, might fail for some very large PDUs
 	int pduType = data[2];
 	DataStream dataStream(data, dataLength, DIS::BIG);
 
@@ -49,8 +53,18 @@ Pdu * PduFactory::createPdu(const char* data)
 		pdu->unmarshal(dataStream);
 		break;
 
-	case PDU_DATA:
-		pdu = new DataPdu();
+	case PDU_SET_DATA:
+		pdu = new SetDataPdu();
+		pdu->unmarshal(dataStream);
+		break;
+
+	case PDU_CREATE_ENTITY:
+		pdu = new CreateEntityPdu();
+		pdu->unmarshal(dataStream);
+		break;
+
+	case PDU_REMOVE_ENTITY:
+		pdu = new RemoveEntityPdu();
 		pdu->unmarshal(dataStream);
 		break;
 
