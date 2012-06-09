@@ -426,13 +426,13 @@ Also provides basic parametric data that may be used to support low-fidelity sim
       <primitive type="unsigned int"/>
     </attribute>
   
-    <attribute name="variableDatumLength" comment="length of the variable datums">
+    <attribute name="variableDatumLength" comment="length of the variable datums, in bits. Note that this is not programmatically tied to the size of the variableData. The variable data field may be 64 bits long but only 16 bits of it could actually be used.">
       <primitive type="unsigned int"/>
     </attribute>
     
-    <attribute name="variableDatums" comment="variable length list of 64-bit datums">
-     <list type="variable" countFieldName="variableDatumLength">
-       <classRef name="EightByteChunk"/>
+    <attribute name="variableData" comment="data can be any length, but must increase in 8 byte quanta. This requires some postprocessing patches. Note that setting the data allocates a new internal array to account for the possibly increased size. The default initial size is 64 bits.">
+     <list type="fixed" length="8">
+       <primitive type="byte"/>
     </list> 
     </attribute>
      
