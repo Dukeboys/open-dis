@@ -50,7 +50,7 @@ case "$1" in
       patch src/main/edu/nps/moves/dismobile/Marking.java patches/dismobile/Marking.patch
 
       # Apply patch to VariableDatum.java
-      patch src/main/edu/nps/moves/dismobile/VariableDatum.java patches/dismobile/VariableDatum.patch
+      #patch src/main/edu/nps/moves/dismobile/VariableDatum.java patches/dismobile/VariableDatum.patch
 
       # Apply patch to EntityID to get equality, hashcode
       patch src/main/edu/nps/moves/dismobile/EntityID.java patches/dismobile/EntityID.patch

@@ -1,48 +1,38 @@
---- VariableDatum.java	2010-12-14 14:09:18.000000000 -0800
-+++ newVariableDatum.java	2010-12-14 16:38:18.000000000 -0800
-@@ -88,7 +88,7 @@
- @XmlAttribute
- @Basic
- public long getVariableDatumLength()
--{ return (long)variableDatums.size();
-+{ return (long)variableDatums.size() * 64; // patch to fix units; bits rather than bytes
+Index: VariableDatum.java
+===================================================================
+--- VariableDatum.java	(revision 742)
++++ VariableDatum.java	(working copy)
+@@ -92,8 +92,32 @@
+ { return variableDatumLength; 
  }
  
- /** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
-@@ -114,7 +114,7 @@
-     try 
-     {
-        dos.writeInt( (int)variableDatumID);
--       dos.writeInt( (int)variableDatums.size());
-+       dos.writeInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
++/**
++ * The byte array in VariableDatum must be an eight-byte quanta. So a 12 byte
++ * piece of data must be expanded to 16 bytes. This changes the nature of the
++ * set method from the usual, since we have to allocate a new array to hold
++ * the data.
++ * 
++ * @param pVariableData 
++ */
+ public void setVariableData(byte[] pVariableData)
+-{ variableData = pVariableData;
++{ 
++    int unitsOfEight = pVariableData.length / 8;
++    int remainder = pVariableData.length % 8;
++    
++    if(remainder != 0)
++        unitsOfEight++;
++    
++    byte[] newData = new byte[unitsOfEight];
++    for(int idx = 0; idx < pVariableData.length; idx++)
++    {
++        newData[idx] = pVariableData[idx];
++    }
++    
++    variableData = newData;
++    
++    
++    variableData = pVariableData;
+ }
  
-        for(int idx = 0; idx < variableDatums.size(); idx++)
-        {
-@@ -134,6 +134,9 @@
-     {
-        variableDatumID = dis.readInt();
-        variableDatumLength = dis.readInt();
-+        int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
-+        variableDatumLength = (variableDatumLength / 64) + over;
-+        
-        for(int idx = 0; idx < variableDatumLength; idx++)
-        {
-            EightByteChunk anX = new EightByteChunk();
-@@ -160,7 +163,7 @@
- public void marshal(java.nio.ByteBuffer buff)
- {
-        buff.putInt( (int)variableDatumID);
--       buff.putInt( (int)variableDatums.size());
-+       buff.putInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
- 
-        for(int idx = 0; idx < variableDatums.size(); idx++)
-        {
-@@ -181,6 +184,8 @@
- {
-        variableDatumID = buff.getInt();
-        variableDatumLength = buff.getInt();
-+       int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
-+       variableDatumLength = (variableDatumLength / 64) + over;
-        for(int idx = 0; idx < variableDatumLength; idx++)
-        {
-             EightByteChunk anX = new EightByteChunk();
+ @XmlElement(name="variableData" )
