@@ -33,10 +33,10 @@ public class VariableDatum extends Object implements Serializable
    /** ID of the variable datum */
    protected long  variableDatumID;
 
-   /** length of the variable datums, in bits. Unit changes requires postprocessing. */
+   /** length of the variable datums, in bits. Note that this is not programmatically tied to the size of the variableData. The variable data field may be 64 bits long but only 16 bits of it could actually be used. */
    protected long  variableDatumLength;
 
-   /** data can be any length, but must increase in 8 byte quanta. This requires some postprocessing patches */
+   /** data can be any length, but must increase in 8 byte quanta. This requires some postprocessing patches. Note that setting the data allocates a new internal array to account for the possibly increased size. The default initial size is 64 bits. */
    protected byte[]  variableData = new byte[8]; 
 
 
@@ -52,7 +52,7 @@ public int getMarshalledSize()
 
    marshalSize = marshalSize + 4;  // variableDatumID
    marshalSize = marshalSize + 4;  // variableDatumLength
-   marshalSize = marshalSize + 8 * 1;  // variableData
+   marshalSize = marshalSize + variableData.length;  // variableData
 
    return marshalSize;
 }
@@ -92,8 +92,35 @@ public long getVariableDatumLength()
 { return variableDatumLength; 
 }
 
+/**
+ * The byte array in VariableDatum must be an eight-byte quanta. So a 12 byte
+ * piece of data must be expanded to 16 bytes. This changes the nature of the
+ * set method from the usual, since we have to allocate a new array to hold
+ * the data.
+ * 
+ * @param pVariableData 
+ */
 public void setVariableData(byte[] pVariableData)
-{ variableData = pVariableData;
+{ 
+    int byteLength = pVariableData.length;
+    int chunks = byteLength / 8;
+    int remainder = byteLength % 8;
+    if(remainder != 0)
+        chunks++;
+    int padding = chunks * 8 - byteLength;
+    //System.out.println("chunks=" + chunks + " padding=" + padding + " byteLength=" + byteLength);
+    
+    byte[] newData = new byte[pVariableData.length + padding];
+    for(int idx = 0; idx < pVariableData.length; idx++)
+    {
+        newData[idx] = pVariableData[idx];
+    }
+    for(int idx = pVariableData.length; idx < newData.length; idx++)
+    {
+        newData[idx] = 0;
+    }
+    
+    variableData = newData;
 }
 
 @XmlElement(name="variableData" )
@@ -126,6 +153,20 @@ public void unmarshal(DataInputStream dis)
     {
        variableDatumID = dis.readInt();
        variableDatumLength = dis.readInt();
+       
+       int lengthInUnitsOfEight = (int)variableDatumLength / 64;
+       int remainder = (int)variableDatumLength % 8;
+       
+       if(remainder != 0)
+           lengthInUnitsOfEight++;
+       
+       int dataLength = (int)variableDatumLength / 8;
+       remainder = (int)variableDatumLength % 8;
+       if(remainder != 1)
+           dataLength++;
+       
+       //variableData = new byte[lengthInUnitsOfEight * 8];
+       variableData = new byte[dataLength];
        for(int idx = 0; idx < variableData.length; idx++)
        {
                 variableData[idx] = dis.readByte();
@@ -169,6 +210,21 @@ public void unmarshal(java.nio.ByteBuffer buff)
 {
        variableDatumID = buff.getInt();
        variableDatumLength = buff.getInt();
+       
+       int lengthInUnitsOfEight = (int)variableDatumLength / 64;
+       int remainder = (int)variableDatumLength % 8;
+       
+       if(remainder != 0)
+           lengthInUnitsOfEight++;
+       
+       int dataLength = (int)variableDatumLength / 8;
+       remainder = (int)variableDatumLength % 8;
+       if(remainder != 1)
+           dataLength++;
+       
+       //variableData = new byte[lengthInUnitsOfEight * 8];
+       variableData = new byte[dataLength];
+       
        for(int idx = 0; idx < variableData.length; idx++)
        {
                 variableData[idx] = buff.get();
