@@ -52,7 +52,7 @@ public int getMarshalledSize()
 
    marshalSize = marshalSize + 4;  // variableDatumID
    marshalSize = marshalSize + 4;  // variableDatumLength
-   marshalSize = marshalSize + variableData.length;  // variableData
+   marshalSize = marshalSize + 8 * 1;  // variableData
 
    return marshalSize;
 }
@@ -102,15 +102,13 @@ public long getVariableDatumLength()
  */
 public void setVariableData(byte[] pVariableData)
 { 
-    int byteLength = pVariableData.length;
-    int chunks = byteLength / 8;
-    int remainder = byteLength % 8;
-    if(remainder != 0)
-        chunks++;
-    int padding = chunks * 8 - byteLength;
-    //System.out.println("chunks=" + chunks + " padding=" + padding + " byteLength=" + byteLength);
+    int unitsOfEight = pVariableData.length / 8;
+    int remainder = pVariableData.length % 8;
     
-    byte[] newData = new byte[pVariableData.length + padding];
+    if(remainder != 0)
+        unitsOfEight++;
+    
+    byte[] newData = new byte[unitsOfEight * 8];
     for(int idx = 0; idx < pVariableData.length; idx++)
     {
         newData[idx] = pVariableData[idx];
@@ -153,20 +151,6 @@ public void unmarshal(DataInputStream dis)
     {
        variableDatumID = dis.readInt();
        variableDatumLength = dis.readInt();
-       
-       int lengthInUnitsOfEight = (int)variableDatumLength / 64;
-       int remainder = (int)variableDatumLength % 8;
-       
-       if(remainder != 0)
-           lengthInUnitsOfEight++;
-       
-       int dataLength = (int)variableDatumLength / 8;
-       remainder = (int)variableDatumLength % 8;
-       if(remainder != 1)
-           dataLength++;
-       
-       //variableData = new byte[lengthInUnitsOfEight * 8];
-       variableData = new byte[dataLength];
        for(int idx = 0; idx < variableData.length; idx++)
        {
                 variableData[idx] = dis.readByte();
@@ -210,21 +194,6 @@ public void unmarshal(java.nio.ByteBuffer buff)
 {
        variableDatumID = buff.getInt();
        variableDatumLength = buff.getInt();
-       
-       int lengthInUnitsOfEight = (int)variableDatumLength / 64;
-       int remainder = (int)variableDatumLength % 8;
-       
-       if(remainder != 0)
-           lengthInUnitsOfEight++;
-       
-       int dataLength = (int)variableDatumLength / 8;
-       remainder = (int)variableDatumLength % 8;
-       if(remainder != 1)
-           dataLength++;
-       
-       //variableData = new byte[lengthInUnitsOfEight * 8];
-       variableData = new byte[dataLength];
-       
        for(int idx = 0; idx < variableData.length; idx++)
        {
                 variableData[idx] = buff.get();
