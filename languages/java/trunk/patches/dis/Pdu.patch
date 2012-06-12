@@ -1,5 +1,5 @@
---- Pdu.java	2010-12-08 14:53:06.000000000 -0800
-+++ newPdu.java	2010-12-08 14:49:49.000000000 -0800
+--- Pdu.java	2012-06-12 13:11:10.000000000 -0700
++++ PduFixed.java	2012-06-12 13:09:08.000000000 -0700
 @@ -56,6 +56,12 @@
   public Pdu()
   {
@@ -88,6 +88,24 @@
  
  public void marshal(DataOutputStream dos)
  {
+@@ -168,7 +235,7 @@
+        dos.writeByte( (byte)pduType);
+        dos.writeByte( (byte)protocolFamily);
+        dos.writeInt( (int)timestamp);
+-       dos.writeShort( (short)pduLength);
++       dos.writeShort( this.getLength());
+        dos.writeShort( (short)padding);
+     } // end try 
+     catch(Exception e)
+@@ -210,7 +277,7 @@
+        buff.put( (byte)pduType);
+        buff.put( (byte)protocolFamily);
+        buff.putInt( (int)timestamp);
+-       buff.putShort( (short)pduLength);
++       buff.putShort( (short)this.getLength());
+        buff.putShort( (short)padding);
+     } // end of marshal method
+ 
 @@ -246,6 +313,87 @@
      marshal(buff);
      return data;
@@ -174,5 +192,5 @@
 +    }
 +    
  
-  /**
+  /*
    * The equals method doesn't always work--mostly it works only on classes that consist only of primitives. Be careful.
