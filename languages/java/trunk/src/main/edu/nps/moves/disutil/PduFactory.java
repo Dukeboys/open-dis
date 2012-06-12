@@ -163,6 +163,11 @@ public class PduFactory {
                 aPdu.unmarshal(dis);
                 break;
 
+            case SET_DATA:
+                aPdu = new SetDataPdu();
+                aPdu.unmarshal(dis);
+                break;
+                
             case START_RESUME:
                 aPdu = new StartResumePdu();
                 aPdu.unmarshal(dis);
