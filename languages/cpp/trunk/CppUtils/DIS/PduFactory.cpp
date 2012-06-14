@@ -8,6 +8,8 @@
 #include <DIS/Endian.h>
 #include <DIS/PDUType.h>
 
+#include <iostream>
+
 using namespace DIS;
 
 PduFactory::PduFactory(void)
@@ -32,6 +34,9 @@ Pdu * PduFactory::createPdu(const char* data)
 {
 	int dataLength = 1500; // MTU, might fail for some very large PDUs
 	int pduType = data[2];
+
+	//std::cout << "Decoding PDU of type " << (int)pduType << std::endl;
+
 	DataStream dataStream(data, dataLength, DIS::BIG);
 
 	Pdu* pdu = NULL;
@@ -69,6 +74,7 @@ Pdu * PduFactory::createPdu(const char* data)
 		break;
 
 	default:
+		std::cout << "Received Unrecognized PDU of type " << (int)pduType << " change PduFactory.cpp to add new PDUs" << std::endl;
 		break;
 	}
 
