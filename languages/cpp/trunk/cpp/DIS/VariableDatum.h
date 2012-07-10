@@ -1,22 +1,19 @@
 #ifndef VARIABLEDATUM_H
 #define VARIABLEDATUM_H
 
-#include <DIS/EightByteChunk.h>
-#include <vector>
 #include <DIS/DataStream.h>
 #include <DIS/msLibMacro.h>
 
+// length in bytes for the variable data. This should be a dynamically allocated array.
+#define STATIC_ARRAY_LENGTH 128
 
 namespace DIS
 {
 // Section 5.2.32. Variable Datum Record
 
-// Copyright (c) 2007-2012, MOVES Institute, Naval Postgraduate School. All rights reserved. 
-// Licensed under the BSD open source license. See http://www.movesinstitute.org/licenses/bsd.html
+// Copyright (c) 2007-2009, MOVES Institute, Naval Postgraduate School. All rights reserved. 
 //
 // @author DMcG, jkg
-
-#pragma warning(disable: 4251 ) // Disables warning for stl vector template DLL export in msvc
 
 class EXPORT_MACRO VariableDatum
 {
@@ -27,8 +24,10 @@ protected:
   /** length of the variable datums */
   unsigned int _variableDatumLength; 
 
-  /** variable length list of 64-bit datums */
-  std::vector<EightByteChunk> _variableDatums; 
+  /** The data. This should be dynamic, but I'm having memory management problems. 8 longs should
+   * be enough for almost all data. Only the actual data plus padding is written.*/
+  char _variableDatums[STATIC_ARRAY_LENGTH];
+  int _arrayLength;
 
 
  public:
@@ -42,10 +41,11 @@ protected:
     void setVariableDatumID(unsigned int pX); 
 
     unsigned int getVariableDatumLength() const; 
+    void setVariableDatumLength(unsigned int pX); 
 
-    std::vector<EightByteChunk>& getVariableDatums(); 
-    const std::vector<EightByteChunk>& getVariableDatums() const; 
-    void setVariableDatums(const std::vector<EightByteChunk>&    pX);
+    char*  getVariableDatums(); 
+    const char*  getVariableDatums() const; 
+    void setVariableDatums( const char*    pX, int length);
 
 
 virtual int getMarshalledSize() const;
