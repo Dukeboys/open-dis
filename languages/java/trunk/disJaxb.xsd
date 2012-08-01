@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="pduContainer" type="pduContainer"/>
+  <xs:element name="PduContainer" type="pduContainer"/>
 
   <xs:complexType name="acknowledgePdu">
     <xs:complexContent>
@@ -181,23 +181,10 @@
   <xs:complexType name="variableDatum">
     <xs:sequence>
       <xs:element name="pk_VariableDatum" type="xs:long"/>
-      <xs:element name="variableDatumsList" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="variableDatums" type="eightByteChunk" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="variableData" type="xs:base64Binary" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="variableDatumID" type="xs:long" use="required"/>
     <xs:attribute name="variableDatumLength" type="xs:long" use="required"/>
-  </xs:complexType>
-
-  <xs:complexType name="eightByteChunk">
-    <xs:sequence>
-      <xs:element name="otherParameters" type="xs:base64Binary" minOccurs="0"/>
-      <xs:element name="pk_EightByteChunk" type="xs:long"/>
-    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="actionRequestReliablePdu">
@@ -520,6 +507,7 @@
       <xs:element name="pk_BeamAntennaPattern" type="xs:long"/>
     </xs:sequence>
     <xs:attribute name="azimuthBeamwidth" type="xs:float" use="required"/>
+    <xs:attribute name="elevationBeamwidth" type="xs:float" use="required"/>
     <xs:attribute name="ex" type="xs:float" use="required"/>
     <xs:attribute name="ez" type="xs:float" use="required"/>
     <xs:attribute name="padding1" type="xs:short" use="required"/>
@@ -900,6 +888,13 @@
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="eightByteChunk">
+    <xs:sequence>
+      <xs:element name="otherParameters" type="xs:base64Binary" minOccurs="0"/>
+      <xs:element name="pk_EightByteChunk" type="xs:long"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="electronicEmissionBeamData">
@@ -1815,15 +1810,6 @@
       <xs:element name="pk_PduContainer" type="xs:long"/>
     </xs:sequence>
     <xs:attribute name="numberOfPdus" type="xs:int" use="required"/>
-  </xs:complexType>
-
-  <xs:complexType name="pduStream">
-    <xs:sequence>
-      <xs:element name="marking" type="xs:base64Binary" minOccurs="0"/>
-      <xs:element name="pk_PduStream" type="xs:long"/>
-    </xs:sequence>
-    <xs:attribute name="startTime" type="xs:long" use="required"/>
-    <xs:attribute name="stopTime" type="xs:long" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="pointObjectStatePdu">
