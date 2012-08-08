@@ -43,6 +43,28 @@ nve.heartbeatReaper = function()
 }
 
 /**
+ * At periodic intervals we send out an entity state PDU; this tells other
+ * participants that we are alive, and allows them to discover our presence.
+ * The interval at which this is called is set in the main scene.
+ */
+nve.heartbeat = function()
+{
+    for(var propName in nve.controllerDatabase)
+    {
+       var aController = nve.controllerDatabase[propName];
+       var anEntity = aController.model;
+       
+       if(anEntity.local == true)
+       {
+           webSocket.send(JSON.stringify(anEntity.espdu));
+       }
+    }
+       
+       
+}
+    
+
+/**
  * Constructor. 
  */
 nve.Controller = function( model, view )

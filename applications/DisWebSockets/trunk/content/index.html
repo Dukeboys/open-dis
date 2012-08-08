@@ -38,6 +38,7 @@ var localEntityID;
 // foreign entities that we have not heard from in some specified
 // amount of time.
 var reaper = setInterval(nve.heartbeatReaper, 5000);
+var heartbeat = setInterval(nve.heartbeat, 5000);
 
 //var loader = new THREE.ColladaLoader();
 

@@ -69,6 +69,7 @@ nve.Entity.prototype.updateEntity = function(espdu)
 {
     // Save this for future use in dead reckoning
     this.espdu = espdu;
+    this.timeLastHeardFrom = new Date();
     this.controller.modelChanged();
 
     //this.mesh.position.set(espdu.entityLocation.x, espdu.entityLocation.y, espdu.entityLocation.z);
