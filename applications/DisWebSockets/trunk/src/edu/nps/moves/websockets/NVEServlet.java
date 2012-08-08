@@ -124,12 +124,12 @@ public class NVEServlet extends HttpServlet implements PduReceiver
     
     NetConnectionDescription connectDescription = new NetConnectionDescription(netConnectionProperties);
     NetConnectionFactory connectionFactory = new NetConnectionFactory();
-    nativeConnection = (NetConnectionMulticast)connectionFactory.netConnectionForDescription(connectDescription);
+    //nativeConnection = (NetConnectionMulticast)connectionFactory.netConnectionForDescription(connectDescription);
     
-    PduListener pduListener = new PduListener();
+    //PduListener pduListener = new PduListener();
     
-    nativeConnection.setPduObserver(pduListener);
-    pduListener.addListener(this);
+    //nativeConnection.setPduObserver(pduListener);
+    //pduListener.addListener(this);
   }
  
   public void addNVEConnection(NVESocket newConnection)
@@ -214,7 +214,7 @@ public class NVEServlet extends HttpServlet implements PduReceiver
       {
           ObjectMapper objectMapper = new ObjectMapper();
           EntityStatePdu espdu = (EntityStatePdu)objectMapper.readValue(jsonFormatPdu, EntityStatePdu.class);
-          nativeConnection.sendPdu(espdu);
+          //nativeConnection.sendPdu(espdu);
       }
       catch(Exception e)
       {

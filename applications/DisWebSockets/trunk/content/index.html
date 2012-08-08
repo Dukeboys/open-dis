@@ -16,6 +16,7 @@
 <script src="js/THREEx.WindowResize.js"></script>
 <script type="text/javascript" src="js/nve/nvemodel.js"></script>
 <script type="text/javascript" src="js/nve/nveview.js"> </script>
+<script type="text/javascript" src="js/nve/nvecontroller.js"> </script>
 <script type="text/javascript" src="js/nve/nvecomm.js"></script>
 <script>
   
@@ -30,38 +31,19 @@ var clock = new THREE.Clock();
 var webSocket = new nve.WebSocket("ws://localhost:8081/nve");
 
 // custom global variables
-var cube;
-var clientCube;
-var dae;
+var localEntity;
+var localEntityID;
 
-var loader = new THREE.ColladaLoader();
+// The heartbeatReaper function is called every X ms to remove
+// foreign entities that we have not heard from in some specified
+// amount of time.
+var reaper = setInterval(nve.heartbeatReaper, 5000);
 
-var wocka = '{"entityKind":1,"domain":1,"country":225,"category":2,"subcategory":5,"spec":0,"extra":0}';
-var entityType = eval("(" + wocka + ")");
-//alert(JSON.stringify(entityType));
-var a = new nve.NveView(entityType);
+//var loader = new THREE.ColladaLoader();
 
 // initialization
 init();
 
-
-
-
-
-loader.load( 'colladaModels/models/stryker.dae', function(collada)
- {
-     var dae = collada.scene;
-     dae.scale.x = dae.scale.y = dae.scale.z = 0.2;
-     
-     scene.add(collada.scene);
-     
-     //init();
-     animate();
- });
-
-var clientCubeEspduString = JSON.stringify(nve.espduPrototype);
-var clientCubeEspdu = eval('(' + clientCubeEspduString + ')' );
-clientCubeEspdu.entityID.entity = Math.floor(Math.random()*65000);
 
 // animation loop / game loop
 animate();
@@ -72,16 +54,11 @@ animate();
 			
 function init() 
 {
-    
-    ///////////
-    // SCENE //
-    ///////////
+    // Scene
     scene = new THREE.Scene();
 
-    ////////////
-    // CAMERA //
-    ////////////
-
+    // Camera
+    // 
     // set the view size in pixels (custom or according to window size)
     // var SCREEN_WIDTH = 400, SCREEN_HEIGHT = 300;
     var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;	
@@ -96,9 +73,7 @@ function init()
     camera.position.set(10,-200,200);
     camera.lookAt(scene.position);	
 
-    //////////////
-    // RENDERER //
-    //////////////
+    // Renderer
 
     // create and start the renderer; choose antialias setting.
     renderer = new THREE.WebGLRenderer( {antialias:true} );
@@ -112,9 +87,7 @@ function init()
     // attach renderer to the container div
     container.appendChild( renderer.domElement );
 
-    ////////////
-    // EVENTS //
-    ////////////
+    // Events
 
     // automatically resize renderer
     THREEx.WindowResize(renderer, camera);
@@ -156,42 +129,49 @@ function init()
     light3.position.set(-250,250,40);
     scene.add(light3);
     var ambientLight = new THREE.AmbientLight(0x111111);
-    // scene.add(ambientLight);
+    scene.add(ambientLight);
 
     //////////////
     // GEOMETRY //
     //////////////
 
-    // Create an array of materials to be used in a cube, one for each side
+
+    // create a new MVC congolmeration. This should probably be moved
+    // to a function in nve.Entity. This creates a locally controlled
+    // entity; it is shown on the local screen and is controlled by the
+    // local keyboard.
     
+    // Pick an entityID, a unique ID that this not shared with any other
+    // entity in the world. We're actually taking a small chance here, 
+    // because we pick a random number and we may get collisions
+    var localEid = Math.floor(Math.random() * 65000);
+    localEntityID = '{"site": 1, "application": 1, "entity":' + localEid + "}";
     
-    var cubeMaterialArray = [];
-    // order to add materials: x+,x-,y+,y-,z+,z-
-    cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0xff3333 } ) );
-    cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0xff8800 } ) );
-    cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0xffff33 } ) );
-    cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0x33ff33 } ) );
-    cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0x3333ff } ) );
-    cubeMaterialArray.push( new THREE.MeshBasicMaterial( { color: 0x8833ff } ) );
-    // Cube parameters: width (x), height (y), depth (z), 
-    //        (optional) segments along x, segments along y, segments along z, materials array
-    var cubeGeometry = new THREE.CubeGeometry( 10, 10, 10, 1, 1, 1, cubeMaterialArray );
-    // using THREE.MeshFaceMaterial() in the constructor below
-    //   causes the mesh to use the materials stored in the geometry
-    /*
-    cube = new THREE.Mesh( cubeGeometry, new THREE.MeshFaceMaterial() );
-    cube.position.set(-100, 20, 20);
-    scene.add( cube );
-    */
+    // The entity type is from the SISO EBV document. This creates a default entity
+    // type that is nonsensical. In a better implementation we'd use this info to
+    // load the correct graphical model
+    var et = '{"domain":0,"country":0,"category":0,"subcategory":0,"spec":0,"extra":0}';
 
-
-    clientCube = new THREE.Mesh( cubeGeometry, new THREE.MeshFaceMaterial() );
-    clientCube.position.set(-100, 20, 6);
-    scene.add( clientCube );
-
-
-
-
+    // Normalize the EID, so all string representations of the EID are exactly
+    // the same. We rely on JSON to do this for us.
+    var key = eval("(" + localEntityID + ")");
+    keyString = JSON.stringify(key);
+    
+    // Create a new Model-View-Controller grouping. 
+    
+    // Model
+    var newEntity = new nve.Entity(keyString, et, true);
+    
+    // View
+    var graphicInfo = nve.entityTypeToGraphicDatabase["default"];
+    var newView = new nve.NveView(graphicInfo);
+    
+    // Controller
+    var newController = new nve.Controller(newEntity, newView);
+    newEntity.controller = newController;
+    nve.controllerDatabase[keyString] = newEntity.controller;
+    localEntity = newEntity;
+   
     // create a set of coordinate axes to help orient user
     // default size is 100 pixels in each direction; change size by setting scale
     var axes = new THREE.AxisHelper();
@@ -238,23 +218,25 @@ function animate()
 	update();
 }
 
-function updateLocalEntityPosition(clientCube)
+/** 
+ * Send out our local entity's information to the network 
+ */
+function updateLocalEntityPosition(localEntityEspdu)
 {
-    clientCubeEspdu.entityLocation.x = clientCube.position.x;
-    clientCubeEspdu.entityLocation.y = clientCube.position.y;
-    clientCubeEspdu.entityLocation.z = clientCube.position.z;
     date = new Date();
-    clientCubeEspdu.timestamp = Math.floor(date.getTime()/10000);
-    webSocket.send(JSON.stringify(clientCubeEspdu));
-    
+    localEntityEspdu.timestamp = Math.floor(date.getTime()/10000);
+    webSocket.send(JSON.stringify(localEntityEspdu));   
 }
+
+/** Get user input information 
+ */
 function update()
 {
 	// delta = change in time since last call (in seconds)
 	var delta = clock.getDelta(); 
-        var x = clientCube.position.x;
-        var y = clientCube.position.y;
-        var z = clientCube.position.z;
+        var x = localEntity.espdu.entityLocation.x;
+        var y = localEntity.espdu.entityLocation.y;
+        var z = localEntity.espdu.entityLocation.z;
 
 	// functionality provided by THREEx.KeyboardState.js
 	if ( keyboard.pressed("1") )
@@ -263,23 +245,27 @@ function update()
 		document.getElementById('message').innerHTML = ' Have a nice day! - 2 ';
         if ( keyboard.pressed("w") )
             {
-		clientCube.position.set(x+1, y, z);
-                updateLocalEntityPosition(clientCube);
+		localEntity.espdu.entityLocation.x = x + 1;
+                localEntity.controller.modelChanged();
+                updateLocalEntityPosition(localEntity.espdu);
             }
 	if ( keyboard.pressed("s") )
             {
-		clientCube.position.set(x, y+1, z);
-                updateLocalEntityPosition(clientCube);
+		localEntity.espdu.entityLocation.y = y + 1;
+                localEntity.controller.modelChanged();
+                updateLocalEntityPosition(localEntity.espdu);
             }
         if ( keyboard.pressed("a") )
             {
-		clientCube.position.set(x-1, y, z);
-                updateLocalEntityPosition(clientCube);
+		localEntity.espdu.entityLocation.x = x - 1;
+                localEntity.controller.modelChanged();
+                updateLocalEntityPosition(localEntity.espdu);
             }
 	if ( keyboard.pressed("d") )
             {
-		clientCube.position.set(x, y-1, z);
-                updateLocalEntityPosition(clientCube);
+		localEntity.espdu.entityLocation.y = y - 1;
+                localEntity.controller.modelChanged();
+                updateLocalEntityPosition(localEntity.espdu);
             }
 		
 	controls.update();
@@ -291,16 +277,6 @@ function render()
 	renderer.render( scene, camera );
 }
 
-  /*
- function startPoint()
- {
-    //alert("loaded in my script");
-    console.log("Loaded");
-    nve.initializeWebsocket("ws://localhost:8081/nve");
- }   
- 
- window.onload = startPoint;
- */
 </script> 
  
 

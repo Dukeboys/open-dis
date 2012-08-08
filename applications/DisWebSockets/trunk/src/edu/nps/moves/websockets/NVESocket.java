@@ -124,7 +124,8 @@ public class NVESocket implements WebSocket.OnTextMessage
         }
         catch(Exception e)
         {
-            System.out.println("Could not deserialize JSON");
+            System.out.println(e);
+            System.out.println("Could not deserialize JSON:" + data);
         }
       
     }
