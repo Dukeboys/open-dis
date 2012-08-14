@@ -90,15 +90,6 @@ public class GameServer
            handlers.setHandlers(new Handler[] {servletHandler, resourceHandler, defaultHandler});
            server.setHandler(handlers);
            
-           /*
-           EntityStatePdu espdu = new EntityStatePdu();
-           ObjectMapper objectMapper = new ObjectMapper();
-           String jsonEspdu = objectMapper.writeValueAsString(espdu); 
-           System.out.println("String value of espdu in json is " + jsonEspdu);
-           */
-           
-           //EntityStatePdu espdu2 = objectMapper.readValue(jsonEspdu, EntityStatePdu.class);
-           
             // Start the server
             server.start();
             System.out.println("Server started and listening on port " + WEBSOCKET_PORT);

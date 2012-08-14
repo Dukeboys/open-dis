@@ -110,7 +110,6 @@ nve.WebSocket.prototype.onMessage = function(evt)
         newView = new nve.NveView(graphicInfo);
         newController = new nve.Controller(newEntity, newView);
         newEntity.controller = newController;
-        //newView.load(); // put it on screen
 
         // Add entity to our list of entities. Be careful to normalize the
         // object string.

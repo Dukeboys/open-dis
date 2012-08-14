@@ -130,7 +130,13 @@ public class NetConnectionMulticast implements NetConnection, Runnable
                     DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
                     socket.receive(datagram);
-                    //System.out.println("Got PDU from network");
+                    
+                    // Did this come from us? If so, discard it.
+                    if(datagram.getAddress().equals(InetAddress.getLocalHost()))
+                    {
+                        System.out.println("Got loopack PDU from network");
+                        continue;
+                    }
 
                     // Turn the bytes into a DIS PDU and send them off to be processed
                     Pdu aPdu = pduFactory.createPdu(datagram.getData());

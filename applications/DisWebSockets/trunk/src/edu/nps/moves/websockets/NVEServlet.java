@@ -124,12 +124,12 @@ public class NVEServlet extends HttpServlet implements PduReceiver
     
     NetConnectionDescription connectDescription = new NetConnectionDescription(netConnectionProperties);
     NetConnectionFactory connectionFactory = new NetConnectionFactory();
-    //nativeConnection = (NetConnectionMulticast)connectionFactory.netConnectionForDescription(connectDescription);
+    nativeConnection = (NetConnectionMulticast)connectionFactory.netConnectionForDescription(connectDescription);
     
-    //PduListener pduListener = new PduListener();
+    PduListener pduListener = new PduListener();
     
-    //nativeConnection.setPduObserver(pduListener);
-    //pduListener.addListener(this);
+    nativeConnection.setPduObserver(pduListener);
+    pduListener.addListener(this);
   }
  
   public void addNVEConnection(NVESocket newConnection)
@@ -161,23 +161,18 @@ public class NVEServlet extends HttpServlet implements PduReceiver
           {
               EntityStatePdu espdu = (EntityStatePdu)aPdu;
               EntityID eid = espdu.getEntityID();
-              //System.out.println("espdu eid:" + espdu.getEntityID().getSite() + "," + espdu.getEntityID().getApplication() + "," + espdu.getEntityID().getEntity());
-              //System.out.println("espdu location:" + espdu.getEntityLocation().getX() + "," + espdu.getEntityLocation().getY() + "," + espdu.getEntityLocation().getZ());
+              
+              // Convert it to JSON
               ObjectMapper objectMapper = new ObjectMapper();
               String jsonFormatEspdu = objectMapper.writeValueAsString(espdu);
               
-              NVESocket sendingConnection = entitiesAndConnections.get(eid);
-              
+              // Send it to all the web-connected clients
               Iterator<NVESocket> iterator = clientConnections.iterator();
               while(iterator.hasNext())
               {
                   NVESocket aConnection = iterator.next();
-                  if(sendingConnection == null || aConnection.getNveSocketID() != sendingConnection.getNveSocketID())
-                  {
-                    aConnection.sendJsonMessage(jsonFormatEspdu);
-                  }
+                  aConnection.sendJsonMessage(jsonFormatEspdu);
               }
-              
               
           }
           catch(Exception e)
@@ -190,7 +185,7 @@ public class NVEServlet extends HttpServlet implements PduReceiver
   }
   
   /**
-   * Send a pdu to all the other participants in the simulation, exluding
+   * Send a pdu to all the other participants in the simulation, excluding
    * the sender, plus send it to the native DIS network in DIS format
    * 
    * @param aPdu 
@@ -214,7 +209,7 @@ public class NVEServlet extends HttpServlet implements PduReceiver
       {
           ObjectMapper objectMapper = new ObjectMapper();
           EntityStatePdu espdu = (EntityStatePdu)objectMapper.readValue(jsonFormatPdu, EntityStatePdu.class);
-          //nativeConnection.sendPdu(espdu);
+          nativeConnection.sendPdu(espdu);
       }
       catch(Exception e)
       {
