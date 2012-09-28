@@ -49,7 +49,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Users\mcgredo\projects\DisPlugin\CppUtils;C:\Users\mcgredo\projects\DisPlugin\cpp;C:\Users\mcgredo\projects\DisPlugin\supportInclude;C:\Users\mcgredo\projects\DisPlugin\srmInclude;C:\Users\mcgredo\projects\SDK\CHeaders\Widgets;C:\Users\mcgredo\projects\SDK\CHeaders\XPLM"
+				AdditionalIncludeDirectories="CppUtils;cpp;supportInclude;srmInclude;C:\Users\mcgredo\projects\SDK\CHeaders\Widgets;C:\Users\mcgredo\projects\SDK\CHeaders\XPLM"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;SIMDATA_EXPORTS;IBM=1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -78,7 +78,7 @@
 				OutputFile="c:\Users\mcgredo\Desktop\X-Plane 10\Resources\plugins\DisPlugin.xpl"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="C:\Users\mcgredo\projects\DisPlugin\Debug;C:\Users\mcgredo\projects\DisPlugin\supportLibs"
+				AdditionalLibraryDirectories="C:\Users\mcgredo\projects\DisPlugin\Debug;C:\Users\mcgredo\projects\SDK\Libraries\Win;supportLibs"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				RandomizedBaseAddress="1"
