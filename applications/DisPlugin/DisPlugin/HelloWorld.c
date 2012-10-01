@@ -26,6 +26,7 @@
 
 XPLMWindowID	gWindow = NULL;
 int				gClicked = 0;
+int             gMissileFired = 0;  // has the missile been fired? 
 
 void MyDrawWindowCallback(
                                    XPLMWindowID         inWindowID,    
@@ -52,7 +53,6 @@ float	MyFlightLoopCallback(
                                    int                  inCounter,    
                                    void *               inRefcon);    
 
-
 /*
 extern "C" int cppPluginStart()
 {
@@ -60,7 +60,6 @@ extern "C" int cppPluginStart()
 	printf("result of call to pluginStart is %i ", result);
 }
 */
-
 /*
  * XPluginStart
  * 
@@ -76,12 +75,9 @@ PLUGIN_API int XPluginStart(
 	/* First we must fill in the passed in buffers to describe our
 	 * plugin to the plugin-system. */
 
-	FILE* outfile = fopen("startup.txt", "w");
-	fprintf(outfile, "Started up");
-
 	strcpy(outName, "DisPlugin");
 	strcpy(outSig, "edu.nps.moves.xplane");
-	strcpy(outDesc, "A plugin that interacts with DIS");
+	strcpy(outDesc, "A plugin that sends DIS to reflect aircraft position");
 
 	
 
@@ -196,7 +192,7 @@ void MyDrawWindowCallback(
 	/* Finally we draw the text into the window, also using XPLMGraphics
 	 * routines.  The NULL indicates no word wrapping. */
 	XPLMDrawString(color, left + 5, top - 20, 
-		(char*)(gClicked ? "DIS plugin window" : "DIS Plugin world"), NULL, xplmFont_Basic);
+		(char*)(gMissileFired ? "Missile Fired" : "Click Window to Fire Missile" ), NULL, xplmFont_Basic);
 		
 }                                   
 
@@ -232,10 +228,17 @@ int MyHandleMouseClickCallback(
                                    XPLMMouseStatus      inMouse,    
                                    void *               inRefcon)
 {
+	if(inMouse == xplm_MouseDown)
+	{
+		gMissileFired = 1;
+	}
+
 	/* If we get a down or up, toggle our status click.  We will
 	 * never get a down without an up if we accept the down. */
 	if ((inMouse == xplm_MouseDown) || (inMouse == xplm_MouseUp))
+	{
 		gClicked = 1 - gClicked;
+	}
 
 	wrap_MyHandleMouseClickCallback( inWindowID, x, y, inMouse, inRefcon);
 	
