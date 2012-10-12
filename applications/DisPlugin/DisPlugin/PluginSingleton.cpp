@@ -27,6 +27,12 @@ XPLMDataRef		gPlaneLat = NULL;
 XPLMDataRef		gPlaneLon = NULL;
 XPLMDataRef		gPlaneEl = NULL;
 
+/** Aircraft velocity. vx positive is speed means speed east. Vy north, vz up? */
+XPLMDataRef     gPlaneLocal_vx = NULL;
+XPLMDataRef     gPlaneLocal_vy = NULL;
+XPLMDataRef     gPlaneLocal_vz = NULL;
+XPLMDataRef     gGroundspeed   = NULL;
+
 
 bool PluginSingleton::instanceFlag = false;
 PluginSingleton* PluginSingleton::instance = 0;
@@ -35,7 +41,9 @@ PluginSingleton* PluginSingleton::instance = 0;
 PluginSingleton::PluginSingleton()
    :logFile("xplaneDisPlugin.log")  // initializer for log file
 {
+	// What missiles have been fired
 	missile_1Launched = missile_2Launched = missile_3Launched = missile_4Launched = false;
+
 	// logging
 	logFile << "DIS XPlane Log startup" << endl;
 
@@ -64,11 +72,16 @@ PluginSingleton::PluginSingleton()
 	// Some pieces of data in the simulation we need to retrieve
 	gPlaneLat = XPLMFindDataRef("sim/flightmodel/position/latitude");
 	gPlaneLon = XPLMFindDataRef("sim/flightmodel/position/longitude");
-	gPlaneEl = XPLMFindDataRef("sim/flightmodel/position/elevation");
+	gPlaneEl  = XPLMFindDataRef("sim/flightmodel/position/elevation");
 
-
+	gPlaneLocal_vx = XPLMFindDataRef("sim/flightmodel/position/local_vx");
+	gPlaneLocal_vy = XPLMFindDataRef("sim/flightmodel/position/local_vy");
+	gPlaneLocal_vz = XPLMFindDataRef("sim/flightmodel/position/local_vz");
+	gGroundspeed   = XPLMFindDataRef("sim/flightmodel/position/groundspeed");
 }
 
+/** Loads the entityID information from the config file
+ */
 void PluginSingleton::loadEntityID(ConfigFile& config, const char* section, DIS::EntityID& eid)
 {
 	std::string val;
@@ -83,7 +96,11 @@ void PluginSingleton::loadEntityID(ConfigFile& config, const char* section, DIS:
 	eid.setEntity(atoi(val.c_str()));
 }
 
-
+/**
+ * Loads the entity type information from the config file. The entity type is bases on
+ * the SISO EBV document, a long table of arbitrary numbers that maps those numbers to
+ * a specific type of hardware, such as an F-18 or a M1A2 tank or a Sidewinder.
+ */
 void PluginSingleton::loadEntityInfo(ConfigFile& config, const char* section, DIS::EntityStatePdu& espdu)
 {
 	std::string val;
@@ -160,6 +177,7 @@ float PluginSingleton::flightLoopCallback(float                inElapsedSinceLas
 {
 	float	elapsed ;
 	double	latitude, longitude, elevation;
+	float   vx = 0.0, vy = 0.0, vz = 0.0, groundspeed = 0.0; // Speed east, north, up, meters per second
 	
 	/* The actual callback.  First we read the sim's time and the data. */
 		elapsed = XPLMGetElapsedTime();
@@ -167,6 +185,16 @@ float PluginSingleton::flightLoopCallback(float                inElapsedSinceLas
 		latitude = XPLMGetDatad(gPlaneLat);
 		longitude = XPLMGetDatad(gPlaneLon);
 		elevation = XPLMGetDatad(gPlaneEl);
+ 
+		// Velocity over ground. pos x = east, pos y = north, pos z = up. Note these are
+		// floats rather than doubles.
+		vx = XPLMGetDataf(gPlaneLocal_vx);
+		vy = XPLMGetDataf(gPlaneLocal_vy);
+		vz = XPLMGetDataf(gPlaneLocal_vz);
+		groundspeed = XPLMGetDataf(gGroundspeed);
+
+
+		//logFile << "Lat:" << (double)latitude << " Velocity: " << (float)vx << "," << (float)vy << "," << (float)vz << "; " << (float)groundspeed << std::endl;
 
 		DIS::Vector3Double latLonAlt;
 		DIS::Vector3Double disCoords;
@@ -180,12 +208,6 @@ float PluginSingleton::flightLoopCallback(float                inElapsedSinceLas
 		aircraftEspdu.getEntityLocation().setX(disCoords.getX());
 		aircraftEspdu.getEntityLocation().setY(disCoords.getY());
 		aircraftEspdu.getEntityLocation().setZ(disCoords.getZ());
-		
-        /*
-		aircraftEspdu.getEntityLocation().setX(latLonAlt.getX());
-		aircraftEspdu.getEntityLocation().setY(latLonAlt.getY());
-		aircraftEspdu.getEntityLocation().setZ(disCoords.getZ());
-		*/
 
 		this->sendPdu(aircraftEspdu);
 
@@ -404,17 +426,20 @@ void PluginSingleton::initializeAndLaunchMissile()
 		this->log("Already launched missile 1");
 		return;
 	}
+	// For now, allow the user to repeatedly shoot the same missile
+	//missile_1Launched = true;
 
-	missile_1Launched = true;
-
+	// Missile initialization PDU
 	DIS::SetDataPdu initializationPdu;
 	initializeMissile_1(initializationPdu);
 	disServer->sendPdu(initializationPdu);
 	
+	// Umbilical data PDU, which may contain seeker information
 	DIS::SetDataPdu umbilicalDataPdu;
     initializeUmbilicalDataPdu(umbilicalDataPdu);
 	disServer->sendPdu(umbilicalDataPdu);
 
+	// Launch PDU
 	DIS::SetDataPdu launchDataPdu;
     initializeLaunchDataPdu(launchDataPdu);
 	disServer->sendPdu(launchDataPdu);
