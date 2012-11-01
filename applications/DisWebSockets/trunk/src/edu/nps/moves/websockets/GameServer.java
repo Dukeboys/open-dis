@@ -10,6 +10,7 @@ import org.eclipse.jetty.plus.servlet.ServletHandler;
 import org.eclipse.jetty.util.resource.Resource;
 
 import edu.nps.moves.dismobile.*;
+import java.util.Properties;
 import org.codehaus.jackson.map.ObjectMapper;
 
 
@@ -34,6 +35,8 @@ public class GameServer
 
     /** TCP Port 8080 is the traditional place for servlet containers such as Tomcat to listen. */
     public static final int WEBSOCKET_PORT = 8081;
+    
+    
 
     
     
@@ -62,7 +65,8 @@ public class GameServer
             // protocol is intended to handle any other message we intend to dream up.
             
            ServletHandler servletHandler = new ServletHandler();
-           servletHandler.addServletWithMapping(NVEServlet.class,"/nve/*");
+           servletHandler.addServletWithMapping(NveServlet.class, "/nve/*");
+           servletHandler.addServletWithMapping(NveServlet.class, "/nveb/*");
            
 
            // Since this is a full-on web server, we can have lots of different requests
@@ -92,8 +96,27 @@ public class GameServer
            
             // Start the server
             server.start();
-            System.out.println("Server started and listening on port " + WEBSOCKET_PORT);
+            System.out.println("web Server started and listening on port " + WEBSOCKET_PORT);
+            
+            
+            System.out.println("Starting conventional DIS network connection");
+            Properties netConnectionProperties = new Properties();
+            // What mcast address we listen on for PDUs
+            netConnectionProperties.put("destinationAddress", "239.1.2.3");
+            netConnectionProperties.put("port", "62040");
+            netConnectionProperties.put("destinationPort", "62040");
+            netConnectionProperties.put("timeToLive", "2");
+            netConnectionProperties.put("connectionType", "udpMulticast");
+            netConnectionProperties.put("websocketUrl", "ws://localhost:8081/nveb");
+
+    
+            DisBridge localConnection = new DisBridge(netConnectionProperties);
+            
+            
             server.join();
+            
+            
+            
             
         }
         catch(Exception e)
