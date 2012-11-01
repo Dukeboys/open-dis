@@ -179,7 +179,7 @@
     
     <!-- generate schema from the java source code -->
     <target name="generateSchema" depends="compile" description="Generate a schema from the Java code">
-        <schemagen srcdir="${src}/edu/nps/moves/dis" destdir=".">
+        <schemagen srcdir="${src}/edu/nps/moves/dis" destdir="." includeantruntime="false">
             <classpath refid="lib.path"/>
         </schemagen>
         <move file="schema1.xsd" tofile="disJaxb.xsd"/>
