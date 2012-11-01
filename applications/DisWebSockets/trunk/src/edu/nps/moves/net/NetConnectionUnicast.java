@@ -46,7 +46,7 @@ public class NetConnectionUnicast implements NetConnection, Runnable
     boolean        continueRunning = true;
     
     /** Send received PDUs to this for distribution to interested parties */
-    PduObserver pduObserver;
+    PduReceiver pduReceiver;
     
     public NetConnectionUnicast(NetConnectionDescription description)
     {
@@ -93,7 +93,6 @@ public class NetConnectionUnicast implements NetConnection, Runnable
     /** Reads packets from the wire, turns them into DIS PDUs */
     public void run()
     {
-        PduFactory pduFactory = new PduFactory();
         
         try
         {
@@ -104,13 +103,11 @@ public class NetConnectionUnicast implements NetConnection, Runnable
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
                 
                 socket.receive(datagram);
-              
-                // Turn the bytes into a DIS PDU and send them off to be processed
-                Pdu aPdu = pduFactory.createPdu(datagram.getData());
+          
                 
-                if(pduObserver != null)
+                if(pduReceiver != null)
                 {
-                    pduObserver.pduReceived(aPdu);
+                    pduReceiver.receivePdu(datagram.getData());
                 }
                 
             }
@@ -127,12 +124,11 @@ public class NetConnectionUnicast implements NetConnection, Runnable
     }
     
     @Override
-    public void sendPdu(Pdu pdu)
+    public void sendData(byte[] data)
     {
         try
         {
-            byte buffer[] = pdu.marshal();
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, destinationAddress, destinationPort);
+            DatagramPacket packet = new DatagramPacket(data, data.length, destinationAddress, destinationPort);
             socket.send(packet);
         }
         catch(Exception e)
@@ -143,9 +139,9 @@ public class NetConnectionUnicast implements NetConnection, Runnable
     }
     
     @Override
-    public void setPduObserver(PduObserver pduObserver)
+    public void setPduReceiver(PduReceiver pduReceiver)
     {
-        this.pduObserver = pduObserver;
+        this.pduReceiver = pduReceiver;
     }
     
     @Override

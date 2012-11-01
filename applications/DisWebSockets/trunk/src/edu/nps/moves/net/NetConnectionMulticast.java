@@ -47,7 +47,7 @@ public class NetConnectionMulticast implements NetConnection, Runnable
     boolean        continueRunning = true;
     
     /** Send received PDUs to this for distribution to interested parties */
-    PduObserver pduObserver = null;
+    PduReceiver pduReceiver = null;
     
     /**
      * Send to multicast address
@@ -58,6 +58,7 @@ public class NetConnectionMulticast implements NetConnection, Runnable
     {
         try
         {
+            
             destinationAddress = InetAddress.getByName(description.connectionProperties.getProperty("destinationAddress"));
             if(!destinationAddress.isMulticastAddress())
             {
@@ -80,9 +81,11 @@ public class NetConnectionMulticast implements NetConnection, Runnable
             
            
             socket = new MulticastSocket(port);
-            socket.setLoopbackMode(false); // Don't read packets we sent
+            
+            //socket.setLoopbackMode(true); // Don't read packets we sent
             socket.joinGroup(destinationAddress);
             socket.setTimeToLive(timeToLive);
+            System.out.println("Opened socket on " + socket.toString() + " " + socket.getInterface() + " " + port + " " + destinationAddress);
             
         }
         catch(Exception e)
@@ -116,8 +119,6 @@ public class NetConnectionMulticast implements NetConnection, Runnable
     /** Reads packets from the wire, turns them into DIS PDUs */
     public void run()
     {
-        System.out.println("Starting to read from the network");
-        PduFactory pduFactory = new PduFactory();
         
         try
         {
@@ -129,7 +130,9 @@ public class NetConnectionMulticast implements NetConnection, Runnable
                     byte buffer[] = new byte[1500];
                     DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
+                    System.out.println("waiting to receive");
                     socket.receive(datagram);
+                    System.out.println("Got datagram");
                     
                     // Did this come from us? If so, discard it.
                     if(datagram.getAddress().equals(InetAddress.getLocalHost()))
@@ -137,13 +140,11 @@ public class NetConnectionMulticast implements NetConnection, Runnable
                         System.out.println("Got loopack PDU from network");
                         continue;
                     }
+                    //System.out.println("got pdu");
 
-                    // Turn the bytes into a DIS PDU and send them off to be processed
-                    Pdu aPdu = pduFactory.createPdu(datagram.getData());
-
-                    if(pduObserver != null)
+                    if(pduReceiver != null)
                     {
-                        pduObserver.pduReceived(aPdu);
+                        pduReceiver.receivePdu(datagram.getData());
                     }
                 }
                 catch(SocketTimeoutException ste)
@@ -166,16 +167,13 @@ public class NetConnectionMulticast implements NetConnection, Runnable
     }
     
     @Override
-    public void sendPdu(Pdu pdu)
+    public void sendData(byte[] data)
     {
         try
         {
-            
-            byte[] buffer = pdu.marshal();
-            
-            
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, destinationAddress, destinationPort);
+            DatagramPacket packet = new DatagramPacket(data, data.length, destinationAddress, destinationPort);
             socket.send(packet);
+            System.out.println("Sent data");
             
         }
         catch(Exception e)
@@ -186,9 +184,9 @@ public class NetConnectionMulticast implements NetConnection, Runnable
     }
     
     @Override
-    public void setPduObserver(PduObserver pduObserver)
+    public void setPduReceiver(PduReceiver pduReceiver)
     {
-        this.pduObserver = pduObserver;
+        this.pduReceiver = pduReceiver;
     }
     
     @Override

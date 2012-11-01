@@ -35,8 +35,8 @@ import edu.nps.moves.dismobile.*;
  */
 public interface NetConnection 
 {
-    public abstract void sendPdu(Pdu pdu);
-    public void setPduObserver(PduObserver pduObserver);
+    public abstract void sendData(byte[] data);
+    public void setPduReceiver(PduReceiver pduReceiver);
     public NetConnectionDescription.ConnectionType getConnectionType();
     
 }

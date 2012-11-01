@@ -35,7 +35,7 @@ import edu.nps.moves.dismobile.Pdu;
  * 
  * @author DMcG
  */
-public class NetConnectionFactory implements PduObserver
+public class NetConnectionFactory
 {
     public NetConnection netConnectionForDescription(NetConnectionDescription description)
     {
@@ -48,21 +48,18 @@ public class NetConnectionFactory implements PduObserver
         {
             case UDP_MULTICAST:
                 NetConnectionMulticast cm = new NetConnectionMulticast(description);
-                cm.setPduObserver(this);
                 cm.start();
                 connection = cm;
                 break;
                 
             case UDP_BROADCAST:
                 NetConnectionBroadcast cb = new NetConnectionBroadcast(description);
-                cb.setPduObserver(this);
                 cb.start();
                 connection = cb;
                 break;
                 
             case UDP_UNICAST:
                 NetConnectionUnicast cu = new NetConnectionUnicast(description);
-                cu.setPduObserver(this);
                 cu.start();
                 connection = cu;
                 break;
@@ -75,22 +72,6 @@ public class NetConnectionFactory implements PduObserver
         }
         
         return connection;
-    }
-    
-    @Override
-    public void addListener(PduReceiver pduReceiver)
-    {
-        
-    }
-    @Override
-    public void removeListener(PduReceiver pduReceiver)
-    {
-        
-    }
-    @Override
-    public void pduReceived(Pdu aPdu)
-    {
-        System.out.println("Got PDU in observer");
     }
     
 }

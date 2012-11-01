@@ -51,7 +51,7 @@ public class NetConnectionBroadcast implements NetConnection, Runnable
     boolean        continueRunning = true;
     
     /** Send received PDUs to this for distribution to interested parties */
-    PduObserver pduObserver;
+    PduReceiver pduReceiver;
     
     /**
      * Sending to bcast is tricker than it sounds. There may be multiple interfaces on the
@@ -179,10 +179,8 @@ public class NetConnectionBroadcast implements NetConnection, Runnable
                 DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
                 
                 socket.receive(datagram);
-              
-                // Turn the bytes into a DIS PDU and send them off to be processed
-                Pdu aPdu = pduFactory.createPdu(datagram.getData());
-                pduObserver.pduReceived(aPdu);
+                
+                pduReceiver.receivePdu(datagram.getData());
                 
             }
         }
@@ -198,16 +196,13 @@ public class NetConnectionBroadcast implements NetConnection, Runnable
     }
     
     @Override
-    public void sendPdu(Pdu pdu)
+    public void sendData(byte[] data)
     {
         try
         {
-            
-            byte[] buffer = pdu.marshal();
-            
             for(int idx = 0; idx < destinationAddresses.size(); idx++)
             {
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, destinationAddresses.get(idx), destinationPort);
+                DatagramPacket packet = new DatagramPacket(data, data.length, destinationAddresses.get(idx), destinationPort);
                 socket.send(packet);
             }
         }
@@ -221,9 +216,9 @@ public class NetConnectionBroadcast implements NetConnection, Runnable
     }
     
     @Override
-    public void setPduObserver(PduObserver pduObserver)
+    public void setPduReceiver(PduReceiver pduReceiver)
     {
-        this.pduObserver = pduObserver;
+        this.pduReceiver = pduReceiver;
     }
     
     @Override

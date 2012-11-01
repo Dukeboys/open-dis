@@ -37,6 +37,6 @@ import edu.nps.moves.dismobile.Pdu;
  */
 public interface PduReceiver
 {
-    public void receivePdu(Pdu aPdu);
+    public void receivePdu(byte[] data);
     
 }
