@@ -1,7 +1,7 @@
 Continuous integration build support is maintained at
 https://savage.nps.edu/jenkins/job/Open-DIS-Java
 
-Project description:
+Project Open-DIS-Java description:
 
 
 <p>
