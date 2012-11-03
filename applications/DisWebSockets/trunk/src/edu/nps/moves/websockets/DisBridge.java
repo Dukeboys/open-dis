@@ -23,14 +23,30 @@ import java.net.URI;
  */
 public class DisBridge implements PduReceiver
 {
+    /** Contains the settings for listening to the local network, and where to forward */
     Properties           localConnectionProperties;
+    
+    /** Websocket connection to the place we're bridging to */
     WebSocketClient      websocketClient = null;
+    
+    /** actual connection */
     WebSocket.Connection connection;
+    
+    /** the local native network connection */
     NetConnectionMulticast        localConnection = null;
+    
+    /** EntityIDs that are NOT on the local native interface. We use this to
+     * prevent routing loops 
+     */
+    HashSet<EntityID> entityIDsFromOutside;
+    
+    PduFactory pduFactory;
     
     public DisBridge(Properties props)
     {
         this.localConnectionProperties = props;
+        entityIDsFromOutside = new HashSet<EntityID>();
+        pduFactory = new PduFactory();
         
         NetConnectionDescription connectDescription = new NetConnectionDescription(localConnectionProperties);
         NetConnectionFactory connectionFactory = new NetConnectionFactory();
@@ -64,6 +80,10 @@ public class DisBridge implements PduReceiver
                    System.out.println("closed binary websocket");
                  }
 
+                /** Got message forwarded from websocket, from the other side of the bridge. Send it out on the local
+                 * network interface. Also note the packet, because we don't want to
+                 * send incoming packets back out again.
+                 */
                 @Override
                  public void onMessage(byte[] data, int offset, int length)
                  {
@@ -71,18 +91,19 @@ public class DisBridge implements PduReceiver
                      // framing data cruft. The actual payload starts offset bytes into the data.
                      byte[] payload = new byte[length];
                      System.arraycopy(data, offset, payload, 0, length);
+                     
+                     Pdu aPdu = pduFactory.createPdu(payload);
+                     if((aPdu != null) && (aPdu instanceof EntityStatePdu))
+                     {
+                         EntityID id = ((EntityStatePdu)aPdu).getEntityID();
+                         entityIDsFromOutside.add(id);
+                     }
+                     
                      DisBridge.this.localConnection.sendData(payload);
                  }
 
             }).get(20, TimeUnit.SECONDS);
-            
-            Thread.sleep(10000);
-                EntityStatePdu espdu = new EntityStatePdu();
-                
-                byte[] data = espdu.marshal();
-
-                //connection.sendMessage("{\"protocolVersion\":6,\"exerciseID\":0,\"pduType\":1,\"protocolFamily\":1,\"timestamp\":0,\"pduLength\":144,\"padding\":0,\"entityID\":{\"site\":1,\"application\":1,\"entity\":57868},\"forceId\":0,\"numberOfArticulationParameters\":0,\"entityType\":{\"entityKind\":1,\"domain\":1,\"country\":225,\"category\":2,\"subcategory\":5,\"spec\":0,\"extra\":0},\"alternativeEntityType\":{\"entityKind\":0,\"domain\":0,\"country\":0,\"category\":0,\"subcategory\":0,\"spec\":0,\"extra\":0},\"entityLinearVelocity\":{\"x\":0,\"y\":0,\"z\":0},\"entityLocation\":{\"x\":6.800000000000003,\"y\":0,\"z\":5},\"entityOrientation\":{\"psi\":0,\"theta\":0,\"phi\":0},\"entityAppearance\":0,\"deadReckoningParameters\":{\"deadReckoningAlgorithm\":0,\"otherParameters\":\"AAAAAAAAAAAAAAAAAAAA\",\"entityLinearAcceleration\":{\"x\":0,\"y\":0,\"z\":0},\"entityAngularVelocity\":{\"x\":0,\"y\":0,\"z\":0}},\"marking\":{\"characterSet\":0,\"characters\":\"AAAAAAAAAAAAAAA=\"},\"capabilities\":0,\"articulationParameters\":[]}");
-                connection.sendMessage(data, 0, data.length);    
+              
                  }
                  catch(Exception e)
                  {
@@ -95,7 +116,23 @@ public class DisBridge implements PduReceiver
     @Override
     public void receivePdu(byte[] data)
     {
-       System.out.println("Received data from local network");
+        Pdu aPdu = (EntityStatePdu)pduFactory.createPdu(data);
+        if((aPdu != null) && (aPdu instanceof EntityStatePdu))
+        {
+            EntityStatePdu espdu = (EntityStatePdu)aPdu;
+            EntityID id = espdu.getEntityID();
+            if(!(entityIDsFromOutside.contains(id)))
+            {
+                try
+                {
+                     connection.sendMessage(data, 0, data.length);
+                }
+                catch(Exception e)
+                {
+                    System.out.println(e);
+                }
+            }
+        }
     }
     
     public static void main(String[] args)
@@ -116,5 +153,7 @@ public class DisBridge implements PduReceiver
         System.out.println("exiting");
         
     }
+    
+    
     
 }

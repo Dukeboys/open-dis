@@ -82,7 +82,7 @@ public class NetConnectionMulticast implements NetConnection, Runnable
            
             socket = new MulticastSocket(port);
             
-            //socket.setLoopbackMode(true); // Don't read packets we sent
+            socket.setLoopbackMode(true); // Don't read packets we sent
             socket.joinGroup(destinationAddress);
             socket.setTimeToLive(timeToLive);
             System.out.println("Opened socket on " + socket.toString() + " " + socket.getInterface() + " " + port + " " + destinationAddress);
@@ -130,15 +130,15 @@ public class NetConnectionMulticast implements NetConnection, Runnable
                     byte buffer[] = new byte[1500];
                     DatagramPacket datagram = new DatagramPacket(buffer, buffer.length);
 
-                    System.out.println("waiting to receive");
+                    //System.out.println("waiting to receive");
                     socket.receive(datagram);
-                    System.out.println("Got datagram");
+                    //System.out.println("Got datagram");
                     
                     // Did this come from us? If so, discard it.
                     if(datagram.getAddress().equals(InetAddress.getLocalHost()))
                     {
-                        System.out.println("Got loopack PDU from network");
-                        continue;
+                        //System.out.println("Got loopack PDU from network");
+                        //continue;
                     }
                     //System.out.println("got pdu");
 
