@@ -2092,7 +2092,7 @@ PduHeader record, section 5.2.29.">
   
   </class>
   
-   <class name="AcknowledgePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.5. Acknowledge the receiptof a start/resume, stop/freeze, or RemoveEntityPDU. COMPLETE">
+   <class name="AcknowledgePdu" inheritsFrom="SimulationManagementFamilyPdu" comment="Section 5.3.6.5. Acknowledge the receipt of a start/resume, stop/freeze, or RemoveEntityPDU. COMPLETE">
    
    <initialValue name="pduType" value="15"/>
 
