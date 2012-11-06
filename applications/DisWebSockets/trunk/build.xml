@@ -71,4 +71,23 @@
     nbproject/build-impl.xml file. 
 
     -->
+
+<target name="jar" depends="compile">
+<jar destfile="build/DisBridge.jar">
+    <fileset dir="build/classes"/>
+    <restrict>
+     <name name="**/*.class"/>
+     <archives>
+       <zips>
+         <fileset dir="lib" includes="**/*.jar"/>
+       </zips>
+     </archives>
+    </restrict>
+    <manifest>
+      <attribute name="Main-Class"
+            value="edu.nps.moves.websockets.DisBridge"/>
+    </manifest>
+  </jar>
+</target>
+
 </project>

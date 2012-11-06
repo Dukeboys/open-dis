@@ -26,7 +26,7 @@ public class NetConnectionMulticast implements NetConnection, Runnable
     public static final int SOCKET_TIMEOUT_PERIOD = 5000;
     
     /** Thread that reads packets from the net */
-    Thread         readThread;
+    public Thread         readThread;
     
     /** multicastcast socket */
     MulticastSocket socket;
@@ -101,6 +101,7 @@ public class NetConnectionMulticast implements NetConnection, Runnable
     public void start()
     {
         readThread = new Thread(this);
+        readThread.setDaemon(true);
         readThread.start();
     }
     

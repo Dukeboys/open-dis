@@ -110,8 +110,23 @@ public class DisBridge implements PduReceiver
                      System.out.println(e);
                      System.out.println("Can not open connection to binary websocket URL");
                  }
+        
+        
     }
 
+    public void waitOnNetworkThread()
+    {
+        // This needs to be fixed
+        try
+        {
+            ((NetConnectionMulticast)localConnection).readThread.join();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        
+    }
     /** A pdu has been received from the local network; forward it to the websocket */
     @Override
     public void receivePdu(byte[] data)
@@ -146,11 +161,12 @@ public class DisBridge implements PduReceiver
         netConnectionProperties.put("destinationPort", "62040");
         netConnectionProperties.put("timeToLive", "2");
         netConnectionProperties.put("connectionType", "udpMulticast");
-        netConnectionProperties.put("websocketUrl", "ws://oam.nps.edu:80/nve");
+        netConnectionProperties.put("websocketUrl", "ws://oam.nps.edu:80/nveb");
 
         DisBridge newBridge = new DisBridge(netConnectionProperties);
         
-        System.out.println("exiting");
+        newBridge.waitOnNetworkThread();
+        
         
     }
     
