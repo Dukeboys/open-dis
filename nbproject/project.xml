@@ -25,6 +25,7 @@
                 </items>
                 <context-menu/>
             </view>
+            <subprojects/>
         </general-data>
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1"/>
     </configuration>
