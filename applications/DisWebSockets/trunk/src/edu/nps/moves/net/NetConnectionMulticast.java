@@ -174,7 +174,7 @@ public class NetConnectionMulticast implements NetConnection, Runnable
         {
             DatagramPacket packet = new DatagramPacket(data, data.length, destinationAddress, destinationPort);
             socket.send(packet);
-            System.out.println("Sent data");
+            //System.out.println("Sent data");
             
         }
         catch(Exception e)
