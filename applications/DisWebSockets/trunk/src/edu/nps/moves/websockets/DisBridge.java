@@ -1,6 +1,7 @@
 
 package edu.nps.moves.websockets;
 
+import java.io.*;
 import java.util.*;
 import edu.nps.moves.net.*;
 import edu.nps.moves.dismobile.*;
@@ -154,14 +155,43 @@ public class DisBridge implements PduReceiver
     {
         NetConnection nativeConnection;
         DisBridge localBridge;
+        Properties netConnectionProperties = null;
         
-        Properties netConnectionProperties = new Properties();
-        netConnectionProperties.put("destinationAddress", "239.1.2.3");
-        netConnectionProperties.put("port", "62040");
-        netConnectionProperties.put("destinationPort", "62040");
-        netConnectionProperties.put("timeToLive", "2");
-        netConnectionProperties.put("connectionType", "udpMulticast");
-        netConnectionProperties.put("websocketUrl", "ws://oam.nps.edu:80/nveb");
+        // No args--connect to the default endpoint
+        if(args.length == 0)
+        {
+            netConnectionProperties = new Properties();
+            netConnectionProperties.put("destinationAddress", "239.1.2.3");
+            netConnectionProperties.put("port", "62040");
+            netConnectionProperties.put("destinationPort", "62040");
+            netConnectionProperties.put("timeToLive", "2");
+            netConnectionProperties.put("connectionType", "udpMulticast");
+            netConnectionProperties.put("websocketUrl", "ws://oam.nps.edu:80/nveb");
+        }
+        
+        // One argument--should be a properties file
+        if(args.length == 1)
+        {
+            try
+            {
+                FileInputStream propertiesFile = new FileInputStream(args[0]);
+                netConnectionProperties = new Properties();
+                netConnectionProperties.load(propertiesFile);
+            }
+            catch(Exception e)
+            {
+                System.out.println("Cannot open properties file " + args[0]);
+                System.exit(-1);
+            }
+            
+            
+        }
+        
+        if(args.length > 1)
+        {
+            System.out.println("Use: java -jar build/DisBridge.jar <propertiesFile>");
+            System.exit(-1);
+        }
 
         DisBridge newBridge = new DisBridge(netConnectionProperties);
         
