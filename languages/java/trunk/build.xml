@@ -12,7 +12,7 @@
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="test" location="src/test"/>
-    <property name="version" value="4.05"/>
+    <property name="version" value="4.06"/>
     <property name="testReportOutputDir" value="${build}/testReportOutputDir"/>
     
     <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
@@ -205,17 +205,23 @@
         </exec>
     </target>
     
-    <target name="jar" depends="compile" description="Build jar">
+    <target name="jar" depends="compile,javadoc" description="Build jar">
         <mkdir dir="${dist}"/>
+        <echo message="$jarfile=${jarfile}"/>
         <!-- Exclude test classes from distribution -->
         <jar jarfile="${jarfile}" basedir="build" excludes="test"/>
-        <copy file="${jarfile}" todir="."/>
+        <copy   file="${jarfile}"   todir="."/>
     </target>
 
     <target name="javadoc" depends="compile" description="generate javadocs for the DIS code">
-        <javadoc destdir="${dist}/docs" packagenames="edu.nps.moves.*" sourcepath="${src}">
+        <javadoc destdir="${build}/javadoc" packagenames="edu.nps.moves.*" sourcepath="${src}">
             <classpath refid="lib.path"/>
         </javadoc>
+        <copy todir="${dist}/javadoc">
+            <fileset dir="${build}/javadoc">
+              <include name="**/*"/>
+            </fileset>
+        </copy>
     </target>
 
     <target name="hudson" depends="dist" description="generate distribution when running on hudson server">
