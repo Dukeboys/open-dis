@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="svn-test" basedir="." default="export">
+
+<property name="svn.repository.url" value="${svn.repository.url}"/>
+<property name="svn.project.base.path" value="${svn.project.base.path}" />
+<property name="svn.base.url" value="${svn.repository.url}/${svn.project.base.path}"/>
+<property name="svnant.lib.dir" location="svn-ant-lib"/>
+<property name="svnant.javahl" value="false" />
+<property file="build.properties" />
+
+<path id="project.classpath">
+ <fileset dir="lib">
+    <include name="**/*.jar"/>
+ </fileset>
+</path>
+
+
+<taskdef name="svn" classname="org.tigris.subversion.svnant.SvnTask" classpathref="project.classpath"/>
+
+<target name="export">
+
+<echo message="${toString:project.classpath}"/>
+
+<!-- Settings for svn; place things like usernames and links to ssh key files here -->
+<!-- Sigh. The svnSetting task is not defined. Using attributes on the svn task works
+     but shows a warning error. Fix this later. -->
+     <!--
+<svnSetting 
+    javahl="false"
+    id="svn.settings"/>
+    -->
+
+<!-- svnkit is the pure java svn implementation rather than the command line implementation of java-->
+  <svn  svnkit="true" javahl="false">
+     <export srcUrl="https://open-dis.svn.sourceforge.net/svnroot/open-dis/languages/java/trunk" revision="HEAD" destPath="open-dis-languages/java" />
+  </svn>
+  
+  <svn  svnkit="true" javahl="false">
+     <export srcUrl="https://open-dis.svn.sourceforge.net/svnroot/open-dis/languages/cpp/trunk" revision="HEAD" destPath="open-dis-languages/cpp" />
+  </svn>
+  
+  <svn  svnkit="true" javahl="false">
+     <export srcUrl="https://open-dis.svn.sourceforge.net/svnroot/open-dis/languages/csharp/trunk" revision="HEAD" destPath="open-dis-languages/csharp" />
+  </svn>
+  
+  <svn  svnkit="true" javahl="false">
+     <export srcUrl="https://open-dis.svn.sourceforge.net/svnroot/open-dis/languages/objective-c/trunk" revision="HEAD" destPath="open-dis-languages/objective-c" />
+  </svn>
+  
+  <zip basedir="." includes="open-dis-languages" destfile="open-dis-languages.zip" />
+  
+  <delete dir="languages"/>
+  
+  <svn  svnkit="true" javahl="false">
+     <export srcUrl="https://open-dis.svn.sourceforge.net/svnroot/open-dis/applications/DisWebSockets" revision="HEAD" destPath="DisWebSockets" />
+  </svn>
+  
+  <zip basedir="DisWebSockets" destfile="DisWebSockets.zip" />
+  
+  <delete dir="DisWebSockets"/>
+  
+   <svn  svnkit="true" javahl="false">
+     <export srcUrl="https://open-dis.svn.sourceforge.net/svnroot/open-dis/applications/DisPlugin" revision="HEAD" destPath="XplaneDisPlugin" />
+  </svn>
+  
+  <zip basedir="XplaneDisPlugin" destfile="XplaneDisPlugin.zip" />
+  
+  <delete dir="XplaneDisPlugin"/>
+  
+  
+
+  
+</target>
+
+</project>
