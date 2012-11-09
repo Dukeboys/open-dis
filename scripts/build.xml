@@ -78,22 +78,22 @@
    <scp localFile="open-dis-languages.zip" 
          todir="mcgredo,open-dis@frs.sourceforge.net:/home/frs/project/open-dis/open-dis"
          trust="true"
-         keyfile="/Users/mcgredo/.ssh/id_rsa"/>
+         keyfile="/var/lib/jenkins/open-dis-sourceforge-keys/id_rsa"/>
    
    <scp localFile="XplaneDisPlugin.zip" 
          todir="mcgredo,open-dis@frs.sourceforge.net:/home/frs/project/open-dis/open-dis"
          trust="true"
-         keyfile="/Users/mcgredo/.ssh/id_rsa"/>
+         keyfile="/var/lib/jenkins/open-dis-sourceforge-keys/id_rsa"/>
    
    <scp localFile="DisWebSockets.zip" 
          todir="mcgredo,open-dis@frs.sourceforge.net:/home/frs/project/open-dis/open-dis"
          trust="true"
-         keyfile="/Users/mcgredo/.ssh/id_rsa"/>
+         keyfile="/var/lib/jenkins/open-dis-sourceforge-keys/id_rsa"/>
    
    <scp localFile="README.txt" 
          todir="mcgredo,open-dis@frs.sourceforge.net:/home/frs/project/open-dis/open-dis"
          trust="true"
-         keyfile="/Users/mcgredo/.ssh/id_rsa"/>
+         keyfile="/var/lib/jenkins/open-dis-sourceforge-keys/id_rsa"/>
     
 </target>
 
