@@ -1,3 +1,5 @@
+DMcG: Also note that jsch and ant-jsch should be in the ant lib directory
+
 SvnAnt
 ======
 You can find latest version of svnant on http://subclipse.tigris.org
