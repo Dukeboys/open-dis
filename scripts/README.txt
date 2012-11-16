@@ -13,7 +13,7 @@ are included.
 
 The XplaneDisPlugin.zip file includes the source code for a plugin to X-Plane,
 a high resolution, low-cost flight simulator by Laminar Research. See 
-http://www.x-plane.com .
+http://www.x-plane.com for details.
 
 The DisWebSockets.zip file contains a simple web-based networked virtual 
 environment that uses WebGL, WebSockets, and Javascript. This is an experimental
