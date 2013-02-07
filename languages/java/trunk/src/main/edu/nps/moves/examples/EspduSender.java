@@ -119,7 +119,7 @@ public static void main(String args[])
     // a way to differentiate between different virtual worlds on one network.
     // Note that some values (such as the PDU type and PDU family) are set
     // automatically when you create the ESPDU.
-    espdu.setExerciseID((short)0);
+    espdu.setExerciseID((short)1);
     
     // The EID is the unique identifier for objects in the world. This 
     // EID should match up with the ID for the object specified in the 
@@ -169,11 +169,12 @@ public static void main(String args[])
             // may discard it as an earlier, out-of-order PDU. So it is a good idea to
             // update the timestamp on ALL packets sent.
             
-            espdu.setTimestamp(disTime.getNpsTimestamp());
+            //espdu.setTimestamp(disTime.getNpsTimestamp());
 
-            // An alterative approach: actually follow the standard.
-            //int ts = disTime.getDisAbsoluteTimestamp();
-            //espdu.setTimestamp(ts);
+            // An alterative approach: actually follow the standard. It's a crazy concept,
+            // but it might just work.
+            int ts = disTime.getDisAbsoluteTimestamp();
+            espdu.setTimestamp(ts);
             
             // Set the position of the entity in the world. DIS uses a cartesian 
             // coordinate system with the origin at the center of the earth, the x
