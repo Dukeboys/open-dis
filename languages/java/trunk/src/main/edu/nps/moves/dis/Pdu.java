@@ -162,7 +162,7 @@ public void setPduLength(int pPduLength)
 @XmlAttribute // Jaxb
 @Basic       // Hibernate
 public int getPduLength()
-{ return pduLength; 
+{ return this.getLength(); 
 }
 
 public void setPadding(short pPadding)
@@ -235,7 +235,7 @@ public void marshal(DataOutputStream dos)
        dos.writeByte( (byte)pduType);
        dos.writeByte( (byte)protocolFamily);
        dos.writeInt( (int)timestamp);
-       dos.writeShort( (short)pduLength);
+       dos.writeShort( this.getLength());
        dos.writeShort( (short)padding);
     } // end try 
     catch(Exception e)
@@ -277,7 +277,7 @@ public void marshal(java.nio.ByteBuffer buff)
        buff.put( (byte)pduType);
        buff.put( (byte)protocolFamily);
        buff.putInt( (int)timestamp);
-       buff.putShort( (short)pduLength);
+       buff.putShort( (short)this.getLength());
        buff.putShort( (short)padding);
     } // end of marshal method
 
