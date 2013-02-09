@@ -18,6 +18,8 @@
 #include <DIS/SetDataPdu.h>
 #include "ConfigFile.h"
 
+#include <Windows.h>
+
 //#include "CoordinateTransforms.h"
 
 using namespace std;
@@ -32,6 +34,9 @@ XPLMDataRef     gPlaneLocal_vx = NULL;
 XPLMDataRef     gPlaneLocal_vy = NULL;
 XPLMDataRef     gPlaneLocal_vz = NULL;
 XPLMDataRef     gGroundspeed   = NULL;
+XPLMDataRef     gHeading       = NULL;
+
+int             gTimeSinceLaunch = 0;
 
 
 bool PluginSingleton::instanceFlag = false;
@@ -78,6 +83,7 @@ PluginSingleton::PluginSingleton()
 	gPlaneLocal_vy = XPLMFindDataRef("sim/flightmodel/position/local_vy");
 	gPlaneLocal_vz = XPLMFindDataRef("sim/flightmodel/position/local_vz");
 	gGroundspeed   = XPLMFindDataRef("sim/flightmodel/position/groundspeed");
+	gHeading       = XPLMFindDataRef("sim/flightmodel/position/psi"); // true heading, degrees about Z axis
 }
 
 /** Loads the entityID information from the config file
@@ -178,6 +184,7 @@ float PluginSingleton::flightLoopCallback(float                inElapsedSinceLas
 	float	elapsed ;
 	double	latitude, longitude, elevation;
 	float   vx = 0.0, vy = 0.0, vz = 0.0, groundspeed = 0.0; // Speed east, north, up, meters per second
+	float   heading = 0.0;
 	
 	/* The actual callback.  First we read the sim's time and the data. */
 		elapsed = XPLMGetElapsedTime();
@@ -192,6 +199,11 @@ float PluginSingleton::flightLoopCallback(float                inElapsedSinceLas
 		vy = XPLMGetDataf(gPlaneLocal_vy);
 		vz = XPLMGetDataf(gPlaneLocal_vz);
 		groundspeed = XPLMGetDataf(gGroundspeed);
+		heading = XPLMGetDataf(gHeading); // degrees about z axis
+
+		aircraftEspdu.getEntityLinearVelocity().setX(vx);
+		aircraftEspdu.getEntityLinearVelocity().setY(vy);
+		aircraftEspdu.getEntityLinearVelocity().setZ(vz);
 
 
 		//logFile << "Lat:" << (double)latitude << " Velocity: " << (float)vx << "," << (float)vy << "," << (float)vz << "; " << (float)groundspeed << std::endl;
@@ -421,6 +433,21 @@ void PluginSingleton::initializeLaunchDataPdu(DIS::SetDataPdu& launchDataPdu)
  */
 void PluginSingleton::initializeAndLaunchMissile()
 {
+	SYSTEMTIME now;
+	GetSystemTime(&now);
+
+	int val = now.wSecond + now.wMinute * 60 + now.wHour * 60 * 60;
+
+	if(val > gTimeSinceLaunch + 5)
+	{
+		gTimeSinceLaunch = val;
+		missile_1Launched = false;
+	}
+	else
+	{
+		missile_1Launched = true;
+	}
+
 	if(missile_1Launched == true)
 	{ 
 		this->log("Already launched missile 1");
