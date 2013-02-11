@@ -1,70 +1,46 @@
-# A config file for the missile server. Format is relatively straightforward, see
-# http://www.adp-gmbh.ch/cpp/config_file.html for details.
-
-# DIS parameters, such as the networking parameters to use, the origin
-# of the coordinate system, and so on.
-
 [DIS]
-multicastAddress = 239.1.2.3
-port = 62040
+multicastAddress=239.1.2.3
+port=62040
+application=100					
+site=1
+exercise=1
+rangeOriginLatitude=35.6856
+rangeOriginLongitude=-117.6919
+rangeOriginAltitude=696
+	
+# F-18
+[SELF]
+name=XPlaneAir
+entity=1
+force=1
+kind=1
+domain=2
+country=225
+category=1
+subcategory=9
+specific=4
 
-# The latitude/longitude of a local, Euclidian coordinate system for a range.
-# The altitutde is height above ellipsoid, presumably MSL. Note that 
-# a few extra decimal points on the lat & lon can add up to a couple hundred meters.
-# Units in degrees and meters.
+# AMRAAM AIM 120C air launched. EBV says domain of 1 (land) but that seems to be clearly wrong
+[MISSILE_1]
+name=AMRAAM
+entity=2
+force=1
+kind=2
+domain=2
+country=225
+category=1
+subcategory=2
+specific=3
 
-rangeOriginLatitude = 35.698
-rangeOriginLongitude = -117.686
-rangeOriginAltitude = 696.0;
-
-
-# Stuff about the aircraft. Entity ID, entity type.
-[AIRCRAFT]
-site = 222
-application = 17
-entity = 23
-marking = xplane_f18
-
-# Entity kind, from the SISO EBV document. This is an F-18D
-kind = 1
-domain = 2
-country = 225
-category = 1
-subcategory = 9
-specific = 4
-
-# The target we are shooting at. In a better setup this would be picked
-# by the user at runtime.
 
 [TARGET]
-site = 222
-application = 17
-entity = 42
-
-#marking = xplane_f18
-
-# Entity kind, from the SISO EBV document. This is an F-18D
-#kind = 1
-#domain = 2
-#country = 225
-#category = 1
-#subcategory = 9
-#specific = 4
+entity=3
+force=1
+kind=1
+domain=2
+country=225
+category=1
+subcategory=9
+specific=4
 
 
-
-# We can carry a missile we can fire. Entity ID, entity type, from the SISO EBV document
-[MISSILE_1]
-site = 222
-application = 17
-entity = 44
-marking = aim120
-
-# AIM-120C missile
-kind = 2
-domain = 1
-country = 225
-category = 1
-subcategory = 2
-specific = 3
-station = 1A
