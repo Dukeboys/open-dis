@@ -1,3 +1,14 @@
+# This DIS configuration file should be placed in the 
+# XPlane directory, eg Desktop\X-Plane 10\ where it 
+# is read on xplane startup.
+#
+# This requires some DIS configuration, including the multicast address
+# and port to use, and the site and application IDs. These are used
+# for the triplet (site, application, entity), the EntityID that uniquely
+# identifies each entity in a DIS world.
+#
+# The local coordinate system origin is specified in lat/lon/alt, in degrees and meters.
+
 [DIS]
 multicastAddress=239.1.2.3
 port=62040
@@ -6,8 +17,10 @@ site=1
 exercise=1
 rangeOriginLatitude=35.6856
 rangeOriginLongitude=-117.6919
+# in meters above sea level
 rangeOriginAltitude=696
-	
+
+# The aircraft controlled by this xplane instance	
 # F-18
 [SELF]
 name=XPlaneAir
@@ -32,7 +45,8 @@ category=1
 subcategory=2
 specific=3
 
-
+# The aircraft we're shooting at. Note the (site, application, entity) should
+# mirror the other aircraft
 [TARGET]
 entity=3
 force=1
