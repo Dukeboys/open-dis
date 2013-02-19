@@ -32,7 +32,7 @@
     </target>
 
   <target name="generateCsharpDis7SourceCode" depends="init" description = "run program to generate csharp for DIS7">
-        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="xmlSourceFile" value="DIS2012.xml"/>
         <property name="csharpdir" value="CSharpDis7"/>
         <property name="product" value="csharpDis7"/>
         <property name="using" value="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, 

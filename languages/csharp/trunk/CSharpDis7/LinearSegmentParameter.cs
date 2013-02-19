@@ -61,7 +61,7 @@ namespace DISnet
         private byte _segmentNumber;
 
         /// <summary>
-        ///  whether a modification has been made to the point objectÕs location or orientation
+        ///  whether a modification has been made to the point objectâ€™s location or orientation
         /// </summary>
         private byte _segmentModification;
 
@@ -183,7 +183,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the  whether a modification has been made to the point objectÕs location or orientation
+        /// Gets or sets the  whether a modification has been made to the point objectâ€™s location or orientation
         /// </summary>
         [XmlElement(Type = typeof(byte), ElementName = "segmentModification")]
         public byte SegmentModification

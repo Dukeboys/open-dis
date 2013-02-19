@@ -56,7 +56,7 @@ namespace DISnet
         /// <summary>
         /// PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions 
         /// </summary>
-        private ushort _pduStatus;
+        private byte _pduStatus;
 
         /// <summary>
         /// zero-filled array of padding
@@ -111,7 +111,7 @@ namespace DISnet
             int marshalSize = 0; 
 
             marshalSize = base.GetMarshalledSize();
-            marshalSize += 2;  // this._pduStatus
+            marshalSize += 1;  // this._pduStatus
             marshalSize += 1;  // this._padding
             return marshalSize;
         }
@@ -119,8 +119,8 @@ namespace DISnet
         /// <summary>
         /// Gets or sets the PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions 
         /// </summary>
-        [XmlElement(Type = typeof(ushort), ElementName = "pduStatus")]
-        public ushort PduStatus
+        [XmlElement(Type = typeof(byte), ElementName = "pduStatus")]
+        public byte PduStatus
         {
             get
             {
@@ -162,7 +162,7 @@ namespace DISnet
             {
                 try
                 {
-                    dos.WriteUnsignedShort((ushort)this._pduStatus);
+                    dos.WriteUnsignedByte((byte)this._pduStatus);
                     dos.WriteUnsignedByte((byte)this._padding);
                 }
                 catch (Exception e)
@@ -185,7 +185,7 @@ namespace DISnet
             {
                 try
                 {
-                    this._pduStatus = dis.ReadUnsignedShort();
+                    this._pduStatus = dis.ReadUnsignedByte();
                     this._padding = dis.ReadUnsignedByte();
                 }
                 catch (Exception e)
@@ -214,7 +214,7 @@ namespace DISnet
             base.Reflection(sb);
             try
             {
-                sb.AppendLine("<pduStatus type=\"ushort\">" + this._pduStatus.ToString(CultureInfo.InvariantCulture) + "</pduStatus>");
+                sb.AppendLine("<pduStatus type=\"byte\">" + this._pduStatus.ToString(CultureInfo.InvariantCulture) + "</pduStatus>");
                 sb.AppendLine("<padding type=\"byte\">" + this._padding.ToString(CultureInfo.InvariantCulture) + "</padding>");
                 sb.AppendLine("</Pdu>");
             }

@@ -54,7 +54,7 @@ namespace DISnet
     public partial class NamedLocationIdentification
     {
         /// <summary>
-        /// the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the partÕs location data fields. This field shall be specified by a 16-bit enumeration 
+        /// the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the partâ€™s location data fields. This field shall be specified by a 16-bit enumeration 
         /// </summary>
         private ushort _stationName;
 
@@ -116,7 +116,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the partÕs location data fields. This field shall be specified by a 16-bit enumeration 
+        /// Gets or sets the the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the partâ€™s location data fields. This field shall be specified by a 16-bit enumeration 
         /// </summary>
         [XmlElement(Type = typeof(ushort), ElementName = "stationName")]
         public ushort StationName

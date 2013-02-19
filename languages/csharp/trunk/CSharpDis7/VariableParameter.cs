@@ -59,9 +59,9 @@ namespace DISnet
         private byte _recordType;
 
         /// <summary>
-        /// Variable parameter data fields. Two longs minus one byte
+        /// Variable parameter data fields. Two doubles minus one byte
         /// </summary>
-        private ulong _variableParameterFields1;
+        private double _variableParameterFields1;
 
         /// <summary>
         /// Variable parameter data fields. 
@@ -151,10 +151,10 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the Variable parameter data fields. Two longs minus one byte
+        /// Gets or sets the Variable parameter data fields. Two doubles minus one byte
         /// </summary>
-        [XmlElement(Type = typeof(ulong), ElementName = "variableParameterFields1")]
-        public ulong VariableParameterFields1
+        [XmlElement(Type = typeof(double), ElementName = "variableParameterFields1")]
+        public double VariableParameterFields1
         {
             get
             {
@@ -247,7 +247,7 @@ namespace DISnet
                 try
                 {
                     dos.WriteUnsignedByte((byte)this._recordType);
-                    dos.WriteUnsignedLong((ulong)this._variableParameterFields1);
+                    dos.WriteDouble((double)this._variableParameterFields1);
                     dos.WriteUnsignedInt((uint)this._variableParameterFields2);
                     dos.WriteUnsignedShort((ushort)this._variableParameterFields3);
                     dos.WriteUnsignedByte((byte)this._variableParameterFields4);
@@ -271,7 +271,7 @@ namespace DISnet
                 try
                 {
                     this._recordType = dis.ReadUnsignedByte();
-                    this._variableParameterFields1 = dis.ReadUnsignedLong();
+                    this._variableParameterFields1 = dis.ReadDouble();
                     this._variableParameterFields2 = dis.ReadUnsignedInt();
                     this._variableParameterFields3 = dis.ReadUnsignedShort();
                     this._variableParameterFields4 = dis.ReadUnsignedByte();
@@ -302,7 +302,7 @@ namespace DISnet
             try
             {
                 sb.AppendLine("<recordType type=\"byte\">" + this._recordType.ToString(CultureInfo.InvariantCulture) + "</recordType>");
-                sb.AppendLine("<variableParameterFields1 type=\"ulong\">" + this._variableParameterFields1.ToString(CultureInfo.InvariantCulture) + "</variableParameterFields1>");
+                sb.AppendLine("<variableParameterFields1 type=\"double\">" + this._variableParameterFields1.ToString(CultureInfo.InvariantCulture) + "</variableParameterFields1>");
                 sb.AppendLine("<variableParameterFields2 type=\"uint\">" + this._variableParameterFields2.ToString(CultureInfo.InvariantCulture) + "</variableParameterFields2>");
                 sb.AppendLine("<variableParameterFields3 type=\"ushort\">" + this._variableParameterFields3.ToString(CultureInfo.InvariantCulture) + "</variableParameterFields3>");
                 sb.AppendLine("<variableParameterFields4 type=\"byte\">" + this._variableParameterFields4.ToString(CultureInfo.InvariantCulture) + "</variableParameterFields4>");

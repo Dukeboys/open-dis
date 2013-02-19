@@ -89,7 +89,7 @@ namespace DISnet
         private Vector3Float _velocity = new Vector3Float();
 
         /// <summary>
-        /// This field shall specify the range that an entityÕs fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.
+        /// This field shall specify the range that an entityâ€™s fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.
         /// </summary>
         private float _range;
 
@@ -255,7 +255,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the This field shall specify the range that an entityÕs fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.
+        /// Gets or sets the This field shall specify the range that an entityâ€™s fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.
         /// </summary>
         [XmlElement(Type = typeof(float), ElementName = "range")]
         public float Range

@@ -74,22 +74,22 @@ namespace DISnet
         private byte _numberOfVariableParameters;
 
         /// <summary>
-        /// This field shall specify an entityÕs linear velocity. The coordinate system for an entityÕs linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).
+        /// This field shall specify an entityâ€™s linear velocity. The coordinate system for an entityâ€™s linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).
         /// </summary>
         private Vector3Float _entityLinearVelocity = new Vector3Float();
 
         /// <summary>
-        /// This field shall specify an entityÕs physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).
+        /// This field shall specify an entityâ€™s physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).
         /// </summary>
         private Vector3Double _entityLocation = new Vector3Double();
 
         /// <summary>
-        /// This field shall specify an entityÕs orientation and shall be represented by an Euler Angles record (see 6.2.33).
+        /// This field shall specify an entityâ€™s orientation and shall be represented by an Euler Angles record (see 6.2.33).
         /// </summary>
         private EulerAngles _entityOrientation = new EulerAngles();
 
         /// <summary>
-        /// This field shall specify the dynamic changes to the entityÕs appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).
+        /// This field shall specify the dynamic changes to the entityâ€™s appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).
         /// </summary>
         private uint _entityAppearance;
 
@@ -218,7 +218,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the This field shall specify an entityÕs linear velocity. The coordinate system for an entityÕs linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).
+        /// Gets or sets the This field shall specify an entityâ€™s linear velocity. The coordinate system for an entityâ€™s linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).
         /// </summary>
         [XmlElement(Type = typeof(Vector3Float), ElementName = "entityLinearVelocity")]
         public Vector3Float EntityLinearVelocity
@@ -235,7 +235,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the This field shall specify an entityÕs physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).
+        /// Gets or sets the This field shall specify an entityâ€™s physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).
         /// </summary>
         [XmlElement(Type = typeof(Vector3Double), ElementName = "entityLocation")]
         public Vector3Double EntityLocation
@@ -252,7 +252,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the This field shall specify an entityÕs orientation and shall be represented by an Euler Angles record (see 6.2.33).
+        /// Gets or sets the This field shall specify an entityâ€™s orientation and shall be represented by an Euler Angles record (see 6.2.33).
         /// </summary>
         [XmlElement(Type = typeof(EulerAngles), ElementName = "entityOrientation")]
         public EulerAngles EntityOrientation
@@ -269,7 +269,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the This field shall specify the dynamic changes to the entityÕs appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).
+        /// Gets or sets the This field shall specify the dynamic changes to the entityâ€™s appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).
         /// </summary>
         [XmlElement(Type = typeof(uint), ElementName = "entityAppearance")]
         public uint EntityAppearance

@@ -127,7 +127,7 @@ namespace DISnet
         private Vector3Float _unitSurfaceNormal = new Vector3Float();
 
         /// <summary>
-        /// This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may “tune” their collision interactions.
+        /// This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may ‚Äútune‚Äù their collision interactions.
         /// </summary>
         private float _coefficientOfRestitution;
 
@@ -438,7 +438,7 @@ namespace DISnet
         }
 
         /// <summary>
-        /// Gets or sets the This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may “tune” their collision interactions.
+        /// Gets or sets the This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may ‚Äútune‚Äù their collision interactions.
         /// </summary>
         [XmlElement(Type = typeof(float), ElementName = "coefficientOfRestitution")]
         public float CoefficientOfRestitution

@@ -73,12 +73,12 @@ namespace DISnet
         /// <summary>
         /// padding
         /// </summary>
-        private short _padding1;
+        private byte _padding1;
 
         /// <summary>
         /// padding
         /// </summary>
-        private byte _padding2;
+        private short _padding2;
 
         /// <summary>
         /// A Reord that Specifies the type of supply and the amount of that supply for each of the supply types in numberOfSupplyTypes (see 6.2.85), Section 7.4.3
@@ -137,8 +137,8 @@ namespace DISnet
             marshalSize += this._receivingEntityID.GetMarshalledSize();  // this._receivingEntityID
             marshalSize += this._supplyingEntityID.GetMarshalledSize();  // this._supplyingEntityID
             marshalSize += 1;  // this._numberOfSupplyTypes
-            marshalSize += 2;  // this._padding1
-            marshalSize += 1;  // this._padding2
+            marshalSize += 1;  // this._padding1
+            marshalSize += 2;  // this._padding2
             for (int idx = 0; idx < this._supplies.Count; idx++)
             {
                 SupplyQuantity listElement = (SupplyQuantity)this._supplies[idx];
@@ -204,8 +204,8 @@ namespace DISnet
         /// <summary>
         /// Gets or sets the padding
         /// </summary>
-        [XmlElement(Type = typeof(short), ElementName = "padding1")]
-        public short Padding1
+        [XmlElement(Type = typeof(byte), ElementName = "padding1")]
+        public byte Padding1
         {
             get
             {
@@ -221,8 +221,8 @@ namespace DISnet
         /// <summary>
         /// Gets or sets the padding
         /// </summary>
-        [XmlElement(Type = typeof(byte), ElementName = "padding2")]
-        public byte Padding2
+        [XmlElement(Type = typeof(short), ElementName = "padding2")]
+        public short Padding2
         {
             get
             {
@@ -273,8 +273,8 @@ namespace DISnet
                     this._receivingEntityID.Marshal(dos);
                     this._supplyingEntityID.Marshal(dos);
                     dos.WriteUnsignedByte((byte)this._supplies.Count);
-                    dos.WriteShort((short)this._padding1);
-                    dos.WriteByte((byte)this._padding2);
+                    dos.WriteByte((byte)this._padding1);
+                    dos.WriteShort((short)this._padding2);
 
                     for (int idx = 0; idx < this._supplies.Count; idx++)
                     {
@@ -305,8 +305,8 @@ namespace DISnet
                     this._receivingEntityID.Unmarshal(dis);
                     this._supplyingEntityID.Unmarshal(dis);
                     this._numberOfSupplyTypes = dis.ReadUnsignedByte();
-                    this._padding1 = dis.ReadShort();
-                    this._padding2 = dis.ReadByte();
+                    this._padding1 = dis.ReadByte();
+                    this._padding2 = dis.ReadShort();
                     for (int idx = 0; idx < this.NumberOfSupplyTypes; idx++)
                     {
                         SupplyQuantity anX = new SupplyQuantity();
@@ -348,8 +348,8 @@ namespace DISnet
                 this._supplyingEntityID.Reflection(sb);
                 sb.AppendLine("</supplyingEntityID>");
                 sb.AppendLine("<supplies type=\"byte\">" + this._supplies.Count.ToString(CultureInfo.InvariantCulture) + "</supplies>");
-                sb.AppendLine("<padding1 type=\"short\">" + this._padding1.ToString(CultureInfo.InvariantCulture) + "</padding1>");
-                sb.AppendLine("<padding2 type=\"byte\">" + this._padding2.ToString(CultureInfo.InvariantCulture) + "</padding2>");
+                sb.AppendLine("<padding1 type=\"byte\">" + this._padding1.ToString(CultureInfo.InvariantCulture) + "</padding1>");
+                sb.AppendLine("<padding2 type=\"short\">" + this._padding2.ToString(CultureInfo.InvariantCulture) + "</padding2>");
                 for (int idx = 0; idx < this._supplies.Count; idx++)
                 {
                     sb.AppendLine("<supplies" + idx.ToString(CultureInfo.InvariantCulture) + " type=\"SupplyQuantity\">");

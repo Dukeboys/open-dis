@@ -81,7 +81,7 @@ namespace DISnet
         /// <summary>
         /// specific info based on subcategory field. Renamed from specific because that is a reserved word in SQL.
         /// </summary>
-        private byte _spec;
+        private byte _specific;
 
         private byte _extra;
 
@@ -137,7 +137,7 @@ namespace DISnet
             marshalSize += 2;  // this._country
             marshalSize += 1;  // this._category
             marshalSize += 1;  // this._subcategory
-            marshalSize += 1;  // this._spec
+            marshalSize += 1;  // this._specific
             marshalSize += 1;  // this._extra
             return marshalSize;
         }
@@ -230,17 +230,17 @@ namespace DISnet
         /// <summary>
         /// Gets or sets the specific info based on subcategory field. Renamed from specific because that is a reserved word in SQL.
         /// </summary>
-        [XmlElement(Type = typeof(byte), ElementName = "spec")]
-        public byte Spec
+        [XmlElement(Type = typeof(byte), ElementName = "specific")]
+        public byte Specific
         {
             get
             {
-                return this._spec;
+                return this._specific;
             }
 
             set
             {
-                this._spec = value;
+                this._specific = value;
             }
         }
 
@@ -291,7 +291,7 @@ namespace DISnet
                     dos.WriteUnsignedShort((ushort)this._country);
                     dos.WriteUnsignedByte((byte)this._category);
                     dos.WriteUnsignedByte((byte)this._subcategory);
-                    dos.WriteUnsignedByte((byte)this._spec);
+                    dos.WriteUnsignedByte((byte)this._specific);
                     dos.WriteUnsignedByte((byte)this._extra);
                 }
                 catch (Exception e)
@@ -317,7 +317,7 @@ namespace DISnet
                     this._country = dis.ReadUnsignedShort();
                     this._category = dis.ReadUnsignedByte();
                     this._subcategory = dis.ReadUnsignedByte();
-                    this._spec = dis.ReadUnsignedByte();
+                    this._specific = dis.ReadUnsignedByte();
                     this._extra = dis.ReadUnsignedByte();
                 }
                 catch (Exception e)
@@ -350,7 +350,7 @@ namespace DISnet
                 sb.AppendLine("<country type=\"ushort\">" + this._country.ToString(CultureInfo.InvariantCulture) + "</country>");
                 sb.AppendLine("<category type=\"byte\">" + this._category.ToString(CultureInfo.InvariantCulture) + "</category>");
                 sb.AppendLine("<subcategory type=\"byte\">" + this._subcategory.ToString(CultureInfo.InvariantCulture) + "</subcategory>");
-                sb.AppendLine("<spec type=\"byte\">" + this._spec.ToString(CultureInfo.InvariantCulture) + "</spec>");
+                sb.AppendLine("<specific type=\"byte\">" + this._specific.ToString(CultureInfo.InvariantCulture) + "</specific>");
                 sb.AppendLine("<extra type=\"byte\">" + this._extra.ToString(CultureInfo.InvariantCulture) + "</extra>");
                 sb.AppendLine("</EntityType>");
             }
@@ -417,7 +417,7 @@ namespace DISnet
                 ivarsEqual = false;
             }
 
-            if (this._spec != obj._spec)
+            if (this._specific != obj._specific)
             {
                 ivarsEqual = false;
             }
@@ -454,7 +454,7 @@ namespace DISnet
             result = GenerateHash(result) ^ this._country.GetHashCode();
             result = GenerateHash(result) ^ this._category.GetHashCode();
             result = GenerateHash(result) ^ this._subcategory.GetHashCode();
-            result = GenerateHash(result) ^ this._spec.GetHashCode();
+            result = GenerateHash(result) ^ this._specific.GetHashCode();
             result = GenerateHash(result) ^ this._extra.GetHashCode();
 
             return result;
