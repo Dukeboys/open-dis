@@ -12,7 +12,7 @@
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="test" location="src/test"/>
-    <property name="version" value="4.06"/>
+    <property name="version" value="4.07"/>
     <property name="testReportOutputDir" value="${build}/testReportOutputDir"/>
     
     <property name="jarfile" location="${dist}/open-dis_${version}.jar"/>
@@ -94,7 +94,7 @@
 
 
      <target name="generateJavaDis7SourceCode" depends="init" description = "run program to generate java for DIS 2009, desktop version">
-        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="xmlSourceFile" value="DIS2012.xml"/>
         <property name="javadir" value="${src}"/>
         <property name="xmlpg.useHibernate" value="true"/>
         <property name="xmlpg.useJaxb" value="true"/>
@@ -105,7 +105,7 @@
     </target>
     
     <target name="generateJavaDis7MobileCode" depends="init" description = "run program to generate java for DIS 2009, mobile version">
-        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="xmlSourceFile" value="DIS2012.xml"/>
         <property name="xmlpg.generatedSourceDir" value="${src}"/>
         <property name="xmlpg.useHibernate" value="false"/>
         <property name="xmlpg.useJaxb" value="false"/>
