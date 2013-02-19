@@ -19,11 +19,12 @@ public class VariableDatum extends Object implements Serializable
    /** ID of the variable datum */
    protected long  variableDatumID;
 
-   /** length of the variable datums */
+   /** length of the variable datums, in bits. Note that this is not programmatically tied to the size of the variableData. The variable data field may be 64 bits long but only 16 bits of it could actually be used. */
    protected long  variableDatumLength;
 
-   /** variable length list of 64-bit datums */
-   protected List< EightByteChunk> variableDatums = new ArrayList<EightByteChunk>(); 
+   /** data can be any length, but must increase in 8 byte quanta. This requires some postprocessing patches. Note that setting the data allocates a new internal array to account for the possibly increased size. The default initial size is 64 bits. */
+   protected byte[]  variableData = new byte[8]; 
+
 
 /** Constructor */
  public VariableDatum()
@@ -36,11 +37,7 @@ public int getMarshalledSize()
 
    marshalSize = marshalSize + 4;  // variableDatumID
    marshalSize = marshalSize + 4;  // variableDatumLength
-   for(int idx=0; idx < variableDatums.size(); idx++)
-   {
-        EightByteChunk listElement = variableDatums.get(idx);
-        marshalSize = marshalSize + listElement.getMarshalledSize();
-   }
+   marshalSize = marshalSize + 8 * 1;  // variableData
 
    return marshalSize;
 }
@@ -54,24 +51,20 @@ public long getVariableDatumID()
 { return variableDatumID; 
 }
 
-public long getVariableDatumLength()
-{ return (long)variableDatums.size();
-}
-
-/** Note that setting this value will not change the marshalled value. The list whose length this describes is used for that purpose.
- * The getvariableDatumLength method will also be based on the actual list length rather than this value. 
- * The method is simply here for java bean completeness.
- */
 public void setVariableDatumLength(long pVariableDatumLength)
 { variableDatumLength = pVariableDatumLength;
 }
 
-public void setVariableDatums(List<EightByteChunk> pVariableDatums)
-{ variableDatums = pVariableDatums;
+public long getVariableDatumLength()
+{ return variableDatumLength; 
 }
 
-public List<EightByteChunk> getVariableDatums()
-{ return variableDatums; }
+public void setVariableData(byte[] pVariableData)
+{ variableData = pVariableData;
+}
+
+public byte[] getVariableData()
+{ return variableData; }
 
 
 public void marshal(DataOutputStream dos)
@@ -79,13 +72,12 @@ public void marshal(DataOutputStream dos)
     try 
     {
        dos.writeInt( (int)variableDatumID);
-       dos.writeInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
+       dos.writeInt( (int)variableDatumLength);
 
-       for(int idx = 0; idx < variableDatums.size(); idx++)
+       for(int idx = 0; idx < variableData.length; idx++)
        {
-            EightByteChunk aEightByteChunk = variableDatums.get(idx);
-            aEightByteChunk.marshal(dos);
-       } // end of list marshalling
+           dos.writeByte(variableData[idx]);
+       } // end of array marshaling
 
     } // end try 
     catch(Exception e)
@@ -98,17 +90,11 @@ public void unmarshal(DataInputStream dis)
     try 
     {
        variableDatumID = dis.readInt();
-        variableDatumLength = dis.readInt();
-        int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
-        variableDatumLength = (variableDatumLength / 64) + over;
-        
-        for(int idx = 0; idx < variableDatumLength; idx++)
+       variableDatumLength = dis.readInt();
+       for(int idx = 0; idx < variableData.length; idx++)
        {
-           EightByteChunk anX = new EightByteChunk();
-           anX.unmarshal(dis);
-           variableDatums.add(anX);
-       }
-
+                variableData[idx] = dis.readByte();
+       } // end of array unmarshaling
     } // end try 
    catch(Exception e)
     { 
@@ -128,13 +114,12 @@ public void unmarshal(DataInputStream dis)
 public void marshal(java.nio.ByteBuffer buff)
 {
        buff.putInt( (int)variableDatumID);
-       buff.putInt( (int)variableDatums.size() * 64 ); // post-processing patch to fix units; bits rather than bytes
+       buff.putInt( (int)variableDatumLength);
 
-       for(int idx = 0; idx < variableDatums.size(); idx++)
+       for(int idx = 0; idx < variableData.length; idx++)
        {
-            EightByteChunk aEightByteChunk = (EightByteChunk)variableDatums.get(idx);
-            aEightByteChunk.marshal(buff);
-       } // end of list marshalling
+           buff.put((byte)variableData[idx]);
+       } // end of array marshaling
 
     } // end of marshal method
 
@@ -149,16 +134,10 @@ public void unmarshal(java.nio.ByteBuffer buff)
 {
        variableDatumID = buff.getInt();
        variableDatumLength = buff.getInt();
-       int over = variableDatumLength % 64 > 0 ? 1 : 0; // post-processing patch to fix units problem
-       variableDatumLength = (variableDatumLength / 64) + over;
-
-       for(int idx = 0; idx < variableDatumLength; idx++)
+       for(int idx = 0; idx < variableData.length; idx++)
        {
-            EightByteChunk anX = new EightByteChunk();
-            anX.unmarshal(buff);
-            variableDatums.add(anX);
-       }
-
+                variableData[idx] = buff.get();
+       } // end of array unmarshaling
  } // end of unmarshal method 
 
 
@@ -201,9 +180,9 @@ public void unmarshal(java.nio.ByteBuffer buff)
      if( ! (variableDatumID == rhs.variableDatumID)) ivarsEqual = false;
      if( ! (variableDatumLength == rhs.variableDatumLength)) ivarsEqual = false;
 
-     for(int idx = 0; idx < variableDatums.size(); idx++)
+     for(int idx = 0; idx < 8; idx++)
      {
-        if( ! ( variableDatums.get(idx).equals(rhs.variableDatums.get(idx)))) ivarsEqual = false;
+          if(!(variableData[idx] == rhs.variableData[idx])) ivarsEqual = false;
      }
 
 

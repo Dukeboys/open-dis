@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 
-<!-- XML description file for the DIS-200X (draft 14 Delta) protocol. Some classes require manual clean up and intevention. -->
+<!-- XML description file for the DIS-2012 (Final DIS version 7) protocol. Some classes require manual clean up and intevention. -->
+
+<!-- This file is used by XMLPG, a fairly simple program that processes this XML file and generates
+     a programming language source file, for example Java or C++. Almost all the work of writing a
+     protocol is boilerplate. Getters and setters for fields, marshalling and unmarshalling, and
+     so on. Once we have a description of the protocol that can be processed by automated tools the
+     actual work of writing the protocol is straightforward, and we can let the tool do almost all
+     the work. There are a few possible issues, such as unit confusion, but for the most part this
+     gets us 98 percent of the way there, and we can fix any issues in the generated source code
+     with patches. 
+
+     The syntax is fairly straightforward. We define objects with their fields (type, name) and 
+     can specify inheritance. Classes and fields can have comments. There are lists of objects,
+     of either fixed or variable length. The variable length lists include a reference to a field
+     that tells us how long the list is.
+  -->
 
 <classes>
 
 <!--
 <java imports="java.util.*, java.io.*, edu.nps.moves.jaxb.dis.*, javax.xml.bind.annotation.*" 
 -->
+
+<!-- The Java-specific imports. Java also is capable of saving DIS to XML format via
+     the JAXB package, and saving to a SQL database via Hibernate. This makes the code
+     a little more complex, and it almost certianly won't work on mobile devices. -->
+
 <java imports="java.util.*, java.io.*, edu.nps.moves.disenum.*, edu.nps.moves.disutil.*"
       package="edu.nps.moves.dis"
       directory="java/main/edu/nps/moves/dis"
       usesJaxb="true"
       usesHibernate="true"/>
 
+<!-- csharp langauge specific packages. -->
+
 <csharp using="System, System.Collections.Generic, System.Text, System.Diagnostics, System.Xml.Serialization, DISnet.DataStreamUtilities"
         namespace="DIS1998net"
         directory="CSharp/DIS"/>
 
- <!-- tag for C++ code generator -->     
+ <!-- C++ specific information. -->     
 <cpp namespace="DIS"
      directory="cpp/DIS"/>
 
@@ -86,7 +108,7 @@
         <primitive type="unsigned byte"/>
     </attribute>
     
-    <attribute name="specificInfo" comment="specific info based on subcategory field. Specific is a sql reserved word">
+    <attribute name="specific" comment="specific info based on subcategory field">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -910,7 +932,7 @@
         <primitive type="unsigned byte"/>
     </attribute>
     
-    <attribute name="spec" comment="specific info based on subcategory field. Renamed from specific because that is a reserved word in SQL.">
+    <attribute name="specific" comment="specific info based on subcategory field. Renamed from specific because that is a reserved word in SQL.">
         <primitive type="unsigned byte"/>
     </attribute>
     
@@ -931,7 +953,7 @@
       <primitive type="unsigned byte"/>
     </attribute>
     
-     <attribute name="recordIndex" comment="Identify the sequentially numbered record index">
+     <attribute name="index" comment="Identify the sequentially numbered record index">
       <primitive type="unsigned byte"/>
     </attribute>
     
@@ -961,7 +983,7 @@
       <primitive type="unsigned short"/>
  </attribute>
  
- <attribute name="recordIndex" comment="identifies the sequntially numbered record index">
+ <attribute name="index" comment="identifies the sequntially numbered record index">
       <primitive type="unsigned byte"/>
  </attribute>
  
@@ -1450,7 +1472,7 @@
          <primitive type="unsigned byte"/>
      </attribute>
      
-     <attribute name="segmentModification" comment=" whether a modification has been made to the point objects location or orientation">
+     <attribute name="segmentModification" comment=" whether a modification has been made to the point object’s location or orientation">
          <primitive type="unsigned byte"/>
      </attribute>
 
@@ -1624,7 +1646,7 @@
 <class name="NamedLocationIdentification" inheritsFrom="root"
        comment="Information about the discrete positional relationship of the part entity with respect to the its host entity Section 6.2.62 ">
  
-  <attribute name="stationName" comment="the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the parts location data fields. This field shall be specified by a 16-bit enumeration ">
+  <attribute name="stationName" comment="the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the part’s location data fields. This field shall be specified by a 16-bit enumeration ">
          <primitive type="unsigned short"/>
  </attribute>
  
@@ -2183,8 +2205,8 @@
     <primitive type="unsigned byte"/>
   </attribute>
 
-   <attribute name="variableParameterFields1" comment="Variable parameter data fields. Two longs minus one byte">
-     <primitive type="unsigned long"/>
+   <attribute name="variableParameterFields1" comment="Variable parameter data fields. Two doubles minus one byte">
+     <primitive type="double"/>
   </attribute>
 
    <attribute name="variableParameterFields2" comment="Variable parameter data fields. ">
@@ -2476,32 +2498,34 @@
    </class>
    
 
-<!-- End records -->
-
-
-<class name="PduStream" inheritsFrom="root" comment="Non-DIS class, used on SQL databases">
+<class name="PduStream" inheritsFrom="root" comment="Non-DIS class, used on SQL databases. This is not in the DIS standard but can be helpful when saving DIS to a SQL database, particularly in Java.">
 
  <attribute name="description" comment="Longish description of this PDU stream">
    <list type="fixed" length="512" couldBeString="true">
      <primitive type="byte"/>
    </list>
  </attribute>
- 
+
  <attribute name="name" comment="short description of this PDU stream">
    <list type="fixed" length="256" couldBeString="true">
      <primitive type="byte"/>
    </list>
  </attribute>
-  
-  <attribute name="startTime" comment="Start time of recording, in Unix time">
+
+  <attribute name="startTime" comment="Start time of recording, in Unix time (seconds since epoch)">
     <primitive type= "long"/>
   </attribute>
-  
-  <attribute name="stopTime" comment="stop time of recording, in Unix time">
+
+  <attribute name="stopTime" comment="stop time of recording, in Unix time (seconds since epoch)">
     <primitive type= "long"/>
   </attribute>
-  
+
  </class>
+
+
+<!-- End records -->
+
+
 
 <!-- PDUs start here. Everything before this was recordst that are contained inside of PDUs -->
   
@@ -2537,7 +2561,7 @@
 <class name="Pdu" inheritsFrom="PduSuperclass" comment="Adds some fields to the the classic PDU">
 
   <attribute name="pduStatus" comment="PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions ">
-    <primitive type="unsigned short"/>
+    <primitive type="unsigned byte"/>
   </attribute>
 
   <attribute name="padding" comment="zero-filled array of padding">
@@ -2906,7 +2930,7 @@
     <classRef name="Vector3Float"/>
   </attribute>
 
-  <attribute name="coefficientOfRestitution" comment="This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may tune their collision interactions.">
+  <attribute name="coefficientOfRestitution" comment="This field shall represent the degree to which energy is conserved in a collision and shall be represented by a 32-bit floating point number. In addition, it represents a free parameter by which simulation application developers may “tune” their collision interactions.">
     <primitive type="float"/>
   </attribute>
 
@@ -2929,19 +2953,19 @@
       <primitive type="unsigned byte"/>
    </attribute>
 
-   <attribute name="entityLinearVelocity" comment="This field shall specify an entitys linear velocity. The coordinate system for an entitys linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).">
+   <attribute name="entityLinearVelocity" comment="This field shall specify an entity’s linear velocity. The coordinate system for an entity’s linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]).">
      <classRef name="Vector3Float"/>
    </attribute>
 
-   <attribute name="entityLocation" comment="This field shall specify an entitys physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).">
+   <attribute name="entityLocation" comment="This field shall specify an entity’s physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97).">
      <classRef name="Vector3Double"/>
    </attribute>
 
-   <attribute name="entityOrientation" comment="This field shall specify an entitys orientation and shall be represented by an Euler Angles record (see 6.2.33).">
+   <attribute name="entityOrientation" comment="This field shall specify an entity’s orientation and shall be represented by an Euler Angles record (see 6.2.33).">
      <classRef name="EulerAngles"/>
    </attribute>
 
-   <attribute name="entityAppearance" comment="This field shall specify the dynamic changes to the entitys appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).">
+   <attribute name="entityAppearance" comment="This field shall specify the dynamic changes to the entity’s appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26).">
      <primitive type="unsigned int"/>
    </attribute>
 
@@ -3038,7 +3062,7 @@
     <classRef name="Vector3Float"/>
   </attribute>
 
-  <attribute name="range" comment="This field shall specify the range that an entitys fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.">
+  <attribute name="range" comment="This field shall specify the range that an entity’s fire control system has assumed in computing the fire control solution. This field shall be represented by a 32-bit floating point number in meters. For systems where range is unknown or unavailable, this field shall contain a value of zero.">
     <primitive type="float"/>
   </attribute>
 
@@ -3289,11 +3313,11 @@
 
  <attribute name="padding1"
             comment="padding">
-   <primitive type="short" defaultValue="0"/>
+   <primitive type="byte" defaultValue="0"/>
  </attribute>
 
  <attribute name="padding2" comment="padding">
-   <primitive type="byte" defaultValue = "0"/>
+   <primitive type="short" defaultValue = "0"/>
  </attribute>
 
 <attribute name="supplies"

@@ -108,17 +108,16 @@ public void setVariableData(byte[] pVariableData)
     if(remainder != 0)
         unitsOfEight++;
     
-    byte[] newData = new byte[unitsOfEight * 8];
+    byte[] newData = new byte[unitsOfEight];
     for(int idx = 0; idx < pVariableData.length; idx++)
     {
         newData[idx] = pVariableData[idx];
     }
-    for(int idx = pVariableData.length; idx < newData.length; idx++)
-    {
-        newData[idx] = 0;
-    }
     
     variableData = newData;
+    
+    
+    variableData = pVariableData;
 }
 
 @XmlElement(name="variableData" )

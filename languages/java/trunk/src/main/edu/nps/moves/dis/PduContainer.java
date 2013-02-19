@@ -23,7 +23,7 @@ import javax.persistence.*;         // Used for JPA/Hibernate SQL persistence
  *
  * @author DMcG
  */
-@XmlRootElement(name="PduContainer")
+@XmlRootElement
 @Entity  // Hibernate
 @Inheritance(strategy=InheritanceType.JOINED)  // Hibernate
 public class PduContainer extends Object implements Serializable
@@ -35,7 +35,7 @@ public class PduContainer extends Object implements Serializable
    protected int  numberOfPdus;
 
    /** record sets */
-   protected List<Pdu> pdus = new ArrayList<Pdu>(); 
+   protected List< Pdu> pdus = new ArrayList<Pdu>(); 
 
 /** Constructor */
  public PduContainer()

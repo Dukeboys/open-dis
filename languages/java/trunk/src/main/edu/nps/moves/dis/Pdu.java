@@ -162,7 +162,7 @@ public void setPduLength(int pPduLength)
 @XmlAttribute // Jaxb
 @Basic       // Hibernate
 public int getPduLength()
-{ return this.getLength(); 
+{ return pduLength; 
 }
 
 public void setPadding(short pPadding)

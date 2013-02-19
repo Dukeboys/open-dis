@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:element name="PduContainer" type="pduContainer"/>
+  <xs:element name="pduContainer" type="pduContainer"/>
 
   <xs:complexType name="acknowledgePdu">
     <xs:complexContent>
@@ -1810,6 +1810,16 @@
       <xs:element name="pk_PduContainer" type="xs:long"/>
     </xs:sequence>
     <xs:attribute name="numberOfPdus" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="pduStream">
+    <xs:sequence>
+      <xs:element name="description" type="xs:base64Binary" minOccurs="0"/>
+      <xs:element name="name" type="xs:base64Binary" minOccurs="0"/>
+      <xs:element name="pk_PduStream" type="xs:long"/>
+    </xs:sequence>
+    <xs:attribute name="startTime" type="xs:long" use="required"/>
+    <xs:attribute name="stopTime" type="xs:long" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="pointObjectStatePdu">

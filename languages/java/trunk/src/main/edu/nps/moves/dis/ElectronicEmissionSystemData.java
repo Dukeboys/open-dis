@@ -30,7 +30,7 @@ public class ElectronicEmissionSystemData extends Object implements Serializable
    /** Primary key for hibernate, not part of the DIS standard */
    private long pk_ElectronicEmissionSystemData;
 
-   /** This field shall specify the length of this emitter system?s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
+   /** This field shall specify the length of this emitter system�s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
    protected short  systemDataLength;
 
    /** This field shall specify the number of beams being described in the current PDU for the system being described.  */
