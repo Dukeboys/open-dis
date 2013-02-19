@@ -31,7 +31,7 @@
     </target>
 
     <target name="generateCppDis7SourceCode" depends="init" description = "run program to generate cpp">
-        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="xmlSourceFile" value="DIS2012.xml"/>
         <property name="cppdir" value="cpp/DIS7"/>
         <property name="product" value="cppDis7"/>
         <antcall target="generateDisSourceCode"/>
