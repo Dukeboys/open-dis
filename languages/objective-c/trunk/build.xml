@@ -31,7 +31,7 @@
     </target>
 
 <target name="generateObjcDis7SourceCode" depends="init" description = "run program to generate objc for dis7">
-        <property name="xmlSourceFile" value="DIS2009.xml"/>
+        <property name="xmlSourceFile" value="DIS2012.xml"/>
         <property name="objcdir" value="ObjcDis7"/>
         <property name="product" value="objcDis7"/>
         <antcall target="generateDisSourceCode"/>

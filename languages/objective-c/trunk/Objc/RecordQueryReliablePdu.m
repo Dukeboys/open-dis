@@ -17,7 +17,7 @@
   self = [super init];
   if(self)
   {
-    [self setPduType:65];
+    [self setPduType:63];
     requestID = 0;
     requiredReliabilityService = 0;
     pad1 = 0;

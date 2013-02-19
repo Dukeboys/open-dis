@@ -8,7 +8,7 @@
 @synthesize country;
 @synthesize category;
 @synthesize subcategory;
-@synthesize spec;
+@synthesize specific;
 @synthesize extra;
 
 -(id)init
@@ -21,7 +21,7 @@
     country = 0;
     category = 0;
     subcategory = 0;
-    spec = 0;
+    specific = 0;
     extra = 0;
   } // end if(self)
   return self;
@@ -40,7 +40,7 @@
     [dataStream writeUnsignedShort:country];
     [dataStream writeUnsignedByte:category];
     [dataStream writeUnsignedByte:subcategory];
-    [dataStream writeUnsignedByte:spec];
+    [dataStream writeUnsignedByte:specific];
     [dataStream writeUnsignedByte:extra];
 }
 
@@ -51,7 +51,7 @@
     country = [dataStream readUnsignedShort];
     category = [dataStream readUnsignedByte];
     subcategory = [dataStream readUnsignedByte];
-    spec = [dataStream readUnsignedByte];
+    specific = [dataStream readUnsignedByte];
     extra = [dataStream readUnsignedByte];
 }
 
@@ -65,7 +65,7 @@
    marshalSize = marshalSize + 2;  // country
    marshalSize = marshalSize + 1;  // category
    marshalSize = marshalSize + 1;  // subcategory
-   marshalSize = marshalSize + 1;  // spec
+   marshalSize = marshalSize + 1;  // specific
    marshalSize = marshalSize + 1;  // extra
     return marshalSize;
 }

@@ -34,8 +34,8 @@
   /** Velocity of the ammunition */
   Vector3Float *velocity; 
 
-  /** range to the target. Note the word range is a SQL reserved word. */
-  float rangeToTarget; 
+  /** range to the target */
+  float range; 
 
 }
 
@@ -45,7 +45,7 @@
 @property(readwrite, retain) Vector3Double* locationInWorldCoordinates; 
 @property(readwrite, retain) BurstDescriptor* burstDescriptor; 
 @property(readwrite, retain) Vector3Float* velocity; 
-@property(readwrite, assign) float rangeToTarget; 
+@property(readwrite, assign) float range; 
 
 -(id)init; // Initializer
 -(void)dealloc;

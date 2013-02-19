@@ -14,7 +14,7 @@
 
 @interface  ElectronicEmissionSystemData: NSObject
 {
-  /** This field shall specify the length of this emitter system?s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
+  /** This field shall specify the length of this emitter system�s data (including beam data and its track/jam information) in 32-bit words. The length shall include the System Data Length field.  */
   unsigned char systemDataLength; 
 
   /** This field shall specify the number of beams being described in the current PDU for the system being described.  */

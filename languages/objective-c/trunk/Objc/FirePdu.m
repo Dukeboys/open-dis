@@ -9,7 +9,7 @@
 @synthesize locationInWorldCoordinates;
 @synthesize burstDescriptor;
 @synthesize velocity;
-@synthesize rangeToTarget;
+@synthesize range;
 
 -(id)init
 {
@@ -23,7 +23,7 @@
     locationInWorldCoordinates = [[Vector3Double alloc] init];
     burstDescriptor = [[BurstDescriptor alloc] init];
     velocity = [[Vector3Float alloc] init];
-    rangeToTarget = 0;
+    range = 0;
   } // end if(self)
   return self;
 }
@@ -48,7 +48,7 @@
     [locationInWorldCoordinates marshalUsingStream:dataStream];
     [burstDescriptor marshalUsingStream:dataStream];
     [velocity marshalUsingStream:dataStream];
-    [dataStream writeFloat:rangeToTarget];
+    [dataStream writeFloat:range];
 }
 
 -(void) unmarshalUsingStream:(DataInput*)dataStream;
@@ -60,7 +60,7 @@
     [locationInWorldCoordinates unmarshalUsingStream:dataStream];
     [burstDescriptor unmarshalUsingStream:dataStream];
     [velocity unmarshalUsingStream:dataStream];
-    rangeToTarget = [dataStream readFloat];
+    range = [dataStream readFloat];
 }
 
 
@@ -75,7 +75,7 @@
    marshalSize = marshalSize + [locationInWorldCoordinates getMarshalledSize];
    marshalSize = marshalSize + [burstDescriptor getMarshalledSize];
    marshalSize = marshalSize + [velocity getMarshalledSize];
-   marshalSize = marshalSize + 4;  // rangeToTarget
+   marshalSize = marshalSize + 4;  // range
     return marshalSize;
 }
 
