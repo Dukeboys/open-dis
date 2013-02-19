@@ -53,22 +53,22 @@ unsigned char ResupplyOfferPdu::getNumberOfSupplyTypes() const
    return _supplies.size();
 }
 
-short ResupplyOfferPdu::getPadding1() const
+char ResupplyOfferPdu::getPadding1() const
 {
     return _padding1;
 }
 
-void ResupplyOfferPdu::setPadding1(short pX)
+void ResupplyOfferPdu::setPadding1(char pX)
 {
     _padding1 = pX;
 }
 
-char ResupplyOfferPdu::getPadding2() const
+short ResupplyOfferPdu::getPadding2() const
 {
     return _padding2;
 }
 
-void ResupplyOfferPdu::setPadding2(char pX)
+void ResupplyOfferPdu::setPadding2(short pX)
 {
     _padding2 = pX;
 }
@@ -152,8 +152,8 @@ int ResupplyOfferPdu::getMarshalledSize() const
    marshalSize = marshalSize + _receivingEntityID.getMarshalledSize();  // _receivingEntityID
    marshalSize = marshalSize + _supplyingEntityID.getMarshalledSize();  // _supplyingEntityID
    marshalSize = marshalSize + 1;  // _numberOfSupplyTypes
-   marshalSize = marshalSize + 2;  // _padding1
-   marshalSize = marshalSize + 1;  // _padding2
+   marshalSize = marshalSize + 1;  // _padding1
+   marshalSize = marshalSize + 2;  // _padding2
 
    for(int idx=0; idx < _supplies.size(); idx++)
    {

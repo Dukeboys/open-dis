@@ -5,7 +5,7 @@ using namespace DIS;
 
 VariableParameter::VariableParameter():
    _recordType(0), 
-   _variableParameterFields1(0), 
+   _variableParameterFields1(0.0), 
    _variableParameterFields2(0), 
    _variableParameterFields3(0), 
    _variableParameterFields4(0)
@@ -26,12 +26,12 @@ void VariableParameter::setRecordType(unsigned char pX)
     _recordType = pX;
 }
 
-long VariableParameter::getVariableParameterFields1() const
+double VariableParameter::getVariableParameterFields1() const
 {
     return _variableParameterFields1;
 }
 
-void VariableParameter::setVariableParameterFields1(long pX)
+void VariableParameter::setVariableParameterFields1(double pX)
 {
     _variableParameterFields1 = pX;
 }

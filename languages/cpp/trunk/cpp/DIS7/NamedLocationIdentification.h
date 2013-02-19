@@ -16,7 +16,7 @@ namespace DIS
 class EXPORT_MACRO NamedLocationIdentification
 {
 protected:
-  /** the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the partÕs location data fields. This field shall be specified by a 16-bit enumeration  */
+  /** the station name within the host at which the part entity is located. If the part entity is On Station, this field shall specify the representation of the partâ€™s location data fields. This field shall be specified by a 16-bit enumeration  */
   unsigned short _stationName; 
 
   /** the number of the particular wing station, cargo hold etc., at which the part is attached.  */

@@ -19,8 +19,8 @@ protected:
   /** the identification of the Variable Parameter record. Enumeration from EBV */
   unsigned char _recordType; 
 
-  /** Variable parameter data fields. Two longs minus one byte */
-  long _variableParameterFields1; 
+  /** Variable parameter data fields. Two doubles minus one byte */
+  double _variableParameterFields1; 
 
   /** Variable parameter data fields.  */
   unsigned int _variableParameterFields2; 
@@ -42,8 +42,8 @@ protected:
     unsigned char getRecordType() const; 
     void setRecordType(unsigned char pX); 
 
-    long getVariableParameterFields1() const; 
-    void setVariableParameterFields1(long pX); 
+    double getVariableParameterFields1() const; 
+    void setVariableParameterFields1(double pX); 
 
     unsigned int getVariableParameterFields2() const; 
     void setVariableParameterFields2(unsigned int pX); 

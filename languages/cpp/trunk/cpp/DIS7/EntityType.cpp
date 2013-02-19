@@ -9,7 +9,7 @@ EntityType::EntityType():
    _country(0), 
    _category(0), 
    _subcategory(0), 
-   _spec(0), 
+   _specific(0), 
    _extra(0)
 {
 }
@@ -68,14 +68,14 @@ void EntityType::setSubcategory(unsigned char pX)
     _subcategory = pX;
 }
 
-unsigned char EntityType::getSpec() const
+unsigned char EntityType::getSpecific() const
 {
-    return _spec;
+    return _specific;
 }
 
-void EntityType::setSpec(unsigned char pX)
+void EntityType::setSpecific(unsigned char pX)
 {
-    _spec = pX;
+    _specific = pX;
 }
 
 unsigned char EntityType::getExtra() const
@@ -95,7 +95,7 @@ void EntityType::marshal(DataStream& dataStream) const
     dataStream << _country;
     dataStream << _category;
     dataStream << _subcategory;
-    dataStream << _spec;
+    dataStream << _specific;
     dataStream << _extra;
 }
 
@@ -106,7 +106,7 @@ void EntityType::unmarshal(DataStream& dataStream)
     dataStream >> _country;
     dataStream >> _category;
     dataStream >> _subcategory;
-    dataStream >> _spec;
+    dataStream >> _specific;
     dataStream >> _extra;
 }
 
@@ -120,7 +120,7 @@ bool EntityType::operator ==(const EntityType& rhs) const
      if( ! (_country == rhs._country) ) ivarsEqual = false;
      if( ! (_category == rhs._category) ) ivarsEqual = false;
      if( ! (_subcategory == rhs._subcategory) ) ivarsEqual = false;
-     if( ! (_spec == rhs._spec) ) ivarsEqual = false;
+     if( ! (_specific == rhs._specific) ) ivarsEqual = false;
      if( ! (_extra == rhs._extra) ) ivarsEqual = false;
 
     return ivarsEqual;
@@ -135,7 +135,7 @@ int EntityType::getMarshalledSize() const
    marshalSize = marshalSize + 2;  // _country
    marshalSize = marshalSize + 1;  // _category
    marshalSize = marshalSize + 1;  // _subcategory
-   marshalSize = marshalSize + 1;  // _spec
+   marshalSize = marshalSize + 1;  // _specific
    marshalSize = marshalSize + 1;  // _extra
     return marshalSize;
 }

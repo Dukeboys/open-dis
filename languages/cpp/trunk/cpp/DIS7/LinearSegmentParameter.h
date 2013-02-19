@@ -21,7 +21,7 @@ protected:
   /** the individual segment of the linear segment  */
   unsigned char _segmentNumber; 
 
-  /**  whether a modification has been made to the point objectÕs location or orientation */
+  /**  whether a modification has been made to the point objectâ€™s location or orientation */
   unsigned char _segmentModification; 
 
   /** general dynamic appearance attributes of the segment. This record shall be defined as a 16-bit record of enumerations. The values defined for this record are included in Section 12 of SISO-REF-010. */

@@ -32,16 +32,16 @@ protected:
   /** This field shall specify the number of variable parameters present. This field shall be represented by an 8-bit unsigned integer (see Annex I). */
   unsigned char _numberOfVariableParameters; 
 
-  /** This field shall specify an entityÕs linear velocity. The coordinate system for an entityÕs linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]). */
+  /** This field shall specify an entityâ€™s linear velocity. The coordinate system for an entityâ€™s linear velocity depends on the dead reckoning algorithm used. This field shall be represented by a Linear Velocity Vector record [see 6.2.95 item c)]). */
   Vector3Float _entityLinearVelocity; 
 
-  /** This field shall specify an entityÕs physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97). */
+  /** This field shall specify an entityâ€™s physical location in the simulated world and shall be represented by a World Coordinates record (see 6.2.97). */
   Vector3Double _entityLocation; 
 
-  /** This field shall specify an entityÕs orientation and shall be represented by an Euler Angles record (see 6.2.33). */
+  /** This field shall specify an entityâ€™s orientation and shall be represented by an Euler Angles record (see 6.2.33). */
   EulerAngles _entityOrientation; 
 
-  /** This field shall specify the dynamic changes to the entityÕs appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26). */
+  /** This field shall specify the dynamic changes to the entityâ€™s appearance attributes. This field shall be represented by an Entity Appearance record (see 6.2.26). */
   unsigned int _entityAppearance; 
 
   /** This field shall specify the parameter values for each Variable Parameter record that is included (see 6.2.93 and Annex I). */

@@ -31,10 +31,10 @@ protected:
   unsigned char _numberOfSupplyTypes; 
 
   /** padding */
-  short _padding1; 
+  char _padding1; 
 
   /** padding */
-  char _padding2; 
+  short _padding2; 
 
   /** A Reord that Specifies the type of supply and the amount of that supply for each of the supply types in numberOfSupplyTypes (see 6.2.85), Section 7.4.3 */
   std::vector<SupplyQuantity> _supplies; 
@@ -57,11 +57,11 @@ protected:
 
     unsigned char getNumberOfSupplyTypes() const; 
 
-    short getPadding1() const; 
-    void setPadding1(short pX); 
+    char getPadding1() const; 
+    void setPadding1(char pX); 
 
-    char getPadding2() const; 
-    void setPadding2(char pX); 
+    short getPadding2() const; 
+    void setPadding2(short pX); 
 
     std::vector<SupplyQuantity>& getSupplies(); 
     const std::vector<SupplyQuantity>& getSupplies() const; 

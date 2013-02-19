@@ -13,12 +13,12 @@ Pdu::~Pdu()
 {
 }
 
-unsigned short Pdu::getPduStatus() const
+unsigned char Pdu::getPduStatus() const
 {
     return _pduStatus;
 }
 
-void Pdu::setPduStatus(unsigned short pX)
+void Pdu::setPduStatus(unsigned char pX)
 {
     _pduStatus = pX;
 }
@@ -65,7 +65,7 @@ int Pdu::getMarshalledSize() const
    int marshalSize = 0;
 
    marshalSize = PduSuperclass::getMarshalledSize();
-   marshalSize = marshalSize + 2;  // _pduStatus
+   marshalSize = marshalSize + 1;  // _pduStatus
    marshalSize = marshalSize + 1;  // _padding
     return marshalSize;
 }

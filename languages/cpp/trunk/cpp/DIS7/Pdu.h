@@ -18,7 +18,7 @@ class EXPORT_MACRO Pdu : public PduSuperclass
 {
 protected:
   /** PDU Status Record. Described in 6.2.67. This field is not present in earlier DIS versions  */
-  unsigned short _pduStatus; 
+  unsigned char _pduStatus; 
 
   /** zero-filled array of padding */
   unsigned char _padding; 
@@ -31,8 +31,8 @@ protected:
     virtual void marshal(DataStream& dataStream) const;
     virtual void unmarshal(DataStream& dataStream);
 
-    unsigned short getPduStatus() const; 
-    void setPduStatus(unsigned short pX); 
+    unsigned char getPduStatus() const; 
+    void setPduStatus(unsigned char pX); 
 
     unsigned char getPadding() const; 
     void setPadding(unsigned char pX); 
