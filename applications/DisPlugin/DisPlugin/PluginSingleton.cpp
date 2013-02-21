@@ -74,7 +74,7 @@ PluginSingleton::PluginSingleton()
 	// Initialize our aircraft and missile DIS entity information
 	loadEntityInfo(config, "SELF", aircraftEspdu);
 	loadEntityInfo(config, "MISSILE_1", missile_1Espdu);
-	loadEntityInfo(config, "TARGET", targetEID);
+	loadEntityID(config, "TARGET", targetEID);
 
 	// Some pieces of data in the simulation we need to retrieve
 	gPlaneLat = XPLMFindDataRef("sim/flightmodel/position/latitude");
@@ -94,10 +94,10 @@ void PluginSingleton::loadEntityID(ConfigFile& config, const char* section, DIS:
 {
 	std::string val;
 	// entity ID
-	val = config.Value(section, "site");
+	val = config.Value("DIS", "site");
 	eid.setSite(atoi(val.c_str()));
 
-	val = config.Value(section, "application");
+	val = config.Value("DIS", "application");
 	eid.setApplication(atoi(val.c_str()));
 
 	val = config.Value(section, "entity");
