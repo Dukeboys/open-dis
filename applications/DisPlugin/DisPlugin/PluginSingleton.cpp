@@ -67,12 +67,14 @@ PluginSingleton::PluginSingleton()
 	std::string longitude = config.Value("DIS", "rangeOriginLongitude");
 	std::string altitude = config.Value("DIS", "rangeOriginAltitude");
 
+	logFile << "configured location" << endl;
+
 	disServer = new DisServer(configFileMulticastAddress, (unsigned short)port);
 
 	// Initialize our aircraft and missile DIS entity information
-	loadEntityInfo(config, "AIRCRAFT", aircraftEspdu);
+	loadEntityInfo(config, "SELF", aircraftEspdu);
 	loadEntityInfo(config, "MISSILE_1", missile_1Espdu);
-	loadEntityID(config, "TARGET", targetEID);
+	loadEntityInfo(config, "TARGET", targetEID);
 
 	// Some pieces of data in the simulation we need to retrieve
 	gPlaneLat = XPLMFindDataRef("sim/flightmodel/position/latitude");
@@ -112,21 +114,36 @@ void PluginSingleton::loadEntityInfo(ConfigFile& config, const char* section, DI
 	std::string val;
 
 	// entity ID
-	val = config.Value(section, "site");
+	val = config.Value("DIS", "site");
 	espdu.getEntityID().setSite(atoi(val.c_str()));
 
-	val = config.Value(section, "application");
+	logFile << "configured site" << endl;
+
+
+	val = config.Value("DIS", "application");
 	espdu.getEntityID().setApplication(atoi(val.c_str()));
+
+	logFile << "configured application" << endl;
+
 
 	val = config.Value(section, "entity");
 	espdu.getEntityID().setEntity(atoi(val.c_str()));
+
+	logFile << "configured entity" << endl;
+
 
 	// Entity type
 	val = config.Value(section, "kind");
 	espdu.getEntityType().setEntityKind(atoi(val.c_str()));
 
+	logFile << "configured kind" << endl;
+
+
 	val = config.Value(section, "domain");
 	espdu.getEntityType().setDomain(atoi(val.c_str()));
+
+	logFile << "configured domain" << endl;
+
 
 	val = config.Value(section, "country");
 	espdu.getEntityType().setCountry(atoi(val.c_str()));
@@ -137,8 +154,13 @@ void PluginSingleton::loadEntityInfo(ConfigFile& config, const char* section, DI
 	val = config.Value(section, "subcategory");
 	espdu.getEntityType().setSubcategory(atoi(val.c_str()));
 
+	logFile << "configured subcategory" << endl;
+
 	val = config.Value(section, "specific");
 	espdu.getEntityType().setSpecific(atoi(val.c_str()));
+
+	logFile << "configured specific" << endl;
+
 }
 
 /** Single way for users to get the single, shared instance. */
