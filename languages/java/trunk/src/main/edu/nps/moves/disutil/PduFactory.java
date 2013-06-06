@@ -1,6 +1,7 @@
 package edu.nps.moves.disutil;
 
 import java.io.*;
+import java.util.logging.*;
 
 import edu.nps.moves.dis.*;
 import edu.nps.moves.disenum.PduType;
@@ -24,6 +25,8 @@ public class PduFactory {
     private Platform release = Platform.DESKTOP;
     
     public enum Platform{DESKTOP, MOBILE};
+    
+    private Logger logger;
             
 
     /** Creates a new instance of PduFactory */
@@ -39,6 +42,11 @@ public class PduFactory {
      */
     public PduFactory(boolean useFastPdu) {
         this.useFastPdu = useFastPdu;
+        
+        // By default don't log anything
+        logger = Logger.getLogger(PduFactory.class.getName());
+        logger.setLevel(Level.OFF);
+        
     }
 
     public void setUseFastPdu(boolean use) {
@@ -47,6 +55,15 @@ public class PduFactory {
 
     public boolean getUseFastPdu() {
         return this.useFastPdu;
+    }
+    
+    /**
+     * Set the logging level that will be printed, typically to Level.INFO
+     * @param loggingLevel 
+     */
+    public void setLoggingLevel(Level loggingLevel)
+    {
+        logger.setLevel(loggingLevel);
     }
 
     /** 
@@ -179,11 +196,10 @@ public class PduFactory {
                 break;
 
             default:
-                System.out.print("PDU not implemented. Type = " + pduType + "\n");
+                logger.log(Level.INFO, "PDU not implemented. Type = " + pduType + "\n");
                 if (pduTypeEnum != null) {
-                    System.out.print("  PDU not implemented name is: " + pduTypeEnum.getDescription());
+                    logger.log(Level.INFO, "  PDU  name is: " + pduTypeEnum.getDescription());
                 }
-                System.out.println();
 
         }
 
