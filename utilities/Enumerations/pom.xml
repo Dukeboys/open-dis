@@ -1,0 +1,54 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>edu.nps.moves</groupId>
+    <artifactId>dis-enums</artifactId>
+    <packaging>jar</packaging>
+    <name>Open-DIS</name>
+    <version>1.1</version>
+    <description>An open source implementation of the Distributed Interactive Simulation (DIS) IEEE-1278 protocol</description>
+    <url>http://open-dis.sourceforge.net</url>
+    <licenses>
+        <license>
+            <name>BSD License</name>
+            <url>http://opensource.org/licenses/bsd-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <organization>
+        <name>The Moves Institude</name>
+        <url>https://www.movesinstitute.org</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>mcgredo</id>
+            <name>Don McGregor</name>
+            <email>mcgredo@nps.edu</email>
+        </developer>
+    </developers>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    <scm>
+        <url>http://svn.code.sf.net/p/open-dis/code</url>
+        <connection>svm:svn:http://svn.code.sf.net/p/open-dis/code</connection>
+    </scm>
+    <dependencies>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>${basedir}/src/</sourceDirectory>
+        <testSourceDirectory>${basedir}/test/</testSourceDirectory>
+    </build>
+</project>
