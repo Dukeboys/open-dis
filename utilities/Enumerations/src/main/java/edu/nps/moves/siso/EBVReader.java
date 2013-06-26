@@ -1114,10 +1114,10 @@ public class EBVReader
       try {
         String enumerationFile = "Enumeration.h";
         System.out.println("Writing common enumeration header" + enumerationFile);
-        copyFile("templates/"+ enumerationFile, "src/cpp/disenum/"+ enumerationFile);  
+        copyFile("templates/"+ enumerationFile, "src/main/cpp/disenum/"+ enumerationFile);  
         enumerationFile = "enumcfg.h";
         System.out.println("Writing common enumeration header" + enumerationFile);
-        copyFile("templates/"+ enumerationFile, "src/cpp/disenum/"+ enumerationFile);
+        copyFile("templates/"+ enumerationFile, "src/main/cpp/disenum/"+ enumerationFile);
         
       }
       catch(Exception e) {
@@ -1197,7 +1197,7 @@ public class EBVReader
         }        
         maxValue++;
         // ----------- Write .h file -----------------    
-        File outputFile = new File("src/cpp/disenum/" + enumerationName + ".h");
+        File outputFile = new File("src/main/cpp/disenum/" + enumerationName + ".h");
         outputFile.createNewFile();
         System.out.println("Writing enumeration " + outputFile.getPath());        
         PrintWriter pw = new PrintWriter(outputFile);
@@ -1227,7 +1227,7 @@ public class EBVReader
         pw.close();
         
         // ----------- Write .cpp file -----------------    
-        outputFile = new File("src/cpp/disenum/" + enumerationName + ".cpp");
+        outputFile = new File("src/main/cpp/disenum/" + enumerationName + ".cpp");
         outputFile.createNewFile();
         System.out.println("Writing enumeration " + outputFile.getPath());
         pw = new PrintWriter(outputFile);
@@ -1275,7 +1275,7 @@ public class EBVReader
     
     private void writeJavaStandardEnumeration(String enumerationName, EnumT anEnumeration)
     {
-        String enumerationFile = "src/edu/nps/moves/disenum/" + enumerationName + ".java";
+        String enumerationFile = "src/main/java/edu/nps/moves/disenum/" + enumerationName + ".java";
         System.out.println("Writing standard enumeration " + enumerationFile );
         try
         {
@@ -1502,7 +1502,7 @@ public class EBVReader
     {
         try
         {
-              String enumerationFile = "src/edu/nps/moves/disenum/" + enumerationName + ".java";
+              String enumerationFile = "src/main/java/edu/nps/moves/disenum/" + enumerationName + ".java";
               File outputFile = new File(enumerationFile);
               outputFile.createNewFile();
               PrintWriter pw = new PrintWriter(outputFile);
@@ -1927,7 +1927,7 @@ public class EBVReader
         
         
         // ----------- Write <bitmask>.h -----------------
-        File outputFile = new File("src/cpp/disenum/" + bitmaskName + ".h");
+        File outputFile = new File("src/main/cpp/disenum/" + bitmaskName + ".h");
         outputFile.createNewFile();
         System.out.println("  Writing bitmask " + outputFile.getPath());        
         PrintWriter pw = new PrintWriter(outputFile);
@@ -1947,7 +1947,7 @@ public class EBVReader
         
         
         // ----------- Write <bitmask>.cpp -----------------
-        outputFile = new File("src/cpp/disenum/" + bitmaskName + ".cpp");
+        outputFile = new File("src/main/cpp/disenum/" + bitmaskName + ".cpp");
         outputFile.createNewFile();
         System.out.println("  Writing bitmask " + outputFile.getPath());
         pw = new PrintWriter(outputFile);

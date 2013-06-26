@@ -7,13 +7,13 @@
 -->
 
 <project name="open-dis enumerations" default="dist" basedir=".">
-    <property name="src" location="src"/>
+    <property name="src" location="src/main"/>
     <property name="build" location="build"/>
     <property name="lib" location="lib"/>
     <property name="dist" location="dist"/>
     <property name="docs" location="docs"/>
     <property name="version" value="1.1"/>
-    <property name="test" location="test"/>
+    <property name="test" location="src/test"/>
     
     <property name="jarfile" location="${dist}/dis-enums_${version}.jar"/>
     <property name="compile.debug" value="true"/>
@@ -31,10 +31,10 @@
       <mkdir dir="dist/docs"/>
       <mkdir dir="build"/>
       <mkdir dir="build/test"/>
-      <mkdir dir="src/edu/nps/moves/siso/jaxb"/>
-      <mkdir dir="src/edu/nps/moves/disenum"/>
-      <mkdir dir="src/cpp/disenum"/>
-      <mkdir dir="src/Csharp/disenum"/> <!--08/26/2009 PES added for C# support-->
+      <mkdir dir="${src}/java/edu/nps/moves/siso/jaxb"/>
+      <mkdir dir="${src}/java/edu/nps/moves/disenum"/>
+      <mkdir dir="${src}/cpp/disenum"/>
+      <mkdir dir="${src}/Csharp/disenum"/> <!--08/26/2009 PES added for C# support-->
     </target>
 
     <!-- compile the java code-generation code -->
@@ -163,15 +163,15 @@
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
         <delete>
-          <fileset dir="src/edu/nps/moves/disenum" includes="*.java"/>
-          <fileset dir="src/edu/nps/moves/siso/jaxb" includes="*.java"/>
+          <fileset dir="${src}/java/edu/nps/moves/disenum" includes="*.java"/>
+          <fileset dir="${src}/java/edu/nps/moves/siso/jaxb" includes="*.java"/>
         </delete>
         <delete>
-          <fileset dir="src/cpp/disenum" includes="*.h"/>
-          <fileset dir="src/cpp/disenum" includes="*.cpp"/>
+          <fileset dir="${src}/cpp/disenum" includes="*.h"/>
+          <fileset dir="${src}/cpp/disenum" includes="*.cpp"/>
         </delete>
     	<delete>
-    		<fileset dir="src/Csharp/disenum" includes="*.cs"/>  <!--08/26/2009 PES added for C# support-->
+    		<fileset dir="${src}/Csharp/disenum" includes="*.cs"/>  <!--08/26/2009 PES added for C# support-->
     	</delete>
     </target>
 </project>

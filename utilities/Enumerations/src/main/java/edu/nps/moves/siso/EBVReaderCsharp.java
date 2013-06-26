@@ -555,7 +555,7 @@ public class EBVReaderCsharp
         List<GenericentryT> l = new ArrayList<GenericentryT>();
         String namespace = "OpenDis.Enumerations";
         String additionalNamespace = findNamespace(anEnumeration.getCname());
-        String enumerationDirectory = "src/Csharp/disenum2/";   // default output directory
+        String enumerationDirectory = "src/main/Csharp/disenum2/";   // default output directory
         String baseType = "int";   // default base type is integer
         Boolean lastEnumRowWritten = false;
         Boolean firstUsed = false;
@@ -993,7 +993,7 @@ public class EBVReaderCsharp
     private void writeCountryEnumeration(String enumerationName, EnumT anEnumeration)
         throws java.io.IOException
     {
-        String enumerationFile = "src/Csharp/disenum2/" + enumerationName + ".cs";
+        String enumerationFile = "src/main/Csharp/disenum2/" + enumerationName + ".cs";
 
         File outputFile = new File(enumerationFile);
         outputFile.createNewFile();
