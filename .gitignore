@@ -1,2 +1,4 @@
 target
 build
+release.properties
+pom.xml.releaseBackup
