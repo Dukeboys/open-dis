@@ -1,10 +1,10 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.nps.moves</groupId>
     <artifactId>open-dis</artifactId>
     <packaging>jar</packaging>
     <name>Open-DIS</name>
-    <version>4.08-SNAPSHOT</version>
+    <version>4.08</version>
     <description>An open source implementation of the Distributed Interactive Simulation (DIS) IEEE-1278 protocol</description>
     <url>http://open-dis.sourceforge.net</url>
     <licenses>
@@ -38,7 +38,8 @@
         <url>https://github.com/leif81/open-dis-maven</url>
         <connection>scm:git:ssh://github.com/leif81/open-dis-maven.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/leif81/open-dis-maven.git</developerConnection>
-    </scm>
+      <tag>open-dis-4.08</tag>
+  </scm>
     <dependencies>
         <dependency>
             <groupId>edu.nps.moves</groupId>
