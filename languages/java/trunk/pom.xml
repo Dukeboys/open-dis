@@ -104,7 +104,7 @@
                             <goal>perform</goal>
                         </goals>
                         <configuration>
-                            <pomFileName>utilities/sedris/pom.xml</pomFileName>
+                            <pomFileName>languages/java/trunk/pom.xml</pomFileName>
                         </configuration>
                     </execution>
                 </executions>
